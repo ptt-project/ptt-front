@@ -4,7 +4,7 @@ export default function Footer() {
     return (
         <footer className="footer">
             <div className="container">
-                <div className="footer-top">
+                {/* <div className="footer-top">
                     <div className="row align-items-center">
                         <div className="col-lg-3">
                             <ALink href="/" className="logo-footer">
@@ -28,11 +28,11 @@ export default function Footer() {
 
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="footer-middle">
                     <div className="row">
-                        <div className="col-lg-3 col-md-6">
+                        <div className="col-lg-4 col-md-6">
                             <div className="widget widget-info">
                                 <h4 className="widget-title">Contact Info</h4>
                                 <ul className="widget-body">
@@ -58,7 +58,7 @@ export default function Footer() {
                             </div>
 
                         </div>
-                        <div className="col-lg-3 col-md-6">
+                        <div className="col-lg-4 col-md-6">
                             <div className="widget ml-lg-4">
                                 <h4 className="widget-title">My Account</h4>
                                 <ul className="widget-body">
@@ -81,7 +81,7 @@ export default function Footer() {
                             </div>
 
                         </div>
-                        <div className="col-lg-3 col-md-6">
+                        <div className="col-lg-4 col-md-6">
                             <div className="widget ml-lg-4">
                                 <h4 className="widget-title">Contact Info</h4>
                                 <ul className="widget-body">
@@ -104,7 +104,7 @@ export default function Footer() {
                             </div>
 
                         </div>
-                        <div className="col-lg-3 col-md-6">
+                        {/* <div className="col-lg-3 col-md-6">
                             <div className="widget widget-instagram">
                                 <h4 className="widget-title">Instagram</h4>
                                 <figure className="widget-body row">
@@ -135,11 +135,11 @@ export default function Footer() {
                                 </figure>
                             </div>
 
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
-                <div className="footer-bottom">
+                {/* <div className="footer-bottom">
                     <div className="footer-left">
                         <figure className="payment">
                             <img src="./images/payment.png" alt="payment" width="159" height="29" />
@@ -155,7 +155,7 @@ export default function Footer() {
                             <ALink href="#" className="social-link social-linkedin fab fa-linkedin-in"></ALink>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
             </div>
         </footer>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 
-import Collapse from 'react-bootstrap/collapse';
+import { Collapse } from 'react-bootstrap';
 
 import ALink from '~/components/features/custom-link';
 import Card from '~/components/features/accordion/card';
@@ -11,9 +11,9 @@ import SlideToggle from 'react-slide-toggle';
 
 import { toDecimal, getTotalPrice } from '~/utils';
 
-function Checkout( props ) {
+function Checkout(props) {
     const { cartList } = props;
-    const [ isFirst, setFirst ] = useState( false );
+    const [isFirst, setFirst] = useState(false);
 
     return (
         <main className="main checkout">
@@ -23,7 +23,7 @@ function Checkout( props ) {
 
             <h1 className="d-none">Riode React eCommerce Template - Checkout</h1>
 
-            <div className={ `page-content pt-7 pb-10 ${ cartList.length > 0 ? 'mb-10' : 'mb-2' }` }>
+            <div className={`page-content pt-7 pb-10 ${cartList.length > 0 ? 'mb-10' : 'mb-2'}`}>
                 <div className="step-by pr-4 pl-4">
                     <h3 className="title title-simple title-step"><ALink href="/pages/cart">1. Shopping Cart</ALink></h3>
                     <h3 className="title title-simple title-step active"><ALink href="#">2. Checkout</ALink></h3>
@@ -39,7 +39,7 @@ function Checkout( props ) {
                         </div>">
                                         <div className="alert-body collapsed">
                                             <p>If you have shopped with us before, please enter your details below.
-                            If you are a new customer, please proceed to the Billing section.</p>
+                                                If you are a new customer, please proceed to the Billing section.</p>
                                             <div className="row cols-md-2">
                                                 <form className="mb-4 mb-md-0">
                                                     <label htmlFor="username">Username Or Email *</label>
@@ -55,7 +55,7 @@ function Checkout( props ) {
                                                     <input type="checkbox" className="custom-checkbox" id="signin-remember"
                                                         name="signin-remember" />
                                                     <label className="form-control-label" htmlFor="signin-remember">Remember
-                                    Me</label>
+                                                        Me</label>
                                                 </div>
                                                 <ALink href="#" className="lost-link">Lost your password?</ALink>
                                             </div>
@@ -140,36 +140,36 @@ function Checkout( props ) {
                                             <label>Email Address *</label>
                                             <input type="text" className="form-control" name="email-address" required />
 
-                                            <SlideToggle duration={ 300 } collapsed >
-                                                { ( { onToggle, setCollapsibleElement } ) => (
+                                            <SlideToggle duration={300} collapsed >
+                                                {({ onToggle, setCollapsibleElement }) => (
                                                     <div className="form-checkbox mb-0 pt-0">
-                                                        <input type="checkbox" className="custom-checkbox" id="create-account" name="create-account" onChange={ onToggle } />
+                                                        <input type="checkbox" className="custom-checkbox" id="create-account" name="create-account" onChange={onToggle} />
                                                         <label className='form-control-label ls-s' htmlFor='create-account'>Create an account?</label>
 
-                                                        <div ref={ setCollapsibleElement } style={ { overflow: 'hidden' } }>
+                                                        <div ref={setCollapsibleElement} style={{ overflow: 'hidden' }}>
                                                             <label htmlFor="account_username" className="pt-4">Account username&nbsp;
-                                                                    <abbr className="required" title="required">*</abbr>
+                                                                <abbr className="required" title="required">*</abbr>
                                                             </label>
 
                                                             <input type="text" className="form-control" name="account_username" id="account_username" placeholder="Username" rows="5" />
 
                                                             <label htmlFor="account_password">Create account password&nbsp;
-                                                                    <abbr className="required" title="required">*</abbr>
+                                                                <abbr className="required" title="required">*</abbr>
                                                             </label>
 
                                                             <input type="password" className="form-control mb-3" name="account_password" id="account_password" placeholder="Password" rows="5" />
                                                         </div>
                                                     </div>
-                                                ) }
+                                                )}
                                             </SlideToggle>
 
-                                            <SlideToggle duration={ 300 } collapsed >
-                                                { ( { onToggle, setCollapsibleElement } ) => (
+                                            <SlideToggle duration={300} collapsed >
+                                                {({ onToggle, setCollapsibleElement }) => (
                                                     <div className="form-checkbox mb-6">
-                                                        <input type="checkbox" className="custom-checkbox" id="different-address" name="different-address" onChange={ onToggle } />
+                                                        <input type="checkbox" className="custom-checkbox" id="different-address" name="different-address" onChange={onToggle} />
                                                         <label className='form-control-label ls-s' htmlFor='different-address'>Ship to a different address?</label>
 
-                                                        <div ref={ setCollapsibleElement } style={ { overflow: 'hidden' } }>
+                                                        <div ref={setCollapsibleElement} style={{ overflow: 'hidden' }}>
                                                             <div className="row pt-4">
                                                                 <div className="col-xs-6">
                                                                     <label>First Name *</label>
@@ -218,7 +218,7 @@ function Checkout( props ) {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                ) }
+                                                )}
                                             </SlideToggle>
 
                                             <h2 className="title title-simple text-uppercase text-left mt-6">Additional Information</h2>
@@ -240,11 +240,11 @@ function Checkout( props ) {
                                                         </thead>
                                                         <tbody>
                                                             {
-                                                                cartList.map( item =>
-                                                                    <tr key={ 'checkout-' + item.name }>
-                                                                        <td className="product-name">{ item.name } <span
-                                                                            className="product-quantity">×&nbsp;{ item.qty }</span></td>
-                                                                        <td className="product-total text-body">${ toDecimal( item.price * item.qty ) }</td>
+                                                                cartList.map(item =>
+                                                                    <tr key={'checkout-' + item.name}>
+                                                                        <td className="product-name">{item.name} <span
+                                                                            className="product-quantity">×&nbsp;{item.qty}</span></td>
+                                                                        <td className="product-total text-body">${toDecimal(item.price * item.qty)}</td>
                                                                     </tr>
                                                                 )
                                                             }
@@ -253,7 +253,7 @@ function Checkout( props ) {
                                                                 <td>
                                                                     <h4 className="summary-subtitle">Subtotal</h4>
                                                                 </td>
-                                                                <td className="summary-subtotal-price pb-0 pt-0">${ toDecimal( getTotalPrice( cartList ) ) }
+                                                                <td className="summary-subtotal-price pb-0 pt-0">${toDecimal(getTotalPrice(cartList))}
                                                                 </td>
                                                             </tr>
                                                             <tr className="sumnary-shipping shipping-row-last">
@@ -294,7 +294,7 @@ function Checkout( props ) {
                                                                     <h4 className="summary-subtitle">Total</h4>
                                                                 </td>
                                                                 <td className=" pt-0 pb-0">
-                                                                    <p className="summary-total-price ls-s text-primary">${ toDecimal( getTotalPrice( cartList ) ) }</p>
+                                                                    <p className="summary-total-price ls-s text-primary">${toDecimal(getTotalPrice(cartList))}</p>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -304,10 +304,10 @@ function Checkout( props ) {
 
                                                         <div className="checkbox-group">
                                                             <div className="card-header">
-                                                                <ALink href="#" className={ `text-body text-normal ls-m ${ isFirst ? 'collapse' : '' }` } onClick={ () => { !isFirst && setFirst( !isFirst ) } }>Check payments</ALink>
+                                                                <ALink href="#" className={`text-body text-normal ls-m ${isFirst ? 'collapse' : ''}`} onClick={() => { !isFirst && setFirst(!isFirst) }}>Check payments</ALink>
                                                             </div>
 
-                                                            <Collapse in={ isFirst }>
+                                                            <Collapse in={isFirst}>
                                                                 <div className="card-wrapper">
                                                                     <div className="card-body ls-m overflow-hidden">
                                                                         Please send a check to Store Name, Store Street,
@@ -317,10 +317,10 @@ function Checkout( props ) {
                                                             </Collapse>
 
                                                             <div className="card-header">
-                                                                <ALink href="#" className={ `text-body text-normal ls-m ${ !isFirst ? 'collapse' : '' }` } onClick={ () => { isFirst && setFirst( !isFirst ) } }>Cash on delivery</ALink>
+                                                                <ALink href="#" className={`text-body text-normal ls-m ${!isFirst ? 'collapse' : ''}`} onClick={() => { isFirst && setFirst(!isFirst) }}>Cash on delivery</ALink>
                                                             </div>
 
-                                                            <Collapse in={ !isFirst }>
+                                                            <Collapse in={!isFirst}>
                                                                 <div className="card-wrapper">
                                                                     <div className="card-body ls-m overflow-hidden">
                                                                         Please send a check to Store Name, Store Street,
@@ -352,7 +352,7 @@ function Checkout( props ) {
                                 <p className="return-to-shop mb-0">
                                     <ALink className="button wc-backward btn btn-dark btn-md" href="/shop">
                                         Return to shop
-                                </ALink>
+                                    </ALink>
                                 </p>
                             </div>
                     }
@@ -362,10 +362,10 @@ function Checkout( props ) {
     )
 }
 
-function mapStateToProps( state ) {
+function mapStateToProps(state) {
     return {
         cartList: state.cart.data ? state.cart.data : []
     }
 }
 
-export default connect( mapStateToProps )( Checkout );
+export default connect(mapStateToProps)(Checkout);
