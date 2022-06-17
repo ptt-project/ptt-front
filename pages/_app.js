@@ -20,7 +20,7 @@ const App = ({ Component, pageProps }) => {
             store.dispatch(demoActions.refreshStore(currentDemo));
         }
     }, [])
-
+    console.log(pageProps)
     return (
         <Provider store={store}>
             <PersistGate

@@ -91,7 +91,7 @@ export default function Header( props ) {
                         </ALink>
                         <span className="divider"></span>
 
-                        <CartMenu />
+                        {/* <CartMenu /> */}
                     </div>
                 </div>
             </div>

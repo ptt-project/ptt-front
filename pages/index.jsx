@@ -18,7 +18,9 @@ import SmallCollection from '~/components/partials/product/small-collection';
 import BrandSection from '~/components/partials/home/brand-section';
 
 function HomePage() {
-    const { data, loading, error } = useQuery( GET_HOME_DATA, { variables: { productsCount: 8 } } );
+    // const { data, loading, error } = useQuery( GET_HOME_DATA, { variables: { productsCount: 8 } } );
+    const data = null
+    const loading = false
     const featured = data && data.specialProducts.featured;
     const bestSelling = data && data.specialProducts.bestSelling;
     const latest = data && data.specialProducts.latest;
@@ -36,16 +38,17 @@ function HomePage() {
             <div className="page-content">
                 <div className="container">
                     <div className="row">
-                        <HomeSidebar products={ featured } loading={ loading } posts={ posts } />
+                        {/* init comment */}
+                        {/* <HomeSidebar products={ featured } loading={ loading } posts={ posts } /> */}
 
                         <div className="col-xl-9 col-lg-8">
                             <IntroSection />
-
-                            <FeaturedCollection products={ featured } loading={ loading } />
+                            {/* init comment */}
+                            {/* <FeaturedCollection products={ featured } loading={ loading } /> */}
 
                             <NewsletterSection />
-
-                            <SmallCollection latest={ latest } bestSelling={ bestSelling } onSale={ onSale } loading={ loading } />
+                            {/* init comment */}
+                            {/* <SmallCollection latest={ latest } bestSelling={ bestSelling } onSale={ onSale } loading={ loading } /> */}
 
                             <BrandSection />
                         </div>
