@@ -15,7 +15,7 @@
 @import 'config/variables';
 
 /* 2. mixins */
-@import 'mixins/breakpoints'; 
+@import 'mixins/breakpoints';
 @import 'mixins/core';
 @import 'mixins/buttons';
 
@@ -82,8 +82,8 @@
 @import 'base/footer/footer';
 
 /* 8. Pages */
-@import 'pages/about';  
-@import 'pages/account';   
+@import 'pages/about';
+@import 'pages/account';
 @import 'pages/buttons';
 @import 'pages/categories';
 @import 'pages/coming';
@@ -104,3 +104,13 @@
 @import 'pages/faq';
 
 @import 'demo/demo3_custom';
+
+/* 9 antd */
+.ant-form-item-explain-error {
+  font-size: 12px;
+}
+
+/* 10 Happy Shopping */
+.t-small {
+  font-size: 12px;
+}
