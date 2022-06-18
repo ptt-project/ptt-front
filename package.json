@@ -22,6 +22,7 @@
     "imagesloaded": "^4.1.4",
     "isotope-layout": "^3.0.6",
     "js-cookie": "^3.0.1",
+    "lodash": "^4.17.21",
     "masonry-layout": "^4.2.2",
     "next": "^10.0.8",
     "next-apollo": "^5.0.4",

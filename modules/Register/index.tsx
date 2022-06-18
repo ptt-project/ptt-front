@@ -2,12 +2,13 @@ import React, { FC, useState } from 'react'
 import t from '~/locales'
 import { useRouter } from 'next/router'
 import NextLink from 'next/link'
+import { isEmpty } from 'lodash'
 import Helmet from 'react-helmet'
-import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image } from 'antd'
+import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, Modal } from 'antd'
 import styles from './Register.module.scss'
 
 const { Text, Link } = Typography
-interface FormValues {
+interface FormModel {
   firstName: string
   lastName: string
   mobileNo: string
@@ -16,12 +17,41 @@ interface FormValues {
   password: string
 }
 
+interface ModalModel {
+  isOpen: string
+  title: string
+  content: string
+}
+
 const Register: FC = (props: any) => {
   const router = useRouter()
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState<boolean>(false)
+  const [modal, setModal] = useState<ModalModel>({
+    isOpen: '',
+    title: '',
+    content: ''
+  })
   const [form] = Form.useForm()
 
-  async function onSubmit(values: FormValues): Promise<void> {
+  function toggle(isOpen: string): void {
+    const tempModal: ModalModel = { ...modal }
+    if (!isEmpty(isOpen)) {
+      tempModal.isOpen = isOpen
+      if (isOpen === 'TERM') {
+        tempModal.title = 'auth.register.policyB'
+        tempModal.content = 'auth.register.policyBContent'
+      }
+      if (isOpen === 'CONDITION') {
+        tempModal.title = 'auth.register.policyC'
+        tempModal.content = 'auth.register.policyCContent'
+      }
+    } else {
+      tempModal.isOpen = ''
+    }
+    setModal(tempModal)
+  }
+
+  async function onSubmit(values: FormModel): Promise<void> {
     console.log(typeof values)
   }
 
@@ -32,6 +62,19 @@ const Register: FC = (props: any) => {
           {t('meta.title')} | {t('auth.register.title')}
         </title>
       </Helmet>
+      <Modal
+        title={modal.title ? t(modal.title) : ''}
+        width={768}
+        visible={!isEmpty(modal.isOpen)}
+        onCancel={(): void => toggle('')}
+        footer={[
+          <Button key="close" type="primary" onClick={(): void => toggle('')}>
+            {t('common.close')}
+          </Button>
+        ]}
+      >
+        {modal.content ? <Text>{t(modal.content)}</Text> : null}
+      </Modal>
       <nav className="breadcrumb-nav">
         <div className="container">
           <ul className="breadcrumb">
@@ -65,20 +108,7 @@ const Register: FC = (props: any) => {
               <Text>
                 <h4 className="text-center mb-5">{t('auth.register.title')}</h4>
               </Text>
-              <Form
-                layout="vertical"
-                // initialValues={{
-                //   firstName: '',
-                //   lastName: '',
-                //   mobileNo: '',
-                //   email: '',
-                //   username: '',
-                //   password: ''
-                // }}
-                form={form}
-                name="register"
-                onFinish={onSubmit}
-              >
+              <Form layout="vertical" form={form} name="register" onFinish={onSubmit}>
                 <Row gutter={[16, 8]}>
                   <Col md={12} xs={24}>
                     <Form.Item
@@ -153,11 +183,11 @@ const Register: FC = (props: any) => {
                 <Space className={`${styles.space} mt-5 mb-3`} wrap>
                   <Text>{t('auth.register.policyA')}</Text>
                   <Space>
-                    <Link className={styles.link} href="#">
+                    <Link className={styles.link} onClick={(): void => toggle('TERM')}>
                       {t('auth.register.policyB')}
                     </Link>
                     <Text>&</Text>
-                    <Link className={styles.link} href="#">
+                    <Link className={styles.link} onClick={(): void => toggle('CONDITION')}>
                       {t('auth.register.policyC')}
                     </Link>
                   </Space>
