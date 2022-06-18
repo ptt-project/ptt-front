@@ -10,5 +10,10 @@ export default {
       description: '',
       image: ''
     }
+  },
+  auth: {
+    register: {
+      title: 'สมัครสมาชิก'
+    }
   }
 }
