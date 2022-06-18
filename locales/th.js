@@ -11,6 +11,9 @@ export default {
       image: ''
     }
   },
+  common: {
+    close: 'ปิด'
+  },
   auth: {
     register: {
       title: 'สมัครสมาชิก',
@@ -27,7 +30,9 @@ export default {
       passwordHintE: 'ตัวเลขอย่างน้อย 1 ตัว',
       policyA: 'โดยการเปิดบัญชี PTT รับทราบและตกลงตาม',
       policyB: 'เงื่อนไขการให้บริการ',
+      policyBContent: '...do something',
       policyC: 'นโยบายความเป็นส่วนตัว',
+      policyCContent: '...do something',
       noteA: 'หรือ',
       noteB: 'หากมีบัญชีผู้ใช้แล้ว คุณสามารถ',
       noteC: 'เข้าสู่ระบบ',
