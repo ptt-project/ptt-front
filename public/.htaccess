@@ -2,7 +2,7 @@ RewriteEngine On
 
 RewriteCond %{HTTP_HOST} ^d-themes.com$
 RewriteCond %{HTTP} off
-RewriteRule ^(.*)$ https://d-themes.com/react/riode/demo-3/$1 [NC,R,L]
+RewriteRule ^(.*)$ https://d-themes.com/$1 [NC,R,L]
 
 # If an existing asset or directory is requested go to it as it is
 RewriteRule ^shop/grid/(3cols|4cols|5cols|6cols|7cols|8cols) shop/grid/[grid]/index.html?grid=$1 [L]
@@ -84,4 +84,4 @@ Header set Cache-Control "max-age=31536000, public"
   Header set Access-Control-Allow-Origin "*" 
 </IfModule>
 
-ErrorDocument 404 https://d-themes.com/react/riode/demo-3/404/
+ErrorDocument 404 https://d-themes.com/404/

@@ -7,6 +7,7 @@ import Layout from '~/components/layout'
 import { wrapper } from '../store/index.js'
 import { demoActions } from '~/store/demo'
 import { currentDemo } from '~/server/queries'
+import '@antd/dist/antd.css'
 import '~/public/sass/style.scss'
 
 const App = ({ Component, pageProps }) => {
