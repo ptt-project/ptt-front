@@ -10,7 +10,7 @@ export default class MyDocument extends Document {
         return (
             <Html lang="en">
                 <Head>
-                    <base href="/react/riode/demo-3/"></base>
+                    <base href="/"></base>
                     <title>Riode - React eCommerce Template</title>
                     <link rel="icon" href="images/icons/favicon.png" />
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" />
