@@ -35,11 +35,11 @@ function LoginModal() {
 
     return (
         <>
-            <a className="login-link" href="#" onClick={ openModal }>
-                <i className="d-icon-user"></i>Sign in</a>
-            <span className="delimiter">/</span>
-            <a className="register-link ml-0" onClick={ ( e ) => openModal( e, 1 ) } href="#">Register</a>
-
+            <a className="" href="#" onClick={ openModal }>
+                <i className="fas fa-user-circle"></i><p className="ml-1 welcome-msg">เข้าสู่ระบบ</p>
+            </a>
+            /
+            <a className="ml-0" onClick={ ( e ) => openModal( e, 1 ) } href="#"><p className="welcome-msg">ลงทะเบียน</p></a>
             {
                 open ?
                     <Modal

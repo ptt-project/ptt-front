@@ -28,47 +28,34 @@ export default function Header(props) {
     document.querySelector('body').classList.add('mmenu-active')
   }
 
-  return (
-    <header className="header">
-      <div className="header-top">
-        <div className="container">
-          <div className="header-left">
-            <p className="welcome-msg">Welcome to Riode store message or remove it!</p>
-          </div>
-          <div className="header-right">
-            <div className="dropdown">
-              <ALink href="#">USD</ALink>
-              <ul className="dropdown-box">
-                <li>
-                  <ALink href="#">USD</ALink>
-                </li>
-                <li>
-                  <ALink href="#">EUR</ALink>
-                </li>
-              </ul>
+  
+
+    return (
+        <header className="header">
+            <div className="header-top">
+                <div className="container">
+                    <div className="header-left">
+                        <i class="fas fa-store"></i>
+                        <p className="ml-1 welcome-msg"> Seller centre</p>
+                    </div>
+                    <div className="header-right">
+                        <div className="dropdown ml-5">
+                            <ALink href="#">TH</ALink>
+                            <ul className="dropdown-box">
+                                <li>
+                                    <ALink href="#">TH</ALink>
+                                </li>
+                                <li>
+                                    <ALink href="#">ENG</ALink>
+                                </li>
+                            </ul>
+                        </div>
+                        <span className="divider"></span>
+                        <LoginModal />
+                    </div>
+                </div>
             </div>
-            <div className="dropdown ml-5">
-              <ALink href="#">ENG</ALink>
-              <ul className="dropdown-box">
-                <li>
-                  <ALink href="#">ENG</ALink>
-                </li>
-                <li>
-                  <ALink href="#">FRH</ALink>
-                </li>
-              </ul>
-            </div>
-            <span className="divider"></span>
-            <ALink href="/pages/contact-us" className="contact d-lg-show">
-              <i className="d-icon-map"></i>Contact
-            </ALink>
-            <ALink href="#" className="help d-lg-show">
-              <i className="d-icon-info"></i> Need Help
-            </ALink>
-            <LoginModal />
-          </div>
-        </div>
-      </div>
+            
       <div className="header-middle sticky-header fix-top sticky-content">
         <div className="container">
           <div className="header-left">
