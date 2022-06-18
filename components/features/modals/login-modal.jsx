@@ -3,7 +3,7 @@ import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import Modal from 'react-modal';
 
 import ALink from '~/components/features/custom-link';
-
+import t from '~/locales'
 const customStyles = {
     overlay: {
         backgroundColor: 'rgba(0,0,0,0.4)',
@@ -36,10 +36,10 @@ function LoginModal() {
     return (
         <>
             <a className="" href="#" onClick={ openModal }>
-                <i className="fas fa-user-circle"></i><p className="ml-1 welcome-msg">เข้าสู่ระบบ</p>
+                <i className="fas fa-user-circle"></i><p className="ml-1 welcome-msg">{t('header.signIn')}</p>
             </a>
             /
-            <a className="ml-0" onClick={ ( e ) => openModal( e, 1 ) } href="#"><p className="welcome-msg">ลงทะเบียน</p></a>
+            <a className="ml-0" onClick={ ( e ) => openModal( e, 1 ) } href="#"><p className="welcome-msg">{t('header.register')}</p></a>
             {
                 open ?
                     <Modal

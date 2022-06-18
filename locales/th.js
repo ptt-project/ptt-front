@@ -40,5 +40,10 @@ export default {
         password: 'รูปแบบรหัสผ่านไม่ถูกต้อง'
       }
     }
+  },
+  header:{
+      titleSellerCentre:"Seller centre",
+      signIn:"เข้าสู่ระบบ",
+      register :"ลงทะเบียน"
   }
 }

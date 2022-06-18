@@ -7,7 +7,7 @@ import SearchBox from '~/components/common/partials/search-box'
 import LoginModal from '~/components/features/modals/login-modal'
 import { HiddenHeader } from '~/constants'
 import { headerBorderRemoveList } from '~/utils/data/menu'
-
+import t from '~/locales'
 export default function Header(props) {
   const router = useRouter()
 
@@ -27,16 +27,13 @@ export default function Header(props) {
   const showMobileMenu = () => {
     document.querySelector('body').classList.add('mmenu-active')
   }
-
-  
-
     return (
         <header className="header">
             <div className="header-top">
                 <div className="container">
                     <div className="header-left">
                         <i class="fas fa-store"></i>
-                        <p className="ml-1 welcome-msg"> Seller centre</p>
+                        <p className="ml-1 welcome-msg"> {t('header.titleSellerCentre')}</p>
                     </div>
                     <div className="header-right">
                         <div className="dropdown ml-5">
