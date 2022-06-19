@@ -933,10 +933,10 @@
         }
         .icon-box { margin-right: 1rem; }
     }
-    .welcome-msg {
+  /*  .welcome-msg {
         transform: translateX(0);
         animation: 6s linear 2s 1 show_msg_first, 12s linear 8s infinite show_msg;
-    }
+    }*/
 }
 @keyframes show_msg_first { 
     from {

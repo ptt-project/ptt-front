@@ -13,7 +13,8 @@ import { toDecimal } from '~/utils';
 function SearchForm() {
     const router = useRouter();
     const [ search, setSearch ] = useState( "" );
-    const [ searchProducts, { data } ] = useLazyQuery( GET_PRODUCTS );
+    // init comment
+    // const [ searchProducts, { data } ] = useLazyQuery( GET_PRODUCTS );
     const [ timer, setTimer ] = useState( 'null' );
 
     useEffect( () => {
