@@ -1,4 +1,4 @@
-.authRegister {
+.page {
   .link {
     text-decoration: underline;
   }
@@ -20,5 +20,13 @@
       bottom: 0;
       right: 0;
     }
+  }
+}
+
+.modalFooterWrapper {
+  margin: auto;
+
+  @media (min-width: 576px) {
+    max-width: 50%;
   }
 }

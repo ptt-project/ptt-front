@@ -1,10 +1,11 @@
-import React, { FC, useState } from 'react'
+import React, { useState, FC, ChangeEvent } from 'react'
 import t from '~/locales'
 import { useRouter } from 'next/router'
 import NextLink from 'next/link'
 import { isEmpty } from 'lodash'
 import Helmet from 'react-helmet'
 import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, Modal } from 'antd'
+import { Rule } from 'antd/lib/form'
 import styles from './Register.module.scss'
 
 const { Text, Link } = Typography
@@ -23,7 +24,7 @@ interface ModalModel {
   content: string
 }
 
-const Register: FC = (props: any) => {
+const Register: FC = () => {
   const router = useRouter()
   const [visible, setVisible] = useState<boolean>(false)
   const [modal, setModal] = useState<ModalModel>({
@@ -32,6 +33,7 @@ const Register: FC = (props: any) => {
     content: ''
   })
   const [form] = Form.useForm()
+  const passwordMessage: string = t('auth.register.rules.password') // prevent error hook rules
 
   function toggle(isOpen: string): void {
     const tempModal: ModalModel = { ...modal }
@@ -51,12 +53,28 @@ const Register: FC = (props: any) => {
     setModal(tempModal)
   }
 
+  function onMobileNoChange(e: ChangeEvent<HTMLInputElement>): void {
+    const reg: RegExp = /^[0-9\b]+$/
+    if (!e.target.value || reg.test(e.target.value)) {
+      form.setFieldsValue({ mobileNo: e.target.value })
+    } else {
+      form.setFieldsValue({ mobileNo: e.target.value.replace(/[^0-9.]/g, '') })
+    }
+  }
+
+  function validatePassword(e: ChangeEvent<HTMLInputElement>): void {
+    const reg: RegExp = /^[0-9\b]+$/
+    if (!e.target.value || reg.test(e.target.value)) {
+      form.setFieldsValue({ password: e.target.value })
+    }
+  }
+
   async function onSubmit(values: FormModel): Promise<void> {
     console.log(typeof values)
   }
 
   return (
-    <main className={`main ${styles.authRegister}`}>
+    <main className={`main ${styles.page}`}>
       <Helmet>
         <title>
           {t('meta.title')} | {t('auth.register.title')}
@@ -68,9 +86,11 @@ const Register: FC = (props: any) => {
         visible={!isEmpty(modal.isOpen)}
         onCancel={(): void => toggle('')}
         footer={[
-          <Button key="close" type="primary" onClick={(): void => toggle('')}>
-            {t('common.close')}
-          </Button>
+          <div className={styles.modalFooterWrapper}>
+            <Button key="close" type="primary" block onClick={(): void => toggle('')}>
+              {t('common.close')}
+            </Button>
+          </div>
         ]}
       >
         {modal.content ? <Text>{t(modal.content)}</Text> : null}
@@ -89,10 +109,10 @@ const Register: FC = (props: any) => {
           </ul>
         </div>
       </nav>
-      <div className="page-content mt-4 mb-10 pb-6">
+      <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
-            <Col xl={6} lg={0}>
+            <Col xl={6} md={0}>
               <div className={styles.sideImgContainer}>
                 <div className={styles.sideImgWrapper}>
                   <Image
@@ -104,7 +124,7 @@ const Register: FC = (props: any) => {
                 </div>
               </div>
             </Col>
-            <Col xl={18} lg={24}>
+            <Col xl={{ span: 15, offset: 1 }} md={24}>
               <Text>
                 <h4 className="text-center mb-5">{t('auth.register.title')}</h4>
               </Text>
@@ -116,7 +136,7 @@ const Register: FC = (props: any) => {
                       name="firstName"
                       rules={[{ required: true, message: t('auth.register.rules.firstName') }]}
                     >
-                      <Input />
+                      <Input maxLength={50} />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
@@ -125,7 +145,7 @@ const Register: FC = (props: any) => {
                       name="lastName"
                       rules={[{ required: true, message: t('auth.register.rules.lastName') }]}
                     >
-                      <Input />
+                      <Input maxLength={50} />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
@@ -134,16 +154,16 @@ const Register: FC = (props: any) => {
                       name="mobileNo"
                       rules={[{ required: true, message: t('auth.register.rules.mobileNo') }]}
                     >
-                      <Input />
+                      <Input maxLength={10} onChange={onMobileNoChange} />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
                     <Form.Item
                       label={t('auth.register.email')}
                       name="email"
-                      rules={[{ required: true, message: t('auth.register.rules.email') }]}
+                      rules={[{ type: 'email', message: t('auth.register.rules.email') }]}
                     >
-                      <Input type="email" />
+                      <Input type="email" maxLength={50} />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
@@ -152,16 +172,28 @@ const Register: FC = (props: any) => {
                       name="username"
                       rules={[{ required: true, message: t('auth.register.rules.username') }]}
                     >
-                      <Input />
+                      <Input maxLength={50} />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
                     <Form.Item
                       label={t('auth.register.password')}
                       name="password"
-                      rules={[{ required: true, message: t('auth.register.rules.password') }]}
+                      rules={[
+                        { required: true, message: passwordMessage },
+                        () => ({
+                          validator(_: Rule, value: string) {
+                            const reg: RegExp =
+                              /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/
+                            if (!value || reg.test(value)) {
+                              return Promise.resolve()
+                            }
+                            return Promise.reject(new Error(passwordMessage))
+                          }
+                        })
+                      ]}
                     >
-                      <Input type="password" />
+                      <Input type="password" maxLength={50} />
                     </Form.Item>
                     <Text type="secondary" className="t-small d-block">
                       {t('auth.register.passwordHintA')}
