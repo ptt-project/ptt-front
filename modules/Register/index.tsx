@@ -62,13 +62,6 @@ const Register: FC = () => {
     }
   }
 
-  function validatePassword(e: ChangeEvent<HTMLInputElement>): void {
-    const reg: RegExp = /^[0-9\b]+$/
-    if (!e.target.value || reg.test(e.target.value)) {
-      form.setFieldsValue({ password: e.target.value })
-    }
-  }
-
   async function onSubmit(values: FormModel): Promise<void> {
     console.log(typeof values)
   }
@@ -112,7 +105,7 @@ const Register: FC = () => {
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
-            <Col xl={6} md={0}>
+            <Col xl={6} lg={0}>
               <div className={styles.sideImgContainer}>
                 <div className={styles.sideImgWrapper}>
                   <Image
@@ -124,7 +117,7 @@ const Register: FC = () => {
                 </div>
               </div>
             </Col>
-            <Col xl={{ span: 15, offset: 1 }} md={24}>
+            <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>
               <Text>
                 <h4 className="text-center mb-5">{t('auth.register.title')}</h4>
               </Text>
@@ -230,7 +223,7 @@ const Register: FC = () => {
                   </Button>
                 </Form.Item>
               </Form>
-              <Divider className="mb-0">{t('auth.register.noteA')}</Divider>
+              <Divider>{t('auth.register.noteA')}</Divider>
               <Space className={styles.space} wrap>
                 <Text>{t('auth.register.noteB')}</Text>
                 <NextLink href="/login" locale={router.locale}>
