@@ -31,11 +31,9 @@ export default function Header(props) {
         <header className="header">
             <div className="header-top">
                 <div className="container">
-                    <div className="header-left">
+                    <div className="header-right">
                         <i class="fas fa-store"></i>
                         <p className="ml-1 welcome-msg"> {t('header.titleSellerCentre')}</p>
-                    </div>
-                    <div className="header-right">
                         <div className="dropdown ml-5">
                             <ALink href="#">TH</ALink>
                             <ul className="dropdown-box">
