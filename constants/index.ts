@@ -1,5 +1,4 @@
+import EndPoint from './EndPoint'
 import HiddenHeader from './HiddenHeader'
 
-module.exports = {
-  HiddenHeader
-}
+export { EndPoint, HiddenHeader }

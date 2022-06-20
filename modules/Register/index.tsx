@@ -1,15 +1,16 @@
 import React, { useState, FC, ChangeEvent } from 'react'
-import t from '~/locales'
-import { useRouter } from 'next/router'
+import { useRouter, NextRouter } from 'next/router'
 import NextLink from 'next/link'
-import { isEmpty } from 'lodash'
 import Helmet from 'react-helmet'
 import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, Modal } from 'antd'
 import { Rule } from 'antd/lib/form'
+import { isEmpty } from 'lodash'
+import t from '~/locales'
 import styles from './Register.module.scss'
 
 const { Text, Link } = Typography
-interface FormModel {
+
+interface IFormModel {
   firstName: string
   lastName: string
   mobileNo: string
@@ -18,16 +19,16 @@ interface FormModel {
   password: string
 }
 
-interface ModalModel {
+interface IModalModel {
   isOpen: string
   title: string
   content: string
 }
 
 const Register: FC = () => {
-  const router = useRouter()
+  const router: NextRouter = useRouter()
   const [visible, setVisible] = useState<boolean>(false)
-  const [modal, setModal] = useState<ModalModel>({
+  const [modal, setModal] = useState<IModalModel>({
     isOpen: '',
     title: '',
     content: ''
@@ -36,7 +37,7 @@ const Register: FC = () => {
   const passwordMessage: string = t('auth.register.rules.password') // prevent error hook rules
 
   function toggle(isOpen: string): void {
-    const tempModal: ModalModel = { ...modal }
+    const tempModal: IModalModel = { ...modal }
     if (!isEmpty(isOpen)) {
       tempModal.isOpen = isOpen
       if (isOpen === 'TERM') {
@@ -62,8 +63,8 @@ const Register: FC = () => {
     }
   }
 
-  async function onSubmit(values: FormModel): Promise<void> {
-    console.log(typeof values)
+  function onSubmit(values: IFormModel): void {
+    console.log(values)
   }
 
   return (
@@ -94,7 +95,7 @@ const Register: FC = () => {
             <li>
               <NextLink href="/login" locale={router.locale}>
                 <Link>
-                  <i className="d-icon-home"></i>
+                  <i className="d-icon-home" />
                 </Link>
               </NextLink>
             </li>
@@ -110,9 +111,9 @@ const Register: FC = () => {
                 <div className={styles.sideImgWrapper}>
                   <Image
                     preview={visible}
-                    width={'100%'}
+                    width="100%"
                     src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
-                    onClick={() => setVisible(true)}
+                    onClick={(): void => setVisible(true)}
                   />
                 </div>
               </div>
@@ -174,8 +175,8 @@ const Register: FC = () => {
                       name="password"
                       rules={[
                         { required: true, message: passwordMessage },
-                        () => ({
-                          validator(_: Rule, value: string) {
+                        (): any => ({
+                          validator(_: Rule, value: string): Promise<any> {
                             const reg: RegExp =
                               /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/
                             if (!value || reg.test(value)) {
