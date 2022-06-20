@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import ALink from '~/components/features/custom-link'
-import CartMenu from '~/components/common/partials/cart-menu'
+// import CartMenu from '~/components/common/partials/cart-menu'
 import MainMenu from '~/components/common/partials/main-menu'
 import SearchBox from '~/components/common/partials/search-box'
 import LoginModal from '~/components/features/modals/login-modal'
@@ -28,15 +28,14 @@ export default function Header(props) {
   const showMobileMenu = () => {
     document.querySelector('body').classList.add('mmenu-active')
   }
+
   return (
     <header className="header">
       <div className="header-top">
         <div className="container">
-          <div className="header-left">
+          <div className="header-right">
             <i class="fas fa-store"></i>
             <p className="ml-1 welcome-msg"> {t('header.titleSellerCentre')}</p>
-          </div>
-          <div className="header-right">
             <div className="dropdown ml-5">
               <ALink href="#">TH</ALink>
               <ul className="dropdown-box">
