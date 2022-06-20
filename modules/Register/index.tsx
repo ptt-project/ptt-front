@@ -27,7 +27,6 @@ interface IModalModel {
 
 const Register: FC = () => {
   const router: NextRouter = useRouter()
-  const [visible, setVisible] = useState<boolean>(false)
   const [modal, setModal] = useState<IModalModel>({
     isOpen: '',
     title: '',
@@ -110,7 +109,7 @@ const Register: FC = () => {
               <div className={styles.sideImgContainer}>
                 <div className={styles.sideImgWrapper}>
                   <Image
-                    preview={visible}
+                    preview={false}
                     width="100%"
                     src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
                     onClick={(): void => setVisible(true)}
