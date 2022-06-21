@@ -50,5 +50,30 @@ export default {
       titleSellerCentre:"Seller centre",
       signIn:"เข้าสู่ระบบ",
       register :"ลงทะเบียน"
+  },
+  accountProfile :{
+    title:"บัญชีผู้ใช้",
+    setting:"ตั้งค่า",
+    personalInformation:"ข้อมูลส่วนตัว",
+    memberId:"รหัสสมาชิก",
+    username:"ชื่อผู้ใช้",
+    msgChooseImage:"ไฟล์JPEG,PNG ขนาดไฟล์ไม่เกิน 1 MB",
+    firstName:"ชื่อ",
+    lastName:"นามสกุล",
+    birthday:"วันเกิด",
+    date:"วันที่",
+    month:"เดือน",
+    year:"ปี ค.ศ.",
+    gender:"เพศ",
+    man:"ชาย",
+    female:"หญิง",
+    other:"อื่นๆ",
+    email:"อีเมล",
+    phoneNumber:"หมายเลขโทรศัพท์",
+    button:{
+      chooseImage :"เลือกรูป",
+      edit:"แก้ไข",
+      save:"บันทึก"
+    },
   }
 }
