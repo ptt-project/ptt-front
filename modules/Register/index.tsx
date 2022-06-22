@@ -74,7 +74,11 @@ const Register: FC = () => {
         </title>
       </Helmet>
       <Modal
-        title={modal.title ? t(modal.title) : ''}
+        title={
+          <Text>
+            <h4 className="mb-0 text-center">{modal.title ? t(modal.title) : ''}</h4>
+          </Text>
+        }
         width={768}
         visible={!isEmpty(modal.isOpen)}
         onCancel={(): void => toggle('')}
@@ -86,7 +90,11 @@ const Register: FC = () => {
           </div>
         ]}
       >
-        {modal.content ? <Text>{t(modal.content)}</Text> : null}
+        {modal.content ? (
+          <div className={styles.modalBodyWrapper}>
+            <Text>{t(modal.content)}</Text>
+          </div>
+        ) : null}
       </Modal>
       <nav className="breadcrumb-nav">
         <div className="container">
@@ -106,14 +114,9 @@ const Register: FC = () => {
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <div className={styles.sideImgContainer}>
-                <div className={styles.sideImgWrapper}>
-                  <Image
-                    preview={false}
-                    width="100%"
-                    src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
-                    onClick={(): void => setVisible(true)}
-                  />
+              <div className={styles.imgContainer}>
+                <div className={styles.imgWrapper}>
+                  <Image preview={false} width="100%" src="./images/main/buyer/register.png" />
                 </div>
               </div>
             </Col>
