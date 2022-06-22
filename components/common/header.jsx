@@ -1,13 +1,14 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import ALink from '~/components/features/custom-link'
-import CartMenu from '~/components/common/partials/cart-menu'
+// import CartMenu from '~/components/common/partials/cart-menu'
 import MainMenu from '~/components/common/partials/main-menu'
 import SearchBox from '~/components/common/partials/search-box'
 import LoginModal from '~/components/features/modals/login-modal'
+import t from '~/locales'
 import { HiddenHeader } from '~/constants'
 import { headerBorderRemoveList } from '~/utils/data/menu'
-import t from '~/locales'
+
 export default function Header(props) {
   const router = useRouter()
 
@@ -27,32 +28,31 @@ export default function Header(props) {
   const showMobileMenu = () => {
     document.querySelector('body').classList.add('mmenu-active')
   }
-    return (
-        <header className="header">
-            <div className="header-top">
-                <div className="container">
-                    <div className="header-left">
-                        <i class="fas fa-store"></i>
-                        <p className="ml-1 welcome-msg"> {t('header.titleSellerCentre')}</p>
-                    </div>
-                    <div className="header-right">
-                        <div className="dropdown ml-5">
-                            <ALink href="#">TH</ALink>
-                            <ul className="dropdown-box">
-                                <li>
-                                    <ALink href="#">TH</ALink>
-                                </li>
-                                <li>
-                                    <ALink href="#">ENG</ALink>
-                                </li>
-                            </ul>
-                        </div>
-                        <span className="divider"></span>
-                        <LoginModal />
-                    </div>
-                </div>
+
+  return (
+    <header className="header">
+      <div className="header-top">
+        <div className="container">
+          <div className="header-right">
+            <i class="fas fa-store"></i>
+            <p className="ml-1 welcome-msg"> {t('header.titleSellerCentre')}</p>
+            <div className="dropdown ml-5">
+              <ALink href="#">TH</ALink>
+              <ul className="dropdown-box">
+                <li>
+                  <ALink href="#">TH</ALink>
+                </li>
+                <li>
+                  <ALink href="#">ENG</ALink>
+                </li>
+              </ul>
             </div>
-            
+            <span className="divider"></span>
+            <LoginModal />
+          </div>
+        </div>
+      </div>
+
       <div className="header-middle sticky-header fix-top sticky-content">
         <div className="container">
           <div className="header-left">
