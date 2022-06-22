@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import App from 'next/app'
 import t from '~/locales'
 import { useStore, Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -7,10 +8,10 @@ import Layout from '~/components/layout'
 import { wrapper } from '../store/index.js'
 import { demoActions } from '~/store/demo'
 import { currentDemo } from '~/server/queries'
-import '@antd/dist/antd.css'
+import '~/public/less/style.less'
 import '~/public/sass/style.scss'
 
-const App = ({ Component, pageProps }) => {
+const HappyShoppingApp = ({ Component, pageProps }) => {
   const store = useStore()
 
   useEffect(() => {
@@ -51,12 +52,9 @@ const App = ({ Component, pageProps }) => {
   )
 }
 
-App.getInitialProps = async ({ Component, ctx }) => {
-  let pageProps = {}
-  if (Component.getInitialProps) {
-    pageProps = await Component.getInitialProps(ctx)
-  }
-  return { pageProps }
+HappyShoppingApp.getInitialProps = async (appContext) => {
+  const pageProps = await App.getInitialProps(appContext)
+  return { ...pageProps }
 }
 
-export default wrapper.withRedux(App)
+export default wrapper.withRedux(HappyShoppingApp)

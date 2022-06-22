@@ -8,7 +8,9 @@
 5. components
 6. header
 7. footer
-8. demo
+8. pages
+9. demo
+10. happy shopping
 */
 
 /* 1. config */
@@ -81,7 +83,7 @@
 /* 7. footer */
 @import 'base/footer/footer';
 
-/* 8. Pages */
+/* 8. pages */
 @import 'pages/about';
 @import 'pages/account';
 @import 'pages/buttons';
@@ -103,14 +105,10 @@
 @import 'pages/icons';
 @import 'pages/faq';
 
+/* 9 demo */
 @import 'demo/demo3_custom';
 
-/* 9 antd */
-.ant-form-item-explain-error {
-  font-size: 12px;
-}
-
-/* 10 Happy Shopping */
+/* 10 happy shopping */
 .t-small {
   font-size: 12px;
 }
