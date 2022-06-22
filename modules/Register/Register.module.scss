@@ -8,12 +8,12 @@
     justify-content: center;
   }
 
-  .sideImgContainer {
+  .imgContainer {
     width: 100%;
     padding-top: 150%;
     position: relative;
 
-    .sideImgWrapper {
+    .imgWrapper {
       position: absolute;
       top: 0;
       left: 0;
@@ -25,8 +25,15 @@
 
 .modalFooterWrapper {
   margin: auto;
+}
 
-  @media (min-width: 576px) {
+@media (min-width: 576px) {
+  .modalBodyWrapper {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+
+  .modalFooterWrapper {
     max-width: 50%;
   }
 }
