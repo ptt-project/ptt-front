@@ -6,7 +6,11 @@ const t = (key: string): string => {
   const router: NextRouter = useRouter()
   const { locale } = router
   const lang: any = locale === 'en' ? en : th
-  return key.split('.').reduce((a: string, b: string) => a[b], lang)
+  try {
+    return key.split('.').reduce((a: string, b: string) => a[b], lang)
+  } catch (error) {
+    return `error key ${key}`
+  }
 }
 
 export default t

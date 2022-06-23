@@ -1,0 +1,40 @@
+@import '../../../../public/sass/config/_variables.scss';
+
+.cSecondary {
+  color: $secondary-color !important;
+}
+
+.message {
+  text-align: center;
+  margin: 3rem auto;
+
+  @media (max-width: 575px) {
+    max-width: 280px;
+  }
+}
+
+.sideImgContainer {
+  width: 100%;
+  padding-top: 150%;
+  position: relative;
+}
+
+.imgContainer {
+  width: 100%;
+  padding-top: 66.66%;
+  position: relative;
+}
+
+.imgWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

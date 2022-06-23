@@ -32,7 +32,7 @@ module.exports = {
     'import/no-unresolved': [
       'error',
       {
-        ignore: ['^[~]']
+        ignore: ['^[~]', '\\.module.scss$']
       }
     ],
     'import/extensions': ['error', 'never'],
@@ -44,18 +44,21 @@ module.exports = {
         unnamedComponents: 'arrow-function'
       }
     ],
+    'react/destructuring-assignment': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
     'react/jsx-no-bind': 'off',
     'react/jsx-pascal-case': ['error'],
     'jsx-a11y/anchor-is-valid': 'off',
     'jsx-a11y/anchor-has-content': 'off',
-    indent: ['error', 2],
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     'comma-dangle': ['error', 'never'],
     'no-console': 'off',
     'no-unused-vars': [2, { args: 'none' }],
     'no-else-return': ['error', { allowElseIf: false }],
+    'no-plusplus': 'off',
+    radix: ['error', 'as-needed'],
+    '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/no-explicit-any': [
       'error',
@@ -93,7 +96,8 @@ module.exports = {
       'error',
       {
         before: false,
-        after: true
+        after: true,
+        overrides: { arrow: { before: true, after: true } }
       }
     ],
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
