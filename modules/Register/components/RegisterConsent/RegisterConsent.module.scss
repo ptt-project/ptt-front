@@ -1,0 +1,60 @@
+@import '../../../../public/sass/config/_variables.scss';
+
+.cSecondary {
+  color: $secondary-color !important;
+}
+
+.cInfo {
+  color: $info-color !important;
+}
+
+.imgContainer {
+  width: 100%;
+  padding-top: 150%;
+  position: relative;
+
+  .imgWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.button {
+  color: $secondary-color;
+  border-color: $secondary-color;
+
+  &:hover,
+  &:focus {
+    color: $secondary-color-dark;
+    border-color: $secondary-color-dark;
+  }
+}
+
+.label {
+  display: flex;
+  padding-bottom: 8px;
+
+  .left {
+    display: flex;
+    flex: 1 50%;
+
+    .required {
+      margin-right: 4px;
+      color: $primary-color;
+    }
+  }
+
+  .right {
+    flex: 1 50%;
+    text-align: right;
+  }
+}
