@@ -6,14 +6,12 @@ import { Typography } from 'antd'
 import ProfileForm from './components/ProfileForm'
 import t from '~/locales'
 
-const { Link } = Typography
+const {  Link } = Typography
 interface IFormModel {
   firstName: string
   lastName: string
   mobileNo: string
   email: string
-  username: string
-  password: string
 }
 
 const Profile: FC = () => {
@@ -22,9 +20,7 @@ const Profile: FC = () => {
     firstName: '',
     lastName: '',
     mobileNo: '',
-    email: '',
-    username: '',
-    password: ''
+    email: ''
   })
   const [step, setStep] = useState<number>(0)
 
@@ -60,6 +56,7 @@ const Profile: FC = () => {
           </ul>
         </div>
       </nav>
+      
       {renderStep()}
     </main>
   )

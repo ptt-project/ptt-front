@@ -1,27 +1,26 @@
 import React, { useState, FC } from 'react'
 import type { RadioChangeEvent } from 'antd'
-import { useRouter, NextRouter } from 'next/router'
-import NextLink from 'next/link'
-import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Form, Input,Upload ,Avatar,Image,Select,Radio} from 'antd'
 import t from '~/locales'
 import styles from './ProfileForm.module.scss'
 
-const { Text, Link } = Typography
+const { Text } = Typography
 interface IFormModel {
   firstName: string
   lastName: string
   mobileNo: string
   email: string
-  username: string
-  password: string
 }
-const ProfileForm: FC = () => {
-  const router: NextRouter = useRouter()
+interface IProfileFormProps {
+  setForm: (form: IFormModel) => void
+  setStep: (step: number) => void
+}
+
+const ProfileForm: FC<IProfileFormProps> = (props: IProfileFormProps) => {
   const [form] = Form.useForm()
-  
   function onSubmit(values: IFormModel): void {
-    console.log(values)
+    props.setForm(values)
+    props.setStep(1)
   }
   const handleChange = (value: string): void => {
     console.log(`selected ${value}`)
