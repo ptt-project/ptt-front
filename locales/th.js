@@ -55,7 +55,7 @@ export default {
         otp: {
           title: 'ยืนยัน OTP ไปยังหมายเลขหลัก',
           label: 'OTP',
-          ref: 'Ref code: 1234',
+          ref: 'Ref code:',
           request: 'ส่งอีกครั้ง'
         }
       },

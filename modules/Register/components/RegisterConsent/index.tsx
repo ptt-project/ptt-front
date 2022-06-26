@@ -91,7 +91,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
     if (timer) {
       const min: number = Math.floor(timer / 60000)
       const sec: string = ((timer % 60000) / 1000).toFixed(0)
-      return ` ${min}:${parseInt(sec) < 10 ? '0' : ''}${sec}`
+      return ` (${min}:${parseInt(sec) < 10 ? '0' : ''}${sec})`
     }
     return ''
   }
@@ -102,7 +102,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
         title={
           <Text>
             <h4 className="mb-0 text-center">
-              <i className={`${styles.cInfo} fas fa-exclamation-circle mr-2`} />
+              <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
               {t('auth.register.consent.otp.title')}
             </h4>
           </Text>
@@ -125,7 +125,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
               <Button key="close" type="default" onClick={toggle}>
                 {t('common.close')}
               </Button>
-              <Button key="confirm" type="primary" disabled={otp.length !== 4} onClick={onSubmit}>
+              <Button key="confirm" type="primary" disabled={otp.length !== 6} onClick={onSubmit}>
                 {t('common.confirm')}
               </Button>
             </Col>
@@ -141,7 +141,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
             <Text type="secondary">{t('auth.register.consent.otp.ref')}</Text>
           </div>
         </div>
-        <Input maxLength={4} onChange={onChangeOtp} value={otp} />
+        <Input maxLength={6} onChange={onChangeOtp} value={otp} />
       </Modal>
       <div className="page-content mb-9">
         <div className="container">

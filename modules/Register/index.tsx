@@ -28,15 +28,15 @@ const Register: FC = () => {
     username: '',
     password: ''
   })
-  const [step, setStep] = useState<number>(0)
+  const [step, setStep] = useState<number>(0) // 0=REGISTER_FORM, 1=REGISTER_CONSENT, 2=REGISTER_SUCCESS
 
   function renderStep(): JSX.Element {
     switch (step) {
-      case 0:
+      case 0: // REGISTER_FORM
         return <RegisterForm setForm={setForm} setStep={setStep} />
-      case 1:
+      case 1: // REGISTER_CONSENT
         return <RegisterConsent form={form} setStep={setStep} />
-      case 2:
+      case 2: // REGISTER_SUCCESS
         return <RegisterSuccess />
       default:
         return <RegisterForm setForm={setForm} setStep={setStep} />
