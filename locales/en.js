@@ -44,11 +44,26 @@ export default {
         username: 'รองรับตัวอักษรสูงสุด 20 ตัวอักษร',
         password: 'รูปแบบรหัสผ่านไม่ถูกต้อง'
       }
+    },
+    changePassword: {
+      title: 'เปลี่ยนรหัสผ่าน',
+      password: 'รหัสผ่านปัจจุบัน',
+      newPassword: 'รหัสผ่านใหม่',
+      confirmNewPassword: 'ยืนยันรหัสผ่านใหม่',
+      description: 'ใช้ได้เฉพาะตัวอักษรภาษาอังกฤษ ตัวเลขอารบิกและเครื่องหมายปกติ ความยาว 8-20 ตัวอักษร ประกอบด้วย ตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว ตัวพิมพ์เล็กอย่างน้อย 1 ตัว ตัวเลขอย่างน้อย 1 ตัว',
+      button: {
+        submit: 'ยืนยัน'
+      },
+      error: {
+        passwordInValid: 'รหัสผ่านไม่ถูกต้อง',
+        passwordFormatInValid: 'รูปแบบรหัสผ่านไม่ถูกต้อง',
+        confirmPasswordNotMatched: 'ยืนยันรหัสผ่านไม่ตรงกัน',
+      }
     }
   },
-  header:{
-    titleSellerCentre:"Seller centre",
-    signIn:"Sign in",
-    register :"Register"
-}
+  header: {
+    titleSellerCentre: "Seller centre",
+    signIn: "Sign in",
+    register: "Register"
+  }
 }

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@apollo/client": "~3.4.0",
     "@apollo/react-hooks": "^4.0.0",
     "@apollo/react-ssr": "^4.0.0",
@@ -59,6 +60,7 @@
     "supports-color": "^9.0.2"
   },
   "devDependencies": {
+    "@types/google-map-react": "^2.1.7",
     "@types/react": "18.0.1",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
