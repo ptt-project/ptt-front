@@ -1,0 +1,36 @@
+@import '../../../public/sass/config/_variables.scss';
+
+.cInfo {
+  color: $info-color !important;
+}
+
+.button {
+  color: $secondary-color;
+  border-color: $secondary-color;
+
+  &:hover,
+  &:focus {
+    color: $secondary-color-dark;
+    border-color: $secondary-color-dark;
+  }
+}
+
+.label {
+  display: flex;
+  padding-bottom: 8px;
+
+  .left {
+    display: flex;
+    flex: 1 50%;
+
+    .required {
+      margin-right: 4px;
+      color: $primary-color;
+    }
+  }
+
+  .right {
+    flex: 1 50%;
+    text-align: right;
+  }
+}

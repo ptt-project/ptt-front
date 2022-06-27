@@ -1,7 +1,8 @@
-import React, { useState, useEffect, FC, ChangeEvent } from 'react'
-import { Typography, Space, Button, Row, Col, Form, Input, Checkbox, Image, Modal } from 'antd'
+import React, { useState, FC } from 'react'
+import { Typography, Space, Button, Row, Col, Form, Checkbox, Image } from 'antd'
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { isEmpty } from 'lodash'
+import OtpModal from '~/components/main/OtpModal'
 import t from '~/locales'
 import styles from './RegisterConsent.module.scss'
 
@@ -29,22 +30,6 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [form] = Form.useForm()
   const [checked, setChecked] = useState<boolean>(false)
-  const [otp, setOtp] = useState<string>('')
-  const [timer, setTimer] = useState<number>(0)
-
-  useEffect(() => {
-    const countDown: any = setInterval(() => {
-      if (timer > 0) {
-        setTimer(timer - 1000)
-      }
-      if (timer === 0) {
-        clearInterval(countDown)
-      }
-    }, 1000)
-    return (): void => {
-      clearInterval(countDown)
-    }
-  }, [timer])
 
   function toggle(): void {
     setIsOpen(!isOpen)
@@ -52,15 +37,6 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
 
   function onChangeChecked(e: CheckboxChangeEvent): void {
     setChecked(e.target.checked)
-  }
-
-  function onChangeOtp(e: ChangeEvent<HTMLInputElement>): void {
-    const reg: RegExp = /^[0-9\b]+$/
-    if (!e.target.value || reg.test(e.target.value)) {
-      setOtp(e.target.value)
-    } else {
-      setOtp(e.target.value.replace(/[^0-9.]/g, ''))
-    }
   }
 
   function onAccept(values: IFormConsentModel): void {
@@ -75,11 +51,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
     }
   }
 
-  function onRequestOtp(): void {
-    setTimer(1.5 * 60 * 1000)
-  }
-
-  function onSubmit(): void {
+  function onSubmit(otpData: { otp: string; refCode: string }): void {
     try {
       props.setStep(2)
     } catch (error) {
@@ -87,62 +59,9 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
     }
   }
 
-  function renderTimer(): string {
-    if (timer) {
-      const min: number = Math.floor(timer / 60000)
-      const sec: string = ((timer % 60000) / 1000).toFixed(0)
-      return ` (${min}:${parseInt(sec) < 10 ? '0' : ''}${sec})`
-    }
-    return ''
-  }
-
   return (
     <>
-      <Modal
-        title={
-          <Text>
-            <h4 className="mb-0 text-center">
-              <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
-              {t('auth.register.consent.otp.title')}
-            </h4>
-          </Text>
-        }
-        visible={isOpen}
-        onCancel={toggle}
-        footer={[
-          <Row>
-            <Col className="text-left" span={8}>
-              <Button
-                key="request"
-                className={styles.button}
-                onClick={onRequestOtp}
-                disabled={timer !== 0}
-              >
-                {`${t('auth.register.consent.otp.request')}${renderTimer()}`}
-              </Button>
-            </Col>
-            <Col span={16}>
-              <Button key="close" type="default" onClick={toggle}>
-                {t('common.close')}
-              </Button>
-              <Button key="confirm" type="primary" disabled={otp.length !== 6} onClick={onSubmit}>
-                {t('common.confirm')}
-              </Button>
-            </Col>
-          </Row>
-        ]}
-      >
-        <div className={styles.label}>
-          <div className={styles.left}>
-            <Text className={styles.required}>*</Text>
-            <Text>{t('auth.register.consent.otp.label')}</Text>
-          </div>
-          <div className={styles.right}>
-            <Text type="secondary">{t('auth.register.consent.otp.ref')}</Text>
-          </div>
-        </div>
-        <Input maxLength={6} onChange={onChangeOtp} value={otp} />
-      </Modal>
+      <OtpModal isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>

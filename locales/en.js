@@ -16,6 +16,14 @@ export default {
     next: 'ต่อไป',
     close: 'ปิด'
   },
+  components: {
+    otpModal: {
+      title: 'ยืนยัน OTP ไปยังหมายเลขหลัก',
+      label: 'OTP',
+      ref: 'Ref code:',
+      request: 'ส่งอีกครั้ง'
+    }
+  },
   auth: {
     register: {
       title: 'สมัครสมาชิก',
@@ -51,13 +59,7 @@ export default {
       consent: {
         title: 'ขอความยินยอม',
         content: '...do something',
-        checkbox: 'กรุณาติ๊กเพื่อรับทราบและยินยอม',
-        otp: {
-          title: 'ยืนยัน OTP ไปยังหมายเลขหลัก',
-          label: 'OTP',
-          ref: 'Ref code:',
-          request: 'ส่งอีกครั้ง'
-        }
+        checkbox: 'กรุณาติ๊กเพื่อรับทราบและยินยอม'
       },
       success: {
         title: 'สมัครสมาชิกสำเร็จ',
