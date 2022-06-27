@@ -101,13 +101,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
                 <Row>
                   <Col span={24}>
                     <Form.Item>
-                      <Button
-                        htmlType="submit"
-                        type="primary"
-                        size="large"
-                        block
-                        disabled={!checked}
-                      >
+                      <Button htmlType="submit" type="primary" block disabled={!checked}>
                         {t('common.next')}
                       </Button>
                     </Form.Item>

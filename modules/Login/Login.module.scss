@@ -1,4 +1,4 @@
-@import '../../../../public/sass/config/_variables.scss';
+@import '../../public/sass/config/_variables.scss';
 
 .cSecondary {
   color: $secondary-color !important;
@@ -36,20 +36,5 @@
       height: 100%;
       object-fit: cover;
     }
-  }
-}
-
-.modalFooterWrapper {
-  margin: auto;
-}
-
-@media (min-width: 576px) {
-  .modalBodyWrapper {
-    padding-left: 5rem;
-    padding-right: 5rem;
-  }
-
-  .modalFooterWrapper {
-    max-width: 50%;
   }
 }
