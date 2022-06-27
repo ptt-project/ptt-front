@@ -28,9 +28,11 @@ const ForgotPassword: FC = () => {
   })
 
   function onChangeFields(_: IFieldData[], allFields: IFieldData[]): void {
-    const tempFormData: IFormModel = { ...formData }
-    tempFormData[_[0].name[0]] = _[0].value
-    setFormData(tempFormData)
+    if (_.length) {
+      const tempFormData: IFormModel = { ...formData }
+      tempFormData[_[0].name[0]] = _[0].value
+      setFormData(tempFormData)
+    }
   }
 
   function onSubmit(values: IFormModel): void {
