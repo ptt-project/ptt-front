@@ -16,9 +16,11 @@ const AddPhone: FC = () => {
             <div className="container">
                 <ul className="breadcrumb">
                     <li><i className="d-icon-home"/></li>
-                    <li>{t('accountProfile.setting')}</li>
-                    <li>{t('accountProfile.personal_information')}</li>
-                    <li>{t('accountProfile.title')}</li>
+                    <li disabled>{t('accountProfile.form.setting')}</li>
+                    <li disabled>{t('accountProfile.form.title')}</li>
+                    <li disabled>{t('accountProfile.form.personalInfo')}</li>
+                    <li disabled>{t('accountProfile.phone.titleEdit')}</li>
+                    <li>{t('accountProfile.phone.titleAdd')}</li>
                 </ul>
             </div>
         </nav>

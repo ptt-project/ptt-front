@@ -95,7 +95,7 @@ export default {
     form:{
       title:'บัญชีผู้ใช้',
       setting:'ตั้งค่า',
-      personalInformation:'ข้อมูลส่วนตัว',
+      personalInfo:'ข้อมูลส่วนตัว',
       memberId:'รหัสสมาชิก',
       username:'ชื่อผู้ใช้',
       msgChooseImage:'ไฟล์JPEG,PNG ขนาดไฟล์ไม่เกิน 1 MB',
