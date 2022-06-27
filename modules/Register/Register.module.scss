@@ -1,25 +1,19 @@
-.page {
-  .link {
-    text-decoration: underline;
-  }
+.space {
+  width: 100%;
+  justify-content: center;
+}
 
-  .space {
-    width: 100%;
-    justify-content: center;
-  }
+.imgContainer {
+  width: 100%;
+  padding-top: 150%;
+  position: relative;
 
-  .imgContainer {
-    width: 100%;
-    padding-top: 150%;
-    position: relative;
-
-    .imgWrapper {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-    }
+  .imgWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
 }
 

@@ -1,7 +1,22 @@
-@import '../../../../public/sass/config/_variables.scss';
+@import '../../public/sass/config/_variables.scss';
 
 .cSecondary {
   color: $secondary-color !important;
+}
+
+.link {
+  text-decoration: underline !important;
+  color: $secondary-color !important;
+
+  &:hover,
+  &:focus {
+    color: $secondary-color-dark !important;
+  }
+}
+
+.space {
+  width: 100%;
+  justify-content: center;
 }
 
 .imgContainer {

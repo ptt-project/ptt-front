@@ -1,12 +1,12 @@
 import React, { useState, FC } from 'react'
 import { useRouter, NextRouter } from 'next/router'
-import NextLink from 'next/link'
 import Helmet from 'react-helmet'
 import { Typography } from 'antd'
 import RegisterForm from './components/RegisterForm'
 import RegisterConsent from './components/RegisterConsent'
 import RegisterSuccess from './components/RegisterSuccess'
 import t from '~/locales'
+import { Url } from '~/utils/main'
 
 const { Link } = Typography
 interface IFormModel {
@@ -54,11 +54,9 @@ const Register: FC = () => {
         <div className="container">
           <ul className="breadcrumb">
             <li>
-              <NextLink href="/" locale={router.locale}>
-                <Link>
-                  <i className="d-icon-home" />
-                </Link>
-              </NextLink>
+              <Link href={Url.href('/', router.locale)}>
+                <i className="d-icon-home" />
+              </Link>
             </li>
             <li>{t('auth.register.title')}</li>
           </ul>

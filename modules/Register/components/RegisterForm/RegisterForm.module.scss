@@ -5,10 +5,11 @@
 }
 
 .link {
-  text-decoration: underline;
+  text-decoration: underline !important;
   color: $secondary-color !important;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     color: $secondary-color-dark !important;
   }
 }

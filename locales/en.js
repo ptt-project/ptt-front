@@ -16,6 +16,14 @@ export default {
     next: 'ต่อไป',
     close: 'ปิด'
   },
+  components: {
+    otpModal: {
+      title: 'ยืนยัน OTP ไปยังหมายเลขหลัก',
+      label: 'OTP',
+      ref: 'Ref code:',
+      request: 'ส่งอีกครั้ง'
+    }
+  },
   auth: {
     register: {
       title: 'สมัครสมาชิก',
@@ -36,9 +44,9 @@ export default {
         policyBContent: '...do something',
         policyC: 'นโยบายความเป็นส่วนตัว',
         policyCContent: '...do something',
-        noteA: 'หรือ',
-        noteB: 'หากมีบัญชีผู้ใช้แล้ว คุณสามารถ',
-        noteC: 'เข้าสู่ระบบ',
+        divider: 'หรือ',
+        loginA: 'หากมีบัญชีผู้ใช้แล้ว คุณสามารถ',
+        loginB: 'เข้าสู่ระบบ',
         rules: {
           firstName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
           lastName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
@@ -51,18 +59,30 @@ export default {
       consent: {
         title: 'ขอความยินยอม',
         content: '...do something',
-        checkbox: 'กรุณาติ๊กเพื่อรับทราบและยินยอม',
-        otp: {
-          title: 'ยืนยัน OTP ไปยังหมายเลขหลัก',
-          label: 'OTP',
-          ref: 'Ref code:',
-          request: 'ส่งอีกครั้ง'
-        }
+        checkbox: 'กรุณาติ๊กเพื่อรับทราบและยินยอม'
       },
       success: {
         title: 'สมัครสมาชิกสำเร็จ',
         message: 'ระบบได้สมัครสมาชิกให้เรียบร้อยแล้ว กรุณากดปุ่ม เข้าสู่ระบบ เพื่อเข้าใช้งานถัดไป',
         login: 'เข้าสู่ระบบ'
+      }
+    },
+    login: {
+      title: 'เข้าสู่ระบบ',
+      form: {
+        username: 'Username',
+        password: 'Password'
+      },
+      divider: 'หรือ',
+      forgotPassword: 'ลืมรหัสผ่าน'
+    },
+    forgotPassword: {
+      title: 'ตั้งรหัสผ่านใหม่',
+      form: {
+        emailOrMobileNo: 'E-mail/หมายเลขโทรศัพท์',
+        rules: {
+          emailOrMobileNo: 'กรุณาระบุ E-mail/หมายเลขโทรศัพท์'
+        }
       }
     }
   },
@@ -70,7 +90,7 @@ export default {
     titleSellerCentre:"Seller centre",
     signIn:"Sign in",
     register :"Register"
-},
+  },
   accountProfile :{
     form:{
       title:"บัญชีผู้ใช้",
