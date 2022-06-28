@@ -5,18 +5,10 @@ import { Rule } from 'antd/lib/form'
 import { isEmpty } from 'lodash'
 import t from '~/locales'
 import { Url } from '~/utils/main'
+import { IRegisterForm } from '~/model/Auth'
 import styles from './RegisterForm.module.scss'
 
 const { Text, Link } = Typography
-
-interface IFormModel {
-  firstName: string
-  lastName: string
-  mobileNo: string
-  email: string
-  username: string
-  password: string
-}
 
 interface IModalModel {
   isOpen: string
@@ -25,7 +17,7 @@ interface IModalModel {
 }
 
 interface IRegisterFormProps {
-  setForm: (form: IFormModel) => void
+  setForm: (form: IRegisterForm) => void
   setStep: (step: number) => void
 }
 
@@ -66,7 +58,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
     }
   }
 
-  function onSubmit(values: IFormModel): void {
+  function onSubmit(values: IRegisterForm): void {
     props.setForm(values)
     props.setStep(1)
   }

@@ -4,40 +4,29 @@ import Helmet from 'react-helmet'
 import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image } from 'antd'
 import t from '~/locales'
 import { Url } from '~/utils/main'
+import { ILoginForm } from '~/model/Auth'
+import { IFieldData } from '~/model/Common'
 import styles from './Login.module.scss'
 
 const { Text, Link } = Typography
 
-interface IFormModel {
-  username: string
-  password: string
-}
-
-interface IFieldData {
-  name: string | number | (string | number)[]
-  value?: any
-  touched?: boolean
-  validating?: boolean
-  errors?: string[]
-}
-
 const Login: FC = () => {
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
-  const [formData, setFormData] = useState<IFormModel>({
+  const [formData, setFormData] = useState<ILoginForm>({
     username: '',
     password: ''
   })
 
   function onChangeFields(_: IFieldData[], allFields: IFieldData[]): void {
     if (_.length) {
-      const tempFormData: IFormModel = { ...formData }
+      const tempFormData: ILoginForm = { ...formData }
       tempFormData[_[0].name[0]] = _[0].value
       setFormData(tempFormData)
     }
   }
 
-  function onSubmit(values: IFormModel): void {
+  function onSubmit(values: ILoginForm): void {
     console.log(values)
   }
 

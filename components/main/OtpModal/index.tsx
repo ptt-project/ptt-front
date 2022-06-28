@@ -1,14 +1,10 @@
 import React, { useState, useEffect, FC, ChangeEvent } from 'react'
 import { Typography, Button, Row, Col, Input, Modal } from 'antd'
 import t from '~/locales'
+import { IOtpData } from '~/model/Common'
 import styles from './OtpModal.module.scss'
 
 const { Text } = Typography
-
-interface IOtpData {
-  otp: string
-  refCode: string
-}
 
 interface IOtpModalProps {
   isOpen: boolean
