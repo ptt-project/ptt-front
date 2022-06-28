@@ -4,25 +4,18 @@ import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { isEmpty } from 'lodash'
 import OtpModal from '~/components/main/OtpModal'
 import t from '~/locales'
+import { IRegisterForm } from '~/model/Auth'
+import { IOtpData } from '~/model/Common'
 import styles from './RegisterConsent.module.scss'
 
 const { Text } = Typography
-
-interface IFormModel {
-  firstName: string
-  lastName: string
-  mobileNo: string
-  email: string
-  username: string
-  password: string
-}
 
 interface IFormConsentModel {
   acceptConsent: boolean
 }
 
 interface IRegisterConsentProps {
-  form: IFormModel
+  form: IRegisterForm
   setStep: (step: number) => void
 }
 
@@ -51,7 +44,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
     }
   }
 
-  function onSubmit(otpData: { otp: string; refCode: string }): void {
+  function onSubmit(otpData: IOtpData): void {
     try {
       props.setStep(2)
     } catch (error) {

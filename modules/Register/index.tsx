@@ -7,20 +7,13 @@ import RegisterConsent from './components/RegisterConsent'
 import RegisterSuccess from './components/RegisterSuccess'
 import t from '~/locales'
 import { Url } from '~/utils/main'
+import { IRegisterForm } from '~/model/Auth'
 
 const { Link } = Typography
-interface IFormModel {
-  firstName: string
-  lastName: string
-  mobileNo: string
-  email: string
-  username: string
-  password: string
-}
 
 const Register: FC = () => {
   const router: NextRouter = useRouter()
-  const [form, setForm] = useState<IFormModel>({
+  const [form, setForm] = useState<IRegisterForm>({
     firstName: '',
     lastName: '',
     mobileNo: '',

@@ -4,14 +4,10 @@ import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Form, Input, Image } from 'antd'
 import t from '~/locales'
 import { Url } from '~/utils/main'
+import { IForgotPasswordForm } from '~/model/Auth'
 import styles from './ForgotPassword.module.scss'
 
 const { Text, Link } = Typography
-
-interface IFormModel {
-  emailOrMobileNo: string
-}
-
 interface IFieldData {
   name: string | number | (string | number)[]
   value?: any
@@ -23,19 +19,19 @@ interface IFieldData {
 const ForgotPassword: FC = () => {
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
-  const [formData, setFormData] = useState<IFormModel>({
+  const [formData, setFormData] = useState<IForgotPasswordForm>({
     emailOrMobileNo: ''
   })
 
   function onChangeFields(_: IFieldData[], allFields: IFieldData[]): void {
     if (_.length) {
-      const tempFormData: IFormModel = { ...formData }
+      const tempFormData: IForgotPasswordForm = { ...formData }
       tempFormData[_[0].name[0]] = _[0].value
       setFormData(tempFormData)
     }
   }
 
-  function onSubmit(values: IFormModel): void {
+  function onSubmit(values: IForgotPasswordForm): void {
     console.log(values)
   }
 
