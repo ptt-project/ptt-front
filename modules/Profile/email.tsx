@@ -3,6 +3,10 @@ import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Form, Input} from 'antd'
 import t from '~/locales'
 import styles from './Profile.module.scss'
+import Link from 'next/link'
+import { useRouter, NextRouter } from 'next/router'
+import { Url } from '~/utils/main'
+import SideBarSettingMenu from '~/components/main/SideBarSettingMenu'
 
 const { Text } = Typography
 interface IFormModel {
@@ -11,6 +15,7 @@ interface IFormModel {
 }
 
 const Email: FC = () => {
+  const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   function onSubmit(values: IFormModel): void {
     console.log(values)
@@ -23,11 +28,15 @@ const Email: FC = () => {
     <nav className="breadcrumb-nav">
       <div className="container">
         <ul className="breadcrumb">
-          <li><i className="d-icon-home"/></li>
+          <li>
+            <Link href={Url.href('/', router.locale)}>
+                <i className="d-icon-home" />
+            </Link>
+          </li>
           <li disabled>{t('accountProfile.form.setting')}</li>
           <li disabled>{t('accountProfile.form.title')}</li>
-          <li disabled>{t('accountProfile.form.personalInfo')}</li>
-          <li>{t('accountProfile.email.title')}</li>
+          <li><Link href={Url.href('/personal-info', router.locale)}>{t('accountProfile.form.personalInfo')}</Link></li>
+          <li><Link href={Url.href('/personal-info/email', router.locale)}>{t('accountProfile.email.title')}</Link></li>
         </ul>
       </div>
     </nav>
@@ -35,7 +44,7 @@ const Email: FC = () => {
       <div className="container">
         <Row gutter={48}>
           <Col xl={6} lg={0}>
-            Menu
+            <SideBarSettingMenu/>
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>
             <Text><h4 className={`text-center mb-5 ${styles.textEmailTitle} ${styles.textPrimary}`}>{t('accountProfile.email.title')}</h4></Text>

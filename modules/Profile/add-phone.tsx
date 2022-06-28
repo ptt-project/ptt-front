@@ -3,6 +3,7 @@ import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Form, Input} from 'antd'
 import t from '~/locales'
 import styles from './Profile.module.scss'
+import SideBarSettingMenu from '~/components/main/SideBarSettingMenu'
 
 const { Text } = Typography
 
@@ -28,7 +29,7 @@ const AddPhone: FC = () => {
         <div className="container">
         <Row gutter={48}>
             <Col xl={6} lg={0}>
-                Menu
+                <SideBarSettingMenu/>
             </Col> 
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>
                 <Text>

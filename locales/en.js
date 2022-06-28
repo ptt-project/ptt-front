@@ -148,5 +148,19 @@ export default {
       lastName: "รองรับตัวอักษรสูงสุด 50 ตัวอักษร",
       email:"รหัสผ่านไม่ถูกต้อง"
     }
+  },
+  SideBarSettingMenu:{
+    userAccount:'บัญชีผู้ใช้',
+    personalInfo:'ข้อมูลส่วนตัว',
+    address:'ที่อยู่',
+    changePassword:'เปลี่ยนรหัสผ่าน',
+    relationship:'ความสัมพันธ์',
+    finance:'การเงิน',
+    eWallet:'E-wallet',
+    bankAccount:'บัญชีธนาคาร',
+    happyPoint:'Happy Point',
+    discountCode:'โค้ดส่วนลด',
+    myPurchase:'การซื้อของฉัน',
+    notification:'การแจ้งเตือน',
   }
 }
