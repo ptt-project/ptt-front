@@ -20,14 +20,14 @@ const SideBarSettingMenu: FC = () => {
             <div className={`sidebar-content ${styles.widthMenu}`}>
             <div className="sticky-sidebar ">
                 <h6 class='widget-title'><i className={`fas fa-user ${styles.paddingRight5}`}/>{t('SideBarSettingMenu.userAccount')}</h6>
-                <ul className="widget-body">
+                <ul className="widget-body ml-5" >
                     <li>{t('SideBarSettingMenu.personalInfo')}</li>
                     <li>{t('SideBarSettingMenu.address')}</li>
                     <li>{t('SideBarSettingMenu.changePassword')}</li>
                     <li>{t('SideBarSettingMenu.relationship')}</li>
                 </ul>
                 <h6 class='widget-title'><i className={`fas fa-wallet ${styles.paddingRight5}`}/>{t('SideBarSettingMenu.finance')}</h6>
-                <ul className="widget-body">
+                <ul className="widget-body ml-5">
                     <li>{t('SideBarSettingMenu.eWallet')}</li>
                     <li>{t('SideBarSettingMenu.bankAccount')}</li>
                     <li>{t('SideBarSettingMenu.happyPoint')}</li>
