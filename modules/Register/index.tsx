@@ -1,26 +1,19 @@
 import React, { useState, FC } from 'react'
 import { useRouter, NextRouter } from 'next/router'
-import NextLink from 'next/link'
 import Helmet from 'react-helmet'
 import { Typography } from 'antd'
 import RegisterForm from './components/RegisterForm'
 import RegisterConsent from './components/RegisterConsent'
 import RegisterSuccess from './components/RegisterSuccess'
 import t from '~/locales'
+import { Url } from '~/utils/main'
+import { IRegisterForm } from '~/model/Auth'
 
 const { Link } = Typography
-interface IFormModel {
-  firstName: string
-  lastName: string
-  mobileNo: string
-  email: string
-  username: string
-  password: string
-}
 
 const Register: FC = () => {
   const router: NextRouter = useRouter()
-  const [form, setForm] = useState<IFormModel>({
+  const [form, setForm] = useState<IRegisterForm>({
     firstName: '',
     lastName: '',
     mobileNo: '',
@@ -28,15 +21,15 @@ const Register: FC = () => {
     username: '',
     password: ''
   })
-  const [step, setStep] = useState<number>(0)
+  const [step, setStep] = useState<number>(0) // 0=REGISTER_FORM, 1=REGISTER_CONSENT, 2=REGISTER_SUCCESS
 
   function renderStep(): JSX.Element {
     switch (step) {
-      case 0:
+      case 0: // REGISTER_FORM
         return <RegisterForm setForm={setForm} setStep={setStep} />
-      case 1:
+      case 1: // REGISTER_CONSENT
         return <RegisterConsent form={form} setStep={setStep} />
-      case 2:
+      case 2: // REGISTER_SUCCESS
         return <RegisterSuccess />
       default:
         return <RegisterForm setForm={setForm} setStep={setStep} />
@@ -54,11 +47,9 @@ const Register: FC = () => {
         <div className="container">
           <ul className="breadcrumb">
             <li>
-              <NextLink href="/" locale={router.locale}>
-                <Link>
-                  <i className="d-icon-home" />
-                </Link>
-              </NextLink>
+              <Link href={Url.href('/', router.locale)}>
+                <i className="d-icon-home" />
+              </Link>
             </li>
             <li>{t('auth.register.title')}</li>
           </ul>

@@ -37,6 +37,7 @@ module.exports = {
     ],
     'import/extensions': ['error', 'never'],
     'import/no-import-module-exports': 'off',
+    'import/prefer-default-export': 'off',
     'react/function-component-definition': [
       2,
       {

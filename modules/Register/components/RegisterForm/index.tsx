@@ -1,22 +1,14 @@
 import React, { useState, FC, ChangeEvent } from 'react'
 import { useRouter, NextRouter } from 'next/router'
-import NextLink from 'next/link'
 import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, Modal } from 'antd'
 import { Rule } from 'antd/lib/form'
 import { isEmpty } from 'lodash'
 import t from '~/locales'
+import { Url } from '~/utils/main'
+import { IRegisterForm } from '~/model/Auth'
 import styles from './RegisterForm.module.scss'
 
 const { Text, Link } = Typography
-
-interface IFormModel {
-  firstName: string
-  lastName: string
-  mobileNo: string
-  email: string
-  username: string
-  password: string
-}
 
 interface IModalModel {
   isOpen: string
@@ -25,7 +17,7 @@ interface IModalModel {
 }
 
 interface IRegisterFormProps {
-  setForm: (form: IFormModel) => void
+  setForm: (form: IRegisterForm) => void
   setStep: (step: number) => void
 }
 
@@ -66,7 +58,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
     }
   }
 
-  function onSubmit(values: IFormModel): void {
+  function onSubmit(values: IRegisterForm): void {
     props.setForm(values)
     props.setStep(1)
   }
@@ -212,17 +204,17 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                   </Space>
                 </Space>
                 <Form.Item>
-                  <Button className="mb-5" htmlType="submit" type="primary" size="large" block>
+                  <Button className="mb-5" htmlType="submit" type="primary" block>
                     {t('auth.register.title')}
                   </Button>
                 </Form.Item>
               </Form>
-              <Divider>{t('auth.register.form.noteA')}</Divider>
+              <Divider>{t('auth.register.form.divider')}</Divider>
               <Space className={styles.space} wrap>
-                <Text>{t('auth.register.form.noteB')}</Text>
-                <NextLink href="/login" locale={router.locale}>
-                  <Link className={styles.link}>{t('auth.register.form.noteC')}</Link>
-                </NextLink>
+                <Text>{t('auth.register.form.loginA')}</Text>
+                <Link href={Url.href('/auth/login', router.locale)} className={styles.link}>
+                  {t('auth.register.form.loginB')}
+                </Link>
               </Space>
             </Col>
           </Row>

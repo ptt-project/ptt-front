@@ -16,6 +16,14 @@ export default {
     next: 'ต่อไป',
     close: 'ปิด'
   },
+  components: {
+    otpModal: {
+      title: 'ยืนยัน OTP ไปยังหมายเลขหลัก',
+      label: 'OTP',
+      ref: 'Ref code:',
+      request: 'ส่งอีกครั้ง'
+    }
+  },
   auth: {
     register: {
       title: 'สมัครสมาชิก',
@@ -36,9 +44,9 @@ export default {
         policyBContent: '...do something',
         policyC: 'นโยบายความเป็นส่วนตัว',
         policyCContent: '...do something',
-        noteA: 'หรือ',
-        noteB: 'หากมีบัญชีผู้ใช้แล้ว คุณสามารถ',
-        noteC: 'เข้าสู่ระบบ',
+        divider: 'หรือ',
+        loginA: 'หากมีบัญชีผู้ใช้แล้ว คุณสามารถ',
+        loginB: 'เข้าสู่ระบบ',
         rules: {
           firstName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
           lastName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
@@ -51,13 +59,7 @@ export default {
       consent: {
         title: 'ขอความยินยอม',
         content: '...do something',
-        checkbox: 'กรุณาติ๊กเพื่อรับทราบและยินยอม',
-        otp: {
-          title: 'ยืนยัน OTP ไปยังหมายเลขหลัก',
-          label: 'OTP',
-          ref: 'Ref code: 1234',
-          request: 'ส่งอีกครั้ง'
-        }
+        checkbox: 'กรุณาติ๊กเพื่อรับทราบและยินยอม'
       },
       success: {
         title: 'สมัครสมาชิกสำเร็จ',
@@ -65,19 +67,38 @@ export default {
         login: 'เข้าสู่ระบบ'
       }
     },
+    login: {
+      title: 'เข้าสู่ระบบ',
+      form: {
+        username: 'Username',
+        password: 'Password'
+      },
+      divider: 'หรือ',
+      forgotPassword: 'ลืมรหัสผ่าน'
+    },
+    forgotPassword: {
+      title: 'ตั้งรหัสผ่านใหม่',
+      form: {
+        emailOrMobileNo: 'E-mail/หมายเลขโทรศัพท์',
+        rules: {
+          emailOrMobileNo: 'กรุณาระบุ E-mail/หมายเลขโทรศัพท์'
+        }
+      }
+    },
     changePassword: {
       title: 'เปลี่ยนรหัสผ่าน',
       password: 'รหัสผ่านปัจจุบัน',
       newPassword: 'รหัสผ่านใหม่',
       confirmNewPassword: 'ยืนยันรหัสผ่านใหม่',
-      description: 'ใช้ได้เฉพาะตัวอักษรภาษาอังกฤษ ตัวเลขอารบิกและเครื่องหมายปกติ ความยาว 8-20 ตัวอักษร ประกอบด้วย ตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว ตัวพิมพ์เล็กอย่างน้อย 1 ตัว ตัวเลขอย่างน้อย 1 ตัว',
+      description:
+        'ใช้ได้เฉพาะตัวอักษรภาษาอังกฤษ ตัวเลขอารบิกและเครื่องหมายปกติ ความยาว 8-20 ตัวอักษร ประกอบด้วย ตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว ตัวพิมพ์เล็กอย่างน้อย 1 ตัว ตัวเลขอย่างน้อย 1 ตัว',
       button: {
         submit: 'ยืนยัน'
       },
       error: {
         passwordInValid: 'รหัสผ่านไม่ถูกต้อง',
         passwordFormatInValid: 'รูปแบบรหัสผ่านไม่ถูกต้อง',
-        confirmPasswordNotMatched: 'ยืนยันรหัสผ่านไม่ตรงกัน',
+        confirmPasswordNotMatched: 'ยืนยันรหัสผ่านไม่ตรงกัน'
       }
     }
   },
@@ -96,7 +117,7 @@ export default {
       addressType: 'ติดป้ายเป็น',
       isDefault: 'เลือกเป็นที่อยู่ตั้งต้น',
       isStore: 'เลือกเป็นที่อยู่ในการรับสินค้า',
-      isRefundStore: 'เลือกเป็นที่อยู่ในการรับสินค้าคืน',
+      isRefundStore: 'เลือกเป็นที่อยู่ในการรับสินค้าคืน'
     }
   },
   header: {
