@@ -7,9 +7,9 @@ import GoogleMapReact from 'google-map-react';
 import ALink from '~/components/features/custom-link';
 import { fadeIn } from '~/utils/data/keyframes';
 
-const AnyReactComponent = ( { text } ) => <div>{ text }</div>;
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-function ContactUs () {
+function ContactUs() {
     const defaultProps = {
         center: {
             lat: 59.95,
@@ -35,12 +35,12 @@ function ContactUs () {
                 </div>
             </nav>
 
-            <div className="page-header" style={ { backgroundImage: 'url(./images/page-header/contact-us.jpg)', backgroundColor: "#92918f" } }>
+            <div className="page-header" style={{ backgroundImage: 'url(./images/page-header/contact-us.jpg)', backgroundColor: "#92918f" }}>
                 <h1 className="page-title font-weight-bold text-capitalize ls-l">Contact Us</h1>
             </div>
 
             <div className="page-content mt-10 pt-7">
-                <Reveal keyframes={ fadeIn } delay="50" duration="1000" triggerOnce>
+                <Reveal keyframes={fadeIn} delay="50" duration="1000" triggerOnce>
                     <section className="contact-section">
                         <div className="container">
                             <div className="row">
@@ -91,7 +91,7 @@ function ContactUs () {
                     </section>
                 </Reveal>
 
-                <Reveal keyframes={ fadeIn } delay="50" duration="1000" triggerOnce>
+                <Reveal keyframes={fadeIn} delay="50" duration="1000" triggerOnce>
                     <section className="store-section mt-6 pt-10 pb-8">
                         <div className="container">
                             <h2 className="title title-center mb-7 text-normal">Our store</h2>
@@ -101,10 +101,10 @@ function ContactUs () {
                                         <LazyLoadImage
                                             src="./images/subpages/store-1.jpg"
                                             alt="store"
-                                            width={ 280 }
-                                            height={ 280 }
+                                            width={280}
+                                            height={280}
                                             effect="opacity"
-                                            style={ { backgroundColor: "#EEE" } }
+                                            style={{ backgroundColor: "#EEE" }}
                                         />
 
                                         <h4 className="overlay-visible">New York</h4>
@@ -124,10 +124,10 @@ function ContactUs () {
                                         <LazyLoadImage
                                             src="./images/subpages/store-2.jpg"
                                             alt="store"
-                                            width={ 280 }
-                                            height={ 280 }
+                                            width={280}
+                                            height={280}
                                             effect="opacity"
-                                            style={ { backgroundColor: "#EEE" } }
+                                            style={{ backgroundColor: "#EEE" }}
                                         />
                                         <h4 className="overlay-visible">London</h4>
                                         <div className="overlay overlay-transparent">
@@ -146,10 +146,10 @@ function ContactUs () {
                                         <LazyLoadImage
                                             src="./images/subpages/store-3.jpg"
                                             alt="store"
-                                            width={ 280 }
-                                            height={ 280 }
+                                            width={280}
+                                            height={280}
                                             effect="opacity"
-                                            style={ { backgroundColor: "#EEE" } }
+                                            style={{ backgroundColor: "#EEE" }}
                                         />
                                         <h4 className="overlay-visible">Oslo</h4>
                                         <div className="overlay overlay-transparent">
@@ -168,10 +168,10 @@ function ContactUs () {
                                         <LazyLoadImage
                                             src="./images/subpages/store-4.jpg"
                                             alt="store"
-                                            width={ 280 }
-                                            height={ 280 }
+                                            width={280}
+                                            height={280}
                                             effect="opacity"
-                                            style={ { backgroundColor: "#EEE" } }
+                                            style={{ backgroundColor: "#EEE" }}
                                         />
                                         <h4 className="overlay-visible">Stockholm</h4>
                                         <div className="overlay overlay-transparent">
@@ -190,16 +190,16 @@ function ContactUs () {
                     </section>
                 </Reveal>
 
-                <Reveal keyframes={ fadeIn } delay="50" duration="1000" triggerOnce>
-                    <div className="grey-section google-map" id="googlemaps" style={ { height: "386px" } }>
-                        <GoogleMapReact 
-bootstrapURLKeys={ { key: 'AIzaSyBgVsModMpsR59_OIK-2sEcmhBBkW4xUuw' } }
-                            defaultCenter={ { lat: 59.95, lng: 30.33 } }
-                            defaultZoom={ 11 }
+                <Reveal keyframes={fadeIn} delay="50" duration="1000" triggerOnce>
+                    <div className="grey-section google-map" id="googlemaps" style={{ height: "386px" }}>
+                        <GoogleMapReact
+                            bootstrapURLKeys={{ key: 'AIzaSyBgVsModMpsR59_OIK-2sEcmhBBkW4xUuw' }}
+                            defaultCenter={{ lat: 59.95, lng: 30.33 }}
+                            defaultZoom={11}
                         >
                             <AnyReactComponent
-                                lat={ 59.955413 }
-                                lng={ 30.337844 }
+                                lat={59.955413}
+                                lng={30.337844}
                                 text="My Marker"
                             />
                         </GoogleMapReact>
@@ -211,4 +211,4 @@ bootstrapURLKeys={ { key: 'AIzaSyBgVsModMpsR59_OIK-2sEcmhBBkW4xUuw' } }
 
 }
 
-export default React.memo( ContactUs );
+export default React.memo(ContactUs);

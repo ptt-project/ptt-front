@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Button, Form, FormItemProps, Input, Space, Typography } from 'antd'
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
 import { FormInstance, Rule, RuleObject, RuleRender } from 'antd/lib/form'
@@ -37,7 +37,6 @@ const InputPassword: React.FC<FormItemProps> = (props: FormItemProps) => {
 
 const ChangePassword: React.FC = () => {
   const [form] = Form.useForm<IChangePasswordFieldsValue>()
-  const [formInValid] = useState(true)
 
   const confirmPasswordNotMatchedMessage: string = t(
     'auth.changePassword.error.confirmPasswordNotMatched'
@@ -59,11 +58,6 @@ const ChangePassword: React.FC = () => {
     }
   })
 
-  function onFormInvalid(event: FormEvent): void {
-    console.log({ event })
-    // setFormInValid(event.)
-  }
-
   const baseRules: Rule[] = [
     {
       required: true,
@@ -82,13 +76,7 @@ const ChangePassword: React.FC = () => {
         <Text className={styles.title}>
           <h4>{t('auth.changePassword.title')}</h4>
         </Text>
-        <Form
-          layout="vertical"
-          form={form}
-          onFinish={onFormFinish}
-          onInvalid={onFormInvalid}
-          requiredMark={false}
-        >
+        <Form layout="vertical" form={form} onFinish={onFormFinish} requiredMark={false}>
           <InputPassword
             label={t('auth.changePassword.password')}
             name="password"
@@ -115,7 +103,7 @@ const ChangePassword: React.FC = () => {
             <Text className={styles.description}>{t('auth.changePassword.description')}</Text>
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" size="large" disabled={formInValid} block>
+            <Button type="primary" htmlType="submit" size="large" block>
               {t('auth.changePassword.button.submit')}
             </Button>
           </Form.Item>

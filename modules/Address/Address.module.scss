@@ -1,6 +1,8 @@
 @import '../../public/sass/config/variables';
 
 .page {
+  margin: 20px;
+
   line-height: 2.15;
   width: 100%;
   max-width: 1220px;
@@ -19,4 +21,24 @@
       color: $secondary-color;
     }
   }
+}
+
+.form {
+  .addressDetails {
+    > textarea {
+      min-height: 80px;
+      max-height: 80px;
+    }
+  }
+
+  .fieldRow {
+    row-gap: 4px;
+  }
+  .fieldCol {
+    width: 100%;
+  }
+}
+
+.button {
+  margin-top: 20px;
 }
