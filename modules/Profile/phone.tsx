@@ -8,14 +8,22 @@ import styles from './Profile.module.scss'
 import SideBarSettingMenu from '~/components/main/SideBarSettingMenu'
 import { Url } from '~/utils/main'
 import OtpModal from '~/components/main/OtpModal'
+import DelPhoneModal from './delPhoneModal'
 
 const { Text } = Typography
   
 const Phone: FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
-
+    const [isOpenDelPhoneModal, setIsOpenDelPhoneModal] = useState<boolean>(false)
     function toggle(): void {
       setIsOpen(!isOpen)
+    }
+    function toggleDelPhoneModal(): void {
+      setIsOpenDelPhoneModal(!isOpenDelPhoneModal)
+    }
+    function onDelPhoneModal(){
+      console.log("onDelPhoneModal")
+      setIsOpenDelPhoneModal(true)
     }
     function onFavoritePhone(){
       setIsOpen(true)
@@ -30,6 +38,7 @@ const Phone: FC = () => {
     return (
       <>
       <OtpModal  mobileNo="12346" isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
+      <DelPhoneModal isOpen={isOpenDelPhoneModal} toggle={toggleDelPhoneModal}/>
       <main className="main account">
       <Helmet>
         <title>{t('meta.title')} | {t('accountProfile.form.title')}</title>
@@ -75,7 +84,7 @@ const Phone: FC = () => {
                 </Col>
                 <Col span={12} className="text-right">
                   <i className={`fas fa-star ${styles.paddingRight5}`} onClick={onFavoritePhone}/>
-                  <i className={`fas fa-trash-alt ${styles.paddingRight5}`}/>
+                  <i className={`fas fa-trash-alt ${styles.paddingRight5}`}  onClick={onDelPhoneModal}/>
                 </Col>
               </Row>
             </Col> 

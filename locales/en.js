@@ -93,36 +93,36 @@ export default {
     }
   },
   header:{
-    titleSellerCentre:"Seller centre",
-    signIn:"Sign in",
-    register :"Register"
+    titleSellerCentre:'Seller centre',
+    signIn:'Sign in',
+    register :'Register'
   },
   accountProfile :{
     form:{
-      title:"บัญชีผู้ใช้",
-      setting:"ตั้งค่า",
-      personalInfo:"ข้อมูลส่วนตัว",
-      memberId:"รหัสสมาชิก",
-      username:"ชื่อผู้ใช้",
-      msgChooseImage:"ไฟล์JPEG,PNG ขนาดไฟล์ไม่เกิน 1 MB",
-      firstName:"ชื่อ",
-      lastName:"นามสกุล",
-      birthday:"วันเกิด",
-      date:"วันที่",
-      month:"เดือน", 
-      year:"ปี ค.ศ.",
-      gender:"เพศ",
-      man:"ชาย",
-      female:"หญิง",
-      other:"อื่นๆ",
-      email:"อีเมล",
-      phoneNumber:"หมายเลขโทรศัพท์",
+      title:'บัญชีผู้ใช้',
+      setting:'ตั้งค่า',
+      personalInfo:'ข้อมูลส่วนตัว',
+      memberId:'รหัสสมาชิก',
+      username:'ชื่อผู้ใช้',
+      msgChooseImage:'ไฟล์JPEG,PNG ขนาดไฟล์ไม่เกิน 1 MB',
+      firstName:'ชื่อ',
+      lastName:'นามสกุล',
+      birthday:'วันเกิด',
+      date:'วันที่',
+      month:'เดือน', 
+      year:'ปี ค.ศ.',
+      gender:'เพศ',
+      man:'ชาย',
+      female:'หญิง',
+      other:'อื่นๆ',
+      email:'อีเมล',
+      phoneNumber:'หมายเลขโทรศัพท์',
     },
     email:{
-      title:"แก้ไขอีเมล",
-      currentEmail:"อีเมลปัจจุบัน",
-      newEmail:"อีเมลใหม่",
-      password:"รหัสผ่าน",
+      title:'แก้ไขอีเมล',
+      currentEmail:'อีเมลปัจจุบัน',
+      newEmail:'อีเมลใหม่',
+      password:'รหัสผ่าน',
       msgConfirm:'กรุณายืนยันตัวตนด้วยการใส่รหัสผ่าน เพื่ออัพเดทอีเมลของคุณ'
     },
     phone:{
@@ -150,9 +150,9 @@ export default {
       deletePhone:'ลบเบอร์โทร'
     },
     rules: {
-      firstName: "รองรับตัวอักษรสูงสุด 50 ตัวอักษร",
-      lastName: "รองรับตัวอักษรสูงสุด 50 ตัวอักษร",
-      email:"รหัสผ่านไม่ถูกต้อง"
+      firstName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
+      lastName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
+      email:'รหัสผ่านไม่ถูกต้อง'
     }
   },
   SideBarSettingMenu:{
