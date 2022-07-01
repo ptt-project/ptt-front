@@ -4,10 +4,14 @@ import { Typography, Button, Row, Col, Form, Input} from 'antd'
 import t from '~/locales'
 import styles from './Profile.module.scss'
 import SideBarSettingMenu from '~/components/main/SideBarSettingMenu'
+import Link from 'next/link'
+import { useRouter, NextRouter } from 'next/router'
+import { Url } from '~/utils/main'
 
 const { Text } = Typography
 
 const AddPhone: FC = () => {
+    const router: NextRouter = useRouter()
   return (  
     <main className="main account">
         <Helmet>
@@ -19,9 +23,10 @@ const AddPhone: FC = () => {
                     <li><i className="d-icon-home"/></li>
                     <li disabled>{t('accountProfile.form.setting')}</li>
                     <li disabled>{t('accountProfile.form.title')}</li>
-                    <li disabled>{t('accountProfile.form.personalInfo')}</li>
-                    <li disabled>{t('accountProfile.phone.titleEdit')}</li>
-                    <li>{t('accountProfile.phone.titleAdd')}</li>
+                    <li><Link href={Url.href('/personal-info', router.locale)}>{t('accountProfile.form.personalInfo')}</Link></li>
+                    <li><Link href={Url.href('/personal-info/phone', router.locale)}>{t('accountProfile.phone.titleEdit')}</Link></li>
+                    <li><Link href={Url.href('/personal-info/add-phone', router.locale)}>{t('accountProfile.phone.titleAdd')}</Link></li>
+
                 </ul>
             </div>
         </nav>

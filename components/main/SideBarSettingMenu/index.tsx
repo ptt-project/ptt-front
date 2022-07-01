@@ -18,23 +18,23 @@ const SideBarSettingMenu: FC = () => {
             </div>
             <ALink href="#" className="sidebar-toggle" onClick={ toggleSidebar }><i className="fas fa-chevron-right"></i></ALink>
             <div className={`sidebar-content ${styles.widthMenu}`}>
-            <div className="sticky-sidebar ">
-                <h6 class='widget-title'><i className={`fas fa-user ${styles.paddingRight5}`}/>{t('SideBarSettingMenu.userAccount')}</h6>
+            <div className="sticky-sidebar">
+                <div className={styles.titleMenu}><i className={`fas fa-user ${styles.paddingRight5}`}/>{t('SideBarSettingMenu.userAccount')}</div>
                 <ul className="widget-body ml-5" >
                     <li>{t('SideBarSettingMenu.personalInfo')}</li>
                     <li>{t('SideBarSettingMenu.address')}</li>
                     <li>{t('SideBarSettingMenu.changePassword')}</li>
                     <li>{t('SideBarSettingMenu.relationship')}</li>
                 </ul>
-                <h6 class='widget-title'><i className={`fas fa-wallet ${styles.paddingRight5}`}/>{t('SideBarSettingMenu.finance')}</h6>
+                <div className={styles.titleMenu}><i className={`fas fa-wallet ${styles.paddingRight5}`}/>{t('SideBarSettingMenu.finance')}</div>
                 <ul className="widget-body ml-5">
                     <li>{t('SideBarSettingMenu.eWallet')}</li>
                     <li>{t('SideBarSettingMenu.bankAccount')}</li>
                     <li>{t('SideBarSettingMenu.happyPoint')}</li>
                 </ul>
-                <h6 class='widget-title'><i className={`fas fa-ticket-alt ${styles.paddingRight5}`}/>{t('SideBarSettingMenu.discountCode')}</h6>
-                <h6 class='widget-title'><i className={`fas fa-shopping-cart ${styles.paddingRight5}`}/>{t('SideBarSettingMenu.myPurchase')}</h6>
-                <h6 class='widget-title'><i className={`fas fa-bell ${styles.paddingRight5}`}/>{t('SideBarSettingMenu.notification')}</h6>
+                <div className={styles.titleMenu}><i className={`fas fa-ticket-alt ${styles.paddingRight5}`}/>{t('SideBarSettingMenu.discountCode')}</div>
+                <div className={styles.titleMenu}><i className={`fas fa-shopping-cart ${styles.paddingRight5}`}/>{t('SideBarSettingMenu.myPurchase')}</div>
+                <div className={styles.titleMenu}><i className={`fas fa-bell ${styles.paddingRight5}`}/>{t('SideBarSettingMenu.notification')}</div>
             </div>
             </div>
         </aside>
