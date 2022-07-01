@@ -13,6 +13,7 @@ const { Text } = Typography
   
 const Phone: FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
+
     function toggle(): void {
       setIsOpen(!isOpen)
     }
@@ -28,7 +29,7 @@ const Phone: FC = () => {
     const router: NextRouter = useRouter()
     return (
       <>
-      <OtpModal isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
+      <OtpModal  mobileNo="12346" isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
       <main className="main account">
       <Helmet>
         <title>{t('meta.title')} | {t('accountProfile.form.title')}</title>
