@@ -46,6 +46,8 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
 
   function onSubmit(otpData: IOtpData): void {
     try {
+      console.log(props.form)
+      console.log(otpData)
       props.setStep(2)
     } catch (error) {
       console.log(error)

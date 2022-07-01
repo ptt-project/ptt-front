@@ -26,6 +26,7 @@ const ForgotPassword: FC = () => {
 
   function onSubmit(values: IForgotPasswordForm): void {
     try {
+      console.log(values)
       if (RegularList.CHECK_EMAIL.test(values.emailOrMobileNo)) {
         setEmail(values.emailOrMobileNo)
         setStep(1)
