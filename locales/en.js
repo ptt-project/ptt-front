@@ -12,9 +12,11 @@ export default {
     }
   },
   common: {
-    confirm: 'ยืนยัน',
+    ok: 'ตกลง',
+    cancel: 'ยกเลิก',
     next: 'ต่อไป',
-    close: 'ปิด'
+    close: 'ปิด',
+    confirm: 'ยืนยัน'
   },
   components: {
     otpModal: {
@@ -77,12 +79,16 @@ export default {
       forgotPassword: 'ลืมรหัสผ่าน'
     },
     forgotPassword: {
-      title: 'ตั้งรหัสผ่านใหม่',
+      title: 'ลืมรหัสผ่าน',
       form: {
         emailOrMobileNo: 'E-mail/หมายเลขโทรศัพท์',
         rules: {
           emailOrMobileNo: 'กรุณาระบุ E-mail/หมายเลขโทรศัพท์'
         }
+      },
+      success: {
+        messageA: 'Link ยืนยันตัวตนจะถูกส่งไปที่',
+        messageB: 'กรุณายืนยัน'
       }
     }
   },

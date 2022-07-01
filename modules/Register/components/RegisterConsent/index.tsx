@@ -54,7 +54,12 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
 
   return (
     <>
-      <OtpModal isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
+      <OtpModal
+        mobileNo={props.form.mobileNo}
+        isOpen={isOpen}
+        toggle={toggle}
+        onSubmit={onSubmit}
+      />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
