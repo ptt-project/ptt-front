@@ -1,38 +1,61 @@
 import React, { useState, FC } from 'react'
 import { useRouter, NextRouter } from 'next/router'
 import Helmet from 'react-helmet'
-import { Typography, Button, Row, Col, Form, Input, Image } from 'antd'
+import { Typography } from 'antd'
+import ForgotPasswordForm from './components/ForgotPasswordForm'
+import ForgotPasswordByEmailSuccess from './components/ForgotPasswordByEmailSuccess'
+import OtpModal from '~/components/main/OtpModal'
 import t from '~/locales'
-import { Url } from '~/utils/main'
+import { RegularList } from '~/constants'
 import { IForgotPasswordForm } from '~/model/Auth'
-import styles from './ForgotPassword.module.scss'
+import { IOtpData } from '~/model/Common'
+import { Url } from '~/utils/main'
 
-const { Text, Link } = Typography
-interface IFieldData {
-  name: string | number | (string | number)[]
-  value?: any
-  touched?: boolean
-  validating?: boolean
-  errors?: string[]
-}
+const { Link } = Typography
 
 const ForgotPassword: FC = () => {
   const router: NextRouter = useRouter()
-  const [form] = Form.useForm()
-  const [formData, setFormData] = useState<IForgotPasswordForm>({
-    emailOrMobileNo: ''
-  })
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [step, setStep] = useState<number>(0) // 0=FORGOT_PASSWORD_FORM, 1=FORGOT_PASSWORD_SUCCESS
+  const [email, setEmail] = useState<string>('')
+  const [mobileNo, setMobileNo] = useState<string>('')
 
-  function onChangeFields(_: IFieldData[], allFields: IFieldData[]): void {
-    if (_.length) {
-      const tempFormData: IForgotPasswordForm = { ...formData }
-      tempFormData[_[0].name[0]] = _[0].value
-      setFormData(tempFormData)
-    }
+  function toggle(): void {
+    setIsOpen(!isOpen)
   }
 
   function onSubmit(values: IForgotPasswordForm): void {
-    console.log(values)
+    try {
+      console.log(values)
+      if (RegularList.CHECK_EMAIL.test(values.emailOrMobileNo)) {
+        setEmail(values.emailOrMobileNo)
+        setStep(1)
+      } else if (values.emailOrMobileNo.replace(RegularList.ALLOW_NUMBER, '').length === 10) {
+        setMobileNo(values.emailOrMobileNo)
+        setIsOpen(true)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  function onSubmitOtp(otpData: IOtpData): void {
+    try {
+      console.log(otpData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  function renderStep(): JSX.Element {
+    switch (step) {
+      case 0: // FORGOT_PASSWORD_FORM
+        return <ForgotPasswordForm onSubmit={onSubmit} />
+      case 1: // FORGOT_PASSWORD_SUCCESS
+        return <ForgotPasswordByEmailSuccess email={email} />
+      default:
+        return <ForgotPasswordForm onSubmit={onSubmit} />
+    }
   }
 
   return (
@@ -54,59 +77,8 @@ const ForgotPassword: FC = () => {
           </ul>
         </div>
       </nav>
-      <div className="page-content mb-9">
-        <div className="container">
-          <Row gutter={48}>
-            <Col xl={6} lg={0}>
-              <div className={styles.imgContainer}>
-                <Image
-                  rootClassName={styles.imgWrapper}
-                  preview={false}
-                  width="100%"
-                  src="./images/main/buyer/forgot-password.png"
-                />
-              </div>
-            </Col>
-            <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
-              <Text>
-                <h4 className={`${styles.cSecondary} text-center mb-5`}>
-                  {t('auth.forgotPassword.title')}
-                </h4>
-              </Text>
-              <Form
-                layout="vertical"
-                name="forgotPasswordForm"
-                form={form}
-                onFieldsChange={onChangeFields}
-                onFinish={onSubmit}
-              >
-                <Row>
-                  <Col md={{ span: 12, offset: 6 }} xs={24}>
-                    <Form.Item
-                      label={t('auth.forgotPassword.form.emailOrMobileNo')}
-                      name="emailOrMobileNo"
-                    >
-                      <Input />
-                    </Form.Item>
-                  </Col>
-                  <Col md={{ span: 12, offset: 6 }} xs={24}>
-                    <Form.Item>
-                      <Button
-                        htmlType="submit"
-                        type="primary"
-                        block
-                        disabled={!formData.emailOrMobileNo}
-                      >
-                        {t('common.next')}
-                      </Button>
-                    </Form.Item>
-                  </Col>
-                </Row>
-              </Form>
-            </Col>
-          </Row>
-        </div>
-      </div>
+      <OtpModal mobileNo={mobileNo} isOpen={isOpen} toggle={toggle} onSubmit={onSubmitOtp} />
+      {renderStep()}
     </main>
   )
 }

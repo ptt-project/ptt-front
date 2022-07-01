@@ -4,8 +4,9 @@ import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, Modal
 import { Rule } from 'antd/lib/form'
 import { isEmpty } from 'lodash'
 import t from '~/locales'
-import { Url } from '~/utils/main'
+import { RegularList } from '~/constants'
 import { IRegisterForm } from '~/model/Auth'
+import { Url } from '~/utils/main'
 import styles from './RegisterForm.module.scss'
 
 const { Text, Link } = Typography
@@ -50,11 +51,10 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
   }
 
   function onMobileNoChange(e: ChangeEvent<HTMLInputElement>): void {
-    const reg: RegExp = /^[0-9\b]+$/
-    if (!e.target.value || reg.test(e.target.value)) {
+    if (!e.target.value || RegularList.CHECK_NUMBER.test(e.target.value)) {
       form.setFieldsValue({ mobileNo: e.target.value })
     } else {
-      form.setFieldsValue({ mobileNo: e.target.value.replace(/[^0-9.]/g, '') })
+      form.setFieldsValue({ mobileNo: e.target.value.replace(RegularList.ALLOW_NUMBER, '') })
     }
   }
 
@@ -131,7 +131,10 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                     <Form.Item
                       label={t('auth.register.form.mobileNo')}
                       name="mobileNo"
-                      rules={[{ required: true, message: t('auth.register.form.rules.mobileNo') }]}
+                      rules={[
+                        { required: true, message: t('auth.register.form.rules.mobileNo') },
+                        { min: 10, message: t('auth.register.form.rules.mobileNo') }
+                      ]}
                     >
                       <Input maxLength={10} onChange={onMobileNoChange} />
                     </Form.Item>
@@ -162,9 +165,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         { required: true, message: passwordMessage },
                         (): any => ({
                           validator(_: Rule, value: string): Promise<any> {
-                            const reg: RegExp =
-                              /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/
-                            if (!value || reg.test(value)) {
+                            if (!value || RegularList.CHECK_PASSWORD.test(value)) {
                               return Promise.resolve()
                             }
                             return Promise.reject(new Error(passwordMessage))

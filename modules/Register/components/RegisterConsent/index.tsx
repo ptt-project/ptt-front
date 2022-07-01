@@ -46,6 +46,8 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
 
   function onSubmit(otpData: IOtpData): void {
     try {
+      console.log(props.form)
+      console.log(otpData)
       props.setStep(2)
     } catch (error) {
       console.log(error)
@@ -54,7 +56,12 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
 
   return (
     <>
-      <OtpModal isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
+      <OtpModal
+        mobileNo={props.form.mobileNo}
+        isOpen={isOpen}
+        toggle={toggle}
+        onSubmit={onSubmit}
+      />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
