@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC, ChangeEvent } from 'react'
 import { Typography, Button, Row, Col, Input, Modal } from 'antd'
 import t from '~/locales'
-import { RegularList } from '~/constants'
+import { RegExpList } from '~/constants'
 import { IOtpData } from '~/model/Common'
 import styles from './OtpModal.module.scss'
 
@@ -27,7 +27,7 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
     if (
       props.isOpen &&
       props.mobileNo &&
-      props.mobileNo.replace(RegularList.ALLOW_NUMBER, '').length === 10
+      props.mobileNo.replace(RegExpList.ALLOW_NUMBER, '').length === 10
     ) {
       // eslint-disable-next-line no-use-before-define
       onRequestOtp()

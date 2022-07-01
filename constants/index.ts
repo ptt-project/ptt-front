@@ -1,5 +1,5 @@
 import EndPoint from './EndPoint'
 import HiddenHeader from './HiddenHeader'
-import RegularList from './RegularList'
+import RegExpList from './RegExpList'
 
-export { EndPoint, HiddenHeader, RegularList }
+export { EndPoint, HiddenHeader, RegExpList }
