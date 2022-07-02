@@ -1,0 +1,27 @@
+.padding5{
+    padding: 5px;
+} 
+.paddingRight5   {
+    padding-right: 5px;
+}
+.btnPrimary{
+    background-color: #DF1F29;
+    color: #fff;
+}
+.textUnderline{
+    color: #A7171F;
+}
+.radioFlex{
+    display: flex;
+}
+.textPrimary{
+    color: #239CD7 !important;
+}
+.btnInfo{
+    border-color: #239CD7;
+    color: #239CD7;
+    &:hover, &:focus{
+        border-color: #239CD7 !important;
+        color: #239CD7 !important;
+    }
+}
