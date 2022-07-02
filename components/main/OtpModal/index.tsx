@@ -1,6 +1,7 @@
 import React, { useState, useEffect, FC, ChangeEvent } from 'react'
 import { Typography, Button, Row, Col, Input, Modal } from 'antd'
 import t from '~/locales'
+import { RegExpList } from '~/constants'
 import { IOtpData } from '~/model/Common'
 import styles from './OtpModal.module.scss'
 
@@ -10,6 +11,7 @@ interface IOtpModalProps {
   isOpen: boolean
   toggle: () => void
   title?: string
+  mobileNo: string
   onSubmit: (otpData: IOtpData) => void
 }
 
@@ -20,6 +22,17 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
     otp: '',
     refCode: ''
   })
+
+  useEffect(() => {
+    if (
+      props.isOpen &&
+      props.mobileNo &&
+      props.mobileNo.replace(RegExpList.ALLOW_NUMBER, '').length === 10
+    ) {
+      // eslint-disable-next-line no-use-before-define
+      onRequestOtp()
+    }
+  }, [props.isOpen, props.mobileNo])
 
   useEffect(() => {
     const countDown: any = setInterval(() => {
@@ -82,27 +95,17 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
       visible={props.isOpen}
       onCancel={toggle}
       footer={[
-        <Row>
+        <Row key="otpModalFooter">
           <Col className="text-left" span={8}>
-            <Button
-              key="request"
-              className={styles.button}
-              onClick={onRequestOtp}
-              disabled={timer !== 0}
-            >
+            <Button className={styles.button} onClick={onRequestOtp} disabled={timer !== 0}>
               {`${t('components.otpModal.request')}${renderTimer()}`}
             </Button>
           </Col>
           <Col span={16}>
-            <Button key="close" type="default" onClick={toggle}>
+            <Button type="default" onClick={toggle}>
               {t('common.close')}
             </Button>
-            <Button
-              key="confirm"
-              type="primary"
-              disabled={otpInput.length !== 6}
-              onClick={onSubmit}
-            >
+            <Button type="primary" disabled={otpInput.length !== 6} onClick={onSubmit}>
               {t('common.confirm')}
             </Button>
           </Col>
