@@ -112,7 +112,6 @@ module.exports = {
           match: true
         }
       }
-    ],
-    'react/require-default-props': 'off'
+    ]
   }
 }

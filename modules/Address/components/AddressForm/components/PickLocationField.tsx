@@ -2,7 +2,6 @@ import React, { MutableRefObject, useCallback, useMemo, useRef } from 'react'
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
 import { debounce } from 'lodash'
 import ButtonCurrentLocation from './ButtonCurrentLocation'
-// import AutoCompleteBox from './AutoCompleteBox'
 
 const GOOGLE_MAP_API_TOKEN: string = `${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_TOKEN}`
 
@@ -102,5 +101,12 @@ const PickLocationField: React.FC<IPickLocationFieldProps> = (props: IPickLocati
   }, [isLoaded, value, onCenterChanged])
 
   return renderMap
+}
+
+PickLocationField.defaultProps = {
+  value: undefined,
+  onChange: (): void => {
+    // empty function
+  }
 }
 export default PickLocationField

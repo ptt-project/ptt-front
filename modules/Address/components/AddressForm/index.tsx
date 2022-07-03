@@ -238,4 +238,9 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
   )
 }
 
+AddressForm.defaultProps = {
+  initialValues: {},
+  isSeller: false
+}
+
 export default AddressForm

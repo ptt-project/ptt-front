@@ -32,4 +32,15 @@ const AddressCheckboxField: React.FC<IAddressCheckboxFieldProps> = (
   )
 }
 
+AddressCheckboxField.defaultProps = {
+  value: false,
+  onChange: (): void => {
+    // empty function
+  },
+  onHintClick: (): void => {
+    // empty function
+  },
+  disabled: false
+}
+
 export default AddressCheckboxField

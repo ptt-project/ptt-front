@@ -13,8 +13,6 @@ const { Text } = Typography
 
 const Address: React.FC = () => {
   const router: NextRouter = useRouter()
-  // const [addressPage, setAddressPage] = useState<string>(AddressPages.LIST)
-  // const [editAddressId, setEditAddressId] = useState<string>()
 
   // eslint-disable-next-line @typescript-eslint/typedef
   const deleteAddressVisible = useVisible()
