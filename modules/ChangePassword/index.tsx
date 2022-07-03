@@ -1,13 +1,17 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Form, FormItemProps, Input, Space, Typography } from 'antd'
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
 import { FormInstance, Rule, RuleObject, RuleRender } from 'antd/lib/form'
 import t from '~/locales'
 import styles from './ChangePassword.module.scss'
+import OtpModal from '~/components/main/OtpModal'
+import { IOtpData } from '~/model/Common'
 
 const { Text } = Typography
-
-interface IChangePasswordFieldsValue {
+const user: any = {
+  mobileNo: '0901234567'
+}
+interface IChangePasswordFormValues {
   password: string
   newPassword: string
   confirmNewPassword: string
@@ -36,15 +40,30 @@ const InputPassword: React.FC<FormItemProps> = (props: FormItemProps) => {
 }
 
 const ChangePassword: React.FC = () => {
-  const [form] = Form.useForm<IChangePasswordFieldsValue>()
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [form] = Form.useForm<IChangePasswordFormValues>()
+  const [formValues, setFormValues] = useState<IChangePasswordFormValues>()
 
   const confirmPasswordNotMatchedMessage: string = t(
     'auth.changePassword.error.confirmPasswordNotMatched'
   )
 
-  const onFormFinish: any = useCallback((fieldsValue: IChangePasswordFieldsValue) => {
-    console.log({ formValues: fieldsValue })
-  }, [])
+  function onSubmit(values: IChangePasswordFormValues): void {
+    setFormValues(values)
+    setIsOpen(true)
+  }
+
+  function toggle(): void {
+    setIsOpen(!isOpen)
+  }
+
+  function onSubmitOtp(otpData: IOtpData): void {
+    try {
+      console.log({ otpData, formValues })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const validateConfirmPasswordMatched: RuleRender = ({
     getFieldValue
@@ -76,7 +95,7 @@ const ChangePassword: React.FC = () => {
         <Text className={styles.title}>
           <h4>{t('auth.changePassword.title')}</h4>
         </Text>
-        <Form layout="vertical" form={form} onFinish={onFormFinish} requiredMark={false}>
+        <Form layout="vertical" form={form} onFinish={onSubmit} requiredMark={false}>
           <InputPassword
             label={t('auth.changePassword.password')}
             name="password"
@@ -109,6 +128,7 @@ const ChangePassword: React.FC = () => {
           </Form.Item>
         </Form>
       </div>
+      <OtpModal mobileNo={user.mobileNo} isOpen={isOpen} toggle={toggle} onSubmit={onSubmitOtp} />
     </div>
   )
 }
