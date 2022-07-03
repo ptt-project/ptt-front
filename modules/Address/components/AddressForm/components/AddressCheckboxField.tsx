@@ -34,12 +34,8 @@ const AddressCheckboxField: React.FC<IAddressCheckboxFieldProps> = (
 
 AddressCheckboxField.defaultProps = {
   value: false,
-  onChange: (): void => {
-    // empty function
-  },
-  onHintClick: (): void => {
-    // empty function
-  },
+  onChange: undefined,
+  onHintClick: undefined,
   disabled: false
 }
 

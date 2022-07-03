@@ -105,8 +105,6 @@ const PickLocationField: React.FC<IPickLocationFieldProps> = (props: IPickLocati
 
 PickLocationField.defaultProps = {
   value: undefined,
-  onChange: (): void => {
-    // empty function
-  }
+  onChange: undefined
 }
 export default PickLocationField

@@ -30,9 +30,7 @@ const AddressTagField: React.FC<IAddressTagFieldProps> = (props: IAddressTagFiel
 
 AddressTagField.defaultProps = {
   value: undefined,
-  onChange: (): void => {
-    // empty function
-  }
+  onChange: undefined
 }
 
 export default AddressTagField
