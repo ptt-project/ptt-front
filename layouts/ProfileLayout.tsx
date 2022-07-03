@@ -1,69 +1,19 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import React, { ReactNode, useEffect, useMemo } from 'react'
+import React, { ReactNode } from 'react'
 import Helmet from 'react-helmet'
 import Link from 'next/link'
 import { NextRouter, useRouter } from 'next/router'
-import { Col, Row, Typography } from 'antd'
-import t from '~/locales'
+import { Col, Row } from 'antd'
 import SideBarSettingMenu from '~/components/main/SideBarSettingMenu'
-
-const getTextGenerator = (param: any, query: any) => null
-const getDefaultTextGenerator = (path: any, query: any) => path
-const generatePathParts = (pathStr: any) => {
-  const pathWithoutQuery: any = pathStr.split('?')[0]
-  return pathWithoutQuery.split('/').filter((v: any) => v.length > 0)
-}
-
-const Crumb: React.FC<any> = ({ text: defaultText, textGenerator, href, last = false }: any) => {
-  const [text, setText] = React.useState(defaultText)
-
-  useEffect(() => {
-    // If `textGenerator` is nonexistent, then don't do anything
-    if (!textGenerator) {
-      return
-    }
-    // Run the text generator and set the text again
-    textGenerator().then((finalText: string) => {
-      setText(finalText)
-    })
-  }, [textGenerator])
-
-  if (last) {
-    return <Typography.Text>{text}</Typography.Text>
-  }
-
-  return (
-    <li>
-      <Link href={href}>{text}</Link>
-    </li>
-  )
-}
+import t from '~/locales'
+import { Url } from '~/utils/main'
 
 interface IProfileLayoutProps {
   children: ReactNode
 }
 const ProfileLayout: React.FC<IProfileLayoutProps> = (props: IProfileLayoutProps) => {
   const { children } = props
-
   const router: NextRouter = useRouter()
-  const breadcrumbs: any[] = useMemo((): any[] => {
-    const asPathNestedRoutes: any = generatePathParts(router.asPath)
-    const pathnameNestedRoutes: any = generatePathParts(router.pathname)
-
-    const crumblist: any = asPathNestedRoutes.map((subpath: any, idx: any) => {
-      // Pull out and convert "[post_id]" into "post_id"
-      const param: any = pathnameNestedRoutes[idx].replace('[', '').replace(']', '')
-
-      const href: any = '/' + asPathNestedRoutes.slice(0, idx + 1).join('/')
-      return {
-        href,
-        textGenerator: getTextGenerator(param, router.query),
-        text: getDefaultTextGenerator(subpath, href)
-      }
-    })
-
-    return [{ href: '/', text: 'Home' }, ...crumblist]
-  }, [router.asPath, router.pathname, router.query, getTextGenerator, getDefaultTextGenerator])
 
   return (
     <main className="main account">
@@ -75,9 +25,18 @@ const ProfileLayout: React.FC<IProfileLayoutProps> = (props: IProfileLayoutProps
       <nav className="breadcrumb-nav">
         <div className="container">
           <ul className="breadcrumb">
-            {breadcrumbs.map((crumb: any, idx: any) => (
-              <Crumb {...crumb} key={`${idx}-a`} last={idx === breadcrumbs.length - 1} />
-            ))}
+            <li>
+              <Link href={Url.href('/', router.locale)}>
+                <i className="d-icon-home" />
+              </Link>
+            </li>
+            <li>{t('accountProfile.form.setting')}</li>
+            <li>{t('accountProfile.form.title')}</li>
+            <li>
+              <Link href={Url.href('/personal-info', router.locale)}>
+                {t('accountProfile.form.personalInfo')}
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>
