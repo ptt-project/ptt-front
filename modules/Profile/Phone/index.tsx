@@ -1,16 +1,14 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { FC,useState } from 'react'
 import { useRouter, NextRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col} from 'antd'
 import Link from 'next/link'
 import t from '~/locales'
-import styles from './Profile.module.scss'
+import styles from './ProfilePhone.module.scss'
 import SideBarSettingMenu from '~/components/main/SideBarSettingMenu'
 import { Url } from '~/utils/main'
 import OtpModal from '~/components/main/OtpModal'
-import DelPhoneModal from './delPhoneModal'
+import DelPhoneModal from './DelPhoneModal'
 import { IOtpData } from '~/model/Common'
 
 const { Text } = Typography
@@ -31,7 +29,6 @@ const Phone: FC = () => {
     setIsOpen(true)
   }
   function onSubmit(otpData: IOtpData): void {
-    // eslint-disable-next-line no-empty
     try {
 
     } catch (error) {
@@ -50,9 +47,9 @@ const Phone: FC = () => {
         <nav className="breadcrumb-nav">
           <div className="container">
             <ul className="breadcrumb">
-            <li>
+              <li>
                 <Link href={Url.href('/', router.locale)}>
-                    <i className="d-icon-home" />
+                  <i className="d-icon-home" />
                 </Link>
               </li>
               <li disabled>{t('accountProfile.form.setting')}</li>

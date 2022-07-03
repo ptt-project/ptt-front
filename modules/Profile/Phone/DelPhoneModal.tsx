@@ -2,6 +2,7 @@
 import React, {  FC } from 'react'
 import { Typography, Button, Col, Modal } from 'antd'
 import t from '~/locales'
+import styles from './ProfilePhone.module.scss'
 
 const { Text } = Typography
 interface IDelPhoneModalProps {
@@ -13,7 +14,18 @@ const DelPhoneModal: FC<IDelPhoneModalProps> = (props: IDelPhoneModalProps) => {
     props.toggle()
   }
   return (
-    <Modal title={t('accountProfile.phone.deletePhone')} visible={props.isOpen} onCancel={toggle}   
+    <Modal 
+      title={[
+        <Col className='text-left'>
+          <Text >
+            <i className={`fas fas fa-exclamation-circle ${styles.iconDander}`} />
+          </Text>
+          <Text className='ml-1'>
+            {t('accountProfile.phone.deletePhone')}
+          </Text>
+        </Col> 
+      ]} 
+      visible={props.isOpen} onCancel={toggle}   
       footer={[
         <Col className='text-right'>
           <Button type="default" onClick={toggle}>
@@ -24,7 +36,7 @@ const DelPhoneModal: FC<IDelPhoneModalProps> = (props: IDelPhoneModalProps) => {
           </Button>
         </Col>
       ]}>
-      <Col> <i className='fas fas fa-exclamation-circle'/> <Text>{t('accountProfile.phone.confirmDelete')} 081-2226666</Text></Col>
+      <Col><Text>{t('accountProfile.phone.confirmDelete')} 081-2226666</Text></Col>
       <Col><Text type="danger">{t('accountProfile.phone.msgConfirmDelete')}</Text></Col>
     </Modal>
   )
