@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@apollo/client": "^3.4.16",
+    "@ant-design/icons": "^4.7.0",
+    "@apollo/client": "~3.4.0",
     "@apollo/react-hooks": "^4.0.0",
     "@apollo/react-ssr": "^4.0.0",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.4.1",
+    "@react-google-maps/api": "^2.12.0",
     "antd": "^4.21.3",
     "apollo-boost": "^0.4.9",
     "axios": "^0.27.2",
@@ -59,6 +61,8 @@
     "supports-color": "^9.0.2"
   },
   "devDependencies": {
+    "@types/google-map-react": "^2.1.7",
+    "@types/lodash": "^4.14.182",
     "@types/react": "18.0.1",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",

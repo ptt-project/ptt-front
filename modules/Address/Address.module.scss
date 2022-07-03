@@ -1,0 +1,22 @@
+@import '../../public/sass/config/variables';
+
+.page {
+  .content {
+    max-width: 330px;
+    margin: 0 auto;
+  }
+
+  .title {
+    > h4 {
+      color: $secondary-color;
+    }
+  }
+
+  .addressList {
+    margin-top: 16px;
+  }
+}
+
+.buttonLayout {
+  margin-top: 20px;
+}

@@ -16,7 +16,8 @@ export default {
     cancel: 'ยกเลิก',
     next: 'ต่อไป',
     close: 'ปิด',
-    confirm: 'ยืนยัน'
+    confirm: 'ยืนยัน',
+    save: 'บันทึก'
   },
   components: {
     otpModal: {
@@ -90,11 +91,123 @@ export default {
         messageA: 'Link ยืนยันตัวตนจะถูกส่งไปที่',
         messageB: 'กรุณายืนยัน'
       }
+    },
+    changePassword: {
+      title: 'เปลี่ยนรหัสผ่าน',
+      password: 'รหัสผ่านปัจจุบัน',
+      newPassword: 'รหัสผ่านใหม่',
+      confirmNewPassword: 'ยืนยันรหัสผ่านใหม่',
+      description:
+        'ใช้ได้เฉพาะตัวอักษรภาษาอังกฤษ ตัวเลขอารบิกและเครื่องหมายปกติ ความยาว 8-20 ตัวอักษร ประกอบด้วย ตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว ตัวพิมพ์เล็กอย่างน้อย 1 ตัว ตัวเลขอย่างน้อย 1 ตัว',
+      button: {
+        submit: 'ยืนยัน'
+      },
+      error: {
+        passwordInValid: 'รหัสผ่านไม่ถูกต้อง',
+        passwordFormatInValid: 'รูปแบบรหัสผ่านไม่ถูกต้อง',
+        confirmPasswordNotMatched: 'ยืนยันรหัสผ่านไม่ตรงกัน'
+      }
+    }
+  },
+  address: {
+    addressLabel: 'ที่อยู่',
+    listAddressTitle: 'บัญชีผู้ใช้',
+    addAddressTitle: 'เพิ่มที่อยู่',
+    editAddressTitle: 'แก้ไขที่อยู่',
+    addAddress: '+ เพิ่มที่อยู่',
+    deleteAddress: 'ลบที่อยู่',
+    confirmDeleteAddress: 'ยืนยันการลบที่อยู่',
+    warningMsgDeleteAddress: 'ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้',
+    yourLocation: 'Your Location',
+    form: {
+      fullName: 'ชื่อ-นามสกุล',
+      mobileNo: 'หมายเลขโทรศัพท์',
+      province: 'จังหวัด',
+      district: 'เขต/อำเภอ',
+      postalCode: 'รหัสไปรษณีย์',
+      addressDetails: 'รายละเอียดที่อยู่',
+      location: 'ตำแหน่งของคุณ',
+      addressType: 'ติดป้ายเป็น',
+      isDefault: 'เลือกเป็นที่อยู่ตั้งต้น',
+      isStore: 'เลือกเป็นที่อยู่ในการรับสินค้า',
+      isRefundStore: 'เลือกเป็นที่อยู่ในการรับสินค้าคืน'
     }
   },
   header: {
     titleSellerCentre: 'Seller centre',
-    signIn: 'เข้าสู่ระบบ',
-    register: 'ลงทะเบียน'
+    signIn: 'Sign in',
+    register: 'Register'
+  },
+  accountProfile: {
+    form: {
+      title: 'บัญชีผู้ใช้',
+      setting: 'ตั้งค่า',
+      personalInfo: 'ข้อมูลส่วนตัว',
+      memberId: 'รหัสสมาชิก',
+      username: 'ชื่อผู้ใช้',
+      msgChooseImage: 'ไฟล์JPEG,PNG ขนาดไฟล์ไม่เกิน 1 MB',
+      firstName: 'ชื่อ',
+      lastName: 'นามสกุล',
+      birthday: 'วันเกิด',
+      date: 'วันที่',
+      month: 'เดือน',
+      year: 'ปี ค.ศ.',
+      gender: 'เพศ',
+      man: 'ชาย',
+      female: 'หญิง',
+      other: 'อื่นๆ',
+      email: 'อีเมล',
+      phoneNumber: 'หมายเลขโทรศัพท์',
+    },
+    email: {
+      title: 'แก้ไขอีเมล',
+      currentEmail: 'อีเมลปัจจุบัน',
+      newEmail: 'อีเมลใหม่',
+      password: 'รหัสผ่าน',
+      msgConfirm: 'กรุณายืนยันตัวตนด้วยการใส่รหัสผ่าน เพื่ออัพเดทอีเมลของคุณ'
+    },
+    phone: {
+      titleEdit: 'แก้ไขหมายเลขโทรศัพท์',
+      titleAdd: 'เพิ่มเบอร์โทร',
+      phoneList: 'รายการเบอร์โทร',
+      newPhone: 'เบอร์โทรศัพท์ใหม่',
+      msgConfirm: 'รหัสยืนยันจะถูกส่งไปที่เบอร์ 082-222-2222',
+      otp: 'OTP',
+      refCode: 'Ref code',
+      confirmOTP: 'ยืนยัน OTP ไปยังหมายเลขหลัก',
+      deletePhone: 'ลบเบอร์โทร',
+      confirmDelete: 'ยืนยันการลบเบอร์โทร',
+      msgConfirmDelete: 'ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้'
+    },
+    button: {
+      chooseImage: 'เลือกรูป',
+      edit: 'แก้ไข',
+      save: 'บันทึก',
+      confirm: 'ยืนยัน',
+      addPhone: 'เพิ่มเบอร์โทร',
+      mainNumber: 'เบอร์หลัก',
+      sendVerificationCode: 'ส่งรหัสยืนยัน',
+      close: 'ปิด',
+      deletePhone: 'ลบเบอร์โทร'
+    },
+    rules: {
+      firstName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
+      lastName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
+      email: 'รหัสผ่านไม่ถูกต้อง'
+    }
+  },
+  SideBarSettingMenu: {
+    userAccount: 'บัญชีผู้ใช้',
+    personalInfo: 'ข้อมูลส่วนตัว',
+    address: 'ที่อยู่',
+    changePassword: 'เปลี่ยนรหัสผ่าน',
+    relationship: 'ความสัมพันธ์',
+    finance: 'การเงิน',
+    eWallet: 'E-wallet',
+    bankAccount: 'บัญชีธนาคาร',
+    happyPoint: 'Happy Point',
+    discountCode: 'โค้ดส่วนลด',
+    myPurchase: 'การซื้อของฉัน',
+    notification: 'การแจ้งเตือน',
   }
 }

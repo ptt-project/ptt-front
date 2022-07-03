@@ -1,0 +1,64 @@
+@import '../../../../public/sass/config/variables';
+
+.form {
+  .addressDetails {
+    > textarea {
+      min-height: 80px;
+      max-height: 80px;
+    }
+  }
+
+  .fieldRow {
+    row-gap: 4px;
+  }
+  .fieldRowGap {
+    row-gap: 4px;
+  }
+
+  .fieldCol {
+    width: 100%;
+  }
+}
+
+.button {
+  margin-top: 20px;
+}
+
+.currentLocationButton {
+  position: absolute;
+  right: 0;
+  margin: 10px;
+}
+
+.addressTagRadioButtonGroup {
+  display: flex;
+  column-gap: 16px;
+
+  .addressTagRadioButton {
+    border: unset !important;
+    padding: unset;
+  }
+  label::before {
+    display: none !important;
+  }
+}
+
+.hintModal {
+  .ant-modal-content {
+    > div {
+      .ant-modal-header {
+        border-bottom: unset;
+      }
+      .ant-modal-footer {
+        border-top: unset;
+      }
+    }
+  }
+}
+
+.checkBoxLayout {
+  width: 100%;
+  .hint {
+    padding: 0;
+  }
+}
