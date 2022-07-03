@@ -8,7 +8,7 @@ import styles from './Profile.module.scss'
 import SideBarSettingMenu from '~/components/main/SideBarSettingMenu'
 import { Url } from '~/utils/main'
 import OtpModal from '~/components/main/OtpModal'
-import DelPhoneModal from './DelPhoneModal'
+import DelPhoneModal from './DelPhoneModalTest'
 import { IOtpData } from '~/model/Common'
 
 const { Text } = Typography
