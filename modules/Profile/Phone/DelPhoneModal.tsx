@@ -2,7 +2,7 @@
 import React, {  FC } from 'react'
 import { Typography, Button, Col, Modal } from 'antd'
 import t from '~/locales'
-import styles from './Profile.module.scss'
+import styles from './ProfilePhone.module.scss'
 
 const { Text } = Typography
 interface IDelPhoneModalProps {

@@ -2,10 +2,10 @@ import React, { FC,useState } from 'react'
 import Helmet from 'react-helmet'
 import type { RadioChangeEvent } from 'antd'
 import { Typography, Button, Row, Col, Form, Input,Upload ,Avatar,Image,Select,Radio} from 'antd'
-import t from '~/locales'
-import styles from './Profile.module.scss'
 import Link from 'next/link'
 import { useRouter, NextRouter } from 'next/router'
+import t from '~/locales'
+import styles from './Profile.module.scss'
 import { Url } from '~/utils/main'
 import SideBarSettingMenu from '~/components/main/SideBarSettingMenu'
 
@@ -36,7 +36,7 @@ const Profile: FC = () => {
           <ul className="breadcrumb">
             <li>
               <Link href={Url.href('/', router.locale)}>
-                  <i className="d-icon-home" />
+                <i className="d-icon-home" />
               </Link>
             </li>
             <li disabled>{t('accountProfile.form.setting')}</li>

@@ -4,7 +4,7 @@ import { Typography, Button, Row, Col, Form, Input} from 'antd'
 import Link from 'next/link'
 import { useRouter, NextRouter } from 'next/router'
 import t from '~/locales'
-import styles from './Profile.module.scss'
+import styles from './ProfileEmail.module.scss'
 import { Url } from '~/utils/main'
 import SideBarSettingMenu from '~/components/main/SideBarSettingMenu'
 
