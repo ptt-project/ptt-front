@@ -1,8 +1,9 @@
 import React from 'react'
 import { Col, Typography, Form, Button } from 'antd'
-import AddressForm, { IAddressFormValues } from '../AddessForm'
+import AddressForm from '../AddressForm'
 import styles from '../../Address.module.scss'
 import t from '~/locales'
+import { IAddressFormValues } from '~/model/Address'
 
 const { Text } = Typography
 
