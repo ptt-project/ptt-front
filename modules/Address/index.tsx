@@ -19,7 +19,6 @@ const Address: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/typedef
   const deleteAddressVisible = useVisible()
 
-  const [favoriteAddressId, setFavoriteAddressId] = useState<string>()
   const [deleteAddressId, setDeleteAddressId] = useState<string>()
 
   function onAddAddressClick(): void {
@@ -30,8 +29,7 @@ const Address: React.FC = () => {
     router.push(`/personal-info/address/${addressId}`)
   }
 
-  function onFavoriteAddressClick(addressId: string): void {
-    setFavoriteAddressId(addressId)
+  function onFavoriteAddressClick(/* addressId: string */): void {
     notification.success({
       message: 'Set Favorite Address Success'
     })
@@ -56,84 +54,88 @@ const Address: React.FC = () => {
   )
 
   return (
-    <Space className={`${styles.page}`} direction="vertical">
-      <Text className={`title title-center ${styles.title}`}>
-        <h4>บัญชีผู้ใช้</h4>
-      </Text>
-      <Col>
-        <Row>
-          <Col md={22} xs={24}>
-            <Text>ที่อยู่</Text>
-          </Col>
-          <Col md={2} xs={24}>
-            <Button onClick={onAddAddressClick}>+ เพิ่มที่อยู่</Button>
-          </Col>
-        </Row>
+    <Row>
+      <Space className={`${styles.page}`} direction="vertical">
+        <Text className={`title title-center ${styles.title}`}>
+          <h4>{t('address.listAddressTitle')}</h4>
+        </Text>
         <Col>
-          <Space
-            className={styles.addressList}
-            size={16}
-            direction="vertical"
-            style={{
-              width: '100%'
-            }}
-          >
-            {(addresses as IAddressFormValues[]).map((address: IAddressFormValues) => (
-              <AddressCard
-                key={`${address.id}`}
-                data={address}
-                onEditClick={onEditAddressClick.bind(null, address.id)}
-                onFavoriteClick={onFavoriteAddressClick.bind(null, address.id)}
-                onDeleteClick={onDeleteAddressClick.bind(null, address.id)}
-              />
-            ))}
-          </Space>
-        </Col>
-      </Col>
-      <Modal
-        className={styles.hintModal}
-        visible={deleteAddressVisible.visible}
-        onCancel={deleteAddressVisible.hide}
-        title={
-          <Col span={24}>
-            <Text>
-              <h4 className="mb-0 text-center">
-                <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
-                ลบที่อยู่
-              </h4>
-            </Text>
-          </Col>
-        }
-        footer={[
-          <Col span={24}>
-            <Space>
-              <Button type="text" onClick={deleteAddressVisible.hide}>
-                ยกเลิก
-              </Button>
-              <Button type="primary" onClick={onConfirmDeleteAddressClick}>
-                ลบที่อยู่
-              </Button>
+          <Row>
+            <Col flex="auto">
+              <Text>{t('address.addressLabel')}</Text>
+            </Col>
+            <Col>
+              <Button onClick={onAddAddressClick}>{t('address.addAddress')}</Button>
+            </Col>
+          </Row>
+          <Col>
+            <Space
+              className={styles.addressList}
+              size={16}
+              direction="vertical"
+              style={{
+                width: '100%'
+              }}
+            >
+              {(addresses as IAddressFormValues[]).map((address: IAddressFormValues) => (
+                <AddressCard
+                  key={`${address.id}`}
+                  data={address}
+                  onEditClick={onEditAddressClick.bind(null, address.id)}
+                  onFavoriteClick={onFavoriteAddressClick.bind(null, address.id)}
+                  onDeleteClick={onDeleteAddressClick.bind(null, address.id)}
+                />
+              ))}
             </Space>
           </Col>
-        ]}
-      >
-        <Space size={4} direction="vertical">
-          <Space className={styles.contentLayout} size={4} direction="vertical">
-            <Text>ยืนยันการลบที่อยู่ {deleteAddressData?.fullName}</Text>
-            <Text>
-              {compact([
-                deleteAddressData?.addressDetails,
-                deleteAddressData?.district,
-                deleteAddressData?.province,
-                deleteAddressData?.postalCode
-              ]).join(' ')}
-            </Text>
+        </Col>
+        <Modal
+          className={styles.hintModal}
+          visible={deleteAddressVisible.visible}
+          onCancel={deleteAddressVisible.hide}
+          title={
+            <Col span={24}>
+              <Text>
+                <h4 className="mb-0 text-center">
+                  <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
+                  {t('address.deleteAddress')}
+                </h4>
+              </Text>
+            </Col>
+          }
+          footer={[
+            <Col span={24}>
+              <Space>
+                <Button type="text" onClick={deleteAddressVisible.hide}>
+                  {t('common.cancel')}
+                </Button>
+                <Button type="primary" onClick={onConfirmDeleteAddressClick}>
+                  {t('address.deleteAddress')}
+                </Button>
+              </Space>
+            </Col>
+          ]}
+        >
+          <Space size={4} direction="vertical">
+            <Space className={styles.contentLayout} size={4} direction="vertical">
+              <Text>
+                {t('address.confirmDeleteAddress')} {deleteAddressData?.fullName}
+              </Text>
+              <Text>
+                {compact([
+                  deleteAddressData?.addressDetails,
+                  deleteAddressData?.district,
+                  deleteAddressData?.province,
+                  deleteAddressData?.postalCode
+                ]).join(' ')}
+              </Text>
+            </Space>
+            <Text>{deleteAddressData?.mobileNo}</Text>
+            <Text type="danger">{t('address.warningMsgDeleteAddress')}</Text>
           </Space>
-          <Text>{deleteAddressData?.mobileNo}</Text>
-          <Text type="danger">ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้</Text>
-        </Space>
-      </Modal>
-    </Space>
+        </Modal>
+      </Space>
+    </Row>
   )
 }
 

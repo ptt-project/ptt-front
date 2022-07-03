@@ -47,6 +47,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
 
   function onHintClick(hintType: string): void {
     switch (hintType) {
+      // TODO: wait final msg
       case 'isStore':
         setHintModalData({
           title: 'เลือกเป็นที่อยู่ในการรับสินค้า',
@@ -91,29 +92,17 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
           }}
         >
           <Col className={styles.fieldCol} md={12} sm={12}>
-            <Form.Item
-              label={t('address.addressFields.fullName')}
-              name="fullName"
-              rules={[...baseRules]}
-            >
+            <Form.Item label={t('address.form.fullName')} name="fullName" rules={[...baseRules]}>
               <Input />
             </Form.Item>
           </Col>
           <Col className={styles.fieldCol} md={12} sm={12}>
-            <Form.Item
-              label={t('address.addressFields.mobileNo')}
-              name="mobileNo"
-              rules={[...baseRules]}
-            >
+            <Form.Item label={t('address.form.mobileNo')} name="mobileNo" rules={[...baseRules]}>
               <Input />
             </Form.Item>
           </Col>
           <Col className={styles.fieldCol} md={12} sm={12}>
-            <Form.Item
-              label={t('address.addressFields.province')}
-              name="province"
-              rules={[...baseRules]}
-            >
+            <Form.Item label={t('address.form.province')} name="province" rules={[...baseRules]}>
               <Select
                 filterOption={(value: string, options: IBaseOption): boolean =>
                   `${options.value}`.includes(value)
@@ -130,11 +119,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
             </Form.Item>
           </Col>
           <Col className={styles.fieldCol} md={12} sm={12}>
-            <Form.Item
-              label={t('address.addressFields.district')}
-              name="district"
-              rules={[...baseRules]}
-            >
+            <Form.Item label={t('address.form.district')} name="district" rules={[...baseRules]}>
               <Select
                 filterOption={(value: string, options: IBaseOption): boolean =>
                   `${options.value}`.includes(value)
@@ -152,7 +137,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
           </Col>
           <Col className={styles.fieldCol} md={12} sm={12}>
             <Form.Item
-              label={t('address.addressFields.postalCode')}
+              label={t('address.form.postalCode')}
               name="postalCode"
               rules={[...baseRules]}
             >
@@ -173,7 +158,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
           </Col>
           <Col className={styles.fieldCol} span={24}>
             <Form.Item
-              label={t('address.addressFields.addressDetails')}
+              label={t('address.form.addressDetails')}
               name="addressDetails"
               rules={[...baseRules]}
             >
@@ -187,14 +172,14 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
           </Col>
         </Row>
         <Space />
-        <Form.Item label={t('address.addressFields.location')} name="location">
+        <Form.Item label={t('address.form.location')} name="location">
           <PickLocationField />
         </Form.Item>
         <Row className={styles.fieldRow}>
           <Col className={styles.fieldCol} md={12} sm={12}>
             <Form.Item
               name="addressType"
-              label={t('address.addressFields.addressType')}
+              label={t('address.form.addressType')}
               rules={[...baseRules]}
             >
               <AddressTagField />
@@ -202,13 +187,13 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
           </Col>
           <Col className={styles.fieldCol} md={12} sm={12} style={{ alignItems: 'center' }}>
             <Form.Item name="isDefault" noStyle>
-              <AddressCheckboxField label={t('address.addressFields.isDefault')} />
+              <AddressCheckboxField label={t('address.form.isDefault')} />
             </Form.Item>
           </Col>
           <Col className={styles.fieldCol} md={12} sm={12}>
             <Form.Item name="isStore" noStyle>
               <AddressCheckboxField
-                label={t('address.addressFields.isStore')}
+                label={t('address.form.isStore')}
                 onHintClick={onHintClick.bind(null, 'isStore')}
                 disabled={!isSeller}
               />
@@ -217,7 +202,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
           <Col className={styles.fieldCol} md={12} sm={12}>
             <Form.Item name="isRefundStore" noStyle>
               <AddressCheckboxField
-                label={t('address.addressFields.isRefundStore')}
+                label={t('address.form.isRefundStore')}
                 onHintClick={onHintClick.bind(null, 'isRefundStore')}
                 disabled={!isSeller}
               />

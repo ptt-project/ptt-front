@@ -42,7 +42,7 @@ const ButtonCurrentLocation: React.FC = () => {
   }
   return (
     <Button className={styles.currentLocationButton} onClick={onClick}>
-      {t('Your Location')}
+      {t('address.yourLocation')}
     </Button>
   )
 }

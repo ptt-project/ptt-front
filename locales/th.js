@@ -110,13 +110,16 @@ export default {
     }
   },
   address: {
-    listAddressHeader: 'บัญชีผู้ใช้',
-    addAddressHeader: 'เพิ่มที่อยู่',
-    editAddressHeader: 'แก้ไขที่อยู่',
-    button: {
-      yourLocation: 'Your Location'
-    },
-    addressFields: {
+    addressLabel: 'ที่อยู่',
+    listAddressTitle: 'บัญชีผู้ใช้',
+    addAddressTitle: 'เพิ่มที่อยู่',
+    editAddressTitle: 'แก้ไขที่อยู่',
+    addAddress: '+ เพิ่มที่อยู่',
+    deleteAddress: 'ลบที่อยู่',
+    confirmDeleteAddress: 'ยืนยันการลบที่อยู่',
+    warningMsgDeleteAddress: 'ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้',
+    yourLocation: 'Your Location',
+    form: {
       fullName: 'ชื่อ-นามสกุล',
       mobileNo: 'หมายเลขโทรศัพท์',
       province: 'จังหวัด',

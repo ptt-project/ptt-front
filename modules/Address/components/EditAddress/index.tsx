@@ -14,7 +14,6 @@ const EditAddress: React.FC = () => {
   const { addressId } = router.query
 
   const [form] = Form.useForm()
-  const title: string = 'แก้ไขที่อยู่'
 
   const address: IAddressFormValues = useMemo(
     (): IAddressFormValues =>
@@ -39,31 +38,33 @@ const EditAddress: React.FC = () => {
   }
 
   return (
-    <Col>
-      <Text className={`title title-center ${styles.title}`}>
-        <h4>{title}</h4>
-      </Text>
-      <AddressForm
-        parentForm={form}
-        initialValues={{
-          ...address
-        }}
-        onSubmit={onSubmit}
-        isSeller={false}
-      />
-      <Row className={styles.buttonLayout} gutter={24}>
-        <Col span={12}>
-          <Button type="text" size="large" onClick={onCancelClick} block>
-            {t('common.cancel')}
-          </Button>
-        </Col>
-        <Col span={12}>
-          <Button type="primary" htmlType="submit" size="large" onClick={onSubmitClick} block>
-            {t('common.save')}
-          </Button>
-        </Col>
-      </Row>
-    </Col>
+    <Row>
+      <Col>
+        <Text className={`title title-center ${styles.title}`}>
+          <h4>{t('address.editAddressTitle')}</h4>
+        </Text>
+        <AddressForm
+          parentForm={form}
+          initialValues={{
+            ...address
+          }}
+          onSubmit={onSubmit}
+          isSeller={false}
+        />
+        <Row className={styles.buttonLayout} gutter={24}>
+          <Col span={12}>
+            <Button type="text" size="large" onClick={onCancelClick} block>
+              {t('common.cancel')}
+            </Button>
+          </Col>
+          <Col span={12}>
+            <Button type="primary" htmlType="submit" size="large" onClick={onSubmitClick} block>
+              {t('common.save')}
+            </Button>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
   )
 }
 

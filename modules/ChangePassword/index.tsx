@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Form, FormItemProps, Input, Space, Typography } from 'antd'
+import { Button, Col, Form, FormItemProps, Input, notification, Row, Space, Typography } from 'antd'
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
 import { FormInstance, Rule, RuleObject, RuleRender } from 'antd/lib/form'
 import t from '~/locales'
@@ -60,6 +60,10 @@ const ChangePassword: React.FC = () => {
   function onSubmitOtp(otpData: IOtpData): void {
     try {
       console.log({ otpData, formValues })
+      notification.success({
+        message: 'Change Password Success'
+      })
+      setIsOpen(false)
     } catch (error) {
       console.log(error)
     }
@@ -90,11 +94,13 @@ const ChangePassword: React.FC = () => {
   ]
 
   return (
-    <div className={`container ${styles.page}`}>
-      <div className={styles.content}>
-        <Text className={styles.title}>
-          <h4>{t('auth.changePassword.title')}</h4>
-        </Text>
+    <Row className={`${styles.page}`}>
+      <Col>
+        <Col flex="auto">
+          <Text className={styles.title}>
+            <h4>{t('auth.changePassword.title')}</h4>
+          </Text>
+        </Col>
         <Form layout="vertical" form={form} onFinish={onSubmit} requiredMark={false}>
           <InputPassword
             label={t('auth.changePassword.password')}
@@ -127,9 +133,9 @@ const ChangePassword: React.FC = () => {
             </Button>
           </Form.Item>
         </Form>
-      </div>
+      </Col>
       <OtpModal mobileNo={user.mobileNo} isOpen={isOpen} toggle={toggle} onSubmit={onSubmitOtp} />
-    </div>
+    </Row>
   )
 }
 
