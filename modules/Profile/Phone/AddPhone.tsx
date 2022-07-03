@@ -22,9 +22,9 @@ const AddPhone: FC = () => {
             <li><i className="d-icon-home"/></li>
             <li disabled>{t('accountProfile.form.setting')}</li>
             <li disabled>{t('accountProfile.form.title')}</li>
-            <li><Link href={Url.href('/personal-info', router.locale)}>{t('accountProfile.form.personalInfo')}</Link></li>
-            <li><Link href={Url.href('/personal-info/phone', router.locale)}>{t('accountProfile.phone.titleEdit')}</Link></li>
-            <li><Link href={Url.href('/personal-info/add-phone', router.locale)}>{t('accountProfile.phone.titleAdd')}</Link></li>
+            <li><Link href={Url.href('/setting/account/info', router.locale)}>{t('accountProfile.form.personalInfo')}</Link></li>
+            <li><Link href={Url.href('/setting/account/info/phone', router.locale)}>{t('accountProfile.phone.titleEdit')}</Link></li>
+            <li><Link href={Url.href('/setting/account/info/add-phone', router.locale)}>{t('accountProfile.phone.titleAdd')}</Link></li>
 
           </ul>
         </div>

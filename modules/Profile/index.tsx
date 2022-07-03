@@ -41,7 +41,7 @@ const Profile: FC = () => {
             </li>
             <li disabled>{t('accountProfile.form.setting')}</li>
             <li disabled>{t('accountProfile.form.title')}</li>
-            <li><Link href={Url.href('/personal-info', router.locale)}>{t('accountProfile.form.personalInfo')}</Link></li>
+            <li><Link href={Url.href('/setting/account/info', router.locale)}>{t('accountProfile.form.personalInfo')}</Link></li>
           </ul>
         </div>
       </nav>
@@ -109,14 +109,14 @@ const Profile: FC = () => {
                   <Col md={6} xs={6}><Text>{t('accountProfile.form.email')}</Text></Col>
                   <Col md={12} xs={12}><Text type="danger">xxxxx@gmail.com</Text></Col>
                   <Col md={6} xs={6}>
-                    <Link href="/personal-info/email">
+                    <Link href="/setting/account/info/email">
                       <a className={styles.textPrimary}><i className={`fas fa-pen ${styles.padding5} ${styles.textPrimary}`}/>{t('accountProfile.button.edit')}</a>
                     </Link>
                   </Col>
                   <Col md={6} xs={6}><Text>{t('accountProfile.form.phoneNumber')}</Text></Col>
                   <Col md={12} xs={12}><Text type="danger">xxxxx11</Text></Col>
                   <Col md={6} xs={6}>
-                    <Link href="/personal-info/phone">
+                    <Link href="/setting/account/info/phone">
                       <a className={styles.textPrimary}><i className={`fas fa-pen ${styles.padding5}`}/>{t('accountProfile.button.edit')}</a>
                     </Link>
                   </Col>
