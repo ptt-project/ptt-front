@@ -35,8 +35,8 @@ const Email: FC = () => {
             </li>
             <li disabled>{t('accountProfile.form.setting')}</li>
             <li disabled>{t('accountProfile.form.title')}</li>
-            <li><Link href={Url.href('/personal-info', router.locale)}>{t('accountProfile.form.personalInfo')}</Link></li>
-            <li><Link href={Url.href('/personal-info/email', router.locale)}>{t('accountProfile.email.title')}</Link></li>
+            <li><Link href={Url.href('/setting/account/info', router.locale)}>{t('accountProfile.form.personalInfo')}</Link></li>
+            <li><Link href={Url.href('/setting/account/info/email', router.locale)}>{t('accountProfile.email.title')}</Link></li>
           </ul>
         </div>
       </nav>
