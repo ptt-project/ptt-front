@@ -7,19 +7,20 @@ interface IAddressCheckboxFieldProps {
   value?: boolean
   onChange?: (value: boolean) => void
   onHintClick?: () => void
+  disabled?: boolean
 }
 const AddressCheckboxField: React.FC<IAddressCheckboxFieldProps> = (
   props: IAddressCheckboxFieldProps
 ) => {
-  const { label, value, onChange, onHintClick } = props
+  const { label, value, onChange, onHintClick, disabled } = props
 
   function handleChange(): void {
     onChange?.(!value)
   }
 
   return (
-    <Space>
-      <Checkbox value={!!value} onClick={handleChange}>
+    <Space className={styles.checkBoxLayout} direction="horizontal">
+      <Checkbox value={!!value} defaultChecked={!!value} onClick={handleChange} disabled={disabled}>
         {label}
       </Checkbox>
       {onHintClick && (

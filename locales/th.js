@@ -16,7 +16,8 @@ export default {
     cancel: 'ยกเลิก',
     next: 'ต่อไป',
     close: 'ปิด',
-    confirm: 'ยืนยัน'
+    confirm: 'ยืนยัน',
+    save: 'บันทึก'
   },
   components: {
     otpModal: {

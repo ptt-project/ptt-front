@@ -32,10 +32,11 @@ interface IAddressFormProps {
   parentForm: FormInstance
   initialValues?: Partial<IAddressFormValues>
   onSubmit: (values: IAddressFormValues) => void
+  isSeller?: boolean
 }
 
 const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
-  const { parentForm, initialValues, onSubmit } = props
+  const { parentForm, initialValues, onSubmit, isSeller } = props
   const [hintModalVisible, setHintModalVisible] = useState<boolean>(false)
   const [hintModalData, setHintModalData] = useState<any>({})
 
@@ -209,6 +210,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
               <AddressCheckboxField
                 label={t('address.addressFields.isStore')}
                 onHintClick={onHintClick.bind(null, 'isStore')}
+                disabled={!isSeller}
               />
             </Form.Item>
           </Col>
@@ -217,6 +219,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
               <AddressCheckboxField
                 label={t('address.addressFields.isRefundStore')}
                 onHintClick={onHintClick.bind(null, 'isRefundStore')}
+                disabled={!isSeller}
               />
             </Form.Item>
           </Col>

@@ -53,14 +53,14 @@ const AddressCard: React.FC<IAddressCard> = (props: IAddressCard) => {
         </Col>
         <Col className={styles.actionLayout} md={4} sm={12}>
           <Image
-            className={styles.clickable}
+            className={[styles.clickable, styles.actionIcon].join(' ')}
             preview={false}
             src="./images/main/buyer/icon-edit.svg"
             onClick={onEditClick}
           />
           {!data.isDefault && (
             <Image
-              className={styles.clickable}
+              className={[styles.clickable, styles.actionIcon].join(' ')}
               preview={false}
               src="./images/main/buyer/icon-favorite.svg"
               onClick={onFavoriteClick}
@@ -68,7 +68,7 @@ const AddressCard: React.FC<IAddressCard> = (props: IAddressCard) => {
           )}
           {!data.isDefault && (
             <Image
-              className={styles.clickable}
+              className={[styles.clickable, styles.actionIcon].join(' ')}
               preview={false}
               src="./images/main/buyer/icon-delete.svg"
               onClick={onDeleteClick}
