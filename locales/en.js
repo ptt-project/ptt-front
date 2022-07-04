@@ -136,7 +136,14 @@ export default {
       isDefault: 'เลือกเป็นที่อยู่ตั้งต้น',
       isStore: 'เลือกเป็นที่อยู่ในการรับสินค้า',
       isRefundStore: 'เลือกเป็นที่อยู่ในการรับสินค้าคืน'
-    }
+    },
+    breadcrumbs: {
+      setting: 'ตั้งค่า',
+      account: 'บัญชีผู้ใช้',
+      address: 'ที่อยู่',
+      addAddress: 'เพิ่มที่อยู่',
+      editAddress: 'แก้ไขที่อยู่',
+    },
   },
   header: {
     titleSellerCentre: 'Seller centre',
