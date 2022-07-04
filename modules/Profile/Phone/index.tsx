@@ -5,7 +5,7 @@ import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import OtpModal from '~/components/main/OtpModal'
-import DelPhoneModal from './DelPhoneModal'
+import ConfirmationModal from '~/components/main/ConfirmationModal'
 import t from '~/locales'
 import { IOtpData } from '~/model/Common'
 import { CustomUrl } from '~/utils/main'
@@ -37,12 +37,12 @@ const Phone: FC = () => {
   const router: NextRouter = useRouter()
   return (
     <>
-      <OtpModal mobileNo="12346" isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
-      <DelPhoneModal
-        isOpen={isOpenDelPhoneModal}
-        toggle={toggleDelPhoneModal}
-        type="danger success info warning"
-        content="test"
+      <OtpModal  mobileNo="12346" isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
+      <ConfirmationModal 
+        isOpen={isOpenDelPhoneModal} 
+        toggle={toggleDelPhoneModal} 
+        type='error'
+        title= {t('accountProfile.phone.deletePhone')}
       />
       <main className="main account">
         <Helmet>
