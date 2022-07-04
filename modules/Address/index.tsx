@@ -58,7 +58,7 @@ const Address: React.FC = () => {
           <h4>{t('address.listAddressTitle')}</h4>
         </Text>
         <Col>
-          <Row>
+          <Row className={styles.titleLayout}>
             <Col flex="auto">
               <Text>{t('address.addressLabel')}</Text>
             </Col>
@@ -66,26 +66,18 @@ const Address: React.FC = () => {
               <Button onClick={onAddAddressClick}>{t('address.addAddress')}</Button>
             </Col>
           </Row>
-          <Col>
-            <Space
-              className={styles.addressList}
-              size={16}
-              direction="vertical"
-              style={{
-                width: '100%'
-              }}
-            >
-              {(addresses as IAddressFormValues[]).map((address: IAddressFormValues) => (
+          <Row className={styles.addressList} gutter={[0, 16]}>
+            {(addresses as IAddressFormValues[]).map((address: IAddressFormValues) => (
+              <Col key={`${address.id}`} span={24}>
                 <AddressCard
-                  key={`${address.id}`}
                   data={address}
                   onEditClick={onEditAddressClick.bind(null, address.id)}
                   onFavoriteClick={onFavoriteAddressClick.bind(null, address.id)}
                   onDeleteClick={onDeleteAddressClick.bind(null, address.id)}
                 />
-              ))}
-            </Space>
-          </Col>
+              </Col>
+            ))}
+          </Row>
         </Col>
         <Modal
           className={styles.hintModal}

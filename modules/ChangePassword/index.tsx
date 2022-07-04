@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Col, Form, FormItemProps, Input, notification, Row, Space, Typography } from 'antd'
-import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
+import { Button, Col, Form, Input, notification, Row, Space, Typography } from 'antd'
 import { FormInstance, Rule, RuleObject, RuleRender } from 'antd/lib/form'
 import t from '~/locales'
 import styles from './ChangePassword.module.scss'
@@ -15,28 +14,6 @@ interface IChangePasswordFormValues {
   password: string
   newPassword: string
   confirmNewPassword: string
-}
-
-const InputPassword: React.FC<FormItemProps> = (props: FormItemProps) => {
-  const { label, name, rules } = props
-
-  const [hidePassword, setHidePassword] = useState(true)
-
-  function onEyeIconClick(): void {
-    setHidePassword((prev: boolean) => !prev)
-  }
-
-  const SuffixIcon: typeof EyeInvisibleOutlined = hidePassword ? EyeInvisibleOutlined : EyeOutlined
-
-  return (
-    <Form.Item label={label} name={name} rules={rules}>
-      <Input
-        suffix={<SuffixIcon className="site-form-item-icon" onClick={onEyeIconClick} />}
-        type={hidePassword ? 'password' : 'text'}
-        maxLength={20}
-      />
-    </Form.Item>
-  )
 }
 
 const ChangePassword: React.FC = () => {
@@ -95,45 +72,50 @@ const ChangePassword: React.FC = () => {
 
   return (
     <Row className={`${styles.page}`}>
-      <Col>
-        <Col flex="auto">
-          <Text className={styles.title}>
-            <h4>{t('auth.changePassword.title')}</h4>
-          </Text>
-        </Col>
-        <Form layout="vertical" form={form} onFinish={onSubmit} requiredMark={false}>
-          <InputPassword
-            label={t('auth.changePassword.password')}
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: 'Required'
-              }
-            ]}
-          />
-          <InputPassword
-            label={t('auth.changePassword.newPassword')}
-            name="newPassword"
-            rules={[...baseRules, validateConfirmPasswordMatched]}
-          />
-          <InputPassword
-            label={t('auth.changePassword.confirmNewPassword')}
-            name="confirmNewPassword"
-            dependencies={['newPassword']}
-            rules={[...baseRules, validateConfirmPasswordMatched]}
-          />
-          <Space />
-          <Form.Item>
-            <Text className={styles.description}>{t('auth.changePassword.description')}</Text>
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit" size="large" block>
-              {t('auth.changePassword.button.submit')}
-            </Button>
-          </Form.Item>
-        </Form>
+      <Col span={24}>
+        <Text className={styles.title} type="secondary">
+          <h4>{t('auth.changePassword.title')}</h4>
+        </Text>
       </Col>
+      <Form layout="vertical" form={form} onFinish={onSubmit} requiredMark={false}>
+        <Form.Item
+          label={t('auth.changePassword.password')}
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: 'Required'
+            }
+          ]}
+        >
+          <Input.Password maxLength={20} />
+        </Form.Item>
+        <Form.Item
+          label={t('auth.changePassword.newPassword')}
+          name="newPassword"
+          rules={[...baseRules, validateConfirmPasswordMatched]}
+        >
+          <Input.Password maxLength={20} />
+        </Form.Item>
+        <Form.Item
+          label={t('auth.changePassword.confirmNewPassword')}
+          name="confirmNewPassword"
+          dependencies={['newPassword']}
+          rules={[...baseRules, validateConfirmPasswordMatched]}
+        >
+          <Input.Password maxLength={20} />
+        </Form.Item>
+        <Space />
+        <Form.Item>
+          <Text className={styles.description}>{t('auth.changePassword.description')}</Text>
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" size="large" block>
+            {t('auth.changePassword.button.submit')}
+          </Button>
+        </Form.Item>
+      </Form>
+
       <OtpModal mobileNo={user.mobileNo} isOpen={isOpen} toggle={toggle} onSubmit={onSubmitOtp} />
     </Row>
   )

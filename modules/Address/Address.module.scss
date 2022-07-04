@@ -6,9 +6,13 @@
     margin: 0 auto;
   }
 
-  .title {
-    > h4 {
-      color: $secondary-color;
+  .titleLayout {
+    border-left: 4px solid $secondary-color;
+    padding-left: 4px;
+    .title {
+      > h4 {
+        color: $secondary-color;
+      }
     }
   }
 
