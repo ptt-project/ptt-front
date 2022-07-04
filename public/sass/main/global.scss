@@ -80,6 +80,7 @@
     transform: translate(0, -25%);
     animation: fadeIn 0.5s;
     z-index: 1;
+    box-shadow: $box-shadow;
 
     button {
       border-top-left-radius: 0;
