@@ -144,6 +144,12 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
     }
   }
 
+  function onClose(e: any): void {
+    if (e.target.className === 'ss-bar') {
+      setIsOpen(false)
+    }
+  }
+
   return (
     <div className={getClassName()}>
       <div className="ss-open">
@@ -154,21 +160,23 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
           onClick={(): void => setIsOpen(true)}
         />
       </div>
-      <div className="ss-close">
-        <Button
-          type="primary"
-          icon={<i className="fas fa-times" />}
-          size="large"
-          onClick={(): void => setIsOpen(false)}
+      <div className="ss-bar" onClick={onClose} aria-hidden="true">
+        <div className="ss-close">
+          <Button
+            type="primary"
+            icon={<i className="fas fa-times" />}
+            size="large"
+            onClick={(): void => setIsOpen(false)}
+          />
+        </div>
+        <Menu
+          onClick={onClick}
+          defaultOpenKeys={getDefaultOpenKey()}
+          selectedKeys={currentSelected}
+          mode="inline"
+          items={items}
         />
       </div>
-      <Menu
-        onClick={onClick}
-        defaultOpenKeys={getDefaultOpenKey()}
-        selectedKeys={currentSelected}
-        mode="inline"
-        items={items}
-      />
     </div>
   )
 }
