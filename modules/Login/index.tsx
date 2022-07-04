@@ -2,6 +2,7 @@ import React, { useState, FC } from 'react'
 import { useRouter, NextRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image } from 'antd'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
 import t from '~/locales'
 import { CustomUrl } from '~/utils/main'
 import { ILoginForm } from '~/model/Auth'
@@ -37,18 +38,7 @@ const Login: FC = () => {
           {t('meta.title')} | {t('auth.login.title')}
         </title>
       </Helmet>
-      <nav className="breadcrumb-nav">
-        <div className="container">
-          <ul className="breadcrumb">
-            <li>
-              <Link href={CustomUrl.href('/', router.locale)}>
-                <i className="d-icon-home" />
-              </Link>
-            </li>
-            <li>{t('auth.login.title')}</li>
-          </ul>
-        </div>
-      </nav>
+      <Breadcrumbs items={[{ title: t('auth.login.title') }]} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>

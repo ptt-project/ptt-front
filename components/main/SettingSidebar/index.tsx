@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FC } from 'react'
 import { NextRouter, useRouter } from 'next/router'
-import { Menu, MenuProps } from 'antd'
+import { Button, Menu, MenuProps } from 'antd'
 import { MenuInfo } from 'rc-menu/lib/interface'
 import t from '~/locales'
 
@@ -37,6 +37,7 @@ const getItem = (
 const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) => {
   const router: NextRouter = useRouter()
   const [collapsed, setCollapsed] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [currentSelected, setCurrentSelected] = useState<string[]>([])
 
   // ===========================
@@ -51,7 +52,7 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
       getItem(tBuyer.account.relation, 'relation')
     ]),
     getItem(tBuyer.wallet.title, 'wallet', <i className="fas fa-wallet" />, [
-      getItem(tBuyer.wallet.eWallet, 'eWallet'),
+      getItem(tBuyer.wallet.eWallet, 'e-wallet'),
       getItem(tBuyer.wallet.bank, 'bank'),
       getItem(tBuyer.wallet.point, 'point')
     ]),
@@ -81,8 +82,9 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
   const items: MenuProps['items'] = props.sidebarType === 'seller' ? sellerItems : buyerItems
 
   useEffect(() => {
-    window.addEventListener('resize', calcCollapsed)
+    calcCollapsed()
     initCurrentSelected()
+    window.addEventListener('resize', calcCollapsed)
 
     return (): void => {
       window.removeEventListener('resize', calcCollapsed)
@@ -111,6 +113,16 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
     }
   }
 
+  function getClassName(): string {
+    if (collapsed) {
+      if (isOpen) {
+        return 'setting-sidebar ss-collapsed ss-active'
+      }
+      return 'setting-sidebar ss-collapsed'
+    }
+    return 'setting-sidebar'
+  }
+
   function getDefaultOpenKey(): string[] {
     const selected: string[] = []
     items.forEach((item: IMenuItem) => {
@@ -133,14 +145,28 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
   }
 
   return (
-    <div className="setting-sidebar">
+    <div className={getClassName()}>
+      <div className="ss-open">
+        <Button
+          type="primary"
+          icon={<i className="fas fa-chevron-right" />}
+          size="large"
+          onClick={(): void => setIsOpen(true)}
+        />
+      </div>
+      <div className="ss-close">
+        <Button
+          type="primary"
+          icon={<i className="fas fa-times" />}
+          size="large"
+          onClick={(): void => setIsOpen(false)}
+        />
+      </div>
       <Menu
         onClick={onClick}
-        style={{ width: 256 }}
         defaultOpenKeys={getDefaultOpenKey()}
         selectedKeys={currentSelected}
         mode="inline"
-        inlineCollapsed={collapsed}
         items={items}
       />
     </div>

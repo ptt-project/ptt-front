@@ -1,18 +1,13 @@
 import React, { useState, FC } from 'react'
-import { useRouter, NextRouter } from 'next/router'
 import Helmet from 'react-helmet'
-import { Typography } from 'antd'
 import RegisterForm from './components/RegisterForm'
 import RegisterConsent from './components/RegisterConsent'
 import RegisterSuccess from './components/RegisterSuccess'
-import t from '~/locales'
-import { CustomUrl } from '~/utils/main'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { IRegisterForm } from '~/model/Auth'
-
-const { Link } = Typography
+import t from '~/locales'
 
 const Register: FC = () => {
-  const router: NextRouter = useRouter()
   const [form, setForm] = useState<IRegisterForm>({
     firstName: '',
     lastName: '',
@@ -43,18 +38,7 @@ const Register: FC = () => {
           {t('meta.title')} | {t('auth.register.title')}
         </title>
       </Helmet>
-      <nav className="breadcrumb-nav">
-        <div className="container">
-          <ul className="breadcrumb">
-            <li>
-              <Link href={CustomUrl.href('/', router.locale)}>
-                <i className="d-icon-home" />
-              </Link>
-            </li>
-            <li>{t('auth.register.title')}</li>
-          </ul>
-        </div>
-      </nav>
+      <Breadcrumbs items={[{ title: t('auth.register.title') }]} />
       {renderStep()}
     </main>
   )

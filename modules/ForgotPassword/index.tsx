@@ -4,6 +4,7 @@ import Helmet from 'react-helmet'
 import { Typography } from 'antd'
 import ForgotPasswordForm from './components/ForgotPasswordForm'
 import ForgotPasswordByEmailSuccess from './components/ForgotPasswordByEmailSuccess'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
 import OtpModal from '~/components/main/OtpModal'
 import t from '~/locales'
 import { RegExpList } from '~/constants'
@@ -65,6 +66,7 @@ const ForgotPassword: FC = () => {
           {t('meta.title')} | {t('auth.forgotPassword.title')}
         </title>
       </Helmet>
+      <Breadcrumbs items={[{ title: t('auth.forgotPassword.title') }]} />
       <nav className="breadcrumb-nav">
         <div className="container">
           <ul className="breadcrumb">
