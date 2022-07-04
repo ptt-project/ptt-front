@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC, MouseEvent } from 'react'
+import React, { useState, useEffect, FC } from 'react'
 import { NextRouter, useRouter } from 'next/router'
 import { Button, Menu, MenuProps } from 'antd'
 import { MenuInfo } from 'rc-menu/lib/interface'
