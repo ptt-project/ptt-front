@@ -22,12 +22,14 @@ import styles from './Profile.module.scss'
 
 const { Text } = Typography
 const { Option } = Select
+
 interface IFormModel {
   firstName: string
   lastName: string
   mobileNo: string
   email: string
 }
+
 const Profile: FC = () => {
   const [form] = Form.useForm()
   const [value, setValue] = useState(1)
