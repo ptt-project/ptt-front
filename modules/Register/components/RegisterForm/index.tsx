@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash'
 import t from '~/locales'
 import { RegExpList } from '~/constants'
 import { IRegisterForm } from '~/model/Auth'
-import { Url } from '~/utils/main'
+import { CustomUrl } from '~/utils/main'
 import styles from './RegisterForm.module.scss'
 
 const { Text, Link } = Typography
@@ -213,7 +213,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
               <Divider>{t('auth.register.form.divider')}</Divider>
               <Space className={styles.space} wrap>
                 <Text>{t('auth.register.form.loginA')}</Text>
-                <Link href={Url.href('/auth/login', router.locale)} className={styles.link}>
+                <Link href={CustomUrl.href('/auth/login', router.locale)} className={styles.link}>
                   {t('auth.register.form.loginB')}
                 </Link>
               </Space>

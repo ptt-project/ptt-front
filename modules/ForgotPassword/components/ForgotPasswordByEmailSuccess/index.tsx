@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { useRouter, NextRouter } from 'next/router'
 import { Typography, Space, Button, Row, Col, Image } from 'antd'
 import t from '~/locales'
-import { Url } from '~/utils/main'
+import { CustomUrl } from '~/utils/main'
 import styles from './ForgotPasswordByEmailSuccess.module.scss'
 
 const { Text } = Typography
@@ -64,7 +64,7 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
                   htmlType="submit"
                   type="primary"
                   block
-                  href={Url.href('/', router.locale)}
+                  href={CustomUrl.href('/', router.locale)}
                 >
                   {t('common.ok')}
                 </Button>

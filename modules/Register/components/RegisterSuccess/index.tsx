@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { useRouter, NextRouter } from 'next/router'
 import { Typography, Button, Row, Col, Image } from 'antd'
 import t from '~/locales'
-import { Url } from '~/utils/main'
+import { CustomUrl } from '~/utils/main'
 import styles from './RegisterSuccess.module.scss'
 
 const { Text } = Typography
@@ -56,7 +56,7 @@ const RegisterSuccess: FC = () => {
                   htmlType="submit"
                   type="primary"
                   block
-                  href={Url.href('/auth/login', router.locale)}
+                  href={CustomUrl.href('/auth/login', router.locale)}
                 >
                   {t('auth.register.success.login')}
                 </Button>

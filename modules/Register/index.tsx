@@ -6,7 +6,7 @@ import RegisterForm from './components/RegisterForm'
 import RegisterConsent from './components/RegisterConsent'
 import RegisterSuccess from './components/RegisterSuccess'
 import t from '~/locales'
-import { Url } from '~/utils/main'
+import { CustomUrl } from '~/utils/main'
 import { IRegisterForm } from '~/model/Auth'
 
 const { Link } = Typography
@@ -47,7 +47,7 @@ const Register: FC = () => {
         <div className="container">
           <ul className="breadcrumb">
             <li>
-              <Link href={Url.href('/', router.locale)}>
+              <Link href={CustomUrl.href('/', router.locale)}>
                 <i className="d-icon-home" />
               </Link>
             </li>

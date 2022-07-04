@@ -6,8 +6,8 @@ import Link from 'next/link'
 import { useRouter, NextRouter } from 'next/router'
 import t from '~/locales'
 import styles from './Profile.module.scss'
-import { Url } from '~/utils/main'
-import SideBarSettingMenu from '~/components/main/SideBarSettingMenu'
+import { CustomUrl } from '~/utils/main'
+import SettingSidebar from '~/components/main/SettingSidebar'
 
 const { Text } = Typography
 interface IFormModel {
@@ -35,13 +35,13 @@ const Profile: FC = () => {
         <div className="container">
           <ul className="breadcrumb">
             <li>
-              <Link href={Url.href('/', router.locale)}>
+              <Link href={CustomUrl.href('/', router.locale)}>
                 <i className="d-icon-home" />
               </Link>
             </li>
             <li disabled>{t('accountProfile.form.setting')}</li>
             <li disabled>{t('accountProfile.form.title')}</li>
-            <li><Link href={Url.href('/setting/account/info', router.locale)}>{t('accountProfile.form.personalInfo')}</Link></li>
+            <li><Link href={CustomUrl.href('/settings/account/info', router.locale)}>{t('accountProfile.form.personalInfo')}</Link></li>
           </ul>
         </div>
       </nav>
@@ -49,7 +49,7 @@ const Profile: FC = () => {
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <SideBarSettingMenu/>
+              <SettingSidebar/>
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>
               <Text>
@@ -109,14 +109,14 @@ const Profile: FC = () => {
                   <Col md={6} xs={6}><Text>{t('accountProfile.form.email')}</Text></Col>
                   <Col md={12} xs={12}><Text type="danger">xxxxx@gmail.com</Text></Col>
                   <Col md={6} xs={6}>
-                    <Link href="/setting/account/info/email">
+                    <Link href="/settings/account/info/email">
                       <a className={styles.textPrimary}><i className={`fas fa-pen ${styles.padding5} ${styles.textPrimary}`}/>{t('accountProfile.button.edit')}</a>
                     </Link>
                   </Col>
                   <Col md={6} xs={6}><Text>{t('accountProfile.form.phoneNumber')}</Text></Col>
                   <Col md={12} xs={12}><Text type="danger">xxxxx11</Text></Col>
                   <Col md={6} xs={6}>
-                    <Link href="/setting/account/info/phone">
+                    <Link href="/settings/account/info/phone">
                       <a className={styles.textPrimary}><i className={`fas fa-pen ${styles.padding5}`}/>{t('accountProfile.button.edit')}</a>
                     </Link>
                   </Col>

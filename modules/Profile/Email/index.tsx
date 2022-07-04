@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { useRouter, NextRouter } from 'next/router'
 import t from '~/locales'
 import styles from './ProfileEmail.module.scss'
-import { Url } from '~/utils/main'
-import SideBarSettingMenu from '~/components/main/SideBarSettingMenu'
+import { CustomUrl } from '~/utils/main'
+import SettingSidebar from '~/components/main/SettingSidebar'
 
 const { Text } = Typography
 interface IFormModel {
@@ -29,14 +29,14 @@ const Email: FC = () => {
         <div className="container">
           <ul className="breadcrumb">
             <li>
-              <Link href={Url.href('/', router.locale)}>
+              <Link href={CustomUrl.href('/', router.locale)}>
                 <i className="d-icon-home" />
               </Link>
             </li>
             <li disabled>{t('accountProfile.form.setting')}</li>
             <li disabled>{t('accountProfile.form.title')}</li>
-            <li><Link href={Url.href('/setting/account/info', router.locale)}>{t('accountProfile.form.personalInfo')}</Link></li>
-            <li><Link href={Url.href('/setting/account/info/email', router.locale)}>{t('accountProfile.email.title')}</Link></li>
+            <li><Link href={CustomUrl.href('/settings/account/info', router.locale)}>{t('accountProfile.form.personalInfo')}</Link></li>
+            <li><Link href={CustomUrl.href('/settings/account/info/email', router.locale)}>{t('accountProfile.email.title')}</Link></li>
           </ul>
         </div>
       </nav>
@@ -44,7 +44,7 @@ const Email: FC = () => {
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <SideBarSettingMenu/>
+              <SettingSidebar/>
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>
               <Text><h4 className={`text-center mb-5 ${styles.textEmailTitle} ${styles.textPrimary}`}>{t('accountProfile.email.title')}</h4></Text>

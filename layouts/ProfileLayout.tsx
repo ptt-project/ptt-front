@@ -4,9 +4,9 @@ import Helmet from 'react-helmet'
 import Link from 'next/link'
 import { NextRouter, useRouter } from 'next/router'
 import { Col, Row } from 'antd'
-import SideBarSettingMenu from '~/components/main/SideBarSettingMenu'
+import SettingSidebar from '~/components/main/SettingSidebar'
 import t from '~/locales'
-import { Url } from '~/utils/main'
+import { CustomUrl } from '~/utils/main'
 
 interface IProfileLayoutProps {
   children: ReactNode
@@ -26,14 +26,14 @@ const ProfileLayout: React.FC<IProfileLayoutProps> = (props: IProfileLayoutProps
         <div className="container">
           <ul className="breadcrumb">
             <li>
-              <Link href={Url.href('/', router.locale)}>
+              <Link href={CustomUrl.href('/', router.locale)}>
                 <i className="d-icon-home" />
               </Link>
             </li>
             <li>{t('accountProfile.form.setting')}</li>
             <li>{t('accountProfile.form.title')}</li>
             <li>
-              <Link href={Url.href('/personal-info', router.locale)}>
+              <Link href={CustomUrl.href('/personal-info', router.locale)}>
                 {t('accountProfile.form.personalInfo')}
               </Link>
             </li>
@@ -44,7 +44,7 @@ const ProfileLayout: React.FC<IProfileLayoutProps> = (props: IProfileLayoutProps
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <SideBarSettingMenu />
+              <SettingSidebar />
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>
               {children}
