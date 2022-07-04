@@ -8,8 +8,8 @@ import styles from './ProfilePhone.module.scss'
 import SideBarSettingMenu from '~/components/main/SideBarSettingMenu'
 import { Url } from '~/utils/main'
 import OtpModal from '~/components/main/OtpModal'
-import DelPhoneModal from './DelPhoneModal'
 import { IOtpData } from '~/model/Common'
+import ConfirmationModal from '~/components/main/ConfirmationModal'
 
 const { Text } = Typography
   
@@ -39,7 +39,7 @@ const Phone: FC = () => {
   return (
     <>
       <OtpModal  mobileNo="12346" isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
-      <DelPhoneModal isOpen={isOpenDelPhoneModal} toggle={toggleDelPhoneModal}/>
+      <ConfirmationModal isOpen={isOpenDelPhoneModal} toggle={toggleDelPhoneModal}/>
       <main className="main account">
         <Helmet>
           <title>{t('meta.title')} | {t('accountProfile.form.title')}</title>
