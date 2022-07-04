@@ -5,6 +5,7 @@ import AddressForm from '../AddressForm'
 import styles from '../../Address.module.scss'
 import t from '~/locales'
 import { IAddressFormValues } from '~/model/Address'
+import { CustomUrl } from '~/utils/main'
 
 const { Text } = Typography
 
@@ -21,11 +22,11 @@ const AddAddress: React.FC = () => {
     notification.success({
       message: 'Add Address Success'
     })
-    router.replace('/personal-info/address')
+    router.replace(CustomUrl.href('/settings/account/address', router.locale))
   }
 
   function onCancelClick(): void {
-    router.replace('/personal-info/address')
+    router.replace(CustomUrl.href('/settings/account/address', router.locale))
   }
 
   return (

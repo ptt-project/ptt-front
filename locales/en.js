@@ -102,6 +102,11 @@ export default {
       button: {
         submit: 'ยืนยัน'
       },
+      breadcrumbs: {
+        setting: 'ตั้งค่า',
+        account: 'บัญชีผู้ใช้',
+        changePassword: 'เปลี่ยนรหัสผ่าน',
+      },
       error: {
         passwordInValid: 'รหัสผ่านไม่ถูกต้อง',
         passwordFormatInValid: 'รูปแบบรหัสผ่านไม่ถูกต้อง',

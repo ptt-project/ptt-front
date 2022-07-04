@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Col, Typography, Form, Button, Row, notification } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import AddressForm from '../AddressForm'
@@ -6,6 +6,7 @@ import styles from '../../Address.module.scss'
 import t from '~/locales'
 import { IAddressFormValues } from '~/model/Address'
 import addresses from '../AddressForm/mock-data/mock-addresses.json'
+import { CustomUrl } from '~/utils/main'
 
 const { Text } = Typography
 
@@ -21,6 +22,10 @@ const EditAddress: React.FC = () => {
     [addressId]
   )
 
+  useEffect(() => {
+    console.log(addressId)
+  }, [addressId])
+
   function onSubmit(values: IAddressFormValues): void {
     console.log(values)
   }
@@ -30,11 +35,11 @@ const EditAddress: React.FC = () => {
     notification.success({
       message: 'Edit Address Success'
     })
-    router.replace('/personal-info/address')
+    router.replace(CustomUrl.href('/settings/account/address', router.locale))
   }
 
   function onCancelClick(): void {
-    router.replace('/personal-info/address')
+    router.replace(CustomUrl.href('/settings/account/address', router.locale))
   }
 
   return (

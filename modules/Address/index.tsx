@@ -8,6 +8,7 @@ import { IAddressFormValues } from '~/model/Address'
 import { useVisible } from '~/utils/main/custom-hook'
 import addresses from './components/AddressForm/mock-data/mock-addresses.json'
 import t from '~/locales'
+import { CustomUrl } from '~/utils/main'
 
 const { Text } = Typography
 
@@ -20,11 +21,11 @@ const Address: React.FC = () => {
   const [deleteAddressId, setDeleteAddressId] = useState<string>()
 
   function onAddAddressClick(): void {
-    router.push('/personal-info/address/add')
+    router.push(CustomUrl.href('/settings/account/address/add', router.locale))
   }
 
   function onEditAddressClick(addressId: string): void {
-    router.push(`/personal-info/address/${addressId}`)
+    router.push(CustomUrl.href(`/settings/account/address/${addressId}`, router.locale))
   }
 
   function onFavoriteAddressClick(/* addressId: string */): void {

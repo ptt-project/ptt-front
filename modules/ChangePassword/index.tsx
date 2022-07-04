@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
 import { Button, Col, Form, Input, notification, Row, Space, Typography } from 'antd'
 import { FormInstance, Rule, RuleObject, RuleRender } from 'antd/lib/form'
+import { NextRouter, useRouter } from 'next/router'
+import Helmet from 'react-helmet'
 import t from '~/locales'
 import styles from './ChangePassword.module.scss'
 import OtpModal from '~/components/main/OtpModal'
 import { IOtpData } from '~/model/Common'
+import { CustomUrl } from '~/utils/main'
+import { RegExpList } from '~/constants'
+import SettingSidebar from '~/components/main/SettingSidebar'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
 
 const { Text } = Typography
 const user: any = {
@@ -17,10 +23,12 @@ interface IChangePasswordFormValues {
 }
 
 const ChangePassword: React.FC = () => {
+  const router: NextRouter = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [form] = Form.useForm<IChangePasswordFormValues>()
   const [formValues, setFormValues] = useState<IChangePasswordFormValues>()
 
+  const passwordFormatInValid: string = t('auth.changePassword.error.passwordFormatInValid')
   const confirmPasswordNotMatchedMessage: string = t(
     'auth.changePassword.error.confirmPasswordNotMatched'
   )
@@ -40,11 +48,21 @@ const ChangePassword: React.FC = () => {
       notification.success({
         message: 'Change Password Success'
       })
+      router.replace(CustomUrl.href('/settings/account/address', router.locale))
+      // success goto login
       setIsOpen(false)
     } catch (error) {
       console.log(error)
     }
   }
+  const validatePasswordFormat: RuleRender = (): RuleObject => ({
+    validator(_: Rule, value: string): Promise<void> {
+      if (!value || RegExpList.CHECK_PASSWORD.test(value)) {
+        return Promise.resolve()
+      }
+      return Promise.reject(new Error(passwordFormatInValid))
+    }
+  })
 
   const validateConfirmPasswordMatched: RuleRender = ({
     getFieldValue
@@ -63,61 +81,97 @@ const ChangePassword: React.FC = () => {
       required: true,
       message: 'Required'
     },
-    {
-      type: 'string',
-      pattern: /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/,
-      message: t('auth.changePassword.error.passwordFormatInValid')
-    }
+    validatePasswordFormat
   ]
 
   return (
-    <Row className={`${styles.page}`}>
-      <Col span={24}>
-        <Text className={styles.title} type="secondary">
-          <h4>{t('auth.changePassword.title')}</h4>
-        </Text>
-      </Col>
-      <Form layout="vertical" form={form} onFinish={onSubmit} requiredMark={false}>
-        <Form.Item
-          label={t('auth.changePassword.password')}
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Required'
-            }
-          ]}
-        >
-          <Input.Password maxLength={20} />
-        </Form.Item>
-        <Form.Item
-          label={t('auth.changePassword.newPassword')}
-          name="newPassword"
-          rules={[...baseRules, validateConfirmPasswordMatched]}
-        >
-          <Input.Password maxLength={20} />
-        </Form.Item>
-        <Form.Item
-          label={t('auth.changePassword.confirmNewPassword')}
-          name="confirmNewPassword"
-          dependencies={['newPassword']}
-          rules={[...baseRules, validateConfirmPasswordMatched]}
-        >
-          <Input.Password maxLength={20} />
-        </Form.Item>
-        <Space />
-        <Form.Item>
-          <Text className={styles.description}>{t('auth.changePassword.description')}</Text>
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" size="large" block>
-            {t('auth.changePassword.button.submit')}
-          </Button>
-        </Form.Item>
-      </Form>
+    <main className="main account">
+      <Helmet>
+        <title>
+          {t('meta.title')} | {t('auth.changePassword.title')}
+        </title>
+      </Helmet>
+      <Breadcrumbs
+        items={[
+          { title: t('auth.changePassword.breadcrumbs.setting') },
+          { title: t('auth.changePassword.breadcrumbs.account') },
+          {
+            title: t('auth.changePassword.breadcrumbs.changePassword'),
+            href: CustomUrl.href('/settings/account/password', router.locale)
+          }
+        ]}
+      />
+      <div className="page-content mb-9">
+        <div className="container">
+          <Row>
+            <Col xl={6} lg={0}>
+              <SettingSidebar sidebarType="buyer" />
+            </Col>
+            <Col
+              className="mx-auto"
+              xl={{ span: 15, offset: 1 }}
+              lg={{ span: 18, offset: 3 }}
+              md={24}
+            >
+              <Row className={`${styles.page}`}>
+                <Col className="mb-4" span={24}>
+                  <Text className={styles.title} type="secondary">
+                    <h4>{t('auth.changePassword.title')}</h4>
+                  </Text>
+                </Col>
+                <Form layout="vertical" form={form} onFinish={onSubmit} requiredMark={false}>
+                  <Form.Item
+                    label={t('auth.changePassword.password')}
+                    name="password"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Required'
+                      }
+                    ]}
+                  >
+                    <Input.Password maxLength={20} />
+                  </Form.Item>
+                  <Form.Item
+                    label={t('auth.changePassword.newPassword')}
+                    name="newPassword"
+                    rules={[...baseRules]}
+                  >
+                    <Input.Password maxLength={20} />
+                  </Form.Item>
+                  <Form.Item
+                    label={t('auth.changePassword.confirmNewPassword')}
+                    name="confirmNewPassword"
+                    dependencies={['newPassword']}
+                    rules={[...baseRules, validateConfirmPasswordMatched]}
+                  >
+                    <Input.Password maxLength={20} />
+                  </Form.Item>
+                  <Space />
+                  <Form.Item>
+                    <Text className={styles.description}>
+                      {t('auth.changePassword.description')}
+                    </Text>
+                  </Form.Item>
+                  <Form.Item>
+                    <Button type="primary" htmlType="submit" size="large" block>
+                      {t('auth.changePassword.button.submit')}
+                    </Button>
+                  </Form.Item>
+                </Form>
 
-      <OtpModal mobileNo={user.mobileNo} isOpen={isOpen} toggle={toggle} onSubmit={onSubmitOtp} />
-    </Row>
+                <OtpModal
+                  mobileNo={user.mobileNo}
+                  isOpen={isOpen}
+                  toggle={toggle}
+                  onSubmit={onSubmitOtp}
+                />
+              </Row>
+            </Col>
+          </Row>
+        </div>
+      </div>
+    </main>
   )
 }
 
