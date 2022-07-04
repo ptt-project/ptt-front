@@ -3,7 +3,7 @@ import { useRouter, NextRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image } from 'antd'
 import t from '~/locales'
-import { Url } from '~/utils/main'
+import { CustomUrl } from '~/utils/main'
 import { ILoginForm } from '~/model/Auth'
 import { IFieldData } from '~/model/Common'
 import styles from './Login.module.scss'
@@ -41,7 +41,7 @@ const Login: FC = () => {
         <div className="container">
           <ul className="breadcrumb">
             <li>
-              <Link href={Url.href('/', router.locale)}>
+              <Link href={CustomUrl.href('/', router.locale)}>
                 <i className="d-icon-home" />
               </Link>
             </li>
@@ -101,7 +101,7 @@ const Login: FC = () => {
               <Divider>{t('auth.login.divider')}</Divider>
               <Space className={styles.space} wrap>
                 <Link
-                  href={Url.href('/auth/forgot-password', router.locale)}
+                  href={CustomUrl.href('/auth/forgot-password', router.locale)}
                   className={styles.link}
                 >
                   {t('auth.login.forgotPassword')}

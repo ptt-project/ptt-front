@@ -38,6 +38,7 @@ module.exports = {
     'import/extensions': ['error', 'never'],
     'import/no-import-module-exports': 'off',
     'import/prefer-default-export': 'off',
+    'import/no-extraneous-dependencies': 'off',
     'react/function-component-definition': [
       2,
       {
@@ -58,6 +59,7 @@ module.exports = {
     'no-unused-vars': [2, { args: 'none' }],
     'no-else-return': ['error', { allowElseIf: false }],
     'no-plusplus': 'off',
+    'no-use-before-define': 'off',
     radix: ['error', 'as-needed'],
     '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],
     '@typescript-eslint/no-inferrable-types': 'off',

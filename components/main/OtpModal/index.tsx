@@ -29,7 +29,6 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
       props.mobileNo &&
       props.mobileNo.replace(RegExpList.ALLOW_NUMBER, '').length === 10
     ) {
-      // eslint-disable-next-line no-use-before-define
       onRequestOtp()
     }
   }, [props.isOpen, props.mobileNo])

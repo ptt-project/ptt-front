@@ -25,7 +25,7 @@ function ComingSoon () {
             <h1 className="d-none">Riode React eCommerce Template - Coming Soon</h1>
 
             <div className="page-content">
-                <section className="coming-section container text-center text-grey font-primary">
+                <section className="coming-section container text-center text-gray font-primary">
                     <div className="row align-items-center pt-10 pb-10">
                         <div className="col-md-6">
                             <LazyLoadImage
@@ -49,7 +49,7 @@ function ComingSoon () {
                             <p>We are currently working on an awesome new site. Stay tuned for more information.
                                 Subscribe to our newsletter to stay updated on our progress.</p>
                             <form action="#" className="ml-lg-8 mr-lg-8 mb-8">
-                                <input type="email" className="form-control font-primary text-grey" name="email" id="email"
+                                <input type="email" className="form-control font-primary text-gray" name="email" id="email"
                                     placeholder="Enter Your Email Address" required />
                                 <button className="btn btn-primary btn-link btn-icon-right" type="submit">subscribe</button>
                             </form>

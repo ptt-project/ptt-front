@@ -112,3 +112,57 @@
 .t-small {
   font-size: 12px;
 }
+
+.setting-sidebar {
+  ul {
+    &.ant-menu-root {
+      border-right: 0 !important;
+    }
+
+    &.ant-menu-sub {
+      background-color: $white-color !important;
+    }
+
+    li {
+      color: $text-gray;
+
+      &:not(.ant-menu-submenu, .ant-menu-item-only-child) {
+        border-bottom: 1px solid $border-color;
+      }
+
+      div {
+        &:hover,
+        &:focus {
+          color: $primary-color-dark !important;
+
+          .ant-menu-submenu-arrow {
+            color: $primary-color-dark !important;
+          }
+        }
+
+        &.ant-menu-submenu-title {
+          border-bottom: 1px solid $border-color;
+        }
+      }
+
+      &.ant-menu-submenu-selected {
+        div {
+          color: $primary-color-dark !important;
+
+          .ant-menu-submenu-arrow {
+            color: $primary-color-dark !important;
+          }
+        }
+      }
+
+      &.ant-menu-item-selected {
+        color: $primary-color;
+        background-color: $white-color !important;
+
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+}

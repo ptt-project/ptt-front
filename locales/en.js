@@ -157,7 +157,7 @@ export default {
       female: 'หญิง',
       other: 'อื่นๆ',
       email: 'อีเมล',
-      phoneNumber: 'หมายเลขโทรศัพท์',
+      phoneNumber: 'หมายเลขโทรศัพท์'
     },
     email: {
       title: 'แก้ไขอีเมล',
@@ -196,18 +196,61 @@ export default {
       email: 'รหัสผ่านไม่ถูกต้อง'
     }
   },
-  SideBarSettingMenu: {
-    userAccount: 'บัญชีผู้ใช้',
-    personalInfo: 'ข้อมูลส่วนตัว',
-    address: 'ที่อยู่',
-    changePassword: 'เปลี่ยนรหัสผ่าน',
-    relationship: 'ความสัมพันธ์',
-    finance: 'การเงิน',
-    eWallet: 'E-wallet',
-    bankAccount: 'บัญชีธนาคาร',
-    happyPoint: 'Happy Point',
-    discountCode: 'โค้ดส่วนลด',
-    myPurchase: 'การซื้อของฉัน',
-    notification: 'การแจ้งเตือน',
+  settingSidebar: {
+    buyer: {
+      account: {
+        title: 'บัญชีผู้ใช้',
+        info: 'ข้อมูลส่วนตัว',
+        address: 'ที่อยู่',
+        password: 'เปลี่ยนรหัสผ่าน',
+        relation: 'ความสัมพันธ์'
+      },
+      wallet: {
+        title: 'การเงิน',
+        eWallet: 'E-Wallet',
+        bank: 'บัญชีธนาคาร',
+        point: 'Happy Point'
+      },
+      coupon: {
+        title: 'โค้ดส่วนลด'
+      },
+      history: {
+        title: 'การซื้อของฉัน'
+      },
+      notification: {
+        title: 'การแจ้งเตือน'
+      }
+    },
+    seller: {
+      delivery: {
+        title: 'การจัดส่ง'
+      },
+      order: {
+        title: 'คำสั่งซื้อ'
+      },
+      product: {
+        title: 'สินค้า'
+      },
+      marketing: {
+        title: 'Marketing Centre'
+      },
+      payment: {
+        title: 'การเงิน'
+      },
+      report: {
+        title: 'รายงาน'
+      },
+      shop: {
+        title: 'ร้านค้า'
+      },
+      management: {
+        title: 'การตั้งค่า',
+        address: 'ที่อยู่ของฉัน',
+        account: 'บัญชี'
+      },
+      service: {
+        title: 'การบริการลูกค้า'
+      }
+    }
   }
 }

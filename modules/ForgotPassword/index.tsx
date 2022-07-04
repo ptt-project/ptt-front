@@ -9,7 +9,7 @@ import t from '~/locales'
 import { RegExpList } from '~/constants'
 import { IForgotPasswordForm } from '~/model/Auth'
 import { IOtpData } from '~/model/Common'
-import { Url } from '~/utils/main'
+import { CustomUrl } from '~/utils/main'
 
 const { Link } = Typography
 
@@ -69,7 +69,7 @@ const ForgotPassword: FC = () => {
         <div className="container">
           <ul className="breadcrumb">
             <li>
-              <Link href={Url.href('/', router.locale)}>
+              <Link href={CustomUrl.href('/', router.locale)}>
                 <i className="d-icon-home" />
               </Link>
             </li>
