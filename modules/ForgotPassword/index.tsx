@@ -4,12 +4,13 @@ import Helmet from 'react-helmet'
 import { Typography } from 'antd'
 import ForgotPasswordForm from './components/ForgotPasswordForm'
 import ForgotPasswordByEmailSuccess from './components/ForgotPasswordByEmailSuccess'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
 import OtpModal from '~/components/main/OtpModal'
 import t from '~/locales'
 import { RegExpList } from '~/constants'
 import { IForgotPasswordForm } from '~/model/Auth'
 import { IOtpData } from '~/model/Common'
-import { Url } from '~/utils/main'
+import { CustomUrl } from '~/utils/main'
 
 const { Link } = Typography
 
@@ -65,11 +66,12 @@ const ForgotPassword: FC = () => {
           {t('meta.title')} | {t('auth.forgotPassword.title')}
         </title>
       </Helmet>
+      <Breadcrumbs items={[{ title: t('auth.forgotPassword.title') }]} />
       <nav className="breadcrumb-nav">
         <div className="container">
           <ul className="breadcrumb">
             <li>
-              <Link href={Url.href('/', router.locale)}>
+              <Link href={CustomUrl.href('/', router.locale)}>
                 <i className="d-icon-home" />
               </Link>
             </li>

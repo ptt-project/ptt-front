@@ -64,7 +64,7 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
                   htmlType="submit"
                   type="primary"
                   block
-                  href={Url.href('/', router.locale)}
+                  href={CustomUrl.href('/', router.locale)}
                 >
                   {t('common.ok')}
                 </Button>

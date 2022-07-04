@@ -109,7 +109,7 @@ function Cart ( props ) {
                                         </div>
                                         <div className="cart-coupon-box mb-8">
                                             <h4 className="title coupon-title text-uppercase ls-m">Coupon Discount</h4>
-                                            <input type="text" name="coupon_code" className="input-text form-control text-grey ls-m mb-4"
+                                            <input type="text" name="coupon_code" className="input-text form-control text-gray ls-m mb-4"
                                                 id="coupon_code" placeholder="Enter coupon code here..." />
                                             <button type="submit" className="btn btn-md btn-dark btn-rounded btn-outline">Apply Coupon</button>
                                         </div>

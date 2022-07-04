@@ -79,7 +79,7 @@ function AboutUs() {
                                                     ) }
                                                 </CountUp>
                                                 <h5 className="count-title font-weight-bold text-body ls-md">Business Year</h5>
-                                                <p className="text-grey mb-0">Lorem ipsum dolor sit<br />amet, conctetur adipisci elit. viverra erat orci.</p>
+                                                <p className="text-gray mb-0">Lorem ipsum dolor sit<br />amet, conctetur adipisci elit. viverra erat orci.</p>
                                             </div>
                                         </div>
                                         <div className="col-md-4 mb-4">
@@ -93,7 +93,7 @@ function AboutUs() {
                                                     ) }
                                                 </CountUp>
                                                 <h5 className="count-title font-weight-bold text-body ls-md">Design Brands</h5>
-                                                <p className="text-grey mb-0">Lorem ipsum dolor sit<br />amet, conctetur adipisci elit. viverra erat orci.</p>
+                                                <p className="text-gray mb-0">Lorem ipsum dolor sit<br />amet, conctetur adipisci elit. viverra erat orci.</p>
                                             </div>
                                         </div>
                                         <div className="col-md-4 mb-4">
@@ -107,7 +107,7 @@ function AboutUs() {
                                                     ) }
                                                 </CountUp>
                                                 <h5 className="count-title font-weight-bold text-body ls-md">Team Members</h5>
-                                                <p className="text-grey mb-0">Lorem ipsum dolor sit<br />amet, conctetur adipisci elit. viverra erat orci.</p>
+                                                <p className="text-gray mb-0">Lorem ipsum dolor sit<br />amet, conctetur adipisci elit. viverra erat orci.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -137,7 +137,7 @@ function AboutUs() {
                                 <div className="col-md-5 mb-4">
                                     <h5 className="section-subtitle lh-2 ls-md font-weight-normal">02. Happy Customer</h5>
                                     <h3 className="section-title lh-1 font-weight-bold">Provide fashionable and<br />qualifed products</h3>
-                                    <p className="section-desc text-grey">
+                                    <p className="section-desc text-gray">
                                         Already millions of people are very satisfied by thi.<br />
                                         s page builder and the number is growing more and more. Technolog<br />
                                         developing, requirements are increasing. Riode has brought.
@@ -156,7 +156,7 @@ function AboutUs() {
                                 <div className="col-md-6 order-md-first mb-4">
                                     <h5 className="section-subtitle lh-2 ls-md font-weight-normal mb-1">03. Our Store</h5>
                                     <h3 className="section-title lh-1 font-weight-bold">Expect Restless<br />Amazing Support</h3>
-                                    <p className="section-desc text-grey">
+                                    <p className="section-desc text-gray">
                                         Already millions of people are very satisfied by thi.<br />
                                         s page builder and the number is growing more and more. Technolog<br />
                                         developing, requirements are increasing. Riode has brought.

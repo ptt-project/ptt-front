@@ -4,10 +4,10 @@ import { Typography, Button, Row, Col, Form, Input} from 'antd'
 import Link from 'next/link'
 import { useRouter, NextRouter } from 'next/router'
 import t from '~/locales'
-import styles from './Profile.module.scss'
-import SideBarSettingMenu from '~/components/main/SideBarSettingMenu'
+import styles from './ProfilePhone.module.scss'
+import SettingSidebar from '~/components/main/SettingSidebar'
 
-import { Url } from '~/utils/main'
+import { CustomUrl } from '~/utils/main'
 
 const { Text } = Typography
 
@@ -22,9 +22,9 @@ const AddPhone: FC = () => {
             <li><i className="d-icon-home"/></li>
             <li disabled>{t('accountProfile.form.setting')}</li>
             <li disabled>{t('accountProfile.form.title')}</li>
-            <li><Link href={Url.href('/personal-info', router.locale)}>{t('accountProfile.form.personalInfo')}</Link></li>
-            <li><Link href={Url.href('/personal-info/phone', router.locale)}>{t('accountProfile.phone.titleEdit')}</Link></li>
-            <li><Link href={Url.href('/personal-info/add-phone', router.locale)}>{t('accountProfile.phone.titleAdd')}</Link></li>
+            <li><Link href={CustomUrl.href('/settings/account/info', router.locale)}>{t('accountProfile.form.personalInfo')}</Link></li>
+            <li><Link href={CustomUrl.href('/settings/account/info/phone', router.locale)}>{t('accountProfile.phone.titleEdit')}</Link></li>
+            <li><Link href={CustomUrl.href('/settings/account/info/add-phone', router.locale)}>{t('accountProfile.phone.titleAdd')}</Link></li>
 
           </ul>
         </div>
@@ -33,7 +33,7 @@ const AddPhone: FC = () => {
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <SideBarSettingMenu/>
+              <SettingSidebar/>
             </Col> 
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>
               <Text>

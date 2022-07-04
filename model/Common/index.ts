@@ -1,3 +1,12 @@
+interface IBreadcrumbItem {
+  title: string
+  href?: string
+}
+
+interface IBreadcrumb {
+  items?: IBreadcrumbItem[]
+}
+
 interface IOtpData {
   otp: string
   refCode: string
@@ -11,4 +20,4 @@ interface IFieldData {
   errors?: string[]
 }
 
-export type { IOtpData, IFieldData }
+export type { IBreadcrumbItem, IBreadcrumb, IOtpData, IFieldData }

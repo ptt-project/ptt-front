@@ -80,7 +80,7 @@ function Checkout(props) {
                                         <div className="alert-body mb-4 collapsed">
                                             <p>If you have a coupon code, please apply it below.</p>
                                             <div className="check-coupon-box d-flex">
-                                                <input type="text" name="coupon_code" className="input-text form-control text-grey ls-m mr-4"
+                                                <input type="text" name="coupon_code" className="input-text form-control text-gray ls-m mr-4"
                                                     id="coupon_code" placeholder="Coupon code" />
                                                 <button type="submit" className="btn btn-dark btn-rounded btn-outline">Apply Coupon</button>
                                             </div>
