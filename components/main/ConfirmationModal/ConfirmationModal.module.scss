@@ -1,12 +1,20 @@
-@import '../../../public/sass/config/_variables.scss';
-.widthMenu{
-    width: 280px !important;
+
+.iconError{
+    color: #FF4D4F;
 }
-.paddingRight5   {
-    padding-right: 5px;
+.iconWarning{
+    color: #FAAD14;
 }
-.titleMenu{
-    border-bottom: 1px solid #e1e1e1;
-    margin-bottom: 1rem;
-    padding: 1rem 0;
+.iconInfo{
+    color: #1890FF;
+}
+.iconSuccess{
+    color: #52C41A;
+}
+
+.modalStyle.ant-modal-content.ant-modal-header{
+    border-bottom-left-radius: 10px; 
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px; 
+    border-top-right-radius: 10px;
 }

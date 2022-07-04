@@ -39,7 +39,12 @@ const Phone: FC = () => {
   return (
     <>
       <OtpModal  mobileNo="12346" isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
-      <ConfirmationModal isOpen={isOpenDelPhoneModal} toggle={toggleDelPhoneModal}/>
+      <ConfirmationModal 
+        isOpen={isOpenDelPhoneModal} 
+        toggle={toggleDelPhoneModal} 
+        type='error'
+        title= {t('accountProfile.phone.deletePhone')}
+      />
       <main className="main account">
         <Helmet>
           <title>{t('meta.title')} | {t('accountProfile.form.title')}</title>
