@@ -56,7 +56,7 @@ const Email: FC = () => {
             <Col xl={6} lg={0}>
               <SettingSidebar />
             </Col>
-            <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>
+            <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24} xs={64} >
               <Text>
                 <h4 className={`text-center mb-5 ${styles.textEmailTitle} ${styles.textPrimary}`}>
                   {t('accountProfile.email.title')}
@@ -64,16 +64,16 @@ const Email: FC = () => {
               </Text>
               <Form layout="vertical" form={form} name="accountEmail" onFinish={onSubmit}>
                 <Row gutter={[16, 8]}>
-                  <Col md={24} xs={64} className="alert alert-message alert-light alert-primary">
+                  <Col md={24} xs={24} className="alert alert-message alert-light alert-primary">
                     <Text>{t('accountProfile.email.currentEmail')} :</Text>
                     <Text className={styles.textUnderline}> Ne******@gmail.com</Text>
                   </Col>
-                  <Col md={24} xs={64}>
+                  <Col md={24} xs={24}>
                     <Form.Item label={t('accountProfile.email.currentEmail')} name="currentEmail">
                       <Input maxLength={50} />
                     </Form.Item>
                   </Col>
-                  <Col md={24} xs={64}>
+                  <Col md={24} xs={24}>
                     <Form.Item
                       label={t('accountProfile.email.password')}
                       name="password"
@@ -82,7 +82,7 @@ const Email: FC = () => {
                       <Input.Password />
                     </Form.Item>
                   </Col>
-                  <Col md={24} xs={64} className="text-center">
+                  <Col md={24} xs={24} className="text-center">
                     <Text type="secondary">{t('accountProfile.email.msgConfirm')}</Text>
                   </Col>
                   <Col md={12} xs={12} offset={6}>

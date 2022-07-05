@@ -52,7 +52,7 @@ const AddPhone: FC = () => {
             <Col xl={6} lg={0}>
               <SettingSidebar />
             </Col>
-            <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>
+            <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24} xs={64} >
               <Text>
                 <h4 className={`text-center mb-5 ${styles.textPrimary}`}>
                   {t('accountProfile.phone.titleAdd')}
@@ -60,24 +60,24 @@ const AddPhone: FC = () => {
               </Text>
               <Form layout="vertical">
                 <Row gutter={[16, 8]}>
-                  <Col md={12} xs={24} offset="6">
+                  <Col md={24} xs={24}>
                     <Form.Item label={t('accountProfile.phone.newPhone')} name="phone">
                       <Input maxLength={10} />
                     </Form.Item>
                   </Col>
-                  <Col md={12} xs={24} offset="6">
+                  <Col md={24} xs={24} >
                     <Form.Item>
                       <Button htmlType="submit" className={styles.btnInfo} block>
                         {t('accountProfile.button.sendVerificationCode')}
                       </Button>
                     </Form.Item>
                   </Col>
-                  <Col md={12} xs={64} offset="6">
+                  <Col md={24} xs={24}>
                     <Form.Item label={t('accountProfile.phone.otp')} name="otp">
                       <Input maxLength={10} />
                     </Form.Item>
                   </Col>
-                  <Col md={12} xs={24} offset="6">
+                  <Col md={24} xs={24}>
                     <Form.Item>
                       <Button className={styles.btnPrimary} block>
                         {t('accountProfile.button.addPhone')}

@@ -1,20 +1,13 @@
-
+@import '../../../public/sass/config/_variables.scss';
 .iconError{
-    color: #FF4D4F;
+    color: $primary-color;
 }
 .iconWarning{
-    color: #FAAD14;
+    color: $warning-color;
 }
 .iconInfo{
-    color: #1890FF;
+    color: $secondary-color;
 }
 .iconSuccess{
-    color: #52C41A;
-}
-
-.modalStyle.ant-modal-content.ant-modal-header{
-    border-bottom-left-radius: 10px; 
-    border-bottom-right-radius: 10px;
-    border-top-left-radius: 10px; 
-    border-top-right-radius: 10px;
+    color: $success-color;
 }

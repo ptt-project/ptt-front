@@ -38,7 +38,6 @@ const ConfirmationModal: FC<IConfirmationModalProps> = (props: IConfirmationModa
           <Text className='ml-1'>{props.title}</Text>
         </Col> 
       ]} 
-      className={styles.modalStyle}
       visible={props.isOpen} onCancel={toggle} footer={null} closable={false}>
       <Col><Text>{t('accountProfile.phone.confirmDelete')} 081-2226666</Text></Col>
       <Col><Text type="danger">{t('accountProfile.phone.msgConfirmDelete')}</Text></Col>

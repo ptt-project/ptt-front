@@ -1,3 +1,4 @@
+@import '../../../public/sass/config/variables';
 .padding5{
     padding: 5px;
 } 
@@ -5,23 +6,12 @@
     padding-right: 5px;
 }
 .btnPrimary{
-    background-color: #DF1F29;
+    background-color: $primary-color;
     color: #fff;
 }
 .textUnderline{
-    color: #A7171F;
-}
-.radioFlex{
-    display: flex;
+    color: $primary-color;
 }
 .textPrimary{
-    color: #239CD7 !important;
-}
-.btnInfo{
-    border-color: #239CD7;
-    color: #239CD7;
-    &:hover, &:focus{
-        border-color: #239CD7 !important;
-        color: #239CD7 !important;
-    }
+    color: $secondary-color !important;
 }
