@@ -73,9 +73,9 @@
   .ss-open {
     display: none;
     position: fixed;
-    top: 25%;
+    top: 50%;
     left: 0;
-    transform: translate(0, -25%);
+    transform: translate(0, -50%);
     animation: fadeIn 0.5s;
     z-index: 1;
     box-shadow: $box-shadow;

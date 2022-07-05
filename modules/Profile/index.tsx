@@ -149,7 +149,7 @@ const Profile: FC = () => {
                       <Col xs={8}>
                         <Text>{t('accountProfile.form.gender')}</Text>
                       </Col>
-                      <Col sm={16} xs={18}>
+                      <Col xs={16}>
                         <Radio.Group onChange={onChange} value={value} className={styles.radioFlex}>
                           <Radio value={1}>{t('accountProfile.form.man')}</Radio>
                           <Radio value={2}>{t('accountProfile.form.female')}</Radio>

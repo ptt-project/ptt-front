@@ -1,7 +1,5 @@
 import React, { useState, FC } from 'react'
-import { useRouter, NextRouter } from 'next/router'
 import Helmet from 'react-helmet'
-import { Typography } from 'antd'
 import ForgotPasswordForm from './components/ForgotPasswordForm'
 import ForgotPasswordByEmailSuccess from './components/ForgotPasswordByEmailSuccess'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
@@ -10,12 +8,8 @@ import t from '~/locales'
 import { RegExpList } from '~/constants'
 import { IForgotPasswordForm } from '~/model/Auth'
 import { IOtpData } from '~/model/Common'
-import { CustomUrl } from '~/utils/main'
-
-const { Link } = Typography
 
 const ForgotPassword: FC = () => {
-  const router: NextRouter = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [step, setStep] = useState<number>(0) // 0=FORGOT_PASSWORD_FORM, 1=FORGOT_PASSWORD_SUCCESS
   const [email, setEmail] = useState<string>('')
@@ -67,18 +61,6 @@ const ForgotPassword: FC = () => {
         </title>
       </Helmet>
       <Breadcrumbs items={[{ title: t('auth.forgotPassword.title') }]} />
-      <nav className="breadcrumb-nav">
-        <div className="container">
-          <ul className="breadcrumb">
-            <li>
-              <Link href={CustomUrl.href('/', router.locale)}>
-                <i className="d-icon-home" />
-              </Link>
-            </li>
-            <li>{t('auth.forgotPassword.title')}</li>
-          </ul>
-        </div>
-      </nav>
       <OtpModal mobileNo={mobileNo} isOpen={isOpen} toggle={toggle} onSubmit={onSubmitOtp} />
       {renderStep()}
     </main>
