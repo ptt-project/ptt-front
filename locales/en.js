@@ -241,7 +241,11 @@ export default {
         title: 'รายงาน'
       },
       shop: {
-        title: 'ร้านค้า'
+        title: 'ร้านค้า',
+        point: 'คะแนนร้านค้า',
+        detail: 'รายละเอียดร้านค้า',
+        category: 'หมวดหมู่ในร้านค้า',
+        recommended: 'ร้านค้าแนะนำ'
       },
       management: {
         title: 'การตั้งค่า',

@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
 import type { RadioChangeEvent } from 'antd'
@@ -18,6 +19,7 @@ import {
 import t from '~/locales'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import { CustomUrl } from '~/utils/main'
 import styles from './Profile.module.scss'
 
 const { Text } = Typography
@@ -31,10 +33,11 @@ interface IFormModel {
 }
 
 const Profile: FC = () => {
+  const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   const [value, setValue] = useState(1)
 
-  const onChange = (e: RadioChangeEvent): void => {
+  function onChange(e: RadioChangeEvent): void {
     setValue(e.target.value)
   }
 
@@ -60,7 +63,7 @@ const Profile: FC = () => {
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <SettingSidebar sidebarType="buyer" />
+              <SettingSidebar sidebarType="seller" />
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>
               <Text>
@@ -103,16 +106,16 @@ const Profile: FC = () => {
                     xs={24}
                     className="pt-5 alert alert-message alert-light alert-primary"
                   >
-                    <Col md={24} xs={24}>
+                    <Col md={24}>
                       <Text>{t('accountProfile.form.memberId')} :</Text>
-                      <Text className={styles.textUnderline}> mem01</Text>
+                      <Text className={styles.textPrimary}> mem01</Text>
                     </Col>
-                    <Col md={24} xs={24}>
+                    <Col md={24}>
                       <Text>{t('accountProfile.form.username')} :</Text>
-                      <Text className={styles.textUnderline}> New_user</Text>
+                      <Text className={styles.textPrimary}> New_user</Text>
                     </Col>
                   </Col>
-                  <Col md={12} xs={24}>
+                  <Col md={12}>
                     <Form.Item
                       label={t('accountProfile.form.firstName')}
                       name="firstName"
@@ -121,7 +124,7 @@ const Profile: FC = () => {
                       <Input maxLength={50} />
                     </Form.Item>
                   </Col>
-                  <Col md={12} xs={24}>
+                  <Col md={12}>
                     <Form.Item
                       label={t('accountProfile.form.lastName')}
                       name="lastName"
@@ -161,37 +164,37 @@ const Profile: FC = () => {
                       <Radio value={3}>{t('accountProfile.form.other')}</Radio>
                     </Radio.Group>
                   </Col>
-                  <Col md={6} xs={6}>
+                  <Col md={6}>
                     <Text>{t('accountProfile.form.email')}</Text>
                   </Col>
-                  <Col md={12} xs={12}>
+                  <Col md={12}>
                     <Text type="danger">xxxxx@gmail.com</Text>
                   </Col>
-                  <Col md={6} xs={6}>
-                    <Link href="/settings/account/info/email">
-                      <a className={styles.textPrimary}>
-                        <i className={`fas fa-pen ${styles.padding5} ${styles.textPrimary}`} />
+                  <Col md={6}>
+                    <Link href={CustomUrl.href('/settings/account/info/email', router.locale)}>
+                      <a className={styles.textSecondary}>
+                        <i className="fas fa-pen mr-1" />
                         {t('accountProfile.button.edit')}
                       </a>
                     </Link>
                   </Col>
-                  <Col md={6} xs={6}>
+                  <Col md={6}>
                     <Text>{t('accountProfile.form.phoneNumber')}</Text>
                   </Col>
-                  <Col md={12} xs={12}>
+                  <Col md={12}>
                     <Text type="danger">xxxxx11</Text>
                   </Col>
-                  <Col md={6} xs={6}>
-                    <Link href="/settings/account/info/phone">
-                      <a className={styles.textPrimary}>
-                        <i className={`fas fa-pen ${styles.padding5}`} />
+                  <Col md={6}>
+                    <Link href={CustomUrl.href('/settings/account/info/phone', router.locale)}>
+                      <a className={styles.textSecondary}>
+                        <i className="fas fa-pen mr-1" />
                         {t('accountProfile.button.edit')}
                       </a>
                     </Link>
                   </Col>
                   <Col md={12} xs={12} offset={6}>
                     <Form.Item>
-                      <Button htmlType="submit" className={styles.btnPrimary} block>
+                      <Button htmlType="submit" type="primary" block>
                         {t('accountProfile.button.save')}
                       </Button>
                     </Form.Item>

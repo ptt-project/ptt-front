@@ -1,20 +1,13 @@
 @import '../../public/sass/config/variables';
-.padding5{
-    padding: 5px;
-} 
-.paddingRight5   {
-    padding-right: 5px;
+
+.textPrimary {
+  color: $primary-color;
 }
-.btnPrimary{
-    background-color: $primary-color;
-    color: #fff;
+
+.radioFlex {
+  display: flex;
 }
-.textUnderline{
-    color: $primary-color;
-}
-.radioFlex{
-    display: flex;
-}
-.textPrimary{
-    color: $secondary-color !important;
+
+.textSecondary {
+  color: $secondary-color !important;
 }
