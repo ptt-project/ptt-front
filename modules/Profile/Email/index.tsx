@@ -1,12 +1,10 @@
 import React, { FC } from 'react'
-import Link from 'next/link'
 import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Form, Input } from 'antd'
-import { useRouter, NextRouter } from 'next/router'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import t from '~/locales'
-import { CustomUrl } from '~/utils/main'
 import styles from './ProfileEmail.module.scss'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
 
 const { Text } = Typography
 interface IFormModel {
@@ -15,7 +13,6 @@ interface IFormModel {
 }
 
 const Email: FC = () => {
-  const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   function onSubmit(values: IFormModel): void {
     console.log(values)
@@ -27,34 +24,19 @@ const Email: FC = () => {
           {t('meta.title')} | {t('accountProfile.form.title')}
         </title>
       </Helmet>
-      <nav className="breadcrumb-nav">
-        <div className="container">
-          <ul className="breadcrumb">
-            <li>
-              <Link href={CustomUrl.href('/', router.locale)}>
-                <i className="d-icon-home" />
-              </Link>
-            </li>
-            <li disabled>{t('accountProfile.form.setting')}</li>
-            <li disabled>{t('accountProfile.form.title')}</li>
-            <li>
-              <Link href={CustomUrl.href('/settings/account/info', router.locale)}>
-                {t('accountProfile.form.personalInfo')}
-              </Link>
-            </li>
-            <li>
-              <Link href={CustomUrl.href('/settings/account/info/email', router.locale)}>
-                {t('accountProfile.email.title')}
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <Breadcrumbs
+        items={[
+          { title: t('accountProfile.form.setting') },
+          { title: t('accountProfile.form.title') },
+          { title: t('accountProfile.form.personalInfo'), href: '/settings/account/info' },
+          { title: t('accountProfile.email.title'), href: '/settings/account/info/email' }
+        ]}
+      />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <SettingSidebar />
+              <SettingSidebar sidebarType="buyer"/>
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24} xs={64} >
               <Text>
