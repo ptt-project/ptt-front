@@ -1,18 +1,9 @@
 @import '../../../public/sass/config/variables';
 
-.padding5{
-    padding: 5px;
-} 
-.paddingRight5   {
-    padding-right: 5px;
+.textPrimary {
+  color: $primary-color;
 }
-.btnPrimary{
-    background-color: $primary-color;
-    color: #fff;
-}
-.textUnderline{
-    color: $primary-color;
-}
-.textPrimary{
-    color: $secondary-color !important;
+
+.textSecondary {
+  color: $secondary-color !important;
 }

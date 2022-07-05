@@ -154,51 +154,53 @@ const Profile: FC = () => {
                       </Select>
                     </Form.Item>
                   </Col>
-                  <Col md={3} xs={24}>
-                    <Text>{t('accountProfile.form.gender')}</Text>
-                  </Col>
-                  <Col md={16} xs={24}>
-                    <Radio.Group onChange={onChange} value={value} className={styles.radioFlex}>
-                      <Radio value={1}>{t('accountProfile.form.man')}</Radio>
-                      <Radio value={2}>{t('accountProfile.form.female')}</Radio>
-                      <Radio value={3}>{t('accountProfile.form.other')}</Radio>
-                    </Radio.Group>
-                  </Col>
-                  <Col md={6}>
-                    <Text>{t('accountProfile.form.email')}</Text>
-                  </Col>
-                  <Col md={12}>
-                    <Text type="danger">xxxxx@gmail.com</Text>
-                  </Col>
-                  <Col md={6}>
-                    <Link href={CustomUrl.href('/settings/account/info/email', router.locale)}>
-                      <a className={styles.textSecondary}>
-                        <i className="fas fa-pen mr-1" />
-                        {t('accountProfile.button.edit')}
-                      </a>
-                    </Link>
-                  </Col>
-                  <Col md={6}>
-                    <Text>{t('accountProfile.form.phoneNumber')}</Text>
-                  </Col>
-                  <Col md={12}>
-                    <Text type="danger">xxxxx11</Text>
-                  </Col>
-                  <Col md={6}>
-                    <Link href={CustomUrl.href('/settings/account/info/phone', router.locale)}>
-                      <a className={styles.textSecondary}>
-                        <i className="fas fa-pen mr-1" />
-                        {t('accountProfile.button.edit')}
-                      </a>
-                    </Link>
-                  </Col>
-                  <Col md={12} xs={12} offset={6}>
-                    <Form.Item>
-                      <Button htmlType="submit" type="primary" block>
-                        {t('accountProfile.button.save')}
-                      </Button>
-                    </Form.Item>
-                  </Col>
+                  <Row gutter={[24, 24]}>
+                    <Col md={6} xs={24}>
+                      <Text>{t('accountProfile.form.gender')}</Text>
+                    </Col>
+                    <Col md={18} xs={24}>
+                      <Radio.Group onChange={onChange} value={value} className={styles.radioFlex}>
+                        <Radio value={1}>{t('accountProfile.form.man')}</Radio>
+                        <Radio value={2}>{t('accountProfile.form.female')}</Radio>
+                        <Radio value={3}>{t('accountProfile.form.other')}</Radio>
+                      </Radio.Group>
+                    </Col>
+                    <Col md={6} xs={8}>
+                      <Text>{t('accountProfile.form.email')}</Text>
+                    </Col>
+                    <Col md={14} xs={10}>
+                      <Text type="danger">xxxxx@gmail.com</Text>
+                    </Col>
+                    <Col md={3} xs={4}>
+                      <Link href={CustomUrl.href('/settings/account/info/email', router.locale)}>
+                        <a className={styles.textSecondary}>
+                          <i className="fas fa-pen mr-1" />
+                          {t('accountProfile.button.edit')}
+                        </a>
+                      </Link>
+                    </Col>
+                    <Col md={6} xs={8}>
+                      <Text>{t('accountProfile.form.phoneNumber')}</Text>
+                    </Col>
+                    <Col md={14} xs={10}>
+                      <Text type="danger">xxxxx11</Text>
+                    </Col>
+                    <Col md={3} xs={4}>
+                      <Link href={CustomUrl.href('/settings/account/info/phone', router.locale)}>
+                        <a className={styles.textSecondary}>
+                          <i className="fas fa-pen mr-1" />
+                          {t('accountProfile.button.edit')}
+                        </a>
+                      </Link>
+                    </Col>
+                    <Col md={12} xs={12} offset={6}>
+                      <Form.Item>
+                        <Button htmlType="submit" type="primary" block>
+                          {t('accountProfile.button.save')}
+                        </Button>
+                      </Form.Item>
+                    </Col>
+                  </Row>
                 </Row>
               </Form>
             </Col>

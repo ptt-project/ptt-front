@@ -3,8 +3,8 @@ import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Form, Input } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import t from '~/locales'
-import styles from './ProfileEmail.module.scss'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import styles from './ProfileEmail.module.scss'
 
 const { Text } = Typography
 interface IFormModel {
@@ -36,26 +36,26 @@ const Email: FC = () => {
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <SettingSidebar sidebarType="buyer"/>
+              <SettingSidebar sidebarType="buyer" />
             </Col>
-            <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24} xs={64} >
+            <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24} xs={64}>
               <Text>
-                <h4 className={`text-center mb-5 ${styles.textEmailTitle} ${styles.textPrimary}`}>
+                <h4 className={`text-center mb-5 ${styles.textSecondary}`}>
                   {t('accountProfile.email.title')}
                 </h4>
               </Text>
               <Form layout="vertical" form={form} name="accountEmail" onFinish={onSubmit}>
-                <Row gutter={[16, 8]}>
-                  <Col md={24} xs={24} className="alert alert-message alert-light alert-primary">
+                <Row gutter={[16, 8]} >
+                  <Col xs={24} xl={{ span: 16, offset: 4 }} className="alert alert-message alert-light alert-primary">
                     <Text>{t('accountProfile.email.currentEmail')} :</Text>
-                    <Text className={styles.textUnderline}> Ne******@gmail.com</Text>
+                    <Text className={`ml-5 ${styles.textPrimary}`}> Ne******@gmail.com</Text>
                   </Col>
-                  <Col md={24} xs={24}>
+                  <Col xs={24} xl={{ span: 16, offset: 4 }}>
                     <Form.Item label={t('accountProfile.email.currentEmail')} name="currentEmail">
                       <Input maxLength={50} />
                     </Form.Item>
                   </Col>
-                  <Col md={24} xs={24}>
+                  <Col xs={24} xl={{ span: 16, offset: 4 }} >
                     <Form.Item
                       label={t('accountProfile.email.password')}
                       name="password"
@@ -64,12 +64,12 @@ const Email: FC = () => {
                       <Input.Password />
                     </Form.Item>
                   </Col>
-                  <Col md={24} xs={24} className="text-center">
+                  <Col xs={24} xl={{ span: 16, offset: 4 }}  className="text-center mb-5">
                     <Text type="secondary">{t('accountProfile.email.msgConfirm')}</Text>
                   </Col>
-                  <Col md={12} xs={12} offset={6}>
+                  <Col xs={24} xl={{ span: 16, offset: 4 }} >
                     <Form.Item>
-                      <Button htmlType="submit" className={styles.btnPrimary} block>
+                      <Button htmlType="submit" type="primary" block>
                         {t('accountProfile.button.confirm')}
                       </Button>
                     </Form.Item>
