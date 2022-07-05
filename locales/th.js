@@ -145,7 +145,7 @@ export default {
       personalInfo: 'ข้อมูลส่วนตัว',
       memberId: 'รหัสสมาชิก',
       username: 'ชื่อผู้ใช้',
-      msgChooseImage: 'ไฟล์JPEG,PNG ขนาดไฟล์ไม่เกิน 1 MB',
+      msgChooseImage: 'ไฟล์ JPEG,PNG ขนาดไฟล์ไม่เกิน 1 MB',
       firstName: 'ชื่อ',
       lastName: 'นามสกุล',
       birthday: 'วันเกิด',

@@ -18,20 +18,26 @@ const Phone: FC = () => {
   const router: NextRouter = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isOpenDelPhoneModal, setIsOpenDelPhoneModal] = useState<boolean>(false)
+
   function toggle(): void {
     setIsOpen(!isOpen)
   }
+
   function toggleDelPhoneModal(): void {
     setIsOpenDelPhoneModal(!isOpenDelPhoneModal)
   }
-  function onDelPhoneModal() {
+
+  function onDelPhoneModal(): void {
     setIsOpenDelPhoneModal(true)
   }
-  function onFavoritePhone() {
+
+  function onFavoritePhone(): void {
     setIsOpen(true)
   }
+
   function onSubmit(otpData: IOtpData): void {
     try {
+      console.log(otpData)
     } catch (error) {
       console.log(error)
     }
@@ -64,7 +70,7 @@ const Phone: FC = () => {
         <div className="page-content mb-9">
           <div className="container">
             <Row gutter={48}>
-              <Col xl={6} lg={0}>
+              <Col xl={6}>
                 <SettingSidebar sidebarType="buyer" />
               </Col>
               <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>

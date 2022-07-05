@@ -4,8 +4,6 @@
 
 .setting-sidebar {
   .ss-bar {
-    z-index: 1;
-
     ul {
       &.ant-menu-root {
         border-right: 0 !important;
@@ -97,7 +95,7 @@
     }
   }
 
-  @media (max-width: 991px) {
+  @media (max-width: 1199px) {
     &.ss-collapsed {
       .ss-bar {
         position: fixed;
@@ -109,6 +107,7 @@
         margin-left: -256px;
         transition: margin 0.5s;
         background-color: rgba(0, 0, 0, 0.75);
+        z-index: 1001;
 
         ul {
           width: 256px;

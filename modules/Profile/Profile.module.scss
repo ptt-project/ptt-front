@@ -4,10 +4,49 @@
   color: $primary-color;
 }
 
-.radioFlex {
-  display: flex;
-}
-
 .textSecondary {
   color: $secondary-color !important;
+}
+
+.upload {
+  color: $secondary-color;
+  border-color: $secondary-color;
+
+  &:hover,
+  &:focus {
+    color: $secondary-color-dark;
+    border-color: $secondary-color-dark;
+  }
+}
+
+.highlight {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: $background-light;
+  border-radius: $border-radius;
+}
+
+.label {
+  display: inline-block;
+  width: 120px;
+
+  @media (min-width: 768px) {
+    width: 100px;
+  }
+}
+
+.radioFlex {
+  display: flex;
+
+  label {
+    margin-right: 1.5rem;
+  }
+
+  @media (min-width: 576px) {
+    justify-content: space-between;
+
+    label {
+      margin-right: 0;
+    }
+  }
 }

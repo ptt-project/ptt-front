@@ -111,7 +111,7 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
   }
 
   function calcCollapsed(): void {
-    if (window.innerWidth >= 992) {
+    if (window.innerWidth >= 1200) {
       setCollapsed(false)
     } else {
       setCollapsed(true)
