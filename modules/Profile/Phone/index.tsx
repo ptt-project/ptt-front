@@ -43,6 +43,8 @@ const Phone: FC = () => {
         toggle={toggleDelPhoneModal} 
         type='error'
         title= {t('accountProfile.phone.deletePhone')}
+        content={`${t('accountProfile.phone.confirmDelete')}081-2226666`}
+        contentWarning ={t('accountProfile.phone.msgConfirmDelete')}
       />
       <main className="main account">
         <Helmet>
