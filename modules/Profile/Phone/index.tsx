@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react'
-import { useRouter, NextRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col } from 'antd'
@@ -8,7 +7,7 @@ import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import t from '~/locales'
 import { IOtpData } from '~/model/Common'
-import { CustomUrl } from '~/utils/main'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
 import styles from './ProfilePhone.module.scss'
 
 const { Text } = Typography
@@ -34,7 +33,6 @@ const Phone: FC = () => {
       console.log(error)
     }
   }
-  const router: NextRouter = useRouter()
   return (
     <>
       <OtpModal  mobileNo="12346" isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
@@ -52,34 +50,19 @@ const Phone: FC = () => {
             {t('meta.title')} | {t('accountProfile.form.title')}
           </title>
         </Helmet>
-        <nav className="breadcrumb-nav">
-          <div className="container">
-            <ul className="breadcrumb">
-              <li>
-                <Link href={CustomUrl.href('/', router.locale)}>
-                  <i className="d-icon-home" />
-                </Link>
-              </li>
-              <li disabled>{t('accountProfile.form.setting')}</li>
-              <li disabled>{t('accountProfile.form.title')}</li>
-              <li>
-                <Link href={CustomUrl.href('/settings/account/info', router.locale)}>
-                  {t('accountProfile.form.personalInfo')}
-                </Link>
-              </li>
-              <li>
-                <Link href={CustomUrl.href('/settings/account/info/phone', router.locale)}>
-                  {t('accountProfile.phone.titleEdit')}
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        <Breadcrumbs
+          items={[
+            { title: t('accountProfile.form.setting') },
+            { title: t('accountProfile.form.title') },
+            { title: t('accountProfile.form.personalInfo'), href: '/settings/account/info' },
+            { title: t('accountProfile.phone.titleEdit'), href: '/settings/account/info/phone' }
+          ]}
+        />
         <div className="page-content mb-9">
           <div className="container">
             <Row gutter={48}>
               <Col xl={6} lg={0}>
-                <SettingSidebar />
+                <SettingSidebar sidebarType="buyer"/>
               </Col>
               <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>
                 <Text>
@@ -116,14 +99,8 @@ const Phone: FC = () => {
                     </Text>
                   </Col>
                   <Col span={12} className="text-right">
-                    <i
-                      className={`fas fa-star ${styles.paddingRight5}`}
-                      onClick={onFavoritePhone}
-                    />
-                    <i
-                      className={`fas fa-trash-alt ${styles.paddingRight5}`}
-                      onClick={onDelPhoneModal}
-                    />
+                    <i className={`fas fa-star ${styles.paddingRight5}`} onClick={onFavoritePhone} />
+                    <i className={`fas fa-trash-alt ${styles.paddingRight5}`} onClick={onDelPhoneModal} />
                   </Col>
                 </Row>
               </Col>
