@@ -63,7 +63,7 @@ const Profile: FC = () => {
         <div className="container">
           <Row gutter={48}>
             <Col xl={6}>
-              <SettingSidebar sidebarType="seller" />
+              <SettingSidebar sidebarType="buyer" />
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 2 }} md={24}>
               <Text>
