@@ -42,7 +42,6 @@ const Phone: FC = () => {
       console.log(error)
     }
   }
-
   return (
     <>
       <OtpModal mobileNo="12346" isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
@@ -74,39 +73,47 @@ const Phone: FC = () => {
               <Col xl={6}>
                 <SettingSidebar sidebarType="buyer" />
               </Col>
-              <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>
+              <Col xs={24} xl={18} lg={24}>
                 <Text>
                   <h4 className={`text-center mb-5 ${styles.textSecondary}`}>
                     {t('accountProfile.phone.titleEdit')}
                   </h4>
                 </Text>
-                <Row gutter={[16, 8]}>
-                  <Col md={12} xs={12}>
+                <Row>
+                  <Col md={12}>
                     <Text className={styles.textSecondary}>
                       {t('accountProfile.phone.phoneList')}
                     </Text>
                   </Col>
-                  <Col md={12} xs={12} className="text-right">
+                  <Col md={12} xs={19}>
+                    <div className="text-right mb-5">
                     <Link href={CustomUrl.href('/settings/account/info/add-phone', router.locale)}>
                       <Button className={styles.textSecondary}>
                         <i className="fas fa-plus mr-2" />
                         {t('accountProfile.button.addPhone')}
                       </Button>
                     </Link>
+                    </div>
                   </Col>
-                  <Col span={24} className="alert alert-message alert-light alert-primary">
+                </Row>
+                <Row className={styles.highlight}>
+                  <Col md={{ span: 6, offset: 2 }}>
                     <Text className={`mr-2 ${styles.textPrimary}`}>081-111-1111</Text>
                     <Button>
                       <i className="fas fa-star mr-2" />
                       {t('accountProfile.button.mainNumber')}
                     </Button>
                   </Col>
-                  <Col span={12}>
+                </Row>
+                <Row>
+                  <Col md={{ span: 6, offset: 2 }} xs={{ span: 12, offset: 1 }}>
                     <Text className={`${styles.textPrimary}`}>081-111-2222</Text>
                   </Col>
-                  <Col span={12} className="text-right">
-                    <i className="fas fa-star mr-2" onClick={onFavoritePhone} />
-                    <i className="fas fa-trash-alt mr-2" onClick={onDelPhoneModal} />
+                  <Col md={13} xs={10}>
+                    <div className="text-right">
+                      <i className="fas fa-star mr-2" onClick={onFavoritePhone} />
+                      <i className="fas fa-trash-alt mr-2" onClick={onDelPhoneModal} />
+                    </div>
                   </Col>
                 </Row>
               </Col>
