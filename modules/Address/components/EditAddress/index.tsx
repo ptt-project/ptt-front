@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { Col, Typography, Form, Button, Row, notification } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
@@ -25,10 +25,6 @@ const EditAddress: React.FC = () => {
     [addressId]
   )
 
-  useEffect(() => {
-    console.log(addressId)
-  }, [addressId])
-
   function onSubmit(values: IAddressFormValues): void {
     console.log(values)
   }
@@ -38,11 +34,15 @@ const EditAddress: React.FC = () => {
     notification.success({
       message: 'Edit Address Success'
     })
-    router.replace(CustomUrl.href('/settings/account/address', router.locale))
+    router.replace('/settings/account/address', '/settings/account/address', {
+      locale: router.locale
+    })
   }
 
   function onCancelClick(): void {
-    router.replace(CustomUrl.href('/settings/account/address', router.locale))
+    router.replace('/settings/account/address', '/settings/account/address', {
+      locale: router.locale
+    })
   }
 
   return (

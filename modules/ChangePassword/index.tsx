@@ -48,7 +48,9 @@ const ChangePassword: React.FC = () => {
       notification.success({
         message: 'Change Password Success'
       })
-      router.replace(CustomUrl.href('/settings/account/address', router.locale))
+      router.replace('/auth/login', '/auth/login', {
+        locale: router.locale
+      })
       // success goto login
       setIsOpen(false)
     } catch (error) {

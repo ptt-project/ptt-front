@@ -24,11 +24,19 @@ const Address: React.FC = () => {
   const [deleteAddressId, setDeleteAddressId] = useState<string>()
 
   function onAddAddressClick(): void {
-    router.push(CustomUrl.href('/settings/account/address/add', router.locale))
+    router.push('/settings/account/address/add', '/settings/account/address/add', {
+      locale: router.locale
+    })
   }
 
   function onEditAddressClick(addressId: string): void {
-    router.push(CustomUrl.href(`/settings/account/address/${addressId}`, router.locale))
+    router.push(
+      `/settings/account/address/${addressId}`,
+      `/settings/account/address/${addressId}`,
+      {
+        locale: router.locale
+      }
+    )
   }
 
   function onFavoriteAddressClick(/* addressId: string */): void {

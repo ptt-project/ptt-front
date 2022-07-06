@@ -25,11 +25,15 @@ const AddAddress: React.FC = () => {
     notification.success({
       message: 'Add Address Success'
     })
-    router.replace(CustomUrl.href('/settings/account/address', router.locale))
+    router.replace('/settings/account/address', '/settings/account/address', {
+      locale: router.locale
+    })
   }
 
   function onCancelClick(): void {
-    router.replace(CustomUrl.href('/settings/account/address', router.locale))
+    router.replace('/settings/account/address', '/settings/account/address', {
+      locale: router.locale
+    })
   }
 
   return (
