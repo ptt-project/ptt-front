@@ -72,7 +72,12 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
     getItem(tSeller.marketing.title, 'marketing', <i className="fas fa-tag" />),
     getItem(tSeller.payment.title, 'payment', <i className="fas fa-wallet" />),
     getItem(tSeller.report.title, 'report', <i className="fas fa-chart-line" />),
-    getItem(tSeller.shop.title, 'shop', <i className="fas fa-store" />),
+    getItem(tSeller.shop.title, 'shop', <i className="fas fa-store" />, [
+      getItem(tSeller.shop.point, 'point'),
+      getItem(tSeller.shop.detail, 'detail'),
+      getItem(tSeller.shop.category, 'category'),
+      getItem(tSeller.shop.recommended, 'recommended')
+    ]),
     getItem(tSeller.management.title, 'management', <i className="fas fa-cog" />, [
       getItem(tSeller.management.address, 'address'),
       getItem(tSeller.management.account, 'account')
@@ -106,7 +111,7 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
   }
 
   function calcCollapsed(): void {
-    if (window.innerWidth >= 992) {
+    if (window.innerWidth >= 1200) {
       setCollapsed(false)
     } else {
       setCollapsed(true)

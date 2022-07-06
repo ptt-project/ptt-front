@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
 import type { RadioChangeEvent } from 'antd'
@@ -15,9 +16,10 @@ import {
   Select,
   Radio
 } from 'antd'
-import t from '~/locales'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import t from '~/locales'
+import { CustomUrl } from '~/utils/main'
 import styles from './Profile.module.scss'
 
 const { Text } = Typography
@@ -31,10 +33,11 @@ interface IFormModel {
 }
 
 const Profile: FC = () => {
+  const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   const [value, setValue] = useState(1)
-
-  const onChange = (e: RadioChangeEvent): void => {
+  
+  function onChange(e: RadioChangeEvent): void {
     setValue(e.target.value)
   }
 
@@ -59,25 +62,18 @@ const Profile: FC = () => {
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
-            <Col xl={6} lg={0}>
+            <Col xl={6}>
               <SettingSidebar sidebarType="buyer" />
             </Col>
-            <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>
+            <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 2 }} md={24}>
               <Text>
-                <h4 className={`text-center mb-5 ${styles.textPrimary}`}>
+                <h4 className={`text-center mb-5 ${styles.textSecondary}`}>
                   {t('accountProfile.form.title')}
-                </h4>
-                <h4 className={`text-left ${styles.textPrimary}`}>
-                  {t('accountProfile.form.personal_information')}
                 </h4>
               </Text>
               <Form layout="vertical" form={form} name="accountProfile" onFinish={onSubmit}>
-                <Row gutter={[16, 8]}>
-                  <Col
-                    md={3}
-                    xs={12}
-                    className="text-center alert alert-message alert-light alert-primary"
-                  >
+                <Row className={styles.highlight} gutter={[16, 16]} align="middle">
+                  <Col sm={4} xs={12}>
                     <Avatar
                       src={
                         <Image
@@ -85,34 +81,27 @@ const Profile: FC = () => {
                           preview={false}
                         />
                       }
-                      size={64}
+                      size={80}
                     />
                   </Col>
-                  <Col
-                    md={9}
-                    xs={12}
-                    className="pt-5 text-center alert alert-message alert-light alert-primary"
-                  >
+                  <Col sm={8} xs={12} className="text-center">
                     <Upload>
-                      <Button> {t('accountProfile.button.chooseImage')}</Button>
+                      <Button className={styles.upload}>
+                        {t('accountProfile.button.chooseImage')}
+                      </Button>
                     </Upload>
                     <Text type="secondary">{t('accountProfile.form.msgChooseImage')}</Text>
                   </Col>
-                  <Col
-                    md={12}
-                    xs={24}
-                    className="pt-5 alert alert-message alert-light alert-primary"
-                  >
-                    <Col md={24} xs={24}>
-                      <Text>{t('accountProfile.form.memberId')} :</Text>
-                      <Text className={styles.textUnderline}> mem01</Text>
-                    </Col>
-                    <Col md={24} xs={24}>
-                      <Text>{t('accountProfile.form.username')} :</Text>
-                      <Text className={styles.textUnderline}> New_user</Text>
-                    </Col>
+                  <Col sm={12} xs={24}>
+                    <Text className={styles.label}>{t('accountProfile.form.memberId')} :</Text>
+                    <Text className={styles.textPrimary}>mem01</Text>
+                    <br />
+                    <Text className={styles.label}>{t('accountProfile.form.username')} :</Text>
+                    <Text className={styles.textPrimary}>New_user</Text>
                   </Col>
-                  <Col md={12} xs={24}>
+                </Row>
+                <Row gutter={[16, 8]}>
+                  <Col sm={12} xs={24}>
                     <Form.Item
                       label={t('accountProfile.form.firstName')}
                       name="firstName"
@@ -121,7 +110,7 @@ const Profile: FC = () => {
                       <Input maxLength={50} />
                     </Form.Item>
                   </Col>
-                  <Col md={12} xs={24}>
+                  <Col sm={12} xs={24}>
                     <Form.Item
                       label={t('accountProfile.form.lastName')}
                       name="lastName"
@@ -130,71 +119,79 @@ const Profile: FC = () => {
                       <Input maxLength={50} />
                     </Form.Item>
                   </Col>
-                  <Col md={24} xs={64}>
-                    <Form.Item label={t('accountProfile.form.birthday')} name="birthday">
-                      <Select
-                        className="mr-1"
-                        style={{ width: 100 }}
-                        defaultValue={t('accountProfile.form.date')}
-                      >
-                        <Option value="1">1</Option>
-                      </Select>
-                      <Select
-                        className="mr-1"
-                        style={{ width: 120 }}
-                        defaultValue={t('accountProfile.form.month')}
-                      >
-                        <Option value="01">01</Option>
-                      </Select>
-                      <Select style={{ width: 120 }} defaultValue={t('accountProfile.form.year')}>
-                        <Option value="2022">2022</Option>
-                      </Select>
-                    </Form.Item>
+                  <Col span={24}>
+                    <Row gutter={8}>
+                      <Col md={3} sm={4} xs={6}>
+                        <Form.Item label={t('accountProfile.form.birthday')} name="birthday">
+                          <Select defaultValue={t('accountProfile.form.date')}>
+                            <Option value="1">1</Option>
+                          </Select>
+                        </Form.Item>
+                      </Col>
+                      <Col md={5} sm={6} xs={9}>
+                        <Form.Item label="&nbsp;" name="birthMonth">
+                          <Select defaultValue={t('accountProfile.form.month')}>
+                            <Option value="01">01</Option>
+                          </Select>
+                        </Form.Item>
+                      </Col>
+                      <Col md={5} sm={6} xs={9}>
+                        <Form.Item label="&nbsp;" name="birthYear">
+                          <Select defaultValue={t('accountProfile.form.year')}>
+                            <Option value="2022">2022</Option>
+                          </Select>
+                        </Form.Item>
+                      </Col>
+                    </Row>
                   </Col>
-                  <Col md={3} xs={24}>
-                    <Text>{t('accountProfile.form.gender')}</Text>
-                  </Col>
-                  <Col md={16} xs={24}>
-                    <Radio.Group onChange={onChange} value={value} className={styles.radioFlex}>
-                      <Radio value={1}>{t('accountProfile.form.man')}</Radio>
-                      <Radio value={2}>{t('accountProfile.form.female')}</Radio>
-                      <Radio value={3}>{t('accountProfile.form.other')}</Radio>
-                    </Radio.Group>
-                  </Col>
-                  <Col md={6} xs={6}>
-                    <Text>{t('accountProfile.form.email')}</Text>
-                  </Col>
-                  <Col md={12} xs={12}>
-                    <Text type="danger">xxxxx@gmail.com</Text>
-                  </Col>
-                  <Col md={6} xs={6}>
-                    <Link href="/settings/account/info/email">
-                      <a className={styles.textPrimary}>
-                        <i className={`fas fa-pen ${styles.padding5} ${styles.textPrimary}`} />
-                        {t('accountProfile.button.edit')}
-                      </a>
-                    </Link>
-                  </Col>
-                  <Col md={6} xs={6}>
-                    <Text>{t('accountProfile.form.phoneNumber')}</Text>
-                  </Col>
-                  <Col md={12} xs={12}>
-                    <Text type="danger">xxxxx11</Text>
-                  </Col>
-                  <Col md={6} xs={6}>
-                    <Link href="/settings/account/info/phone">
-                      <a className={styles.textPrimary}>
-                        <i className={`fas fa-pen ${styles.padding5}`} />
-                        {t('accountProfile.button.edit')}
-                      </a>
-                    </Link>
-                  </Col>
-                  <Col md={12} xs={12} offset={6}>
-                    <Form.Item>
-                      <Button htmlType="submit" className={styles.btnPrimary} block>
-                        {t('accountProfile.button.save')}
-                      </Button>
-                    </Form.Item>
+                  <Col span={24}>
+                    <Row gutter={[16, 24]}>
+                      <Col xs={8}>
+                        <Text>{t('accountProfile.form.gender')}</Text>
+                      </Col>
+                      <Col xs={16}>
+                        <Radio.Group onChange={onChange} value={value} className={styles.radioFlex}>
+                          <Radio value={1}>{t('accountProfile.form.man')}</Radio>
+                          <Radio value={2}>{t('accountProfile.form.female')}</Radio>
+                          <Radio value={3}>{t('accountProfile.form.other')}</Radio>
+                        </Radio.Group>
+                      </Col>
+                      <Col xs={8}>
+                        <Text>{t('accountProfile.form.email')}</Text>
+                      </Col>
+                      <Col sm={12} xs={11}>
+                        <Text type="danger">xxxxx@gmail.com</Text>
+                      </Col>
+                      <Col sm={4} xs={5} className="text-right">
+                        <Link href={CustomUrl.href('/settings/account/info/email', router.locale)}>
+                          <a className={styles.textSecondary}>
+                            <i className="fas fa-pen mr-1" />
+                            {t('accountProfile.button.edit')}
+                          </a>
+                        </Link>
+                      </Col>
+                      <Col xs={8}>
+                        <Text>{t('accountProfile.form.phoneNumber')}</Text>
+                      </Col>
+                      <Col sm={12} xs={11}>
+                        <Text type="danger">xxxxx11</Text>
+                      </Col>
+                      <Col sm={4} xs={5} className="text-right">
+                        <Link href={CustomUrl.href('/settings/account/info/phone', router.locale)}>
+                          <a className={styles.textSecondary}>
+                            <i className="fas fa-pen mr-1" />
+                            {t('accountProfile.button.edit')}
+                          </a>
+                        </Link>
+                      </Col>
+                      <Col sm={{ span: 12, offset: 6 }} xs={24}>
+                        <Form.Item>
+                          <Button htmlType="submit" type="primary" block>
+                            {t('accountProfile.button.save')}
+                          </Button>
+                        </Form.Item>
+                      </Col>
+                    </Row>
                   </Col>
                 </Row>
               </Form>

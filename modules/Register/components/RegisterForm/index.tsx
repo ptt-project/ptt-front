@@ -173,7 +173,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         })
                       ]}
                     >
-                      <Input type="password" maxLength={50} />
+                      <Input.Password maxLength={50} />
                     </Form.Item>
                     <Text type="secondary" className="t-small d-block">
                       {t('auth.register.form.passwordHintA')}

@@ -30,7 +30,7 @@ const Login: FC = () => {
   function onSubmit(values: ILoginForm): void {
     console.log(values)
   }
-
+  
   return (
     <main className="main">
       <Helmet>
@@ -71,7 +71,7 @@ const Login: FC = () => {
                   </Col>
                   <Col md={{ span: 12, offset: 6 }} xs={24}>
                     <Form.Item label={t('auth.login.form.password')} name="password">
-                      <Input type="password" />
+                      <Input.Password />
                     </Form.Item>
                   </Col>
                   <Col className="mt-5" md={{ span: 12, offset: 6 }} xs={24}>

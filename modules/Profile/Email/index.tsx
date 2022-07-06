@@ -1,11 +1,9 @@
 import React, { FC } from 'react'
-import Link from 'next/link'
 import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Form, Input } from 'antd'
-import { useRouter, NextRouter } from 'next/router'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import t from '~/locales'
-import { CustomUrl } from '~/utils/main'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
 import styles from './ProfileEmail.module.scss'
 
 const { Text } = Typography
@@ -15,7 +13,6 @@ interface IFormModel {
 }
 
 const Email: FC = () => {
-  const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   function onSubmit(values: IFormModel): void {
     console.log(values)
@@ -27,73 +24,69 @@ const Email: FC = () => {
           {t('meta.title')} | {t('accountProfile.form.title')}
         </title>
       </Helmet>
-      <nav className="breadcrumb-nav">
-        <div className="container">
-          <ul className="breadcrumb">
-            <li>
-              <Link href={CustomUrl.href('/', router.locale)}>
-                <i className="d-icon-home" />
-              </Link>
-            </li>
-            <li disabled>{t('accountProfile.form.setting')}</li>
-            <li disabled>{t('accountProfile.form.title')}</li>
-            <li>
-              <Link href={CustomUrl.href('/settings/account/info', router.locale)}>
-                {t('accountProfile.form.personalInfo')}
-              </Link>
-            </li>
-            <li>
-              <Link href={CustomUrl.href('/settings/account/info/email', router.locale)}>
-                {t('accountProfile.email.title')}
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <Breadcrumbs
+        items={[
+          { title: t('accountProfile.form.setting') },
+          { title: t('accountProfile.form.title') },
+          { title: t('accountProfile.form.personalInfo'), href: '/settings/account/info' },
+          { title: t('accountProfile.email.title'), href: '/settings/account/info/email' }
+        ]}
+      />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
-            <Col xl={6} lg={0}>
-              <SettingSidebar />
+            <Col xl={6}>
+              <SettingSidebar sidebarType="buyer" />
             </Col>
-            <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} md={24}>
+            <Col xl={18} lg={24}>
               <Text>
-                <h4 className={`text-center mb-5 ${styles.textEmailTitle} ${styles.textPrimary}`}>
+                <h4 className={`text-center mb-5 ${styles.textSecondary}`}>
                   {t('accountProfile.email.title')}
                 </h4>
               </Text>
-              <Form layout="vertical" form={form} name="accountEmail" onFinish={onSubmit}>
-                <Row gutter={[16, 8]}>
-                  <Col md={24} xs={64} className="alert alert-message alert-light alert-primary">
-                    <Text>{t('accountProfile.email.currentEmail')} :</Text>
-                    <Text className={styles.textUnderline}> Ne******@gmail.com</Text>
-                  </Col>
-                  <Col md={24} xs={64}>
-                    <Form.Item label={t('accountProfile.email.currentEmail')} name="currentEmail">
-                      <Input maxLength={50} />
-                    </Form.Item>
-                  </Col>
-                  <Col md={24} xs={64}>
-                    <Form.Item
-                      label={t('accountProfile.email.password')}
-                      name="password"
-                      rules={[{ required: true, message: t('accountProfile.rules.email') }]}
-                    >
-                      <Input.Password />
-                    </Form.Item>
-                  </Col>
-                  <Col md={24} xs={64} className="text-center">
-                    <Text type="secondary">{t('accountProfile.email.msgConfirm')}</Text>
-                  </Col>
-                  <Col md={12} xs={12} offset={6}>
-                    <Form.Item>
-                      <Button htmlType="submit" className={styles.btnPrimary} block>
-                        {t('accountProfile.button.confirm')}
-                      </Button>
-                    </Form.Item>
-                  </Col>
-                </Row>
-              </Form>
+              <Row className={styles.highlight}>
+                <Col md={{ span: 4, offset: 6 }} xs={8}>
+                  <Text>{t('accountProfile.email.currentEmail')} :</Text>
+                </Col>
+                <Col md={12} xs={16}>
+                  <Text className={styles.textPrimary}>Ne******@gmail.com</Text>
+                </Col>
+              </Row>
+              <Row>
+                <Col xl={{ span: 12, offset: 6 }} md={{ span: 12, offset: 6 }}>
+                  <Form layout="vertical" form={form} name="accountEmail" onFinish={onSubmit}>
+                    <Row>
+                      <Col span={24}>
+                        <Form.Item
+                          label={t('accountProfile.email.currentEmail')}
+                          name="currentEmail"
+                        >
+                          <Input maxLength={50} />
+                        </Form.Item>
+                      </Col>
+                      <Col span={24}>
+                        <Form.Item
+                          label={t('accountProfile.email.password')}
+                          name="password"
+                          rules={[{ required: true, message: t('accountProfile.rules.email') }]}
+                        >
+                          <Input.Password />
+                        </Form.Item>
+                      </Col>
+                      <Col span={24} className="text-center mb-5">
+                        <Text type="secondary">{t('accountProfile.email.msgConfirm')}</Text>
+                      </Col>
+                      <Col span={24}>
+                        <Form.Item>
+                          <Button htmlType="submit" type="primary" block>
+                            {t('accountProfile.button.confirm')}
+                          </Button>
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </Form>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </div>

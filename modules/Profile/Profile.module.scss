@@ -1,30 +1,52 @@
-.padding5{
-    padding: 5px;
-} 
-.paddingRight5   {
-    padding-right: 5px;
+@import '../../public/sass/config/variables';
+
+.textPrimary {
+  color: $primary-color;
 }
-.btnPrimary{
-    background-color: #DF1F29;
-    color: #fff;
+
+.textSecondary {
+  color: $secondary-color !important;
 }
-.textUnderline{
-    color: #A7171F;
+
+.upload {
+  color: $secondary-color;
+  border-color: $secondary-color;
+
+  &:hover,
+  &:focus {
+    color: $secondary-color-dark;
+    border-color: $secondary-color-dark;
+  }
 }
-.iconDander{
-    color: red;
+
+.highlight {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: $background-light;
+  border-radius: $border-radius;
 }
-.radioFlex{
-    display: flex;
+
+.label {
+  display: inline-block;
+  width: 120px;
+
+  @media (min-width: 768px) {
+    width: 100px;
+  }
 }
-.textPrimary{
-    color: #239CD7 !important;
-}
-.btnInfo{
-    border-color: #239CD7;
-    color: #239CD7;
-    &:hover, &:focus{
-        border-color: #239CD7 !important;
-        color: #239CD7 !important;
+
+.radioFlex {
+  display: flex;
+
+  label {
+    margin-right: 1.5rem;
+  }
+
+  @media (min-width: 576px) {
+    justify-content: space-between;
+
+    label {
+      margin-right: 0;
     }
+  }
 }

@@ -1,0 +1,13 @@
+@import '../../../public/sass/config/_variables.scss';
+.iconError{
+    color: $primary-color;
+}
+.iconWarning{
+    color: $warning-color;
+}
+.iconInfo{
+    color: $secondary-color;
+}
+.iconSuccess{
+    color: $success-color;
+}
