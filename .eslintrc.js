@@ -71,13 +71,12 @@ module.exports = {
           'class',
           'const',
           'let',
-          'expression',
           'function',
           'return',
           'import',
           'export'
         ],
-        next: ['interface', 'class', 'expression', 'function', 'return', 'export']
+        next: ['interface', 'class', 'function', 'return', 'export']
       }
     ],
     '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],
