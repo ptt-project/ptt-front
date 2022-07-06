@@ -42,7 +42,7 @@ const Phone: FC = () => {
       console.log(error)
     }
   }
-  
+
   return (
     <>
       <OtpModal mobileNo="12346" isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />

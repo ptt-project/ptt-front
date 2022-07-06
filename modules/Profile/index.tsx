@@ -36,7 +36,7 @@ const Profile: FC = () => {
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   const [value, setValue] = useState(1)
-
+  
   function onChange(e: RadioChangeEvent): void {
     setValue(e.target.value)
   }
