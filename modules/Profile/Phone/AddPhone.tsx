@@ -28,7 +28,7 @@ const AddPhone: FC = () => {
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
-            <Col xl={6} lg={0}>
+            <Col xl={6}>
               <SettingSidebar sidebarType="buyer" />
             </Col>
             <Col xl={18} lg={24}>
