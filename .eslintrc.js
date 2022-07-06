@@ -61,10 +61,24 @@ module.exports = {
     'no-plusplus': 'off',
     'no-use-before-define': 'off',
     radix: ['error', 'as-needed'],
-    '@typescript-eslint/lines-between-class-members': [
+    'padding-line-between-statements': 'off',
+    '@typescript-eslint/padding-line-between-statements': [
       'error',
-      'always',
-      { exceptAfterOverload: true }
+      {
+        blankLine: 'always',
+        prev: [
+          'interface',
+          'class',
+          'const',
+          'let',
+          'expression',
+          'function',
+          'return',
+          'import',
+          'export'
+        ],
+        next: ['interface', 'class', 'expression', 'function', 'return', 'export']
+      }
     ],
     '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],
     '@typescript-eslint/no-inferrable-types': 'off',
