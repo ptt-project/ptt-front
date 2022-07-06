@@ -107,7 +107,7 @@ const Address: React.FC = () => {
                       <Button onClick={onAddAddressClick}>{t('address.addAddress')}</Button>
                     </Col>
                   </Row>
-                  <Row className={styles.addressList} gutter={[0, 16]}>
+                  <Row className="mt-4" gutter={[0, 16]}>
                     {(addresses as IAddressFormValues[]).map((address: IAddressFormValues) => (
                       <Col key={`${address.id}`} span={24}>
                         <AddressCard

@@ -6,14 +6,10 @@
   }
 }
 .addressListHead {
-  border-left: 4px solid $secondary-color;
-  padding-left: 4px;
+  border-left: 0.285rem solid $secondary-color;
+  padding-left: 0.285rem;
 
   * {
     color: $secondary-color;
   }
-}
-
-.addressList {
-  margin-top: 16px;
 }
