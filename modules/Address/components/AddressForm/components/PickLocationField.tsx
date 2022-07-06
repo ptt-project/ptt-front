@@ -2,6 +2,7 @@ import React, { MutableRefObject, useCallback, useMemo, useRef } from 'react'
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
 import { debounce } from 'lodash'
 import ButtonCurrentLocation from './ButtonCurrentLocation'
+import styles from '../AddressForm.module.scss'
 
 const GOOGLE_MAP_API_TOKEN: string = `${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_TOKEN}`
 
@@ -28,7 +29,6 @@ const PickLocationField: React.FC<IPickLocationFieldProps> = (props: IPickLocati
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: GOOGLE_MAP_API_TOKEN,
-    mapIds: ['4a3626990fa4a751'],
     libraries: ['places'],
     language: 'th-TH'
   })
@@ -57,16 +57,12 @@ const PickLocationField: React.FC<IPickLocationFieldProps> = (props: IPickLocati
     }
   }, [value, onChange])
 
-  const renderMap: any = useMemo((): any => {
+  const renderMap: ReturnType<React.FC> = useMemo((): ReturnType<React.FC> => {
     const markerIcon: google.maps.Icon = {
       url: './images/main/buyer/location-pin.svg'
     }
     return isLoaded ? (
-      <div
-        className="grey-section google-map"
-        id="googlemaps"
-        style={{ height: '453px', maxWidth: '600px', margin: '0 auto' }}
-      >
+      <div id="googlemaps" className={`grey-section google-map ${styles.googleMapLayout}`}>
         <GoogleMap
           onLoad={onMapLoaded}
           mapContainerStyle={containerStyle}

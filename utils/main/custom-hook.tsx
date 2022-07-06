@@ -1,7 +1,10 @@
 import { useCallback, useState } from 'react'
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const useVisible = () => {
+export const useVisible = (): {
+  visible: boolean
+  show: VoidFunction
+  hide: VoidFunction
+} => {
   const [visible, setVisible] = useState(false)
   const show: VoidFunction = useCallback(() => {
     setVisible(true)

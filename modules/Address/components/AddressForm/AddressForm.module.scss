@@ -7,32 +7,21 @@
       max-height: 80px;
     }
   }
-
-  .fieldRow {
-    row-gap: 4px;
-  }
-  .fieldRowGap {
-    row-gap: 4px;
-  }
-
-  .fieldCol {
-    width: 100%;
-  }
 }
 
 .button {
-  margin-top: 20px;
+  margin-top: 1.428rem;
 }
 
 .currentLocationButton {
   position: absolute;
   right: 0;
-  margin: 10px;
+  margin: 0.714rem;
 }
 
 .addressTagRadioButtonGroup {
   display: flex;
-  column-gap: 16px;
+  column-gap: 1.15rem;
 
   .addressTagRadioButton {
     border: unset !important;
@@ -61,4 +50,8 @@
   .hint {
     padding: 0;
   }
+}
+
+.googleMapLayout {
+  height: 453px;
 }
