@@ -61,6 +61,11 @@ module.exports = {
     'no-plusplus': 'off',
     'no-use-before-define': 'off',
     radix: ['error', 'as-needed'],
+    '@typescript-eslint/lines-between-class-members': [
+      'error',
+      'always',
+      { exceptAfterOverload: true }
+    ],
     '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/no-explicit-any': [
