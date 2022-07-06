@@ -89,17 +89,17 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
         onFinish={onFormFinish}
       >
         <Row className="" gutter={[20, 0]}>
-          <Col md={12} sm={24} xs={24}>
+          <Col sm={12} xs={24}>
             <Form.Item label={t('address.form.fullName')} name="fullName" rules={[...baseRules]}>
               <Input />
             </Form.Item>
           </Col>
-          <Col md={12} sm={24} xs={24}>
+          <Col sm={12} xs={24}>
             <Form.Item label={t('address.form.mobileNo')} name="mobileNo" rules={[...baseRules]}>
               <Input />
             </Form.Item>
           </Col>
-          <Col md={12} sm={24} xs={24}>
+          <Col sm={12} xs={24}>
             <Form.Item label={t('address.form.province')} name="province" rules={[...baseRules]}>
               <Select
                 filterOption={(value: string, options: IBaseOption): boolean =>
@@ -116,7 +116,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
               </Select>
             </Form.Item>
           </Col>
-          <Col md={12} sm={24} xs={24}>
+          <Col sm={12} xs={24}>
             <Form.Item label={t('address.form.district')} name="district" rules={[...baseRules]}>
               <Select
                 filterOption={(value: string, options: IBaseOption): boolean =>
@@ -133,7 +133,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
               </Select>
             </Form.Item>
           </Col>
-          <Col md={12} sm={24} xs={24}>
+          <Col sm={12} xs={24}>
             <Form.Item
               label={t('address.form.postalCode')}
               name="postalCode"
@@ -168,12 +168,12 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
               />
             </Form.Item>
           </Col>
-          <Col md={24} sm={24} xs={24}>
+          <Col sm={24} xs={24}>
             <Form.Item label={t('address.form.location')} name="location">
               <PickLocationField />
             </Form.Item>
           </Col>
-          <Col md={12} sm={24} xs={24}>
+          <Col sm={12} xs={24}>
             <Form.Item
               name="addressType"
               label={t('address.form.addressType')}
@@ -182,12 +182,12 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
               <AddressTagField />
             </Form.Item>
           </Col>
-          <Col className="align-items-center" md={12} sm={24} xs={24}>
+          <Col className="align-items-center" sm={12} xs={24}>
             <Form.Item name="isDefault" noStyle>
               <AddressCheckboxField label={t('address.form.isDefault')} />
             </Form.Item>
           </Col>
-          <Col md={12} sm={24} xs={24}>
+          <Col sm={12} xs={24}>
             <Form.Item name="isStore" noStyle>
               <AddressCheckboxField
                 label={t('address.form.isStore')}
@@ -196,7 +196,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
               />
             </Form.Item>
           </Col>
-          <Col md={12} sm={24} xs={24}>
+          <Col sm={12} xs={24}>
             <Form.Item name="isRefundStore" noStyle>
               <AddressCheckboxField
                 label={t('address.form.isRefundStore')}
