@@ -66,10 +66,10 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
               <Row gutter={[16, 8]}>
                 <Col xs={24}>
                   <Row align="middle">
-                    <Col span={8}>
+                    <Col sm={8} xs={24}>
                       <Text>{t('auth.registerSeller.form.shopType.title')}</Text>
                     </Col>
-                    <Col span={16}>
+                    <Col sm={16} xs={24}>
                       <Form.Item className="mb-0" name="shopType">
                         <Radio.Group className={styles.radio} defaultValue="0">
                           <Radio value="0">{t('auth.registerSeller.form.shopType.normal')}</Radio>

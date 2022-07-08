@@ -6,7 +6,11 @@
 
 .radio {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+
+  @media (min-width: 576px) {
+    justify-content: space-around;
+  }
 }
 
 .imgContainer {
