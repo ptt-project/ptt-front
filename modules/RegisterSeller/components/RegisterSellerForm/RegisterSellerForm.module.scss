@@ -4,19 +4,9 @@
   color: $secondary-color !important;
 }
 
-.link {
-  text-decoration: underline !important;
-  color: $secondary-color !important;
-
-  &:hover,
-  &:focus {
-    color: $secondary-color-dark !important;
-  }
-}
-
-.space {
-  width: 100%;
-  justify-content: center;
+.radio {
+  display: flex;
+  justify-content: space-around;
 }
 
 .imgContainer {
@@ -36,20 +26,5 @@
       height: 100%;
       object-fit: cover;
     }
-  }
-}
-
-.modalFooterWrapper {
-  margin: auto;
-}
-
-@media (min-width: 576px) {
-  .modalBodyWrapper {
-    padding-left: 5rem;
-    padding-right: 5rem;
-  }
-
-  .modalFooterWrapper {
-    max-width: 50%;
   }
 }

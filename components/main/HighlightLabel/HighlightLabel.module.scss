@@ -13,6 +13,7 @@
 }
 
 .labelSecondary {
+  margin-top: 2rem;
   margin-bottom: 1rem;
   border-left: 4px solid $secondary-color;
 
@@ -37,7 +38,7 @@
 }
 
 .labelInfo {
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   border-left: 4px solid $info-color;
 
   h6 {
