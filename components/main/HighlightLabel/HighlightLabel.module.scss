@@ -1,0 +1,73 @@
+@import '../../../public/sass/config/_variables.scss';
+
+.labelPrimary {
+  margin-bottom: 1rem;
+  border-left: 4px solid $primary-color;
+
+  h6 {
+    padding: 0.25rem 0;
+    margin-left: 0.25rem;
+    margin-bottom: 0;
+    color: $primary-color;
+  }
+}
+
+.labelSecondary {
+  margin-bottom: 1rem;
+  border-left: 4px solid $secondary-color;
+
+  h6 {
+    padding: 0.25rem 0;
+    margin-left: 0.25rem;
+    margin-bottom: 0;
+    color: $secondary-color;
+  }
+}
+
+.labelSuccess {
+  margin-bottom: 1rem;
+  border-left: 4px solid $success-color;
+
+  h6 {
+    padding: 0.25rem 0;
+    margin-left: 0.25rem;
+    margin-bottom: 0;
+    color: $success-color;
+  }
+}
+
+.labelInfo {
+  margin-bottom: 1rem;
+  border-left: 4px solid $info-color;
+
+  h6 {
+    padding: 0.25rem 0;
+    margin-left: 0.25rem;
+    margin-bottom: 0;
+    color: $info-color;
+  }
+}
+
+.labelWarning {
+  margin-bottom: 1rem;
+  border-left: 4px solid $warning-color;
+
+  h6 {
+    padding: 0.25rem 0;
+    margin-left: 0.25rem;
+    margin-bottom: 0;
+    color: $warning-color;
+  }
+}
+
+.labelError {
+  margin-bottom: 1rem;
+  border-left: 4px solid $error-color;
+
+  h6 {
+    padding: 0.25rem 0;
+    margin-left: 0.25rem;
+    margin-bottom: 0;
+    color: $error-color;
+  }
+}
