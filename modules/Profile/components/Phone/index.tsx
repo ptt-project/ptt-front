@@ -87,12 +87,14 @@ const Phone: FC = () => {
                   </Col>
                   <Col md={12} xs={19}>
                     <div className="text-right mb-5">
-                    <Link href={CustomUrl.href('/settings/account/info/add-phone', router.locale)}>
-                      <Button className={styles.textSecondary}>
-                        <i className="fas fa-plus mr-2" />
-                        {t('accountProfile.button.addPhone')}
-                      </Button>
-                    </Link>
+                      <Link
+                        href={CustomUrl.href('/settings/account/info/add-phone', router.locale)}
+                      >
+                        <Button className="hps-btn-secondary">
+                          <i className="fas fa-plus mr-2" />
+                          {t('accountProfile.button.addPhone')}
+                        </Button>
+                      </Link>
                     </div>
                   </Col>
                 </Row>

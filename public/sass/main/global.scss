@@ -1,5 +1,16 @@
-.t-small {
+.hps-text-small {
   font-size: 12px;
+}
+
+.hps-btn-secondary {
+  color: $secondary-color;
+  border-color: $secondary-color;
+
+  &:hover,
+  &:focus {
+    color: $secondary-color-dark;
+    border-color: $secondary-color-dark;
+  }
 }
 
 .setting-sidebar {

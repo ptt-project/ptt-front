@@ -66,17 +66,8 @@ module.exports = {
       'error',
       {
         blankLine: 'always',
-        prev: [
-          'interface',
-          'class',
-          'const',
-          'let',
-          'function',
-          'return',
-          'import',
-          'export'
-        ],
-        next: ['interface', 'class', 'function', 'return', 'export']
+        prev: '*',
+        next: ['interface', 'class', 'function', 'export']
       }
     ],
     '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],

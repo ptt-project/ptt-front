@@ -96,7 +96,12 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
       footer={[
         <Row key="otpModalFooter">
           <Col className="text-left" span={8}>
-            <Button className={styles.button} onClick={onRequestOtp} disabled={timer !== 0}>
+            <Button
+              className="hps-btn-secondary"
+              style={{ width: 136 }}
+              onClick={onRequestOtp}
+              disabled={timer !== 0}
+            >
               {`${t('components.otpModal.request')}${renderTimer()}`}
             </Button>
           </Col>

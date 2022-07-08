@@ -30,7 +30,12 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
     content: ''
   })
   const [form] = Form.useForm()
-  const passwordMessage: string = t('auth.register.form.rules.password') // prevent error hook rules
+  const requiredPassword: string = `${t('common.form.required')} ${t(
+    'auth.register.form.password'
+  )}` // prevent error hook rules
+  const invalidPassword: string = `${t('common.form.invalid.head')} ${t(
+    'auth.register.form.password'
+  )} ${t('common.form.invalid.tail')}` // prevent error hook rules
 
   function toggle(isOpen: string): void {
     const tempModal: IModalModel = { ...modal }
@@ -113,7 +118,14 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                     <Form.Item
                       label={t('auth.register.form.firstName')}
                       name="firstName"
-                      rules={[{ required: true, message: t('auth.register.form.rules.firstName') }]}
+                      rules={[
+                        {
+                          required: true,
+                          message: `${t('common.form.required')} ${t(
+                            'auth.register.form.firstName'
+                          )}`
+                        }
+                      ]}
                     >
                       <Input maxLength={50} />
                     </Form.Item>
@@ -122,7 +134,14 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                     <Form.Item
                       label={t('auth.register.form.lastName')}
                       name="lastName"
-                      rules={[{ required: true, message: t('auth.register.form.rules.lastName') }]}
+                      rules={[
+                        {
+                          required: true,
+                          message: `${t('common.form.required')} ${t(
+                            'auth.register.form.lastName'
+                          )}`
+                        }
+                      ]}
                     >
                       <Input maxLength={50} />
                     </Form.Item>
@@ -132,8 +151,18 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                       label={t('auth.register.form.mobileNo')}
                       name="mobileNo"
                       rules={[
-                        { required: true, message: t('auth.register.form.rules.mobileNo') },
-                        { min: 10, message: t('auth.register.form.rules.mobileNo') }
+                        {
+                          required: true,
+                          message: `${t('common.form.required')} ${t(
+                            'auth.register.form.mobileNo'
+                          )}`
+                        },
+                        {
+                          min: 10,
+                          message: `${t('common.form.min.head')} ${t(
+                            'auth.register.form.mobileNo'
+                          )} ${t('common.form.min.tail')}`
+                        }
                       ]}
                     >
                       <Input maxLength={10} onChange={onMobileNoChange} />
@@ -143,7 +172,14 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                     <Form.Item
                       label={t('auth.register.form.email')}
                       name="email"
-                      rules={[{ type: 'email', message: t('auth.register.form.rules.email') }]}
+                      rules={[
+                        {
+                          type: 'email',
+                          message: `${t('common.form.invalid.head')} ${t(
+                            'auth.register.form.email'
+                          )} ${t('common.form.invalid.tail')}`
+                        }
+                      ]}
                     >
                       <Input type="email" maxLength={50} />
                     </Form.Item>
@@ -152,7 +188,14 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                     <Form.Item
                       label={t('auth.register.form.username')}
                       name="username"
-                      rules={[{ required: true, message: t('auth.register.form.rules.username') }]}
+                      rules={[
+                        {
+                          required: true,
+                          message: `${t('common.form.required')} ${t(
+                            'auth.register.form.username'
+                          )}`
+                        }
+                      ]}
                     >
                       <Input maxLength={50} />
                     </Form.Item>
@@ -162,32 +205,35 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                       label={t('auth.register.form.password')}
                       name="password"
                       rules={[
-                        { required: true, message: passwordMessage },
+                        {
+                          required: true,
+                          message: requiredPassword
+                        },
                         (): any => ({
                           validator(_: Rule, value: string): Promise<any> {
                             if (!value || RegExpList.CHECK_PASSWORD.test(value)) {
                               return Promise.resolve()
                             }
-                            return Promise.reject(new Error(passwordMessage))
+                            return Promise.reject(new Error(invalidPassword))
                           }
                         })
                       ]}
                     >
                       <Input.Password maxLength={50} />
                     </Form.Item>
-                    <Text type="secondary" className="t-small d-block">
+                    <Text type="secondary" className="hps-text-small d-block">
                       {t('auth.register.form.passwordHintA')}
                     </Text>
-                    <Text type="secondary" className="t-small d-block">
+                    <Text type="secondary" className="hps-text-small d-block">
                       {t('auth.register.form.passwordHintB')}
                     </Text>
-                    <Text type="secondary" className="t-small d-block">
+                    <Text type="secondary" className="hps-text-small d-block">
                       {t('auth.register.form.passwordHintC')}
                     </Text>
-                    <Text type="secondary" className="t-small d-block">
+                    <Text type="secondary" className="hps-text-small d-block">
                       {t('auth.register.form.passwordHintD')}
                     </Text>
-                    <Text type="secondary" className="t-small d-block">
+                    <Text type="secondary" className="hps-text-small d-block">
                       {t('auth.register.form.passwordHintE')}
                     </Text>
                   </Col>

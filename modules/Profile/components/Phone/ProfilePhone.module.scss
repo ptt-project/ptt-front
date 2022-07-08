@@ -5,12 +5,7 @@
 }
 
 .textSecondary {
-  color: $secondary-color !important;
-  &:hover,
-  &:focus {
-    color: $secondary-color-dark;
-    border-color: $secondary-color-dark;
-  }
+  color: $secondary-color;
 }
 
 .highlight {

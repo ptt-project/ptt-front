@@ -4,18 +4,6 @@
   color: $info-color !important;
 }
 
-.button {
-  width: 136px;
-  color: $secondary-color;
-  border-color: $secondary-color;
-
-  &:hover,
-  &:focus {
-    color: $secondary-color-dark;
-    border-color: $secondary-color-dark;
-  }
-}
-
 .label {
   display: flex;
   padding-bottom: 8px;
