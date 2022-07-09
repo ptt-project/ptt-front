@@ -1,5 +1,5 @@
 import React, { useState, FC } from 'react'
-import { Typography, Space, Button, Row, Col, Form, Checkbox, Image } from 'antd'
+import { Typography, Space, Button, Image, Row, Col, Form, Checkbox } from 'antd'
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { isEmpty } from 'lodash'
 import OtpModal from '~/components/main/OtpModal'

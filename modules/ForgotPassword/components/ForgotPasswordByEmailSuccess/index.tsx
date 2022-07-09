@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { useRouter, NextRouter } from 'next/router'
-import { Typography, Space, Button, Row, Col, Image } from 'antd'
+import { Typography, Space, Button, Image, Row, Col } from 'antd'
 import t from '~/locales'
 import { CustomUrl } from '~/utils/main'
 import styles from './ForgotPasswordByEmailSuccess.module.scss'

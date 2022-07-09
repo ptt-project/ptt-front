@@ -1,5 +1,5 @@
 import React, { FC, ChangeEvent } from 'react'
-import { Typography, Button, Row, Col, Form, Input, Select, Image } from 'antd'
+import { Typography, Button, Image, Row, Col, Form, Input, Select, Radio } from 'antd'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import t from '~/locales'
 import { RegExpList } from '~/constants'
@@ -64,6 +64,21 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
             </Text>
             <Form layout="vertical" name="registerForm" form={form} onFinish={onSubmit}>
               <Row gutter={[16, 8]}>
+                <Col xs={24}>
+                  <Row align="middle">
+                    <Col sm={8} xs={24}>
+                      <Text>{t('auth.registerSeller.form.shopType.title')}</Text>
+                    </Col>
+                    <Col sm={16} xs={24}>
+                      <Form.Item className="mb-0" name="shopType">
+                        <Radio.Group className={styles.radio} defaultValue="0">
+                          <Radio value="0">{t('auth.registerSeller.form.shopType.normal')}</Radio>
+                          <Radio value="1">{t('auth.registerSeller.form.shopType.mall')}</Radio>
+                        </Radio.Group>
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </Col>
                 <Col span={24}>
                   <HighlightLabel title={t('auth.registerSeller.section.info')} color="secondary" />
                 </Col>
@@ -125,7 +140,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                     <Input type="email" maxLength={50} />
                   </Form.Item>
                 </Col>
-                <Col span={24} className="mt-5">
+                <Col span={24}>
                   <HighlightLabel
                     title={t('auth.registerSeller.section.brand')}
                     color="secondary"
@@ -185,7 +200,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                     <TextArea maxLength={200} showCount />
                   </Form.Item>
                 </Col>
-                <Col span={24} className="mt-5">
+                <Col span={24}>
                   <HighlightLabel
                     title={t('auth.registerSeller.section.about')}
                     color="secondary"

@@ -4,19 +4,22 @@
   color: $secondary-color !important;
 }
 
-.link {
-  text-decoration: underline !important;
-  color: $secondary-color !important;
+.radio {
+  display: flex;
 
-  &:hover,
-  &:focus {
-    color: $secondary-color-dark !important;
+  label {
+    flex: 1 50%;
+    max-width: 50%;
   }
-}
 
-.space {
-  width: 100%;
-  justify-content: center;
+  @media (min-width: 576px) {
+    justify-content: space-around;
+
+    label {
+      flex: 1 1 auto;
+      max-width: none;
+    }
+  }
 }
 
 .imgContainer {
@@ -36,20 +39,5 @@
       height: 100%;
       object-fit: cover;
     }
-  }
-}
-
-.modalFooterWrapper {
-  margin: auto;
-}
-
-@media (min-width: 576px) {
-  .modalBodyWrapper {
-    padding-left: 5rem;
-    padding-right: 5rem;
-  }
-
-  .modalFooterWrapper {
-    max-width: 50%;
   }
 }
