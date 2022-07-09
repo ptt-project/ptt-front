@@ -80,7 +80,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                   </Row>
                 </Col>
                 <Col span={24}>
-                  <HighlightLabel title={t('auth.registerSeller.section.info')} color="secondary" />
+                  <HighlightLabel title={t('auth.registerSeller.section.info')} />
                 </Col>
                 <Col md={12} xs={24}>
                   <Form.Item
@@ -141,10 +141,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                   </Form.Item>
                 </Col>
                 <Col span={24}>
-                  <HighlightLabel
-                    title={t('auth.registerSeller.section.brand')}
-                    color="secondary"
-                  />
+                  <HighlightLabel title={t('auth.registerSeller.section.brand')} />
                 </Col>
                 <Col md={12} xs={24}>
                   <Form.Item
@@ -201,10 +198,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                   </Form.Item>
                 </Col>
                 <Col span={24}>
-                  <HighlightLabel
-                    title={t('auth.registerSeller.section.about')}
-                    color="secondary"
-                  />
+                  <HighlightLabel title={t('auth.registerSeller.section.about')} />
                 </Col>
                 <Col xs={24}>
                   <Form.Item label={t('auth.registerSeller.form.about')} name="about">
