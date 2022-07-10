@@ -11,12 +11,6 @@ import styles from './RegisterForm.module.scss'
 
 const { Text, Link } = Typography
 
-interface IModalModel {
-  isOpen: string
-  title: string
-  content: string
-}
-
 interface IRegisterFormProps {
   setForm: (form: IRegisterForm) => void
   setStep: (step: number) => void
@@ -24,11 +18,7 @@ interface IRegisterFormProps {
 
 const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
   const router: NextRouter = useRouter()
-  const [modal, setModal] = useState<IModalModel>({
-    isOpen: '',
-    title: '',
-    content: ''
-  })
+  const [isOpen, setIsOpen] = useState<string>('')
   const [form] = Form.useForm()
   const requiredPassword: string = `${t('common.form.required')} ${t(
     'auth.register.form.password'
@@ -36,23 +26,45 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
   const invalidPassword: string = `${t('common.form.invalid.head')} ${t(
     'auth.register.form.password'
   )} ${t('common.form.invalid.tail')}` // prevent error hook rules
+  const termTitle: string = t('auth.register.form.policyB')
+  const termContent: string = t('auth.register.form.policyBContent')
+  const conditionTitle: string = t('auth.register.form.policyC')
+  const conditionContent: string = t('auth.register.form.policyCContent')
 
-  function toggle(isOpen: string): void {
-    const tempModal: IModalModel = { ...modal }
-    if (!isEmpty(isOpen)) {
-      tempModal.isOpen = isOpen
-      if (isOpen === 'TERM') {
-        tempModal.title = 'auth.register.form.policyB'
-        tempModal.content = 'auth.register.form.policyBContent'
-      }
-      if (isOpen === 'CONDITION') {
-        tempModal.title = 'auth.register.form.policyC'
-        tempModal.content = 'auth.register.form.policyCContent'
-      }
-    } else {
-      tempModal.isOpen = ''
+  function getModalTitle(): string {
+    if (isOpen === 'TERM') {
+      return termTitle
     }
-    setModal(tempModal)
+    if (isOpen === 'CONDITION') {
+      return conditionTitle
+    }
+    return ''
+  }
+
+  function getModalContent(): JSX.Element {
+    let content: string = ''
+    if (isOpen === 'TERM') {
+      content = termContent
+    }
+    if (isOpen === 'CONDITION') {
+      content = conditionContent
+    }
+    if (content) {
+      return (
+        <div className={styles.modalBodyWrapper}>
+          <Text type="secondary">{content}</Text>
+        </div>
+      )
+    }
+    return null
+  }
+
+  function toggle(value: string): void {
+    if (!isEmpty(value)) {
+      setIsOpen(value)
+    } else {
+      setIsOpen('')
+    }
   }
 
   function onMobileNoChange(e: ChangeEvent<HTMLInputElement>): void {
@@ -73,25 +85,21 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
       <Modal
         title={
           <Text>
-            <h4 className="mb-0 text-center">{modal.title ? t(modal.title) : ''}</h4>
+            <h4 className="mb-0 text-center">{getModalTitle()}</h4>
           </Text>
         }
         width={768}
-        visible={!isEmpty(modal.isOpen)}
+        visible={!isEmpty(isOpen)}
         onCancel={(): void => toggle('')}
-        footer={[
+        footer={
           <div className={styles.modalFooterWrapper}>
-            <Button key="close" type="primary" block onClick={(): void => toggle('')}>
+            <Button type="primary" block onClick={(): void => toggle('')}>
               {t('common.close')}
             </Button>
           </div>
-        ]}
+        }
       >
-        {modal.content ? (
-          <div className={styles.modalBodyWrapper}>
-            <Text type="secondary">{t(modal.content)}</Text>
-          </div>
-        ) : null}
+        {getModalContent()}
       </Modal>
       <div className="page-content mb-9">
         <div className="container">
