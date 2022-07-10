@@ -20,6 +20,7 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import t from '~/locales'
 import { CustomUrl } from '~/utils/main'
+import HighlightLabel from '~/components/main/HighlightLabel'
 import styles from './Profile.module.scss'
 
 const { Text } = Typography
@@ -70,6 +71,7 @@ const Profile: FC = () => {
                   {t('accountProfile.form.title')}
                 </h4>
               </Text>
+              <HighlightLabel title={t('accountProfile.form.personalInfo')} />
               <Form layout="vertical" form={form} name="accountProfile" onFinish={onSubmit}>
                 <Row className={styles.highlight} gutter={[16, 16]} align="middle">
                   <Col sm={4} xs={12}>
