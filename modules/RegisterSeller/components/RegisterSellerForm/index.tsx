@@ -1,5 +1,16 @@
-import React, { FC, ChangeEvent } from 'react'
-import { Typography, Button, Image, Row, Col, Form, Input, Select, Radio } from 'antd'
+import React, { useState, FC, ChangeEvent } from 'react'
+import {
+  Typography,
+  Button,
+  Image,
+  Row,
+  Col,
+  Form,
+  Input,
+  Select,
+  Radio,
+  RadioChangeEvent
+} from 'antd'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import t from '~/locales'
 import { RegExpList } from '~/constants'
@@ -23,11 +34,14 @@ interface IRegisterSellerForm {
   facebook: string
   instagram: string
   other: string
-  about: string
+  corporate?: string
+  corporateDetail?: string
+  info: string
 }
 
 const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSellerFormProps) => {
   const [form] = Form.useForm()
+  const [shopType, setShopType] = useState<string>('0')
 
   function onTelChange(e: ChangeEvent<HTMLInputElement>): void {
     if (!e.target.value || RegExpList.CHECK_NUMBER.test(e.target.value)) {
@@ -35,6 +49,10 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
     } else {
       form.setFieldsValue({ tel: e.target.value.replace(RegExpList.ALLOW_NUMBER, '') })
     }
+  }
+
+  function onChangeRadio(e: RadioChangeEvent): void {
+    setShopType(e.target.value)
   }
 
   function onSubmit(values: IRegisterSellerForm): void {
@@ -62,7 +80,17 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                 {t('auth.registerSeller.title')}
               </h4>
             </Text>
-            <Form layout="vertical" name="registerForm" form={form} onFinish={onSubmit}>
+            <Form
+              initialValues={{
+                shopType: '0',
+                category: '',
+                corporate: ''
+              }}
+              layout="vertical"
+              name="registerForm"
+              form={form}
+              onFinish={onSubmit}
+            >
               <Row gutter={[16, 8]}>
                 <Col xs={24}>
                   <Row align="middle">
@@ -71,7 +99,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                     </Col>
                     <Col sm={16} xs={24}>
                       <Form.Item className="mb-0" name="shopType">
-                        <Radio.Group className={styles.radio} defaultValue="0">
+                        <Radio.Group className={styles.radio} onChange={onChangeRadio}>
                           <Radio value="0">{t('auth.registerSeller.form.shopType.normal')}</Radio>
                           <Radio value="1">{t('auth.registerSeller.form.shopType.mall')}</Radio>
                         </Radio.Group>
@@ -80,7 +108,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                   </Row>
                 </Col>
                 <Col span={24}>
-                  <HighlightLabel title={t('auth.registerSeller.section.info')} />
+                  <HighlightLabel title={t('auth.registerSeller.section.contact')} />
                 </Col>
                 <Col md={12} xs={24}>
                   <Form.Item
@@ -172,24 +200,25 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                       }
                     ]}
                   >
-                    <Select defaultValue="">
+                    <Select>
                       <Select.Option value="">{t('common.option')}</Select.Option>
+                      <Select.Option value="0">ของตกแต่งบ้าน</Select.Option>
                     </Select>
                   </Form.Item>
                 </Col>
                 <Col xs={24}>
                   <Form.Item label={t('auth.registerSeller.form.website')} name="website">
-                    <Input />
+                    <Input maxLength={50} />
                   </Form.Item>
                 </Col>
                 <Col xs={24}>
                   <Form.Item label={t('auth.registerSeller.form.facebook')} name="facebook">
-                    <Input />
+                    <Input maxLength={50} />
                   </Form.Item>
                 </Col>
                 <Col xs={24}>
                   <Form.Item label={t('auth.registerSeller.form.instagram')} name="instagram">
-                    <Input />
+                    <Input maxLength={50} />
                   </Form.Item>
                 </Col>
                 <Col xs={24}>
@@ -197,11 +226,42 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                     <TextArea maxLength={200} showCount />
                   </Form.Item>
                 </Col>
+                {shopType === '1' ? (
+                  <>
+                    <Col span={24}>
+                      <Form.Item
+                        name="corporate"
+                        label={t('auth.registerSeller.form.corporate')}
+                        rules={[
+                          {
+                            required: true,
+                            message: `${t('common.form.required')} ${t(
+                              'auth.registerSeller.form.corporate'
+                            )}`
+                          }
+                        ]}
+                      >
+                        <Select>
+                          <Select.Option value="">{t('common.option')}</Select.Option>
+                          <Select.Option value="0">ผู้จัดจำหน่าย</Select.Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                      <Form.Item
+                        label={t('auth.registerSeller.form.corporateDetail')}
+                        name="corporateDetail"
+                      >
+                        <TextArea rows={4} maxLength={1000} showCount />
+                      </Form.Item>
+                    </Col>
+                  </>
+                ) : null}
                 <Col span={24}>
-                  <HighlightLabel title={t('auth.registerSeller.section.about')} />
+                  <HighlightLabel title={t('auth.registerSeller.section.info')} />
                 </Col>
                 <Col xs={24}>
-                  <Form.Item label={t('auth.registerSeller.form.about')} name="about">
+                  <Form.Item label={t('auth.registerSeller.form.info')} name="info">
                     <TextArea rows={4} maxLength={1000} showCount />
                   </Form.Item>
                 </Col>

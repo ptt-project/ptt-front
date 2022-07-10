@@ -1,7 +1,7 @@
 import React, { useState, FC } from 'react'
 import Helmet from 'react-helmet'
 import RegisterSellerForm from './components/RegisterSellerForm'
-// import RegisterSellerSuccess from './components/RegisterSellerSuccess'
+import RegisterSellerSuccess from './components/RegisterSellerSuccess'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import t from '~/locales'
 
@@ -12,8 +12,8 @@ const RegisterSeller: FC = () => {
     switch (step) {
       case 0: // REGISTER_SELLER_FORM
         return <RegisterSellerForm setStep={setStep} />
-      // case 1: // REGISTER_SELLER_SUCCESS
-      //   return <RegisterSellerSuccess />
+      case 1: // REGISTER_SELLER_SUCCESS
+        return <RegisterSellerSuccess />
       default:
         return <RegisterSellerForm setStep={setStep} />
     }
