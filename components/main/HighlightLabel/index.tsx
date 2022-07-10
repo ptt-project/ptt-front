@@ -1,9 +1,11 @@
-import React, { FC } from 'react'
+import React, { FC, CSSProperties } from 'react'
 import styles from './HighlightLabel.module.scss'
 
 interface IHighlightLabelProps {
   title: string
   color?: string
+  className?: string
+  style?: CSSProperties
 }
 
 const HighlightLabel: FC<IHighlightLabelProps> = (props: IHighlightLabelProps) => {
@@ -31,15 +33,20 @@ const HighlightLabel: FC<IHighlightLabelProps> = (props: IHighlightLabelProps) =
       key = 'labelSecondary'
       break
   }
+
+  const className: string = props.className ? `${styles[key]} ${props.className}` : styles[key]
+
   return (
-    <div className={styles[key]}>
+    <div className={className} style={props.style}>
       <h6>{props.title}</h6>
     </div>
   )
 }
 
 HighlightLabel.defaultProps = {
-  color: 'secondary'
+  color: 'secondary',
+  className: '',
+  style: {}
 }
 
 export default HighlightLabel
