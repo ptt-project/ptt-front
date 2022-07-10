@@ -28,6 +28,8 @@ interface IRegisterSellerForm {
   name: string
   tel: string
   email: string
+  corporateName?: string
+  corporateNo?: string
   brand: string
   category: number
   website: string
@@ -42,6 +44,13 @@ interface IRegisterSellerForm {
 const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSellerFormProps) => {
   const [form] = Form.useForm()
   const [shopType, setShopType] = useState<string>('0')
+  const corporateLabel: string = t('auth.registerSeller.form.corporate') // prevent error hook rules
+  const corporateNameLabel: string = t('auth.registerSeller.form.corporateName') // prevent error hook rules
+  const corporateNoLabel: string = t('auth.registerSeller.form.corporateNo') // prevent error hook rules
+  const corporateDetailLabel: string = t('auth.registerSeller.form.corporateDetail') // prevent error hook rules
+  const optionLabel: string = t('common.form.option') // prevent error hook rules
+  const requiredRule: string = t('common.form.required') // prevent error hook rules
+  const minRule: any = t('common.form.min') // prevent error hook rules
 
   function onTelChange(e: ChangeEvent<HTMLInputElement>): void {
     if (!e.target.value || RegExpList.CHECK_NUMBER.test(e.target.value)) {
@@ -51,8 +60,16 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
     }
   }
 
-  function onChangeRadio(e: RadioChangeEvent): void {
+  function onRadioChange(e: RadioChangeEvent): void {
     setShopType(e.target.value)
+  }
+
+  function onIdCardChange(e: ChangeEvent<HTMLInputElement>): void {
+    if (!e.target.value || RegExpList.CHECK_NUMBER.test(e.target.value)) {
+      form.setFieldsValue({ corporateNo: e.target.value })
+    } else {
+      form.setFieldsValue({ corporateNo: e.target.value.replace(RegExpList.ALLOW_NUMBER, '') })
+    }
   }
 
   function onSubmit(values: IRegisterSellerForm): void {
@@ -99,7 +116,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                     </Col>
                     <Col sm={16} xs={24}>
                       <Form.Item className="mb-0" name="shopType">
-                        <Radio.Group className={styles.radio} onChange={onChangeRadio}>
+                        <Radio.Group className={styles.radio} onChange={onRadioChange}>
                           <Radio value="0">{t('auth.registerSeller.form.shopType.normal')}</Radio>
                           <Radio value="1">{t('auth.registerSeller.form.shopType.mall')}</Radio>
                         </Radio.Group>
@@ -137,9 +154,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                       },
                       {
                         min: 9,
-                        message: `${t('common.form.min.head')} ${t(
-                          'auth.registerSeller.form.tel'
-                        )} ${t('common.form.min.tail')}`
+                        message: `${t('common.form.min.head')} 9 ${t('common.form.min.tail')}`
                       }
                     ]}
                   >
@@ -171,6 +186,42 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                 <Col span={24}>
                   <HighlightLabel title={t('auth.registerSeller.section.brand')} />
                 </Col>
+                {shopType === '1' ? (
+                  <>
+                    <Col md={12} xs={24}>
+                      <Form.Item
+                        label={corporateNameLabel}
+                        name="corporateName"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${requiredRule} ${corporateNameLabel}`
+                          }
+                        ]}
+                      >
+                        <Input maxLength={50} />
+                      </Form.Item>
+                    </Col>
+                    <Col md={12} xs={24}>
+                      <Form.Item
+                        label={corporateNoLabel}
+                        name="corporateNo"
+                        rules={[
+                          {
+                            required: true,
+                            message: `${requiredRule} ${corporateNoLabel}`
+                          },
+                          {
+                            min: 13,
+                            message: `${minRule.head} 13 ${minRule.tail}`
+                          }
+                        ]}
+                      >
+                        <Input maxLength={13} onChange={onIdCardChange} />
+                      </Form.Item>
+                    </Col>
+                  </>
+                ) : null}
                 <Col md={12} xs={24}>
                   <Form.Item
                     label={t('auth.registerSeller.form.brand')}
@@ -201,7 +252,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                     ]}
                   >
                     <Select>
-                      <Select.Option value="">{t('common.option')}</Select.Option>
+                      <Select.Option value="">{t('common.form.option')}</Select.Option>
                       <Select.Option value="0">ของตกแต่งบ้าน</Select.Option>
                     </Select>
                   </Form.Item>
@@ -231,27 +282,22 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                     <Col span={24}>
                       <Form.Item
                         name="corporate"
-                        label={t('auth.registerSeller.form.corporate')}
+                        label={corporateLabel}
                         rules={[
                           {
                             required: true,
-                            message: `${t('common.form.required')} ${t(
-                              'auth.registerSeller.form.corporate'
-                            )}`
+                            message: `${requiredRule} ${corporateLabel}`
                           }
                         ]}
                       >
                         <Select>
-                          <Select.Option value="">{t('common.option')}</Select.Option>
+                          <Select.Option value="">{optionLabel}</Select.Option>
                           <Select.Option value="0">ผู้จัดจำหน่าย</Select.Option>
                         </Select>
                       </Form.Item>
                     </Col>
                     <Col span={24}>
-                      <Form.Item
-                        label={t('auth.registerSeller.form.corporateDetail')}
-                        name="corporateDetail"
-                      >
+                      <Form.Item label={corporateDetailLabel} name="corporateDetail">
                         <TextArea rows={4} maxLength={1000} showCount />
                       </Form.Item>
                     </Col>

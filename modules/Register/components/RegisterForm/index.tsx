@@ -167,9 +167,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         },
                         {
                           min: 10,
-                          message: `${t('common.form.min.head')} ${t(
-                            'auth.register.form.mobileNo'
-                          )} ${t('common.form.min.tail')}`
+                          message: `${t('common.form.min.head')} 10 ${t('common.form.min.tail')}`
                         }
                       ]}
                     >
