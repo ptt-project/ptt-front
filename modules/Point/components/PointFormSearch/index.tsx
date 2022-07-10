@@ -35,7 +35,7 @@ const PointFormSearch: FC = () => {
           </Form.Item>
         </Col>
       </Row>
-      <Row >
+      <Row>
         <Col className='ml-5' xs={4}>
           <Form.Item>
             <Button htmlType="submit" type="primary" block>

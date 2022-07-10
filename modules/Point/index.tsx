@@ -32,16 +32,20 @@ const Point: FC = () => {
               <SettingSidebar sidebarType="seller" />
             </Col>
             <Col xl={18} lg={24}>
-              <Col md={12} >
-                <h4 className={`text-left ${styles.textSecondary}`}>{t('shopPoint.title')}</h4>
-                <Text type="secondary">{t('shopPoint.detail')}</Text>
-              </Col>
-              <Col md={4}>
-                <h2><Text type="danger">5.0</Text></h2>
-                <h4 className="mt-2">
-                  <Text type="secondary">{t('shopPoint.part')}</Text>
-                </h4>
-              </Col>
+              <Row>
+                <Col md={20} >
+                  <h4 className={`text-left mb-1 ${styles.textSecondary}`}>{t('shopPoint.title')}</h4>
+                  <Text type="secondary">{t('shopPoint.detail')}</Text>
+                </Col>
+                <Col md={4}>
+                  <Row>
+                    <h2><Text type="danger">5.0</Text></h2>
+                    <h4 className="mt-2">
+                      <Text type="secondary">{t('shopPoint.part')}</Text>
+                    </h4>
+                  </Row>
+                </Col>
+              </Row>
               <PointFormSearch/>
             </Col>
           </Row>
