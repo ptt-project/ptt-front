@@ -5,6 +5,7 @@ import { Typography, Row, Col } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import PointFormSearch from '../Point/components/PointFormSearch'
+import PointTabs from '../Point/components/PointTabs'
 import t from '~/locales'
 import styles from './Point.module.scss'
 
@@ -47,6 +48,7 @@ const Point: FC = () => {
                 </Col>
               </Row>
               <PointFormSearch/>
+              <PointTabs/>
             </Col>
           </Row>
         </div>

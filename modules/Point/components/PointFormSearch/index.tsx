@@ -1,9 +1,8 @@
 import React, { FC } from 'react'
-import { Typography, Button, Row, Col, Form, Input } from 'antd'
+import { Button, Row, Col, Form, Input } from 'antd'
 import t from '~/locales'
 import styles from './PointFormSearch.module.scss'
 
-const { Text } = Typography
 
 interface IFormModel {
   productName: string
@@ -13,6 +12,7 @@ interface IFormModel {
 
 const PointFormSearch: FC = () => {
   const [form] = Form.useForm()
+
   function onSubmit(values: IFormModel): void {
     console.log(values)
   }
