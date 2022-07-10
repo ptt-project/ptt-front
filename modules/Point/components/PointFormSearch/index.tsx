@@ -1,47 +1,56 @@
-import React, { useState, FC } from 'react'
-import Helmet from 'react-helmet'
-import RegisterForm from './components/RegisterForm'
-import RegisterConsent from './components/RegisterConsent'
-import RegisterSuccess from './components/RegisterSuccess'
-import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { IRegisterForm } from '~/model/Auth'
+import React, { FC } from 'react'
+import { Typography, Button, Row, Col, Form, Input } from 'antd'
 import t from '~/locales'
+import styles from './PointFormSearch.module.scss'
 
-const Register: FC = () => {
-  const [form, setForm] = useState<IRegisterForm>({
-    firstName: '',
-    lastName: '',
-    mobileNo: '',
-    email: '',
-    username: '',
-    password: ''
-  })
-  const [step, setStep] = useState<number>(0) // 0=REGISTER_FORM, 1=REGISTER_CONSENT, 2=REGISTER_SUCCESS
+const { Text } = Typography
 
-  function renderStep(): JSX.Element {
-    switch (step) {
-      case 0: // REGISTER_FORM
-        return <RegisterForm setForm={setForm} setStep={setStep} />
-      case 1: // REGISTER_CONSENT
-        return <RegisterConsent form={form} setStep={setStep} />
-      case 2: // REGISTER_SUCCESS
-        return <RegisterSuccess />
-      default:
-        return <RegisterForm setForm={setForm} setStep={setStep} />
-    }
+interface IFormModel {
+  productName: string
+  productNameChoice: string
+  date: string
+}
+
+const PointFormSearch: FC = () => {
+  const [form] = Form.useForm()
+  function onSubmit(values: IFormModel): void {
+    console.log(values)
   }
-
   return (
-    <main className="main">
-      <Helmet>
-        <title>
-          {t('meta.title')} | {t('auth.register.title')}
-        </title>
-      </Helmet>
-      <Breadcrumbs items={[{ title: t('auth.register.title') }]} />
-      {renderStep()}
-    </main>
+    <Form layout="vertical" form={form} name="formSearch" onFinish={onSubmit} className={styles.highlight}>
+      <Row gutter={[8, 8]} className='mt-3'>
+        <Col className='ml-5' md={10} xs={20}>
+          <Form.Item label={t('shopPoint.formSearch.productName')} name="productName">
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col className='ml-5' md={10} xs={20}>
+          <Form.Item label={t('shopPoint.formSearch.productNameChoice')} name="productNameChoice">
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col className='ml-5' md={10} xs={20}>
+          <Form.Item label={t('shopPoint.formSearch.date')} name="date">
+            <Input />
+          </Form.Item>
+        </Col>
+      </Row>
+      <Row >
+        <Col className='ml-5' xs={4}>
+          <Form.Item>
+            <Button htmlType="submit" type="primary" block>
+              {t('shopPoint.formSearch.search')}
+            </Button>
+          </Form.Item>
+        </Col>
+        <Col className='ml-5' xs={4}>
+          <Button htmlType="reset" block>
+            {t('shopPoint.formSearch.reset')}
+          </Button>
+        </Col>
+      </Row>
+    </Form>
   )
 }
 
-export default Register
+export default PointFormSearch
