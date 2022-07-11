@@ -17,19 +17,17 @@
       font-size: 1.3rem,
       letter-spacing: false,
       background: $primary-color,
-      color: false,
-      _link-active-color: #fff,
+      color: $white-color,
+      _link-active-color: $white-color,
 
       top: (
-        padding: 4rem 0,
         border-top: false,
-        border-bottom: 1px solid #333,
-        background: false,
+        border-bottom: 1px solid $white-color,
+        background: false
       ),
       middle: (
-        padding: 4rem 0 2.8rem,
         letter-spacing: false,
-        border-bottom: 1px solid #333,
+        border-bottom: 1px solid $white-color,
         background: false,
         widget: (
           margin-bottom: 0.8rem,
@@ -41,16 +39,16 @@
             line-height: false,
             text-transform: capitalize,
             font-size: 1.6rem,
-            color: $white-color,
+            color: $white-color
           ),
           body: (
             padding: 8px 0 0,
             font-size: 1.6rem,
-            color: $white-color,
+            color: $white-color
           ),
           list-item: (
             line-height: 1.2,
-            margin-bottom: 0.8rem,
+            margin-bottom: 0.8rem
           ),
           label: (
             font-size: 1.6rem,
@@ -58,16 +56,15 @@
             font-weight: 400,
             letter-spacing: false,
             line-height: false,
-            text-transform: uppercase,
-          ),
-        ),
+            text-transform: uppercase
+          )
+        )
       ),
       main: (
-        padding: 2.6rem 0 0.4rem,
+        padding: 2.6rem 0 0.4rem
       ),
       bottom: (
-        padding: 2.6rem 0 3rem,
-        background: false,
+        background: false
       ),
       copyright: (
         font-family: false,
@@ -75,26 +72,29 @@
         font-weight: 500,
         color: false,
         letter-spacing: -0.01em,
-        line-height: 1.5,
+        line-height: 1.5
       ),
       social-link: (
         letter-spacing: 0.005em,
-        color: #999,
-        border: 2px solid #999,
+        color: $white-color,
+        border: 2px solid $white-color,
         hover: (
-          color: #fff,
+          color: $white-color
         ),
+        focus: (
+          color: $white-color
+        )
       ),
       about: (
         logo: (
-          margin-bottom: 1.6rem,
+          margin-bottom: 1.6rem
         ),
         p: (
           margin-bottom: 3rem,
           color: #999,
           line-height: 1.85,
-          letter-spacing: -0.025em,
-        ),
+          letter-spacing: -0.025em
+        )
       ),
       newsletter: (
         title: (
@@ -106,7 +106,7 @@
           letter-spacing: -0.015em,
           text-transform: inherit,
           line-height: 1,
-          color: #fff,
+          color: $warning-color
         ),
         desc: (
           margin-bottom: 0.1rem,
@@ -116,10 +116,10 @@
           letter-spacing: -0.005em,
           text-transform: false,
           line-height: 1.23,
-          color: #999,
+          color: #999
         ),
         form: (
-          max-width: 48rem,
+          max-width: 48rem
         ),
         input: (
           padding: false,
@@ -127,13 +127,13 @@
           border: 0,
           border-radius: 0.3rem,
           color: $grey-color,
-          background: #2c2c2c,
+          background: #2c2c2c
         ),
         btn: (
-          padding: false,
-        ),
-      ),
-    ),
+          padding: false
+        )
+      )
+    )
   )
 );
 // Footer
@@ -255,7 +255,7 @@
     margin-bottom: 2rem;
   }
   .footer-middle {
-    padding: 4.8rem 0 4.8rem;
+    padding: 3rem 0;
     .widget-body {
       padding: 0;
     }

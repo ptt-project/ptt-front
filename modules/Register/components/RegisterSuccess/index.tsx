@@ -21,6 +21,7 @@ const RegisterSuccess: FC = () => {
                 preview={false}
                 width="100%"
                 src="./images/main/buyer/register-form.png"
+                alt="register-form"
               />
             </div>
           </Col>
@@ -38,6 +39,7 @@ const RegisterSuccess: FC = () => {
                     preview={false}
                     width="100%"
                     src="./images/main/buyer/register-success.png"
+                    alt="register-success"
                   />
                 </div>
               </Col>

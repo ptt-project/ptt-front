@@ -1,0 +1,18 @@
+@import '../../../public/sass/config/_variables.scss';
+
+.label {
+  margin-bottom: 2rem;
+
+  h5 {
+    color: $white-color !important;
+  }
+}
+
+.space {
+  display: block;
+  margin-bottom: 1rem;
+
+  span {
+    color: $white-color;
+  }
+}

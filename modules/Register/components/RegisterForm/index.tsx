@@ -111,6 +111,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                   preview={false}
                   width="100%"
                   src="./images/main/buyer/register-form.png"
+                  alt="register-form"
                 />
               </div>
             </Col>

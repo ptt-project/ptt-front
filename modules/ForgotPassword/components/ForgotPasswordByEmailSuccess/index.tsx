@@ -27,6 +27,7 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
                 preview={false}
                 width="100%"
                 src="./images/main/buyer/forgot-password.png"
+                alt="forgot-password"
               />
             </div>
           </Col>
@@ -44,6 +45,7 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
                     preview={false}
                     width="100%"
                     src="./images/main/buyer/forgot-password-success.png"
+                    alt="forgot-password-success"
                   />
                 </div>
               </Col>
