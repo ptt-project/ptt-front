@@ -124,6 +124,7 @@ export default {
     confirmDeleteAddress: 'ยืนยันการลบที่อยู่',
     warningMsgDeleteAddress: 'ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้',
     yourLocation: 'Your Location',
+    emptyAddress: 'ยังไม่มีข้อมูลที่อยู่กรุณา',
     form: {
       fullName: 'ชื่อ-นามสกุล',
       mobileNo: 'หมายเลขโทรศัพท์',

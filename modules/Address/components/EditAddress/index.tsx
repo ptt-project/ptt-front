@@ -6,7 +6,7 @@ import AddressForm from '../AddressForm'
 import styles from '../../Address.module.scss'
 import t from '~/locales'
 import { IAddressFormValues } from '~/model/Address'
-import addresses from '../AddressForm/mock-data/mock-addresses.json'
+import addressesMock from '../AddressForm/mock-data/mock-addresses.json'
 import { CustomUrl } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
@@ -14,29 +14,31 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 const { Text } = Typography
 
 const EditAddress: React.FC = () => {
+  const [form] = Form.useForm()
   const router: NextRouter = useRouter()
   const { addressId } = router.query
 
-  const [form] = Form.useForm()
+  const addresses: IAddressFormValues[] = (addressesMock || []) as IAddressFormValues[]
 
   const address: IAddressFormValues = useMemo(
-    (): IAddressFormValues =>
-      (addresses as IAddressFormValues[]).find((v: IAddressFormValues) => v.id === addressId),
+    (): IAddressFormValues => addresses.find((v: IAddressFormValues) => v.id === addressId),
     [addressId]
   )
 
   function onSubmit(values: IAddressFormValues): void {
-    console.log(values)
-  }
+    console.debug(values)
 
-  function onSubmitClick(): void {
-    form.submit()
+    // props.updateAddress?.(values)
     notification.success({
-      message: 'Edit Address Success'
+      message: 'Add Address Success'
     })
     router.replace('/settings/account/address', '/settings/account/address', {
       locale: router.locale
     })
+  }
+
+  function onSaveClick(): void {
+    form.submit()
   }
 
   function onCancelClick(): void {
@@ -72,7 +74,8 @@ const EditAddress: React.FC = () => {
               className="mx-auto"
               xl={{ span: 15, offset: 1 }}
               lg={{ span: 18, offset: 3 }}
-              md={24}
+              sm={24}
+              xs={24}
             >
               <Col className="mb-4" span={24}>
                 <Text className={`title title-center ${styles.title}`}>
@@ -85,7 +88,7 @@ const EditAddress: React.FC = () => {
                   ...address
                 }}
                 onSubmit={onSubmit}
-                isSeller={false}
+                isSeller
               />
               <Row className="flex-1 mt-5" gutter={[24, 0]}>
                 <Col span={12}>
@@ -94,13 +97,7 @@ const EditAddress: React.FC = () => {
                   </Button>
                 </Col>
                 <Col span={12}>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    size="large"
-                    onClick={onSubmitClick}
-                    block
-                  >
+                  <Button type="primary" htmlType="submit" size="large" onClick={onSaveClick} block>
                     {t('common.save')}
                   </Button>
                 </Col>

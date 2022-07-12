@@ -16,6 +16,7 @@ const { Text } = Typography
 const user: any = {
   mobileNo: '0901234567'
 }
+
 interface IChangePasswordFormValues {
   password: string
   newPassword: string
@@ -113,7 +114,8 @@ const ChangePassword: React.FC = () => {
               className="mx-auto"
               xl={{ span: 15, offset: 1 }}
               lg={{ span: 18, offset: 3 }}
-              md={24}
+              sm={24}
+              xs={24}
             >
               <Row className={`${styles.page}`}>
                 <Col className="mb-4" span={24}>

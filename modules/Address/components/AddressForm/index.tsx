@@ -47,7 +47,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
   const [form] = Form.useForm(parentForm)
   const [, /* formValues */ setFormValues] = useState<DeepPartial<IAddressFormValues>>({})
 
-  const baseRules: Rule[] = [{ required: true, message: t('required') }]
+  const baseRules: Rule[] = [{ required: true, message: t('Required') }]
 
   function onHintClick(hintType: string): void {
     switch (hintType) {
@@ -88,6 +88,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
         onValuesChange={onFormChange}
         onFinish={onFormFinish}
       >
+        <Form.Item name="id" hidden />
         <Row className="" gutter={[20, 0]}>
           <Col sm={12} xs={24}>
             <Form.Item label={t('address.form.fullName')} name="fullName" rules={[...baseRules]}>
@@ -184,7 +185,10 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
           </Col>
           <Col className="align-items-center" sm={12} xs={24}>
             <Form.Item name="isDefault" noStyle>
-              <AddressCheckboxField label={t('address.form.isDefault')} />
+              <AddressCheckboxField
+                label={t('address.form.isDefault')}
+                disabled={!!initialValues?.isDefault}
+              />
             </Form.Item>
           </Col>
           <Col sm={12} xs={24}>

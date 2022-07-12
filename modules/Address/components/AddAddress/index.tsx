@@ -18,16 +18,16 @@ const AddAddress: React.FC = () => {
 
   function onSubmit(values: IAddressFormValues): void {
     console.log(values)
-  }
-
-  function onSubmitClick(): void {
-    form.submit()
     notification.success({
       message: 'Add Address Success'
     })
     router.replace('/settings/account/address', '/settings/account/address', {
       locale: router.locale
     })
+  }
+
+  function onSaveClick(): void {
+    form.submit()
   }
 
   function onCancelClick(): void {
@@ -63,7 +63,8 @@ const AddAddress: React.FC = () => {
               className="mx-auto"
               xl={{ span: 15, offset: 1 }}
               lg={{ span: 18, offset: 3 }}
-              md={24}
+              sm={24}
+              xs={24}
             >
               <Col className="mb-4" span={24}>
                 <Text className={`title title-center ${styles.title}`}>
@@ -78,13 +79,7 @@ const AddAddress: React.FC = () => {
                   </Button>
                 </Col>
                 <Col span={12}>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    size="large"
-                    onClick={onSubmitClick}
-                    block
-                  >
+                  <Button type="primary" htmlType="submit" size="large" onClick={onSaveClick} block>
                     {t('common.save')}
                   </Button>
                 </Col>
