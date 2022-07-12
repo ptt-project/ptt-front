@@ -6,11 +6,10 @@
   }
 }
 .addressListHead {
-  border-left: 0.285rem solid $secondary-color;
-  padding-left: 0.285rem;
-
-  * {
-    color: $secondary-color;
+  align-items: center;
+  .highlightLabel {
+    margin: 0;
+    flex: 1;
   }
 }
 

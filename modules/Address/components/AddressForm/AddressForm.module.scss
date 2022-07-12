@@ -10,18 +10,18 @@
 }
 
 .button {
-  margin-top: 1.428rem;
+  margin-top: 1.5rem;
 }
 
 .currentLocationButton {
   position: absolute;
   right: 0;
-  margin: 0.714rem;
+  margin: 1rem;
 }
 
 .addressTagRadioButtonGroup {
   display: flex;
-  column-gap: 1.15rem;
+  column-gap: 16px;
 
   .addressTagRadioButton {
     border: unset !important;

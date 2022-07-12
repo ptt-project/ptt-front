@@ -12,6 +12,7 @@ import t from '~/locales'
 import { CustomUrl } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import HighlightLabel from '~/components/main/HighlightLabel'
 
 const { Text, Link } = Typography
 
@@ -40,7 +41,7 @@ const Address: React.FC = () => {
     )
   }
 
-  function onFavoriteAddressClick(addressId: string): void {
+  function onFavoriteAddressClick(/* addressId: string */): void {
     notification.success({
       message: 'Set Favorite Address Success'
     })
@@ -103,13 +104,17 @@ const Address: React.FC = () => {
                 </Col>
                 <Col span={24}>
                   <Row className={styles.addressListHead}>
-                    <Col flex="auto">
-                      <Text>{t('address.addressLabel')}</Text>
-                    </Col>
+                    <HighlightLabel
+                      className={styles.highlightLabel}
+                      title={t('address.addressLabel')}
+                    />
                     <Col>
-                      <Button onClick={onAddAddressClick}>{t('address.addAddress')}</Button>
+                      <Button className="hps-btn-secondary" onClick={onAddAddressClick}>
+                        {t('address.addAddress')}
+                      </Button>
                     </Col>
                   </Row>
+
                   <Row className="mt-4" gutter={[0, 16]}>
                     {addresses.length ? (
                       orderBy(addresses, (v: IAddressFormValues) => (v.isDefault ? 1 : 0), [
