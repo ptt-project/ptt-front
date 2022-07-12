@@ -1,5 +1,5 @@
 import React, { useState, FC } from 'react'
-import { Typography, Space, Button, Row, Col, Form, Checkbox, Image } from 'antd'
+import { Typography, Space, Button, Image, Row, Col, Form, Checkbox } from 'antd'
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { isEmpty } from 'lodash'
 import OtpModal from '~/components/main/OtpModal'
@@ -72,6 +72,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
                   preview={false}
                   width="100%"
                   src="./images/main/buyer/register-consent.png"
+                  alt="register-consent"
                 />
               </div>
             </Col>

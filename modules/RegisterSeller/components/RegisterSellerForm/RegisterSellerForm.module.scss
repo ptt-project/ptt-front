@@ -1,0 +1,43 @@
+@import '../../../../public/sass/config/_variables.scss';
+
+.cSecondary {
+  color: $secondary-color !important;
+}
+
+.radio {
+  display: flex;
+
+  label {
+    flex: 1 50%;
+    max-width: 50%;
+  }
+
+  @media (min-width: 576px) {
+    justify-content: space-around;
+
+    label {
+      flex: 1 1 auto;
+      max-width: none;
+    }
+  }
+}
+
+.imgContainer {
+  width: 100%;
+  padding-top: 150%;
+  position: relative;
+
+  .imgWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

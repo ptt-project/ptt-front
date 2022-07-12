@@ -20,10 +20,10 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import t from '~/locales'
 import { CustomUrl } from '~/utils/main'
+import HighlightLabel from '~/components/main/HighlightLabel'
 import styles from './Profile.module.scss'
 
 const { Text } = Typography
-const { Option } = Select
 
 interface IFormModel {
   firstName: string
@@ -36,7 +36,7 @@ const Profile: FC = () => {
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   const [value, setValue] = useState(1)
-  
+
   function onChange(e: RadioChangeEvent): void {
     setValue(e.target.value)
   }
@@ -71,6 +71,7 @@ const Profile: FC = () => {
                   {t('accountProfile.form.title')}
                 </h4>
               </Text>
+              <HighlightLabel title={t('accountProfile.form.personalInfo')} />
               <Form layout="vertical" form={form} name="accountProfile" onFinish={onSubmit}>
                 <Row className={styles.highlight} gutter={[16, 16]} align="middle">
                   <Col sm={4} xs={12}>
@@ -86,7 +87,7 @@ const Profile: FC = () => {
                   </Col>
                   <Col sm={8} xs={12} className="text-center">
                     <Upload>
-                      <Button className={styles.upload}>
+                      <Button className="hps-btn-secondary">
                         {t('accountProfile.button.chooseImage')}
                       </Button>
                     </Upload>
@@ -123,22 +124,22 @@ const Profile: FC = () => {
                     <Row gutter={8}>
                       <Col md={3} sm={4} xs={6}>
                         <Form.Item label={t('accountProfile.form.birthday')} name="birthday">
-                          <Select defaultValue={t('accountProfile.form.date')}>
-                            <Option value="1">1</Option>
+                          <Select defaultValue="">
+                            <Select.Option value="">{t('accountProfile.form.date')}</Select.Option>
                           </Select>
                         </Form.Item>
                       </Col>
                       <Col md={5} sm={6} xs={9}>
                         <Form.Item label="&nbsp;" name="birthMonth">
-                          <Select defaultValue={t('accountProfile.form.month')}>
-                            <Option value="01">01</Option>
+                          <Select defaultValue="">
+                            <Select.Option value="">{t('accountProfile.form.month')}</Select.Option>
                           </Select>
                         </Form.Item>
                       </Col>
                       <Col md={5} sm={6} xs={9}>
                         <Form.Item label="&nbsp;" name="birthYear">
-                          <Select defaultValue={t('accountProfile.form.year')}>
-                            <Option value="2022">2022</Option>
+                          <Select defaultValue="">
+                            <Select.Option value="">{t('accountProfile.form.year')}</Select.Option>
                           </Select>
                         </Form.Item>
                       </Col>

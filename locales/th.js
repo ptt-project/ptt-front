@@ -17,7 +17,28 @@ export default {
     next: 'ต่อไป',
     close: 'ปิด',
     confirm: 'ยืนยัน',
-    save: 'บันทึก'
+    save: 'บันทึก',
+    form: {
+      option: '---------- เลือก ----------',
+      required: 'กรุณาระบุ',
+      invalid: {
+        head: 'รูปแบบ',
+        tail: 'ไม่ถูกต้อง'
+      },
+      min: {
+        head: 'กรุณาระบุตัวอักษรอย่างน้อย',
+        tail: 'ตัวอักษร'
+      },
+      max: {
+        head: 'รองรับตัวอักษรสูงสุด',
+        tail: 'ตัวอักษร'
+      },
+      notFound: {
+        head: 'ไม่พบ',
+        tail: 'ในระบบ'
+      },
+      unique: 'นี้มีอยู่ในระบบแล้ว'
+    }
   },
   components: {
     otpModal: {
@@ -28,6 +49,46 @@ export default {
     }
   },
   auth: {
+    login: {
+      title: 'เข้าสู่ระบบ',
+      form: {
+        username: 'Username',
+        password: 'Password'
+      },
+      divider: 'หรือ',
+      forgotPassword: 'ลืมรหัสผ่าน'
+    },
+    forgotPassword: {
+      title: 'ลืมรหัสผ่าน',
+      form: {
+        emailOrMobileNo: 'E-mail/หมายเลขโทรศัพท์'
+      },
+      success: {
+        messageA: 'Link ยืนยันตัวตนจะถูกส่งไปที่',
+        messageB: 'กรุณายืนยัน'
+      }
+    },
+    changePassword: {
+      title: 'เปลี่ยนรหัสผ่าน',
+      password: 'รหัสผ่านปัจจุบัน',
+      newPassword: 'รหัสผ่านใหม่',
+      confirmNewPassword: 'ยืนยันรหัสผ่านใหม่',
+      description:
+        'ใช้ได้เฉพาะตัวอักษรภาษาอังกฤษ ตัวเลขอารบิกและเครื่องหมายปกติ ความยาว 8-20 ตัวอักษร ประกอบด้วย ตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว ตัวพิมพ์เล็กอย่างน้อย 1 ตัว ตัวเลขอย่างน้อย 1 ตัว',
+      button: {
+        submit: 'ยืนยัน'
+      },
+      breadcrumbs: {
+        setting: 'ตั้งค่า',
+        account: 'บัญชีผู้ใช้',
+        changePassword: 'เปลี่ยนรหัสผ่าน'
+      },
+      error: {
+        passwordInValid: 'รหัสผ่านไม่ถูกต้อง',
+        passwordFormatInValid: 'รูปแบบรหัสผ่านไม่ถูกต้อง',
+        confirmPasswordNotMatched: 'ยืนยันรหัสผ่านไม่ตรงกัน'
+      }
+    },
     register: {
       title: 'สมัครสมาชิก',
       form: {
@@ -49,15 +110,7 @@ export default {
         policyCContent: '...do something',
         divider: 'หรือ',
         loginA: 'หากมีบัญชีผู้ใช้แล้ว คุณสามารถ',
-        loginB: 'เข้าสู่ระบบ',
-        rules: {
-          firstName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
-          lastName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
-          mobileNo: 'รองรับตัวอักษรสูงสุด 10 ตัวอักษร',
-          email: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
-          username: 'รองรับตัวอักษรสูงสุด 20 ตัวอักษร',
-          password: 'รูปแบบรหัสผ่านไม่ถูกต้อง'
-        }
+        loginB: 'เข้าสู่ระบบ'
       },
       consent: {
         title: 'ขอความยินยอม',
@@ -70,47 +123,38 @@ export default {
         login: 'เข้าสู่ระบบ'
       }
     },
-    login: {
-      title: 'เข้าสู่ระบบ',
-      form: {
-        username: 'Username',
-        password: 'Password'
+    registerSeller: {
+      title: 'ลงทะเบียนเพื่อสมัครร้านค้า',
+      section: {
+        contact: 'ข้อมูลผู้ติดต่อ',
+        brand: 'แบรนด์สินค้า',
+        info: 'ข้อมูลเพิ่มเติม'
       },
-      divider: 'หรือ',
-      forgotPassword: 'ลืมรหัสผ่าน'
-    },
-    forgotPassword: {
-      title: 'ลืมรหัสผ่าน',
       form: {
-        emailOrMobileNo: 'E-mail/หมายเลขโทรศัพท์',
-        rules: {
-          emailOrMobileNo: 'กรุณาระบุ E-mail/หมายเลขโทรศัพท์'
-        }
+        shopType: {
+          title: 'ประเภทร้านค้า',
+          normal: 'ร้านค้าปกติ',
+          mall: 'ร้านค้า Mall'
+        },
+        name: 'ชื่อ-นามสกุล',
+        tel: 'หมายเลขโทรศัพท์',
+        email: 'อีเมล',
+        corporateName: 'ชื่อบริษัท',
+        corporateNo: 'เลขทะเบียนนิติบุคคล',
+        brand: 'ชื่อแบรนด์สินค้าหลักที่ต้องการเปิดร้าน',
+        category: 'หมวดหมู่สินค้าหลักของร้านค้า',
+        website: 'เว็บไซต์ของแบรนด์สินค้าหลัก',
+        facebook: 'Facebook Page ของแบรนด์สินค้าหลักหรือร้านค้าของคุณ',
+        instagram: 'Instagram ของแบรนด์สินค้าหลักหรือร้านค้าของคุณ',
+        other: 'Social Media อื่นๆ ของแบรนด์สินค้าหลักหรือร้านค้าของคุณ',
+        corporate: 'นิติบุคคลของคุณเกี่ยวข้องอย่างไรกับแบรนด์สินค้าหลักที่ต้องการเปิดร้าน',
+        corporateDetail:
+          'นอกเหนือจากช่องทางออนไลน์ โปรดยกตัวอย่างชื่อร้านค้าหรือสถานที่จัดจำหน่ายแบรนด์สินค้าของคุณ / ร้านค้าของคุณ',
+        info: 'โปรดระบุข้อมูลเพิ่มเติมเพื่อให้เรารู้จักคุณมากขึ้น'
       },
       success: {
-        messageA: 'Link ยืนยันตัวตนจะถูกส่งไปที่',
-        messageB: 'กรุณายืนยัน'
-      }
-    },
-    changePassword: {
-      title: 'เปลี่ยนรหัสผ่าน',
-      password: 'รหัสผ่านปัจจุบัน',
-      newPassword: 'รหัสผ่านใหม่',
-      confirmNewPassword: 'ยืนยันรหัสผ่านใหม่',
-      description:
-        'ใช้ได้เฉพาะตัวอักษรภาษาอังกฤษ ตัวเลขอารบิกและเครื่องหมายปกติ ความยาว 8-20 ตัวอักษร ประกอบด้วย ตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว ตัวพิมพ์เล็กอย่างน้อย 1 ตัว ตัวเลขอย่างน้อย 1 ตัว',
-      button: {
-        submit: 'ยืนยัน'
-      },
-      breadcrumbs: {
-        setting: 'ตั้งค่า',
-        account: 'บัญชีผู้ใช้',
-        changePassword: 'เปลี่ยนรหัสผ่าน',
-      },
-      error: {
-        passwordInValid: 'รหัสผ่านไม่ถูกต้อง',
-        passwordFormatInValid: 'รูปแบบรหัสผ่านไม่ถูกต้อง',
-        confirmPasswordNotMatched: 'ยืนยันรหัสผ่านไม่ตรงกัน'
+        title: 'กำลังตรวจสอบข้อมูล',
+        message: 'ทีมงานกำลังพิจารณาคำขอเปิดบัญชีร้านค้าของคุณอาจใช้เวลาประมาณ 2-3 วันทำการ'
       }
     }
   },
@@ -143,8 +187,8 @@ export default {
       account: 'บัญชีผู้ใช้',
       address: 'ที่อยู่',
       addAddress: 'เพิ่มที่อยู่',
-      editAddress: 'แก้ไขที่อยู่',
-    },
+      editAddress: 'แก้ไขที่อยู่'
+    }
   },
   header: {
     titleSellerCentre: 'Seller centre',

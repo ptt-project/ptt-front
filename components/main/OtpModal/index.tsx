@@ -18,7 +18,7 @@ interface IOtpModalProps {
 const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
   const [otpInput, setOtpInput] = useState<string>('')
   const [timer, setTimer] = useState<number>(0)
-  const [otpData, setOtpData] = useState<IOtpData>({
+  const [otpData] = useState<IOtpData>({
     otp: '',
     refCode: ''
   })
@@ -93,10 +93,15 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
       }
       visible={props.isOpen}
       onCancel={toggle}
-      footer={[
-        <Row key="otpModalFooter">
+      footer={
+        <Row>
           <Col className="text-left" span={8}>
-            <Button className={styles.button} onClick={onRequestOtp} disabled={timer !== 0}>
+            <Button
+              className="hps-btn-secondary"
+              style={{ width: 136 }}
+              onClick={onRequestOtp}
+              disabled={timer !== 0}
+            >
               {`${t('components.otpModal.request')}${renderTimer()}`}
             </Button>
           </Col>
@@ -109,7 +114,7 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
             </Button>
           </Col>
         </Row>
-      ]}
+      }
     >
       <div className={styles.label}>
         <div className={styles.left}>

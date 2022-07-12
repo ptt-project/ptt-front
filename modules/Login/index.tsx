@@ -49,6 +49,7 @@ const Login: FC = () => {
                   preview={false}
                   width="100%"
                   src="./images/main/buyer/login.png"
+                  alt="login"
                 />
               </div>
             </Col>

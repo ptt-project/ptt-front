@@ -8,17 +8,6 @@
   color: $secondary-color !important;
 }
 
-.upload {
-  color: $secondary-color;
-  border-color: $secondary-color;
-
-  &:hover,
-  &:focus {
-    color: $secondary-color-dark;
-    border-color: $secondary-color-dark;
-  }
-}
-
 .highlight {
   padding: 1.5rem;
   margin-bottom: 1.5rem;

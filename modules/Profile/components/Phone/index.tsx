@@ -10,6 +10,7 @@ import t from '~/locales'
 import { IOtpData } from '~/model/Common'
 import { CustomUrl } from '~/utils/main'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import HighlightLabel from '~/components/main/HighlightLabel'
 import styles from './ProfilePhone.module.scss'
 
 const { Text } = Typography
@@ -81,19 +82,15 @@ const Phone: FC = () => {
                 </Text>
                 <Row>
                   <Col md={12}>
-                    <Text className={styles.textSecondary}>
-                      {t('accountProfile.phone.phoneList')}
-                    </Text>
+                    <HighlightLabel title={t('accountProfile.phone.phoneList')} />
                   </Col>
-                  <Col md={12} xs={19}>
-                    <div className="text-right mb-5">
+                  <Col md={12} xs={18} className="text-right">
                     <Link href={CustomUrl.href('/settings/account/info/add-phone', router.locale)}>
-                      <Button className={styles.textSecondary}>
+                      <Button className="hps-btn-secondary mt-3">
                         <i className="fas fa-plus mr-2" />
                         {t('accountProfile.button.addPhone')}
                       </Button>
                     </Link>
-                    </div>
                   </Col>
                 </Row>
                 <Row className={styles.highlight}>

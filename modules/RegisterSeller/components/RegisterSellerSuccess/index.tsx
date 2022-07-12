@@ -1,19 +1,13 @@
 import React, { FC } from 'react'
 import { useRouter, NextRouter } from 'next/router'
-import { Typography, Space, Button, Image, Row, Col } from 'antd'
+import { Typography, Button, Row, Col, Image } from 'antd'
 import t from '~/locales'
 import { CustomUrl } from '~/utils/main'
-import styles from './ForgotPasswordByEmailSuccess.module.scss'
+import styles from './RegisterSellerSuccess.module.scss'
 
 const { Text } = Typography
 
-interface IForgotPasswordByEmailSuccessProps {
-  email: string
-}
-
-const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
-  props: IForgotPasswordByEmailSuccessProps
-) => {
+const RegisterSellerSuccess: FC = () => {
   const router: NextRouter = useRouter()
 
   return (
@@ -26,15 +20,15 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
                 rootClassName={styles.imgWrapper}
                 preview={false}
                 width="100%"
-                src="./images/main/buyer/forgot-password.png"
-                alt="forgot-password"
+                src="./images/main/seller/login.png"
+                alt="login-seller"
               />
             </div>
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
             <Text>
               <h4 className={`${styles.cSecondary} text-center mb-5`}>
-                {t('auth.forgotPassword.title')}
+                {t('auth.registerSeller.success.title')}
               </h4>
             </Text>
             <Row>
@@ -44,19 +38,17 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
                     rootClassName={styles.imgWrapper}
                     preview={false}
                     width="100%"
-                    src="./images/main/buyer/forgot-password-success.png"
-                    alt="forgot-password-success"
+                    src="./images/main/seller/register-success.png"
+                    alt="register-seller-success"
                   />
                 </div>
               </Col>
             </Row>
             <Row>
               <Col span={24}>
-                <Space className={styles.space} wrap>
-                  <Text>{t('auth.forgotPassword.success.messageA')}</Text>
-                  <Text className={styles.cSecondary}>{props.email}</Text>
-                  <Text>{t('auth.forgotPassword.success.messageB')}</Text>
-                </Space>
+                <div className={styles.message}>
+                  <Text type="secondary">{t('auth.registerSeller.success.message')}</Text>
+                </div>
               </Col>
             </Row>
             <Row>
@@ -79,4 +71,4 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
   )
 }
 
-export default ForgotPasswordByEmailSuccess
+export default RegisterSellerSuccess

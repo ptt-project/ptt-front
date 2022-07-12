@@ -16,7 +16,12 @@ interface IForgotPasswordFormProps {
 const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPasswordFormProps) => {
   const [form] = Form.useForm()
   const [formData, setFormData] = useState<IForgotPasswordForm>({ emailOrMobileNo: '' })
-  const emailOrMobileNoMessage: string = t('auth.forgotPassword.form.rules.emailOrMobileNo') // prevent error hook rules
+  const requiredEmailOrMobileNo: string = `${t('common.form.required')} ${t(
+    'auth.forgotPassword.form.emailOrMobileNo'
+  )}` // prevent error hook rules
+  const invalidEmailOrMobileNo: string = `${t('common.form.invalid.head')} ${t(
+    'auth.forgotPassword.form.emailOrMobileNo'
+  )} ${t('common.form.invalid.tail')}` // prevent error hook rules
 
   function onChangeFields(_: IFieldData[], allFields: IFieldData[]): void {
     if (_.length) {
@@ -41,6 +46,7 @@ const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPassword
                 preview={false}
                 width="100%"
                 src="./images/main/buyer/forgot-password.png"
+                alt="forgot-password"
               />
             </div>
           </Col>
@@ -63,7 +69,7 @@ const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPassword
                     label={t('auth.forgotPassword.form.emailOrMobileNo')}
                     name="emailOrMobileNo"
                     rules={[
-                      { required: true, message: emailOrMobileNoMessage },
+                      { required: true, message: requiredEmailOrMobileNo },
                       (): any => ({
                         validator(_: Rule, value: string): Promise<any> {
                           const isValidEmail: boolean =
@@ -75,7 +81,7 @@ const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPassword
                           if (!value || isValidEmail || isValidMobileNo) {
                             return Promise.resolve()
                           }
-                          return Promise.reject(new Error(emailOrMobileNoMessage))
+                          return Promise.reject(new Error(invalidEmailOrMobileNo))
                         }
                       })
                     ]}

@@ -1,4 +1,4 @@
-@import '../../../public/sass/config/variables';
+@import '../../../../public/sass/config/variables';
 
 .textPrimary {
   color: $primary-color;
@@ -6,11 +6,6 @@
 
 .textSecondary {
   color: $secondary-color !important;
-  &:hover,
-  &:focus {
-    color: $secondary-color-dark;
-    border-color: $secondary-color-dark;
-  }
 }
 
 .highlight {

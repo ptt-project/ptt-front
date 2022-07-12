@@ -11,12 +11,6 @@ import styles from './RegisterForm.module.scss'
 
 const { Text, Link } = Typography
 
-interface IModalModel {
-  isOpen: string
-  title: string
-  content: string
-}
-
 interface IRegisterFormProps {
   setForm: (form: IRegisterForm) => void
   setStep: (step: number) => void
@@ -24,30 +18,53 @@ interface IRegisterFormProps {
 
 const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
   const router: NextRouter = useRouter()
-  const [modal, setModal] = useState<IModalModel>({
-    isOpen: '',
-    title: '',
-    content: ''
-  })
+  const [isOpen, setIsOpen] = useState<string>('')
   const [form] = Form.useForm()
-  const passwordMessage: string = t('auth.register.form.rules.password') // prevent error hook rules
+  const requiredPassword: string = `${t('common.form.required')} ${t(
+    'auth.register.form.password'
+  )}` // prevent error hook rules
+  const invalidPassword: string = `${t('common.form.invalid.head')} ${t(
+    'auth.register.form.password'
+  )} ${t('common.form.invalid.tail')}` // prevent error hook rules
+  const termTitle: string = t('auth.register.form.policyB')
+  const termContent: string = t('auth.register.form.policyBContent')
+  const conditionTitle: string = t('auth.register.form.policyC')
+  const conditionContent: string = t('auth.register.form.policyCContent')
 
-  function toggle(isOpen: string): void {
-    const tempModal: IModalModel = { ...modal }
-    if (!isEmpty(isOpen)) {
-      tempModal.isOpen = isOpen
-      if (isOpen === 'TERM') {
-        tempModal.title = 'auth.register.form.policyB'
-        tempModal.content = 'auth.register.form.policyBContent'
-      }
-      if (isOpen === 'CONDITION') {
-        tempModal.title = 'auth.register.form.policyC'
-        tempModal.content = 'auth.register.form.policyCContent'
-      }
-    } else {
-      tempModal.isOpen = ''
+  function getModalTitle(): string {
+    if (isOpen === 'TERM') {
+      return termTitle
     }
-    setModal(tempModal)
+    if (isOpen === 'CONDITION') {
+      return conditionTitle
+    }
+    return ''
+  }
+
+  function getModalContent(): JSX.Element {
+    let content: string = ''
+    if (isOpen === 'TERM') {
+      content = termContent
+    }
+    if (isOpen === 'CONDITION') {
+      content = conditionContent
+    }
+    if (content) {
+      return (
+        <div className={styles.modalBodyWrapper}>
+          <Text type="secondary">{content}</Text>
+        </div>
+      )
+    }
+    return null
+  }
+
+  function toggle(value: string): void {
+    if (!isEmpty(value)) {
+      setIsOpen(value)
+    } else {
+      setIsOpen('')
+    }
   }
 
   function onMobileNoChange(e: ChangeEvent<HTMLInputElement>): void {
@@ -68,25 +85,21 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
       <Modal
         title={
           <Text>
-            <h4 className="mb-0 text-center">{modal.title ? t(modal.title) : ''}</h4>
+            <h4 className="mb-0 text-center">{getModalTitle()}</h4>
           </Text>
         }
         width={768}
-        visible={!isEmpty(modal.isOpen)}
+        visible={!isEmpty(isOpen)}
         onCancel={(): void => toggle('')}
-        footer={[
+        footer={
           <div className={styles.modalFooterWrapper}>
-            <Button key="close" type="primary" block onClick={(): void => toggle('')}>
+            <Button type="primary" block onClick={(): void => toggle('')}>
               {t('common.close')}
             </Button>
           </div>
-        ]}
+        }
       >
-        {modal.content ? (
-          <div className={styles.modalBodyWrapper}>
-            <Text type="secondary">{t(modal.content)}</Text>
-          </div>
-        ) : null}
+        {getModalContent()}
       </Modal>
       <div className="page-content mb-9">
         <div className="container">
@@ -98,6 +111,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                   preview={false}
                   width="100%"
                   src="./images/main/buyer/register-form.png"
+                  alt="register-form"
                 />
               </div>
             </Col>
@@ -113,7 +127,14 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                     <Form.Item
                       label={t('auth.register.form.firstName')}
                       name="firstName"
-                      rules={[{ required: true, message: t('auth.register.form.rules.firstName') }]}
+                      rules={[
+                        {
+                          required: true,
+                          message: `${t('common.form.required')} ${t(
+                            'auth.register.form.firstName'
+                          )}`
+                        }
+                      ]}
                     >
                       <Input maxLength={50} />
                     </Form.Item>
@@ -122,7 +143,14 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                     <Form.Item
                       label={t('auth.register.form.lastName')}
                       name="lastName"
-                      rules={[{ required: true, message: t('auth.register.form.rules.lastName') }]}
+                      rules={[
+                        {
+                          required: true,
+                          message: `${t('common.form.required')} ${t(
+                            'auth.register.form.lastName'
+                          )}`
+                        }
+                      ]}
                     >
                       <Input maxLength={50} />
                     </Form.Item>
@@ -132,8 +160,16 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                       label={t('auth.register.form.mobileNo')}
                       name="mobileNo"
                       rules={[
-                        { required: true, message: t('auth.register.form.rules.mobileNo') },
-                        { min: 10, message: t('auth.register.form.rules.mobileNo') }
+                        {
+                          required: true,
+                          message: `${t('common.form.required')} ${t(
+                            'auth.register.form.mobileNo'
+                          )}`
+                        },
+                        {
+                          min: 10,
+                          message: `${t('common.form.min.head')} 10 ${t('common.form.min.tail')}`
+                        }
                       ]}
                     >
                       <Input maxLength={10} onChange={onMobileNoChange} />
@@ -143,7 +179,14 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                     <Form.Item
                       label={t('auth.register.form.email')}
                       name="email"
-                      rules={[{ type: 'email', message: t('auth.register.form.rules.email') }]}
+                      rules={[
+                        {
+                          type: 'email',
+                          message: `${t('common.form.invalid.head')} ${t(
+                            'auth.register.form.email'
+                          )} ${t('common.form.invalid.tail')}`
+                        }
+                      ]}
                     >
                       <Input type="email" maxLength={50} />
                     </Form.Item>
@@ -152,7 +195,14 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                     <Form.Item
                       label={t('auth.register.form.username')}
                       name="username"
-                      rules={[{ required: true, message: t('auth.register.form.rules.username') }]}
+                      rules={[
+                        {
+                          required: true,
+                          message: `${t('common.form.required')} ${t(
+                            'auth.register.form.username'
+                          )}`
+                        }
+                      ]}
                     >
                       <Input maxLength={50} />
                     </Form.Item>
@@ -162,32 +212,35 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                       label={t('auth.register.form.password')}
                       name="password"
                       rules={[
-                        { required: true, message: passwordMessage },
+                        {
+                          required: true,
+                          message: requiredPassword
+                        },
                         (): any => ({
                           validator(_: Rule, value: string): Promise<any> {
                             if (!value || RegExpList.CHECK_PASSWORD.test(value)) {
                               return Promise.resolve()
                             }
-                            return Promise.reject(new Error(passwordMessage))
+                            return Promise.reject(new Error(invalidPassword))
                           }
                         })
                       ]}
                     >
                       <Input.Password maxLength={50} />
                     </Form.Item>
-                    <Text type="secondary" className="t-small d-block">
+                    <Text type="secondary" className="hps-text-small d-block">
                       {t('auth.register.form.passwordHintA')}
                     </Text>
-                    <Text type="secondary" className="t-small d-block">
+                    <Text type="secondary" className="hps-text-small d-block">
                       {t('auth.register.form.passwordHintB')}
                     </Text>
-                    <Text type="secondary" className="t-small d-block">
+                    <Text type="secondary" className="hps-text-small d-block">
                       {t('auth.register.form.passwordHintC')}
                     </Text>
-                    <Text type="secondary" className="t-small d-block">
+                    <Text type="secondary" className="hps-text-small d-block">
                       {t('auth.register.form.passwordHintD')}
                     </Text>
-                    <Text type="secondary" className="t-small d-block">
+                    <Text type="secondary" className="hps-text-small d-block">
                       {t('auth.register.form.passwordHintE')}
                     </Text>
                   </Col>
