@@ -1,8 +1,10 @@
 import React, { useState, useEffect, FC } from 'react'
 import { NextRouter, useRouter } from 'next/router'
-import { Button, Menu, MenuProps } from 'antd'
+import { Typography, Button, Menu, MenuProps } from 'antd'
 import { MenuInfo } from 'rc-menu/lib/interface'
 import t from '~/locales'
+
+const { Text } = Typography
 
 interface ISettingSidebarProps {
   sidebarType: string
@@ -167,12 +169,9 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
       </div>
       <div className="ss-bar" onClick={onClose} aria-hidden="true">
         <div className="ss-close">
-          <Button
-            type="primary"
-            icon={<i className="fas fa-times" />}
-            size="large"
-            onClick={(): void => setIsOpen(false)}
-          />
+          <Text onClick={(): void => setIsOpen(false)}>
+            <i className="d-icon-times" />
+          </Text>
         </div>
         <Menu
           onClick={onClick}

@@ -18,6 +18,7 @@ export default {
     close: 'ปิด',
     confirm: 'ยืนยัน',
     save: 'บันทึก',
+    send:'ส่ง',
     form: {
       option: '---------- เลือก ----------',
       required: 'กรุณาระบุ',
@@ -41,6 +42,51 @@ export default {
     }
   },
   components: {
+    header: {
+      top: {
+        shop: 'Seller centre',
+        lang: {
+          th: 'TH',
+          en: 'EN'
+        },
+        signIn: 'เข้าสู่ระบบ',
+        signUp: 'ลงทะเบียน'
+      },
+      middle: {
+        tel: {
+          title: 'ติดต่อเรา:',
+          no: '0(800) 123-456'
+        },
+        search: 'Search...'
+      },
+      bottom: {
+        search: 'Search...',
+        a: {
+          title: 'Home'
+        },
+        b: {
+          title: 'Categories'
+        },
+        c: {
+          title: 'Products'
+        },
+        d: {
+          title: 'Pages'
+        },
+        e: {
+          title: 'Blog'
+        },
+        f: {
+          title: 'Elements'
+        },
+        g: {
+          title: 'About Us'
+        }
+      }
+    },
+    footer: {
+      copyRight: 'Happy Shopping © 2022. All Rights Reserved'
+    },
     otpModal: {
       title: 'ยืนยัน OTP ไปยังหมายเลขหลัก',
       label: 'OTP',
@@ -190,11 +236,6 @@ export default {
       editAddress: 'แก้ไขที่อยู่'
     }
   },
-  header: {
-    titleSellerCentre: 'Seller centre',
-    signIn: 'Sign in',
-    register: 'Register'
-  },
   accountProfile: {
     form: {
       title: 'บัญชีผู้ใช้',
@@ -313,5 +354,35 @@ export default {
         title: 'การบริการลูกค้า'
       }
     }
+  },
+  shopPoint:{
+    shop:'ร้านค้า',
+    title:'คะแนนร้านค้า',
+    detail:'ดู 500 คะแนนล่าสุดที่ร้านค้าได้รับ',
+    part:'/5',
+    formSearch:{
+      productName:'ชื่อสินค้า',
+      productNameChoice:'ชื่อตัวเลือกสินค้า',
+      date:'วัน/เดือน/ปี',
+      search:'ค้นหา',
+      reset:'รีเซ็ต'
+    },
+    all:'ทั้งหมด',
+    waitingForReply:'รอการตอบกลับ',
+    replied:'ตอบกลับแล้ว',
+    point:{
+      one:'1 ดาว',
+      two:'2 ดาว',
+      three:'3 ดาว',
+      four:'4 ดาว',
+      five:'5 ดาว',
+    },
+    productDetail:'รายละเอียดสินค้า',
+    reviewDetail:'รายละเอียดการรีวิว',
+    yourReply:'การตอบกลับของคุณ',
+    reply:'ตอบกลับ',
+    user:'ชื่อผู้ใช้',
+    orderID:'Order ID',
+    msgReply:'ข้อความตอบกลับ'
   }
 }

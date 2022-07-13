@@ -18,7 +18,7 @@ Demo 3
     header: (
       bottom: (
         padding: 0 2.2rem,
-        background: #28475c,
+        background: $primary-color,
         color: #fff,
         font-weight: 600,
         letter-spacing: -0.015em
@@ -31,8 +31,9 @@ Demo 3
     ),
     menu: (
       ancestor: (
+        color: #ffc1c5,
         padding: 2rem 0,
-        font-weight: 600,
+        font-weight: 400,
         letter-spacing: -0.015em
       )
     ),

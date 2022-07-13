@@ -77,7 +77,19 @@
       position: absolute;
       top: 1.5rem;
       right: 1.5rem;
+      font-size: 3rem;
+      line-height: 1;
       animation: fadeIn 1s;
+      cursor: pointer;
+
+      span {
+        color: $light-color;
+
+        &:hover,
+        &:focus {
+          color: $white-color;
+        }
+      }
     }
   }
 
@@ -117,7 +129,7 @@
         width: 0;
         margin-left: -256px;
         transition: margin 0.5s;
-        background-color: rgba(0, 0, 0, 0.75);
+        background-color: rgba(0, 0, 0, 0.8);
         z-index: 1001;
 
         ul {
@@ -141,7 +153,7 @@
 
         ul {
           &.ant-menu-root {
-            border-right: 1px solid $border-color;
+            border-right: 1px solid $border-color !important;
           }
         }
       }

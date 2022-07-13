@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 import { useRouter } from 'next/router'
 import ALink from '~/components/features/custom-link'
-import Header from '~/components/common/header'
+import Header from '~/components/main/Header'
 import Footer from '~/components/main/Footer'
+import MobileMainMenu from '~/components/main/Header/components/MobileMainMenu'
 // import StickyFooter from '~/components/common/sticky-footer'
 import Quickview from '~/components/features/product/common/quickview-modal'
 import VideoModal from '~/components/features/modals/video-modal'
-import MobileMenu from '~/components/common/partials/mobile-menu'
 import { modalActions } from '~/store/modal'
 import {
   showScrollTopHandler,
@@ -75,7 +75,7 @@ function Layout({ children, closeQuickview }) {
       >
         <i className="d-icon-arrow-up"></i>
       </ALink>
-      <MobileMenu />
+      <MobileMainMenu />
       <ToastContainer
         autoClose={3000}
         duration={300}
