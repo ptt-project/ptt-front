@@ -1,0 +1,10 @@
+@import '../../../../public/sass/config/_variables.scss';
+
+.iconInfo{
+    color: $secondary-color;
+}
+
+.btnSubmit:disabled{
+    background-color: #EF8F94;
+    color: #fff;
+}

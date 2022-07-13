@@ -18,6 +18,7 @@ export default {
     close: 'ปิด',
     confirm: 'ยืนยัน',
     save: 'บันทึก',
+    send:'ส่ง',
     form: {
       option: '---------- เลือก ----------',
       required: 'กรุณาระบุ',
@@ -340,6 +341,7 @@ export default {
     yourReply:'การตอบกลับของคุณ',
     reply:'ตอบกลับ',
     user:'ชื่อผู้ใช้',
-    orderID:'Order ID'
+    orderID:'Order ID',
+    msgReply:'ข้อความตอบกลับ'
   }
 }

@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
-import { Button, Row, Col, Form, Input } from 'antd'
+import { Button, Row, Col, Form, Input,DatePicker,Space } from 'antd'
 import t from '~/locales'
 import styles from './PointFormSearch.module.scss'
 
-
+const { RangePicker } = DatePicker
 interface IFormModel {
   productName: string
   productNameChoice: string
@@ -31,7 +31,7 @@ const PointFormSearch: FC = () => {
         </Col>
         <Col className='ml-5' md={10} xs={20}>
           <Form.Item label={t('shopPoint.formSearch.date')} name="date">
-            <Input />
+            <RangePicker/>
           </Form.Item>
         </Col>
       </Row>
