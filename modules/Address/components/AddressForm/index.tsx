@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 import React, { useState } from 'react'
 import { Input, Form, FormInstance, Col, Row, Select, Modal, Typography, Button } from 'antd'
 import { DeepPartial } from 'redux'
@@ -48,7 +49,9 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
   const [form] = Form.useForm(parentForm)
   const [, /* formValues */ setFormValues] = useState<DeepPartial<IAddressFormValues>>({})
 
-  const baseRules: Rule[] = [{ required: true, message: t('Required') }]
+  const baseRules: Rule[] = [
+    { required: true, message: [t('common.form.required'), '${label}'].join(' ') }
+  ]
 
   function onHintClick(hintType: string): void {
     switch (hintType) {
@@ -97,8 +100,20 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
             </Form.Item>
           </Col>
           <Col sm={12} xs={24}>
-            <Form.Item label={t('address.form.mobileNo')} name="mobileNo" rules={[...baseRules]}>
-              <Input />
+            <Form.Item
+              label={t('address.form.mobileNo')}
+              name="mobileNo"
+              rules={[
+                ...baseRules,
+                {
+                  min: 10,
+                  message: `${t('common.form.invalid.head')} ${'${label}'} ${t(
+                    'common.form.invalid.tail'
+                  )}`
+                }
+              ]}
+            >
+              <Input maxLength={10} />
             </Form.Item>
           </Col>
           <Col sm={12} xs={24}>
