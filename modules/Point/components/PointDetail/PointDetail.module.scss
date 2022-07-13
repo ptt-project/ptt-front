@@ -1,0 +1,52 @@
+@import '../../../../public/sass/config/variables';
+
+.textPrimary {
+  color: $primary-color;
+}
+
+.textSecondary {
+  color: $secondary-color !important;
+}
+
+.highlight {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: $background-light;
+  border-radius: $border-radius;
+
+  @media (min-width: 768px) {
+    padding: 1.5rem 0;
+  }
+}
+
+.hrTitleCol{
+  border-bottom: 1px solid red;
+}
+
+.tableTitle{
+  border-top: 1px solid #d9d9d9;
+  border-right: 1px solid #d9d9d9;
+  border-left: 1px solid #d9d9d9;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  background: #F6F9FC;
+  color: #A1A1A1;
+  padding: 0.5rem;
+}
+.productCol{
+  border: 1px solid #d9d9d9;
+  border-bottom-left-radius: 5px;
+  padding: 1.2rem;
+}
+.reviewCol{
+  border-top: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 1.2rem;
+}
+
+.replyCol{
+  border-bottom-right-radius: 5px;
+  border: 1px solid #d9d9d9;
+  text-align: center;
+  padding: 1.2rem;
+}
