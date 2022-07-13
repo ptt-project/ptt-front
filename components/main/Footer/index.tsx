@@ -3,6 +3,7 @@ import { useRouter, NextRouter } from 'next/router'
 import { Typography, Row, Col, Image } from 'antd'
 import t from '~/locales'
 import styles from './Footer.module.scss'
+import { CustomUrl } from '~/utils/main'
 
 const { Text, Link } = Typography
 
@@ -15,7 +16,9 @@ const Footer: FC = () => {
         <div className="footer-top">
           <Row>
             <Col span={24}>
-              <Image width={100} preview={false} src="./images/main/logo.png" alt="logo" />
+              <Link href={CustomUrl.href('/', router.locale)}>
+                <Image width={100} preview={false} src="./images/main/logo-white.png" alt="logo" />
+              </Link>
             </Col>
           </Row>
         </div>
@@ -93,7 +96,7 @@ const Footer: FC = () => {
           </div>
           <div className="footer-center">
             <div className={styles.space}>
-              <Text>Happy Shopping &copy; 2022. All Rights Reserved</Text>
+              <Text>{t('components.footer.copyRight')}</Text>
             </div>
           </div>
           <div className="footer-right">

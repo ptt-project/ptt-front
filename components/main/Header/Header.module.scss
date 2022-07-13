@@ -1,0 +1,48 @@
+@import '../../../public/sass/config/_variables.scss';
+
+.topLink {
+  color: $text-gray !important;
+
+  &:hover,
+  &:focus {
+    color: $text-black !important;
+  }
+}
+
+.slash {
+  color: $text-gray;
+  margin: 0 0.25rem;
+}
+
+.toggleBar {
+  color: $text-black !important;
+
+  &:hover,
+  &:focus {
+    color: $primary-color !important;
+  }
+}
+
+.telLink {
+  &:hover,
+  &:focus {
+    color: $primary-color !important;
+  }
+}
+
+.telNo {
+  margin-top: -0.25rem;
+  line-height: 1 !important;
+}
+
+.search {
+  margin-right: 3rem;
+
+  @media (max-width: 575px) {
+    display: none !important;
+  }
+
+  @media (min-width: 1200px) {
+    margin-right: 5rem;
+  }
+}

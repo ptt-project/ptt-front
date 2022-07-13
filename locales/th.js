@@ -41,6 +41,51 @@ export default {
     }
   },
   components: {
+    header: {
+      top: {
+        shop: 'Seller centre',
+        lang: {
+          th: 'TH',
+          en: 'EN'
+        },
+        signIn: 'เข้าสู่ระบบ',
+        signUp: 'ลงทะเบียน'
+      },
+      middle: {
+        tel: {
+          title: 'ติดต่อเรา:',
+          no: '0(800) 123-456'
+        },
+        search: 'Search...'
+      },
+      bottom: {
+        search: 'Search...',
+        a: {
+          title: 'Home'
+        },
+        b: {
+          title: 'Categories'
+        },
+        c: {
+          title: 'Products'
+        },
+        d: {
+          title: 'Pages'
+        },
+        e: {
+          title: 'Blog'
+        },
+        f: {
+          title: 'Elements'
+        },
+        g: {
+          title: 'About Us'
+        }
+      }
+    },
+    footer: {
+      copyRight: 'Happy Shopping © 2022. All Rights Reserved'
+    },
     otpModal: {
       title: 'ยืนยัน OTP ไปยังหมายเลขหลัก',
       label: 'OTP',
@@ -188,11 +233,6 @@ export default {
       addAddress: 'เพิ่มที่อยู่',
       editAddress: 'แก้ไขที่อยู่'
     }
-  },
-  header: {
-    titleSellerCentre: 'Seller centre',
-    signIn: 'Sign in',
-    register: 'Register'
   },
   accountProfile: {
     form: {
