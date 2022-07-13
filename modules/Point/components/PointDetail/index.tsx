@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { Button, Row, Col, Typography, Avatar, Image, Rate } from 'antd'
+import { Button, Row, Col, Typography, Avatar, Image, Rate,Pagination  } from 'antd'
 import PointReplyModal from '../PointReplyModal'
 import t from '~/locales'
 import styles from './PointDetail.module.scss'
@@ -24,24 +24,6 @@ const data = [
     detail:
       'คุณภาพของสินค้าดีมาก ความคุ้มค่าคุ้มราคาดีมาก ความรวดเร็วในการจัดส่งดีมาก แนะนำยี่ห้อนี้ค่ะ'
   },
-  {
-    title: 'Kennocha',
-    orderID: '2006306N01XXF2',
-    productName: 'ดัมเบลหุ้มยาง 2 กิโลกรัม',
-    status: 'wait',
-    avatar: 'https://joeschmoe.io/api/v1/random',
-    detail:
-      'คุณภาพของสินค้าดีมาก ความคุ้มค่าคุ้มราคาดีมาก ความรวดเร็วในการจัดส่งดีมาก แนะนำยี่ห้อนี้ค่ะ'
-  },
-  {
-    title: 'Caroline',
-    orderID: '2006306N01XXF3',
-    productName: 'ดัมเบลหุ้มยาง 1 กิโลกรัม',
-    status: 'wait',
-    avatar: 'https://joeschmoe.io/api/v1/random',
-    detail:
-      'คุณภาพของสินค้าดีมาก ความคุ้มค่าคุ้มราคาดีมาก ความรวดเร็วในการจัดส่งดีมาก แนะนำยี่ห้อนี้ค่ะ'
-  }
 ]
 
 const PointDetail: FC = () => {
@@ -118,6 +100,10 @@ const PointDetail: FC = () => {
           </>
         )
       })}
+      <Col className='text-right pt-3'>
+        <Pagination showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`} 
+        total={5} />
+      </Col>
     </>
   )
 }
