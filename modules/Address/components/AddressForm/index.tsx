@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Input, Form, FormInstance, Col, Row, Select, Modal, Typography, Button } from 'antd'
 import { DeepPartial } from 'redux'
+import { DefaultOptionType } from 'antd/lib/select'
 import { Rule } from 'antd/lib/form'
 import PickLocationField from './components/PickLocationField'
 import provinceData from './mock-data/province-data.json'
@@ -14,17 +15,17 @@ import { useVisible } from '~/utils/main/custom-hook'
 
 const { Text } = Typography
 
-const provinceOptions: IBaseOption[] = provinceData.map((d: any) => ({
+const provinceOptions: DefaultOptionType[] = provinceData.map((d: any) => ({
   label: d.name_th,
   value: d.name_th
 }))
 
-const districtOptions: IBaseOption[] = districtData.map((d: any) => ({
+const districtOptions: DefaultOptionType[] = districtData.map((d: any) => ({
   label: d.name_th,
   value: d.name_th
 }))
 
-const postalCodeOptions: IBaseOption[] = ['73100', '73150'].map((d: any) => ({
+const postalCodeOptions: DefaultOptionType[] = ['73100', '73150'].map((d: any) => ({
   label: d,
   value: d
 }))
@@ -103,13 +104,13 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
           <Col sm={12} xs={24}>
             <Form.Item label={t('address.form.province')} name="province" rules={[...baseRules]}>
               <Select
-                filterOption={(value: string, options: IBaseOption): boolean =>
+                filterOption={(value: string, options: DefaultOptionType): boolean =>
                   `${options.value}`.includes(value)
                 }
                 allowClear
                 autoClearSearchValue
               >
-                {provinceOptions.map((option: IBaseOption) => (
+                {provinceOptions.map((option: DefaultOptionType) => (
                   <Select.Option key={`${option.value}`} value={option.value}>
                     {option.label}
                   </Select.Option>
@@ -120,13 +121,13 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
           <Col sm={12} xs={24}>
             <Form.Item label={t('address.form.district')} name="district" rules={[...baseRules]}>
               <Select
-                filterOption={(value: string, options: IBaseOption): boolean =>
+                filterOption={(value: string, options: DefaultOptionType): boolean =>
                   `${options.value}`.includes(value)
                 }
                 allowClear
                 autoClearSearchValue
               >
-                {districtOptions.map((option: IBaseOption) => (
+                {districtOptions.map((option: DefaultOptionType) => (
                   <Select.Option key={`${option.value}`} value={option.value}>
                     {option.label}
                   </Select.Option>
@@ -141,13 +142,13 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
               rules={[...baseRules]}
             >
               <Select
-                filterOption={(value: string, options: IBaseOption): boolean =>
+                filterOption={(value: string, options: DefaultOptionType): boolean =>
                   `${options.value}`.includes(value)
                 }
                 allowClear
                 autoClearSearchValue
               >
-                {postalCodeOptions.map((option: IBaseOption) => (
+                {postalCodeOptions.map((option: DefaultOptionType) => (
                   <Select.Option key={`${option.value}`} value={option.value}>
                     {option.label}
                   </Select.Option>
