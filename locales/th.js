@@ -1,5 +1,3 @@
-import { formatCountdown } from "antd/lib/statistic/utils";
-
 export default {
   meta: {
     title: 'Happy Shopping',
