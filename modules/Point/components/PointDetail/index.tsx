@@ -47,10 +47,10 @@ const PointDetail: FC = () => {
         <Button className="mr-1">{t('shopPoint.point.one')}</Button>
       </Row>
       <Row className={`mt-4 ${styles.hrTitleCol}`}>
-        <Col lg={6}>
+        <Col lg={6} xs={7}>
           <Text type="danger">{t('shopPoint.productDetail')}</Text>
         </Col>
-        <Col lg={12}>
+        <Col md={12} xs={10} >
           <Text type="danger">{t('shopPoint.reviewDetail')}</Text>
         </Col>
         <Col lg={6}>
