@@ -64,7 +64,6 @@ const AddAddress: React.FC = () => {
               xl={{ span: 15, offset: 1 }}
               lg={{ span: 18, offset: 3 }}
               sm={24}
-              xs={24}
             >
               <Col className="mb-4" span={24}>
                 <Text className={`title title-center ${styles.title}`}>
