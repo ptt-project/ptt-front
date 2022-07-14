@@ -28,6 +28,8 @@ const data = [
 
 const PointDetail: FC = () => {
   const [isOpenReplyModal, setIsOpenReplyModal] = useState<boolean>(false)
+  const ofLabel: string = t('common.pagination.of') // prevent error hook rules
+  const itemsLabel: string = t('common.pagination.items') // prevent error hook rules
 
   function toggleReplyModal(): void {
     setIsOpenReplyModal(!isOpenReplyModal)
@@ -101,7 +103,7 @@ const PointDetail: FC = () => {
         )
       })}
       <Col className='text-right pt-3'>
-        <Pagination showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`} 
+        <Pagination showTotal={(total, range) => `${range[0]}-${range[1]} ${ofLabel} ${total} ${itemsLabel}`} 
         total={5} />
       </Col>
     </>
