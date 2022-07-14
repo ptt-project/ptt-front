@@ -39,6 +39,10 @@ export default {
         tail: 'ในระบบ'
       },
       unique: 'นี้มีอยู่ในระบบแล้ว'
+    },
+    pagination :{
+      of:'จาก',
+      items:'รายการ'
     }
   },
   components: {

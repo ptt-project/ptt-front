@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { Button, Row, Col, Typography, Avatar, Image, Rate } from 'antd'
+import { Button, Row, Col, Typography, Avatar, Image, Rate,Pagination  } from 'antd'
 import PointReplyModal from '../PointReplyModal'
 import t from '~/locales'
 import styles from './PointDetail.module.scss'
@@ -24,28 +24,12 @@ const data = [
     detail:
       'คุณภาพของสินค้าดีมาก ความคุ้มค่าคุ้มราคาดีมาก ความรวดเร็วในการจัดส่งดีมาก แนะนำยี่ห้อนี้ค่ะ'
   },
-  {
-    title: 'Kennocha',
-    orderID: '2006306N01XXF2',
-    productName: 'ดัมเบลหุ้มยาง 2 กิโลกรัม',
-    status: 'wait',
-    avatar: 'https://joeschmoe.io/api/v1/random',
-    detail:
-      'คุณภาพของสินค้าดีมาก ความคุ้มค่าคุ้มราคาดีมาก ความรวดเร็วในการจัดส่งดีมาก แนะนำยี่ห้อนี้ค่ะ'
-  },
-  {
-    title: 'Caroline',
-    orderID: '2006306N01XXF3',
-    productName: 'ดัมเบลหุ้มยาง 1 กิโลกรัม',
-    status: 'wait',
-    avatar: 'https://joeschmoe.io/api/v1/random',
-    detail:
-      'คุณภาพของสินค้าดีมาก ความคุ้มค่าคุ้มราคาดีมาก ความรวดเร็วในการจัดส่งดีมาก แนะนำยี่ห้อนี้ค่ะ'
-  }
 ]
 
 const PointDetail: FC = () => {
   const [isOpenReplyModal, setIsOpenReplyModal] = useState<boolean>(false)
+  const ofLabel: string = t('common.pagination.of') // prevent error hook rules
+  const itemsLabel: string = t('common.pagination.items') // prevent error hook rules
 
   function toggleReplyModal(): void {
     setIsOpenReplyModal(!isOpenReplyModal)
@@ -65,10 +49,10 @@ const PointDetail: FC = () => {
         <Button className="mr-1">{t('shopPoint.point.one')}</Button>
       </Row>
       <Row className={`mt-4 ${styles.hrTitleCol}`}>
-        <Col lg={6}>
+        <Col lg={6} xs={7}>
           <Text type="danger">{t('shopPoint.productDetail')}</Text>
         </Col>
-        <Col lg={12}>
+        <Col md={12} xs={10} >
           <Text type="danger">{t('shopPoint.reviewDetail')}</Text>
         </Col>
         <Col lg={6}>
@@ -118,6 +102,10 @@ const PointDetail: FC = () => {
           </>
         )
       })}
+      <Col className='text-right pt-3'>
+        <Pagination showTotal={(total, range) => `${range[0]}-${range[1]} ${ofLabel} ${total} ${itemsLabel}`} 
+        total={5} />
+      </Col>
     </>
   )
 }
