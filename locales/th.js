@@ -283,11 +283,6 @@ export default {
       sendVerificationCode: 'ส่งรหัสยืนยัน',
       close: 'ปิด',
       deletePhone: 'ลบเบอร์โทร'
-    },
-    rules: {
-      firstName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
-      lastName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
-      email: 'รหัสผ่านไม่ถูกต้อง'
     }
   },
   settingSidebar: {

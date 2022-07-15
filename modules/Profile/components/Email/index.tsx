@@ -69,7 +69,20 @@ const Email: FC = () => {
                         <Form.Item
                           label={t('accountProfile.email.password')}
                           name="password"
-                          rules={[{ required: true, message: t('accountProfile.rules.email') }]}
+                          rules={[
+                            {
+                              required: true,
+                              message: `${t('common.form.required')} ${t(
+                                'accountProfile.form.email'
+                              )}`
+                            },
+                            {
+                              type: 'email',
+                              message: `${t('common.form.invalid.head')} ${t(
+                                'accountProfile.form.email'
+                              )} ${t('common.form.invalid.tail')}`
+                            }
+                          ]}
                         >
                           <Input.Password />
                         </Form.Item>

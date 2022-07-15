@@ -104,7 +104,14 @@ const Profile: FC = () => {
                     <Form.Item
                       label={t('accountProfile.form.firstName')}
                       name="firstName"
-                      rules={[{ required: true, message: t('accountProfile.rules.firstName') }]}
+                      rules={[
+                        {
+                          required: true,
+                          message: `${t('common.form.required')} ${t(
+                            'accountProfile.form.firstName'
+                          )}`
+                        }
+                      ]}
                     >
                       <Input maxLength={50} />
                     </Form.Item>
@@ -113,7 +120,14 @@ const Profile: FC = () => {
                     <Form.Item
                       label={t('accountProfile.form.lastName')}
                       name="lastName"
-                      rules={[{ required: true, message: t('accountProfile.rules.lastName') }]}
+                      rules={[
+                        {
+                          required: true,
+                          message: `${t('common.form.required')} ${t(
+                            'accountProfile.form.lastName'
+                          )}`
+                        }
+                      ]}
                     >
                       <Input maxLength={50} />
                     </Form.Item>
