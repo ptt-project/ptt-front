@@ -25,36 +25,32 @@ const PointFormSearch: FC = () => {
       onFinish={onSubmit}
       className={styles.highlight}
     >
-      <Row>
-        <Col md={{ span: 10, offset: 1 }} xs={20}>
+      <Row gutter={16}>
+        <Col lg={12} sm={24}>
           <Form.Item label={t('shopPoint.formSearch.productName')} name="productName">
             <Input />
           </Form.Item>
         </Col>
-        <Col md={{ span: 10, offset: 2 }} xs={20}>
+        <Col lg={12} sm={24}>
           <Form.Item label={t('shopPoint.formSearch.productNameChoice')} name="productNameChoice">
             <Input />
           </Form.Item>
         </Col>
-        <Col md={{ span: 10, offset: 1 }} xs={20}>
+        <Col lg={12} sm={24}>
           <Form.Item label={t('shopPoint.formSearch.date')} name="date">
-            <RangePicker />
+            <RangePicker style={{ width: '100%' }} />
           </Form.Item>
         </Col>
       </Row>
       <Row>
-        <Col md={{ span: 4, offset: 1 }} xs={4}>
-          <Form.Item>
-            <Button htmlType="submit" type="primary" block>
-              {t('shopPoint.formSearch.search')}
-            </Button>
-          </Form.Item>
-        </Col>
-        <Col md={{ span: 4, offset: 1 }} xs={4}>
-          <Button htmlType="reset" block>
-            {t('shopPoint.formSearch.reset')}
+        <Form.Item className="mb-0">
+          <Button className="mr-3" htmlType="submit" type="primary">
+            {t('shopPoint.formSearch.search')}
           </Button>
-        </Col>
+        </Form.Item>
+        <Form.Item className="mb-0">
+          <Button htmlType="reset">{t('shopPoint.formSearch.reset')}</Button>
+        </Form.Item>
       </Row>
     </Form>
   )

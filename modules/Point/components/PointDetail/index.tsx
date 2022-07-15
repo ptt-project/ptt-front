@@ -76,7 +76,7 @@ const PointDetail: FC = () => {
             toggle={toggleReplyModal}
             name={item.title}
             urlImg="https://joeschmoe.io/api/v1/random"
-            rate="3"
+            rate={3}
             detail={item.detail}
           />
           <div className="mb-3">

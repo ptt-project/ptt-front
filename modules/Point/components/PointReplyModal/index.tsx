@@ -1,16 +1,16 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 import { Typography, Button, Col, Modal, Row, Avatar, Rate, Input, Form } from 'antd'
 import t from '~/locales'
 import styles from './PointReplyModal.module.scss'
 
-const { Text } = Typography
+const { Text, Title } = Typography
 const { TextArea } = Input
 
-interface ImodalProps {
+interface IPointReplyModalProps {
   isOpen: boolean
   name: string
   urlImg: string
-  rate: string
+  rate: number
   detail: string
   toggle: () => void
 }
@@ -19,7 +19,7 @@ interface IFormModel {
   msgReply: string
 }
 
-const PointReplyModal: FC<ImodalProps> = (props: ImodalProps) => {
+const PointReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps) => {
   const [form] = Form.useForm()
   const [isButtonForm, setIsButtonForm] = useState<boolean>(true)
 
@@ -32,8 +32,8 @@ const PointReplyModal: FC<ImodalProps> = (props: ImodalProps) => {
     toggle()
   }
 
-  function handleChange(event): void {
-    if (event.target.value) {
+  function handleChange(e: ChangeEvent<HTMLTextAreaElement>): void {
+    if (e.target.value) {
       setIsButtonForm(false)
     } else {
       setIsButtonForm(true)
@@ -42,12 +42,10 @@ const PointReplyModal: FC<ImodalProps> = (props: ImodalProps) => {
   return (
     <Modal
       title={[
-        <Col>
-          <Text>
-            <i className={`fas fa-info-circle ${styles.iconInfo}`} />
-          </Text>
-          <Text className="ml-1"> {t('shopPoint.reply')}</Text>
-        </Col>
+        <Title level={4}>
+          <i className={`fas fa-info-circle ${styles.iconInfo}`} />
+          {t('shopPoint.reply')}
+        </Title>
       ]}
       visible={props.isOpen}
       onCancel={toggle}
