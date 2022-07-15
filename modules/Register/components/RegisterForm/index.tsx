@@ -1,5 +1,5 @@
 import React, { useState, FC, ChangeEvent } from 'react'
-import { useRouter, NextRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, Modal } from 'antd'
 import { Rule } from 'antd/lib/form'
 import { isEmpty } from 'lodash'

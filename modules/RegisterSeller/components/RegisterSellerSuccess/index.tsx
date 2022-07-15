@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { useRouter, NextRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import { Typography, Button, Row, Col, Image } from 'antd'
 import t from '~/locales'
 import { CustomUrl } from '~/utils/main'

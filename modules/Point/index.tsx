@@ -35,13 +35,13 @@ const Point: FC = () => {
             </Col>
             <Col xl={18} lg={24}>
               <Row className="mb-3" align="middle">
-                <Col md={20}>
+                <Col xs={20}>
                   <Title className={`${styles.h4} ${styles.textSecondary}`} level={4}>
                     {t('shopPoint.title')}
                   </Title>
                   <Text type="secondary">{t('shopPoint.detail')}</Text>
                 </Col>
-                <Col md={4}>
+                <Col xs={4}>
                   <div className={styles.point}>
                     <Title className={styles.h1} type="danger" level={1}>
                       5.0

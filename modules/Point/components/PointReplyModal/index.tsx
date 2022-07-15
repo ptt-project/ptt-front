@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react'
+import React, { FC } from 'react'
 import { Typography, Button, Col, Modal, Row, Avatar, Rate, Input, Form } from 'antd'
 import t from '~/locales'
 import styles from './PointReplyModal.module.scss'
@@ -21,7 +21,6 @@ interface IFormModel {
 
 const PointReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps) => {
   const [form] = Form.useForm()
-  const [isButtonForm, setIsButtonForm] = useState<boolean>(true)
 
   function toggle(): void {
     props.toggle()
@@ -32,18 +31,11 @@ const PointReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps
     toggle()
   }
 
-  function handleChange(e: ChangeEvent<HTMLTextAreaElement>): void {
-    if (e.target.value) {
-      setIsButtonForm(false)
-    } else {
-      setIsButtonForm(true)
-    }
-  }
   return (
     <Modal
       title={[
-        <Title level={4}>
-          <i className={`fas fa-info-circle ${styles.iconInfo}`} />
+        <Title className="mb-0" level={4}>
+          <i className={`fas fa-info-circle mr-2 ${styles.iconInfo}`} />
           {t('shopPoint.reply')}
         </Title>
       ]}
@@ -53,39 +45,42 @@ const PointReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps
       closable={false}
     >
       <Form layout="vertical" form={form} name="accountProfile" onFinish={onSubmit}>
-        <Row gutter={[8, 8]} className="ml-2">
-          <Col>
-            <Avatar src={props.urlImg} />
-          </Col>
-          <Col className="mt-1">
-            <Text>{props.name}</Text>
-          </Col>
-          <Col>
+        <Row gutter={[0, 16]} align="middle">
+          <Col span={24}>
+            <Avatar size={24} src={props.urlImg} />
+            <Text className="ml-1 mr-3">{props.name}</Text>
             <Rate value={props.rate} />
           </Col>
+          <Col span={24}>
+            <Text>{props.detail}</Text>
+          </Col>
+          <Col span={24}>
+            <Form.Item
+              label={t('shopPoint.msgReply')}
+              name="comment"
+              rules={[
+                {
+                  required: true,
+                  message: `${t('common.form.required')} ${t('shopPoint.msgReply')}`
+                }
+              ]}
+            >
+              <TextArea rows={8} showCount maxLength={500} />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Row className="justify-content-end">
+              <Button type="default" onClick={toggle}>
+                {t('common.cancel')}
+              </Button>
+              <Form.Item className="mb-0">
+                <Button htmlType="submit" className="ml-2" type="primary">
+                  {t('common.send')}
+                </Button>
+              </Form.Item>
+            </Row>
+          </Col>
         </Row>
-        <Col className="mt-2">
-          <Text>{props.detail}</Text>
-        </Col>
-        <Col className="mt-2">
-          <Text>{t('shopPoint.msgReply')}*</Text>
-        </Col>
-        <Col className="mt-2">
-          <TextArea showCount maxLength={500} style={{ height: 200 }} onChange={handleChange} />
-        </Col>
-        <Col className="text-right mt-10">
-          <Button type="default" onClick={toggle}>
-            {t('common.cancel')}
-          </Button>
-          <Button
-            htmlType="submit"
-            className={`ml-1 ${styles.btnSubmit}`}
-            type="primary"
-            disabled={isButtonForm}
-          >
-            {t('common.send')}
-          </Button>
-        </Col>
       </Form>
     </Modal>
   )

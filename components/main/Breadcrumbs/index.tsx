@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { useRouter, NextRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import { Breadcrumb } from 'antd'
 import { IBreadcrumb, IBreadcrumbItem } from '~/model/Common'
 import { CustomUrl } from '~/utils/main'

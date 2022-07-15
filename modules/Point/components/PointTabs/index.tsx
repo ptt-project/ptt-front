@@ -2,14 +2,16 @@ import React, { FC } from 'react'
 import { Tabs } from 'antd'
 import PointDetail from '../PointDetail'
 import t from '~/locales'
+import styles from './PointTabs.module.scss'
 
 const { TabPane } = Tabs
 
 function onChange(key: string): void {
   console.log(key)
 }
+
 const PointTabs: FC = () => (
-  <Tabs defaultActiveKey="1" onChange={onChange}>
+  <Tabs className={styles.reviewContainer} defaultActiveKey="1" onChange={onChange}>
     <TabPane tab={t('shopPoint.all')} key="1">
       <PointDetail />
     </TabPane>

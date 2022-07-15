@@ -1,5 +1,5 @@
 import React, { useEffect, FC } from 'react'
-import { useRouter, NextRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import { Typography, Input } from 'antd'
 import MainMenu from './components/MainMenu'
 import { HiddenHeader } from '~/constants'

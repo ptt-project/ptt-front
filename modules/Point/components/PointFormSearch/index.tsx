@@ -26,17 +26,17 @@ const PointFormSearch: FC = () => {
       className={styles.highlight}
     >
       <Row gutter={16}>
-        <Col lg={12} sm={24}>
+        <Col md={12} xs={24}>
           <Form.Item label={t('shopPoint.formSearch.productName')} name="productName">
             <Input />
           </Form.Item>
         </Col>
-        <Col lg={12} sm={24}>
+        <Col md={12} xs={24}>
           <Form.Item label={t('shopPoint.formSearch.productNameChoice')} name="productNameChoice">
             <Input />
           </Form.Item>
         </Col>
-        <Col lg={12} sm={24}>
+        <Col md={12} xs={24}>
           <Form.Item label={t('shopPoint.formSearch.date')} name="date">
             <RangePicker style={{ width: '100%' }} />
           </Form.Item>

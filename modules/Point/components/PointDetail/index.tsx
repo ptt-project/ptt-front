@@ -37,19 +37,36 @@ const data: IMockData[] = [
 ]
 
 const PointDetail: FC = () => {
-  const [isOpenReplyModal, setIsOpenReplyModal] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [replyData, setReplyData] = useState<IMockData>({
+    title: '',
+    orderId: '',
+    productName: '',
+    status: '',
+    avatar: '',
+    detail: ''
+  })
   const ofLabel: string = t('common.pagination.of') // prevent error hook rules
   const itemsLabel: string = t('common.pagination.items') // prevent error hook rules
 
-  function toggleReplyModal(): void {
-    setIsOpenReplyModal(!isOpenReplyModal)
+  function toggle(): void {
+    setIsOpen(!isOpen)
   }
 
-  function onReplyModal(): void {
-    setIsOpenReplyModal(true)
+  function onReply(reply: IMockData): void {
+    setReplyData(reply)
+    setIsOpen(true)
   }
   return (
     <>
+      <PointReplyModal
+        isOpen={isOpen}
+        toggle={toggle}
+        name={replyData.title}
+        urlImg="https://joeschmoe.io/api/v1/random"
+        rate={3}
+        detail={replyData.detail}
+      />
       <Row>
         <Button className="mr-1">{t('shopPoint.all')}</Button>
         <Button className="mr-1">{t('shopPoint.point.five')}</Button>
@@ -69,57 +86,61 @@ const PointDetail: FC = () => {
           <Text type="danger">{t('shopPoint.yourReply')}</Text>
         </Col>
       </Row>
-      {data?.map((item: IMockData) => (
-        <>
-          <PointReplyModal
-            isOpen={isOpenReplyModal}
-            toggle={toggleReplyModal}
-            name={item.title}
-            urlImg="https://joeschmoe.io/api/v1/random"
-            rate={3}
-            detail={item.detail}
-          />
-          <div className="mb-3">
-            <Row className={`mt-4 ${styles.tableTitle}`}>
+      <div className={styles.reviewContent}>
+        {data?.map((item: IMockData) => (
+          <>
+            <Row className={styles.reviewTitle} align="middle">
               <Col span={18}>
-                {t('shopPoint.user')} : <Avatar src="https://joeschmoe.io/api/v1/random" />
-                {item.title}
+                <Text>{t('shopPoint.user')}:</Text>
+                <Avatar
+                  className={styles.avatar}
+                  size={24}
+                  src="https://joeschmoe.io/api/v1/random"
+                />
+                <Text>{item.title}</Text>
               </Col>
-              <Col className="text-left mt-1" span={6}>
-                {t('shopPoint.orderId')}: <Text type="secondary">{item.orderId}</Text>
+              <Col span={6}>
+                <Text className="ml-2" type="secondary">
+                  {t('shopPoint.orderId')}: {item.orderId}
+                </Text>
               </Col>
             </Row>
             <Row>
-              <Col className={styles.productCol} span={6}>
-                <Image width={50} src="https://joeschmoe.io/api/v1/random" />
-                <Text>{item.productName}</Text>
+              <Col className={styles.avatarCol} span={6}>
+                <div className={styles.avatarWrapper}>
+                  <Image preview={false} width={48} src="https://joeschmoe.io/api/v1/random" />
+                  <Text className={styles.avatarName}>{item.productName}</Text>
+                </div>
               </Col>
-              <Col className={styles.reviewCol} span={12}>
+              <Col className={styles.commentCol} span={12}>
                 <Rate allowHalf defaultValue={3} />
-                <p>{item.detail}</p>
+                <Text className={styles.comment}>{item.detail}</Text>
                 <Text type="secondary">23/06/2022 23:23</Text>
               </Col>
               <Col className={styles.replyCol} span={6}>
                 {item.status === 'reply' ? (
-                  <Button className="mt-1" onClick={onReplyModal}>
+                  <Button className="mt-1" onClick={(): void => onReply(item)}>
                     {t('shopPoint.reply')}
                   </Button>
                 ) : (
-                  <Text>{item.productName}</Text>
+                  <Text className={styles.reply}>{item.productName}</Text>
                 )}
               </Col>
             </Row>
-          </div>
-        </>
-      ))}
-      <Col className="text-right pt-3">
-        <Pagination
-          showTotal={(total: number, range: [number, number]): string =>
-            `${range[0]}-${range[1]} ${ofLabel} ${total} ${itemsLabel}`
-          }
-          total={5}
-        />
-      </Col>
+          </>
+        ))}
+        <Row>
+          <Col span={24} className="text-right">
+            <Pagination
+              className="mt-3 mb-3"
+              showTotal={(total: number, range: [number, number]): string =>
+                `${range[0]}-${range[1]} ${ofLabel} ${total} ${itemsLabel}`
+              }
+              total={5}
+            />
+          </Col>
+        </Row>
+      </div>
     </>
   )
 }

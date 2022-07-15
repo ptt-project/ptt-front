@@ -376,7 +376,19 @@ export default {
     yourReply: 'การตอบกลับของคุณ',
     reply: 'ตอบกลับ',
     user: 'ชื่อผู้ใช้',
-    orderID: 'Order ID',
+    orderId: 'Order ID',
     msgReply: 'ข้อความตอบกลับ'
+  },
+  shopCategory: {
+    addCategory: 'เพิ่มหมวดหมู่',
+    table: {
+      header: {
+        a: 'ชื่อหมวดหมู่สินค้า',
+        b: 'สร้างโดย',
+        c: 'สินค้า',
+        d: 'แสดงที่หน้าร้าน',
+        e: 'ดำเนินการ'
+      }
+    }
   }
 }
