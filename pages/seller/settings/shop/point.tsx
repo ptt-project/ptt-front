@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import Point from '~/modules/Point'
+import SellerPoint  from '~/modules/SellerPoint'
 
-const PointPage: FC = () => <Point />
+const PointPage: FC = () => <SellerPoint/>
 
 export default PointPage

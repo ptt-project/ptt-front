@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react'
 import { Button, Row, Col, Typography, Avatar, Image, Rate, Pagination } from 'antd'
-import PointReplyModal from '../PointReplyModal'
+import ReplyModal from '../ReplyModal'
 import t from '~/locales'
-import styles from './PointDetail.module.scss'
+import styles from './Review.module.scss'
 
 const { Text } = Typography
 
@@ -36,7 +36,7 @@ const data: IMockData[] = [
   }
 ]
 
-const PointDetail: FC = () => {
+const Review: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [replyData, setReplyData] = useState<IMockData>({
     title: '',
@@ -59,7 +59,7 @@ const PointDetail: FC = () => {
   }
   return (
     <>
-      <PointReplyModal
+      <ReplyModal
         isOpen={isOpen}
         toggle={toggle}
         name={replyData.title}
@@ -68,22 +68,22 @@ const PointDetail: FC = () => {
         detail={replyData.detail}
       />
       <Row className="mb-5">
-        <Button className="mr-1">{t('shopPoint.all')}</Button>
-        <Button className="mr-1">{t('shopPoint.point.five')}</Button>
-        <Button className="mr-1">{t('shopPoint.point.four')}</Button>
-        <Button className="mr-1">{t('shopPoint.point.three')}</Button>
-        <Button className="mr-1">{t('shopPoint.point.two')}</Button>
-        <Button className="mr-1">{t('shopPoint.point.one')}</Button>
+        <Button className="mr-1">{t('sellerPoint.all')}</Button>
+        <Button className="mr-1">{t('sellerPoint.point.five')}</Button>
+        <Button className="mr-1">{t('sellerPoint.point.four')}</Button>
+        <Button className="mr-1">{t('sellerPoint.point.three')}</Button>
+        <Button className="mr-1">{t('sellerPoint.point.two')}</Button>
+        <Button className="mr-1">{t('sellerPoint.point.one')}</Button>
       </Row>
       <Row className={`${styles.hrTitleCol} mb-3`}>
         <Col lg={6} xs={7}>
-          <Text type="danger">{t('shopPoint.productDetail')}</Text>
+          <Text type="danger">{t('sellerPoint.productDetail')}</Text>
         </Col>
         <Col md={12} xs={10}>
-          <Text type="danger">{t('shopPoint.reviewDetail')}</Text>
+          <Text type="danger">{t('sellerPoint.reviewDetail')}</Text>
         </Col>
         <Col lg={6}>
-          <Text type="danger">{t('shopPoint.yourReply')}</Text>
+          <Text type="danger">{t('sellerPoint.yourReply')}</Text>
         </Col>
       </Row>
       <div className={styles.reviewContent}>
@@ -91,7 +91,7 @@ const PointDetail: FC = () => {
           <div className="mb-3">
             <Row className={styles.reviewTitle} align="middle">
               <Col span={18}>
-                <Text>{t('shopPoint.user')}:</Text>
+                <Text>{t('sellerPoint.user')}:</Text>
                 <Avatar
                   className={styles.avatar}
                   size={24}
@@ -101,7 +101,7 @@ const PointDetail: FC = () => {
               </Col>
               <Col span={6}>
                 <Text className="ml-2" type="secondary">
-                  {t('shopPoint.orderId')}: {item.orderId}
+                  {t('sellerPoint.orderId')}: {item.orderId}
                 </Text>
               </Col>
             </Row>
@@ -120,7 +120,7 @@ const PointDetail: FC = () => {
               <Col className={styles.replyCol} span={6}>
                 {item.status === 'reply' ? (
                   <Button className="mt-1" onClick={(): void => onReply(item)}>
-                    {t('shopPoint.reply')}
+                    {t('sellerPoint.reply')}
                   </Button>
                 ) : (
                   <Text className={styles.reply}>{item.productName}</Text>
@@ -137,6 +137,7 @@ const PointDetail: FC = () => {
                 `${range[0]}-${range[1]} ${ofLabel} ${total} ${itemsLabel}`
               }
               total={5}
+              showSizeChanger
             />
           </Col>
         </Row>
@@ -145,4 +146,4 @@ const PointDetail: FC = () => {
   )
 }
 
-export default PointDetail
+export default Review

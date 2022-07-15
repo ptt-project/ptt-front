@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Button, Row, Col, Form, Input, DatePicker } from 'antd'
 import t from '~/locales'
-import styles from './PointFormSearch.module.scss'
+import styles from './SellerPointFilters.module.scss'
 
 const { RangePicker } = DatePicker
 
@@ -11,7 +11,7 @@ interface IFormModel {
   date: string
 }
 
-const PointFormSearch: FC = () => {
+const SellerPointFilters: FC = () => {
   const [form] = Form.useForm()
 
   function onSubmit(values: IFormModel): void {
@@ -27,17 +27,17 @@ const PointFormSearch: FC = () => {
     >
       <Row gutter={16}>
         <Col md={12} xs={24}>
-          <Form.Item label={t('shopPoint.formSearch.productName')} name="productName">
+          <Form.Item label={t('sellerPoint.filters.productName')} name="productName">
             <Input />
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
-          <Form.Item label={t('shopPoint.formSearch.productNameChoice')} name="productNameChoice">
+          <Form.Item label={t('sellerPoint.filters.productNameChoice')} name="productNameChoice">
             <Input />
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
-          <Form.Item label={t('shopPoint.formSearch.date')} name="date">
+          <Form.Item label={t('sellerPoint.filters.date')} name="date">
             <RangePicker style={{ width: '100%' }} />
           </Form.Item>
         </Col>
@@ -45,15 +45,15 @@ const PointFormSearch: FC = () => {
       <Row>
         <Form.Item className="mb-0">
           <Button className="mr-3" htmlType="submit" type="primary">
-            {t('shopPoint.formSearch.search')}
+            {t('sellerPoint.filters.search')}
           </Button>
         </Form.Item>
         <Form.Item className="mb-0">
-          <Button htmlType="reset">{t('shopPoint.formSearch.reset')}</Button>
+          <Button htmlType="reset">{t('sellerPoint.filters.reset')}</Button>
         </Form.Item>
       </Row>
     </Form>
   )
 }
 
-export default PointFormSearch
+export default SellerPointFilters

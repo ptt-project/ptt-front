@@ -49,14 +49,14 @@ const Profile: FC = () => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('accountProfile.form.title')}
+          {t('meta.title')} | {t('profile.form.title')}
         </title>
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('accountProfile.form.setting') },
-          { title: t('accountProfile.form.title') },
-          { title: t('accountProfile.form.personalInfo'), href: '/settings/account/info' }
+          { title: t('profile.form.setting') },
+          { title: t('profile.form.title') },
+          { title: t('profile.form.personalInfo'), href: '/settings/account/info' }
         ]}
       />
       <div className="page-content mb-9">
@@ -67,10 +67,10 @@ const Profile: FC = () => {
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 2 }} md={24}>
               <Title className="hps-title" level={4}>
-                {t('accountProfile.form.title')}
+                {t('profile.form.title')}
               </Title>
-              <HighlightLabel title={t('accountProfile.form.personalInfo')} />
-              <Form layout="vertical" form={form} name="accountProfile" onFinish={onSubmit}>
+              <HighlightLabel title={t('profile.form.personalInfo')} />
+              <Form layout="vertical" form={form} name="profileForm" onFinish={onSubmit}>
                 <Row className={styles.highlight} gutter={[16, 16]} align="middle">
                   <Col sm={4} xs={12}>
                     <Avatar
@@ -86,30 +86,28 @@ const Profile: FC = () => {
                   <Col sm={8} xs={12} className="text-center">
                     <Upload>
                       <Button className="hps-btn-secondary">
-                        {t('accountProfile.button.chooseImage')}
+                        {t('profile.button.chooseImage')}
                       </Button>
                     </Upload>
-                    <Text type="secondary">{t('accountProfile.form.msgChooseImage')}</Text>
+                    <Text type="secondary">{t('profile.form.msgChooseImage')}</Text>
                   </Col>
                   <Col sm={12} xs={24}>
-                    <Text className={styles.label}>{t('accountProfile.form.memberId')} :</Text>
+                    <Text className={styles.label}>{t('profile.form.memberId')} :</Text>
                     <Text className={styles.textPrimary}>mem01</Text>
                     <br />
-                    <Text className={styles.label}>{t('accountProfile.form.username')} :</Text>
+                    <Text className={styles.label}>{t('profile.form.username')} :</Text>
                     <Text className={styles.textPrimary}>New_user</Text>
                   </Col>
                 </Row>
                 <Row gutter={[16, 8]}>
                   <Col sm={12} xs={24}>
                     <Form.Item
-                      label={t('accountProfile.form.firstName')}
+                      label={t('profile.form.firstName')}
                       name="firstName"
                       rules={[
                         {
                           required: true,
-                          message: `${t('common.form.required')} ${t(
-                            'accountProfile.form.firstName'
-                          )}`
+                          message: `${t('common.form.required')} ${t('profile.form.firstName')}`
                         }
                       ]}
                     >
@@ -118,14 +116,12 @@ const Profile: FC = () => {
                   </Col>
                   <Col sm={12} xs={24}>
                     <Form.Item
-                      label={t('accountProfile.form.lastName')}
+                      label={t('profile.form.lastName')}
                       name="lastName"
                       rules={[
                         {
                           required: true,
-                          message: `${t('common.form.required')} ${t(
-                            'accountProfile.form.lastName'
-                          )}`
+                          message: `${t('common.form.required')} ${t('profile.form.lastName')}`
                         }
                       ]}
                     >
@@ -135,23 +131,23 @@ const Profile: FC = () => {
                   <Col span={24}>
                     <Row gutter={8}>
                       <Col md={3} sm={4} xs={6}>
-                        <Form.Item label={t('accountProfile.form.birthday')} name="birthday">
+                        <Form.Item label={t('profile.form.birthday')} name="birthday">
                           <Select defaultValue="">
-                            <Select.Option value="">{t('accountProfile.form.date')}</Select.Option>
+                            <Select.Option value="">{t('profile.form.date')}</Select.Option>
                           </Select>
                         </Form.Item>
                       </Col>
                       <Col md={5} sm={6} xs={9}>
                         <Form.Item label="&nbsp;" name="birthMonth">
                           <Select defaultValue="">
-                            <Select.Option value="">{t('accountProfile.form.month')}</Select.Option>
+                            <Select.Option value="">{t('profile.form.month')}</Select.Option>
                           </Select>
                         </Form.Item>
                       </Col>
                       <Col md={5} sm={6} xs={9}>
                         <Form.Item label="&nbsp;" name="birthYear">
                           <Select defaultValue="">
-                            <Select.Option value="">{t('accountProfile.form.year')}</Select.Option>
+                            <Select.Option value="">{t('profile.form.year')}</Select.Option>
                           </Select>
                         </Form.Item>
                       </Col>
@@ -160,17 +156,17 @@ const Profile: FC = () => {
                   <Col span={24}>
                     <Row gutter={[16, 24]}>
                       <Col xs={8}>
-                        <Text>{t('accountProfile.form.gender')}</Text>
+                        <Text>{t('profile.form.gender')}</Text>
                       </Col>
                       <Col xs={16}>
                         <Radio.Group onChange={onChange} value={value} className={styles.radioFlex}>
-                          <Radio value={1}>{t('accountProfile.form.man')}</Radio>
-                          <Radio value={2}>{t('accountProfile.form.female')}</Radio>
-                          <Radio value={3}>{t('accountProfile.form.other')}</Radio>
+                          <Radio value={1}>{t('profile.form.man')}</Radio>
+                          <Radio value={2}>{t('profile.form.female')}</Radio>
+                          <Radio value={3}>{t('profile.form.other')}</Radio>
                         </Radio.Group>
                       </Col>
                       <Col xs={8}>
-                        <Text>{t('accountProfile.form.email')}</Text>
+                        <Text>{t('profile.form.email')}</Text>
                       </Col>
                       <Col sm={12} xs={11}>
                         <Text type="danger">xxxxx@gmail.com</Text>
@@ -179,12 +175,12 @@ const Profile: FC = () => {
                         <Link href={CustomUrl.href('/settings/account/info/email', router.locale)}>
                           <a className={styles.textSecondary}>
                             <i className="fas fa-pen mr-1" />
-                            {t('accountProfile.button.edit')}
+                            {t('profile.button.edit')}
                           </a>
                         </Link>
                       </Col>
                       <Col xs={8}>
-                        <Text>{t('accountProfile.form.phoneNumber')}</Text>
+                        <Text>{t('profile.form.phoneNumber')}</Text>
                       </Col>
                       <Col sm={12} xs={11}>
                         <Text type="danger">xxxxx11</Text>
@@ -193,14 +189,14 @@ const Profile: FC = () => {
                         <Link href={CustomUrl.href('/settings/account/info/phone', router.locale)}>
                           <a className={styles.textSecondary}>
                             <i className="fas fa-pen mr-1" />
-                            {t('accountProfile.button.edit')}
+                            {t('profile.button.edit')}
                           </a>
                         </Link>
                       </Col>
                       <Col sm={{ span: 12, offset: 6 }} xs={24}>
                         <Form.Item>
                           <Button htmlType="submit" type="primary" block>
-                            {t('accountProfile.button.save')}
+                            {t('profile.button.save')}
                           </Button>
                         </Form.Item>
                       </Col>

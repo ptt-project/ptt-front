@@ -232,7 +232,7 @@ export default {
       editAddress: 'แก้ไขที่อยู่'
     }
   },
-  accountProfile: {
+  profile: {
     form: {
       title: 'บัญชีผู้ใช้',
       setting: 'ตั้งค่า',
@@ -346,7 +346,7 @@ export default {
       }
     }
   },
-  shopPoint: {
+  sellerPoint: {
     shop: 'ร้านค้า',
     title: 'คะแนนร้านค้า',
     detail: 'ดู 500 คะแนนล่าสุดที่ร้านค้าได้รับ',

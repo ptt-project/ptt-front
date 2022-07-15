@@ -4,27 +4,27 @@ import Helmet from 'react-helmet'
 import { Typography, Row, Col } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import PointFormSearch from './components/PointFormSearch'
-import PointTabs from './components/PointTabs'
+import SellerPointFilters from './components/SellerPointFilters'
+import SellerPointTabs from './components/SellerPointTabs'
 import t from '~/locales'
-import styles from './Point.module.scss'
+import styles from './SellerPoint.module.scss'
 
 const { Text, Title } = Typography
 
-const Point: FC = () => {
+const SellerPoint: FC = () => {
   const router: NextRouter = useRouter()
 
   return (
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('accountProfile.form.title')}
+          {t('meta.title')} | {t('profile.form.title')}
         </title>
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('shopPoint.shop') },
-          { title: t('shopPoint.title'), href: '/seller/settings/shop/point' }
+          { title: t('sellerPoint.shop') },
+          { title: t('sellerPoint.title'), href: '/seller/settings/shop/point' }
         ]}
       />
       <div className="page-content mb-9">
@@ -37,9 +37,9 @@ const Point: FC = () => {
               <Row className="mb-3" align="middle">
                 <Col xs={20}>
                   <Title className={`${styles.h4} ${styles.textSecondary}`} level={4}>
-                    {t('shopPoint.title')}
+                    {t('sellerPoint.title')}
                   </Title>
-                  <Text type="secondary">{t('shopPoint.detail')}</Text>
+                  <Text type="secondary">{t('sellerPoint.detail')}</Text>
                 </Col>
                 <Col xs={4}>
                   <div className={styles.point}>
@@ -50,13 +50,13 @@ const Point: FC = () => {
                       /
                     </Title>
                     <Title className={styles.h4} type="secondary" level={4}>
-                      {t('shopPoint.part')}
+                      {t('sellerPoint.part')}
                     </Title>
                   </div>
                 </Col>
               </Row>
-              <PointFormSearch />
-              <PointTabs />
+              <SellerPointFilters />
+              <SellerPointTabs />
             </Col>
           </Row>
         </div>
@@ -65,4 +65,4 @@ const Point: FC = () => {
   )
 }
 
-export default Point
+export default SellerPoint
