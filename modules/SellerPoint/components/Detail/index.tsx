@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react'
 import { Button, Row, Col, Typography, Avatar, Image, Rate, Pagination } from 'antd'
-import PointReplyModal from '../PointReplyModal'
+import ReplyModal from '../ReplyModal'
 import t from '~/locales'
-import styles from './PointDetail.module.scss'
+import styles from './Detail.module.scss'
 
 const { Text } = Typography
 
@@ -36,7 +36,7 @@ const data: IMockData[] = [
   }
 ]
 
-const PointDetail: FC = () => {
+const Detail: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [replyData, setReplyData] = useState<IMockData>({
     title: '',
@@ -59,7 +59,7 @@ const PointDetail: FC = () => {
   }
   return (
     <>
-      <PointReplyModal
+      <ReplyModal
         isOpen={isOpen}
         toggle={toggle}
         name={replyData.title}
@@ -137,6 +137,7 @@ const PointDetail: FC = () => {
                 `${range[0]}-${range[1]} ${ofLabel} ${total} ${itemsLabel}`
               }
               total={5}
+              showSizeChanger 
             />
           </Col>
         </Row>
@@ -145,4 +146,4 @@ const PointDetail: FC = () => {
   )
 }
 
-export default PointDetail
+export default Detail

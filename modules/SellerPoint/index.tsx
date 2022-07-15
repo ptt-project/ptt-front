@@ -4,14 +4,14 @@ import Helmet from 'react-helmet'
 import { Typography, Row, Col } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import PointFormSearch from './components/PointFormSearch'
-import PointTabs from './components/PointTabs'
+import FormSearch from './components/FormSearch'
+import Tabs from './components/Tabs'
 import t from '~/locales'
-import styles from './Point.module.scss'
+import styles from './SellerPoint.module.scss'
 
 const { Text, Title } = Typography
 
-const Point: FC = () => {
+const SellerPoint: FC = () => {
   const router: NextRouter = useRouter()
 
   return (
@@ -55,8 +55,8 @@ const Point: FC = () => {
                   </div>
                 </Col>
               </Row>
-              <PointFormSearch />
-              <PointTabs />
+              <FormSearch />
+              <Tabs />
             </Col>
           </Row>
         </div>
@@ -65,4 +65,4 @@ const Point: FC = () => {
   )
 }
 
-export default Point
+export default SellerPoint
