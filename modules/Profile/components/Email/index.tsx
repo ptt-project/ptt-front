@@ -58,10 +58,7 @@ const Email: FC = () => {
                   <Form layout="vertical" form={form} name="accountEmail" onFinish={onSubmit}>
                     <Row>
                       <Col span={24}>
-                        <Form.Item
-                          label={t('profile.email.currentEmail')}
-                          name="currentEmail"
-                        >
+                        <Form.Item label={t('profile.email.currentEmail')} name="currentEmail">
                           <Input maxLength={50} />
                         </Form.Item>
                       </Col>
@@ -72,9 +69,7 @@ const Email: FC = () => {
                           rules={[
                             {
                               required: true,
-                              message: `${t('common.form.required')} ${t(
-                                'profile.form.email'
-                              )}`
+                              message: `${t('common.form.required')} ${t('profile.form.email')}`
                             },
                             {
                               type: 'email',

@@ -376,7 +376,7 @@ export default {
     orderId: 'Order ID',
     msgReply: 'ข้อความตอบกลับ'
   },
-  shopCategory: {
+  sellerCategory: {
     addCategory: 'เพิ่มหมวดหมู่',
     table: {
       header: {

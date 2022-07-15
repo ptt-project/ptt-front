@@ -7,6 +7,7 @@ import styles from './Review.module.scss'
 const { Text } = Typography
 
 interface IMockData {
+  id: string
   title: string
   orderId: string
   productName: string
@@ -17,6 +18,7 @@ interface IMockData {
 
 const data: IMockData[] = [
   {
+    id: '1',
     title: 'Hannah',
     orderId: '2006306N01XXFD',
     productName: 'ดัมเบลหุ้มยาง 4 กิโลกรัม',
@@ -26,6 +28,7 @@ const data: IMockData[] = [
       'คุณภาพของสินค้าดีมาก ความคุ้มค่าคุ้มราคาดีมาก ความรวดเร็วในการจัดส่งดีมาก แนะนำยี่ห้อนี้ค่ะ'
   },
   {
+    id: '2',
     title: 'Sophia',
     orderId: '2006306N01XXF1',
     productName: 'ดัมเบลหุ้มยาง 3 กิโลกรัม',
@@ -39,6 +42,7 @@ const data: IMockData[] = [
 const Review: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [replyData, setReplyData] = useState<IMockData>({
+    id: '',
     title: '',
     orderId: '',
     productName: '',
@@ -88,7 +92,7 @@ const Review: FC = () => {
       </Row>
       <div className={styles.reviewContent}>
         {data?.map((item: IMockData) => (
-          <div className="mb-3">
+          <div key={item.id} className="mb-3">
             <Row className={styles.reviewTitle} align="middle">
               <Col span={18}>
                 <Text>{t('sellerPoint.user')}:</Text>

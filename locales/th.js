@@ -351,7 +351,7 @@ export default {
     title: 'คะแนนร้านค้า',
     detail: 'ดู 500 คะแนนล่าสุดที่ร้านค้าได้รับ',
     part: '5',
-    formSearch: {
+    filters: {
       productName: 'ชื่อสินค้า',
       productNameChoice: 'ชื่อตัวเลือกสินค้า',
       date: 'วัน/เดือน/ปี',
@@ -376,7 +376,7 @@ export default {
     orderId: 'Order ID',
     msgReply: 'ข้อความตอบกลับ'
   },
-  shopCategory: {
+  sellerCategory: {
     addCategory: 'เพิ่มหมวดหมู่',
     table: {
       header: {
