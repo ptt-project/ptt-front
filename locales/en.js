@@ -304,7 +304,7 @@ export default {
         title: 'โค้ดส่วนลด'
       },
       history: {
-        title: 'การซื้อของฉัน',
+        title: 'การซื้อของฉัน'
       },
       notification: {
         title: 'การแจ้งเตือน'
@@ -319,8 +319,8 @@ export default {
       },
       product: {
         title: 'สินค้า',
-        my:'สินค้าของฉัน',
-        add:'เพิ่มสินค้าใหม่'
+        my: 'สินค้าของฉัน',
+        add: 'เพิ่มสินค้าใหม่'
       },
       marketing: {
         title: 'Marketing Centre'
@@ -395,6 +395,36 @@ export default {
         title: 'ลบหมวดหมู่',
         content: 'ยืนยันการลบหมวดหมู่สินค้าหรือไม่'
       }
+    }
+  },
+  sellerProducts: {
+    list: {
+      product: 'สินค้า',
+      myProduct: 'สินค้าของฉัน',
+      list: 'รายการ',
+      uploadProduct: 'อัพโหลดสินค้าเพิ่มอีก',
+      items: 'ชิ้น',
+      addNewProduct: 'เพิ่มสินค้าใหม่',
+      filters: {
+        group: 'กลุ่มการค้นหา',
+        orderId:'รหัสคําสั่งซื้อ',
+        keyword: 'Keyword ที่ใช้ในการค้นหา',
+        category: 'หมวดหมู่',
+        search: 'ค้นหา',
+        reset: 'รีเซ็ต'
+      },
+      all: 'ทั้งหมด',
+      waitingForApprove: 'รอ Approve',
+      selling: 'ขายอยู่',
+      soldOut: 'หมด',
+      notPublished: 'ไม่เผยแพร่',
+      productName: 'ชื่อสินค้า',
+      SKU: 'เลข SKU',
+      productSelection: 'ตัวเลือกสินค้า',
+      price: 'ราคา',
+      warehouse: 'คลัง',
+      sales: 'ยอดขาย',
+      operation: 'ดำเนินการ'
     }
   }
 }

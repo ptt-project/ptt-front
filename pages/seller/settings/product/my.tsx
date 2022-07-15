@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import SellerMyProduct  from '~/modules/SellerMyProduct'
+import SellerMyProducts  from '~/modules/SellerMyProducts'
 
-const SellerMyProductPage: FC = () => <SellerMyProduct/>
+const SellerMyProductsPage: FC = () => <SellerMyProducts/>
 
-export default SellerMyProductPage
+export default SellerMyProductsPage
