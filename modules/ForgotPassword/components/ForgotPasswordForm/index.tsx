@@ -44,7 +44,6 @@ const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPassword
               <Image
                 rootClassName={styles.imgWrapper}
                 preview={false}
-                width="100%"
                 src="./images/main/buyer/forgot-password.png"
                 alt="forgot-password"
               />

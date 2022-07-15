@@ -19,7 +19,6 @@ const RegisterSuccess: FC = () => {
               <Image
                 rootClassName={styles.imgWrapper}
                 preview={false}
-                width="100%"
                 src="./images/main/buyer/register-form.png"
                 alt="register-form"
               />
@@ -35,7 +34,6 @@ const RegisterSuccess: FC = () => {
                   <Image
                     rootClassName={styles.imgWrapper}
                     preview={false}
-                    width="100%"
                     src="./images/main/buyer/register-success.png"
                     alt="register-success"
                   />

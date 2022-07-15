@@ -86,7 +86,6 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
               <Image
                 rootClassName={styles.imgWrapper}
                 preview={false}
-                width="100%"
                 src="./images/main/seller/register-form.jpg"
                 alt="register-seller-form"
               />

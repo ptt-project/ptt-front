@@ -18,3 +18,9 @@
     padding: 1.5rem 0;
   }
 }
+
+.phoneListWrapper {
+  @media (max-width: 575px) {
+    padding: 0 1.5rem;
+  }
+}

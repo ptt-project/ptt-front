@@ -70,7 +70,6 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
                 <Image
                   rootClassName={styles.imgWrapper}
                   preview={false}
-                  width="100%"
                   src="./images/main/buyer/register-consent.png"
                   alt="register-consent"
                 />

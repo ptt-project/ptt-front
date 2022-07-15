@@ -47,7 +47,6 @@ const Login: FC = () => {
                 <Image
                   rootClassName={styles.imgWrapper}
                   preview={false}
-                  width="100%"
                   src="./images/main/buyer/login.png"
                   alt="login"
                 />

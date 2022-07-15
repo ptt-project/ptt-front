@@ -25,7 +25,6 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
               <Image
                 rootClassName={styles.imgWrapper}
                 preview={false}
-                width="100%"
                 src="./images/main/buyer/forgot-password.png"
                 alt="forgot-password"
               />
@@ -41,7 +40,6 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
                   <Image
                     rootClassName={styles.imgWrapper}
                     preview={false}
-                    width="100%"
                     src="./images/main/buyer/forgot-password-success.png"
                     alt="forgot-password-success"
                   />

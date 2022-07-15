@@ -15,7 +15,7 @@ const Point: FC = () => {
   const router: NextRouter = useRouter()
 
   return (
-    <main className="main account">
+    <main className="main">
       <Helmet>
         <title>
           {t('meta.title')} | {t('accountProfile.form.title')}

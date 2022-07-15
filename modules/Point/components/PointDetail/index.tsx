@@ -67,7 +67,7 @@ const PointDetail: FC = () => {
         rate={3}
         detail={replyData.detail}
       />
-      <Row>
+      <Row className="mb-5">
         <Button className="mr-1">{t('shopPoint.all')}</Button>
         <Button className="mr-1">{t('shopPoint.point.five')}</Button>
         <Button className="mr-1">{t('shopPoint.point.four')}</Button>
@@ -75,7 +75,7 @@ const PointDetail: FC = () => {
         <Button className="mr-1">{t('shopPoint.point.two')}</Button>
         <Button className="mr-1">{t('shopPoint.point.one')}</Button>
       </Row>
-      <Row className={`mt-4 ${styles.hrTitleCol}`}>
+      <Row className={`${styles.hrTitleCol} mb-3`}>
         <Col lg={6} xs={7}>
           <Text type="danger">{t('shopPoint.productDetail')}</Text>
         </Col>
@@ -88,7 +88,7 @@ const PointDetail: FC = () => {
       </Row>
       <div className={styles.reviewContent}>
         {data?.map((item: IMockData) => (
-          <>
+          <div className="mb-3">
             <Row className={styles.reviewTitle} align="middle">
               <Col span={18}>
                 <Text>{t('shopPoint.user')}:</Text>
@@ -127,12 +127,12 @@ const PointDetail: FC = () => {
                 )}
               </Col>
             </Row>
-          </>
+          </div>
         ))}
         <Row>
           <Col span={24} className="text-right">
             <Pagination
-              className="mt-3 mb-3"
+              className="mb-3"
               showTotal={(total: number, range: [number, number]): string =>
                 `${range[0]}-${range[1]} ${ofLabel} ${total} ${itemsLabel}`
               }

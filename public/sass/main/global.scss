@@ -19,6 +19,48 @@
   }
 }
 
+.hps-switch {
+  &.ant-switch-checked {
+    background: $info-color;
+  }
+}
+
+.hps-table {
+  overflow: auto;
+
+  th {
+    color: $primary-color !important;
+    background-color: $white-color !important;
+    border-color: $primary-color !important;
+
+    &:hover,
+    &:focus {
+      background-color: $error-color-light !important;
+    }
+  }
+
+  th,
+  td {
+    white-space: nowrap;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $background-dark;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: $white-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $secondary-color;
+    border-radius: 8px;
+  }
+}
+
 .setting-sidebar {
   .ss-bar {
     ul {

@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
-import { Typography, Button, Row, Col } from 'antd'
+import { Typography, Button, Row, Col, Space } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
@@ -36,6 +36,10 @@ const Phone: FC = () => {
     setIsOpen(true)
   }
 
+  function onRemove(): void {
+    console.log('reomove')
+  }
+
   function onSubmit(otpData: IOtpData): void {
     try {
       console.log(otpData)
@@ -43,6 +47,7 @@ const Phone: FC = () => {
       console.log(error)
     }
   }
+
   return (
     <>
       <OtpModal mobileNo="12346" isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
@@ -51,10 +56,11 @@ const Phone: FC = () => {
         toggle={toggleDelPhoneModal}
         type="error"
         title={t('accountProfile.phone.deletePhone')}
-        content={`${t('accountProfile.phone.confirmDelete')}081-2226666`}
+        content={`${t('accountProfile.phone.confirmDelete')} 081-2226666`}
         contentWarning={t('accountProfile.phone.msgConfirmDelete')}
+        onSubmit={onRemove}
       />
-      <main className="main account">
+      <main className="main">
         <Helmet>
           <title>
             {t('meta.title')} | {t('accountProfile.form.title')}
@@ -102,15 +108,19 @@ const Phone: FC = () => {
                     </Button>
                   </Col>
                 </Row>
-                <Row>
-                  <Col md={{ span: 6, offset: 2 }} xs={{ span: 12, offset: 1 }}>
+                <Row className={styles.phoneListWrapper}>
+                  <Col sm={{ span: 12, offset: 2 }} xs={12}>
                     <Text className={`${styles.textPrimary}`}>081-111-2222</Text>
                   </Col>
-                  <Col md={13} xs={10}>
-                    <div className="text-right">
-                      <i className="fas fa-star mr-2" onClick={onFavoritePhone} />
-                      <i className="fas fa-trash-alt mr-2" onClick={onDelPhoneModal} />
-                    </div>
+                  <Col sm={8} xs={12} className="text-right">
+                    <Space size="middle">
+                      <a onClick={onFavoritePhone} aria-hidden="true">
+                        <i className="fas fa-star" />
+                      </a>
+                      <a onClick={onDelPhoneModal} aria-hidden="true">
+                        <i className="fas fa-trash-alt" />
+                      </a>
+                    </Space>
                   </Col>
                 </Row>
               </Col>

@@ -45,7 +45,7 @@ const EditAddress: React.FC = () => {
   }
 
   return (
-    <main className="main account">
+    <main className="main">
       <Helmet>
         <title>
           {t('meta.title')} | {t('address.editAddressTitle')}

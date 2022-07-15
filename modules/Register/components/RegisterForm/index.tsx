@@ -109,14 +109,13 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                 <Image
                   rootClassName={styles.imgWrapper}
                   preview={false}
-                  width="100%"
                   src="./images/main/buyer/register-form.png"
                   alt="register-form"
                 />
               </div>
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
-              <Title className="hps-title">{t('auth.register.title')}</Title>
+              <Title className="hps-title" level={4}>{t('auth.register.title')}</Title>
               <Form layout="vertical" name="registerForm" form={form} onFinish={onSubmit}>
                 <Row gutter={[16, 8]}>
                   <Col md={12} xs={24}>
