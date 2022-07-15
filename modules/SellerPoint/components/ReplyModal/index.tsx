@@ -36,7 +36,7 @@ const ReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps) => 
       title={[
         <Title className="mb-0" level={4}>
           <i className={`fas fa-info-circle mr-2 ${styles.iconInfo}`} />
-          {t('shopPoint.reply')}
+          {t('sellerPoint.reply')}
         </Title>
       ]}
       visible={props.isOpen}
@@ -44,7 +44,7 @@ const ReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps) => 
       footer={null}
       closable={false}
     >
-      <Form layout="vertical" form={form} name="accountProfile" onFinish={onSubmit}>
+      <Form layout="vertical" form={form} name="replyForm" onFinish={onSubmit}>
         <Row gutter={[0, 16]} align="middle">
           <Col span={24}>
             <Avatar size={24} src={props.urlImg} />
@@ -56,12 +56,12 @@ const ReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps) => 
           </Col>
           <Col span={24}>
             <Form.Item
-              label={t('shopPoint.msgReply')}
+              label={t('sellerPoint.msgReply')}
               name="comment"
               rules={[
                 {
                   required: true,
-                  message: `${t('common.form.required')} ${t('shopPoint.msgReply')}`
+                  message: `${t('common.form.required')} ${t('sellerPoint.msgReply')}`
                 }
               ]}
             >

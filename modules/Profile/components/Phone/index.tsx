@@ -55,23 +55,23 @@ const Phone: FC = () => {
         isOpen={isOpenDelPhoneModal}
         toggle={toggleDelPhoneModal}
         type="error"
-        title={t('accountProfile.phone.deletePhone')}
-        content={`${t('accountProfile.phone.confirmDelete')} 081-2226666`}
-        contentWarning={t('accountProfile.phone.msgConfirmDelete')}
+        title={t('profile.phone.deletePhone')}
+        content={`${t('profile.phone.confirmDelete')} 081-2226666`}
+        contentWarning={t('profile.phone.msgConfirmDelete')}
         onSubmit={onRemove}
       />
       <main className="main">
         <Helmet>
           <title>
-            {t('meta.title')} | {t('accountProfile.form.title')}
+            {t('meta.title')} | {t('profile.form.title')}
           </title>
         </Helmet>
         <Breadcrumbs
           items={[
-            { title: t('accountProfile.form.setting') },
-            { title: t('accountProfile.form.title') },
-            { title: t('accountProfile.form.personalInfo'), href: '/settings/account/info' },
-            { title: t('accountProfile.phone.titleEdit'), href: '/settings/account/info/phone' }
+            { title: t('profile.form.setting') },
+            { title: t('profile.form.title') },
+            { title: t('profile.form.personalInfo'), href: '/settings/account/info' },
+            { title: t('profile.phone.titleEdit'), href: '/settings/account/info/phone' }
           ]}
         />
         <div className="page-content mb-9">
@@ -83,18 +83,18 @@ const Phone: FC = () => {
               <Col xs={24} xl={18} lg={24}>
                 <Text>
                   <h4 className={`text-center mb-5 ${styles.textSecondary}`}>
-                    {t('accountProfile.phone.titleEdit')}
+                    {t('profile.phone.titleEdit')}
                   </h4>
                 </Text>
                 <Row>
                   <Col md={12}>
-                    <HighlightLabel title={t('accountProfile.phone.phoneList')} />
+                    <HighlightLabel title={t('profile.phone.phoneList')} />
                   </Col>
                   <Col md={12} xs={18} className="text-right">
                     <Link href={CustomUrl.href('/settings/account/info/add-phone', router.locale)}>
                       <Button className="hps-btn-secondary mt-3">
                         <i className="fas fa-plus mr-2" />
-                        {t('accountProfile.button.addPhone')}
+                        {t('profile.button.addPhone')}
                       </Button>
                     </Link>
                   </Col>
@@ -104,7 +104,7 @@ const Phone: FC = () => {
                     <Text className={`mr-2 ${styles.textPrimary}`}>081-111-1111</Text>
                     <Button>
                       <i className="fas fa-star mr-2" />
-                      {t('accountProfile.button.mainNumber')}
+                      {t('profile.button.mainNumber')}
                     </Button>
                   </Col>
                 </Row>

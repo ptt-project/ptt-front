@@ -232,7 +232,7 @@ export default {
       editAddress: 'แก้ไขที่อยู่'
     }
   },
-  accountProfile: {
+  profile: {
     form: {
       title: 'บัญชีผู้ใช้',
       setting: 'ตั้งค่า',
@@ -283,11 +283,6 @@ export default {
       sendVerificationCode: 'ส่งรหัสยืนยัน',
       close: 'ปิด',
       deletePhone: 'ลบเบอร์โทร'
-    },
-    rules: {
-      firstName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
-      lastName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
-      email: 'รหัสผ่านไม่ถูกต้อง'
     }
   },
   settingSidebar: {
@@ -351,12 +346,12 @@ export default {
       }
     }
   },
-  shopPoint: {
+  sellerPoint: {
     shop: 'ร้านค้า',
     title: 'คะแนนร้านค้า',
     detail: 'ดู 500 คะแนนล่าสุดที่ร้านค้าได้รับ',
     part: '5',
-    formSearch: {
+    filters: {
       productName: 'ชื่อสินค้า',
       productNameChoice: 'ชื่อตัวเลือกสินค้า',
       date: 'วัน/เดือน/ปี',
