@@ -71,13 +71,13 @@ const Review: FC = () => {
         rate={3}
         detail={replyData.detail}
       />
-      <Row className="mb-5">
-        <Button className="mr-1">{t('sellerPoint.all')}</Button>
-        <Button className="mr-1">{t('sellerPoint.point.five')}</Button>
-        <Button className="mr-1">{t('sellerPoint.point.four')}</Button>
-        <Button className="mr-1">{t('sellerPoint.point.three')}</Button>
-        <Button className="mr-1">{t('sellerPoint.point.two')}</Button>
-        <Button className="mr-1">{t('sellerPoint.point.one')}</Button>
+      <Row className="mb-4">
+        <Button className="mr-1 mb-1">{t('sellerPoint.all')}</Button>
+        <Button className="mr-1 mb-1">{t('sellerPoint.point.five')}</Button>
+        <Button className="mr-1 mb-1">{t('sellerPoint.point.four')}</Button>
+        <Button className="mr-1 mb-1">{t('sellerPoint.point.three')}</Button>
+        <Button className="mr-1 mb-1">{t('sellerPoint.point.two')}</Button>
+        <Button className="mr-1 mb-1">{t('sellerPoint.point.one')}</Button>
       </Row>
       <Row className={`${styles.hrTitleCol} mb-3`}>
         <Col lg={6} xs={7}>
