@@ -175,7 +175,7 @@ const SellerCategory: FC = () => {
               <Row>
                 <Col span={24}>
                   <Table
-                    className="hps-table"
+                    className="hps-table hps-overflow"
                     size="middle"
                     columns={columns}
                     dataSource={dataSource}

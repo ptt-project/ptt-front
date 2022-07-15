@@ -11,7 +11,7 @@ function onChange(key: string): void {
 }
 
 const SellerPointTabs: FC = () => (
-  <Tabs className={styles.tabs} defaultActiveKey="1" onChange={onChange}>
+  <Tabs className={`${styles.tabs} hps-overflow`} defaultActiveKey="1" onChange={onChange}>
     <TabPane tab={t('sellerPoint.all')} key="1">
       <Review />
     </TabPane>
