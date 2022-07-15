@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Button, Row, Col, Form, Input, DatePicker } from 'antd'
 import t from '~/locales'
-import styles from './PointFormSearch.module.scss'
+import styles from './FormSearch.module.scss'
 
 const { RangePicker } = DatePicker
 
@@ -11,7 +11,7 @@ interface IFormModel {
   date: string
 }
 
-const PointFormSearch: FC = () => {
+const FormSearch: FC = () => {
   const [form] = Form.useForm()
 
   function onSubmit(values: IFormModel): void {
@@ -56,4 +56,4 @@ const PointFormSearch: FC = () => {
   )
 }
 
-export default PointFormSearch
+export default FormSearch

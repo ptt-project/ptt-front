@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Typography, Button, Col, Modal, Row, Avatar, Rate, Input, Form } from 'antd'
 import t from '~/locales'
-import styles from './PointReplyModal.module.scss'
+import styles from './ReplyModal.module.scss'
 
 const { Text, Title } = Typography
 const { TextArea } = Input
@@ -19,7 +19,7 @@ interface IFormModel {
   msgReply: string
 }
 
-const PointReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps) => {
+const ReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps) => {
   const [form] = Form.useForm()
 
   function toggle(): void {
@@ -86,4 +86,4 @@ const PointReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps
   )
 }
 
-export default PointReplyModal
+export default ReplyModal
