@@ -24,15 +24,15 @@ const Email: FC = () => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('accountProfile.form.title')}
+          {t('meta.title')} | {t('profile.form.title')}
         </title>
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('accountProfile.form.setting') },
-          { title: t('accountProfile.form.title') },
-          { title: t('accountProfile.form.personalInfo'), href: '/settings/account/info' },
-          { title: t('accountProfile.email.title'), href: '/settings/account/info/email' }
+          { title: t('profile.form.setting') },
+          { title: t('profile.form.title') },
+          { title: t('profile.form.personalInfo'), href: '/settings/account/info' },
+          { title: t('profile.email.title'), href: '/settings/account/info/email' }
         ]}
       />
       <div className="page-content mb-9">
@@ -43,11 +43,11 @@ const Email: FC = () => {
             </Col>
             <Col xl={18} lg={24}>
               <Title className="hps-title" level={4}>
-                {t('accountProfile.email.title')}
+                {t('profile.email.title')}
               </Title>
               <Row className={styles.highlight}>
                 <Col md={{ span: 4, offset: 6 }} xs={8}>
-                  <Text>{t('accountProfile.email.currentEmail')} :</Text>
+                  <Text>{t('profile.email.currentEmail')} :</Text>
                 </Col>
                 <Col md={12} xs={16}>
                   <Text className={styles.textPrimary}>Ne******@gmail.com</Text>
@@ -58,29 +58,37 @@ const Email: FC = () => {
                   <Form layout="vertical" form={form} name="accountEmail" onFinish={onSubmit}>
                     <Row>
                       <Col span={24}>
-                        <Form.Item
-                          label={t('accountProfile.email.currentEmail')}
-                          name="currentEmail"
-                        >
+                        <Form.Item label={t('profile.email.currentEmail')} name="currentEmail">
                           <Input maxLength={50} />
                         </Form.Item>
                       </Col>
                       <Col span={24}>
                         <Form.Item
-                          label={t('accountProfile.email.password')}
+                          label={t('profile.email.password')}
                           name="password"
-                          rules={[{ required: true, message: t('accountProfile.rules.email') }]}
+                          rules={[
+                            {
+                              required: true,
+                              message: `${t('common.form.required')} ${t('profile.form.email')}`
+                            },
+                            {
+                              type: 'email',
+                              message: `${t('common.form.invalid.head')} ${t(
+                                'profile.form.email'
+                              )} ${t('common.form.invalid.tail')}`
+                            }
+                          ]}
                         >
                           <Input.Password />
                         </Form.Item>
                       </Col>
                       <Col span={24} className="text-center mb-5">
-                        <Text type="secondary">{t('accountProfile.email.msgConfirm')}</Text>
+                        <Text type="secondary">{t('profile.email.msgConfirm')}</Text>
                       </Col>
                       <Col span={24}>
                         <Form.Item>
                           <Button htmlType="submit" type="primary" block>
-                            {t('accountProfile.button.confirm')}
+                            {t('profile.button.confirm')}
                           </Button>
                         </Form.Item>
                       </Col>

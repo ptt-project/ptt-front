@@ -1,11 +1,31 @@
+.hps-text-small {
+  font-size: 12px;
+}
+
+.hps-scroll {
+  overflow: auto;
+
+  &::-webkit-scrollbar-track {
+    background-color: $background-dark;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: $white-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $secondary-color;
+    border-radius: 8px;
+  }
+}
+
 .hps-title {
   margin-bottom: 2.5rem !important;
   color: $secondary-color !important;
   text-align: center;
-}
-
-.hps-text-small {
-  font-size: 12px;
 }
 
 .hps-btn-secondary {
@@ -26,8 +46,6 @@
 }
 
 .hps-table {
-  overflow: auto;
-
   th {
     color: $primary-color !important;
     background-color: $white-color !important;
@@ -42,22 +60,6 @@
   th,
   td {
     white-space: nowrap;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: $background-dark;
-    border-radius: 8px;
-  }
-
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-    background-color: $white-color;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: $secondary-color;
-    border-radius: 8px;
   }
 }
 

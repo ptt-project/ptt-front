@@ -12,16 +12,16 @@ const AddPhone: FC = () => (
   <main className="main">
     <Helmet>
       <title>
-        {t('meta.title')} | {t('accountProfile.form.title')}
+        {t('meta.title')} | {t('profile.form.title')}
       </title>
     </Helmet>
     <Breadcrumbs
       items={[
-        { title: t('accountProfile.form.setting') },
-        { title: t('accountProfile.form.title') },
-        { title: t('accountProfile.form.personalInfo'), href: '/settings/account/info' },
-        { title: t('accountProfile.phone.titleEdit'), href: '/settings/account/info/phone' },
-        { title: t('accountProfile.phone.titleAdd'), href: '/settings/account/info/add-phone' }
+        { title: t('profile.form.setting') },
+        { title: t('profile.form.title') },
+        { title: t('profile.form.personalInfo'), href: '/settings/account/info' },
+        { title: t('profile.phone.titleEdit'), href: '/settings/account/info/phone' },
+        { title: t('profile.phone.titleAdd'), href: '/settings/account/info/add-phone' }
       ]}
     />
     <div className="page-content mb-9">
@@ -32,33 +32,33 @@ const AddPhone: FC = () => (
           </Col>
           <Col xl={18} lg={24}>
             <Title className="hps-title" level={4}>
-              {t('accountProfile.phone.titleAdd')}
+              {t('profile.phone.titleAdd')}
             </Title>
             <Form layout="vertical">
               <Row>
                 <Col xl={{ span: 12, offset: 6 }} md={{ span: 12, offset: 6 }}>
                   <Row>
                     <Col span={24}>
-                      <Form.Item label={t('accountProfile.phone.newPhone')} name="phone">
+                      <Form.Item label={t('profile.phone.newPhone')} name="phone">
                         <Input maxLength={10} />
                       </Form.Item>
                     </Col>
                     <Col span={24}>
                       <Form.Item>
                         <Button htmlType="submit" className={styles.textSecondary} block>
-                          {t('accountProfile.button.sendVerificationCode')}
+                          {t('profile.button.sendVerificationCode')}
                         </Button>
                       </Form.Item>
                     </Col>
                     <Col span={24}>
-                      <Form.Item label={t('accountProfile.phone.otp')} name="otp">
+                      <Form.Item label={t('profile.phone.otp')} name="otp">
                         <Input maxLength={10} />
                       </Form.Item>
                     </Col>
                     <Col span={24}>
                       <Form.Item>
                         <Button type="primary" block>
-                          {t('accountProfile.button.addPhone')}
+                          {t('profile.button.addPhone')}
                         </Button>
                       </Form.Item>
                     </Col>

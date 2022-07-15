@@ -2,11 +2,12 @@ import React, { FC, useState } from 'react'
 import { Button, Row, Col, Typography, Avatar, Image, Rate, Pagination } from 'antd'
 import ReplyModal from '../ReplyModal'
 import t from '~/locales'
-import styles from './Detail.module.scss'
+import styles from './Review.module.scss'
 
 const { Text } = Typography
 
 interface IMockData {
+  id: string
   title: string
   orderId: string
   productName: string
@@ -17,6 +18,7 @@ interface IMockData {
 
 const data: IMockData[] = [
   {
+    id: '1',
     title: 'Hannah',
     orderId: '2006306N01XXFD',
     productName: 'ดัมเบลหุ้มยาง 4 กิโลกรัม',
@@ -26,6 +28,7 @@ const data: IMockData[] = [
       'คุณภาพของสินค้าดีมาก ความคุ้มค่าคุ้มราคาดีมาก ความรวดเร็วในการจัดส่งดีมาก แนะนำยี่ห้อนี้ค่ะ'
   },
   {
+    id: '2',
     title: 'Sophia',
     orderId: '2006306N01XXF1',
     productName: 'ดัมเบลหุ้มยาง 3 กิโลกรัม',
@@ -36,9 +39,10 @@ const data: IMockData[] = [
   }
 ]
 
-const Detail: FC = () => {
+const Review: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [replyData, setReplyData] = useState<IMockData>({
+    id: '',
     title: '',
     orderId: '',
     productName: '',
@@ -67,31 +71,31 @@ const Detail: FC = () => {
         rate={3}
         detail={replyData.detail}
       />
-      <Row className="mb-5">
-        <Button className="mr-1">{t('shopPoint.all')}</Button>
-        <Button className="mr-1">{t('shopPoint.point.five')}</Button>
-        <Button className="mr-1">{t('shopPoint.point.four')}</Button>
-        <Button className="mr-1">{t('shopPoint.point.three')}</Button>
-        <Button className="mr-1">{t('shopPoint.point.two')}</Button>
-        <Button className="mr-1">{t('shopPoint.point.one')}</Button>
+      <Row className="mb-4">
+        <Button className="mr-1 mb-1">{t('sellerPoint.all')}</Button>
+        <Button className="mr-1 mb-1">{t('sellerPoint.point.five')}</Button>
+        <Button className="mr-1 mb-1">{t('sellerPoint.point.four')}</Button>
+        <Button className="mr-1 mb-1">{t('sellerPoint.point.three')}</Button>
+        <Button className="mr-1 mb-1">{t('sellerPoint.point.two')}</Button>
+        <Button className="mr-1 mb-1">{t('sellerPoint.point.one')}</Button>
       </Row>
       <Row className={`${styles.hrTitleCol} mb-3`}>
         <Col lg={6} xs={7}>
-          <Text type="danger">{t('shopPoint.productDetail')}</Text>
+          <Text type="danger">{t('sellerPoint.productDetail')}</Text>
         </Col>
         <Col md={12} xs={10}>
-          <Text type="danger">{t('shopPoint.reviewDetail')}</Text>
+          <Text type="danger">{t('sellerPoint.reviewDetail')}</Text>
         </Col>
         <Col lg={6}>
-          <Text type="danger">{t('shopPoint.yourReply')}</Text>
+          <Text type="danger">{t('sellerPoint.yourReply')}</Text>
         </Col>
       </Row>
       <div className={styles.reviewContent}>
         {data?.map((item: IMockData) => (
-          <div className="mb-3">
+          <div key={item.id} className="mb-3">
             <Row className={styles.reviewTitle} align="middle">
               <Col span={18}>
-                <Text>{t('shopPoint.user')}:</Text>
+                <Text>{t('sellerPoint.user')}:</Text>
                 <Avatar
                   className={styles.avatar}
                   size={24}
@@ -101,7 +105,7 @@ const Detail: FC = () => {
               </Col>
               <Col span={6}>
                 <Text className="ml-2" type="secondary">
-                  {t('shopPoint.orderId')}: {item.orderId}
+                  {t('sellerPoint.orderId')}: {item.orderId}
                 </Text>
               </Col>
             </Row>
@@ -120,7 +124,7 @@ const Detail: FC = () => {
               <Col className={styles.replyCol} span={6}>
                 {item.status === 'reply' ? (
                   <Button className="mt-1" onClick={(): void => onReply(item)}>
-                    {t('shopPoint.reply')}
+                    {t('sellerPoint.reply')}
                   </Button>
                 ) : (
                   <Text className={styles.reply}>{item.productName}</Text>
@@ -137,7 +141,7 @@ const Detail: FC = () => {
                 `${range[0]}-${range[1]} ${ofLabel} ${total} ${itemsLabel}`
               }
               total={5}
-              showSizeChanger 
+              showSizeChanger
             />
           </Col>
         </Row>
@@ -146,4 +150,4 @@ const Detail: FC = () => {
   )
 }
 
-export default Detail
+export default Review
