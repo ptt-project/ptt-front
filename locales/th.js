@@ -323,7 +323,9 @@ export default {
         title: 'คำสั่งซื้อ'
       },
       product: {
-        title: 'สินค้า'
+        title: 'สินค้า',
+        my:'สินค้าของฉัน',
+        add:'เพิ่มสินค้าใหม่'
       },
       marketing: {
         title: 'Marketing Centre'
