@@ -45,25 +45,25 @@ const dataSource: IDataType[] = [
 const SellerCategory: FC = () => {
   const columns: ColumnsType<IDataType> = [
     {
-      title: t('shopCategory.table.header.a'),
+      title: t('sellerCategory.table.header.a'),
       dataIndex: 'categoryName',
       key: 'categoryName',
       sorter: (a: IDataType, b: IDataType) => a.categoryName.localeCompare(b.categoryName)
     },
     {
-      title: t('shopCategory.table.header.b'),
+      title: t('sellerCategory.table.header.b'),
       dataIndex: 'createdBy',
       key: 'createdBy',
       sorter: (a: IDataType, b: IDataType) => a.createdBy.localeCompare(b.createdBy)
     },
     {
-      title: t('shopCategory.table.header.c'),
+      title: t('sellerCategory.table.header.c'),
       dataIndex: 'quantity',
       key: 'quantity',
       sorter: (a: IDataType, b: IDataType) => a.quantity - b.quantity
     },
     {
-      title: t('shopCategory.table.header.d'),
+      title: t('sellerCategory.table.header.d'),
       key: 'status',
       render: (text: string, recode: IDataType, index: number): JSX.Element => (
         <Switch
@@ -76,7 +76,7 @@ const SellerCategory: FC = () => {
       sorter: (a: IDataType, b: IDataType) => a.status - b.status
     },
     {
-      title: t('shopCategory.table.header.e'),
+      title: t('sellerCategory.table.header.e'),
       key: 'action',
       render: (text: string, record: IDataType, index: number): JSX.Element => {
         const disabled: boolean = record.quantity > 0
@@ -129,7 +129,7 @@ const SellerCategory: FC = () => {
             alt="register-success"
           />
         </div>
-        <Text type="secondary">{t('shopCategory.table.empty')}</Text>
+        <Text type="secondary">{t('sellerCategory.table.empty')}</Text>
       </div>
     )
   }
@@ -149,8 +149,8 @@ const SellerCategory: FC = () => {
       />
       <ConfirmationModal
         type="error"
-        title={t('shopCategory.modal.remove.title')}
-        content={t('shopCategory.modal.remove.content')}
+        title={t('sellerCategory.modal.remove.title')}
+        content={t('sellerCategory.modal.remove.content')}
         isOpen={isOpen}
         toggle={toggle}
         onSubmit={onConfirmRemove}
@@ -169,7 +169,7 @@ const SellerCategory: FC = () => {
                   </Title>
                 </Col>
                 <Col className="text-right" span={12}>
-                  <Button type="primary">{t('shopCategory.addCategory')}</Button>
+                  <Button type="primary">{t('sellerCategory.addCategory')}</Button>
                 </Col>
               </Row>
               <Row>
