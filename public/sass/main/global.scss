@@ -1,3 +1,9 @@
+.hps-title {
+  margin-bottom: 2.5rem !important;
+  color: $secondary-color !important;
+  text-align: center;
+}
+
 .hps-text-small {
   font-size: 12px;
 }
@@ -130,7 +136,7 @@
         margin-left: -256px;
         transition: margin 0.5s;
         background-color: rgba(0, 0, 0, 0.8);
-        z-index: 1001;
+        z-index: 1000;
 
         ul {
           width: 256px;

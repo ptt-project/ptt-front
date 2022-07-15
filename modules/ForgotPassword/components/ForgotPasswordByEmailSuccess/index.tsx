@@ -5,7 +5,7 @@ import t from '~/locales'
 import { CustomUrl } from '~/utils/main'
 import styles from './ForgotPasswordByEmailSuccess.module.scss'
 
-const { Text } = Typography
+const { Text, Title } = Typography
 
 interface IForgotPasswordByEmailSuccessProps {
   email: string
@@ -32,11 +32,9 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
             </div>
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
-            <Text>
-              <h4 className={`${styles.cSecondary} text-center mb-5`}>
-                {t('auth.forgotPassword.title')}
-              </h4>
-            </Text>
+            <Title className="hps-title" level={4}>
+              {t('auth.forgotPassword.title')}
+            </Title>
             <Row>
               <Col xl={{ span: 12, offset: 6 }} xs={24}>
                 <div className={styles.imgContainer}>

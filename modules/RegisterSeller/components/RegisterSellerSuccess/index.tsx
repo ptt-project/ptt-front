@@ -5,7 +5,7 @@ import t from '~/locales'
 import { CustomUrl } from '~/utils/main'
 import styles from './RegisterSellerSuccess.module.scss'
 
-const { Text } = Typography
+const { Text, Title } = Typography
 
 const RegisterSellerSuccess: FC = () => {
   const router: NextRouter = useRouter()
@@ -26,11 +26,9 @@ const RegisterSellerSuccess: FC = () => {
             </div>
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
-            <Text>
-              <h4 className={`${styles.cSecondary} text-center mb-5`}>
-                {t('auth.registerSeller.success.title')}
-              </h4>
-            </Text>
+            <Title className="hps-title" level={4}>
+              {t('auth.registerSeller.success.title')}
+            </Title>
             <Row>
               <Col xl={{ span: 12, offset: 6 }} xs={24}>
                 <div className={styles.imgContainer}>

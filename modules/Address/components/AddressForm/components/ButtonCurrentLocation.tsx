@@ -26,9 +26,9 @@ const ButtonCurrentLocation: React.FC = () => {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           }
-          //   infoWindow.setPosition(pos)
-          //   infoWindow.setContent('Location found.')
-          //   infoWindow.open(map)
+          // infoWindow.setPosition(pos)
+          // infoWindow.setContent('Location found.')
+          // infoWindow.open(map)
           map.setCenter(pos)
         },
         () => {
@@ -46,4 +46,5 @@ const ButtonCurrentLocation: React.FC = () => {
     </Button>
   )
 }
+
 export default ButtonCurrentLocation

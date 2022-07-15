@@ -13,7 +13,7 @@ import { CustomUrl } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 
-const { Text } = Typography
+const { Text, Title } = Typography
 
 const Address: React.FC = () => {
   const router: NextRouter = useRouter()
@@ -93,10 +93,10 @@ const Address: React.FC = () => {
               md={24}
             >
               <Row>
-                <Col className="mb-4" span={24}>
-                  <Text className={`text-center ${styles.title}`}>
-                    <h4>{t('address.listAddressTitle')}</h4>
-                  </Text>
+                <Col span={24}>
+                  <Title className="hps-title" level={4}>
+                    {t('address.listAddressTitle')}
+                  </Title>
                 </Col>
                 <Col>
                   <Row className={styles.addressListHead}>
@@ -126,12 +126,10 @@ const Address: React.FC = () => {
                   onCancel={deleteAddressVisible.hide}
                   title={
                     <Col span={24}>
-                      <Text>
-                        <h4 className="mb-0 text-center">
-                          <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
-                          {t('address.deleteAddress')}
-                        </h4>
-                      </Text>
+                      <Title className="mb-0" level={4}>
+                        <i className={`${styles.cError} fas fa-info-circle mr-2`} />
+                        {t('address.deleteAddress')}
+                      </Title>
                     </Col>
                   }
                   footer={[

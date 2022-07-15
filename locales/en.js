@@ -362,7 +362,7 @@ export default {
     shop:'ร้านค้า',
     title:'คะแนนร้านค้า',
     detail:'ดู 500 คะแนนล่าสุดที่ร้านค้าได้รับ',
-    part:'/5',
+    part:'5',
     formSearch:{
       productName:'ชื่อสินค้า',
       productNameChoice:'ชื่อตัวเลือกสินค้า',

@@ -16,7 +16,7 @@ import t from '~/locales'
 import { RegExpList } from '~/constants'
 import styles from './RegisterSellerForm.module.scss'
 
-const { Text } = Typography
+const { Text, Title } = Typography
 const { TextArea } = Input
 
 interface IRegisterSellerFormProps {
@@ -93,11 +93,9 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
             </div>
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
-            <Text>
-              <h4 className={`${styles.cSecondary} text-center mb-5`}>
-                {t('auth.registerSeller.title')}
-              </h4>
-            </Text>
+            <Title className="hps-title" level={4}>
+              {t('auth.registerSeller.title')}
+            </Title>
             <Form
               initialValues={{
                 shopType: '0',

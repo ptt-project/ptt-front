@@ -8,6 +8,7 @@ interface IAddressTagFieldProps {
 }
 const AddressTagField: React.FC<IAddressTagFieldProps> = (props: IAddressTagFieldProps) => {
   const { value, onChange } = props
+
   return (
     <Radio.Group className={styles.addressTagRadioButtonGroup} value={value} onChange={onChange}>
       <Radio.Button className={styles.addressTagRadioButton} value="home">

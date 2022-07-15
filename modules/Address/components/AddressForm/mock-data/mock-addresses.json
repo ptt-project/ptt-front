@@ -1,69 +1,69 @@
 [
-    {
-        "id": "1",
-        "addressType": "home",
-        "fullName": "สมชาย ใจดี",
-        "addressDetails": "2034/28 ซ.สุขุมวิท 60/2 ถ.สุขุมวิท แขวงบางจาก",
-        "district": "เขตพระโขนง",
-        "province": "กรุงเทพมหานคร",
-        "postalCode": "10260",
-        "mobileNo": "0800000000",
-        "isDefault": true,
-        "isRefundStore": false,
-        "isStore": false,
-        "location": {
-            "lat": 14.5,
-            "lng": 96.3
-        }
-    },
-    {
-        "id": "2",
-        "addressType": "office",
-        "fullName": "สมชาย2 ใจใจหน่อย",
-        "addressDetails": "2034/28 ซ.สุขุมวิท 60/2 ถ.สุขุมวิท แขวงบางจาก",
-        "district": "เขตพระโขนง",
-        "province": "กรุงเทพมหานคร",
-        "postalCode": "10260",
-        "mobileNo": "0800000000",
-        "isDefault": false,
-        "isRefundStore": true,
-        "isStore": true,
-        "location": {
-            "lat": 14,
-            "lng": 99.3
-        }
-    },
-    {
-        "id": "3",
-        "addressType": "home",
-        "fullName": "สมชาย3 ใจเริ่มไม่ดีละ",
-        "addressDetails": "2034/28 ซ.สุขุมวิท 60/2 ถ.สุขุมวิท แขวงบางจาก",
-        "district": "เขตพระโขนง",
-        "province": "กรุงเทพมหานคร",
-        "postalCode": "10260",
-        "mobileNo": "0800000000",
-        "isDefault": false,
-        "isRefundStore": true,
-        "isStore": false,
-        "location": {
-            "lat": 12.8,
-            "lng": 99.3
-        }
-    },
-    {
-        "id": "4",
-        "fullName": "สมชาย4 ใจ...?",
-        "addressDetails": "2034/28 ซ.สุขุมวิท 60/2 ถ.สุขุมวิท แขวงบางจาก",
-        "district": "เขตพระโขนง",
-        "province": "กรุงเทพมหานคร",
-        "postalCode": "10260",
-        "mobileNo": "0800000000",
-        "isDefault": false,
-        "isRefundStore": false,
-        "isStore": true,
-        "location": {
-            "lat": 13,
-            "lng": 97.3
-        }
+  {
+    "id": "1",
+    "addressType": "home",
+    "fullName": "สมชาย ใจดี",
+    "addressDetails": "2034/28 ซ.สุขุมวิท 60/2 ถ.สุขุมวิท แขวงบางจาก",
+    "district": "เขตพระโขนง",
+    "province": "กรุงเทพมหานคร",
+    "postalCode": "10260",
+    "mobileNo": "0800000000",
+    "isDefault": true,
+    "isRefundStore": false,
+    "isStore": false,
+    "location": {
+      "lat": 14.5,
+      "lng": 96.3
     }
+  },
+  {
+    "id": "2",
+    "addressType": "office",
+    "fullName": "สมชาย2 ใจใจหน่อย",
+    "addressDetails": "2034/28 ซ.สุขุมวิท 60/2 ถ.สุขุมวิท แขวงบางจาก",
+    "district": "เขตพระโขนง",
+    "province": "กรุงเทพมหานคร",
+    "postalCode": "10260",
+    "mobileNo": "0800000000",
+    "isDefault": false,
+    "isRefundStore": true,
+    "isStore": true,
+    "location": {
+      "lat": 14,
+      "lng": 99.3
+    }
+  },
+  {
+    "id": "3",
+    "addressType": "home",
+    "fullName": "สมชาย3 ใจเริ่มไม่ดีละ",
+    "addressDetails": "2034/28 ซ.สุขุมวิท 60/2 ถ.สุขุมวิท แขวงบางจาก",
+    "district": "เขตพระโขนง",
+    "province": "กรุงเทพมหานคร",
+    "postalCode": "10260",
+    "mobileNo": "0800000000",
+    "isDefault": false,
+    "isRefundStore": true,
+    "isStore": false,
+    "location": {
+      "lat": 12.8,
+      "lng": 99.3
+    }
+  },
+  {
+    "id": "4",
+    "fullName": "สมชาย4 ใจ...?",
+    "addressDetails": "2034/28 ซ.สุขุมวิท 60/2 ถ.สุขุมวิท แขวงบางจาก",
+    "district": "เขตพระโขนง",
+    "province": "กรุงเทพมหานคร",
+    "postalCode": "10260",
+    "mobileNo": "0800000000",
+    "isDefault": false,
+    "isRefundStore": false,
+    "isStore": true,
+    "location": {
+      "lat": 13,
+      "lng": 97.3
+    }
+  }
 ]

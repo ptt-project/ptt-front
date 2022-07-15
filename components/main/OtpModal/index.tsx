@@ -5,7 +5,7 @@ import { RegExpList } from '~/constants'
 import { IOtpData } from '~/model/Common'
 import styles from './OtpModal.module.scss'
 
-const { Text } = Typography
+const { Text, Title } = Typography
 
 interface IOtpModalProps {
   isOpen: boolean
@@ -84,12 +84,10 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
   return (
     <Modal
       title={
-        <Text>
-          <h4 className="mb-0 text-center">
-            <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
-            {props.title || t('components.otpModal.title')}
-          </h4>
-        </Text>
+        <Title className="mb-0" level={4}>
+          <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
+          {props.title || t('components.otpModal.title')}
+        </Title>
       }
       visible={props.isOpen}
       onCancel={toggle}

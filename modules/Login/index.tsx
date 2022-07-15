@@ -9,7 +9,7 @@ import { ILoginForm } from '~/model/Auth'
 import { IFieldData } from '~/model/Common'
 import styles from './Login.module.scss'
 
-const { Text, Link } = Typography
+const { Title, Link } = Typography
 
 const Login: FC = () => {
   const router: NextRouter = useRouter()
@@ -30,7 +30,7 @@ const Login: FC = () => {
   function onSubmit(values: ILoginForm): void {
     console.log(values)
   }
-  
+
   return (
     <main className="main">
       <Helmet>
@@ -54,9 +54,9 @@ const Login: FC = () => {
               </div>
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
-              <Text>
-                <h4 className={`${styles.cSecondary} text-center mb-5`}>{t('auth.login.title')}</h4>
-              </Text>
+              <Title className="hps-title" level={4}>
+                {t('auth.login.title')}
+              </Title>
               <Form
                 layout="vertical"
                 name="loginForm"

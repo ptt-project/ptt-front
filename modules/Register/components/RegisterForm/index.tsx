@@ -9,7 +9,7 @@ import { IRegisterForm } from '~/model/Auth'
 import { CustomUrl } from '~/utils/main'
 import styles from './RegisterForm.module.scss'
 
-const { Text, Link } = Typography
+const { Text, Title, Link } = Typography
 
 interface IRegisterFormProps {
   setForm: (form: IRegisterForm) => void
@@ -84,9 +84,9 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
     <>
       <Modal
         title={
-          <Text>
-            <h4 className="mb-0 text-center">{getModalTitle()}</h4>
-          </Text>
+          <Title className="mb-0 text-center" level={4}>
+            {getModalTitle()}
+          </Title>
         }
         width={768}
         visible={!isEmpty(isOpen)}
@@ -116,11 +116,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
               </div>
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
-              <Text>
-                <h4 className={`${styles.cSecondary} text-center mb-5`}>
-                  {t('auth.register.title')}
-                </h4>
-              </Text>
+              <Title className="hps-title">{t('auth.register.title')}</Title>
               <Form layout="vertical" name="registerForm" form={form} onFinish={onSubmit}>
                 <Row gutter={[16, 8]}>
                   <Col md={12} xs={24}>

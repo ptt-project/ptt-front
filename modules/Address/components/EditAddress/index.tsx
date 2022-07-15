@@ -3,7 +3,6 @@ import { Col, Typography, Form, Button, Row, notification } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import AddressForm from '../AddressForm'
-import styles from '../../Address.module.scss'
 import t from '~/locales'
 import { IAddressFormValues } from '~/model/Address'
 import addresses from '../AddressForm/mock-data/mock-addresses.json'
@@ -11,7 +10,7 @@ import { CustomUrl } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 
-const { Text } = Typography
+const { Title } = Typography
 
 const EditAddress: React.FC = () => {
   const router: NextRouter = useRouter()
@@ -75,9 +74,9 @@ const EditAddress: React.FC = () => {
               md={24}
             >
               <Col className="mb-4" span={24}>
-                <Text className={`title title-center ${styles.title}`}>
-                  <h4>{t('address.editAddressTitle')}</h4>
-                </Text>
+                <Title className="hps-title" level={4}>
+                  {t('address.editAddressTitle')}
+                </Title>
               </Col>
               <AddressForm
                 parentForm={form}

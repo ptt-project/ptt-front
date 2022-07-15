@@ -15,9 +15,11 @@ interface IConfirmationModalProps {
 }
 const ConfirmationModal: FC<IConfirmationModalProps> = (props: IConfirmationModalProps) => {
   const [isContentWarning, setContentWarning] = useState<boolean>(false)
+
   useEffect(() => {
     setContentWarning(props.type === 'error')
   }, [])
+
   function toggle(): void {
     props.toggle()
   }
@@ -68,6 +70,10 @@ const ConfirmationModal: FC<IConfirmationModalProps> = (props: IConfirmationModa
       </Col>
     </Modal>
   )
+}
+
+ConfirmationModal.defaultProps = {
+  contentWarning: ''
 }
 
 export default ConfirmationModal

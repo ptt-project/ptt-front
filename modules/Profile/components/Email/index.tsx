@@ -6,7 +6,8 @@ import t from '~/locales'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import styles from './ProfileEmail.module.scss'
 
-const { Text } = Typography
+const { Text, Title } = Typography
+
 interface IFormModel {
   email: string
   password: string
@@ -14,9 +15,11 @@ interface IFormModel {
 
 const Email: FC = () => {
   const [form] = Form.useForm()
+
   function onSubmit(values: IFormModel): void {
     console.log(values)
   }
+
   return (
     <main className="main account">
       <Helmet>
@@ -39,11 +42,9 @@ const Email: FC = () => {
               <SettingSidebar sidebarType="buyer" />
             </Col>
             <Col xl={18} lg={24}>
-              <Text>
-                <h4 className={`text-center mb-5 ${styles.textSecondary}`}>
-                  {t('accountProfile.email.title')}
-                </h4>
-              </Text>
+              <Title className="hps-title" level={4}>
+                {t('accountProfile.email.title')}
+              </Title>
               <Row className={styles.highlight}>
                 <Col md={{ span: 4, offset: 6 }} xs={8}>
                   <Text>{t('accountProfile.email.currentEmail')} :</Text>

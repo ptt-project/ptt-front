@@ -4,15 +4,16 @@ import Helmet from 'react-helmet'
 import { Typography, Row, Col } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import PointFormSearch from '../Point/components/PointFormSearch'
-import PointTabs from '../Point/components/PointTabs'
+import PointFormSearch from './components/PointFormSearch'
+import PointTabs from './components/PointTabs'
 import t from '~/locales'
 import styles from './Point.module.scss'
 
-const { Text } = Typography
+const { Text, Title } = Typography
 
 const Point: FC = () => {
   const router: NextRouter = useRouter()
+
   return (
     <main className="main account">
       <Helmet>
@@ -33,22 +34,29 @@ const Point: FC = () => {
               <SettingSidebar sidebarType="seller" />
             </Col>
             <Col xl={18} lg={24}>
-              <Row>
-                <Col md={20} >
-                  <h4 className={`text-left mb-1 ${styles.textSecondary}`}>{t('shopPoint.title')}</h4>
+              <Row className="mb-3" align="middle">
+                <Col md={20}>
+                  <Title className={`${styles.h4} ${styles.textSecondary}`} level={4}>
+                    {t('shopPoint.title')}
+                  </Title>
                   <Text type="secondary">{t('shopPoint.detail')}</Text>
                 </Col>
                 <Col md={4}>
-                  <Row>
-                    <h2><Text type="danger">5.0</Text></h2>
-                    <h4 className="mt-2">
-                      <Text type="secondary">{t('shopPoint.part')}</Text>
-                    </h4>
-                  </Row>
+                  <div className={styles.point}>
+                    <Title className={styles.h1} type="danger" level={1}>
+                      5.0
+                    </Title>
+                    <Title className={`${styles.h4} ${styles.space}`} type="secondary" level={4}>
+                      /
+                    </Title>
+                    <Title className={styles.h4} type="secondary" level={4}>
+                      {t('shopPoint.part')}
+                    </Title>
+                  </div>
                 </Col>
               </Row>
-              <PointFormSearch/>
-              <PointTabs/>
+              <PointFormSearch />
+              <PointTabs />
             </Col>
           </Row>
         </div>

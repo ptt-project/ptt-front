@@ -23,7 +23,7 @@ import { CustomUrl } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import styles from './Profile.module.scss'
 
-const { Text } = Typography
+const { Text, Title } = Typography
 
 interface IFormModel {
   firstName: string
@@ -66,11 +66,9 @@ const Profile: FC = () => {
               <SettingSidebar sidebarType="buyer" />
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 2 }} md={24}>
-              <Text>
-                <h4 className={`text-center mb-5 ${styles.textSecondary}`}>
-                  {t('accountProfile.form.title')}
-                </h4>
-              </Text>
+              <Title className="hps-title" level={4}>
+                {t('accountProfile.form.title')}
+              </Title>
               <HighlightLabel title={t('accountProfile.form.personalInfo')} />
               <Form layout="vertical" form={form} name="accountProfile" onFinish={onSubmit}>
                 <Row className={styles.highlight} gutter={[16, 16]} align="middle">
