@@ -14,7 +14,7 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 
-const { Text, Link } = Typography
+const { Text, Title, Link } = Typography
 
 const Address: React.FC = () => {
   const router: NextRouter = useRouter()
@@ -67,7 +67,7 @@ const Address: React.FC = () => {
   )
 
   return (
-    <main className="main account">
+    <main className="main">
       <Helmet>
         <title>
           {t('meta.title')} | {t('address.listAddressTitle')}
@@ -97,10 +97,10 @@ const Address: React.FC = () => {
               xs={24}
             >
               <Row>
-                <Col className="mb-4" span={24}>
-                  <Text className={`text-center ${styles.title}`}>
-                    <h4>{t('address.listAddressTitle')}</h4>
-                  </Text>
+                <Col span={24}>
+                  <Title className="hps-title" level={4}>
+                    {t('address.listAddressTitle')}
+                  </Title>
                 </Col>
                 <Col span={24}>
                   <Row className={styles.addressListHead}>
@@ -163,12 +163,10 @@ const Address: React.FC = () => {
                   onCancel={deleteAddressVisible.hide}
                   title={
                     <Col span={24}>
-                      <Text>
-                        <h4 className="mb-0 text-center">
-                          <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
-                          {t('address.deleteAddress')}
-                        </h4>
-                      </Text>
+                      <Title className="mb-0" level={4}>
+                        <i className={`${styles.cError} fas fa-info-circle mr-2`} />
+                        {t('address.deleteAddress')}
+                      </Title>
                     </Col>
                   }
                   footer={[

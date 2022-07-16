@@ -1,10 +1,9 @@
 @import '../../public/sass/config/variables';
 
-.title {
-  > h4 {
-    color: $secondary-color;
-  }
+.cError {
+  color: $error-color;
 }
+
 .addressListHead {
   align-items: center;
   .highlightLabel {

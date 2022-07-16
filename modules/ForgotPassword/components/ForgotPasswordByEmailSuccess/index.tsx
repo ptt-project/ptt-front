@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
-import { useRouter, NextRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import { Typography, Space, Button, Image, Row, Col } from 'antd'
 import t from '~/locales'
 import { CustomUrl } from '~/utils/main'
 import styles from './ForgotPasswordByEmailSuccess.module.scss'
 
-const { Text } = Typography
+const { Text, Title } = Typography
 
 interface IForgotPasswordByEmailSuccessProps {
   email: string
@@ -25,25 +25,21 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
               <Image
                 rootClassName={styles.imgWrapper}
                 preview={false}
-                width="100%"
                 src="./images/main/buyer/forgot-password.png"
                 alt="forgot-password"
               />
             </div>
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
-            <Text>
-              <h4 className={`${styles.cSecondary} text-center mb-5`}>
-                {t('auth.forgotPassword.title')}
-              </h4>
-            </Text>
+            <Title className="hps-title" level={4}>
+              {t('auth.forgotPassword.title')}
+            </Title>
             <Row>
               <Col xl={{ span: 12, offset: 6 }} xs={24}>
                 <div className={styles.imgContainer}>
                   <Image
                     rootClassName={styles.imgWrapper}
                     preview={false}
-                    width="100%"
                     src="./images/main/buyer/forgot-password-success.png"
                     alt="forgot-password-success"
                   />

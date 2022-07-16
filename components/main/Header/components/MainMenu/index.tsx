@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { useRouter, NextRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import ALink from '~/components/features/custom-link'
 import { mainMenu } from '~/utils/data/menu'
 import t from '~/locales'

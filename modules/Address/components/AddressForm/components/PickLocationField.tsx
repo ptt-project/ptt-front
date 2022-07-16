@@ -103,4 +103,5 @@ PickLocationField.defaultProps = {
   value: undefined,
   onChange: undefined
 }
+
 export default PickLocationField

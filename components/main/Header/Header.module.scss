@@ -31,11 +31,13 @@
 }
 
 .telNo {
-  margin-top: -0.25rem;
+  margin-top: -0.25rem !important;
+  margin-bottom: 0 !important;
   line-height: 1 !important;
 }
 
 .search {
+  flex: 1;
   margin-right: 3rem;
 
   @media (max-width: 575px) {

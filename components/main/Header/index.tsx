@@ -1,5 +1,5 @@
 import React, { useEffect, FC } from 'react'
-import { useRouter, NextRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import { Typography, Input } from 'antd'
 import MainMenu from './components/MainMenu'
 import { HiddenHeader } from '~/constants'
@@ -7,7 +7,7 @@ import { headerBorderRemoveList } from '~/utils/data/menu'
 import t from '~/locales'
 import styles from './Header.module.scss'
 
-const { Text, Link } = Typography
+const { Text, Link, Title } = Typography
 
 const Header: FC = () => {
   const router: NextRouter = useRouter()
@@ -98,9 +98,9 @@ const Header: FC = () => {
               </div>
               <div className="icon-box-content d-lg-show">
                 <Text className="hps-text-small">{t('components.header.middle.tel.title')}</Text>
-                <Text>
-                  <h5 className={styles.telNo}>{t('components.header.middle.tel.no')}</h5>
-                </Text>
+                <Title className={styles.telNo} level={5}>
+                  {t('components.header.middle.tel.no')}
+                </Title>
               </div>
             </Link>
           </div>

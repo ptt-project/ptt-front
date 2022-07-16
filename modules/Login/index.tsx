@@ -1,5 +1,5 @@
 import React, { useState, FC } from 'react'
-import { useRouter, NextRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image } from 'antd'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
@@ -9,7 +9,7 @@ import { ILoginForm } from '~/model/Auth'
 import { IFieldData } from '~/model/Common'
 import styles from './Login.module.scss'
 
-const { Text, Link } = Typography
+const { Title, Link } = Typography
 
 const Login: FC = () => {
   const router: NextRouter = useRouter()
@@ -30,7 +30,7 @@ const Login: FC = () => {
   function onSubmit(values: ILoginForm): void {
     console.log(values)
   }
-  
+
   return (
     <main className="main">
       <Helmet>
@@ -47,16 +47,15 @@ const Login: FC = () => {
                 <Image
                   rootClassName={styles.imgWrapper}
                   preview={false}
-                  width="100%"
                   src="./images/main/buyer/login.png"
                   alt="login"
                 />
               </div>
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
-              <Text>
-                <h4 className={`${styles.cSecondary} text-center mb-5`}>{t('auth.login.title')}</h4>
-              </Text>
+              <Title className="hps-title" level={4}>
+                {t('auth.login.title')}
+              </Title>
               <Form
                 layout="vertical"
                 name="loginForm"

@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
-import { useRouter, NextRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import { Typography, Button, Row, Col, Image } from 'antd'
 import t from '~/locales'
 import { CustomUrl } from '~/utils/main'
 import styles from './RegisterSuccess.module.scss'
 
-const { Text } = Typography
+const { Text, Title } = Typography
 
 const RegisterSuccess: FC = () => {
   const router: NextRouter = useRouter()
@@ -19,25 +19,21 @@ const RegisterSuccess: FC = () => {
               <Image
                 rootClassName={styles.imgWrapper}
                 preview={false}
-                width="100%"
                 src="./images/main/buyer/register-form.png"
                 alt="register-form"
               />
             </div>
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
-            <Text>
-              <h4 className={`${styles.cSecondary} text-center mb-5`}>
-                {t('auth.register.success.title')}
-              </h4>
-            </Text>
+            <Title className="hps-title" level={4}>
+              {t('auth.register.success.title')}
+            </Title>
             <Row>
               <Col xl={{ span: 12, offset: 6 }} xs={24}>
                 <div className={styles.imgContainer}>
                   <Image
                     rootClassName={styles.imgWrapper}
                     preview={false}
-                    width="100%"
                     src="./images/main/buyer/register-success.png"
                     alt="register-success"
                   />

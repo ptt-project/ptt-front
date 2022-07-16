@@ -14,7 +14,7 @@ import AddressCheckboxField from './components/AddressCheckboxField'
 import { IAddressFormValues } from '~/model/Address'
 import { useVisible } from '~/utils/main/custom-hook'
 
-const { Text } = Typography
+const { Text, Title } = Typography
 
 const provinceOptions: DefaultOptionType[] = provinceData.map((d: any) => ({
   label: d.name_th,
@@ -228,17 +228,14 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
         </Row>
       </Form>
       <Modal
-        className={styles.hintModal}
         visible={hintModalVisible.visible}
         onCancel={hintModalVisible.hide}
         title={
           <Col span={24}>
-            <Text>
-              <h4 className="mb-0 text-center">
-                <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
-                {hintModalData?.title}
-              </h4>
-            </Text>
+            <Title className="mb-0" level={4}>
+              <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
+              {hintModalData?.title}
+            </Title>
           </Col>
         }
         footer={[

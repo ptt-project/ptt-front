@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
-import { Typography, Button, Row, Col } from 'antd'
+import { Typography, Button, Row, Col, Space } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
@@ -36,6 +36,10 @@ const Phone: FC = () => {
     setIsOpen(true)
   }
 
+  function onRemove(): void {
+    console.log('reomove')
+  }
+
   function onSubmit(otpData: IOtpData): void {
     try {
       console.log(otpData)
@@ -43,6 +47,7 @@ const Phone: FC = () => {
       console.log(error)
     }
   }
+
   return (
     <>
       <OtpModal mobileNo="12346" isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
@@ -50,22 +55,23 @@ const Phone: FC = () => {
         isOpen={isOpenDelPhoneModal}
         toggle={toggleDelPhoneModal}
         type="error"
-        title={t('accountProfile.phone.deletePhone')}
-        content={`${t('accountProfile.phone.confirmDelete')}081-2226666`}
-        contentWarning={t('accountProfile.phone.msgConfirmDelete')}
+        title={t('profile.phone.deletePhone')}
+        content={`${t('profile.phone.confirmDelete')} 081-2226666`}
+        contentWarning={t('profile.phone.msgConfirmDelete')}
+        onSubmit={onRemove}
       />
-      <main className="main account">
+      <main className="main">
         <Helmet>
           <title>
-            {t('meta.title')} | {t('accountProfile.form.title')}
+            {t('meta.title')} | {t('profile.form.title')}
           </title>
         </Helmet>
         <Breadcrumbs
           items={[
-            { title: t('accountProfile.form.setting') },
-            { title: t('accountProfile.form.title') },
-            { title: t('accountProfile.form.personalInfo'), href: '/settings/account/info' },
-            { title: t('accountProfile.phone.titleEdit'), href: '/settings/account/info/phone' }
+            { title: t('profile.form.setting') },
+            { title: t('profile.form.title') },
+            { title: t('profile.form.personalInfo'), href: '/settings/account/info' },
+            { title: t('profile.phone.titleEdit'), href: '/settings/account/info/phone' }
           ]}
         />
         <div className="page-content mb-9">
@@ -77,18 +83,18 @@ const Phone: FC = () => {
               <Col xs={24} xl={18} lg={24}>
                 <Text>
                   <h4 className={`text-center mb-5 ${styles.textSecondary}`}>
-                    {t('accountProfile.phone.titleEdit')}
+                    {t('profile.phone.titleEdit')}
                   </h4>
                 </Text>
                 <Row>
                   <Col md={12}>
-                    <HighlightLabel title={t('accountProfile.phone.phoneList')} />
+                    <HighlightLabel title={t('profile.phone.phoneList')} />
                   </Col>
                   <Col md={12} xs={18} className="text-right">
                     <Link href={CustomUrl.href('/settings/account/info/add-phone', router.locale)}>
                       <Button className="hps-btn-secondary mt-3">
                         <i className="fas fa-plus mr-2" />
-                        {t('accountProfile.button.addPhone')}
+                        {t('profile.button.addPhone')}
                       </Button>
                     </Link>
                   </Col>
@@ -98,19 +104,23 @@ const Phone: FC = () => {
                     <Text className={`mr-2 ${styles.textPrimary}`}>081-111-1111</Text>
                     <Button>
                       <i className="fas fa-star mr-2" />
-                      {t('accountProfile.button.mainNumber')}
+                      {t('profile.button.mainNumber')}
                     </Button>
                   </Col>
                 </Row>
-                <Row>
-                  <Col md={{ span: 6, offset: 2 }} xs={{ span: 12, offset: 1 }}>
+                <Row className={styles.phoneListWrapper}>
+                  <Col sm={{ span: 12, offset: 2 }} xs={12}>
                     <Text className={`${styles.textPrimary}`}>081-111-2222</Text>
                   </Col>
-                  <Col md={13} xs={10}>
-                    <div className="text-right">
-                      <i className="fas fa-star mr-2" onClick={onFavoritePhone} />
-                      <i className="fas fa-trash-alt mr-2" onClick={onDelPhoneModal} />
-                    </div>
+                  <Col sm={8} xs={12} className="text-right">
+                    <Space size="middle">
+                      <a onClick={onFavoritePhone} aria-hidden="true">
+                        <i className="fas fa-star" />
+                      </a>
+                      <a onClick={onDelPhoneModal} aria-hidden="true">
+                        <i className="fas fa-trash-alt" />
+                      </a>
+                    </Space>
                   </Col>
                 </Row>
               </Col>

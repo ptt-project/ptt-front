@@ -1,5 +1,9 @@
 @import '../../../../public/sass/config/variables';
 
+.cInfo {
+  color: $info-color;
+}
+
 .form {
   .addressDetails {
     > textarea {
@@ -27,26 +31,15 @@
     border: unset !important;
     padding: unset;
   }
+
   label::before {
     display: none !important;
   }
 }
 
-.hintModal {
-  .ant-modal-content {
-    > div {
-      .ant-modal-header {
-        border-bottom: unset;
-      }
-      .ant-modal-footer {
-        border-top: unset;
-      }
-    }
-  }
-}
-
 .checkBoxLayout {
   width: 100%;
+  
   .hint {
     padding: 0;
   }

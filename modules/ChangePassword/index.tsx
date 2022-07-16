@@ -4,7 +4,6 @@ import { FormInstance, Rule, RuleObject, RuleRender } from 'antd/lib/form'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import t from '~/locales'
-import styles from './ChangePassword.module.scss'
 import OtpModal from '~/components/main/OtpModal'
 import { IOtpData } from '~/model/Common'
 import { CustomUrl } from '~/utils/main'
@@ -12,7 +11,7 @@ import { RegExpList } from '~/constants'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 
-const { Text } = Typography
+const { Text, Title } = Typography
 const user: any = {
   mobileNo: '0901234567'
 }
@@ -29,10 +28,18 @@ const ChangePassword: React.FC = () => {
   const [form] = Form.useForm<IChangePasswordFormValues>()
   const [formValues, setFormValues] = useState<IChangePasswordFormValues>()
 
-  const passwordFormatInValid: string = t('auth.changePassword.error.passwordFormatInValid')
-  const confirmPasswordNotMatchedMessage: string = t(
-    'auth.changePassword.error.confirmPasswordNotMatched'
-  )
+  const requiredPassword: string = `${t('common.form.required')} ${t(
+    'auth.changePassword.password'
+  )}` // prevent error hook rules
+  const requiredNewPassword: string = `${t('common.form.required')} ${t(
+    'auth.changePassword.newPassword'
+  )}` // prevent error hook rules
+  const invalidPassword: string = `${t('common.form.invalid.head')} ${t(
+    'auth.changePassword.newPassword'
+  )} ${t('common.form.invalid.tail')}` // prevent error hook rules
+  const notMatchPassword: string = `${t('auth.changePassword.confirmNewPassword')} ${t(
+    'common.form.notMatch'
+  )}` // prevent error hook rules
 
   function onSubmit(values: IChangePasswordFormValues): void {
     setFormValues(values)
@@ -63,7 +70,7 @@ const ChangePassword: React.FC = () => {
       if (!value || RegExpList.CHECK_PASSWORD.test(value)) {
         return Promise.resolve()
       }
-      return Promise.reject(new Error(passwordFormatInValid))
+      return Promise.reject(new Error(invalidPassword))
     }
   })
 
@@ -73,7 +80,7 @@ const ChangePassword: React.FC = () => {
     validator(_: Rule, confirmNewPassword: string): Promise<void> {
       const newPassword: string = getFieldValue('newPassword')
       if (newPassword && confirmNewPassword && newPassword !== confirmNewPassword) {
-        return Promise.reject(confirmPasswordNotMatchedMessage)
+        return Promise.reject(notMatchPassword)
       }
       return Promise.resolve()
     }
@@ -82,13 +89,13 @@ const ChangePassword: React.FC = () => {
   const baseRules: Rule[] = [
     {
       required: true,
-      message: 'Required'
+      message: requiredNewPassword
     },
     validatePasswordFormat
   ]
 
   return (
-    <main className="main account">
+    <main className="main">
       <Helmet>
         <title>
           {t('meta.title')} | {t('auth.changePassword.title')}
@@ -104,72 +111,79 @@ const ChangePassword: React.FC = () => {
           }
         ]}
       />
+      <OtpModal mobileNo={user.mobileNo} isOpen={isOpen} toggle={toggle} onSubmit={onSubmitOtp} />
       <div className="page-content mb-9">
         <div className="container">
           <Row>
-            <Col xl={6} lg={0}>
+            <Col xl={6}>
               <SettingSidebar sidebarType="buyer" />
             </Col>
             <Col
               className="mx-auto"
-              xl={{ span: 15, offset: 1 }}
-              lg={{ span: 18, offset: 3 }}
+              lg={{ span: 8, offset: 8 }}
+              md={{ span: 12, offset: 6 }}
               sm={24}
-              xs={24}
             >
-              <Row className={`${styles.page}`}>
-                <Col className="mb-4" span={24}>
-                  <Text className={styles.title} type="secondary">
-                    <h4>{t('auth.changePassword.title')}</h4>
-                  </Text>
+              <Row>
+                <Col span={24}>
+                  <Title className="hps-title" level={4}>
+                    {t('auth.changePassword.title')}
+                  </Title>
                 </Col>
-                <Form layout="vertical" form={form} onFinish={onSubmit} requiredMark={false}>
-                  <Form.Item
-                    label={t('auth.changePassword.password')}
-                    name="password"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Required'
-                      }
-                    ]}
-                  >
-                    <Input.Password maxLength={20} />
-                  </Form.Item>
-                  <Form.Item
-                    label={t('auth.changePassword.newPassword')}
-                    name="newPassword"
-                    rules={[...baseRules]}
-                  >
-                    <Input.Password maxLength={20} />
-                  </Form.Item>
-                  <Form.Item
-                    label={t('auth.changePassword.confirmNewPassword')}
-                    name="confirmNewPassword"
-                    dependencies={['newPassword']}
-                    rules={[...baseRules, validateConfirmPasswordMatched]}
-                  >
-                    <Input.Password maxLength={20} />
-                  </Form.Item>
-                  <Space />
-                  <Form.Item>
-                    <Text className={styles.description}>
-                      {t('auth.changePassword.description')}
-                    </Text>
-                  </Form.Item>
-                  <Form.Item>
-                    <Button type="primary" htmlType="submit" size="large" block>
-                      {t('auth.changePassword.button.submit')}
-                    </Button>
-                  </Form.Item>
-                </Form>
-
-                <OtpModal
-                  mobileNo={user.mobileNo}
-                  isOpen={isOpen}
-                  toggle={toggle}
-                  onSubmit={onSubmitOtp}
-                />
+                <Col span={24}>
+                  <Form layout="vertical" form={form} onFinish={onSubmit} requiredMark={false}>
+                    <Form.Item
+                      label={t('auth.changePassword.password')}
+                      name="password"
+                      rules={[
+                        {
+                          required: true,
+                          message: requiredPassword
+                        }
+                      ]}
+                    >
+                      <Input.Password maxLength={20} />
+                    </Form.Item>
+                    <Form.Item
+                      label={t('auth.changePassword.newPassword')}
+                      name="newPassword"
+                      rules={[...baseRules]}
+                    >
+                      <Input.Password maxLength={20} />
+                    </Form.Item>
+                    <Form.Item
+                      label={t('auth.changePassword.confirmNewPassword')}
+                      name="confirmNewPassword"
+                      dependencies={['newPassword']}
+                      rules={[...baseRules, validateConfirmPasswordMatched]}
+                    >
+                      <Input.Password maxLength={20} />
+                    </Form.Item>
+                    <Space />
+                    <Form.Item>
+                      <Text type="secondary" className="hps-text-small d-block">
+                        {t('auth.register.form.passwordHintA')}
+                      </Text>
+                      <Text type="secondary" className="hps-text-small d-block">
+                        {t('auth.register.form.passwordHintB')}
+                      </Text>
+                      <Text type="secondary" className="hps-text-small d-block">
+                        {t('auth.register.form.passwordHintC')}
+                      </Text>
+                      <Text type="secondary" className="hps-text-small d-block">
+                        {t('auth.register.form.passwordHintD')}
+                      </Text>
+                      <Text type="secondary" className="hps-text-small d-block">
+                        {t('auth.register.form.passwordHintE')}
+                      </Text>
+                    </Form.Item>
+                    <Form.Item>
+                      <Button type="primary" htmlType="submit" size="large" block>
+                        {t('common.confirm')}
+                      </Button>
+                    </Form.Item>
+                  </Form>
+                </Col>
               </Row>
             </Col>
           </Row>

@@ -2,6 +2,32 @@
   font-size: 12px;
 }
 
+.hps-scroll {
+  overflow: auto;
+
+  &::-webkit-scrollbar-track {
+    background-color: $background-dark;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: $white-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $secondary-color;
+    border-radius: 8px;
+  }
+}
+
+.hps-title {
+  margin-bottom: 2.5rem !important;
+  color: $secondary-color !important;
+  text-align: center;
+}
+
 .hps-btn-secondary {
   color: $secondary-color;
   border-color: $secondary-color;
@@ -10,6 +36,30 @@
   &:focus {
     color: $secondary-color-dark;
     border-color: $secondary-color-dark;
+  }
+}
+
+.hps-switch {
+  &.ant-switch-checked {
+    background: $info-color;
+  }
+}
+
+.hps-table {
+  th {
+    color: $primary-color !important;
+    background-color: $white-color !important;
+    border-color: $primary-color !important;
+
+    &:hover,
+    &:focus {
+      background-color: $error-color-light !important;
+    }
+  }
+
+  th,
+  td {
+    white-space: nowrap;
   }
 }
 
@@ -96,9 +146,9 @@
   .ss-open {
     display: none;
     position: fixed;
-    top: 50%;
+    top: 30%;
     left: 0;
-    transform: translate(0, -50%);
+    transform: translate(0, -30%);
     animation: fadeIn 0.5s;
     z-index: 1;
     box-shadow: $box-shadow;
@@ -130,7 +180,7 @@
         margin-left: -256px;
         transition: margin 0.5s;
         background-color: rgba(0, 0, 0, 0.8);
-        z-index: 1001;
+        z-index: 1000;
 
         ul {
           width: 256px;

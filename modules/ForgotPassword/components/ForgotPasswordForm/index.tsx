@@ -7,7 +7,7 @@ import { IFieldData } from '~/model/Common'
 import { IForgotPasswordForm } from '~/model/Auth'
 import styles from './ForgotPasswordForm.module.scss'
 
-const { Text } = Typography
+const { Title } = Typography
 
 interface IForgotPasswordFormProps {
   onSubmit: (values: IForgotPasswordForm) => void
@@ -44,18 +44,15 @@ const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPassword
               <Image
                 rootClassName={styles.imgWrapper}
                 preview={false}
-                width="100%"
                 src="./images/main/buyer/forgot-password.png"
                 alt="forgot-password"
               />
             </div>
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
-            <Text>
-              <h4 className={`${styles.cSecondary} text-center mb-5`}>
-                {t('auth.forgotPassword.title')}
-              </h4>
-            </Text>
+            <Title className="hps-title" level={4}>
+              {t('auth.forgotPassword.title')}
+            </Title>
             <Form
               layout="vertical"
               name="forgotPasswordForm"

@@ -18,7 +18,9 @@ export default {
     close: 'ปิด',
     confirm: 'ยืนยัน',
     save: 'บันทึก',
-    send:'ส่ง',
+    send: 'ส่ง',
+    add: 'เพิ่ม',
+    remove: 'ลบ',
     form: {
       option: '---------- เลือก ----------',
       required: 'กรุณาระบุ',
@@ -34,11 +36,16 @@ export default {
         head: 'รองรับตัวอักษรสูงสุด',
         tail: 'ตัวอักษร'
       },
+      notMatch: 'ไม่ตรงกัน',
       notFound: {
         head: 'ไม่พบ',
         tail: 'ในระบบ'
       },
       unique: 'นี้มีอยู่ในระบบแล้ว'
+    },
+    pagination: {
+      of: 'จาก',
+      items: 'รายการ'
     }
   },
   components: {
@@ -119,20 +126,10 @@ export default {
       password: 'รหัสผ่านปัจจุบัน',
       newPassword: 'รหัสผ่านใหม่',
       confirmNewPassword: 'ยืนยันรหัสผ่านใหม่',
-      description:
-        'ใช้ได้เฉพาะตัวอักษรภาษาอังกฤษ ตัวเลขอารบิกและเครื่องหมายปกติ ความยาว 8-20 ตัวอักษร ประกอบด้วย ตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว ตัวพิมพ์เล็กอย่างน้อย 1 ตัว ตัวเลขอย่างน้อย 1 ตัว',
-      button: {
-        submit: 'ยืนยัน'
-      },
       breadcrumbs: {
         setting: 'ตั้งค่า',
         account: 'บัญชีผู้ใช้',
         changePassword: 'เปลี่ยนรหัสผ่าน'
-      },
-      error: {
-        passwordInValid: 'รหัสผ่านไม่ถูกต้อง',
-        passwordFormatInValid: 'รูปแบบรหัสผ่านไม่ถูกต้อง',
-        confirmPasswordNotMatched: 'ยืนยันรหัสผ่านไม่ตรงกัน'
       }
     },
     register: {
@@ -236,7 +233,7 @@ export default {
       editAddress: 'แก้ไขที่อยู่'
     }
   },
-  accountProfile: {
+  profile: {
     form: {
       title: 'บัญชีผู้ใช้',
       setting: 'ตั้งค่า',
@@ -287,11 +284,6 @@ export default {
       sendVerificationCode: 'ส่งรหัสยืนยัน',
       close: 'ปิด',
       deletePhone: 'ลบเบอร์โทร'
-    },
-    rules: {
-      firstName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
-      lastName: 'รองรับตัวอักษรสูงสุด 50 ตัวอักษร',
-      email: 'รหัสผ่านไม่ถูกต้อง'
     }
   },
   settingSidebar: {
@@ -355,34 +347,53 @@ export default {
       }
     }
   },
-  shopPoint:{
-    shop:'ร้านค้า',
-    title:'คะแนนร้านค้า',
-    detail:'ดู 500 คะแนนล่าสุดที่ร้านค้าได้รับ',
-    part:'/5',
-    formSearch:{
-      productName:'ชื่อสินค้า',
-      productNameChoice:'ชื่อตัวเลือกสินค้า',
-      date:'วัน/เดือน/ปี',
-      search:'ค้นหา',
-      reset:'รีเซ็ต'
+  sellerPoint: {
+    shop: 'ร้านค้า',
+    title: 'คะแนนร้านค้า',
+    detail: 'ดู 500 คะแนนล่าสุดที่ร้านค้าได้รับ',
+    part: '5',
+    filters: {
+      productName: 'ชื่อสินค้า',
+      productNameChoice: 'ชื่อตัวเลือกสินค้า',
+      date: 'วัน/เดือน/ปี',
+      search: 'ค้นหา',
+      reset: 'รีเซ็ต'
     },
-    all:'ทั้งหมด',
-    waitingForReply:'รอการตอบกลับ',
-    replied:'ตอบกลับแล้ว',
-    point:{
-      one:'1 ดาว',
-      two:'2 ดาว',
-      three:'3 ดาว',
-      four:'4 ดาว',
-      five:'5 ดาว',
+    all: 'ทั้งหมด',
+    waitingForReply: 'รอการตอบกลับ',
+    replied: 'ตอบกลับแล้ว',
+    point: {
+      one: '1 ดาว',
+      two: '2 ดาว',
+      three: '3 ดาว',
+      four: '4 ดาว',
+      five: '5 ดาว'
     },
-    productDetail:'รายละเอียดสินค้า',
-    reviewDetail:'รายละเอียดการรีวิว',
-    yourReply:'การตอบกลับของคุณ',
-    reply:'ตอบกลับ',
-    user:'ชื่อผู้ใช้',
-    orderID:'Order ID',
-    msgReply:'ข้อความตอบกลับ'
+    productDetail: 'รายละเอียดสินค้า',
+    reviewDetail: 'รายละเอียดการรีวิว',
+    yourReply: 'การตอบกลับของคุณ',
+    reply: 'ตอบกลับ',
+    user: 'ชื่อผู้ใช้',
+    orderId: 'Order ID',
+    msgReply: 'ข้อความตอบกลับ'
+  },
+  sellerCategory: {
+    addCategory: 'เพิ่มหมวดหมู่',
+    table: {
+      header: {
+        a: 'ชื่อหมวดหมู่สินค้า',
+        b: 'สร้างโดย',
+        c: 'สินค้า',
+        d: 'แสดงที่หน้าร้าน',
+        e: 'ดำเนินการ'
+      },
+      empty: 'ไม่พบสินค้า'
+    },
+    modal: {
+      remove: {
+        title: 'ลบหมวดหมู่',
+        content: 'ยืนยันการลบหมวดหมู่สินค้าหรือไม่'
+      }
+    }
   }
 }

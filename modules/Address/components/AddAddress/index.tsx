@@ -3,14 +3,13 @@ import { Col, Typography, Form, Button, Row, notification } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import AddressForm from '../AddressForm'
-import styles from '../../Address.module.scss'
 import t from '~/locales'
 import { IAddressFormValues } from '~/model/Address'
 import { CustomUrl } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 
-const { Text } = Typography
+const { Title } = Typography
 
 const AddAddress: React.FC = () => {
   const router: NextRouter = useRouter()
@@ -37,7 +36,7 @@ const AddAddress: React.FC = () => {
   }
 
   return (
-    <main className="main account">
+    <main className="main">
       <Helmet>
         <title>
           {t('meta.title')} | {t('address.addAddressTitle')}
@@ -65,10 +64,10 @@ const AddAddress: React.FC = () => {
               lg={{ span: 18, offset: 3 }}
               sm={24}
             >
-              <Col className="mb-4" span={24}>
-                <Text className={`title title-center ${styles.title}`}>
-                  <h4>{t('address.addAddressTitle')}</h4>
-                </Text>
+              <Col span={24}>
+                <Title className="hps-title" level={4}>
+                  {t('address.addAddressTitle')}
+                </Title>
               </Col>
               <AddressForm parentForm={form} onSubmit={onSubmit} isSeller={false} />
               <Row className="flex-1 mt-5" gutter={[24, 0]}>
