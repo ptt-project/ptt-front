@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { Typography, Row, Col, Button,Progress } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
@@ -12,8 +11,6 @@ import styles from './SellerMyProducts.module.scss'
 const { Text, Title } = Typography
 
 const SellerMyProduct: FC = () => {
-  const router: NextRouter = useRouter()
-
   return (
     <main className="main">
       <Helmet>

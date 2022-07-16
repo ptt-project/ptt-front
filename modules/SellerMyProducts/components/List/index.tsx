@@ -1,47 +1,97 @@
 import React, { FC, useState } from 'react'
-import { Button, Row, Col, Typography, Avatar, Image, Rate, Pagination } from 'antd'
+import { Typography, Table,Space } from 'antd'
+import type { ColumnsType, TableProps } from 'antd/es/table'
 import t from '~/locales'
 import styles from './List.module.scss'
 
 const { Text } = Typography
-
-interface IMockData {
-  id: string
-  title: string
-  orderId: string
-  productName: string
-  status: string
-  avatar: string
-  detail: string
+interface DataType {
+  key: React.Key
+  productName: string,
+  sku:string,
+  productSelection:string,
+  price: string,
+  warehouse: string,
+  sales: string,
 }
 
-const data: IMockData[] = [
+
+
+const data = [
   {
-    id: '1',
-    title: 'Hannah',
-    orderId: '2006306N01XXFD',
-    productName: 'ดัมเบลหุ้มยาง 4 กิโลกรัม',
-    status: 'wait',
-    avatar: 'https://joeschmoe.io/api/v1/random',
-    detail:
-      'คุณภาพของสินค้าดีมาก ความคุ้มค่าคุ้มราคาดีมาก ความรวดเร็วในการจัดส่งดีมาก แนะนำยี่ห้อนี้ค่ะ'
-  },
-  {
-    id: '2',
-    title: 'Sophia',
-    orderId: '2006306N01XXF1',
+    key: '1',
+    productName: 'ดัมเบลหุ้มยาง 2 กิโลกรัม',
+    SKU:'-',
+    productSelection:'-',
+    price: '40',
+    warehouse: '31',
+    sales: '2000'
+  },{
+    key: '2',
     productName: 'ดัมเบลหุ้มยาง 3 กิโลกรัม',
-    status: 'reply',
-    avatar: 'https://joeschmoe.io/api/v1/random',
-    detail:
-      'คุณภาพของสินค้าดีมาก ความคุ้มค่าคุ้มราคาดีมาก ความรวดเร็วในการจัดส่งดีมาก แนะนำยี่ห้อนี้ค่ะ'
-  }
+    SKU:'-',
+    productSelection:'-',
+    price: '40',
+    warehouse: '31',
+    sales: '2000'
+  },
 ]
 
+const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
+  console.log('params', pagination, filters, sorter, extra)
+}
+
 const List: FC = () => {
+  const productName: string = t('sellerProducts.list.productName') // prevent error hook rules
+  const SKU: string = t('sellerProducts.list.SKU') // prevent error hook rules
+  const productSelection: string = t('sellerProducts.list.productSelection') // prevent error hook rules
+  const price: string = t('sellerProducts.list.price') // prevent error hook rules
+  const warehouse: string = t('sellerProducts.list.warehouse') // prevent error hook rules
+  const sales: string = t('sellerProducts.list.sales') // prevent error hook rules
+  const operation: string = t('sellerProducts.list.operation') // prevent error hook rules
+  const columns: ColumnsType<DataType> = [
+    {
+      title:productName,
+      dataIndex: 'productName'
+    },
+    {
+      title: SKU,
+      dataIndex: 'sku',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.age - b.age
+    },
+    {
+      title:productSelection,
+      dataIndex: 'productSelection'
+    },
+    {
+      title:price,
+      dataIndex: 'price'
+    },
+    {
+      title:warehouse,
+      dataIndex: 'warehouse'
+    },
+    {
+      title:sales,
+      dataIndex: 'sales'
+    },
+    {
+      title:operation,
+      dataIndex: '',
+      key: 'x',
+      render: () => (
+        <Space size="middle" className={styles.textSecondary}>
+          <a><i className='far fa-eye-slash'/></a>
+          <a><i className='fas fa-pen'/></a>
+          <a><i className='fas fa-trash-alt'/></a>
+        </Space>
+      ),
+    }
+  ]
   return (
     <>
-     
+      <Table columns={columns} dataSource={data} onChange={onChange}  pagination={{ pageSize: 10 }} />
     </>
   )
 }
