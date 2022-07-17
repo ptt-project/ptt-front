@@ -12,11 +12,14 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 
 const { Title } = Typography
 
-const EditAddress: React.FC = () => {
+interface IEditAddressProps {
+  isSeller?: boolean
+}
+const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
   const [form] = Form.useForm()
   const router: NextRouter = useRouter()
   const { addressId } = router.query
-
+  const rootMenu: string = props.isSeller ? '/seller' : ''
   const addresses: IAddressFormValues[] = (addressesMock || []) as IAddressFormValues[]
 
   const address: IAddressFormValues = useMemo(
@@ -31,7 +34,7 @@ const EditAddress: React.FC = () => {
     notification.success({
       message: 'Add Address Success'
     })
-    router.replace('/settings/account/address', '/settings/account/address', {
+    router.replace(`${rootMenu}/settings/account/address`, `${rootMenu}/settings/account/address`, {
       locale: router.locale
     })
   }
@@ -41,9 +44,7 @@ const EditAddress: React.FC = () => {
   }
 
   function onCancelClick(): void {
-    router.replace('/settings/account/address', '/settings/account/address', {
-      locale: router.locale
-    })
+    router.back()
   }
 
   return (
@@ -59,7 +60,7 @@ const EditAddress: React.FC = () => {
           { title: t('address.breadcrumbs.account') },
           {
             title: t('address.breadcrumbs.editAddress'),
-            href: CustomUrl.href('/settings/account/address', router.locale)
+            href: CustomUrl.href(`${rootMenu}/settings/account/address`, router.locale)
           }
         ]}
       />
@@ -86,7 +87,7 @@ const EditAddress: React.FC = () => {
                   ...address
                 }}
                 onSubmit={onSubmit}
-                isSeller
+                isSeller={props.isSeller}
               />
               <Row className="flex-1 mt-5" gutter={[24, 0]}>
                 <Col span={12}>
@@ -106,6 +107,9 @@ const EditAddress: React.FC = () => {
       </div>
     </main>
   )
+}
+EditAddress.defaultProps = {
+  isSeller: false
 }
 
 export default EditAddress

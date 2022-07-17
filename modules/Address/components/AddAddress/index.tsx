@@ -11,16 +11,20 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 
 const { Title } = Typography
 
-const AddAddress: React.FC = () => {
+interface IAddAddressProps {
+  isSeller?: boolean
+}
+const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
+  const rootMenu: string = props.isSeller ? '/seller' : ''
 
   function onSubmit(values: IAddressFormValues): void {
     console.log(values)
     notification.success({
       message: 'Add Address Success'
     })
-    router.replace('/settings/account/address', '/settings/account/address', {
+    router.replace(`${rootMenu}/settings/account/address`, `${rootMenu}/settings/account/address`, {
       locale: router.locale
     })
   }
@@ -30,9 +34,7 @@ const AddAddress: React.FC = () => {
   }
 
   function onCancelClick(): void {
-    router.replace('/settings/account/address', '/settings/account/address', {
-      locale: router.locale
-    })
+    router.back()
   }
 
   return (
@@ -48,7 +50,7 @@ const AddAddress: React.FC = () => {
           { title: t('address.breadcrumbs.account') },
           {
             title: t('address.breadcrumbs.addAddress'),
-            href: CustomUrl.href('/settings/account/address', router.locale)
+            href: CustomUrl.href(`${rootMenu}/settings/account/address`, router.locale)
           }
         ]}
       />
@@ -69,7 +71,7 @@ const AddAddress: React.FC = () => {
                   {t('address.addAddressTitle')}
                 </Title>
               </Col>
-              <AddressForm parentForm={form} onSubmit={onSubmit} isSeller={false} />
+              <AddressForm parentForm={form} onSubmit={onSubmit} isSeller={props.isSeller} />
               <Row className="flex-1 mt-5" gutter={[24, 0]}>
                 <Col span={12}>
                   <Button type="text" size="large" onClick={onCancelClick} block>
@@ -88,6 +90,10 @@ const AddAddress: React.FC = () => {
       </div>
     </main>
   )
+}
+
+AddAddress.defaultProps = {
+  isSeller: false
 }
 
 export default AddAddress
