@@ -1,13 +1,13 @@
 @import '../../../../public/sass/config/variables';
 
 .layout {
-  border-radius: 0.571rem;
-  padding: 0.571rem;
+  border-radius: 8px;
+  padding: 8px;
   box-sizing: border-box;
   background-color: $background-light;
 
   .contentLayout {
-    margin-left: 1.43spx;
+    margin-left: 1.5rem;
   }
 
   .actionLayout {
