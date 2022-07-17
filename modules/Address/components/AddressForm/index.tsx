@@ -76,7 +76,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
 
   function onFormFinish(values: IAddressFormValues): void {
     console.log({ formValues: values })
-    onSubmit?.(values)
+    onSubmit?.({ ...initialValues, ...values })
   }
 
   function onFormChange(values: IAddressFormValues): void {
@@ -92,7 +92,6 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
         onValuesChange={onFormChange}
         onFinish={onFormFinish}
       >
-        <Form.Item name="id" hidden />
         <Row className="" gutter={[20, 0]}>
           <Col sm={12} xs={24}>
             <Form.Item label={t('address.form.fullName')} name="fullName" rules={[...baseRules]}>

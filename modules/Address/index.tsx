@@ -16,25 +16,33 @@ import HighlightLabel from '~/components/main/HighlightLabel'
 
 const { Text, Title, Link } = Typography
 
-const Address: React.FC = () => {
+interface IAddressProps {
+  isSeller?: boolean
+}
+const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
   const router: NextRouter = useRouter()
   // eslint-disable-next-line @typescript-eslint/typedef
   const deleteAddressVisible = useVisible()
 
   const addresses: IAddressFormValues[] = (addressesMock || []) as IAddressFormValues[]
+  const rootMenu: string = props.isSeller ? '/seller' : ''
 
   const [deleteAddressId, setDeleteAddressId] = useState<string>()
 
   function onAddAddressClick(): void {
-    router.push('/settings/account/address/add', '/settings/account/address/add', {
-      locale: router.locale
-    })
+    router.push(
+      `${rootMenu}/settings/account/address/add`,
+      `${rootMenu}/settings/account/address/add`,
+      {
+        locale: router.locale
+      }
+    )
   }
 
   function onEditAddressClick(addressId: string): void {
     router.push(
-      `/settings/account/address/${addressId}`,
-      `/settings/account/address/${addressId}`,
+      `${rootMenu}/settings/account/address/${addressId}`,
+      `${rootMenu}/settings/account/address/${addressId}`,
       {
         locale: router.locale
       }
@@ -79,7 +87,7 @@ const Address: React.FC = () => {
           { title: t('address.breadcrumbs.account') },
           {
             title: t('address.breadcrumbs.address'),
-            href: CustomUrl.href('/settings/account/address', router.locale)
+            href: CustomUrl.href(`${rootMenu}/settings/account/address`, router.locale)
           }
         ]}
       />
@@ -146,7 +154,10 @@ const Address: React.FC = () => {
                             {t('address.emptyAddress')}
                             <Link
                               className="ml-1"
-                              href={CustomUrl.href('/settings/account/address/add', router.locale)}
+                              href={CustomUrl.href(
+                                `${rootMenu}/settings/account/address/add`,
+                                router.locale
+                              )}
                               underline
                             >
                               {t('address.addAddressTitle')}
@@ -207,6 +218,10 @@ const Address: React.FC = () => {
       </div>
     </main>
   )
+}
+
+Address.defaultProps = {
+  isSeller: false
 }
 
 export default Address
