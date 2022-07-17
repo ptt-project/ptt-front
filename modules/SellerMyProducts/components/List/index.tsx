@@ -1,41 +1,32 @@
 import React, { FC, useState } from 'react'
-import { Typography, Table,Space } from 'antd'
+import { Typography, Table, Space } from 'antd'
 import type { ColumnsType, TableProps } from 'antd/es/table'
 import t from '~/locales'
 import styles from './List.module.scss'
 
 const { Text } = Typography
+
 interface DataType {
   key: React.Key
-  productName: string,
-  sku:string,
-  productSelection:string,
-  price: string,
-  warehouse: string,
-  sales: string,
+  productName: string
+  sku: string
+  productSelection: string
+  price: string
+  warehouse: string
+  sales: string
 }
-
-
-
-const data = [
-  {
-    key: '1',
-    productName: 'ดัมเบลหุ้มยาง 2 กิโลกรัม',
-    SKU:'-',
-    productSelection:'-',
-    price: '40',
-    warehouse: '31',
-    sales: '2000'
-  },{
-    key: '2',
-    productName: 'ดัมเบลหุ้มยาง 3 กิโลกรัม',
-    SKU:'-',
-    productSelection:'-',
-    price: '40',
-    warehouse: '31',
-    sales: '2000'
-  },
-]
+const data: DataType[] = []
+for (let i = 0; i < 100; i++) {
+  data.push({
+    key: i,
+    productName: `ดัมเบลหุ้มยาง ${i} กิโลกรัม`,
+    sku: `S00${i}`,
+    productSelection: '-',
+    price: `4${i}`,
+    warehouse: `0${i}`,
+    sales: `1${i}`
+  })
+}
 
 const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra)
@@ -51,48 +42,62 @@ const List: FC = () => {
   const operation: string = t('sellerProducts.list.operation') // prevent error hook rules
   const columns: ColumnsType<DataType> = [
     {
-      title:productName,
+      title: productName,
       dataIndex: 'productName'
     },
     {
       title: SKU,
-      dataIndex: 'sku',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => a.age - b.age
+      dataIndex: 'sku'
     },
     {
-      title:productSelection,
+      title: productSelection,
       dataIndex: 'productSelection'
     },
     {
-      title:price,
-      dataIndex: 'price'
+      title: price,
+      dataIndex: 'price',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.price - b.price
     },
     {
-      title:warehouse,
-      dataIndex: 'warehouse'
+      title: warehouse,
+      dataIndex: 'warehouse',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.warehouse - b.warehouse
     },
     {
-      title:sales,
-      dataIndex: 'sales'
+      title: sales,
+      dataIndex: 'sales',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.sales - b.sales
     },
     {
-      title:operation,
+      title: operation,
       dataIndex: '',
       key: 'x',
       render: () => (
         <Space size="middle" className={styles.textSecondary}>
-          <a><i className='far fa-eye-slash'/></a>
-          <a><i className='fas fa-pen'/></a>
-          <a><i className='fas fa-trash-alt'/></a>
+          <a>
+            <i className="far fa-eye-slash" />
+          </a>
+          <a>
+            <i className="fas fa-pen" />
+          </a>
+          <a>
+            <i className="fas fa-trash-alt" />
+          </a>
         </Space>
-      ),
+      )
     }
   ]
   return (
-    <>
-      <Table columns={columns} dataSource={data} onChange={onChange}  pagination={{ pageSize: 10 }} />
-    </>
+    <Table
+      columns={columns}
+      dataSource={data}
+      onChange={onChange}
+      pagination={{ pageSize: 10 }}
+      className="hps-table hps-scroll"
+    />
   )
 }
 
