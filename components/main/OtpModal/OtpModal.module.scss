@@ -9,11 +9,13 @@
   padding-bottom: 8px;
 
   .left {
-    display: flex;
     flex: 1 50%;
+    display: flex;
+    align-items: center;
 
     .required {
       margin-right: 4px;
+      margin-bottom: -2.5px;
       color: $primary-color;
     }
   }

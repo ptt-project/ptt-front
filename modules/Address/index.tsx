@@ -78,7 +78,7 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('address.listAddressTitle')}
+          {t('meta.title')} | {t('address.title')}
         </title>
       </Helmet>
       <Breadcrumbs

@@ -12,14 +12,14 @@ const AddPhone: FC = () => (
   <main className="main">
     <Helmet>
       <title>
-        {t('meta.title')} | {t('profile.form.title')}
+        {t('meta.title')} | {t('profile.phone.titleAdd')}
       </title>
     </Helmet>
     <Breadcrumbs
       items={[
-        { title: t('profile.form.setting') },
-        { title: t('profile.form.title') },
-        { title: t('profile.form.personalInfo'), href: '/settings/account/info' },
+        { title: t('profile.setting') },
+        { title: t('profile.title') },
+        { title: t('profile.personalInfo'), href: '/settings/account/info' },
         { title: t('profile.phone.titleEdit'), href: '/settings/account/info/phone' },
         { title: t('profile.phone.titleAdd'), href: '/settings/account/info/add-phone' }
       ]}

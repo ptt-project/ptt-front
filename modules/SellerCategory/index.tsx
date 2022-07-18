@@ -1,24 +1,18 @@
-import React, { useState, FC } from 'react'
+import React, { useState, FC, ChangeEvent } from 'react'
+import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
-import { Typography, Row, Col, Button, Table, Switch, Space, Image } from 'antd'
+import { Typography, Row, Col, Button, Table, Switch, Space, Image, Modal, Input } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
+import { ICategoryData } from '~/model/Seller'
 import t from '~/locales'
 import styles from './SellerCategory.module.scss'
 
 const { Text, Title } = Typography
 
-interface IDataType {
-  key: string
-  categoryName: string
-  createdBy: string
-  quantity: number
-  status: number
-}
-
-const dataSource: IDataType[] = [
+const dataSource: ICategoryData[] = [
   {
     key: '1',
     categoryName: 'ดัมเบล',
@@ -43,50 +37,60 @@ const dataSource: IDataType[] = [
 ]
 
 const SellerCategory: FC = () => {
-  const columns: ColumnsType<IDataType> = [
+  const router: NextRouter = useRouter()
+  const columns: ColumnsType<ICategoryData> = [
     {
       title: t('sellerCategory.table.header.a'),
       dataIndex: 'categoryName',
       key: 'categoryName',
-      sorter: (a: IDataType, b: IDataType) => a.categoryName.localeCompare(b.categoryName)
+      sorter: (a: ICategoryData, b: ICategoryData) => a.categoryName.localeCompare(b.categoryName)
     },
     {
       title: t('sellerCategory.table.header.b'),
       dataIndex: 'createdBy',
       key: 'createdBy',
-      sorter: (a: IDataType, b: IDataType) => a.createdBy.localeCompare(b.createdBy)
+      sorter: (a: ICategoryData, b: ICategoryData) => a.createdBy.localeCompare(b.createdBy)
     },
     {
       title: t('sellerCategory.table.header.c'),
       dataIndex: 'quantity',
       key: 'quantity',
-      sorter: (a: IDataType, b: IDataType) => a.quantity - b.quantity
+      align: 'right',
+      sorter: (a: ICategoryData, b: ICategoryData) => a.quantity - b.quantity
     },
     {
       title: t('sellerCategory.table.header.d'),
       key: 'status',
-      render: (text: string, recode: IDataType, index: number): JSX.Element => (
+      align: 'center',
+      render: (text: string, recode: ICategoryData, index: number): JSX.Element => (
         <Switch
           className="hps-switch"
           key={index}
           defaultChecked={recode.status === 1}
-          onChange={onChange}
+          onChange={onChangeSwitch}
         />
       ),
-      sorter: (a: IDataType, b: IDataType) => a.status - b.status
+      sorter: (a: ICategoryData, b: ICategoryData) => a.status - b.status
     },
     {
       title: t('sellerCategory.table.header.e'),
       key: 'action',
-      render: (text: string, record: IDataType, index: number): JSX.Element => {
+      align: 'right',
+      render: (text: string, record: ICategoryData, index: number): JSX.Element => {
         const disabled: boolean = record.quantity > 0
+        const pathname: string = `/seller/settings/shop/category/${record.key}`
         return (
           <Space size="middle">
-            <Text className={styles.edit}>
+            <Text
+              className={styles.action}
+              onClick={(): Promise<boolean> =>
+                router.push(pathname, pathname, { locale: router.locale })
+              }
+            >
               <i className="fa fa-pen" />
             </Text>
             <Text
-              className={styles.edit}
+              className={styles.action}
               onClick={(): void => onRemove(record, disabled)}
               disabled={disabled}
             >
@@ -97,25 +101,41 @@ const SellerCategory: FC = () => {
       }
     }
   ]
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isOpenAdd, setIsOpenAdd] = useState<boolean>(false)
+  const [isOpenRemove, setIsOpenRemove] = useState<boolean>(false)
+  const [category, setCategory] = useState<string>('')
 
-  function toggle(): void {
-    setIsOpen(!isOpen)
+  function toggleAdd(): void {
+    setIsOpenAdd(!isOpenAdd)
   }
 
-  function onChange(checked: boolean): void {
+  function toggleRemove(): void {
+    setIsOpenRemove(!isOpenRemove)
+  }
+
+  function onChangeSwitch(checked: boolean): void {
     console.log(checked)
   }
 
-  function onRemove(item: IDataType, disabled?: boolean): void {
+  function onChangeCategory(e: ChangeEvent<HTMLInputElement>): void {
+    setCategory(e.target.value)
+  }
+
+  function onRemove(item: ICategoryData, disabled?: boolean): void {
     console.log(item)
     if (!disabled) {
-      toggle()
+      toggleRemove()
     }
   }
 
   function onConfirmRemove(): void {
     console.log('remove')
+    toggleRemove()
+  }
+
+  function onSubmit(): void {
+    console.log(category)
+    toggleAdd()
   }
 
   function renderEmptyData(): JSX.Element {
@@ -138,7 +158,7 @@ const SellerCategory: FC = () => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('profile.form.title')}
+          {t('meta.title')} | {t('sellerCategory.title')}
         </title>
       </Helmet>
       <Breadcrumbs
@@ -151,10 +171,38 @@ const SellerCategory: FC = () => {
         type="error"
         title={t('sellerCategory.modal.remove.title')}
         content={t('sellerCategory.modal.remove.content')}
-        isOpen={isOpen}
-        toggle={toggle}
+        isOpen={isOpenRemove}
+        toggle={toggleRemove}
         onSubmit={onConfirmRemove}
       />
+      <Modal
+        title={
+          <Title className="mb-0" level={4}>
+            <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
+            {t('sellerCategory.title')}
+          </Title>
+        }
+        visible={isOpenAdd}
+        onCancel={toggleAdd}
+        footer={
+          <Row>
+            <Col className="text-right" span={24}>
+              <Button type="default" onClick={toggleAdd}>
+                {t('common.cancel')}
+              </Button>
+              <Button type="primary" disabled={!category} onClick={onSubmit}>
+                {t('common.confirm')}
+              </Button>
+            </Col>
+          </Row>
+        }
+      >
+        <div className={styles.label}>
+          <Text className={styles.required}>*</Text>
+          <Text>{t('sellerCategory.modal.add.form.category')}</Text>
+        </div>
+        <Input showCount maxLength={40} onChange={onChangeCategory} value={category} />
+      </Modal>
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
@@ -169,7 +217,9 @@ const SellerCategory: FC = () => {
                   </Title>
                 </Col>
                 <Col className="text-right" span={12}>
-                  <Button type="primary">{t('sellerCategory.addCategory')}</Button>
+                  <Button type="primary" onClick={toggleAdd}>
+                    {t('sellerCategory.addCategory')}
+                  </Button>
                 </Col>
               </Row>
               <Row>

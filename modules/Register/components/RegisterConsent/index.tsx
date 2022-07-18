@@ -48,6 +48,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
     try {
       console.log(props.form)
       console.log(otpData)
+      toggle()
       props.setStep(2)
     } catch (error) {
       console.log(error)

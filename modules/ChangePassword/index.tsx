@@ -59,7 +59,7 @@ const ChangePassword: React.FC = () => {
       router.replace('/auth/login', '/auth/login', {
         locale: router.locale
       })
-      // success goto login
+      // success go to login
       setIsOpen(false)
     } catch (error) {
       console.log(error)
