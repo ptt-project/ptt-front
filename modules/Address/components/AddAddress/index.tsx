@@ -74,12 +74,12 @@ const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
               <AddressForm parentForm={form} onSubmit={onSubmit} isSeller={props.isSeller} />
               <Row className="flex-1 mt-5" gutter={[24, 0]}>
                 <Col span={12}>
-                  <Button type="text" size="large" onClick={onCancelClick} block>
+                  <Button type="text" onClick={onCancelClick} block>
                     {t('common.cancel')}
                   </Button>
                 </Col>
                 <Col span={12}>
-                  <Button type="primary" htmlType="submit" size="large" onClick={onSaveClick} block>
+                  <Button type="primary" htmlType="submit" onClick={onSaveClick} block>
                     {t('common.save')}
                   </Button>
                 </Col>
