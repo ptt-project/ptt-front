@@ -123,7 +123,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
           { title: t('settingSidebar.seller.shop.title') },
           {
             title: t('settingSidebar.seller.shop.category'),
-            href: '/seller/setting/shop/category'
+            href: '/seller/settings/shop/category'
           },
           { title: props.category.categoryName }
         ]}
