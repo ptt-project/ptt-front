@@ -138,7 +138,7 @@ const SellerCategory: FC = () => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('accountProfile.form.title')}
+          {t('meta.title')} | {t('profile.form.title')}
         </title>
       </Helmet>
       <Breadcrumbs
