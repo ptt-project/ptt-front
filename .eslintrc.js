@@ -20,7 +20,7 @@ module.exports = {
     project: 'tsconfig.json',
     sourceType: 'module'
   },
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['react', 'react-hooks', '@typescript-eslint', 'require-explicit-generics'],
   settings: {
     'import/resolver': {
       node: {
@@ -50,6 +50,13 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
     'react/jsx-no-bind': 'off',
     'react/jsx-pascal-case': ['error'],
+    'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
+    'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
+    'require-explicit-generics/require-explicit-generics': [
+      'error',
+      // List your functions here
+      ['useState']
+    ],
     'jsx-a11y/anchor-is-valid': 'off',
     'jsx-a11y/anchor-has-content': 'off',
     quotes: ['error', 'single'],
