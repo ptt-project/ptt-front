@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react'
 import { Typography, Table, Space, Image } from 'antd'
 import type { ColumnsType, TableProps } from 'antd/es/table'
 import t from '~/locales'
+import ConfirmationModal from '~/components/main/ConfirmationModal'
 import styles from './List.module.scss'
 
 const { Text } = Typography
@@ -16,6 +17,7 @@ interface DataType {
   price: string
   warehouse: string
   sales: string
+  img:string
 }
 const data: DataType[] = []
 for (let i = 0; i < 100; i++) {
@@ -28,7 +30,8 @@ for (let i = 0; i < 100; i++) {
     productSelection: '-',
     price: `4${i}`,
     warehouse: `0${i}`,
-    sales: `1${i}`
+    sales: `1${i}`,
+    img:'https://joeschmoe.io/api/v1/random'
   })
 }
 
@@ -37,6 +40,9 @@ const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter,
 }
 
 const List: FC = () => {
+  const [isOpenDelModal, setIsOpenDelModal] = useState<boolean>(false)
+  const [isContentImg, setIsContentImg] = useState<string>()
+  const [isContentTextImg, setIsContentTextImg] = useState<string>()
   const productName: string = t('sellerProducts.list.productName') // prevent error hook rules
   const SKU: string = t('sellerProducts.list.SKU') // prevent error hook rules
   const productSelection: string = t('sellerProducts.list.productSelection') // prevent error hook rules
@@ -54,7 +60,7 @@ const List: FC = () => {
             <div>{item.productName}</div>
             <div className={styles.row}>
               <div className={styles.column}>
-                <Image preview={false} width={48} src="https://joeschmoe.io/api/v1/random" />
+                <Image preview={false} width={48} src={item.img} />
               </div>
               <div className={`mt-1 ${styles.column} ${styles.textGrey}`}>
                 <div>
@@ -105,7 +111,8 @@ const List: FC = () => {
       title: operation,
       dataIndex: '',
       key: 'x',
-      render: () => (
+      render:(text, item) => {
+        return (
         <Space size="middle" className={styles.textSecondary}>
           <a>
             <i className="far fa-eye-slash" />
@@ -114,13 +121,41 @@ const List: FC = () => {
             <i className="fas fa-pen" />
           </a>
           <a>
-            <i className="fas fa-trash-alt" />
+            <i onClick={() => onDelModal(item)} className="fas fa-trash-alt" />
           </a>
         </Space>
-      )
+        )
+      }
     }
   ]
+  function toggleDelModal(): void {
+    setIsOpenDelModal(!isOpenDelModal)
+  }
+
+  function onDelModal(item): void {
+    if(item){
+      setIsContentImg(item.img);
+      setIsContentTextImg(item.productName);
+      setIsOpenDelModal(true)
+    }
+  }
+
+  function onRemove(): void {
+    console.log('reomove')
+  }
   return (
+    <>
+    <ConfirmationModal
+        isOpen={isOpenDelModal}
+        toggle={toggleDelModal}
+        type="error"
+        title={t('sellerProducts.delete.title')}
+        content={t('sellerProducts.delete.msgQuestion')}
+        contentWarning={t('sellerProducts.delete.msgWarning')}
+        contentImg={isContentImg}
+        contentTextImg={isContentTextImg}
+        onSubmit={onRemove}
+      />
     <Table
       columns={columns}
       dataSource={data}
@@ -128,6 +163,7 @@ const List: FC = () => {
       pagination={{ pageSize: 10 }}
       className="hps-table hps-scroll"
     />
+    </>
   )
 }
 
