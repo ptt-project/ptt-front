@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { Typography, Table, Space } from 'antd'
+import { Typography, Table, Space, Image } from 'antd'
 import type { ColumnsType, TableProps } from 'antd/es/table'
 import t from '~/locales'
 import styles from './List.module.scss'
@@ -9,6 +9,8 @@ const { Text } = Typography
 interface DataType {
   key: React.Key
   productName: string
+  view: number
+  favorite: number
   sku: string
   productSelection: string
   price: string
@@ -20,6 +22,8 @@ for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     productName: `ดัมเบลหุ้มยาง ${i} กิโลกรัม`,
+    view: i,
+    favorite: i,
     sku: `S00${i}`,
     productSelection: '-',
     price: `4${i}`,
@@ -43,7 +47,33 @@ const List: FC = () => {
   const columns: ColumnsType<DataType> = [
     {
       title: productName,
-      dataIndex: 'productName'
+      dataIndex: 'productName',
+      render: (text, item) => {
+        return (
+          <div>
+            <div>{item.productName}</div>
+            <div className={styles.row}>
+              <div className={styles.column}>
+                <Image preview={false} width={48} src="https://joeschmoe.io/api/v1/random" />
+              </div>
+              <div className={`mt-1 ${styles.column} ${styles.textGrey}`}>
+                <div>
+                  <i className="far fa-eye" />
+                  <Text className="ml-1" type="secondary">
+                    {item.view}
+                  </Text>
+                </div>
+                <div>
+                  <i className="fas fa-heart" />
+                  <Text className="ml-1" type="secondary">
+                    {item.favorite}
+                  </Text>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      }
     },
     {
       title: SKU,
