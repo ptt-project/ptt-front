@@ -1,0 +1,38 @@
+@import '../../../../public/sass/config/variables';
+@import '../../../../public/sass/mixins/core';
+
+$relation-level-colors: (
+  0: $relation-color-root,
+  1: $relation-color-level-1,
+  2: $relation-color-level-2,
+  3: $relation-color-level-3
+);
+
+@for $level from 0 through 4 {
+  .tree-path-#{$level} {
+    @if map-has-key($relation-level-colors, $level) {
+      stroke: map-get($relation-level-colors, $level) !important;
+    }
+  }
+
+  .tree-node-#{$level} {
+    > circle {
+      @if map-has-key($relation-level-colors, $level) {
+        stroke: map-get($relation-level-colors, $level) !important;
+        fill: map-get($relation-level-colors, $level) !important;
+      }
+    }
+  }
+}
+
+.relationTreeLayout {
+  width: inherit;
+  height: 400px;
+  background-color: $background-light;
+
+  .treeNodeText {
+    fill: black;
+    stroke-width: 0;
+    font-size: 7px;
+  }
+}

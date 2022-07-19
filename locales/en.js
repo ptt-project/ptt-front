@@ -408,7 +408,7 @@ export default {
       addNewProduct: 'เพิ่มสินค้าใหม่',
       filters: {
         group: 'กลุ่มการค้นหา',
-        orderId:'รหัสคําสั่งซื้อ',
+        orderId: 'รหัสคําสั่งซื้อ',
         keyword: 'Keyword ที่ใช้ในการค้นหา',
         category: 'หมวดหมู่',
         search: 'ค้นหา',
@@ -427,10 +427,38 @@ export default {
       sales: 'ยอดขาย',
       operation: 'ดำเนินการ'
     },
-    delete:{
-      title:'ลบสินค้า',
-      msgQuestion:'ต้องการลบสินค้าต่อไปนี้หรือไม่',
+    delete: {
+      title: 'ลบสินค้า',
+      msgQuestion: 'ต้องการลบสินค้าต่อไปนี้หรือไม่',
       msgWarning: 'หากการลบสำเร็จ คุณจะไม่สามารถกู้คืนสินค้านี้ได้อีก'
+    }
+  },
+  relation: {
+    title: 'ความสัมพันธ์',
+    copyInviteSuccess: 'คัดลอก Link Invite แล้ว',
+    button: {
+      copyInvite: 'คัดลอก Link Invite'
+    },
+    tabs: {
+      tree: 'แสดงต้นไม้',
+      table: 'แสดงแบบตาราง'
+    },
+    table: {
+      username: 'Username',
+      relationLevel: 'ระดับความสัมพันธ์',
+      commission: 'ส่วนแบ่ง (%)',
+      noFilterRelation: 'ทุกระดับความสัมพันธ์',
+      childrenUnit: 'คน'
+    },
+    relationLevel: {
+      one: 'ลูก',
+      two: 'หลาน',
+      three: 'เหลน'
+    },
+    breadcrumbs: {
+      setting: 'ตั้งค่า',
+      account: 'บัญชีผู้ใช้',
+      relation: 'ความสัมพันธ์'
     }
   }
 }
