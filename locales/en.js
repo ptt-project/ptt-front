@@ -420,5 +420,33 @@ export default {
         empty: 'ไม่พบสินค้า'
       }
     }
+  },
+  relation: {
+    title: 'ความสัมพันธ์',
+    copyInviteSuccess: 'คัดลอก Link Invite แล้ว',
+    button: {
+      copyInvite: 'คัดลอก Link Invite'
+    },
+    tabs: {
+      tree: 'แสดงต้นไม้',
+      table: 'แสดงแบบตาราง'
+    },
+    table: {
+      username: 'Username',
+      relationLevel: 'ระดับความสัมพันธ์',
+      commission: 'ส่วนแบ่ง (%)',
+      noFilterRelation: 'ทุกระดับความสัมพันธ์',
+      childrenUnit: 'คน'
+    },
+    relationLevel: {
+      one: 'ลูก',
+      two: 'หลาน',
+      three: 'เหลน',
+    },
+    breadcrumbs: {
+      setting: 'ตั้งค่า',
+      account: 'บัญชีผู้ใช้',
+      relation: 'ความสัมพันธ์',
+    }
   }
 }

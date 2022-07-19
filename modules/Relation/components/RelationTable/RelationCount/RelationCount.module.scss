@@ -1,0 +1,21 @@
+@import '../../../../../public/sass/config/variables';
+
+$relation-level-colors: (
+  0: $relation-color-root,
+  1: $relation-color-level-1,
+  2: $relation-color-level-2,
+  3: $relation-color-level-3
+);
+
+@for $level from 0 through 4 {
+  .relation-level-#{$level} {
+    @if map-has-key($relation-level-colors, $level) {
+      background-color: map-get($relation-level-colors, $level) !important;
+    }
+  }
+}
+
+.relationCount {
+  border-radius: 4px;
+  padding: 5px 8px 5px 8px;
+}
