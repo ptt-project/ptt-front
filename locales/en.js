@@ -322,7 +322,7 @@ export default {
       product: {
         title: 'สินค้า',
         list: 'สินค้าของฉัน',
-        add: 'เพิ่มสินค้าใหม่'
+        addList: 'เพิ่มสินค้าใหม่'
       },
       marketing: {
         title: 'Marketing Centre'
