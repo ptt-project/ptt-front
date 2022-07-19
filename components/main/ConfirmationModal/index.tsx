@@ -25,7 +25,6 @@ const ConfirmationModal: FC<IConfirmationModalProps> = (props: IConfirmationModa
 
   function onSubmit(): void {
     props.onSubmit()
-    props.toggle()
   }
 
   function getTypeIconModal(): JSX.Element {

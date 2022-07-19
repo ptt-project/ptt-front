@@ -202,6 +202,7 @@ export default {
     }
   },
   address: {
+    title: 'ที่อยู่',
     addressLabel: 'ที่อยู่',
     listAddressTitle: 'บัญชีผู้ใช้',
     addAddressTitle: 'เพิ่มที่อยู่',
@@ -234,10 +235,10 @@ export default {
     }
   },
   profile: {
+    title: 'บัญชีผู้ใช้',
+    setting: 'ตั้งค่า',
+    personalInfo: 'ข้อมูลส่วนตัว',
     form: {
-      title: 'บัญชีผู้ใช้',
-      setting: 'ตั้งค่า',
-      personalInfo: 'ข้อมูลส่วนตัว',
       memberId: 'รหัสสมาชิก',
       username: 'ชื่อผู้ใช้',
       msgChooseImage: 'ไฟล์ JPEG,PNG ขนาดไฟล์ไม่เกิน 1 MB',
@@ -380,6 +381,7 @@ export default {
     msgReply: 'ข้อความตอบกลับ'
   },
   sellerCategory: {
+    title: 'หมวดหมู่ในร้านค้า',
     addCategory: 'เพิ่มหมวดหมู่',
     table: {
       header: {
@@ -392,9 +394,32 @@ export default {
       empty: 'ไม่พบสินค้า'
     },
     modal: {
+      add: {
+        title: 'เพิ่มหมวดหมู่สินค้า',
+        form: {
+          category: 'ชื่อหมวดหมู่สินค้า'
+        }
+      },
       remove: {
         title: 'ลบหมวดหมู่',
         content: 'ยืนยันการลบหมวดหมู่สินค้าหรือไม่'
+      }
+    },
+    edit: {
+      createdBy: 'สร้างโดย',
+      quantity: 'สินค้า',
+      label: 'รายการสินค้า',
+      add: 'เพิ่มสินค้า',
+      search: 'ค้นหาสินค้า',
+      table: {
+        header: {
+          a: 'ชื่อสินค้า',
+          b: 'ราคา',
+          c: 'คลัง',
+          d: 'สถานะ',
+          e: 'ดำเนินการ'
+        },
+        empty: 'ไม่พบสินค้า'
       }
     }
   },

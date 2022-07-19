@@ -37,6 +37,7 @@ const ForgotPassword: FC = () => {
   function onSubmitOtp(otpData: IOtpData): void {
     try {
       console.log(otpData)
+      toggle()
     } catch (error) {
       console.log(error)
     }
