@@ -320,7 +320,9 @@ export default {
         title: 'คำสั่งซื้อ'
       },
       product: {
-        title: 'สินค้า'
+        title: 'สินค้า',
+        list: 'สินค้าของฉัน',
+        addList: 'เพิ่มสินค้าใหม่'
       },
       marketing: {
         title: 'Marketing Centre'
@@ -421,6 +423,49 @@ export default {
       }
     }
   },
+  sellerProducts: {
+    list: {
+      product: 'สินค้า',
+      myProduct: 'สินค้าของฉัน',
+      list: 'รายการ',
+      uploadProduct: 'อัพโหลดสินค้าเพิ่มอีก',
+      items: 'ชิ้น',
+      addNewProduct: 'เพิ่มสินค้าใหม่',
+      filters: {
+        group: 'กลุ่มการค้นหา',
+        orderId: 'รหัสคําสั่งซื้อ',
+        keyword: 'Keyword ที่ใช้ในการค้นหา',
+        category: 'หมวดหมู่',
+        search: 'ค้นหา',
+        reset: 'รีเซ็ต'
+      },
+      all: 'ทั้งหมด',
+      waitingForApprove: 'รอ Approve',
+      selling: 'ขายอยู่',
+      soldOut: 'หมด',
+      notPublished: 'ไม่เผยแพร่',
+      productName: 'ชื่อสินค้า',
+      SKU: 'เลข SKU',
+      productSelection: 'ตัวเลือกสินค้า',
+      price: 'ราคา',
+      warehouse: 'คลัง',
+      sales: 'ยอดขาย',
+      operation: 'ดำเนินการ'
+    },
+    delete: {
+      title: 'ลบสินค้า',
+      msgQuestion: 'ต้องการลบสินค้าต่อไปนี้หรือไม่',
+      msgWarning: 'หากการลบสำเร็จ คุณจะไม่สามารถกู้คืนสินค้านี้ได้อีก'
+    },
+    form: {
+      addTitle: 'เพิ่มสินค้า',
+      editTitle: 'แก้ไขสินค้า',
+      info: 'ข้อมูลทั่วไป',
+      photoCover: 'ภาพปก',
+      picture: 'รูปภาพ',
+      videoProduct: 'วิดีโอสินค้า'
+    }
+  },
   relation: {
     title: 'ความสัมพันธ์',
     copyInviteSuccess: 'คัดลอก Link Invite แล้ว',
@@ -441,12 +486,12 @@ export default {
     relationLevel: {
       one: 'ลูก',
       two: 'หลาน',
-      three: 'เหลน',
+      three: 'เหลน'
     },
     breadcrumbs: {
       setting: 'ตั้งค่า',
       account: 'บัญชีผู้ใช้',
-      relation: 'ความสัมพันธ์',
+      relation: 'ความสัมพันธ์'
     }
   }
 }

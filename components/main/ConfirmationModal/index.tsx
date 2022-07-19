@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import { Typography, Button, Row, Col, Modal } from 'antd'
+import { Typography, Button, Row, Col, Modal,Image } from 'antd'
 import t from '~/locales'
 import styles from './ConfirmationModal.module.scss'
 
@@ -11,16 +11,13 @@ interface IConfirmationModalProps {
   title: string
   content: string
   contentWarning?: string
+  contentImg?: string
+  contentTextImg?: string
   toggle: () => void
   onSubmit: () => void
 }
 
 const ConfirmationModal: FC<IConfirmationModalProps> = (props: IConfirmationModalProps) => {
-  const [isContentWarning, setContentWarning] = useState<boolean>(false)
-
-  useEffect(() => {
-    setContentWarning(props.type === 'error')
-  }, [])
 
   function toggle(): void {
     props.toggle()
@@ -72,9 +69,15 @@ const ConfirmationModal: FC<IConfirmationModalProps> = (props: IConfirmationModa
       <Col>
         <Text>{props.content}</Text>
       </Col>
-      {isContentWarning && (
+      {props.contentWarning && (
         <Col>
           <Text type="danger">{props.contentWarning}</Text>
+        </Col>
+      )}
+      {props.contentImg && (
+        <Col>
+          <Image preview={false} width={48} src={props.contentImg} />
+          <Text>{props.contentTextImg}</Text>
         </Col>
       )}
     </Modal>
