@@ -6,6 +6,7 @@ import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/lib/tabl
 import { IRelationTableData } from '~/model/Relation'
 import t from '~/locales'
 import RelationCount from './RelationCount'
+import styles from './RelationTable.module.scss'
 
 interface ICountDataByRelationLevel {
   '1': number
@@ -144,12 +145,13 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
         </Col>
       </Row>
       <Table
-        className="mt-2"
+        className={`${styles.relationTable} ${styles.relationTableSm}`}
         rowKey="username"
         columns={columns}
         dataSource={customData}
         onChange={onChange}
         pagination={false}
+        scroll={{ x: true }}
       />
     </Col>
   )
