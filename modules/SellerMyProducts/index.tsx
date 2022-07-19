@@ -49,7 +49,7 @@ const SellerMyProduct: FC = () => {
                 </Col>
                 <Col xs={4}>
                   <div className={styles.addNewProduct}>
-                    <Link href={CustomUrl.href('/seller/settings/product/add', router.locale)}>
+                    <Link href={CustomUrl.href('/seller/settings/product/add-list', router.locale)}>
                       <Button type="primary">
                         <i className="fas fa-plus mr-1" />
                         {t('sellerProducts.list.addNewProduct')}
