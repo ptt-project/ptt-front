@@ -1,0 +1,17 @@
+@import '../../../../public/sass/mixins/core';
+@import '../../../../public/sass/mixins/breakpoints';
+@import '../../../../public/sass/config/variables';
+
+.relationTable {
+  margin-top: 2rem;
+}
+
+@include mq('sm', 'max') {
+  .relationTableSm {
+    th {
+      span {
+        white-space: nowrap !important;
+      }
+    }
+  }
+}

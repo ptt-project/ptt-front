@@ -58,7 +58,7 @@ const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
         <div className="container">
           <Row>
             <Col xl={6} lg={0}>
-              <SettingSidebar sidebarType="buyer" />
+              <SettingSidebar sidebarType={props.isSeller ? 'seller' : 'buyer'} />
             </Col>
             <Col
               className="mx-auto"
