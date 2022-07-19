@@ -1,8 +1,7 @@
 import React, { FC } from 'react'
-import { Button, Row, Col, Form, Input,Select } from 'antd'
+import { Button, Row, Col, Form, Input, Select } from 'antd'
 import t from '~/locales'
 import styles from './SellerMyProductsFilters.module.scss'
-
 
 interface IFormModel {
   productName: string
@@ -39,7 +38,7 @@ const SellerMyProductFilters: FC = () => {
         </Col>
         <Col md={12} xs={24}>
           <Form.Item label={t('sellerProducts.list.filters.category')} name="date">
-            <Select defaultValue=''>
+            <Select defaultValue="">
               <Option value="jack">Jack</Option>
             </Select>
           </Form.Item>

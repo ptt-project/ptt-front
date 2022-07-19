@@ -70,9 +70,9 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
   const sellerItems: MenuProps['items'] = [
     getItem(tSeller.delivery.title, 'delivery', <i className="fas fa-truck" />),
     getItem(tSeller.order.title, 'order', <i className="fas fa-file-invoice-dollar" />),
-    getItem(tSeller.product.title, 'product', <i className="fas fa-box" />,[
-      getItem(tSeller.product.my, 'my'),
-      getItem(tSeller.product.add, 'add')
+    getItem(tSeller.product.title, 'product', <i className="fas fa-box" />, [
+      getItem(tSeller.product.list, 'list'),
+      getItem(tSeller.product.add, 'add-list')
     ]),
     getItem(tSeller.marketing.title, 'marketing', <i className="fas fa-tag" />),
     getItem(tSeller.payment.title, 'payment', <i className="fas fa-wallet" />),

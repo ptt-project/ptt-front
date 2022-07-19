@@ -17,7 +17,7 @@ interface DataType {
   price: string
   warehouse: string
   sales: string
-  img:string
+  img: string
 }
 const data: DataType[] = []
 for (let i = 0; i < 100; i++) {
@@ -31,7 +31,7 @@ for (let i = 0; i < 100; i++) {
     price: `4${i}`,
     warehouse: `0${i}`,
     sales: `1${i}`,
-    img:'https://joeschmoe.io/api/v1/random'
+    img: 'https://joeschmoe.io/api/v1/random'
   })
 }
 
@@ -111,19 +111,19 @@ const List: FC = () => {
       title: operation,
       dataIndex: '',
       key: 'x',
-      render:(text, item) => {
+      render: (text, item) => {
         return (
-        <Space size="middle" className={styles.textSecondary}>
-          <a>
-            <i className="far fa-eye-slash" />
-          </a>
-          <a>
-            <i className="fas fa-pen" />
-          </a>
-          <a>
-            <i onClick={() => onDelModal(item)} className="fas fa-trash-alt" />
-          </a>
-        </Space>
+          <Space size="middle" className={styles.textSecondary}>
+            <a>
+              <i className="far fa-eye-slash" />
+            </a>
+            <a>
+              <i className="fas fa-pen" />
+            </a>
+            <a>
+              <i onClick={() => onDelModal(item)} className="fas fa-trash-alt" />
+            </a>
+          </Space>
         )
       }
     }
@@ -133,9 +133,9 @@ const List: FC = () => {
   }
 
   function onDelModal(item): void {
-    if(item){
-      setIsContentImg(item.img);
-      setIsContentTextImg(item.productName);
+    if (item) {
+      setIsContentImg(item.img)
+      setIsContentTextImg(item.productName)
       setIsOpenDelModal(true)
     }
   }
@@ -145,7 +145,7 @@ const List: FC = () => {
   }
   return (
     <>
-    <ConfirmationModal
+      <ConfirmationModal
         isOpen={isOpenDelModal}
         toggle={toggleDelModal}
         type="error"
@@ -156,13 +156,13 @@ const List: FC = () => {
         contentTextImg={isContentTextImg}
         onSubmit={onRemove}
       />
-    <Table
-      columns={columns}
-      dataSource={data}
-      onChange={onChange}
-      pagination={{ pageSize: 10 }}
-      className="hps-table hps-scroll"
-    />
+      <Table
+        columns={columns}
+        dataSource={data}
+        onChange={onChange}
+        pagination={{ pageSize: 10 }}
+        className="hps-table hps-scroll"
+      />
     </>
   )
 }

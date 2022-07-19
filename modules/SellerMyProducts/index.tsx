@@ -1,16 +1,20 @@
 import React, { FC } from 'react'
+import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
-import { Typography, Row, Col, Button,Progress } from 'antd'
+import { Typography, Row, Col, Button, Progress } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import SellerMyProductsFilters from './components/SellerMyProductsFilters'
 import SellerMyProductsTabs from './components/SellerMyProductsTabs'
+import Link from 'next/link'
+import { CustomUrl } from '~/utils/main'
 import t from '~/locales'
 import styles from './SellerMyProducts.module.scss'
 
 const { Text, Title } = Typography
 
 const SellerMyProduct: FC = () => {
+  const router: NextRouter = useRouter()
   return (
     <main className="main">
       <Helmet>
@@ -21,7 +25,7 @@ const SellerMyProduct: FC = () => {
       <Breadcrumbs
         items={[
           { title: t('sellerProducts.list.product') },
-          { title: t('sellerProducts.list.myProduct'), href: '/seller/settings/product/my' }
+          { title: t('sellerProducts.list.myProduct'), href: '/seller/settings/product/list' }
         ]}
       />
       <div className="page-content mb-9">
@@ -34,23 +38,28 @@ const SellerMyProduct: FC = () => {
               <Row className="mb-3" align="middle">
                 <Col xs={20}>
                   <Title className={`${styles.h4} ${styles.textSecondary}`} level={4}>
-                    {t('sellerProducts.list.product')} 5 {t('sellerProducts.list.list')} 
+                    {t('sellerProducts.list.product')} 5 {t('sellerProducts.list.list')}
                   </Title>
                   <div className={styles.progress}>
-                    <Progress percent={10} showInfo={false} size="small"/>
+                    <Progress percent={10} showInfo={false} size="small" />
                   </div>
-                  <Text type="secondary">{t('sellerProducts.list.uploadProduct')} 999 {t('sellerProducts.list.items')}</Text>
+                  <Text type="secondary">
+                    {t('sellerProducts.list.uploadProduct')} 999 {t('sellerProducts.list.items')}
+                  </Text>
                 </Col>
                 <Col xs={4}>
                   <div className={styles.addNewProduct}>
-                    <Button type="primary">
-                      <i className="fas fa-plus mr-1"/>{t('sellerProducts.list.addNewProduct')}
-                    </Button>
+                    <Link href={CustomUrl.href('/seller/settings/product/add', router.locale)}>
+                      <Button type="primary">
+                        <i className="fas fa-plus mr-1" />
+                        {t('sellerProducts.list.addNewProduct')}
+                      </Button>
+                    </Link>
                   </div>
                 </Col>
               </Row>
-              <SellerMyProductsFilters/>
-              <SellerMyProductsTabs/>
+              <SellerMyProductsFilters />
+              <SellerMyProductsTabs />
             </Col>
           </Row>
         </div>

@@ -320,7 +320,7 @@ export default {
       },
       product: {
         title: 'สินค้า',
-        my: 'สินค้าของฉัน',
+        list: 'สินค้าของฉัน',
         add: 'เพิ่มสินค้าใหม่'
       },
       marketing: {
@@ -431,6 +431,14 @@ export default {
       title: 'ลบสินค้า',
       msgQuestion: 'ต้องการลบสินค้าต่อไปนี้หรือไม่',
       msgWarning: 'หากการลบสำเร็จ คุณจะไม่สามารถกู้คืนสินค้านี้ได้อีก'
+    },
+    form: {
+      addTitle: 'เพิ่มสินค้า',
+      editTitle: 'แก้ไขสินค้า',
+      info: 'ข้อมูลทั่วไป',
+      photoCover: 'ภาพปก',
+      picture: 'รูปภาพ',
+      videoProduct: 'วิดีโอสินค้า'
     }
   },
   relation: {

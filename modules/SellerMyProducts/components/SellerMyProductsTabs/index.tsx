@@ -13,19 +13,19 @@ function onChange(key: string): void {
 const SellerMyProductTabs: FC = () => (
   <Tabs className={`${styles.tabs} hps-scroll`} defaultActiveKey="1" onChange={onChange}>
     <TabPane tab={t('sellerProducts.list.all')} key="1">
-      <List/>
+      <List />
     </TabPane>
     <TabPane tab={t('sellerProducts.list.waitingForApprove')} key="2">
-      <List/>
+      <List />
     </TabPane>
     <TabPane tab={t('sellerProducts.list.selling')} key="3">
-      <List/>
+      <List />
     </TabPane>
     <TabPane tab={t('sellerProducts.list.soldOut')} key="4">
-      <List/>
+      <List />
     </TabPane>
     <TabPane tab={t('sellerProducts.list.notPublished')} key="5">
-      <List/>
+      <List />
     </TabPane>
   </Tabs>
 )
