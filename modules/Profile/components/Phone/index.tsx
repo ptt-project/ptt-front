@@ -38,11 +38,13 @@ const Phone: FC = () => {
 
   function onRemove(): void {
     console.log('reomove')
+    toggleDelPhoneModal()
   }
 
   function onSubmit(otpData: IOtpData): void {
     try {
       console.log(otpData)
+      toggle()
     } catch (error) {
       console.log(error)
     }
@@ -63,14 +65,14 @@ const Phone: FC = () => {
       <main className="main">
         <Helmet>
           <title>
-            {t('meta.title')} | {t('profile.form.title')}
+            {t('meta.title')} | {t('profile.phone.titleEdit')}
           </title>
         </Helmet>
         <Breadcrumbs
           items={[
-            { title: t('profile.form.setting') },
-            { title: t('profile.form.title') },
-            { title: t('profile.form.personalInfo'), href: '/settings/account/info' },
+            { title: t('profile.setting') },
+            { title: t('profile.title') },
+            { title: t('profile.personalInfo'), href: '/settings/account/info' },
             { title: t('profile.phone.titleEdit'), href: '/settings/account/info/phone' }
           ]}
         />

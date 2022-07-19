@@ -1,25 +1,36 @@
-@import '../../public/sass/config/_variables.scss';
+@import '../../../public/sass/config/_variables.scss';
 
 .cInfo {
   color: $info-color;
 }
 
-.label {
-  display: flex;
-  align-items: center;
-  padding-bottom: 8px;
-
-  .required {
-    margin-right: 4px;
-    margin-bottom: -2.5px;
-    color: $primary-color;
-  }
-}
-
 .title {
   color: $secondary-color !important;
-  margin-bottom: 2.5rem !important;
+  margin-bottom: 0 !important;
 }
+
+.filtersWrapper {
+  padding: 1.5rem;
+  margin: 2rem auto;
+  background-color: $background-light;
+}
+
+.label {
+  color: $secondary-color !important;
+  margin-bottom: 0 !important;
+}
+
+// .label {
+//   display: flex;
+//   align-items: center;
+//   padding-bottom: 8px;
+
+//   .required {
+//     margin-right: 4px;
+//     margin-bottom: -2.5px;
+//     color: $primary-color;
+//   }
+// }
 
 .action {
   color: $info-color;

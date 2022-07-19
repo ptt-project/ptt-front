@@ -35,7 +35,7 @@ interface IFormModel {
 const Profile: FC = () => {
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
-  const [value, setValue] = useState(1)
+  const [value, setValue] = useState<number>(1)
 
   function onChange(e: RadioChangeEvent): void {
     setValue(e.target.value)
@@ -49,14 +49,14 @@ const Profile: FC = () => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('profile.form.title')}
+          {t('meta.title')} | {t('profile.title')}
         </title>
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('profile.form.setting') },
-          { title: t('profile.form.title') },
-          { title: t('profile.form.personalInfo'), href: '/settings/account/info' }
+          { title: t('profile.setting') },
+          { title: t('profile.title') },
+          { title: t('profile.personalInfo'), href: '/settings/account/info' }
         ]}
       />
       <div className="page-content mb-9">
@@ -67,9 +67,9 @@ const Profile: FC = () => {
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 2 }} md={24}>
               <Title className="hps-title" level={4}>
-                {t('profile.form.title')}
+                {t('profile.title')}
               </Title>
-              <HighlightLabel title={t('profile.form.personalInfo')} />
+              <HighlightLabel title={t('profile.personalInfo')} />
               <Form layout="vertical" form={form} name="profileForm" onFinish={onSubmit}>
                 <Row className={styles.highlight} gutter={[16, 16]} align="middle">
                   <Col sm={4} xs={12}>
