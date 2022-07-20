@@ -153,7 +153,7 @@ const Info: React.FC<IFormProductInfoProps> = (props: IFormProductInfoProps) => 
             <TextArea rows={3} showCount maxLength={500} />
           </Form.Item>
         </Col>
-        <Col md={24}>
+        <Col md={12}>
           <Form.Item
             label={t('sellerProducts.form.info.category')}
             name="category"
@@ -163,7 +163,7 @@ const Info: React.FC<IFormProductInfoProps> = (props: IFormProductInfoProps) => 
               }
             ]}
           >
-            <Select defaultValue="" style={{ width: 200 }}>
+            <Select defaultValue="">
               <Option value="jack">Jack</Option>
             </Select>
           </Form.Item>

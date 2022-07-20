@@ -5,6 +5,9 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import t from '~/locales'
 import Info from './components/Info'
+import Features from './components/Features'
+import Sales from './components/Sales'
+
 import styles from './SellerMyProductsForm.module.scss'
 
 const { Text } = Typography
