@@ -4,7 +4,13 @@ export interface IRelationData {
   commission: number
 }
 
+export enum RelationLevel {
+  CHILD = 1,
+  GRANDCHILD = 2,
+  GREAT_GRANDSON = 3
+}
+
 export interface IRelationTableData extends IRelationData {
-  relationLevel: number
+  relationLevel: RelationLevel
   relationLevelLabel?: string
 }

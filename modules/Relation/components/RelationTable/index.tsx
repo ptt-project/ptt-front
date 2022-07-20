@@ -3,15 +3,15 @@ import { Col, Row, Select } from 'antd'
 import Table, { ColumnsType, TablePaginationConfig } from 'antd/lib/table'
 import { DefaultOptionType } from 'antd/lib/select'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/lib/table/interface'
-import { IRelationTableData } from '~/model/Relation'
+import { IRelationTableData, RelationLevel } from '~/model/Relation'
 import t from '~/locales'
 import RelationCount from './RelationCount'
 import styles from './RelationTable.module.scss'
 
 interface ICountDataByRelationLevel {
-  '1': number
-  '2': number
-  '3': number
+  [RelationLevel.CHILD]: number
+  [RelationLevel.GRANDCHILD]: number
+  [RelationLevel.GREAT_GRANDSON]: number
 }
 
 interface IRelationTableProps {
@@ -24,15 +24,15 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
   const relationLevelOptions: DefaultOptionType[] = [
     {
       label: t('relation.relationLevel.one'),
-      value: 1
+      value: RelationLevel.CHILD
     },
     {
       label: t('relation.relationLevel.two'),
-      value: 2
+      value: RelationLevel.GRANDCHILD
     },
     {
       label: t('relation.relationLevel.three'),
-      value: 3
+      value: RelationLevel.GREAT_GRANDSON
     }
   ]
 
@@ -40,13 +40,13 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
   const levelTwoLabel: string = t('relation.relationLevel.two')
   const levelThreeLabel: string = t('relation.relationLevel.three')
 
-  function getRelationLevelLabel(relationLevel: number): string {
+  function getRelationLevelLabel(relationLevel: RelationLevel): string {
     switch (relationLevel) {
-      case 1:
+      case RelationLevel.CHILD:
         return levelOneLabel
-      case 2:
+      case RelationLevel.GRANDCHILD:
         return levelTwoLabel
-      case 3:
+      case RelationLevel.GREAT_GRANDSON:
         return levelThreeLabel
       default:
         return ''
@@ -66,9 +66,9 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
       return acc
     },
     {
-      '1': 0,
-      '2': 0,
-      '3': 0
+      [RelationLevel.CHILD]: 0,
+      [RelationLevel.GRANDCHILD]: 0,
+      [RelationLevel.GREAT_GRANDSON]: 0
     }
   )
 
@@ -145,7 +145,7 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
         </Col>
       </Row>
       <Table
-        className={`${styles.relationTable} ${styles.relationTableSm}`}
+        className={`${styles.relationTable} ${styles.relationTableSm} hps-table hps-scroll`}
         rowKey="username"
         columns={columns}
         dataSource={customData}
