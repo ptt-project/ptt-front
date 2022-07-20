@@ -19,21 +19,17 @@ const { TabPane } = Tabs
 
 const { Title } = Typography
 
-// eslint-disable-next-line @typescript-eslint/typedef
-const tabs = {
-  relationTree: 'relationTree',
-  relationTable: 'relationTable'
-} as const
-
-type ITabObj = typeof tabs
-type ITabObjKeys = keyof ITabObj
-type ITabObjValues = ITabObj[ITabObjKeys]
+enum RelationTabs {
+  RELATION_TREE = 'relationTree',
+  RELATION_TABLE = 'relationTable'
+}
 
 const Relation: React.FC = () => {
   const router: NextRouter = useRouter()
-  const [tabActive, setTabActive] = useState<ITabObjValues>(tabs.relationTree)
+  const [tabActive, setTabActive] = useState<RelationTabs>(RelationTabs.RELATION_TREE)
 
   const inviteLink: string = 'inviteLink'
+  const messageCopyInviteSuccess: string = t('relation.copyInviteSuccess')
   const relationData: IRelationData[] = mockRelationData
 
   // eslint-disable-next-line @typescript-eslint/typedef
@@ -57,7 +53,7 @@ const Relation: React.FC = () => {
     return { relationDataTree, relationTableData }
   }, [relationData])
 
-  function onTabChange(tabKey: ITabObjValues): void {
+  function onTabChange(tabKey: RelationTabs): void {
     setTabActive(tabKey)
   }
   message.config({
@@ -67,7 +63,7 @@ const Relation: React.FC = () => {
 
   function onCopyClick(test: string, isSuccess: boolean): void {
     if (isSuccess) {
-      message.success(t('relation.copyInviteSuccess'))
+      message.success(messageCopyInviteSuccess)
     }
   }
 
@@ -115,10 +111,10 @@ const Relation: React.FC = () => {
                 </CopyToClipboard>
               </Row>
               <Tabs defaultActiveKey={tabActive} onChange={onTabChange}>
-                <TabPane tab={t('relation.tabs.tree')} key={tabs.relationTree}>
+                <TabPane tab={t('relation.tabs.tree')} key={RelationTabs.RELATION_TREE}>
                   <RelationTree data={customData.relationDataTree} />
                 </TabPane>
-                <TabPane tab={t('relation.tabs.table')} key={tabs.relationTable}>
+                <TabPane tab={t('relation.tabs.table')} key={RelationTabs.RELATION_TABLE}>
                   <RelationTable data={customData.relationTableData} />
                 </TabPane>
               </Tabs>

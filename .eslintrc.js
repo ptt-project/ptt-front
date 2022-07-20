@@ -130,6 +130,8 @@ module.exports = {
           match: true
         }
       }
-    ]
+    ],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"]
   }
 }
