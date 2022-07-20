@@ -4,7 +4,7 @@ import { debounce } from 'lodash'
 import ButtonCurrentLocation from './ButtonCurrentLocation'
 import styles from '../AddressForm.module.scss'
 
-const GOOGLE_MAP_API_TOKEN: string = `${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_TOKEN}`
+const GOOGLE_MAP_API_TOKEN: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_TOKEN
 
 // lat, lng แถว ๆ กรุงเทพ ครับ
 const DEFAULT_THAILAND_LOCATION: google.maps.LatLngLiteral = {

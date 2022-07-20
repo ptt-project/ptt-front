@@ -110,11 +110,19 @@ const Relation: React.FC = () => {
                   </Button>
                 </CopyToClipboard>
               </Row>
-              <Tabs defaultActiveKey={tabActive} onChange={onTabChange}>
-                <TabPane tab={t('relation.tabs.tree')} key={RelationTabs.RELATION_TREE}>
+              <Tabs className="tab-sm-w-100" defaultActiveKey={tabActive} onChange={onTabChange}>
+                <TabPane
+                  className={styles.tabPane}
+                  tab={t('relation.tabs.tree')}
+                  key={RelationTabs.RELATION_TREE}
+                >
                   <RelationTree data={customData.relationDataTree} />
                 </TabPane>
-                <TabPane tab={t('relation.tabs.table')} key={RelationTabs.RELATION_TABLE}>
+                <TabPane
+                  className={styles.tabPane}
+                  tab={t('relation.tabs.table')}
+                  key={RelationTabs.RELATION_TABLE}
+                >
                   <RelationTable data={customData.relationTableData} />
                 </TabPane>
               </Tabs>

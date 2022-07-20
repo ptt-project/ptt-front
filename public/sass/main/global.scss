@@ -214,3 +214,21 @@
     }
   }
 }
+
+@include mq(sm, max) {
+  // override tab bar to full width
+  .tab-sm-w-100 {
+    &.ant-tabs {
+      .ant-tabs-tab {
+        display: block; // centers text inside tabs
+        flex: 1;
+        text-align: center;
+      }
+
+      .ant-tabs-nav > div:nth-of-type(1) {
+        display: unset !important;
+        width: 100% !important;
+      }
+    }
+  }
+}
