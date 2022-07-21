@@ -2,7 +2,7 @@ import { PlusOutlined } from '@ant-design/icons'
 import { Typography, Modal, Upload, Col, Form, Input, Row, Select } from 'antd'
 import type { RcFile, UploadProps } from 'antd/es/upload'
 import type { UploadFile } from 'antd/es/upload/interface'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import t from '~/locales'
 import styles from '../SellerMyProductsForm.module.scss'
@@ -28,44 +28,8 @@ const Info: React.FC<IFormProductInfoProps> = (props: IFormProductInfoProps) => 
   const [previewVisible, setPreviewVisible] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
-  const [fileList, setFileList] = useState<UploadFile[]>([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    },
-    {
-      uid: '-2',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    },
-    {
-      uid: '-3',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    },
-    {
-      uid: '-4',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    },
-    {
-      uid: '-5',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    },
-    {
-      uid: '-6',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
-    }
-  ])
+  const [listUpload, setListUpload] = useState([])
+  const [fileList, setFileList] = useState<UploadFile[]>([])
 
   const handleCancel = () => setPreviewVisible(false)
 
@@ -88,6 +52,13 @@ const Info: React.FC<IFormProductInfoProps> = (props: IFormProductInfoProps) => 
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   )
+  useEffect(() => {
+    const list = []
+    for (let i = 1; i <= 7; i++) {
+      list.push(i)
+    }
+    setListUpload(list)
+  }, [])
 
   return (
     <>
@@ -106,12 +77,36 @@ const Info: React.FC<IFormProductInfoProps> = (props: IFormProductInfoProps) => 
             <Upload
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture-card"
-              fileList={fileList}
               onPreview={handlePreview}
               onChange={handleChange}
+              className={styles.uploadImg}
             >
-              {fileList.length >= 8 ? null : uploadButton}
+              <div>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>{t('sellerProducts.form.info.photoCover')}</div>
+              </div>
             </Upload>
+            {listUpload.map((value, index) => {
+              return (
+                <Upload
+                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                  listType="picture-card"
+                  //fileList={fileList}
+                  onPreview={handlePreview}
+                  onChange={handleChange}
+                  className={styles.uploadImg}
+                >
+                  {' '}
+                  <div>
+                    <PlusOutlined />
+                    <div style={{ marginTop: 8 }}>
+                      {t('sellerProducts.form.info.picture')} {value}
+                    </div>
+                  </div>
+                </Upload>
+              )
+            })}
+
             <Modal
               visible={previewVisible}
               title={previewTitle}

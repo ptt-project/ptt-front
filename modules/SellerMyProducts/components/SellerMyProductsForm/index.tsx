@@ -47,6 +47,8 @@ const SellerMyProductsForm: FC = () => {
               </Text>
               <Form layout="vertical" form={form} name="productForm" onFinish={onSubmit}>
                 <Info />
+                <Features />
+                <Sales />
               </Form>
             </Col>
           </Row>
