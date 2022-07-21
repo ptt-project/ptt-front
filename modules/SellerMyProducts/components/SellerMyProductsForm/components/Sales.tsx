@@ -65,6 +65,7 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
             </Col>
           </>
         )}
+        {isCheckUseOptions && <></>}
       </Row>
     </>
   )

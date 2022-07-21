@@ -7,6 +7,8 @@ import t from '~/locales'
 import Info from './components/Info'
 import Features from './components/Features'
 import Sales from './components/Sales'
+import Other from './components/Other'
+import Delivery from './components/Delivery'
 
 import styles from './SellerMyProductsForm.module.scss'
 
@@ -49,6 +51,25 @@ const SellerMyProductsForm: FC = () => {
                 <Info />
                 <Features />
                 <Sales />
+                <Delivery />
+                <Other />
+                <Row gutter={[16, 8]} className="mt-3">
+                  <Col md={8}>
+                    <Button type="text" block>
+                      {t('sellerProducts.form.cancel')}
+                    </Button>
+                  </Col>
+                  <Col md={8}>
+                    <Button type="text" block>
+                      {t('sellerProducts.form.saveHide')}
+                    </Button>
+                  </Col>
+                  <Col md={8}>
+                    <Button htmlType="submit" type="primary" block>
+                      {t('sellerProducts.form.savePublish')}
+                    </Button>
+                  </Col>
+                </Row>
               </Form>
             </Col>
           </Row>
