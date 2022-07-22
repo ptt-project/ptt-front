@@ -1,9 +1,11 @@
-import React, { FC } from 'react'
+import React, { useState, FC, ChangeEvent, Key } from 'react'
 import Helmet from 'react-helmet'
-import { Typography, Row, Col, Button, Table, Switch, Space, Image, Input } from 'antd'
+import { isEmpty } from 'lodash'
+import { Typography, Row, Col, Button, Table, Switch, Space, Image, Input, Modal } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import SettingSidebar from '~/components/main/SettingSidebar'
+import ConfirmationModal from '~/components/main/ConfirmationModal'
 import { IProductData, ICategoryData } from '~/model/Seller'
 import t from '~/locales'
 import styles from './EditCategory.module.scss'
@@ -38,7 +40,9 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       title: t('sellerCategory.edit.table.header.a'),
       dataIndex: 'productName',
       key: 'productName',
-      sorter: (a: IProductData, b: IProductData) => a.productName.localeCompare(b.productName)
+      sorter: (a: IProductData, b: IProductData) => a.productName.localeCompare(b.productName),
+      width: 220,
+      ellipsis: true
     },
     {
       title: t('sellerCategory.edit.table.header.b'),
@@ -76,23 +80,64 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       key: 'action',
       align: 'right',
       render: (text: string, record: IProductData, index: number): JSX.Element => (
-        <Text className={styles.action} onClick={(): void => onRemove(record)}>
+        <Text className={styles.action} onClick={(): void => toggleRemove(record)}>
           <i className="fa fa-trash-alt" />
         </Text>
       )
     }
   ]
+  const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false)
+  const [isOpenRemove, setIsOpenRemove] = useState<boolean>(false)
+  const [isOpenMultiRemove, setIsOpenMultiRemove] = useState<boolean>(false)
+  const [categoryName, setCategoryName] = useState<string>(props.category.categoryName)
+  const [selection, setSelection] = useState<IProductData[]>([])
+  const multiRemoveText: any = t('sellerCategory.edit.multiRemove')
+
+  function toggleEdit(): void {
+    setIsOpenEdit(!isOpenEdit)
+  }
+
+  function toggleRemove(record?: IProductData): void {
+    if (record) {
+      console.log(record)
+    }
+    setIsOpenRemove(!isOpenRemove)
+  }
+
+  function toggleMultiRemove(): void {
+    setIsOpenMultiRemove(!isOpenMultiRemove)
+  }
+
+  function onChangeCategoryName(e: ChangeEvent<HTMLInputElement>): void {
+    setCategoryName(e.target.value)
+  }
 
   function onChangeSwitch(checked: boolean): void {
     console.log(checked)
+  }
+
+  function onChangeSelectRow(selectedRowKeys: Key[], selectedRows: IProductData[]): void {
+    console.log(selectedRows)
+    setSelection(selectedRows)
   }
 
   function onSearch(value: string): void {
     console.log(value)
   }
 
-  function onRemove(item: IProductData): void {
-    console.log(item)
+  function onConfirmEdit(): void {
+    console.log(categoryName)
+    toggleEdit()
+  }
+
+  function onConfirmRemove(): void {
+    console.log('remove')
+    toggleRemove()
+  }
+
+  function onConfirmMultiRemove(): void {
+    console.log('multi remove')
+    toggleMultiRemove()
   }
 
   function renderEmptyData(): JSX.Element {
@@ -128,6 +173,52 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
           { title: props.category.categoryName }
         ]}
       />
+      <Modal
+        title={
+          <Title className="mb-0" level={4}>
+            <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
+            {t('sellerCategory.modal.edit.title')}
+          </Title>
+        }
+        visible={isOpenEdit}
+        onCancel={toggleEdit}
+        footer={
+          <Row>
+            <Col className="text-right" span={24}>
+              <Button type="default" onClick={toggleEdit}>
+                {t('common.cancel')}
+              </Button>
+              <Button type="primary" disabled={!categoryName} onClick={onConfirmEdit}>
+                {t('common.confirm')}
+              </Button>
+            </Col>
+          </Row>
+        }
+      >
+        <div className={styles.label}>
+          <Text className={styles.required}>*</Text>
+          <Text>{t('sellerCategory.modal.edit.form.category')}</Text>
+        </div>
+        <Input showCount maxLength={40} onChange={onChangeCategoryName} value={categoryName} />
+      </Modal>
+      <ConfirmationModal
+        type="error"
+        title={t('sellerCategory.modal.remove.title')}
+        content={t('sellerCategory.modal.remove.content')}
+        isOpen={isOpenRemove}
+        toggle={toggleRemove}
+        onSubmit={onConfirmRemove}
+      />
+      <ConfirmationModal
+        type="error"
+        title={`${t('sellerCategory.edit.multiRemove.placeholderA')} ${selection.length} ${t(
+          'sellerCategory.edit.multiRemove.placeholderB'
+        )}`}
+        content={t('sellerCategory.modal.remove.content')}
+        isOpen={isOpenMultiRemove}
+        toggle={toggleMultiRemove}
+        onSubmit={onConfirmMultiRemove}
+      />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
@@ -137,17 +228,24 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 2 }} md={24}>
               <Row align="middle">
                 <Col span={18}>
-                  <Title className={styles.title} level={4}>
-                    {props.category.categoryName}
-                  </Title>
-                  <Space size="middle">
-                    <Text type="secondary">
-                      {t('sellerCategory.edit.createdBy')}: {props.category.createdBy}
-                    </Text>
-                    <Text type="secondary">
-                      {t('sellerCategory.edit.quantity')}: {props.category.quantity}
+                  <Space align="center">
+                    <Title className={styles.title} level={4}>
+                      {props.category.categoryName}
+                    </Title>
+                    <Text className={styles.edit} onClick={toggleEdit}>
+                      <i className="fa fa-pen" />
                     </Text>
                   </Space>
+                  <div className="d-block">
+                    <Space size="middle">
+                      <Text type="secondary">
+                        {t('sellerCategory.edit.createdBy')}: {props.category.createdBy}
+                      </Text>
+                      <Text type="secondary">
+                        {t('sellerCategory.edit.quantity')}: {props.category.quantity}
+                      </Text>
+                    </Space>
+                  </div>
                 </Col>
                 <Col className="text-right" span={6}>
                   <Switch
@@ -161,7 +259,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                 <Col className={styles.filtersWrapper} span={24}>
                   <Row align="middle">
                     <Col span={12}>
-                      <Title className={styles.label} level={5}>
+                      <Title className={styles.subLabel} level={5}>
                         {t('sellerCategory.edit.label')}
                       </Title>
                     </Col>
@@ -180,14 +278,29 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                   </Row>
                 </Col>
               </Row>
+              {!isEmpty(selection) ? (
+                <Row>
+                  <Col className="text-right mb-3" span={24}>
+                    <Space size="middle">
+                      <Text type="secondary">
+                        {multiRemoveText.placeholderA} {selection.length}{' '}
+                        {multiRemoveText.placeholderB}
+                      </Text>
+                      <Button type="primary" danger ghost onClick={toggleMultiRemove}>
+                        {multiRemoveText.title}
+                      </Button>
+                    </Space>
+                  </Col>
+                </Row>
+              ) : null}
               <Row>
                 <Col span={24}>
                   <Table
                     className="hps-table hps-scroll"
                     size="middle"
                     rowSelection={{
-                      type: 'checkbox'
-                      // ...rowSelection
+                      type: 'checkbox',
+                      onChange: onChangeSelectRow
                     }}
                     columns={columns}
                     dataSource={dataSource}

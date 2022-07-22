@@ -167,19 +167,11 @@ const SellerCategory: FC = () => {
           { title: t('settingSidebar.seller.shop.category') }
         ]}
       />
-      <ConfirmationModal
-        type="error"
-        title={t('sellerCategory.modal.remove.title')}
-        content={t('sellerCategory.modal.remove.content')}
-        isOpen={isOpenRemove}
-        toggle={toggleRemove}
-        onSubmit={onConfirmRemove}
-      />
       <Modal
         title={
           <Title className="mb-0" level={4}>
             <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
-            {t('sellerCategory.title')}
+            {t('sellerCategory.modal.add.title')}
           </Title>
         }
         visible={isOpenAdd}
@@ -203,6 +195,14 @@ const SellerCategory: FC = () => {
         </div>
         <Input showCount maxLength={40} onChange={onChangeCategory} value={category} />
       </Modal>
+      <ConfirmationModal
+        type="error"
+        title={t('sellerCategory.modal.remove.title')}
+        content={t('sellerCategory.modal.remove.content')}
+        isOpen={isOpenRemove}
+        toggle={toggleRemove}
+        onSubmit={onConfirmRemove}
+      />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>

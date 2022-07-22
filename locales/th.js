@@ -400,6 +400,12 @@ export default {
           category: 'ชื่อหมวดหมู่สินค้า'
         }
       },
+      edit: {
+        title: 'แก้ไขหมวดหมู่สินค้า',
+        form: {
+          category: 'ชื่อหมวดหมู่สินค้า'
+        }
+      },
       remove: {
         title: 'ลบหมวดหมู่',
         content: 'ยืนยันการลบหมวดหมู่สินค้าหรือไม่'
@@ -411,6 +417,11 @@ export default {
       label: 'รายการสินค้า',
       add: 'เพิ่มสินค้า',
       search: 'ค้นหาสินค้า',
+      multiRemove: {
+        title: 'ลบสินค้า',
+        placeholderA: 'เลือกสินค้า',
+        placeholderB: 'รายการ'
+      },
       table: {
         header: {
           a: 'ชื่อสินค้า',
