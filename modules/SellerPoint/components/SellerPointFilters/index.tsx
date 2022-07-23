@@ -45,11 +45,11 @@ const SellerPointFilters: FC = () => {
       <Row>
         <Form.Item className="mb-0">
           <Button className="mr-3" htmlType="submit" type="primary">
-            {t('sellerPoint.filters.search')}
+            {t('common.search')}
           </Button>
         </Form.Item>
         <Form.Item className="mb-0">
-          <Button htmlType="reset">{t('sellerPoint.filters.reset')}</Button>
+          <Button htmlType="reset">{t('common.reset')}</Button>
         </Form.Item>
       </Row>
     </Form>
