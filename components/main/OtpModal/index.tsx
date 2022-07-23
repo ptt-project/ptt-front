@@ -52,11 +52,10 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
   }
 
   function onChangeOtp(e: ChangeEvent<HTMLInputElement>): void {
-    const reg: RegExp = /^[0-9\b]+$/
-    if (!e.target.value || reg.test(e.target.value)) {
+    if (!e.target.value || RegExpList.CHECK_NUMBER.test(e.target.value)) {
       setOtpInput(e.target.value)
     } else {
-      setOtpInput(e.target.value.replace(/[^0-9.]/g, ''))
+      setOtpInput(e.target.value.replace(RegExpList.ALLOW_NUMBER, ''))
     }
   }
 

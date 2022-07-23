@@ -21,6 +21,8 @@ export default {
     send: 'ส่ง',
     add: 'เพิ่ม',
     remove: 'ลบ',
+    search: 'ค้นหา',
+    reset: 'รีเซ็ต',
     form: {
       option: '---------- เลือก ----------',
       required: 'กรุณาระบุ',
@@ -358,9 +360,7 @@ export default {
     filters: {
       productName: 'ชื่อสินค้า',
       productNameChoice: 'ชื่อตัวเลือกสินค้า',
-      date: 'วัน/เดือน/ปี',
-      search: 'ค้นหา',
-      reset: 'รีเซ็ต'
+      date: 'วัน/เดือน/ปี'
     },
     all: 'ทั้งหมด',
     waitingForReply: 'รอการตอบกลับ',
@@ -411,6 +411,23 @@ export default {
         content: 'ยืนยันการลบหมวดหมู่สินค้าหรือไม่'
       }
     },
+    add: {
+      title: 'เลือกสินค้า',
+      search: {
+        name: 'ชื่อสินค้า',
+        min: 'ราคาต่ำสุด',
+        max: 'ราคาสูงสุด'
+      },
+      table: {
+        header: {
+          a: 'ชื่อสินค้า',
+          b: 'แบรนด์',
+          c: 'ยอดขาย',
+          d: 'ราคา',
+          e: 'คลัง'
+        }
+      }
+    },
     edit: {
       createdBy: 'สร้างโดย',
       quantity: 'สินค้า',
@@ -446,9 +463,7 @@ export default {
         group: 'กลุ่มการค้นหา',
         orderId: 'รหัสคําสั่งซื้อ',
         keyword: 'Keyword ที่ใช้ในการค้นหา',
-        category: 'หมวดหมู่',
-        search: 'ค้นหา',
-        reset: 'รีเซ็ต'
+        category: 'หมวดหมู่'
       },
       all: 'ทั้งหมด',
       waitingForApprove: 'รอ Approve',
