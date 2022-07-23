@@ -1,11 +1,13 @@
 import React, { useState, FC, ChangeEvent, Key } from 'react'
 import Helmet from 'react-helmet'
 import { isEmpty } from 'lodash'
-import { Typography, Row, Col, Button, Table, Switch, Space, Image, Input, Modal } from 'antd'
+import { Typography, Row, Col, Button, Table, Switch, Space, Input, Modal } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
+import EmptyTableData from '../EmptyTableData'
+import AddCategoryModal from '../AddCategoryModal'
 import { IProductData, ICategoryData } from '~/model/Seller'
 import t from '~/locales'
 import styles from './EditCategory.module.scss'
@@ -20,21 +22,24 @@ const dataSource: IProductData[] = [
   {
     key: '1',
     productName: 'WelStore FITTERGEAR Femmine Training Gloves',
+    brand: 'WelStore',
     amount: 599,
     quantity: 10,
+    sold: 3,
     status: 2
   },
   {
     key: '2',
     productName: 'WelStore FITTERGEAR Male Training Gloves',
+    brand: 'WelStore',
     amount: 500,
     quantity: 15,
+    sold: 5,
     status: 0
   }
 ]
 
 const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
-  // const router: NextRouter = useRouter()
   const columns: ColumnsType<IProductData> = [
     {
       title: t('sellerCategory.edit.table.header.a'),
@@ -86,12 +91,17 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       )
     }
   ]
+  const [isOpenAdd, setIsOpenAdd] = useState<boolean>(false)
   const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false)
   const [isOpenRemove, setIsOpenRemove] = useState<boolean>(false)
   const [isOpenMultiRemove, setIsOpenMultiRemove] = useState<boolean>(false)
   const [categoryName, setCategoryName] = useState<string>(props.category.categoryName)
   const [selection, setSelection] = useState<IProductData[]>([])
   const multiRemoveText: any = t('sellerCategory.edit.multiRemove')
+
+  function toggleAdd(): void {
+    setIsOpenAdd(!isOpenAdd)
+  }
 
   function toggleEdit(): void {
     setIsOpenEdit(!isOpenEdit)
@@ -125,6 +135,11 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
     console.log(value)
   }
 
+  function onConfirmAdd(products: IProductData[]): void {
+    console.log(products)
+    toggleAdd()
+  }
+
   function onConfirmEdit(): void {
     console.log(categoryName)
     toggleEdit()
@@ -138,22 +153,6 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
   function onConfirmMultiRemove(): void {
     console.log('multi remove')
     toggleMultiRemove()
-  }
-
-  function renderEmptyData(): JSX.Element {
-    return (
-      <div className={styles.tableEmpty}>
-        <div className={styles.imgContainer}>
-          <Image
-            rootClassName={styles.imgWrapper}
-            preview={false}
-            src="./images/main/seller/shop-category-empty.png"
-            alt="register-success"
-          />
-        </div>
-        <Text type="secondary">{t('sellerCategory.table.empty')}</Text>
-      </div>
-    )
   }
 
   return (
@@ -173,6 +172,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
           { title: props.category.categoryName }
         ]}
       />
+      <AddCategoryModal isOpen={isOpenAdd} toggle={toggleAdd} onSubmit={onConfirmAdd} />
       <Modal
         title={
           <Title className="mb-0" level={4}>
@@ -211,9 +211,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       />
       <ConfirmationModal
         type="error"
-        title={`${t('sellerCategory.edit.multiRemove.placeholderA')} ${selection.length} ${t(
-          'sellerCategory.edit.multiRemove.placeholderB'
-        )}`}
+        title={`${multiRemoveText.title} ${selection.length} ${multiRemoveText.placeholderB}`}
         content={t('sellerCategory.modal.remove.content')}
         isOpen={isOpenMultiRemove}
         toggle={toggleMultiRemove}
@@ -256,7 +254,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                 </Col>
               </Row>
               <Row>
-                <Col className={styles.filtersWrapper} span={24}>
+                <Col className={styles.searchWrapper} span={24}>
                   <Row align="middle">
                     <Col span={12}>
                       <Title className={styles.subLabel} level={5}>
@@ -264,7 +262,9 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                       </Title>
                     </Col>
                     <Col className="text-right" span={12}>
-                      <Button type="primary">{t('sellerCategory.edit.add')}</Button>
+                      <Button type="primary" onClick={toggleAdd}>
+                        {t('sellerCategory.edit.add')}
+                      </Button>
                     </Col>
                   </Row>
                   <Row>
@@ -305,7 +305,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                     columns={columns}
                     dataSource={dataSource}
                     pagination={{ position: ['none', 'none'] as any }}
-                    locale={{ emptyText: renderEmptyData() }}
+                    locale={{ emptyText: <EmptyTableData /> }}
                   />
                 </Col>
               </Row>

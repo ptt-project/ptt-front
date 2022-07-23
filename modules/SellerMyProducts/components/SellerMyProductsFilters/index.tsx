@@ -15,6 +15,7 @@ const SellerMyProductFilters: FC = () => {
   function onSubmit(values: IFormModel): void {
     console.log(values)
   }
+
   return (
     <Form
       layout="vertical"
@@ -27,7 +28,7 @@ const SellerMyProductFilters: FC = () => {
         <Col md={12} xs={24}>
           <Form.Item label={t('sellerProducts.list.filters.group')} name="productName">
             <Select defaultValue={t('sellerProducts.list.filters.orderId')}>
-              <Option value="jack">Jack</Option>
+              <Select.Option value="jack">Jack</Select.Option>
             </Select>
           </Form.Item>
         </Col>
@@ -39,7 +40,7 @@ const SellerMyProductFilters: FC = () => {
         <Col md={12} xs={24}>
           <Form.Item label={t('sellerProducts.list.filters.category')} name="date">
             <Select defaultValue="">
-              <Option value="jack">Jack</Option>
+              <Select.Option value="jack">Jack</Select.Option>
             </Select>
           </Form.Item>
         </Col>
@@ -47,11 +48,11 @@ const SellerMyProductFilters: FC = () => {
       <Row>
         <Form.Item className="mb-0">
           <Button className="mr-3" htmlType="submit" type="primary">
-            {t('sellerProducts.list.filters.search')}
+            {t('common.search')}
           </Button>
         </Form.Item>
         <Form.Item className="mb-0">
-          <Button htmlType="reset">{t('sellerProducts.list.filters.reset')}</Button>
+          <Button htmlType="reset">{t('common.reset')}</Button>
         </Form.Item>
       </Row>
     </Form>
