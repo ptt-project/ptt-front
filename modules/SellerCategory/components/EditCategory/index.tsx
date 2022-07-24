@@ -45,15 +45,16 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       title: t('sellerCategory.edit.table.header.a'),
       dataIndex: 'productName',
       key: 'productName',
-      sorter: (a: IProductData, b: IProductData) => a.productName.localeCompare(b.productName),
-      width: 220,
-      ellipsis: true
+      width: 200,
+      ellipsis: true,
+      sorter: (a: IProductData, b: IProductData) => a.productName.localeCompare(b.productName)
     },
     {
       title: t('sellerCategory.edit.table.header.b'),
       dataIndex: 'amount',
       key: 'amount',
       align: 'right',
+      width: 100,
       sorter: (a: IProductData, b: IProductData) => a.amount - b.amount
     },
     {
@@ -61,11 +62,14 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       dataIndex: 'quantity',
       key: 'quantity',
       align: 'right',
+      width: 100,
       sorter: (a: IProductData, b: IProductData) => a.quantity - b.quantity
     },
     {
       title: t('sellerCategory.edit.table.header.d'),
       key: 'status',
+      width: 100,
+      sorter: (a: IProductData, b: IProductData) => a.status - b.status,
       render: (text: string, recode: IProductData, index: number): string => {
         switch (recode.status) {
           case 0:
@@ -77,13 +81,13 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
           default:
             return 'ไม่ระบุ'
         }
-      },
-      sorter: (a: IProductData, b: IProductData) => a.status - b.status
+      }
     },
     {
       title: t('sellerCategory.edit.table.header.e'),
       key: 'action',
       align: 'right',
+      width: 100,
       render: (text: string, record: IProductData, index: number): JSX.Element => (
         <Text className={styles.action} onClick={(): void => toggleRemove(record)}>
           <i className="fa fa-trash-alt" />

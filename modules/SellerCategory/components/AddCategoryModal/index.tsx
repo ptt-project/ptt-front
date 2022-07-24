@@ -105,14 +105,15 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
       title: t('sellerCategory.add.table.header.a'),
       dataIndex: 'productName',
       key: 'productName',
-      sorter: (a: IProductData, b: IProductData) => a.productName.localeCompare(b.productName),
       width: 300,
-      ellipsis: true
+      ellipsis: true,
+      sorter: (a: IProductData, b: IProductData) => a.productName.localeCompare(b.productName)
     },
     {
       title: t('sellerCategory.add.table.header.b'),
       dataIndex: 'brand',
       key: 'brand',
+      width: 100,
       sorter: (a: IProductData, b: IProductData) => a.brand.localeCompare(b.brand)
     },
     {
@@ -120,6 +121,7 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
       dataIndex: 'sold',
       key: 'sold',
       align: 'right',
+      width: 100,
       sorter: (a: IProductData, b: IProductData) => a.sold - b.sold
     },
     {
@@ -127,6 +129,7 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
       dataIndex: 'amount',
       key: 'amount',
       align: 'right',
+      width: 100,
       sorter: (a: IProductData, b: IProductData) => a.amount - b.amount
     },
     {
@@ -134,6 +137,7 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
       dataIndex: 'quantity',
       key: 'quantity',
       align: 'right',
+      width: 100,
       sorter: (a: IProductData, b: IProductData) => a.quantity - b.quantity
     }
   ]
