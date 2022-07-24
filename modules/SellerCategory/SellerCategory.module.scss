@@ -25,30 +25,3 @@
   color: $info-color;
   cursor: pointer;
 }
-
-.tableEmpty {
-  display: block;
-  max-width: 50%;
-  margin: auto;
-
-  .imgContainer {
-    position: relative;
-    width: 100%;
-    padding-top: 75%;
-    margin: 1.5rem 0;
-
-    .imgWrapper {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-  }
-}
