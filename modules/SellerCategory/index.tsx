@@ -63,6 +63,7 @@ const SellerCategory: FC = () => {
       title: t('sellerCategory.table.header.d'),
       key: 'status',
       align: 'center',
+      sorter: (a: ICategoryData, b: ICategoryData) => a.status - b.status,
       render: (text: string, recode: ICategoryData, index: number): JSX.Element => (
         <Switch
           className="hps-switch"
@@ -70,8 +71,7 @@ const SellerCategory: FC = () => {
           defaultChecked={recode.status === 1}
           onChange={onChangeSwitch}
         />
-      ),
-      sorter: (a: ICategoryData, b: ICategoryData) => a.status - b.status
+      )
     },
     {
       title: t('sellerCategory.table.header.e'),
