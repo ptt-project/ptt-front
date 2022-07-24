@@ -523,8 +523,9 @@ export default {
           name: 'ชื่อ',
           choice: 'ตัวเลือก',
           addOption: 'เพิ่มตัวเลือก',
-          addOptionChoice: 'เพิ่มตัวเลือกสินค้า'
+          addOptionChoice: 'เพิ่มตัวเลือกสินค้า 2'
         },
+        titleTable: 'รายการตัวเลือกสินค้า',
         productModel: 'รุ่นสินค้า',
         choice2: 'ตัวเลือก 2',
         priceBaht: 'ราคา (บาท)'
