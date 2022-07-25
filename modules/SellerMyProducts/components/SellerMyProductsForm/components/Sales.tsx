@@ -28,10 +28,9 @@ interface IFormProductSalesProps {
 const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) => {
   const [isCheckUseOptions, setIsCheckUseOptions] = useState<boolean>(false)
   const [isFormProductOptions, setIsFormProductOptions] = useState<boolean>(false)
+  const [productList, setProductList] = useState([{ product: '' }])
+  const [product2List, setProduct2List] = useState([{ product2: '' }])
 
-  const onChangeUseOptions = (checked: boolean) => {
-    setIsCheckUseOptions(checked)
-  }
   const productModel: string = t('sellerProducts.form.sales.productModel') // prevent error hook rules
   const choice: string = t('sellerProducts.form.sales.choice2') // prevent error hook rules
   const sku: string = t('sellerProducts.form.sales.sku') // prevent error hook rules
@@ -59,7 +58,29 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
       dataIndex: 'warehouse'
     }
   ]
+  const onChangeUseOptions = (checked: boolean) => {
+    setIsCheckUseOptions(checked)
+  }
+  const handleProductChange = (e, index) => {
+    const { name, value } = e.target
+    const list = [...productList]
+    list[index][name] = value
+    setProductList(list)
+  }
 
+  const handleProductRemove = (index) => {
+    const list = [...productList]
+    list.splice(index, 1)
+    setProductList(list)
+  }
+
+  function handleProductAdd(type: number): void {
+    if (type === 1) {
+      setProductList([...productList, { product: '' }])
+    } else {
+      setProduct2List([...product2List, { product2: '' }])
+    }
+  }
   function onClickButtonAddOption(): void {
     setIsFormProductOptions(true)
   }
@@ -112,7 +133,7 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
         )}
         {isCheckUseOptions && (
           <>
-            <Row gutter={[16, 8]} className={styles.highlight}>
+            <Row gutter={[8, 8]} className={styles.highlight}>
               <Col md={{ span: 22, offset: 1 }}>
                 <Text>{t('sellerProducts.form.sales.optionsForm.productOptions')} 1</Text>
               </Col>
@@ -129,21 +150,23 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
                   <TextArea rows={1} showCount maxLength={20} />
                 </Form.Item>
               </Col>
+              {productList.map((item, index) => (
+                <Col key={index} md={{ span: 22, offset: 1 }}>
+                  <Form.Item
+                    label={t('sellerProducts.form.sales.optionsForm.choice')}
+                    name={item.product}
+                    rules={[
+                      {
+                        required: true
+                      }
+                    ]}
+                  >
+                    <TextArea rows={1} showCount maxLength={20} />
+                  </Form.Item>
+                </Col>
+              ))}
               <Col md={{ span: 22, offset: 1 }}>
-                <Form.Item
-                  label={t('sellerProducts.form.sales.optionsForm.choice')}
-                  name="choice"
-                  rules={[
-                    {
-                      required: true
-                    }
-                  ]}
-                >
-                  <TextArea rows={1} showCount maxLength={20} />
-                </Form.Item>
-              </Col>
-              <Col md={{ span: 22, offset: 1 }}>
-                <Button className="hps-btn-secondary" block>
+                <Button className="hps-btn-secondary" onClick={() => handleProductAdd(1)} block>
                   <i className="fas fa-plus mr-2" />
                   {t('sellerProducts.form.sales.optionsForm.addOption')}
                 </Button>
@@ -151,8 +174,14 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
             </Row>
             {isFormProductOptions && (
               <Row gutter={[16, 8]} className={styles.highlight}>
-                <Col md={{ span: 22, offset: 1 }}>
+                <Col md={{ span: 21, offset: 1 }}>
                   <Text>{t('sellerProducts.form.sales.optionsForm.productOptions')} 2</Text>
+                </Col>
+                <Col md={2}>
+                  <i
+                    onClick={() => setIsFormProductOptions(false)}
+                    className={`fas fa-trash-alt ${styles.textSecondary}`}
+                  />
                 </Col>
                 <Col md={{ span: 22, offset: 1 }}>
                   <Form.Item
