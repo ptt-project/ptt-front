@@ -1,6 +1,7 @@
 import React, { useState, FC, ChangeEvent, Key } from 'react'
 import Helmet from 'react-helmet'
 import { isEmpty } from 'lodash'
+import numeral from 'numeral'
 import { Typography, Row, Col, Button, Table, Switch, Space, Input, Modal } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
@@ -55,7 +56,9 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       key: 'amount',
       align: 'right',
       width: 100,
-      sorter: (a: IProductData, b: IProductData) => a.amount - b.amount
+      sorter: (a: IProductData, b: IProductData) => a.amount - b.amount,
+      render: (text: string, recode: IProductData, index: number): string =>
+        numeral(recode.amount).format('0,0.00')
     },
     {
       title: t('sellerCategory.edit.table.header.c'),

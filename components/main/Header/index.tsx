@@ -93,7 +93,7 @@ const Header: FC = () => {
             />
           </div>
           <div className="header-right">
-            <Space size="large">
+            <Space size="middle">
               <Link href="tel:#" className={`${styles.headLink} icon-box icon-box-side`}>
                 <div className="icon-box-icon">
                   <i className="fas fa-phone-alt" />
@@ -114,8 +114,8 @@ const Header: FC = () => {
                     ฿{numeral(0).format('0,0.00')}
                   </Title>
                 </div>
-                <Badge count={0} showZero>
-                  <div className="icon-box-icon ml-3 mr-0">
+                <Badge className={styles.badge} count={0} showZero>
+                  <div className="icon-box-icon mr-0">
                     <i className="fas fa-shopping-cart" />
                   </div>
                 </Badge>
