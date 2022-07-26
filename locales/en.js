@@ -66,6 +66,9 @@ export default {
           title: 'ติดต่อเรา:',
           no: '0(800) 123-456'
         },
+        cart: {
+          title: 'ตระกร้า'
+        },
         search: 'Search...'
       },
       bottom: {
@@ -77,18 +80,21 @@ export default {
           title: 'Categories'
         },
         c: {
-          title: 'Products'
+          title: 'Voucher'
         },
         d: {
-          title: 'Pages'
+          title: 'Flash Sale'
         },
         e: {
-          title: 'Blog'
+          title: 'Happy Mall'
         },
         f: {
-          title: 'Elements'
+          title: 'My Purchase'
         },
         g: {
+          title: 'Setting'
+        },
+        h: {
           title: 'About Us'
         }
       }
@@ -101,7 +107,96 @@ export default {
       label: 'OTP',
       ref: 'Ref code:',
       request: 'ส่งอีกครั้ง'
+    },
+    mainSidebar: {
+      title: 'หมวดหมู่สินค้า',
+      a: 'เสื้อผ้า',
+      b: 'รองเท้า',
+      c: 'อาหาร',
+      d: 'เครื่องดื่ม',
+      e: 'สุขภาพ',
+      f: 'แม่และเด็ก',
+      g: 'เครื่องประดับ',
+      h: 'มือถือ',
+      i: 'อุปกรณ์ไฟฟ้า',
+      j: 'อุปกรณ์กีฬา',
+      k: 'เกมส์',
+      l: 'เฟอร์นิเจอร์',
+      m: 'สัตว์เลี้ยง',
+      n: 'นาฬิกา',
+      o: 'แว่นตา',
+      p: 'กระเป๋า',
+      q: 'ตั๋วและบัตรกำนัล',
+      r: 'เครื่องเขียน',
+      s: 'ยานยนต์',
+      t: 'ดนตรี'
+    },
+    settingSidebar: {
+      buyer: {
+        account: {
+          title: 'บัญชีผู้ใช้',
+          info: 'ข้อมูลส่วนตัว',
+          address: 'ที่อยู่',
+          password: 'เปลี่ยนรหัสผ่าน',
+          relation: 'ความสัมพันธ์'
+        },
+        wallet: {
+          title: 'การเงิน',
+          eWallet: 'E-Wallet',
+          bank: 'บัญชีธนาคาร',
+          point: 'Happy Point'
+        },
+        coupon: {
+          title: 'โค้ดส่วนลด'
+        },
+        history: {
+          title: 'การซื้อของฉัน'
+        },
+        notification: {
+          title: 'การแจ้งเตือน'
+        }
+      },
+      seller: {
+        delivery: {
+          title: 'การจัดส่ง'
+        },
+        order: {
+          title: 'คำสั่งซื้อ'
+        },
+        product: {
+          title: 'สินค้า',
+          list: 'สินค้าของฉัน',
+          addList: 'เพิ่มสินค้าใหม่'
+        },
+        marketing: {
+          title: 'Marketing Centre'
+        },
+        payment: {
+          title: 'การเงิน'
+        },
+        report: {
+          title: 'รายงาน'
+        },
+        shop: {
+          title: 'ร้านค้า',
+          point: 'คะแนนร้านค้า',
+          detail: 'รายละเอียดร้านค้า',
+          category: 'หมวดหมู่ในร้านค้า',
+          recommended: 'ร้านค้าแนะนำ'
+        },
+        management: {
+          title: 'การตั้งค่า',
+          address: 'ที่อยู่ของฉัน',
+          account: 'บัญชี'
+        },
+        service: {
+          title: 'การบริการลูกค้า'
+        }
+      }
     }
+  },
+  home: {
+    title: 'Happy Shopping'
   },
   auth: {
     login: {
@@ -287,69 +382,6 @@ export default {
       sendVerificationCode: 'ส่งรหัสยืนยัน',
       close: 'ปิด',
       deletePhone: 'ลบเบอร์โทร'
-    }
-  },
-  settingSidebar: {
-    buyer: {
-      account: {
-        title: 'บัญชีผู้ใช้',
-        info: 'ข้อมูลส่วนตัว',
-        address: 'ที่อยู่',
-        password: 'เปลี่ยนรหัสผ่าน',
-        relation: 'ความสัมพันธ์'
-      },
-      wallet: {
-        title: 'การเงิน',
-        eWallet: 'E-Wallet',
-        bank: 'บัญชีธนาคาร',
-        point: 'Happy Point'
-      },
-      coupon: {
-        title: 'โค้ดส่วนลด'
-      },
-      history: {
-        title: 'การซื้อของฉัน'
-      },
-      notification: {
-        title: 'การแจ้งเตือน'
-      }
-    },
-    seller: {
-      delivery: {
-        title: 'การจัดส่ง'
-      },
-      order: {
-        title: 'คำสั่งซื้อ'
-      },
-      product: {
-        title: 'สินค้า',
-        list: 'สินค้าของฉัน',
-        addList: 'เพิ่มสินค้าใหม่'
-      },
-      marketing: {
-        title: 'Marketing Centre'
-      },
-      payment: {
-        title: 'การเงิน'
-      },
-      report: {
-        title: 'รายงาน'
-      },
-      shop: {
-        title: 'ร้านค้า',
-        point: 'คะแนนร้านค้า',
-        detail: 'รายละเอียดร้านค้า',
-        category: 'หมวดหมู่ในร้านค้า',
-        recommended: 'ร้านค้าแนะนำ'
-      },
-      management: {
-        title: 'การตั้งค่า',
-        address: 'ที่อยู่ของฉัน',
-        account: 'บัญชี'
-      },
-      service: {
-        title: 'การบริการลูกค้า'
-      }
     }
   },
   sellerPoint: {

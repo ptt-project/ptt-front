@@ -23,14 +23,14 @@
   }
 }
 
-.telLink {
+.headLink {
   &:hover,
   &:focus {
     color: $primary-color !important;
   }
 }
 
-.telNo {
+.headText {
   margin-top: -0.25rem !important;
   margin-bottom: 0 !important;
   line-height: 1 !important;

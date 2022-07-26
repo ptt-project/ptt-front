@@ -35,6 +35,7 @@
     "next-redux-wrapper": "^7.0.5",
     "next-with-less": "^2.0.5",
     "node-fetch": "^3.0.0",
+    "numeral": "^2.0.6",
     "react": "^16.8.0",
     "react-awesome-reveal": "^3.8.1",
     "react-bootstrap": "^1.6.4",

@@ -11,12 +11,8 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <base href="/"></base>
-          <title>Riode - React eCommerce Template</title>
+          <title>Happy Shopping</title>
           <link rel="icon" href="images/icons/favicon.png" />
-          {/* <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
-          /> */}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
