@@ -78,11 +78,14 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
   function handleProductAdd(type: string): void {
     if (type === 'choice1') {
       setIsProductList(true)
+      console.log([...productList])
+      console.log([...productList, { product: '' }])
       setProductList([...productList, { product: '' }])
     } else {
       setProduct2List([...product2List, { product2: '' }])
     }
   }
+
   function onClickButtonAddOption(): void {
     setIsFormProductOptions(true)
   }
@@ -152,21 +155,25 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
                   <TextArea rows={1} showCount maxLength={20} />
                 </Form.Item>
               </Col>
-              <Col md={{ span: 22, offset: 1 }}>
-                <Form.Item
-                  label={t('sellerProducts.form.sales.optionsForm.choice')}
-                  name="product"
-                  rules={[
-                    {
-                      required: true
-                    }
-                  ]}
-                >
-                  <TextArea rows={1} showCount maxLength={20} />
-                </Form.Item>
-              </Col>
-              {isProductList &&
-                productList.map((item, index) => (
+              {productList.map((item, index) => {
+                if (index === 0) {
+                  return (
+                    <Col md={{ span: 22, offset: 1 }}>
+                      <Form.Item
+                        label={t('sellerProducts.form.sales.optionsForm.choice')}
+                        name="product"
+                        rules={[
+                          {
+                            required: true
+                          }
+                        ]}
+                      >
+                        <TextArea rows={1} showCount maxLength={20} />
+                      </Form.Item>
+                    </Col>
+                  )
+                }
+                return (
                   <>
                     <Col key={index} md={{ span: 21, offset: 1 }}>
                       <Form.Item
@@ -185,7 +192,8 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
                       />
                     </Col>
                   </>
-                ))}
+                )
+              })}
               <Col md={{ span: 22, offset: 1 }}>
                 <Button
                   className="hps-btn-secondary"

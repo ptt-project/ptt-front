@@ -9,6 +9,7 @@ import styles from '../SellerMyProductsForm.module.scss'
 
 const { Text, Title } = Typography
 const { TextArea } = Input
+
 interface IFormProductInfoProps {
   label?: string
   value?: boolean
@@ -54,7 +55,7 @@ const Info: React.FC<IFormProductInfoProps> = (props: IFormProductInfoProps) => 
   )
   useEffect(() => {
     const list = []
-    for (let i = 1; i <= 7; i++) {
+    for (let i = 1; i <= 1; i++) {
       list.push(i)
     }
     setListUpload(list)
@@ -75,37 +76,38 @@ const Info: React.FC<IFormProductInfoProps> = (props: IFormProductInfoProps) => 
             ]}
           >
             <Upload
+              maxCount={1}
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture-card"
+              fileList={fileList}
               onPreview={handlePreview}
               onChange={handleChange}
               className={styles.uploadImg}
             >
-              <div>
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>{t('sellerProducts.form.info.photoCover')}</div>
-              </div>
+              {fileList.length ? null : (
+                <div>
+                  <PlusOutlined />
+                  <div style={{ marginTop: 8 }}>{t('sellerProducts.form.info.photoCover')}</div>
+                </div>
+              )}
             </Upload>
-            {listUpload.map((value, index) => {
-              return (
-                <Upload
-                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                  listType="picture-card"
-                  //fileList={fileList}
-                  onPreview={handlePreview}
-                  onChange={handleChange}
-                  className={styles.uploadImg}
-                >
-                  {' '}
-                  <div>
-                    <PlusOutlined />
-                    <div style={{ marginTop: 8 }}>
-                      {t('sellerProducts.form.info.picture')} {value}
-                    </div>
+            {listUpload.map((value, index) => (
+              <Upload
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                listType="picture-card"
+                // fileList={fileList}
+                onPreview={handlePreview}
+                onChange={handleChange}
+                className={styles.uploadImg}
+              >
+                <div>
+                  <PlusOutlined />
+                  <div style={{ marginTop: 8 }}>
+                    {t('sellerProducts.form.info.picture')} {value}
                   </div>
-                </Upload>
-              )
-            })}
+                </div>
+              </Upload>
+            ))}
 
             <Modal
               visible={previewVisible}
