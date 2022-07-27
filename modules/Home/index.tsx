@@ -15,7 +15,7 @@ const Home: FC = () => {
   const router: NextRouter = useRouter()
 
   return (
-    <div className="main mt-lg-4">
+    <div className="main mt-lg-4 mb-4">
       <Helmet>
         <title>{t('home.title')}</title>
       </Helmet>
