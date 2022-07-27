@@ -29,9 +29,8 @@ const Info: React.FC<IFormProductInfoProps> = (props: IFormProductInfoProps) => 
   const [previewVisible, setPreviewVisible] = useState(false)
   const [previewImage, setPreviewImage] = useState('')
   const [previewTitle, setPreviewTitle] = useState('')
-  const [listUpload, setListUpload] = useState([])
+  const [filePhotoCoverList, setFilePhotoCoverList] = useState<UploadFile[]>([])
   const [fileList, setFileList] = useState<UploadFile[]>([])
-
   const handleCancel = () => setPreviewVisible(false)
 
   const handlePreview = async (file: UploadFile) => {
@@ -44,22 +43,11 @@ const Info: React.FC<IFormProductInfoProps> = (props: IFormProductInfoProps) => 
     setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1))
   }
 
-  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
-    setFileList(newFileList)
+  const handleChangePhotoCover: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+    setFilePhotoCoverList(newFileList)
 
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  )
-  useEffect(() => {
-    const list = []
-    for (let i = 1; i <= 1; i++) {
-      list.push(i)
-    }
-    setListUpload(list)
-  }, [])
+  const handleChangePhoto: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+    setFileList(newFileList)
 
   return (
     <>
@@ -79,36 +67,36 @@ const Info: React.FC<IFormProductInfoProps> = (props: IFormProductInfoProps) => 
               maxCount={1}
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               listType="picture-card"
-              fileList={fileList}
+              fileList={filePhotoCoverList}
               onPreview={handlePreview}
-              onChange={handleChange}
+              onChange={handleChangePhotoCover}
               className={styles.uploadImg}
             >
-              {fileList.length ? null : (
+              {filePhotoCoverList.length ? null : (
                 <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>{t('sellerProducts.form.info.photoCover')}</div>
                 </div>
               )}
             </Upload>
-            {listUpload.map((value, index) => (
-              <Upload
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                listType="picture-card"
-                // fileList={fileList}
-                onPreview={handlePreview}
-                onChange={handleChange}
-                className={styles.uploadImg}
-              >
+            <Upload
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              listType="picture-card"
+              fileList={fileList}
+              onPreview={handlePreview}
+              onChange={handleChangePhoto}
+              className={styles.uploadImg}
+              maxCount={7}
+            >
+              {fileList.length >= 7 ? null : (
                 <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>
-                    {t('sellerProducts.form.info.picture')} {value}
+                    {t('sellerProducts.form.info.picture')} (Max: 7)
                   </div>
                 </div>
-              </Upload>
-            ))}
-
+              )}
+            </Upload>
             <Modal
               visible={previewVisible}
               title={previewTitle}
