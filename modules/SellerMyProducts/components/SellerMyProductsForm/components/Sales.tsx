@@ -28,6 +28,7 @@ interface IFormProductSalesProps {
 const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) => {
   const [isCheckUseOptions, setIsCheckUseOptions] = useState<boolean>(false)
   const [isFormProductOptions, setIsFormProductOptions] = useState<boolean>(false)
+  const [isProductList, setIsProductList] = useState<boolean>(false)
   const [productList, setProductList] = useState([{ product: '' }])
   const [product2List, setProduct2List] = useState([{ product2: '' }])
 
@@ -74,8 +75,9 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
     setProductList(list)
   }
 
-  function handleProductAdd(type: number): void {
-    if (type === 1) {
+  function handleProductAdd(type: string): void {
+    if (type === 'choice1') {
+      setIsProductList(true)
       setProductList([...productList, { product: '' }])
     } else {
       setProduct2List([...product2List, { product2: '' }])
@@ -150,23 +152,46 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
                   <TextArea rows={1} showCount maxLength={20} />
                 </Form.Item>
               </Col>
-              {productList.map((item, index) => (
-                <Col key={index} md={{ span: 22, offset: 1 }}>
-                  <Form.Item
-                    label={t('sellerProducts.form.sales.optionsForm.choice')}
-                    name={item.product}
-                    rules={[
-                      {
-                        required: true
-                      }
-                    ]}
-                  >
-                    <TextArea rows={1} showCount maxLength={20} />
-                  </Form.Item>
-                </Col>
-              ))}
               <Col md={{ span: 22, offset: 1 }}>
-                <Button className="hps-btn-secondary" onClick={() => handleProductAdd(1)} block>
+                <Form.Item
+                  label={t('sellerProducts.form.sales.optionsForm.choice')}
+                  name="product"
+                  rules={[
+                    {
+                      required: true
+                    }
+                  ]}
+                >
+                  <TextArea rows={1} showCount maxLength={20} />
+                </Form.Item>
+              </Col>
+              {isProductList &&
+                productList.map((item, index) => (
+                  <>
+                    <Col key={index} md={{ span: 21, offset: 1 }}>
+                      <Form.Item
+                        label={t('sellerProducts.form.sales.optionsForm.choice')}
+                        name={`productChoice_${index}`}
+                        id={`productChoice_${index}`}
+                        onChange={(e) => handleProductChange(e, index)}
+                      >
+                        <TextArea rows={1} showCount maxLength={20} value={item.product} />
+                      </Form.Item>
+                    </Col>
+                    <Col md={2} className="mt-7">
+                      <i
+                        onClick={() => handleProductRemove(index)}
+                        className={`fas fa-trash-alt ${styles.textSecondary}`}
+                      />
+                    </Col>
+                  </>
+                ))}
+              <Col md={{ span: 22, offset: 1 }}>
+                <Button
+                  className="hps-btn-secondary"
+                  onClick={() => handleProductAdd('choice1')}
+                  block
+                >
                   <i className="fas fa-plus mr-2" />
                   {t('sellerProducts.form.sales.optionsForm.addOption')}
                 </Button>
