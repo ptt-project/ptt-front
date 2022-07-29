@@ -75,14 +75,21 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
     tmpList.splice(index, 1)
     if (type === 'choice1') {
       setProductList(tmpList)
+      let count = countProductList - 1
+      setCountProductList(count)
     } else {
       setProduct2List(tmpList)
+      let count2 = countProduct2List - 1
+      setCountProduct2List(count2)
     }
   }
 
   function handleProductAdd(type: string): void {
     if (type === 'choice1') {
       let count = countProductList + 1
+      if (count === 50) {
+      }
+      console.log(Math.floor(50 / count))
       setCountProductList(count)
       setProductList([...productList, { product: '' }])
     } else {
@@ -186,7 +193,7 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
                   id={`productChoice_${index}`}
                   onChange={(e) => handleProductChange(e, index)}
                 >
-                  <TextArea rows={1} showCount maxLength={20} value={item.product} />
+                  <TextArea rows={1} showCount maxLength={20} />
                 </Form.Item>
               </Col>
               <Col md={2} className="mt-7">
@@ -261,7 +268,7 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
                     id={`product2Choice_${index}`}
                     onChange={(e) => handleProductChange(e, index)}
                   >
-                    <TextArea rows={1} showCount maxLength={20} value={item.product2} />
+                    <TextArea rows={1} showCount maxLength={20} />
                   </Form.Item>
                 </Col>
                 <Col md={2} className="mt-7">
