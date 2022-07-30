@@ -32,7 +32,12 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
   const [countProduct2List, setCountProduct2List] = useState<number>(1)
   const [productList, setProductList] = useState([{ product: '' }])
   const [product2List, setProduct2List] = useState([{ product2: '' }])
-
+  const [isCheckButtonProductOptions, setIsCheckButtonProductOptions] = useState<boolean>(true)
+  const [isCheckButtonProduct2Options, setIsCheckButtonProduct2Options] = useState<boolean>(true)
+  const [isCheckButtonFormProductOptions, setIsCheckButtonFormProductOptions] =
+    useState<boolean>(true)
+  const [calProductOptions, setCalProductOptions] = useState<number>(0)
+  const [calProduct2Options, setCalProduct2Options] = useState<number>(0)
   const productModel: string = t('sellerProducts.form.sales.productModel') // prevent error hook rules
   const choice: string = t('sellerProducts.form.sales.choice2') // prevent error hook rules
   const sku: string = t('sellerProducts.form.sales.sku') // prevent error hook rules
@@ -75,27 +80,52 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
     tmpList.splice(index, 1)
     if (type === 'choice1') {
       setProductList(tmpList)
-      let count = countProductList - 1
+      const count = countProductList - 1
       setCountProductList(count)
+      const calLimitProduct2 = Math.floor(50 / countProductList)
+      setCalProduct2Options(calLimitProduct2)
+      console.log(countProduct2List, calLimitProduct2)
+      if (countProductList <= 50) {
+        setIsCheckButtonProductOptions(true)
+        setIsCheckButtonProduct2Options(true)
+        setIsCheckButtonFormProductOptions(true)
+      }
     } else {
       setProduct2List(tmpList)
-      let count2 = countProduct2List - 1
+      const count2 = countProduct2List - 1
       setCountProduct2List(count2)
+      const calLimitProduct = Math.floor(50 / countProduct2List)
+      setCalProductOptions(calLimitProduct)
+      if (countProduct2List <= calProduct2Options) {
+        setIsCheckButtonProduct2Options(true)
+        setIsCheckButtonProductOptions(true)
+      }
     }
   }
 
   function handleProductAdd(type: string): void {
+    console.log('Add')
     if (type === 'choice1') {
-      let count = countProductList + 1
-      if (count === 50) {
-      }
-      console.log(Math.floor(50 / count))
+      const count = countProductList + 1
       setCountProductList(count)
       setProductList([...productList, { product: '' }])
+      const calLimitProduct2 = Math.floor(50 / countProductList)
+      setCalProduct2Options(calLimitProduct2)
+      if (countProductList === 50 && countProduct2List === 1) {
+        setIsCheckButtonProductOptions(false)
+        setIsCheckButtonProduct2Options(false)
+        setIsCheckButtonFormProductOptions(false)
+      }
     } else {
-      let count2 = countProduct2List + 1
+      const count2 = countProduct2List + 1
       setCountProduct2List(count2)
       setProduct2List([...product2List, { product2: '' }])
+      const calLimitProduct = Math.floor(50 / countProduct2List)
+      setCalProductOptions(calLimitProduct)
+      if (countProduct2List >= calProduct2Options) {
+        setIsCheckButtonProduct2Options(false)
+        setIsCheckButtonProductOptions(false)
+      }
     }
   }
 
@@ -205,12 +235,14 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
             </>
           )
         })}
-        <Col md={{ span: 22, offset: 1 }}>
-          <Button className="hps-btn-secondary" onClick={() => handleProductAdd('choice1')} block>
-            <i className="fas fa-plus mr-2" />
-            {t('sellerProducts.form.sales.optionsForm.addOption')}
-          </Button>
-        </Col>
+        {isCheckButtonProductOptions && (
+          <Col md={{ span: 22, offset: 1 }}>
+            <Button className="hps-btn-secondary" onClick={() => handleProductAdd('choice1')} block>
+              <i className="fas fa-plus mr-2" />
+              {t('sellerProducts.form.sales.optionsForm.addOption')}
+            </Button>
+          </Col>
+        )}
       </Row>
     )
   }
@@ -280,13 +312,18 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
               </>
             )
           })}
-
-          <Col md={{ span: 22, offset: 1 }}>
-            <Button className="hps-btn-secondary" onClick={() => handleProductAdd('choice2')} block>
-              <i className="fas fa-plus mr-2" />
-              {t('sellerProducts.form.sales.optionsForm.addOption')}
-            </Button>
-          </Col>
+          {isCheckButtonProduct2Options && (
+            <Col md={{ span: 22, offset: 1 }}>
+              <Button
+                className="hps-btn-secondary"
+                onClick={() => handleProductAdd('choice2')}
+                block
+              >
+                <i className="fas fa-plus mr-2" />
+                {t('sellerProducts.form.sales.optionsForm.addOption')}
+              </Button>
+            </Col>
+          )}
         </Row>
       )
     }
@@ -306,7 +343,7 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
             {rederFormProductOptionsOne()}
             {rederFormProductOptionsTwo()}
             <Row gutter={[16, 8]}>
-              {!isFormProductOptions && (
+              {!isFormProductOptions && isCheckButtonFormProductOptions && (
                 <Col md={24}>
                   <Button className="hps-btn-secondary" onClick={onClickButtonAddOption} block>
                     <i className="fas fa-plus mr-2" />
