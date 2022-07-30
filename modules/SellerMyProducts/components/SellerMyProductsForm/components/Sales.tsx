@@ -28,8 +28,8 @@ interface IFormProductSalesProps {
 const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) => {
   const [isCheckUseOptions, setIsCheckUseOptions] = useState<boolean>(false)
   const [isFormProductOptions, setIsFormProductOptions] = useState<boolean>(false)
-  const [countProductList, setCountProductList] = useState<number>(1)
-  const [countProduct2List, setCountProduct2List] = useState<number>(1)
+  const [countProductList, setCountProductList] = useState<number>(2)
+  const [countProduct2List, setCountProduct2List] = useState<number>(2)
   const [productList, setProductList] = useState([{ product: '' }])
   const [product2List, setProduct2List] = useState([{ product2: '' }])
   const [isCheckButtonProductOptions, setIsCheckButtonProductOptions] = useState<boolean>(true)
@@ -80,20 +80,20 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
     tmpList.splice(index, 1)
     if (type === 'choice1') {
       setProductList(tmpList)
-      const count = countProductList - 1
-      setCountProductList(count)
+      setCountProductList(countProductList - 1)
       const calLimitProduct2 = Math.floor(50 / countProductList)
       setCalProduct2Options(calLimitProduct2)
-      console.log(countProduct2List, calLimitProduct2)
       if (countProductList <= 50) {
         setIsCheckButtonProductOptions(true)
         setIsCheckButtonProduct2Options(true)
         setIsCheckButtonFormProductOptions(true)
       }
+      if (countProductList <= calProductOptions) {
+        setIsCheckButtonProductOptions(true)
+      }
     } else {
       setProduct2List(tmpList)
-      const count2 = countProduct2List - 1
-      setCountProduct2List(count2)
+      setCountProduct2List(countProduct2List - 1)
       const calLimitProduct = Math.floor(50 / countProduct2List)
       setCalProductOptions(calLimitProduct)
       if (countProduct2List <= calProduct2Options) {
@@ -104,11 +104,9 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
   }
 
   function handleProductAdd(type: string): void {
-    console.log('Add')
     if (type === 'choice1') {
-      const count = countProductList + 1
-      setCountProductList(count)
       setProductList([...productList, { product: '' }])
+      setCountProductList(countProductList + 1)
       const calLimitProduct2 = Math.floor(50 / countProductList)
       setCalProduct2Options(calLimitProduct2)
       if (countProductList === 50 && countProduct2List === 1) {
@@ -116,10 +114,12 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
         setIsCheckButtonProduct2Options(false)
         setIsCheckButtonFormProductOptions(false)
       }
+      if (countProductList >= calProductOptions) {
+        setIsCheckButtonProductOptions(false)
+      }
     } else {
-      const count2 = countProduct2List + 1
-      setCountProduct2List(count2)
       setProduct2List([...product2List, { product2: '' }])
+      setCountProduct2List(countProduct2List + 1)
       const calLimitProduct = Math.floor(50 / countProduct2List)
       setCalProductOptions(calLimitProduct)
       if (countProduct2List >= calProduct2Options) {
@@ -235,14 +235,15 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
             </>
           )
         })}
-        {isCheckButtonProductOptions && (
-          <Col md={{ span: 22, offset: 1 }}>
+
+        <Col md={{ span: 22, offset: 1 }}>
+          {isCheckButtonProductOptions && (
             <Button className="hps-btn-secondary" onClick={() => handleProductAdd('choice1')} block>
               <i className="fas fa-plus mr-2" />
               {t('sellerProducts.form.sales.optionsForm.addOption')}
             </Button>
-          </Col>
-        )}
+          )}
+        </Col>
       </Row>
     )
   }
@@ -303,7 +304,7 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
                     <TextArea rows={1} showCount maxLength={20} />
                   </Form.Item>
                 </Col>
-                <Col md={2} className="mt-7">
+                <Col md={1} className="mt-7">
                   <i
                     onClick={() => handleProductRemove(index, 'choice2', product2List)}
                     className={`fas fa-trash-alt ${styles.textSecondary}`}
@@ -354,11 +355,13 @@ const Sales: React.FC<IFormProductSalesProps> = (props: IFormProductSalesProps) 
               <Col md={24}>
                 <Text>{t('sellerProducts.form.sales.titleTable')}</Text>
               </Col>
-              <Table columns={columns} dataSource={data} className="hps-table hps-scroll" />
             </Row>
           </>
         )}
       </Row>
+      {isCheckUseOptions && (
+        <Table columns={columns} dataSource={data} className="hps-table hps-scroll" />
+      )}
     </>
   )
 }
