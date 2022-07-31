@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/typedef */
 import { PlusOutlined } from '@ant-design/icons'
-import { Typography, Modal, Upload, Col, Form, Input, Row, Select } from 'antd'
+import { Modal, Upload, Col, Form, Input, Row, Select } from 'antd'
 import type { RcFile, UploadProps } from 'antd/es/upload'
 import type { UploadFile } from 'antd/es/upload/interface'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import t from '~/locales'
 import styles from '../SellerMyProductsForm.module.scss'
 
-const { Text, Title } = Typography
 const { TextArea } = Input
 
 interface IFormProductInfoProps {
@@ -17,23 +18,23 @@ interface IFormProductInfoProps {
   onHintClick?: () => void
   disabled?: boolean
 }
+
 const getBase64 = (file: RcFile): Promise<string> =>
   new Promise((resolve, reject) => {
-    const reader = new FileReader()
+    const reader: FileReader = new FileReader()
     reader.readAsDataURL(file)
-    reader.onload = () => resolve(reader.result as string)
-    reader.onerror = (error) => reject(error)
+    reader.onload = (): void => resolve(reader.result as string)
+    reader.onerror = (error: ProgressEvent<FileReader>): void => reject(error)
   })
-const Info: React.FC<IFormProductInfoProps> = (props: IFormProductInfoProps) => {
-  const { label, value, onChange, onHintClick, disabled } = props
-  const [previewVisible, setPreviewVisible] = useState(false)
-  const [previewImage, setPreviewImage] = useState('')
-  const [previewTitle, setPreviewTitle] = useState('')
+const Info: React.FC<IFormProductInfoProps> = () => {
+  const [previewVisible, setPreviewVisible] = useState<boolean>(false)
+  const [previewImage, setPreviewImage] = useState<string>('')
+  const [previewTitle, setPreviewTitle] = useState<string>('')
   const [filePhotoCoverList, setFilePhotoCoverList] = useState<UploadFile[]>([])
   const [fileList, setFileList] = useState<UploadFile[]>([])
-  const handleCancel = () => setPreviewVisible(false)
+  const handleCancel = (): void => setPreviewVisible(false)
 
-  const handlePreview = async (file: UploadFile) => {
+  const handlePreview = async (file: UploadFile<any>) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj as RcFile)
     }
