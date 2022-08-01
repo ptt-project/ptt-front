@@ -43,6 +43,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
   const sku: string = t('sellerProducts.form.sales.sku') // prevent error hook rules
   const priceBaht: string = t('sellerProducts.form.sales.priceBaht') // prevent error hook rules
   const warehouse: string = t('sellerProducts.form.sales.warehouse') // prevent error hook rules
+
   const columns: ColumnsType<IDataType> = [
     {
       title: productModel,
@@ -68,12 +69,12 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
   const onChangeUseOptions = (checked: boolean): void => {
     setIsCheckUseOptions(checked)
   }
-  const handleProductChange = (e: any, index: number): void => {
+  /* const handleProductChange = (e: ChangeEvent<HTMLInputElement>, index: number): void => {
     const { name, value } = e.target
     const list: object[] = [...productList]
     list[index][name] = value
     setProductList(list)
-  }
+  } */
 
   const handleProductRemove = (index: number, type: string, list: object[]): void => {
     const tmpList: object[] = [...list]
@@ -222,7 +223,6 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
                   label={t('sellerProducts.form.sales.optionsForm.choice')}
                   name={`productChoice_${index}`}
                   id={`productChoice_${index}`}
-                  onChange={(e: any): void => handleProductChange(e, index)}
                 >
                   <TextArea rows={1} showCount maxLength={20} />
                 </Form.Item>
@@ -302,7 +302,6 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
                     label={t('sellerProducts.form.sales.optionsForm.choice')}
                     name={`product2Choice_${index}`}
                     id={`product2Choice_${index}`}
-                    onChange={(e: any): void => handleProductChange(e, index)}
                   >
                     <TextArea rows={1} showCount maxLength={20} />
                   </Form.Item>

@@ -36,6 +36,7 @@ const Info: React.FC<IFormProductInfoProps> = () => {
 
   const handlePreview = async (file: UploadFile<any>) => {
     if (!file.url && !file.preview) {
+      // eslint-disable-next-line no-param-reassign
       file.preview = await getBase64(file.originFileObj as RcFile)
     }
 
@@ -150,7 +151,7 @@ const Info: React.FC<IFormProductInfoProps> = () => {
             ]}
           >
             <Select defaultValue="">
-              <Option value="jack">Jack</Option>
+              <Option value="">Jack</Option>
             </Select>
           </Form.Item>
         </Col>
