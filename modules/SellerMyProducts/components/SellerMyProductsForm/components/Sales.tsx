@@ -136,6 +136,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
   function onClickButtonAddOption(): void {
     setIsFormProductOptions(true)
     setProduct2List([{ product2: '' }])
+    setCountProduct2List(1)
   }
 
   function renderFormSales(): JSX.Element {
@@ -230,9 +231,9 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
                 </Form.Item>
               </Col>
               <Col md={2} className="mt-7">
-                <Button onClick={(): void => handleProductRemove(index, 'choice1', productList)}>
+                <Text onClick={(): void => handleProductRemove(index, 'choice1', productList)}>
                   <i className={`fas fa-trash-alt ${styles.textSecondary}`} />
-                </Button>
+                </Text>
               </Col>
             </>
           )
@@ -262,9 +263,9 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
             <Text>{t('sellerProducts.form.sales.optionsForm.productOptions')} 2</Text>
           </Col>
           <Col md={2}>
-            <Button onClick={(): void => setIsFormProductOptions(false)}>
+            <Text onClick={(): void => setIsFormProductOptions(false)}>
               <i className={`fas fa-trash-alt ${styles.textSecondary}`} />
-            </Button>
+            </Text>
           </Col>
           <Col md={{ span: 22, offset: 1 }}>
             <Form.Item
@@ -309,9 +310,9 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
                   </Form.Item>
                 </Col>
                 <Col md={1} className="mt-7">
-                  <Button onClick={(): void => handleProductRemove(index, 'choice2', product2List)}>
+                  <Text onClick={(): void => handleProductRemove(index, 'choice2', product2List)}>
                     <i className={`fas fa-trash-alt ${styles.textSecondary}`} />
-                  </Button>
+                  </Text>
                 </Col>
               </>
             )
