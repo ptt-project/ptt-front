@@ -1,4 +1,5 @@
 import React, { useState, FC, ChangeEvent, Key } from 'react'
+import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import { isEmpty } from 'lodash'
 import numeral from 'numeral'
@@ -10,7 +11,7 @@ import ConfirmationModal from '~/components/main/ConfirmationModal'
 import EmptyTableData from '../EmptyTableData'
 import AddCategoryModal from '../AddCategoryModal'
 import { IProductData, ICategoryData } from '~/model/Seller'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './EditCategory.module.scss'
 
 const { Text, Title } = Typography
@@ -41,9 +42,10 @@ const dataSource: IProductData[] = [
 ]
 
 const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.category'])
   const columns: ColumnsType<IProductData> = [
     {
-      title: t('sellerCategory.edit.table.header.a'),
+      title: t('seller.category:edit.table.header.a'),
       dataIndex: 'productName',
       key: 'productName',
       width: 200,
@@ -51,7 +53,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       sorter: (a: IProductData, b: IProductData) => a.productName.localeCompare(b.productName)
     },
     {
-      title: t('sellerCategory.edit.table.header.b'),
+      title: t('seller.category:edit.table.header.b'),
       dataIndex: 'amount',
       key: 'amount',
       align: 'right',
@@ -61,7 +63,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
         numeral(recode.amount).format('0,0.00')
     },
     {
-      title: t('sellerCategory.edit.table.header.c'),
+      title: t('seller.category:edit.table.header.c'),
       dataIndex: 'quantity',
       key: 'quantity',
       align: 'right',
@@ -69,7 +71,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       sorter: (a: IProductData, b: IProductData) => a.quantity - b.quantity
     },
     {
-      title: t('sellerCategory.edit.table.header.d'),
+      title: t('seller.category:edit.table.header.d'),
       key: 'status',
       width: 100,
       sorter: (a: IProductData, b: IProductData) => a.status - b.status,
@@ -87,7 +89,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       }
     },
     {
-      title: t('sellerCategory.edit.table.header.e'),
+      title: t('seller.category:edit.table.header.e'),
       key: 'action',
       align: 'right',
       width: 100,
@@ -104,7 +106,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
   const [isOpenMultiRemove, setIsOpenMultiRemove] = useState<boolean>(false)
   const [categoryName, setCategoryName] = useState<string>(props.category.categoryName)
   const [selection, setSelection] = useState<IProductData[]>([])
-  const multiRemoveText: any = t('sellerCategory.edit.multiRemove')
+  const multiRemoveText: any = t('seller.category:edit.multiRemove')
 
   function toggleAdd(): void {
     setIsOpenAdd(!isOpenAdd)
@@ -166,14 +168,14 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('sellerCategory.title')}
+          {t('common:meta.title')} | {t('seller.category:title')}
         </title>
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('components.settingSidebar.seller.shop.title') },
+          { title: t('setting-sidebar:seller.shop.title') },
           {
-            title: t('components.settingSidebar.seller.shop.category'),
+            title: t('setting-sidebar:seller.shop.category'),
             href: '/seller/settings/shop/category'
           },
           { title: props.category.categoryName }
@@ -184,7 +186,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
         title={
           <Title className="mb-0" level={4}>
             <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
-            {t('sellerCategory.modal.edit.title')}
+            {t('seller.category:modal.edit.title')}
           </Title>
         }
         visible={isOpenEdit}
@@ -193,10 +195,10 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
           <Row>
             <Col className="text-right" span={24}>
               <Button type="default" onClick={toggleEdit}>
-                {t('common.cancel')}
+                {t('common:cancel')}
               </Button>
               <Button type="primary" disabled={!categoryName} onClick={onConfirmEdit}>
-                {t('common.confirm')}
+                {t('common:confirm')}
               </Button>
             </Col>
           </Row>
@@ -204,14 +206,14 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       >
         <div className={styles.label}>
           <Text className={styles.required}>*</Text>
-          <Text>{t('sellerCategory.modal.edit.form.category')}</Text>
+          <Text>{t('seller.category:modal.edit.form.category')}</Text>
         </div>
         <Input showCount maxLength={40} onChange={onChangeCategoryName} value={categoryName} />
       </Modal>
       <ConfirmationModal
         type="error"
-        title={t('sellerCategory.modal.remove.title')}
-        content={t('sellerCategory.modal.remove.content')}
+        title={t('seller.category:modal.remove.title')}
+        content={t('seller.category:modal.remove.content')}
         isOpen={isOpenRemove}
         toggle={toggleRemove}
         onSubmit={onConfirmRemove}
@@ -219,7 +221,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       <ConfirmationModal
         type="error"
         title={`${multiRemoveText.title} ${selection.length} ${multiRemoveText.placeholderB}`}
-        content={t('sellerCategory.modal.remove.content')}
+        content={t('seller.category:modal.remove.content')}
         isOpen={isOpenMultiRemove}
         toggle={toggleMultiRemove}
         onSubmit={onConfirmMultiRemove}
@@ -244,10 +246,10 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                   <div className="d-block">
                     <Space size="middle">
                       <Text type="secondary">
-                        {t('sellerCategory.edit.createdBy')}: {props.category.createdBy}
+                        {t('seller.category:edit.createdBy')}: {props.category.createdBy}
                       </Text>
                       <Text type="secondary">
-                        {t('sellerCategory.edit.quantity')}: {props.category.quantity}
+                        {t('seller.category:edit.quantity')}: {props.category.quantity}
                       </Text>
                     </Space>
                   </div>
@@ -265,19 +267,19 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                   <Row align="middle">
                     <Col span={12}>
                       <Title className={styles.subLabel} level={5}>
-                        {t('sellerCategory.edit.label')}
+                        {t('seller.category:edit.label')}
                       </Title>
                     </Col>
                     <Col className="text-right" span={12}>
                       <Button type="primary" onClick={toggleAdd}>
-                        {t('sellerCategory.edit.add')}
+                        {t('seller.category:edit.add')}
                       </Button>
                     </Col>
                   </Row>
                   <Row>
                     <Col className="mt-3" sm={12} xs={24}>
                       <Input.Search
-                        placeholder={t('sellerCategory.edit.search')}
+                        placeholder={t('seller.category:edit.search')}
                         allowClear
                         onSearch={onSearch}
                       />

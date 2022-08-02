@@ -1,7 +1,10 @@
 import React, { FC } from 'react'
+import { NextPageContext } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { isEmpty } from 'lodash'
 import EditCategory from '~/modules/SellerCategory/components/EditCategory'
 import { ICategoryData } from '~/model/Seller'
+import { LocaleNamespaceConst } from '~/constants'
 
 interface IEditCategoryContext {
   params: {
@@ -33,12 +36,20 @@ const dataSource: ICategoryData[] = [
   }
 ]
 
-export function getServerSideProps(context: IEditCategoryContext): any {
+export async function getServerSideProps(
+  context: NextPageContext & IEditCategoryContext
+): Promise<any> {
   const { categoryId } = context.params
   const data: ICategoryData = dataSource.find((item: ICategoryData) => item.key === categoryId)
   if (!isEmpty(data)) {
     return {
-      props: { data }
+      props: {
+        ...(await serverSideTranslations(context.locale, [
+          ...LocaleNamespaceConst,
+          'seller.category'
+        ])),
+        data
+      }
     }
   }
   return { notFound: isEmpty(data) }
