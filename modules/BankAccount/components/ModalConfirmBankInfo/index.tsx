@@ -23,7 +23,7 @@ const ModalConfirmBankInfo: FC<IModalConfirmBankInfoProps> = (
       title={
         <Col span={24}>
           <Title className="mb-0" level={4}>
-            <i className={`${styles.cError} fas fa-info-circle mr-2`} />
+            <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
             {t('bankAccount.confirmBankInfo')}
           </Title>
         </Col>

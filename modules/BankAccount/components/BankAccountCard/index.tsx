@@ -4,6 +4,7 @@ import { BankStatus, IBankAccountData } from '~/model/BankAccount'
 import styles from './BankAccountCard.module.scss'
 import BankLogo from './BankLogo'
 import t from '~/locales'
+import { sensorBankAccountNo } from '~/utils/main/helper'
 
 const { Text } = Typography
 
@@ -42,34 +43,34 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
   }
 
   return (
-    <Row className={styles.layout} gutter={[16, 16]}>
-      <Col md={18} sm={12} xs={18}>
-        <Row wrap={false} gutter={16}>
-          <Col xs={8}>
+    <Row className={styles.layout} gutter={[8, 8]}>
+      <Col sm={18} xs={24}>
+        <Row gutter={[16, 16]}>
+          <Col className={styles.bankLogo} xs={4}>
             <BankLogo bank={data.bankName} />
           </Col>
-          <Row gutter={[16, 8]}>
-            <Col xs={24}>
+          <Col className={styles.bankInfoLayout}>
+            <div className={styles.bankName}>
               <Text>{`${data.bankFullName} (${data.bankName})`}</Text>
-            </Col>
-            <Col xs={24}>
+            </div>
+            <div className={styles.bankStatus}>
               <Text>{statusLabel}</Text>
-            </Col>
-            <Col>
+            </div>
+            <div className={styles.bankAccountName}>
               <Text>{data.bankAccountName}</Text>
-            </Col>
-          </Row>
+            </div>
+            <div className={styles.bankTagDefault}>
+              {data.isDefault && (
+                <Image preview={false} src="./images/main/buyer/bank-account-tag-default.svg" />
+              )}
+            </div>
+          </Col>
         </Row>
       </Col>
-      <Col xs={6}>
-        {data.isDefault && (
-          <Image preview={false} src="./images/main/buyer/bank-account-tag-default.svg" />
-        )}
-      </Col>
-      <Col md={2} sm={8}>
-        <Row align="middle">
-          <Text>{data.bankAccountNo}</Text>
-        </Row>
+      <Col className={styles.bankAccountNo}>
+        <div>
+          <Text>{sensorBankAccountNo(data.bankAccountNo)}</Text>
+        </div>
       </Col>
       <Col className={styles.actionLayout} md={4} sm={2}>
         <Image

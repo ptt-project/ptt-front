@@ -13,6 +13,7 @@ import HighlightLabel from '~/components/main/HighlightLabel'
 import { bankMock } from '~/model/BankAccount/mock-data'
 import { IBankAccountData, IBankAccountFromValues } from '~/model/BankAccount'
 import BankAccountCard from './components/BankAccountCard'
+import { sensorBankAccountNo } from '~/utils/main/helper'
 
 const { Text, Title, Link } = Typography
 
@@ -208,7 +209,8 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                     <Space className={styles.contentLayout} size={4} direction="vertical">
                       <Text>
                         {t('bankAccount.confirmDeleteAccountMsg1')}
-                        {deleteBankAccount?.bankFullName} {deleteBankAccount?.bankAccountNo}
+                        {deleteBankAccount?.bankFullName}{' '}
+                        {sensorBankAccountNo(deleteBankAccount?.bankAccountNo)}
                       </Text>
                     </Space>
                     <Text>{deleteBankAccount?.bankAccountName}</Text>

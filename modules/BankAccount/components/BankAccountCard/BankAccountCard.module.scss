@@ -1,4 +1,6 @@
 @import '../../../../public/sass/config/variables';
+@import '../../../../public/sass/mixins/core';
+@import '../../../../public/sass/mixins/breakpoints';
 
 .layout {
   border-radius: 8px;
@@ -8,6 +10,63 @@
 
   .contentLayout {
     margin-left: 1.5rem;
+  }
+
+  .bankLogo {
+    flex-basis: 64px;
+    min-width: 64px;
+    min-height: 64px;
+  }
+
+  .bankInfoLayout {
+    display: grid;
+    flex: 1;
+    box-sizing: border-box;
+    grid-template-columns: max-content max-content auto;
+    grid-template-areas:
+      'bankName bankStatus bankTagDefault'
+      'bankAccountName bankAccountName bankAccountName';
+    grid-gap: 0.5rem;
+
+    .bankName {
+      grid-area: bankName;
+      > * {
+        color: $primary-color-dark;
+      }
+    }
+    .bankStatus {
+      grid-area: bankStatus;
+      * {
+        color: $text-gray;
+      }
+    }
+
+    .bankAccountName {
+      grid-area: bankAccountName;
+      > * {
+        color: $text-gray;
+      }
+    }
+
+    .bankTagDefault {
+      grid-area: bankTagDefault;
+      > img {
+        min-width: 89px;
+        padding: 0;
+      }
+    }
+  }
+
+  .bankAccountNo {
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      > * {
+        color: $primary-color-dark;
+      }
+    }
   }
 
   .actionLayout {
@@ -27,6 +86,25 @@
 
     .actionIcon {
       min-width: 40px;
+    }
+  }
+}
+
+@include mq('xs', 'max') {
+  .bankInfoLayout {
+    display: grid;
+    flex: 1;
+    box-sizing: border-box;
+    grid-template-columns: max-content auto !important;
+    grid-template-areas:
+      'bankName bankTagDefault'
+      'bankStatus x'
+      'bankAccountName x' !important;
+
+    .bankTagDefault {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
     }
   }
 }
