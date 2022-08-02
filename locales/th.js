@@ -23,6 +23,7 @@ export default {
     remove: 'ลบ',
     search: 'ค้นหา',
     reset: 'รีเซ็ต',
+    viewAll: 'ดูทั้งหมด',
     form: {
       option: '---------- เลือก ----------',
       required: 'กรุณาระบุ',
@@ -196,7 +197,17 @@ export default {
     }
   },
   home: {
-    title: 'Happy Shopping'
+    title: 'Happy Shopping',
+    promotion: {
+      title: 'Flash Sale',
+      sold: 'ขายแล้ว'
+    },
+    brand: {
+      title: 'ร้านค้า Mall',
+      button: 'เปิดร้านค้าของคุณเอง',
+      start: 'เริ่มต้น',
+      sell: 'ลดสูงสุด'
+    }
   },
   auth: {
     login: {

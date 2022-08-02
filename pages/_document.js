@@ -11,7 +11,6 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <base href="/"></base>
-          <title>Happy Shopping</title>
           <link rel="icon" href="images/icons/favicon.png" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />

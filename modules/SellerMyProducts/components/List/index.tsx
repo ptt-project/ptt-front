@@ -54,32 +54,30 @@ const List: FC = () => {
     {
       title: productName,
       dataIndex: 'productName',
-      render: (text, item) => {
-        return (
-          <div>
-            <div>{item.productName}</div>
-            <div className={styles.row}>
-              <div className={styles.column}>
-                <Image preview={false} width={48} src={item.img} />
+      render: (text, item) => (
+        <div>
+          <div>{item.productName}</div>
+          <div className={styles.row}>
+            <div className={styles.column}>
+              <Image preview={false} width={48} src={item.img} />
+            </div>
+            <div className={`mt-1 ${styles.column} ${styles.textGrey}`}>
+              <div>
+                <i className="far fa-eye" />
+                <Text className="ml-1" type="secondary">
+                  {item.view}
+                </Text>
               </div>
-              <div className={`mt-1 ${styles.column} ${styles.textGrey}`}>
-                <div>
-                  <i className="far fa-eye" />
-                  <Text className="ml-1" type="secondary">
-                    {item.view}
-                  </Text>
-                </div>
-                <div>
-                  <i className="fas fa-heart" />
-                  <Text className="ml-1" type="secondary">
-                    {item.favorite}
-                  </Text>
-                </div>
+              <div>
+                <i className="fas fa-heart" />
+                <Text className="ml-1" type="secondary">
+                  {item.favorite}
+                </Text>
               </div>
             </div>
           </div>
-        )
-      }
+        </div>
+      )
     },
     {
       title: SKU,
@@ -111,23 +109,22 @@ const List: FC = () => {
       title: operation,
       dataIndex: '',
       key: 'x',
-      render: (text, item) => {
-        return (
-          <Space size="middle" className={styles.textSecondary}>
-            <a>
-              <i className="far fa-eye-slash" />
-            </a>
-            <a>
-              <i className="fas fa-pen" />
-            </a>
-            <a>
-              <i onClick={() => onDelModal(item)} className="fas fa-trash-alt" />
-            </a>
-          </Space>
-        )
-      }
+      render: (text, item) => (
+        <Space size="middle" className={styles.textSecondary}>
+          <a>
+            <i className="far fa-eye-slash" />
+          </a>
+          <a>
+            <i className="fas fa-pen" />
+          </a>
+          <a>
+            <i onClick={() => onDelModal(item)} className="fas fa-trash-alt" />
+          </a>
+        </Space>
+      )
     }
   ]
+
   function toggleDelModal(): void {
     setIsOpenDelModal(!isOpenDelModal)
   }

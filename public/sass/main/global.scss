@@ -22,6 +22,15 @@
   }
 }
 
+.hps-link {
+  color: $secondary-color !important;
+
+  &:hover,
+  &:focus {
+    color: $secondary-color-dark !important;
+  }
+}
+
 .hps-title {
   margin-bottom: 2.5rem !important;
   color: $secondary-color !important;
