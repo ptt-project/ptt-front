@@ -1,0 +1,13 @@
+{
+  "title": "Happy Shopping",
+  "promotion": {
+    "title": "Flash Sale",
+    "sold": "ขายแล้ว"
+  },
+  "brand": {
+    "title": "ร้านค้า Mall",
+    "button": "เปิดร้านค้าของคุณเอง",
+    "start": "เริ่มต้น",
+    "sell": "ลดสูงสุด"
+  }
+}

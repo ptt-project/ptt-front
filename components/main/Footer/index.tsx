@@ -1,13 +1,15 @@
 import React, { FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { Typography, Row, Col, Image } from 'antd'
-import t from '~/locales'
-import styles from './Footer.module.scss'
+import { LocaleNamespaceConst } from '~/constants'
 import { CustomUrl } from '~/utils/main'
+import styles from './Footer.module.scss'
 
 const { Text, Link } = Typography
 
 const Footer: FC = () => {
+  const { t } = useTranslation(LocaleNamespaceConst)
   const router: NextRouter = useRouter()
 
   return (
@@ -96,7 +98,7 @@ const Footer: FC = () => {
           </div>
           <div className="footer-center">
             <div className={styles.space}>
-              <Text>{t('components.footer.copyRight')}</Text>
+              <Text>{t('footer:copyRight')}</Text>
             </div>
           </div>
           <div className="footer-right">

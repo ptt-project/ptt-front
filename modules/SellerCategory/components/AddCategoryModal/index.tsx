@@ -3,7 +3,7 @@ import numeral from 'numeral'
 import { Modal, Row, Col, Typography, Input, Button, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import EmptyTableData from '../EmptyTableData'
-import { RegExpList } from '~/constants'
+import { RegExpConst } from '~/constants'
 import { IProductData } from '~/model/Seller'
 import t from '~/locales'
 import styles from './AddCategoryModal.module.scss'
@@ -155,10 +155,10 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
 
   function onChangeNumber(e: ChangeEvent<HTMLInputElement>): void {
     let value: string = ''
-    if (!e.target.value || RegExpList.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
       value = e.target.value
     } else {
-      value = e.target.value.replace(RegExpList.ALLOW_NUMBER, '')
+      value = e.target.value.replace(RegExpConst.ALLOW_NUMBER, '')
     }
     if (e.target.name === 'min') {
       setMin(value)

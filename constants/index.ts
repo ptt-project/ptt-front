@@ -1,5 +1,4 @@
-import EndPoint from './EndPoint'
-import HiddenHeader from './HiddenHeader'
-import RegExpList from './RegExpList'
-
-export { EndPoint, HiddenHeader, RegExpList }
+export * from './endpoint.const'
+export * from './header.const'
+export * from './regular-expression.const'
+export * from './locale.const'

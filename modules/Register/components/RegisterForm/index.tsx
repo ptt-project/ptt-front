@@ -4,7 +4,7 @@ import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, Modal
 import { Rule } from 'antd/lib/form'
 import { isEmpty } from 'lodash'
 import t from '~/locales'
-import { RegExpList } from '~/constants'
+import { RegExpConst } from '~/constants'
 import { IRegisterForm } from '~/model/Auth'
 import { CustomUrl } from '~/utils/main'
 import styles from './RegisterForm.module.scss'
@@ -68,10 +68,10 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
   }
 
   function onMobileNoChange(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.value || RegExpList.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
       form.setFieldsValue({ mobileNo: e.target.value })
     } else {
-      form.setFieldsValue({ mobileNo: e.target.value.replace(RegExpList.ALLOW_NUMBER, '') })
+      form.setFieldsValue({ mobileNo: e.target.value.replace(RegExpConst.ALLOW_NUMBER, '') })
     }
   }
 
@@ -215,7 +215,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         },
                         (): any => ({
                           validator(_: Rule, value: string): Promise<any> {
-                            if (!value || RegExpList.CHECK_PASSWORD.test(value)) {
+                            if (!value || RegExpConst.CHECK_PASSWORD.test(value)) {
                               return Promise.resolve()
                             }
                             return Promise.reject(new Error(invalidPassword))

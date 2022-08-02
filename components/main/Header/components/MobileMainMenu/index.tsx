@@ -1,10 +1,10 @@
 import React, { useEffect, FC } from 'react'
-// import { NextRouter, useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { Input } from 'antd'
 import ALink from '~/components/features/custom-link'
 import Card from '~/components/features/accordion/card'
 import { mainMenu } from '~/utils/data/menu'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './MobileMainMenu.module.scss'
 
 interface IMobileMainMenuItem {
@@ -19,7 +19,7 @@ interface IMobileMainMenuItem {
 }
 
 const MobileMainMenu: FC = () => {
-  // const router: NextRouter = useRouter()
+  const { t } = useTranslation(LocaleNamespaceConst)
 
   useEffect(() => {
     window.addEventListener('resize', hideMobileMenuHandler)
@@ -69,7 +69,7 @@ const MobileMainMenu: FC = () => {
       <div className="mobile-menu-container scrollable">
         <Input.Search
           className={styles.search}
-          placeholder={t('components.header.bottom.search')}
+          placeholder={t('header:bottom.search')}
           allowClear
           enterButton={<i className="d-icon-search" />}
           size="large"
@@ -78,11 +78,11 @@ const MobileMainMenu: FC = () => {
 
         <ul className="mobile-menu mmenu-anim">
           <li className="mobile-list">
-            <ALink href="/">{t('components.header.bottom.a.title')}</ALink>
+            <ALink href="/">{t('header:bottom.a.title')}</ALink>
           </li>
 
           <li className="mobile-list">
-            <Card title={t('components.header.bottom.b.title')} type="mobile" url="/shop">
+            <Card title={t('header:bottom.b.title')} type="mobile" url="/shop">
               <ul>
                 <li>
                   <Card title="Variations 1" type="mobile">
@@ -118,7 +118,7 @@ const MobileMainMenu: FC = () => {
 
           <li className="mobile-list">
             <Card
-              title={t('components.header.bottom.c.title')}
+              title={t('header:bottom.c.title')}
               type="mobile"
               url="/product/default/beyond-riode-original-t-shirt"
             >
@@ -156,7 +156,7 @@ const MobileMainMenu: FC = () => {
           </li>
 
           <li className="mobile-list">
-            <Card title={t('components.header.bottom.d.title')} type="mobile" url="/pages/about-us">
+            <Card title={t('header:bottom.d.title')} type="mobile" url="/pages/about-us">
               <ul>
                 {mainMenu.other.map((item: IMobileMainMenuItem) => (
                   <li key={`other-${item.title}`}>
@@ -171,7 +171,7 @@ const MobileMainMenu: FC = () => {
           </li>
 
           <li className="mobile-list">
-            <Card title={t('components.header.bottom.e.title')} type="mobile" url="/blog/classic">
+            <Card title={t('header:bottom.e.title')} type="mobile" url="/blog/classic">
               <ul>
                 {mainMenu.blog.map((item: IMobileMainMenuItem) =>
                   item.subPages ? (
@@ -197,7 +197,7 @@ const MobileMainMenu: FC = () => {
           </li>
 
           <li className="mobile-list">
-            <Card title={t('components.header.bottom.f.title')} type="mobile" url="/elements">
+            <Card title={t('header:bottom.f.title')} type="mobile" url="/elements">
               <ul>
                 {mainMenu.element.map((item: IMobileMainMenuItem) => (
                   <li key={`elements-${item.title}`}>
@@ -209,13 +209,11 @@ const MobileMainMenu: FC = () => {
           </li>
 
           <li className="mobile-list">
-            <a href="/setting">{t('components.header.bottom.g.title')}</a>
+            <a href="/setting">{t('header:bottom.g.title')}</a>
           </li>
 
           <li className={`mobile-list ${styles.btNone}`}>
-            <a href="https://d-themes.com/buynow/riodereact">
-              {t('components.header.bottom.h.title')}
-            </a>
+            <a href="https://d-themes.com/buynow/riodereact">{t('header:bottom.h.title')}</a>
           </li>
         </ul>
 

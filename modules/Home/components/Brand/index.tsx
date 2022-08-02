@@ -1,12 +1,15 @@
 import React, { FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import numeral from 'numeral'
 import { Typography, Row, Col, Image, Button } from 'antd'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './Brand.module.scss'
 
 const { Text, Title, Link } = Typography
 
 const Promotion: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'home'])
+
   function renderBrand(): JSX.Element[] {
     const images: string[] = [
       './images/brands/1.png',
@@ -27,8 +30,8 @@ const Promotion: FC = () => {
           </div>
           <Text className={styles.label}>
             {index % 2 === 0
-              ? `${t('home.brand.sell')} xx%`
-              : `${t('home.brand.start')} ฿${numeral(555).format('0,0')}`}
+              ? `${t('home:brand.sell')} xx%`
+              : `${t('home:brand.start')} ฿${numeral(555).format('0,0')}`}
           </Text>
         </div>
       </Col>
@@ -40,12 +43,12 @@ const Promotion: FC = () => {
       <Row className={styles.header} align="middle">
         <Col span={16}>
           <Title className={styles.title} level={3}>
-            {t('home.brand.title')}
+            {t('home:brand.title')}
           </Title>
         </Col>
         <Col className="text-right" span={8}>
           <Link href="#" className="hps-link">
-            {t('common.viewAll')}
+            {t('common:viewAll')}
           </Link>
         </Col>
       </Row>
@@ -62,7 +65,7 @@ const Promotion: FC = () => {
           <div className={styles.btnBox}>
             <Button type="primary">
               <i className="fas fa-store mr-2" />
-              {t('home.brand.button')}
+              {t('home:brand.button')}
             </Button>
           </div>
         </Col>

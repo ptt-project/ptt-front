@@ -1,13 +1,16 @@
 import React, { useState, useEffect, FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import moment from 'moment'
 import numeral from 'numeral'
 import { Typography, Row, Col, Space, Carousel } from 'antd'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './Promotion.module.scss'
 
 const { Text, Title, Link } = Typography
 
 const Promotion: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'home'])
+
   let timer: NodeJS.Timer = null
   const [currentTime, setCurrentTime] = useState<string>(moment().format('HH : mm : ss'))
 
@@ -43,7 +46,7 @@ const Promotion: FC = () => {
           </Text>
           <Text className={styles.dAmount}>฿{numeral(5555).format('0,0')}</Text>
           <Text className={`${styles.dSold} hps-text-small`} type="secondary">
-            {t('home.promotion.sold')} {numeral(10).format('0,0')}
+            {t('home:promotion.sold')} {numeral(10).format('0,0')}
           </Text>
         </div>
       </div>
@@ -57,7 +60,7 @@ const Promotion: FC = () => {
         <Col span={16}>
           <Space className={styles.space} align="center" size="middle">
             <Title className={styles.title} level={3}>
-              {t('home.promotion.title')}
+              {t('home:promotion.title')}
             </Title>
             <Text type="secondary">
               <i className="fas fa-clock mr-1" />
@@ -67,7 +70,7 @@ const Promotion: FC = () => {
         </Col>
         <Col className="text-right" span={8}>
           <Link href="#" className="hps-link">
-            {t('common.viewAll')}
+            {t('common:viewAll')}
           </Link>
         </Col>
       </Row>

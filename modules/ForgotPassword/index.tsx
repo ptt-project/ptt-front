@@ -5,7 +5,7 @@ import ForgotPasswordByEmailSuccess from './components/ForgotPasswordByEmailSucc
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import OtpModal from '~/components/main/OtpModal'
 import t from '~/locales'
-import { RegExpList } from '~/constants'
+import { RegExpConst } from '~/constants'
 import { IForgotPasswordForm } from '~/model/Auth'
 import { IOtpData } from '~/model/Common'
 
@@ -22,10 +22,10 @@ const ForgotPassword: FC = () => {
   function onSubmit(values: IForgotPasswordForm): void {
     try {
       console.log(values)
-      if (RegExpList.CHECK_EMAIL.test(values.emailOrMobileNo)) {
+      if (RegExpConst.CHECK_EMAIL.test(values.emailOrMobileNo)) {
         setEmail(values.emailOrMobileNo)
         setStep(1)
-      } else if (values.emailOrMobileNo.replace(RegExpList.ALLOW_NUMBER, '').length === 10) {
+      } else if (values.emailOrMobileNo.replace(RegExpConst.ALLOW_NUMBER, '').length === 10) {
         setMobileNo(values.emailOrMobileNo)
         setIsOpen(true)
       }

@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import ALink from '~/components/features/custom-link'
 import { mainMenu } from '~/utils/data/menu'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 
 interface IMainMenuItem {
   title: string
@@ -16,6 +17,7 @@ interface IMainMenuItem {
 }
 
 const MainMenu: FC = () => {
+  const { t } = useTranslation(LocaleNamespaceConst)
   const router: NextRouter = useRouter()
   const { pathname } = router
 
@@ -23,11 +25,11 @@ const MainMenu: FC = () => {
     <nav className="main-nav">
       <ul className="menu">
         <li id="menu-home" className={pathname === '/' ? 'active' : undefined}>
-          <ALink href="/">{t('components.header.bottom.a.title')}</ALink>
+          <ALink href="/">{t('header:bottom.a.title')}</ALink>
         </li>
 
         <li className={pathname.includes('/shop') ? 'submenu active' : 'submenu'}>
-          <ALink href="/shop">{t('components.header.bottom.b.title')}</ALink>
+          <ALink href="/shop">{t('header:bottom.b.title')}</ALink>
           <div className="megamenu">
             <div className="row">
               <div className="col-6 col-sm-4 col-md-3 col-lg-4">
@@ -88,7 +90,7 @@ const MainMenu: FC = () => {
           }
         >
           <ALink href="/product/default/beyond-riode-original-t-shirt">
-            {t('components.header.bottom.c.title')}
+            {t('header:bottom.c.title')}
           </ALink>
           <div className="megamenu">
             <div className="row">
@@ -139,7 +141,7 @@ const MainMenu: FC = () => {
         </li>
 
         <li className={pathname.includes('/pages') ? 'submenu active' : 'submenu'}>
-          <ALink href="/pages/about-us">{t('components.header.bottom.d.title')}</ALink>
+          <ALink href="/pages/about-us">{t('header:bottom.d.title')}</ALink>
           <ul>
             {mainMenu.other.map((item: IMainMenuItem) => (
               <li key={`other-${item.title}`}>
@@ -159,7 +161,7 @@ const MainMenu: FC = () => {
               : 'submenu'
           }
         >
-          <ALink href="/blog/classic">{t('components.header.bottom.e.title')}</ALink>
+          <ALink href="/blog/classic">{t('header:bottom.e.title')}</ALink>
           <ul>
             {mainMenu.blog.map((item: IMainMenuItem) => (
               <li key={`blog ${item.title}`} className={item.subPages ? 'submenu' : undefined}>
@@ -186,7 +188,7 @@ const MainMenu: FC = () => {
             pathname.includes('/elements') ? 'd-xl-show submenu active' : 'd-xl-show submenu'
           }
         >
-          <ALink href="/elements">{t('components.header.bottom.f.title')}</ALink>
+          <ALink href="/elements">{t('header:bottom.f.title')}</ALink>
           <ul>
             {mainMenu.element.map((item: IMainMenuItem) => (
               <li key={`elements-${item.title}`}>
@@ -197,11 +199,11 @@ const MainMenu: FC = () => {
         </li>
 
         <li>
-          <ALink href="/setting">{t('components.header.bottom.g.title')}</ALink>
+          <ALink href="/setting">{t('header:bottom.g.title')}</ALink>
         </li>
 
         <li>
-          <ALink href="/pages/about-us">{t('components.header.bottom.h.title')}</ALink>
+          <ALink href="/pages/about-us">{t('header:bottom.h.title')}</ALink>
         </li>
       </ul>
     </nav>
