@@ -4,7 +4,7 @@ import { NextRouter, useRouter } from 'next/router'
 import numeral from 'numeral'
 import { Typography, Input, Space, Badge } from 'antd'
 import MainMenu from './components/MainMenu'
-import { HeaderHidden, LocaleNamespaceConst } from '~/constants'
+import { HiddenHeaderConst, LocaleNamespaceConst } from '~/constants'
 import { headerBorderRemoveList } from '~/utils/data/menu'
 import styles from './Header.module.scss'
 
@@ -124,7 +124,7 @@ const Header: FC = () => {
         </div>
       </div>
 
-      {!HeaderHidden.includes(router.pathname) ? (
+      {!HiddenHeaderConst.includes(router.pathname) ? (
         <div className="container">
           <div className="header-bottom d-lg-show w-100">
             <div className="header-left">

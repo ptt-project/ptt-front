@@ -41,26 +41,26 @@ const MainSidebar: FC = () => {
   const [currentSelected, setCurrentSelected] = useState<string[]>([])
 
   const items: MenuProps['items'] = [
-    getItem(t('main-side-bar:a'), 'a', <i className="fas fa-tshirt" />),
-    getItem(t('main-side-bar:b'), 'b', <i className="fas fa-shoe-prints" />),
-    getItem(t('main-side-bar:c'), 'c', <i className="fas fa-utensils" />),
-    getItem(t('main-side-bar:d'), 'd', <i className="fas fa-glass-cheers" />),
-    getItem(t('main-side-bar:e'), 'e', <i className="fas fa-heartbeat" />),
-    getItem(t('main-side-bar:f'), 'f', <i className="fas fa-baby-carriage" />),
-    getItem(t('main-side-bar:g'), 'g', <i className="fas fa-gem" />),
-    getItem(t('main-side-bar:h'), 'h', <i className="fas fa-mobile-alt" />),
-    getItem(t('main-side-bar:i'), 'i', <i className="fas fa-tv" />),
-    getItem(t('main-side-bar:j'), 'j', <i className="fas fa-basketball-ball" />),
-    getItem(t('main-side-bar:k'), 'k', <i className="fas fa-gamepad" />),
-    getItem(t('main-side-bar:l'), 'l', <i className="fas fa-couch" />),
-    getItem(t('main-side-bar:m'), 'm', <i className="fas fa-dog" />),
-    getItem(t('main-side-bar:n'), 'n', <i className="fas fa-clock" />),
-    getItem(t('main-side-bar:o'), 'o', <i className="fas fa-glasses" />),
-    getItem(t('main-side-bar:p'), 'p', <i className="fas fa-shopping-bag" />),
-    getItem(t('main-side-bar:q'), 'q', <i className="fas fa-ticket-alt" />),
-    getItem(t('main-side-bar:r'), 'r', <i className="fas fa-pencil-alt" />),
-    getItem(t('main-side-bar:s'), 's', <i className="fas fa-car" />),
-    getItem(t('main-side-bar:t'), 't', <i className="fas fa-music" />)
+    getItem(t('main-sidebar:a'), 'a', <i className="fas fa-tshirt" />),
+    getItem(t('main-sidebar:b'), 'b', <i className="fas fa-shoe-prints" />),
+    getItem(t('main-sidebar:c'), 'c', <i className="fas fa-utensils" />),
+    getItem(t('main-sidebar:d'), 'd', <i className="fas fa-glass-cheers" />),
+    getItem(t('main-sidebar:e'), 'e', <i className="fas fa-heartbeat" />),
+    getItem(t('main-sidebar:f'), 'f', <i className="fas fa-baby-carriage" />),
+    getItem(t('main-sidebar:g'), 'g', <i className="fas fa-gem" />),
+    getItem(t('main-sidebar:h'), 'h', <i className="fas fa-mobile-alt" />),
+    getItem(t('main-sidebar:i'), 'i', <i className="fas fa-tv" />),
+    getItem(t('main-sidebar:j'), 'j', <i className="fas fa-basketball-ball" />),
+    getItem(t('main-sidebar:k'), 'k', <i className="fas fa-gamepad" />),
+    getItem(t('main-sidebar:l'), 'l', <i className="fas fa-couch" />),
+    getItem(t('main-sidebar:m'), 'm', <i className="fas fa-dog" />),
+    getItem(t('main-sidebar:n'), 'n', <i className="fas fa-clock" />),
+    getItem(t('main-sidebar:o'), 'o', <i className="fas fa-glasses" />),
+    getItem(t('main-sidebar:p'), 'p', <i className="fas fa-shopping-bag" />),
+    getItem(t('main-sidebar:q'), 'q', <i className="fas fa-ticket-alt" />),
+    getItem(t('main-sidebar:r'), 'r', <i className="fas fa-pencil-alt" />),
+    getItem(t('main-sidebar:s'), 's', <i className="fas fa-car" />),
+    getItem(t('main-sidebar:t'), 't', <i className="fas fa-music" />)
   ]
 
   useEffect(() => {
@@ -141,7 +141,7 @@ const MainSidebar: FC = () => {
         <div className="ms-frame">
           <div className="ms-frame-wrapper hps-scroll">
             <div className="ms-label">
-              <Title level={5}>{t('main-side-bar:title')}</Title>
+              <Title level={5}>{t('main-sidebar:title')}</Title>
             </div>
             <Menu
               onClick={onClick}

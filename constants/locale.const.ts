@@ -2,7 +2,7 @@ export const LocaleNamespaceConst: string[] = [
   'common',
   'header',
   'footer',
-  'main-side-bar',
+  'main-sidebar',
   'otp-modal',
   'setting-sidebar'
 ]

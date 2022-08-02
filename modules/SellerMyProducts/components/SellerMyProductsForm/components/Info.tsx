@@ -17,23 +17,27 @@ interface IFormProductInfoProps {
   onHintClick?: () => void
   disabled?: boolean
 }
-
-const getBase64 = (file: RcFile): Promise<string> =>
-  new Promise<string>((resolve: any, reject: any) => {
-    const reader: FileReader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = (): void => resolve(reader.result as string)
-    reader.onerror = (error: ProgressEvent<FileReader>): void => reject(error)
-  })
 const Info: React.FC<IFormProductInfoProps> = () => {
   const [previewVisible, setPreviewVisible] = useState<boolean>(false)
   const [previewImage, setPreviewImage] = useState<string>('')
   const [previewTitle, setPreviewTitle] = useState<string>('')
   const [filePhotoCoverList, setFilePhotoCoverList] = useState<UploadFile[]>([])
   const [fileList, setFileList] = useState<UploadFile[]>([])
-  const handleCancel = (): void => setPreviewVisible(false)
 
-  const handlePreview = async (file: UploadFile): Promise<void> => {
+  async function getBase64(file: RcFile): Promise<string> {
+    return new Promise<string>((resolve: any, reject: any) => {
+      const reader: FileReader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = (): void => resolve(reader.result as string)
+      reader.onerror = (error: ProgressEvent<FileReader>): void => reject(error)
+    })
+  }
+
+  function handleCancel(): void {
+    setPreviewVisible(false)
+  }
+
+  async function handlePreview(file: UploadFile): Promise<void> {
     if (!file.url && !file.preview) {
       // eslint-disable-next-line no-param-reassign
       file.preview = await getBase64(file.originFileObj as RcFile)

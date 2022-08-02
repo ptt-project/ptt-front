@@ -19,6 +19,7 @@ interface IDataType {
   sales: string
   img: string
 }
+
 const data: IDataType[] = []
 for (let i: number = 0; i < 100; i++) {
   data.push({
