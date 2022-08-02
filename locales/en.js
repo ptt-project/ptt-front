@@ -232,10 +232,68 @@ export default {
     form: {
       addTitle: 'เพิ่มสินค้า',
       editTitle: 'แก้ไขสินค้า',
-      info: 'ข้อมูลทั่วไป',
-      photoCover: 'ภาพปก',
-      picture: 'รูปภาพ',
-      videoProduct: 'วิดีโอสินค้า'
+      saveHide: 'บันทึกและซ่อน',
+      savePublish: 'บันทึกและเผยแพร่',
+      info: {
+        title: 'ข้อมูลทั่วไป',
+        productPicture: 'ภาพสินค้า',
+        photoCover: 'ภาพปก',
+        picture: 'รูปภาพ',
+        videoProduct: 'วิดีโอสินค้า',
+        productName: 'ชื่อสินค้า',
+        productDetail: 'รายละเอียดสินค้า',
+        category: 'หมวดหมู่'
+      },
+      features: {
+        title: 'คุณลักษณะของสินค้า',
+        brand: 'แบรนด์',
+        weight: 'น้ำหนัก',
+        kg: 'กิโลกรัม',
+        shelfLife: 'อายุการเก็บรักษา',
+        day: 'วัน',
+        condition: 'สภาพ',
+        old: 'เก่า',
+        new: 'ใหม่'
+      },
+      sales: {
+        title: 'ข้อมูลการขาย',
+        useOptions: 'ใช้งานตัวเลือกสินค้า',
+        price: 'ราคา',
+        baht: 'บาท',
+        warehouse: 'คลัง',
+        sku: 'เลข SKU',
+        msgSku: 'ถ้าไม่ใส่ระบบจะสร้างให้อัตโนมัติ',
+        optionsForm: {
+          productOptions: 'ตัวเลือกสินค้า',
+          name: 'ชื่อ',
+          choice: 'ตัวเลือก',
+          addOption: 'เพิ่มตัวเลือก',
+          addOptionChoice: 'เพิ่มตัวเลือกสินค้า 2'
+        },
+        titleTable: 'รายการตัวเลือกสินค้า',
+        productModel: 'รุ่นสินค้า',
+        choice2: 'ตัวเลือก 2',
+        priceBaht: 'ราคา (บาท)'
+      },
+      delivery: {
+        title: 'การจัดส่ง',
+        weight: 'น้ำหนัก',
+        size: 'ขนาดพัสดุ',
+        kg: 'กิโลกรัม',
+        cm: 'cm',
+        shippingCost: 'ค่าจัดส่ง',
+        standardDelivery: 'Standard Delivery - ส่งธรรมดาในประเทศ',
+        ems: 'EMS - Thailand Post (max 20 kg)',
+        msgShipping: 'กรุณาใส่น้ำหนักสินค้า'
+      },
+      other: {
+        title: 'อื่นๆ',
+        prepareDeliver: 'เตรียมส่งนานกว่าปกติ',
+        yes: 'ใช่',
+        no: 'ไม่',
+        iNeedTime: 'ฉันต้องใช้เวลา',
+        day: 'วัน'
+      }
     }
   },
   relation: {
