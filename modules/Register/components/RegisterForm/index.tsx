@@ -1,10 +1,10 @@
 import React, { useState, FC, ChangeEvent } from 'react'
+import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, Modal } from 'antd'
 import { Rule } from 'antd/lib/form'
 import { isEmpty } from 'lodash'
-import t from '~/locales'
-import { RegExpConst } from '~/constants'
+import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { IRegisterForm } from '~/model/Auth'
 import { CustomUrl } from '~/utils/main'
 import styles from './RegisterForm.module.scss'
@@ -17,26 +17,17 @@ interface IRegisterFormProps {
 }
 
 const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register'])
   const router: NextRouter = useRouter()
   const [isOpen, setIsOpen] = useState<string>('')
   const [form] = Form.useForm()
-  const requiredPassword: string = `${t('common.form.required')} ${t(
-    'auth.register.form.password'
-  )}` // prevent error hook rules
-  const invalidPassword: string = `${t('common.form.invalid.head')} ${t(
-    'auth.register.form.password'
-  )} ${t('common.form.invalid.tail')}` // prevent error hook rules
-  const termTitle: string = t('auth.register.form.policyB')
-  const termContent: string = t('auth.register.form.policyBContent')
-  const conditionTitle: string = t('auth.register.form.policyC')
-  const conditionContent: string = t('auth.register.form.policyCContent')
 
   function getModalTitle(): string {
     if (isOpen === 'TERM') {
-      return termTitle
+      return t('auth.register:form.policyB')
     }
     if (isOpen === 'CONDITION') {
-      return conditionTitle
+      return t('auth.register:form.policyC')
     }
     return ''
   }
@@ -44,10 +35,10 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
   function getModalContent(): JSX.Element {
     let content: string = ''
     if (isOpen === 'TERM') {
-      content = termContent
+      content = t('auth.register:form.policyBContent')
     }
     if (isOpen === 'CONDITION') {
-      content = conditionContent
+      content = t('auth.register:form.policyCContent')
     }
     if (content) {
       return (
@@ -94,7 +85,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
         footer={
           <div className={styles.modalFooterWrapper}>
             <Button type="primary" block onClick={(): void => toggle('')}>
-              {t('common.close')}
+              {t('common:close')}
             </Button>
           </div>
         }
@@ -116,19 +107,19 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
               <Title className="hps-title" level={4}>
-                {t('auth.register.title')}
+                {t('auth.register:title')}
               </Title>
               <Form layout="vertical" name="registerForm" form={form} onFinish={onSubmit}>
                 <Row gutter={[16, 8]}>
                   <Col md={12} xs={24}>
                     <Form.Item
-                      label={t('auth.register.form.firstName')}
+                      label={t('auth.register:form.firstName')}
                       name="firstName"
                       rules={[
                         {
                           required: true,
-                          message: `${t('common.form.required')} ${t(
-                            'auth.register.form.firstName'
+                          message: `${t('common:form.required')} ${t(
+                            'auth.register:form.firstName'
                           )}`
                         }
                       ]}
@@ -138,13 +129,13 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                   </Col>
                   <Col md={12} xs={24}>
                     <Form.Item
-                      label={t('auth.register.form.lastName')}
+                      label={t('auth.register:form.lastName')}
                       name="lastName"
                       rules={[
                         {
                           required: true,
-                          message: `${t('common.form.required')} ${t(
-                            'auth.register.form.lastName'
+                          message: `${t('common:form.required')} ${t(
+                            'auth.register:form.lastName'
                           )}`
                         }
                       ]}
@@ -154,18 +145,18 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                   </Col>
                   <Col md={12} xs={24}>
                     <Form.Item
-                      label={t('auth.register.form.mobileNo')}
+                      label={t('auth.register:form.mobileNo')}
                       name="mobileNo"
                       rules={[
                         {
                           required: true,
-                          message: `${t('common.form.required')} ${t(
-                            'auth.register.form.mobileNo'
+                          message: `${t('common:form.required')} ${t(
+                            'auth.register:form.mobileNo'
                           )}`
                         },
                         {
                           min: 10,
-                          message: `${t('common.form.min.head')} 10 ${t('common.form.min.tail')}`
+                          message: `${t('common:form.min.head')} 10 ${t('common:form.min.tail')}`
                         }
                       ]}
                     >
@@ -174,14 +165,14 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                   </Col>
                   <Col md={12} xs={24}>
                     <Form.Item
-                      label={t('auth.register.form.email')}
+                      label={t('auth.register:form.email')}
                       name="email"
                       rules={[
                         {
                           type: 'email',
-                          message: `${t('common.form.invalid.head')} ${t(
-                            'auth.register.form.email'
-                          )} ${t('common.form.invalid.tail')}`
+                          message: `${t('common:form.invalid.head')} ${t(
+                            'auth.register:form.email'
+                          )} ${t('common:form.invalid.tail')}`
                         }
                       ]}
                     >
@@ -190,13 +181,13 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                   </Col>
                   <Col md={12} xs={24}>
                     <Form.Item
-                      label={t('auth.register.form.username')}
+                      label={t('auth.register:form.username')}
                       name="username"
                       rules={[
                         {
                           required: true,
-                          message: `${t('common.form.required')} ${t(
-                            'auth.register.form.username'
+                          message: `${t('common:form.required')} ${t(
+                            'auth.register:form.username'
                           )}`
                         }
                       ]}
@@ -206,19 +197,27 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                   </Col>
                   <Col md={12} xs={24}>
                     <Form.Item
-                      label={t('auth.register.form.password')}
+                      label={t('auth.register:form.password')}
                       name="password"
                       rules={[
                         {
                           required: true,
-                          message: requiredPassword
+                          message: `${t('common:form.required')} ${t(
+                            'auth.register:form.password'
+                          )}`
                         },
                         (): any => ({
                           validator(_: Rule, value: string): Promise<any> {
                             if (!value || RegExpConst.CHECK_PASSWORD.test(value)) {
                               return Promise.resolve()
                             }
-                            return Promise.reject(new Error(invalidPassword))
+                            return Promise.reject(
+                              new Error(
+                                `${t('common:form.invalid.head')} ${t(
+                                  'auth.register:form.password'
+                                )} ${t('common:form.invalid.tail')}`
+                              )
+                            )
                           }
                         })
                       ]}
@@ -226,45 +225,45 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                       <Input.Password maxLength={50} />
                     </Form.Item>
                     <Text type="secondary" className="hps-text-small d-block">
-                      {t('auth.register.form.passwordHintA')}
+                      {t('auth.register:form.passwordHintA')}
                     </Text>
                     <Text type="secondary" className="hps-text-small d-block">
-                      {t('auth.register.form.passwordHintB')}
+                      {t('auth.register:form.passwordHintB')}
                     </Text>
                     <Text type="secondary" className="hps-text-small d-block">
-                      {t('auth.register.form.passwordHintC')}
+                      {t('auth.register:form.passwordHintC')}
                     </Text>
                     <Text type="secondary" className="hps-text-small d-block">
-                      {t('auth.register.form.passwordHintD')}
+                      {t('auth.register:form.passwordHintD')}
                     </Text>
                     <Text type="secondary" className="hps-text-small d-block">
-                      {t('auth.register.form.passwordHintE')}
+                      {t('auth.register:form.passwordHintE')}
                     </Text>
                   </Col>
                 </Row>
                 <Space className={`${styles.space} mt-5 mb-3`} wrap>
-                  <Text>{t('auth.register.form.policyA')}</Text>
+                  <Text>{t('auth.register:form.policyA')}</Text>
                   <Space>
                     <Link className={styles.link} onClick={(): void => toggle('TERM')}>
-                      {t('auth.register.form.policyB')}
+                      {t('auth.register:form.policyB')}
                     </Link>
                     <Text>&</Text>
                     <Link className={styles.link} onClick={(): void => toggle('CONDITION')}>
-                      {t('auth.register.form.policyC')}
+                      {t('auth.register:form.policyC')}
                     </Link>
                   </Space>
                 </Space>
                 <Form.Item>
                   <Button className="mb-5" htmlType="submit" type="primary" block>
-                    {t('auth.register.title')}
+                    {t('auth.register:title')}
                   </Button>
                 </Form.Item>
               </Form>
-              <Divider>{t('auth.register.form.divider')}</Divider>
+              <Divider>{t('auth.register:form.divider')}</Divider>
               <Space className={styles.space} wrap>
-                <Text>{t('auth.register.form.loginA')}</Text>
+                <Text>{t('auth.register:form.loginA')}</Text>
                 <Link href={CustomUrl.href('/auth/login', router.locale)} className={styles.link}>
-                  {t('auth.register.form.loginB')}
+                  {t('auth.register:form.loginB')}
                 </Link>
               </Space>
             </Col>

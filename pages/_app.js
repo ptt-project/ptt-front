@@ -14,7 +14,7 @@ import '~/public/less/style.less'
 import '~/public/sass/style.scss'
 
 const HappyShoppingApp = ({ Component, pageProps }) => {
-  const { t } = useTranslation([LocaleNamespaceConst])
+  const { t } = useTranslation(LocaleNamespaceConst)
   const store = useStore()
 
   useEffect(() => {

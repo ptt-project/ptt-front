@@ -1,13 +1,15 @@
 import React, { useState, FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import RegisterForm from './components/RegisterForm'
 import RegisterConsent from './components/RegisterConsent'
 import RegisterSuccess from './components/RegisterSuccess'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { IRegisterForm } from '~/model/Auth'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 
 const Register: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register'])
   const [form, setForm] = useState<IRegisterForm>({
     firstName: '',
     lastName: '',
@@ -35,10 +37,10 @@ const Register: FC = () => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('auth.register.title')}
+          {t('common:meta.title')} | {t('auth.register:title')}
         </title>
       </Helmet>
-      <Breadcrumbs items={[{ title: t('auth.register.title') }]} />
+      <Breadcrumbs items={[{ title: t('auth.register:title') }]} />
       {renderStep()}
     </main>
   )

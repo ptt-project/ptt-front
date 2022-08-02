@@ -1,13 +1,15 @@
 import React, { FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { Typography, Button, Row, Col, Image } from 'antd'
-import t from '~/locales'
 import { CustomUrl } from '~/utils/main'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './RegisterSuccess.module.scss'
 
 const { Text, Title } = Typography
 
 const RegisterSuccess: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register'])
   const router: NextRouter = useRouter()
 
   return (
@@ -26,7 +28,7 @@ const RegisterSuccess: FC = () => {
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
             <Title className="hps-title" level={4}>
-              {t('auth.register.success.title')}
+              {t('auth.register:success.title')}
             </Title>
             <Row>
               <Col xl={{ span: 12, offset: 6 }} xs={24}>
@@ -43,7 +45,7 @@ const RegisterSuccess: FC = () => {
             <Row>
               <Col span={24}>
                 <div className={styles.message}>
-                  <Text type="secondary">{t('auth.register.success.message')}</Text>
+                  <Text type="secondary">{t('auth.register:success.message')}</Text>
                 </div>
               </Col>
             </Row>
@@ -56,7 +58,7 @@ const RegisterSuccess: FC = () => {
                   block
                   href={CustomUrl.href('/auth/login', router.locale)}
                 >
-                  {t('auth.register.success.login')}
+                  {t('auth.register:success.login')}
                 </Button>
               </Col>
             </Row>

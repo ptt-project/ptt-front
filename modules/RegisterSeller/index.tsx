@@ -1,11 +1,13 @@
 import React, { useState, FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import RegisterSellerForm from './components/RegisterSellerForm'
 import RegisterSellerSuccess from './components/RegisterSellerSuccess'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 
 const RegisterSeller: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register-seller'])
   const [step, setStep] = useState<number>(0) // 0=REGISTER_SELLER_FORM, 1=REGISTER_SELLER_SUCCESS
 
   function renderStep(): JSX.Element {
@@ -23,10 +25,10 @@ const RegisterSeller: FC = () => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('auth.registerSeller.title')}
+          {t('common:meta.title')} | {t('auth.register-seller:title')}
         </title>
       </Helmet>
-      <Breadcrumbs items={[{ title: t('auth.registerSeller.title') }]} />
+      <Breadcrumbs items={[{ title: t('auth.register-seller:title') }]} />
       {renderStep()}
     </main>
   )

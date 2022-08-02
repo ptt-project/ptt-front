@@ -1,4 +1,5 @@
 import React, { useState, FC, ChangeEvent } from 'react'
+import { useTranslation } from 'next-i18next'
 import {
   Typography,
   Button,
@@ -12,8 +13,7 @@ import {
   RadioChangeEvent
 } from 'antd'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import t from '~/locales'
-import { RegExpList } from '~/constants'
+import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import styles from './RegisterSellerForm.module.scss'
 
 const { Text, Title } = Typography
@@ -42,21 +42,15 @@ interface IRegisterSellerForm {
 }
 
 const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSellerFormProps) => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register-seller'])
   const [form] = Form.useForm()
   const [shopType, setShopType] = useState<string>('0')
-  const corporateLabel: string = t('auth.registerSeller.form.corporate') // prevent error hook rules
-  const corporateNameLabel: string = t('auth.registerSeller.form.corporateName') // prevent error hook rules
-  const corporateNoLabel: string = t('auth.registerSeller.form.corporateNo') // prevent error hook rules
-  const corporateDetailLabel: string = t('auth.registerSeller.form.corporateDetail') // prevent error hook rules
-  const optionLabel: string = t('common.form.option') // prevent error hook rules
-  const requiredRule: string = t('common.form.required') // prevent error hook rules
-  const minRule: any = t('common.form.min') // prevent error hook rules
 
   function onTelChange(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.value || RegExpList.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
       form.setFieldsValue({ tel: e.target.value })
     } else {
-      form.setFieldsValue({ tel: e.target.value.replace(RegExpList.ALLOW_NUMBER, '') })
+      form.setFieldsValue({ tel: e.target.value.replace(RegExpConst.ALLOW_NUMBER, '') })
     }
   }
 
@@ -65,10 +59,10 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
   }
 
   function onIdCardChange(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.value || RegExpList.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
       form.setFieldsValue({ corporateNo: e.target.value })
     } else {
-      form.setFieldsValue({ corporateNo: e.target.value.replace(RegExpList.ALLOW_NUMBER, '') })
+      form.setFieldsValue({ corporateNo: e.target.value.replace(RegExpConst.ALLOW_NUMBER, '') })
     }
   }
 
@@ -93,7 +87,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
             <Title className="hps-title" level={4}>
-              {t('auth.registerSeller.title')}
+              {t('auth.register-seller:title')}
             </Title>
             <Form
               initialValues={{
@@ -110,30 +104,30 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                 <Col xs={24}>
                   <Row align="middle">
                     <Col sm={8} xs={24}>
-                      <Text>{t('auth.registerSeller.form.shopType.title')}</Text>
+                      <Text>{t('auth.register-seller:form.shopType.title')}</Text>
                     </Col>
                     <Col sm={16} xs={24}>
                       <Form.Item className="mb-0" name="shopType">
                         <Radio.Group className={styles.radio} onChange={onRadioChange}>
-                          <Radio value="0">{t('auth.registerSeller.form.shopType.normal')}</Radio>
-                          <Radio value="1">{t('auth.registerSeller.form.shopType.mall')}</Radio>
+                          <Radio value="0">{t('auth.register-seller:form.shopType.normal')}</Radio>
+                          <Radio value="1">{t('auth.register-seller:form.shopType.mall')}</Radio>
                         </Radio.Group>
                       </Form.Item>
                     </Col>
                   </Row>
                 </Col>
                 <Col span={24}>
-                  <HighlightLabel title={t('auth.registerSeller.section.contact')} />
+                  <HighlightLabel title={t('auth.register-seller:section.contact')} />
                 </Col>
                 <Col md={12} xs={24}>
                   <Form.Item
-                    label={t('auth.registerSeller.form.name')}
+                    label={t('auth.register-seller:form.name')}
                     name="name"
                     rules={[
                       {
                         required: true,
-                        message: `${t('common.form.required')} ${t(
-                          'auth.registerSeller.form.name'
+                        message: `${t('common:form.required')} ${t(
+                          'auth.register-seller:form.name'
                         )}`
                       }
                     ]}
@@ -143,16 +137,18 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                 </Col>
                 <Col md={12} xs={24}>
                   <Form.Item
-                    label={t('auth.registerSeller.form.tel')}
+                    label={t('auth.register-seller:form.tel')}
                     name="tel"
                     rules={[
                       {
                         required: true,
-                        message: `${t('common.form.required')} ${t('auth.registerSeller.form.tel')}`
+                        message: `${t('common:form.required')} ${t(
+                          'auth.register-seller:form.tel'
+                        )}`
                       },
                       {
                         min: 9,
-                        message: `${t('common.form.min.head')} 9 ${t('common.form.min.tail')}`
+                        message: `${t('common:form.min.head')} 9 ${t('common:form.min.tail')}`
                       }
                     ]}
                   >
@@ -161,20 +157,20 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                 </Col>
                 <Col md={12} xs={24}>
                   <Form.Item
-                    label={t('auth.registerSeller.form.email')}
+                    label={t('auth.register-seller:form.email')}
                     name="email"
                     rules={[
                       {
                         required: true,
-                        message: `${t('common.form.required')} ${t(
-                          'auth.registerSeller.form.email'
+                        message: `${t('common:form.required')} ${t(
+                          'auth.register-seller:form.email'
                         )}`
                       },
                       {
                         type: 'email',
-                        message: `${t('common.form.invalid.head')} ${t(
-                          'auth.registerSeller.form.email'
-                        )} ${t('common.form.invalid.tail')}`
+                        message: `${t('common:form.invalid.head')} ${t(
+                          'auth.register-seller:form.email'
+                        )} ${t('common:form.invalid.tail')}`
                       }
                     ]}
                   >
@@ -182,18 +178,20 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                   </Form.Item>
                 </Col>
                 <Col span={24}>
-                  <HighlightLabel title={t('auth.registerSeller.section.brand')} />
+                  <HighlightLabel title={t('auth.register-seller:section.brand')} />
                 </Col>
                 {shopType === '1' ? (
                   <>
                     <Col md={12} xs={24}>
                       <Form.Item
-                        label={corporateNameLabel}
+                        label={t('auth.register-seller:form.corporateName')}
                         name="corporateName"
                         rules={[
                           {
                             required: true,
-                            message: `${requiredRule} ${corporateNameLabel}`
+                            message: `${t('common:form.required')} ${t(
+                              'auth.register-seller:form.corporateName'
+                            )}`
                           }
                         ]}
                       >
@@ -202,16 +200,18 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                     </Col>
                     <Col md={12} xs={24}>
                       <Form.Item
-                        label={corporateNoLabel}
+                        label={t('auth.register-seller:form.corporateNo')}
                         name="corporateNo"
                         rules={[
                           {
                             required: true,
-                            message: `${requiredRule} ${corporateNoLabel}`
+                            message: `${t('common:form.required')} ${t(
+                              'auth.register-seller:form.corporateNo'
+                            )}`
                           },
                           {
                             min: 13,
-                            message: `${minRule.head} 13 ${minRule.tail}`
+                            message: `${t('common:form.min.head')} 13 ${t('common:form.min.tail')}`
                           }
                         ]}
                       >
@@ -222,13 +222,13 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                 ) : null}
                 <Col md={12} xs={24}>
                   <Form.Item
-                    label={t('auth.registerSeller.form.brand')}
+                    label={t('auth.register-seller:form.brand')}
                     name="brand"
                     rules={[
                       {
                         required: true,
-                        message: `${t('common.form.required')} ${t(
-                          'auth.registerSeller.form.brand'
+                        message: `${t('common:form.required')} ${t(
+                          'auth.register-seller:form.brand'
                         )}`
                       }
                     ]}
@@ -239,39 +239,39 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                 <Col md={12} xs={24}>
                   <Form.Item
                     name="category"
-                    label={t('auth.registerSeller.form.category')}
+                    label={t('auth.register-seller:form.category')}
                     rules={[
                       {
                         required: true,
-                        message: `${t('common.form.required')} ${t(
-                          'auth.registerSeller.form.category'
+                        message: `${t('common:form.required')} ${t(
+                          'auth.register-seller:form.category'
                         )}`
                       }
                     ]}
                   >
                     <Select>
-                      <Select.Option value="">{t('common.form.option')}</Select.Option>
+                      <Select.Option value="">{t('common:form.option')}</Select.Option>
                       <Select.Option value="0">ของตกแต่งบ้าน</Select.Option>
                     </Select>
                   </Form.Item>
                 </Col>
                 <Col xs={24}>
-                  <Form.Item label={t('auth.registerSeller.form.website')} name="website">
+                  <Form.Item label={t('auth.register-seller:form.website')} name="website">
                     <Input maxLength={50} />
                   </Form.Item>
                 </Col>
                 <Col xs={24}>
-                  <Form.Item label={t('auth.registerSeller.form.facebook')} name="facebook">
+                  <Form.Item label={t('auth.register-seller:form.facebook')} name="facebook">
                     <Input maxLength={50} />
                   </Form.Item>
                 </Col>
                 <Col xs={24}>
-                  <Form.Item label={t('auth.registerSeller.form.instagram')} name="instagram">
+                  <Form.Item label={t('auth.register-seller:form.instagram')} name="instagram">
                     <Input maxLength={50} />
                   </Form.Item>
                 </Col>
                 <Col xs={24}>
-                  <Form.Item label={t('auth.registerSeller.form.other')} name="other">
+                  <Form.Item label={t('auth.register-seller:form.other')} name="other">
                     <TextArea maxLength={200} showCount />
                   </Form.Item>
                 </Col>
@@ -280,39 +280,44 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                     <Col span={24}>
                       <Form.Item
                         name="corporate"
-                        label={corporateLabel}
+                        label={t('auth.register-seller:form.corporate')}
                         rules={[
                           {
                             required: true,
-                            message: `${requiredRule} ${corporateLabel}`
+                            message: `${t('common:form.required')} ${t(
+                              'auth.register-seller:form.corporate'
+                            )}`
                           }
                         ]}
                       >
                         <Select>
-                          <Select.Option value="">{optionLabel}</Select.Option>
+                          <Select.Option value="">{t('common:form.option')}</Select.Option>
                           <Select.Option value="0">ผู้จัดจำหน่าย</Select.Option>
                         </Select>
                       </Form.Item>
                     </Col>
                     <Col span={24}>
-                      <Form.Item label={corporateDetailLabel} name="corporateDetail">
+                      <Form.Item
+                        label={t('auth.register-seller:form.corporateDetail')}
+                        name="corporateDetail"
+                      >
                         <TextArea rows={4} maxLength={1000} showCount />
                       </Form.Item>
                     </Col>
                   </>
                 ) : null}
                 <Col span={24}>
-                  <HighlightLabel title={t('auth.registerSeller.section.info')} />
+                  <HighlightLabel title={t('auth.register-seller:section.info')} />
                 </Col>
                 <Col xs={24}>
-                  <Form.Item label={t('auth.registerSeller.form.info')} name="info">
+                  <Form.Item label={t('auth.register-seller:form.info')} name="info">
                     <TextArea rows={4} maxLength={1000} showCount />
                   </Form.Item>
                 </Col>
               </Row>
               <Form.Item>
                 <Button className="mt-5" htmlType="submit" type="primary" block>
-                  {t('common.confirm')}
+                  {t('common:confirm')}
                 </Button>
               </Form.Item>
             </Form>

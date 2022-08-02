@@ -7,7 +7,7 @@ import t from '~/locales'
 import OtpModal from '~/components/main/OtpModal'
 import { IOtpData } from '~/model/Common'
 import { CustomUrl } from '~/utils/main'
-import { RegExpList } from '~/constants'
+import { RegExpConst } from '~/constants'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 
@@ -67,7 +67,7 @@ const ChangePassword: React.FC = () => {
   }
   const validatePasswordFormat: RuleRender = (): RuleObject => ({
     validator(_: Rule, value: string): Promise<void> {
-      if (!value || RegExpList.CHECK_PASSWORD.test(value)) {
+      if (!value || RegExpConst.CHECK_PASSWORD.test(value)) {
         return Promise.resolve()
       }
       return Promise.reject(new Error(invalidPassword))

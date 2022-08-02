@@ -1,11 +1,12 @@
 import React, { useState, FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import { Typography, Space, Button, Image, Row, Col, Form, Checkbox } from 'antd'
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { isEmpty } from 'lodash'
 import OtpModal from '~/components/main/OtpModal'
-import t from '~/locales'
 import { IRegisterForm } from '~/model/Auth'
 import { IOtpData } from '~/model/Common'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './RegisterConsent.module.scss'
 
 const { Text, Title } = Typography
@@ -20,6 +21,7 @@ interface IRegisterConsentProps {
 }
 
 const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps) => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register'])
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [form] = Form.useForm()
   const [checked, setChecked] = useState<boolean>(false)

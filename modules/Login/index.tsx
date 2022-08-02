@@ -1,17 +1,19 @@
 import React, { useState, FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image } from 'antd'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import t from '~/locales'
 import { CustomUrl } from '~/utils/main'
 import { ILoginForm } from '~/model/Auth'
 import { IFieldData } from '~/model/Common'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './Login.module.scss'
 
 const { Title, Link } = Typography
 
 const Login: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.login'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   const [formData, setFormData] = useState<ILoginForm>({
@@ -35,10 +37,10 @@ const Login: FC = () => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('auth.login.title')}
+          {t('common:meta.title')} | {t('auth.login:title')}
         </title>
       </Helmet>
-      <Breadcrumbs items={[{ title: t('auth.login.title') }]} />
+      <Breadcrumbs items={[{ title: t('auth.login:title') }]} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
@@ -54,7 +56,7 @@ const Login: FC = () => {
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
               <Title className="hps-title" level={4}>
-                {t('auth.login.title')}
+                {t('auth.login:title')}
               </Title>
               <Form
                 layout="vertical"
@@ -65,12 +67,12 @@ const Login: FC = () => {
               >
                 <Row>
                   <Col md={{ span: 12, offset: 6 }} xs={24}>
-                    <Form.Item label={t('auth.login.form.username')} name="username">
+                    <Form.Item label={t('auth.login:form.username')} name="username">
                       <Input />
                     </Form.Item>
                   </Col>
                   <Col md={{ span: 12, offset: 6 }} xs={24}>
-                    <Form.Item label={t('auth.login.form.password')} name="password">
+                    <Form.Item label={t('auth.login:form.password')} name="password">
                       <Input.Password />
                     </Form.Item>
                   </Col>
@@ -82,19 +84,19 @@ const Login: FC = () => {
                         block
                         disabled={!formData.username || !formData.password}
                       >
-                        {t('auth.login.title')}
+                        {t('auth.login:title')}
                       </Button>
                     </Form.Item>
                   </Col>
                 </Row>
               </Form>
-              <Divider>{t('auth.login.divider')}</Divider>
+              <Divider>{t('auth.login:divider')}</Divider>
               <Space className={styles.space} wrap>
                 <Link
                   href={CustomUrl.href('/auth/forgot-password', router.locale)}
                   className={styles.link}
                 >
-                  {t('auth.login.forgotPassword')}
+                  {t('auth.login:forgotPassword')}
                 </Link>
               </Space>
             </Col>

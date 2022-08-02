@@ -1,0 +1,34 @@
+{
+  "title": "สมัครสมาชิก",
+  "form": {
+    "firstName": "ชื่อ",
+    "lastName": "นามสกุล",
+    "mobileNo": "หมายเลขโทรศัพท์",
+    "email": "Email",
+    "username": "Username",
+    "password": "Password",
+    "passwordHintA": "ใช้ได้เฉพาะตัวอักษรภาษาอังกฤษ ตัวเลขอารบิกและเครื่องหมายปกติ",
+    "passwordHintB": "ความยาว 8-20 ตัวอักษร ประกอบด้วย",
+    "passwordHintC": "ตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว",
+    "passwordHintD": "ตัวพิมพ์เล็กอย่างน้อย 1 ตัว",
+    "passwordHintE": "ตัวเลขอย่างน้อย 1 ตัว",
+    "policyA": "โดยการเปิดบัญชี PTT รับทราบและตกลงตาม",
+    "policyB": "เงื่อนไขการให้บริการ",
+    "policyBContent": "...do something",
+    "policyC": "นโยบายความเป็นส่วนตัว",
+    "policyCContent": "...do something",
+    "divider": "หรือ",
+    "loginA": "หากมีบัญชีผู้ใช้แล้ว คุณสามารถ",
+    "loginB": "เข้าสู่ระบบ"
+  },
+  "consent": {
+    "title": "ขอความยินยอม",
+    "content": "...do something",
+    "checkbox": "กรุณาติ๊กเพื่อรับทราบและยินยอม"
+  },
+  "success": {
+    "title": "สมัครสมาชิกสำเร็จ",
+    "message": "ระบบได้สมัครสมาชิกให้เรียบร้อยแล้ว กรุณากดปุ่ม เข้าสู่ระบบ เพื่อเข้าใช้งานถัดไป",
+    "login": "เข้าสู่ระบบ"
+  }
+}

@@ -1,37 +1,5 @@
 export default {
-  home: {
-    title: 'Happy Shopping',
-    promotion: {
-      title: 'Flash Sale',
-      sold: 'ขายแล้ว'
-    },
-    brand: {
-      title: 'ร้านค้า Mall',
-      button: 'เปิดร้านค้าของคุณเอง',
-      start: 'เริ่มต้น',
-      sell: 'ลดสูงสุด'
-    }
-  },
   auth: {
-    login: {
-      title: 'เข้าสู่ระบบ',
-      form: {
-        username: 'Username',
-        password: 'Password'
-      },
-      divider: 'หรือ',
-      forgotPassword: 'ลืมรหัสผ่าน'
-    },
-    forgotPassword: {
-      title: 'ลืมรหัสผ่าน',
-      form: {
-        emailOrMobileNo: 'E-mail/หมายเลขโทรศัพท์'
-      },
-      success: {
-        messageA: 'Link ยืนยันตัวตนจะถูกส่งไปที่',
-        messageB: 'กรุณายืนยัน'
-      }
-    },
     changePassword: {
       title: 'เปลี่ยนรหัสผ่าน',
       password: 'รหัสผ่านปัจจุบัน',
@@ -41,74 +9,6 @@ export default {
         setting: 'ตั้งค่า',
         account: 'บัญชีผู้ใช้',
         changePassword: 'เปลี่ยนรหัสผ่าน'
-      }
-    },
-    register: {
-      title: 'สมัครสมาชิก',
-      form: {
-        firstName: 'ชื่อ',
-        lastName: 'นามสกุล',
-        mobileNo: 'หมายเลขโทรศัพท์',
-        email: 'Email',
-        username: 'Username',
-        password: 'Password',
-        passwordHintA: 'ใช้ได้เฉพาะตัวอักษรภาษาอังกฤษ ตัวเลขอารบิกและเครื่องหมายปกติ',
-        passwordHintB: 'ความยาว 8-20 ตัวอักษร ประกอบด้วย',
-        passwordHintC: 'ตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว',
-        passwordHintD: 'ตัวพิมพ์เล็กอย่างน้อย 1 ตัว',
-        passwordHintE: 'ตัวเลขอย่างน้อย 1 ตัว',
-        policyA: 'โดยการเปิดบัญชี PTT รับทราบและตกลงตาม',
-        policyB: 'เงื่อนไขการให้บริการ',
-        policyBContent: '...do something',
-        policyC: 'นโยบายความเป็นส่วนตัว',
-        policyCContent: '...do something',
-        divider: 'หรือ',
-        loginA: 'หากมีบัญชีผู้ใช้แล้ว คุณสามารถ',
-        loginB: 'เข้าสู่ระบบ'
-      },
-      consent: {
-        title: 'ขอความยินยอม',
-        content: '...do something',
-        checkbox: 'กรุณาติ๊กเพื่อรับทราบและยินยอม'
-      },
-      success: {
-        title: 'สมัครสมาชิกสำเร็จ',
-        message: 'ระบบได้สมัครสมาชิกให้เรียบร้อยแล้ว กรุณากดปุ่ม เข้าสู่ระบบ เพื่อเข้าใช้งานถัดไป',
-        login: 'เข้าสู่ระบบ'
-      }
-    },
-    registerSeller: {
-      title: 'ลงทะเบียนเพื่อสมัครร้านค้า',
-      section: {
-        contact: 'ข้อมูลผู้ติดต่อ',
-        brand: 'แบรนด์สินค้า',
-        info: 'ข้อมูลเพิ่มเติม'
-      },
-      form: {
-        shopType: {
-          title: 'ประเภทร้านค้า',
-          normal: 'ร้านค้าปกติ',
-          mall: 'ร้านค้า Mall'
-        },
-        name: 'ชื่อ-นามสกุล',
-        tel: 'หมายเลขโทรศัพท์',
-        email: 'อีเมล',
-        corporateName: 'ชื่อบริษัท',
-        corporateNo: 'เลขทะเบียนนิติบุคคล',
-        brand: 'ชื่อแบรนด์สินค้าหลักที่ต้องการเปิดร้าน',
-        category: 'หมวดหมู่สินค้าหลักของร้านค้า',
-        website: 'เว็บไซต์ของแบรนด์สินค้าหลัก',
-        facebook: 'Facebook Page ของแบรนด์สินค้าหลักหรือร้านค้าของคุณ',
-        instagram: 'Instagram ของแบรนด์สินค้าหลักหรือร้านค้าของคุณ',
-        other: 'Social Media อื่นๆ ของแบรนด์สินค้าหลักหรือร้านค้าของคุณ',
-        corporate: 'นิติบุคคลของคุณเกี่ยวข้องอย่างไรกับแบรนด์สินค้าหลักที่ต้องการเปิดร้าน',
-        corporateDetail:
-          'นอกเหนือจากช่องทางออนไลน์ โปรดยกตัวอย่างชื่อร้านค้าหรือสถานที่จัดจำหน่ายแบรนด์สินค้าของคุณ / ร้านค้าของคุณ',
-        info: 'โปรดระบุข้อมูลเพิ่มเติมเพื่อให้เรารู้จักคุณมากขึ้น'
-      },
-      success: {
-        title: 'กำลังตรวจสอบข้อมูล',
-        message: 'ทีมงานกำลังพิจารณาคำขอเปิดบัญชีร้านค้าของคุณอาจใช้เวลาประมาณ 2-3 วันทำการ'
       }
     }
   },

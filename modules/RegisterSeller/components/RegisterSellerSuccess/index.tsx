@@ -1,13 +1,15 @@
 import React, { FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { Typography, Button, Row, Col, Image } from 'antd'
-import t from '~/locales'
 import { CustomUrl } from '~/utils/main'
 import styles from './RegisterSellerSuccess.module.scss'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Text, Title } = Typography
 
 const RegisterSellerSuccess: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register-seller'])
   const router: NextRouter = useRouter()
 
   return (
@@ -26,7 +28,7 @@ const RegisterSellerSuccess: FC = () => {
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
             <Title className="hps-title" level={4}>
-              {t('auth.registerSeller.success.title')}
+              {t('auth.register-seller:success.title')}
             </Title>
             <Row>
               <Col xl={{ span: 12, offset: 6 }} xs={24}>
@@ -43,7 +45,7 @@ const RegisterSellerSuccess: FC = () => {
             <Row>
               <Col span={24}>
                 <div className={styles.message}>
-                  <Text type="secondary">{t('auth.registerSeller.success.message')}</Text>
+                  <Text type="secondary">{t('auth.register-seller:success.message')}</Text>
                 </div>
               </Col>
             </Row>
