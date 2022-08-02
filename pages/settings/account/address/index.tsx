@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { connect } from 'react-redux'
-import { IAddressFormValues } from '~/model/Address'
+import { IAddressFormValues } from '~/interfaces'
 import Address from '~/modules/Address'
 
 interface IAddressPageProps {

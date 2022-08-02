@@ -1,8 +1,8 @@
 import React, { useState, useEffect, FC, ChangeEvent } from 'react'
+import { useTranslation } from 'next-i18next'
 import { Typography, Button, Row, Col, Input, Modal } from 'antd'
-import t from '~/locales'
-import { RegExpList } from '~/constants'
-import { IOtpData } from '~/model/Common'
+import { IOtpData } from '~/interfaces'
+import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import styles from './OtpModal.module.scss'
 
 const { Text, Title } = Typography
@@ -16,6 +16,7 @@ interface IOtpModalProps {
 }
 
 const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
+  const { t } = useTranslation(LocaleNamespaceConst)
   const [otpInput, setOtpInput] = useState<string>('')
   const [timer, setTimer] = useState<number>(0)
   const [otpData] = useState<IOtpData>({
@@ -27,7 +28,7 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
     if (
       props.isOpen &&
       props.mobileNo &&
-      props.mobileNo.replace(RegExpList.ALLOW_NUMBER, '').length === 10
+      props.mobileNo.replace(RegExpConst.ALLOW_NUMBER, '').length === 10
     ) {
       onRequestOtp()
     }
@@ -52,10 +53,10 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
   }
 
   function onChangeOtp(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.value || RegExpList.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
       setOtpInput(e.target.value)
     } else {
-      setOtpInput(e.target.value.replace(RegExpList.ALLOW_NUMBER, ''))
+      setOtpInput(e.target.value.replace(RegExpConst.ALLOW_NUMBER, ''))
     }
   }
 
@@ -85,7 +86,7 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
       title={
         <Title className="mb-0" level={4}>
           <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
-          {props.title || t('components.otpModal.title')}
+          {props.title || t('otp-modal:title')}
         </Title>
       }
       visible={props.isOpen}
@@ -99,15 +100,15 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
               onClick={onRequestOtp}
               disabled={timer !== 0}
             >
-              {`${t('components.otpModal.request')}${renderTimer()}`}
+              {`${t('otp-modal:request')}${renderTimer()}`}
             </Button>
           </Col>
           <Col span={16}>
             <Button type="default" onClick={toggle}>
-              {t('common.close')}
+              {t('common:close')}
             </Button>
             <Button type="primary" disabled={otpInput.length !== 6} onClick={onSubmit}>
-              {t('common.confirm')}
+              {t('common:confirm')}
             </Button>
           </Col>
         </Row>
@@ -116,10 +117,10 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
       <div className={styles.label}>
         <div className={styles.left}>
           <Text className={styles.required}>*</Text>
-          <Text>{t('components.otpModal.label')}</Text>
+          <Text>{t('otp-modal:label')}</Text>
         </div>
         <div className={styles.right}>
-          <Text type="secondary">{t('components.otpModal.ref')}</Text>
+          <Text type="secondary">{t('otp-modal:ref')}</Text>
         </div>
       </div>
       <Input maxLength={6} onChange={onChangeOtp} value={otpInput} />

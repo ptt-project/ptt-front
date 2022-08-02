@@ -5,11 +5,10 @@ import { compact, orderBy } from 'lodash'
 import Helmet from 'react-helmet'
 import styles from './Address.module.scss'
 import AddressCard from './components/AddressCard'
-import { IAddressFormValues } from '~/model/Address'
-import { useVisible } from '~/utils/main/custom-hook'
+import { IAddressFormValues } from '~/interfaces'
+import { CustomHookUseVisibleUtil, CustomUrlUtil } from '~/utils/main'
 import addressesMock from './components/AddressForm/mock-data/mock-addresses.json'
 import t from '~/locales'
-import { CustomUrl } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
@@ -22,7 +21,7 @@ interface IAddressProps {
 const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
   const router: NextRouter = useRouter()
   // eslint-disable-next-line @typescript-eslint/typedef
-  const deleteAddressVisible = useVisible()
+  const deleteAddressVisible = CustomHookUseVisibleUtil()
 
   const addresses: IAddressFormValues[] = (addressesMock || []) as IAddressFormValues[]
   const rootMenu: string = props.isSeller ? '/seller' : ''
@@ -87,7 +86,7 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
           { title: t('address.breadcrumbs.account') },
           {
             title: t('address.breadcrumbs.address'),
-            href: CustomUrl.href(`${rootMenu}/settings/account/address`, router.locale)
+            href: CustomUrlUtil(`${rootMenu}/settings/account/address`, router.locale)
           }
         ]}
       />
@@ -154,7 +153,7 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
                             {t('address.emptyAddress')}
                             <Link
                               className="ml-1"
-                              href={CustomUrl.href(
+                              href={CustomUrlUtil(
                                 `${rootMenu}/settings/account/address/add`,
                                 router.locale
                               )}

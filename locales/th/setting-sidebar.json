@@ -1,0 +1,63 @@
+{
+  "buyer": {
+    "account": {
+      "title": "บัญชีผู้ใช้",
+      "info": "ข้อมูลส่วนตัว",
+      "address": "ที่อยู่",
+      "password": "เปลี่ยนรหัสผ่าน",
+      "relation": "ความสัมพันธ์"
+    },
+    "wallet": {
+      "title": "การเงิน",
+      "eWallet": "E-Wallet",
+      "bank": "บัญชีธนาคาร",
+      "point": "Happy Point"
+    },
+    "coupon": {
+      "title": "โค้ดส่วนลด"
+    },
+    "history": {
+      "title": "การซื้อของฉัน"
+    },
+    "notification": {
+      "title": "การแจ้งเตือน"
+    }
+  },
+  "seller": {
+    "delivery": {
+      "title": "การจัดส่ง"
+    },
+    "order": {
+      "title": "คำสั่งซื้อ"
+    },
+    "product": {
+      "title": "สินค้า",
+      "list": "สินค้าของฉัน",
+      "addList": "เพิ่มสินค้าใหม่"
+    },
+    "marketing": {
+      "title": "Marketing Centre"
+    },
+    "payment": {
+      "title": "การเงิน"
+    },
+    "report": {
+      "title": "รายงาน"
+    },
+    "shop": {
+      "title": "ร้านค้า",
+      "point": "คะแนนร้านค้า",
+      "detail": "รายละเอียดร้านค้า",
+      "category": "หมวดหมู่ในร้านค้า",
+      "recommended": "ร้านค้าแนะนำ"
+    },
+    "management": {
+      "title": "การตั้งค่า",
+      "address": "ที่อยู่ของฉัน",
+      "account": "บัญชี"
+    },
+    "service": {
+      "title": "การบริการลูกค้า"
+    }
+  }
+}

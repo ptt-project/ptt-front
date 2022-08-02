@@ -1,15 +1,15 @@
 import React, { useState, FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import ForgotPasswordForm from './components/ForgotPasswordForm'
 import ForgotPasswordByEmailSuccess from './components/ForgotPasswordByEmailSuccess'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import OtpModal from '~/components/main/OtpModal'
-import t from '~/locales'
-import { RegExpList } from '~/constants'
-import { IForgotPasswordForm } from '~/model/Auth'
-import { IOtpData } from '~/model/Common'
+import { LocaleNamespaceConst, RegExpConst } from '~/constants'
+import { IAuthForgotPasswordForm, IOtpData } from '~/interfaces'
 
 const ForgotPassword: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.forgot-password'])
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [step, setStep] = useState<number>(0) // 0=FORGOT_PASSWORD_FORM, 1=FORGOT_PASSWORD_SUCCESS
   const [email, setEmail] = useState<string>('')
@@ -19,13 +19,13 @@ const ForgotPassword: FC = () => {
     setIsOpen(!isOpen)
   }
 
-  function onSubmit(values: IForgotPasswordForm): void {
+  function onSubmit(values: IAuthForgotPasswordForm): void {
     try {
       console.log(values)
-      if (RegExpList.CHECK_EMAIL.test(values.emailOrMobileNo)) {
+      if (RegExpConst.CHECK_EMAIL.test(values.emailOrMobileNo)) {
         setEmail(values.emailOrMobileNo)
         setStep(1)
-      } else if (values.emailOrMobileNo.replace(RegExpList.ALLOW_NUMBER, '').length === 10) {
+      } else if (values.emailOrMobileNo.replace(RegExpConst.ALLOW_NUMBER, '').length === 10) {
         setMobileNo(values.emailOrMobileNo)
         setIsOpen(true)
       }
@@ -58,10 +58,10 @@ const ForgotPassword: FC = () => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('auth.forgotPassword.title')}
+          {t('common:meta.title')} | {t('auth.forgot-password:title')}
         </title>
       </Helmet>
-      <Breadcrumbs items={[{ title: t('auth.forgotPassword.title') }]} />
+      <Breadcrumbs items={[{ title: t('auth.forgot-password:title') }]} />
       <OtpModal mobileNo={mobileNo} isOpen={isOpen} toggle={toggle} onSubmit={onSubmitOtp} />
       {renderStep()}
     </main>

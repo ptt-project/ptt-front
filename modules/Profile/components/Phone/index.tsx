@@ -7,8 +7,8 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import t from '~/locales'
-import { IOtpData } from '~/model/Common'
-import { CustomUrl } from '~/utils/main'
+import { IOtpData } from '~/interfaces'
+import { CustomUrlUtil } from '~/utils/main'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import styles from './ProfilePhone.module.scss'
@@ -93,7 +93,7 @@ const Phone: FC = () => {
                     <HighlightLabel title={t('profile.phone.phoneList')} />
                   </Col>
                   <Col md={12} xs={18} className="text-right">
-                    <Link href={CustomUrl.href('/settings/account/info/add-phone', router.locale)}>
+                    <Link href={CustomUrlUtil('/settings/account/info/add-phone', router.locale)}>
                       <Button className="hps-btn-secondary mt-3">
                         <i className="fas fa-plus mr-2" />
                         {t('profile.button.addPhone')}

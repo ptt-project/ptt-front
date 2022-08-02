@@ -1,0 +1,48 @@
+{
+  "top": {
+    "shop": "Seller centre",
+    "lang": {
+      "th": "TH",
+      "en": "EN"
+    },
+    "signIn": "เข้าสู่ระบบ",
+    "signUp": "ลงทะเบียน"
+  },
+  "middle": {
+    "tel": {
+      "title": "ติดต่อเรา:",
+      "no": "0(800) 123-456"
+    },
+    "cart": {
+      "title": "ตระกร้า"
+    },
+    "search": "Search..."
+  },
+  "bottom": {
+    "search": "Search...",
+    "a": {
+      "title": "Home"
+    },
+    "b": {
+      "title": "Categories"
+    },
+    "c": {
+      "title": "Voucher"
+    },
+    "d": {
+      "title": "Flash Sale"
+    },
+    "e": {
+      "title": "Happy Mall"
+    },
+    "f": {
+      "title": "My Purchase"
+    },
+    "g": {
+      "title": "Setting"
+    },
+    "h": {
+      "title": "About Us"
+    }
+  }
+}

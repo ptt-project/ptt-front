@@ -1,7 +1,8 @@
-import React, { FC, useEffect, useState } from 'react'
-import { Typography, Button, Row, Col, Modal,Image } from 'antd'
-import t from '~/locales'
+import React, { FC } from 'react'
+import { useTranslation } from 'next-i18next'
+import { Typography, Button, Row, Col, Modal, Image } from 'antd'
 import styles from './ConfirmationModal.module.scss'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Text, Title } = Typography
 
@@ -18,6 +19,7 @@ interface IConfirmationModalProps {
 }
 
 const ConfirmationModal: FC<IConfirmationModalProps> = (props: IConfirmationModalProps) => {
+  const { t } = useTranslation(LocaleNamespaceConst)
 
   function toggle(): void {
     props.toggle()
@@ -56,10 +58,10 @@ const ConfirmationModal: FC<IConfirmationModalProps> = (props: IConfirmationModa
         <Row>
           <Col className="text-right" span={24}>
             <Button type="default" onClick={toggle}>
-              {t('common.cancel')}
+              {t('common:cancel')}
             </Button>
             <Button className="ml-2" type="primary" onClick={onSubmit}>
-              {t('common.ok')}
+              {t('common:ok')}
             </Button>
           </Col>
         </Row>
@@ -85,7 +87,9 @@ const ConfirmationModal: FC<IConfirmationModalProps> = (props: IConfirmationModa
 }
 
 ConfirmationModal.defaultProps = {
-  contentWarning: ''
+  contentWarning: '',
+  contentImg: '',
+  contentTextImg: ''
 }
 
 export default ConfirmationModal

@@ -1,10 +1,11 @@
 import React, { useState, FC, ChangeEvent, Key } from 'react'
+import { useTranslation } from 'next-i18next'
+import numeral from 'numeral'
 import { Modal, Row, Col, Typography, Input, Button, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import EmptyTableData from '../EmptyTableData'
-import { RegExpList } from '~/constants'
-import { IProductData } from '~/model/Seller'
-import t from '~/locales'
+import { LocaleNamespaceConst, RegExpConst } from '~/constants'
+import { IProductData } from '~/interfaces'
 import styles from './AddCategoryModal.module.scss'
 
 const { Title, Text } = Typography
@@ -100,9 +101,10 @@ const dataSource: IProductData[] = [
 ]
 
 const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalProps) => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.category'])
   const columns: ColumnsType<IProductData> = [
     {
-      title: t('sellerCategory.add.table.header.a'),
+      title: t('seller.category:add.table.header.a'),
       dataIndex: 'productName',
       key: 'productName',
       width: 300,
@@ -110,14 +112,14 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
       sorter: (a: IProductData, b: IProductData) => a.productName.localeCompare(b.productName)
     },
     {
-      title: t('sellerCategory.add.table.header.b'),
+      title: t('seller.category:add.table.header.b'),
       dataIndex: 'brand',
       key: 'brand',
       width: 100,
       sorter: (a: IProductData, b: IProductData) => a.brand.localeCompare(b.brand)
     },
     {
-      title: t('sellerCategory.add.table.header.c'),
+      title: t('seller.category:add.table.header.c'),
       dataIndex: 'sold',
       key: 'sold',
       align: 'right',
@@ -125,15 +127,17 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
       sorter: (a: IProductData, b: IProductData) => a.sold - b.sold
     },
     {
-      title: t('sellerCategory.add.table.header.d'),
+      title: t('seller.category:add.table.header.d'),
       dataIndex: 'amount',
       key: 'amount',
       align: 'right',
       width: 100,
-      sorter: (a: IProductData, b: IProductData) => a.amount - b.amount
+      sorter: (a: IProductData, b: IProductData) => a.amount - b.amount,
+      render: (text: string, recode: IProductData, index: number): string =>
+        numeral(recode.amount).format('0,0.00')
     },
     {
-      title: t('sellerCategory.add.table.header.e'),
+      title: t('seller.category:add.table.header.e'),
       dataIndex: 'quantity',
       key: 'quantity',
       align: 'right',
@@ -152,10 +156,10 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
 
   function onChangeNumber(e: ChangeEvent<HTMLInputElement>): void {
     let value: string = ''
-    if (!e.target.value || RegExpList.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
       value = e.target.value
     } else {
-      value = e.target.value.replace(RegExpList.ALLOW_NUMBER, '')
+      value = e.target.value.replace(RegExpConst.ALLOW_NUMBER, '')
     }
     if (e.target.name === 'min') {
       setMin(value)
@@ -176,7 +180,7 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
       title={
         <Title className="mb-0" level={4}>
           <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
-          {t('sellerCategory.add.title')}
+          {t('seller.category:add.title')}
         </Title>
       }
       visible={props.isOpen}
@@ -185,14 +189,14 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
         <Row>
           <Col className="text-right" span={24}>
             <Button type="default" onClick={props.toggle}>
-              {t('common.cancel')}
+              {t('common:cancel')}
             </Button>
             <Button
               type="primary"
               disabled={selection.length === 0}
               onClick={(): void => props.onSubmit(selection)}
             >
-              {t('common.confirm')}
+              {t('common:confirm')}
             </Button>
           </Col>
         </Row>
@@ -202,22 +206,22 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
         <Col className={styles.searchWrapper} span={24}>
           <Row gutter={16}>
             <Col lg={12} xs={24}>
-              <Text className={styles.label}>{t('sellerCategory.add.search.name')}</Text>
+              <Text className={styles.label}>{t('seller.category:add.search.name')}</Text>
               <Input name="keyword" onChange={onChangeKeyword} value={keyword} />
             </Col>
             <Col lg={6} xs={12}>
-              <Text className={styles.label}>{t('sellerCategory.add.search.min')}</Text>
+              <Text className={styles.label}>{t('seller.category:add.search.min')}</Text>
               <Input name="min" onChange={onChangeNumber} value={min} />
             </Col>
             <Col lg={6} xs={12}>
-              <Text className={styles.label}>{t('sellerCategory.add.search.max')}</Text>
+              <Text className={styles.label}>{t('seller.category:add.search.max')}</Text>
               <Input name="max" onChange={onChangeNumber} value={max} />
             </Col>
             <Col className="mt-3" span={24}>
               <Button className="mr-3" type="primary">
-                {t('common.search')}
+                {t('common:search')}
               </Button>
-              <Button>{t('common.reset')}</Button>
+              <Button>{t('common:reset')}</Button>
             </Col>
           </Row>
         </Col>

@@ -1,0 +1,68 @@
+@import '../../../../public/sass/config/_variables.scss';
+
+.header {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid $border-color;
+}
+
+.title {
+  color: $primary-color !important;
+  margin-bottom: 0 !important;
+}
+
+.space {
+  line-height: 1;
+}
+
+.slider {
+  margin: 0 -5px;
+}
+
+.box {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  .imgContainer {
+    width: 136px;
+    height: 136px;
+
+    .imgWrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background-color: $background-light;
+
+      img {
+        width: 90%;
+        height: 90%;
+        object-fit: contain;
+      }
+    }
+  }
+
+  .detailContainer {
+    width: 136px;
+    padding: 0 1rem;
+
+    .dTitle {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .dAmount {
+      display: block;
+      color: $primary-color !important;
+    }
+
+    .dSold {
+      display: block;
+    }
+  }
+}

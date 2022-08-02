@@ -1,4 +1,5 @@
 import React, { useState, FC, ChangeEvent } from 'react'
+import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { Typography, Row, Col, Button, Table, Switch, Space, Modal, Input } from 'antd'
@@ -7,8 +8,8 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import EmptyTableData from './components/EmptyTableData'
-import { ICategoryData } from '~/model/Seller'
-import t from '~/locales'
+import { ICategoryData } from '~/interfaces'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './SellerCategory.module.scss'
 
 const { Text, Title } = Typography
@@ -38,29 +39,30 @@ const dataSource: ICategoryData[] = [
 ]
 
 const SellerCategory: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.catefory'])
   const router: NextRouter = useRouter()
   const columns: ColumnsType<ICategoryData> = [
     {
-      title: t('sellerCategory.table.header.a'),
+      title: t('seller.category:table.header.a'),
       dataIndex: 'categoryName',
       key: 'categoryName',
       sorter: (a: ICategoryData, b: ICategoryData) => a.categoryName.localeCompare(b.categoryName)
     },
     {
-      title: t('sellerCategory.table.header.b'),
+      title: t('seller.category:table.header.b'),
       dataIndex: 'createdBy',
       key: 'createdBy',
       sorter: (a: ICategoryData, b: ICategoryData) => a.createdBy.localeCompare(b.createdBy)
     },
     {
-      title: t('sellerCategory.table.header.c'),
+      title: t('seller.category:table.header.c'),
       dataIndex: 'quantity',
       key: 'quantity',
       align: 'right',
       sorter: (a: ICategoryData, b: ICategoryData) => a.quantity - b.quantity
     },
     {
-      title: t('sellerCategory.table.header.d'),
+      title: t('seller.category:table.header.d'),
       key: 'status',
       align: 'center',
       sorter: (a: ICategoryData, b: ICategoryData) => a.status - b.status,
@@ -74,7 +76,7 @@ const SellerCategory: FC = () => {
       )
     },
     {
-      title: t('sellerCategory.table.header.e'),
+      title: t('seller.category:table.header.e'),
       key: 'action',
       align: 'right',
       render: (text: string, record: ICategoryData, index: number): JSX.Element => {
@@ -143,20 +145,20 @@ const SellerCategory: FC = () => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('sellerCategory.title')}
+          {t('common:meta.title')} | {t('seller.category:title')}
         </title>
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('settingSidebar.seller.shop.title') },
-          { title: t('settingSidebar.seller.shop.category') }
+          { title: t('setting-sidebar:seller.shop.title') },
+          { title: t('setting-sidebar:seller.shop.category') }
         ]}
       />
       <Modal
         title={
           <Title className="mb-0" level={4}>
             <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
-            {t('sellerCategory.modal.add.title')}
+            {t('seller.category:modal.add.title')}
           </Title>
         }
         visible={isOpenAdd}
@@ -165,10 +167,10 @@ const SellerCategory: FC = () => {
           <Row>
             <Col className="text-right" span={24}>
               <Button type="default" onClick={toggleAdd}>
-                {t('common.cancel')}
+                {t('common:cancel')}
               </Button>
               <Button type="primary" disabled={!category} onClick={onSubmit}>
-                {t('common.confirm')}
+                {t('common:confirm')}
               </Button>
             </Col>
           </Row>
@@ -176,14 +178,14 @@ const SellerCategory: FC = () => {
       >
         <div className={styles.label}>
           <Text className={styles.required}>*</Text>
-          <Text>{t('sellerCategory.modal.add.form.category')}</Text>
+          <Text>{t('seller.category:modal.add.form.category')}</Text>
         </div>
         <Input showCount maxLength={40} onChange={onChangeCategory} value={category} />
       </Modal>
       <ConfirmationModal
         type="error"
-        title={t('sellerCategory.modal.remove.title')}
-        content={t('sellerCategory.modal.remove.content')}
+        title={t('seller.category:modal.remove.title')}
+        content={t('seller.category:modal.remove.content')}
         isOpen={isOpenRemove}
         toggle={toggleRemove}
         onSubmit={onConfirmRemove}
@@ -198,12 +200,12 @@ const SellerCategory: FC = () => {
               <Row>
                 <Col span={12}>
                   <Title className={styles.title} level={4}>
-                    {t('settingSidebar.seller.shop.category')}
+                    {t('setting-sidebar:seller.shop.category')}
                   </Title>
                 </Col>
                 <Col className="text-right" span={12}>
                   <Button type="primary" onClick={toggleAdd}>
-                    {t('sellerCategory.addCategory')}
+                    {t('seller.category:addCategory')}
                   </Button>
                 </Col>
               </Row>

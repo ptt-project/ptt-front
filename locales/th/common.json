@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "title": "Happy Shopping",
+    "description": "Happy Shopping",
+    "keywords": "Happy Shopping",
+    "ogTag": {
+      "url": "",
+      "type": "",
+      "title": "",
+      "description": "",
+      "image": ""
+    }
+  },
+  "ok": "ตกลง",
+  "cancel": "ยกเลิก",
+  "next": "ต่อไป",
+  "close": "ปิด",
+  "confirm": "ยืนยัน",
+  "save": "บันทึก",
+  "send": "ส่ง",
+  "add": "เพิ่ม",
+  "remove": "ลบ",
+  "search": "ค้นหา",
+  "reset": "รีเซ็ต",
+  "viewAll": "ดูทั้งหมด",
+  "form": {
+    "option": "---------- เลือก ----------",
+    "required": "กรุณาระบุ",
+    "invalid": {
+      "head": "รูปแบบ",
+      "tail": "ไม่ถูกต้อง"
+    },
+    "min": {
+      "head": "กรุณาระบุตัวอักษรอย่างน้อย",
+      "tail": "ตัวอักษร"
+    },
+    "max": {
+      "head": "รองรับตัวอักษรสูงสุด",
+      "tail": "ตัวอักษร"
+    },
+    "notMatch": "ไม่ตรงกัน",
+    "notFound": {
+      "head": "ไม่พบ",
+      "tail": "ในระบบ"
+    },
+    "unique": "นี้มีอยู่ในระบบแล้ว"
+  },
+  "pagination": {
+    "of": "จาก",
+    "items": "รายการ"
+  }
+}

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { Typography, Button, Menu, MenuProps } from 'antd'
 import { MenuInfo } from 'rc-menu/lib/interface'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Text } = Typography
 
@@ -37,6 +38,7 @@ const getItem = (
   } as IMenuItem)
 
 const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) => {
+  const { t } = useTranslation(LocaleNamespaceConst)
   const router: NextRouter = useRouter()
   const [collapsed, setCollapsed] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -45,49 +47,72 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
   // ===========================
   // ========== Buyer ==========
   // ===========================
-  const tBuyer: any = t('settingSidebar.buyer')
   const buyerItems: MenuProps['items'] = [
-    getItem(tBuyer.account.title, 'account', <i className="fas fa-user" />, [
-      getItem(tBuyer.account.info, 'info'),
-      getItem(tBuyer.account.address, 'address'),
-      getItem(tBuyer.account.password, 'password'),
-      getItem(tBuyer.account.relation, 'relation')
+    getItem(t('setting-sidebar:buyer.account.title'), 'account', <i className="fas fa-user" />, [
+      getItem(t('setting-sidebar:buyer.account.info'), 'info'),
+      getItem(t('setting-sidebar:buyer.account.address'), 'address'),
+      getItem(t('setting-sidebar:buyer.account.password'), 'password'),
+      getItem(t('setting-sidebar:buyer.account.relation'), 'relation')
     ]),
-    getItem(tBuyer.wallet.title, 'wallet', <i className="fas fa-wallet" />, [
-      getItem(tBuyer.wallet.eWallet, 'e-wallet'),
-      getItem(tBuyer.wallet.bank, 'bank'),
-      getItem(tBuyer.wallet.point, 'point')
+    getItem(t('setting-sidebar:buyer.wallet.title'), 'wallet', <i className="fas fa-wallet" />, [
+      getItem(t('setting-sidebar:buyer.wallet.eWallet'), 'e-wallet'),
+      getItem(t('setting-sidebar:buyer.wallet.bank'), 'bank'),
+      getItem(t('setting-sidebar:buyer.wallet.point'), 'point')
     ]),
-    getItem(tBuyer.coupon.title, 'coupon', <i className="fas fa-ticket-alt" />),
-    getItem(tBuyer.history.title, 'history', <i className="fas fa-shopping-cart" />),
-    getItem(tBuyer.notification.title, 'notification', <i className="fas fa-bell" />)
+    getItem(t('setting-sidebar:buyer.coupon.title'), 'coupon', <i className="fas fa-ticket-alt" />),
+    getItem(
+      t('setting-sidebar:buyer.history.title'),
+      'history',
+      <i className="fas fa-shopping-cart" />
+    ),
+    getItem(
+      t('setting-sidebar:buyer.notification.title'),
+      'notification',
+      <i className="fas fa-bell" />
+    )
   ]
 
   // ============================
   // ========== Seller ==========
   // ============================
-  const tSeller: any = t('settingSidebar.seller')
   const sellerItems: MenuProps['items'] = [
-    getItem(tSeller.delivery.title, 'delivery', <i className="fas fa-truck" />),
-    getItem(tSeller.order.title, 'order', <i className="fas fa-file-invoice-dollar" />),
-    getItem(tSeller.product.title, 'product', <i className="fas fa-box" />, [
-      getItem(tSeller.product.list, 'list'),
-      getItem(tSeller.product.addList, 'add-list')
+    getItem(t('setting-sidebar:seller.delivery.title'), 'delivery', <i className="fas fa-truck" />),
+    getItem(
+      t('setting-sidebar:seller.order.title'),
+      'order',
+      <i className="fas fa-file-invoice-dollar" />
+    ),
+    getItem(t('setting-sidebar:seller.product.title'), 'product', <i className="fas fa-box" />, [
+      getItem(t('setting-sidebar:seller.product.list'), 'list'),
+      getItem(t('setting-sidebar:seller.product.addList'), 'add-list')
     ]),
-    getItem(tSeller.marketing.title, 'marketing', <i className="fas fa-tag" />),
-    getItem(tSeller.payment.title, 'payment', <i className="fas fa-wallet" />),
-    getItem(tSeller.report.title, 'report', <i className="fas fa-chart-line" />),
-    getItem(tSeller.shop.title, 'shop', <i className="fas fa-store" />, [
-      getItem(tSeller.shop.point, 'point'),
-      getItem(tSeller.shop.detail, 'detail'),
-      getItem(tSeller.shop.category, 'category'),
-      getItem(tSeller.shop.recommended, 'recommended')
+    getItem(t('setting-sidebar:seller.marketing.title'), 'marketing', <i className="fas fa-tag" />),
+    getItem(t('setting-sidebar:seller.payment.title'), 'payment', <i className="fas fa-wallet" />),
+    getItem(
+      t('setting-sidebar:seller.report.title'),
+      'report',
+      <i className="fas fa-chart-line" />
+    ),
+    getItem(t('setting-sidebar:seller.shop.title'), 'shop', <i className="fas fa-store" />, [
+      getItem(t('setting-sidebar:seller.shop.point'), 'point'),
+      getItem(t('setting-sidebar:seller.shop.detail'), 'detail'),
+      getItem(t('setting-sidebar:seller.shop.category'), 'category'),
+      getItem(t('setting-sidebar:seller.shop.recommended'), 'recommended')
     ]),
-    getItem(tSeller.management.title, 'management', <i className="fas fa-cog" />, [
-      getItem(tSeller.management.address, 'address'),
-      getItem(tSeller.management.account, 'account')
-    ]),
-    getItem(tSeller.service.title, 'service', <i className="fas fa-comment-dots" />)
+    getItem(
+      t('setting-sidebar:seller.management.title'),
+      'management',
+      <i className="fas fa-cog" />,
+      [
+        getItem(t('setting-sidebar:seller.management.address'), 'address'),
+        getItem(t('setting-sidebar:seller.management.account'), 'account')
+      ]
+    ),
+    getItem(
+      t('setting-sidebar:seller.service.title'),
+      'service',
+      <i className="fas fa-comment-dots" />
+    )
   ]
   const items: MenuProps['items'] = props.sidebarType === 'seller' ? sellerItems : buyerItems
 
@@ -164,7 +189,6 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
     <div className={getClassName()}>
       <div className="ss-open">
         <Button
-          type="primary"
           icon={<i className="fas fa-chevron-right" />}
           size="large"
           onClick={(): void => setIsOpen(true)}
@@ -177,6 +201,7 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
           </Text>
         </div>
         <Menu
+          className="hps-scroll"
           onClick={onClick}
           defaultOpenKeys={getDefaultOpenKey()}
           selectedKeys={currentSelected}

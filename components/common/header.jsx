@@ -1,15 +1,16 @@
 import { useEffect } from 'react'
+import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import ALink from '~/components/features/custom-link'
 // import CartMenu from '~/components/common/partials/cart-menu'
 import MainMenu from '~/components/common/partials/main-menu'
 import SearchBox from '~/components/common/partials/search-box'
 import LoginModal from '~/components/features/modals/login-modal'
-import t from '~/locales'
-import { HiddenHeader } from '~/constants'
 import { headerBorderRemoveList } from '~/utils/data/menu'
+import { LocaleNameSpaceConst } from '../../constants'
 
 export default function Header(props) {
+  const { t } = useTranslation(LocaleNameSpaceConst)
   const router = useRouter()
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function Header(props) {
         <div className="container">
           <div className="header-right">
             <i className="fas fa-store"></i>
-            <p className="ml-1 welcome-msg"> {t('header.titleSellerCentre')}</p>
+            <p className="ml-1 welcome-msg"> {t('header:titleSellerCentre')}</p>
             <div className="dropdown ml-5">
               <ALink href="#">TH</ALink>
               <ul className="dropdown-box">
@@ -83,21 +84,20 @@ export default function Header(props) {
           </div>
         </div>
       </div>
-      {!HiddenHeader.includes(router.pathname) ? (
-        <div className="container">
-          <div className="header-bottom d-lg-show w-100">
-            <div className="header-left">
-              <MainMenu />
-            </div>
-            <div className="header-right">
-              <ALink href="#">Limited Time Offer</ALink>
-              <a href="https://d-themes.com/buynow/riodereact" className="ml-6">
-                Buy Riode!
-              </a>
-            </div>
+
+      <div className="container">
+        <div className="header-bottom d-lg-show w-100">
+          <div className="header-left">
+            <MainMenu />
+          </div>
+          <div className="header-right">
+            <ALink href="#">Limited Time Offer</ALink>
+            <a href="https://d-themes.com/buynow/riodereact" className="ml-6">
+              Buy Riode!
+            </a>
           </div>
         </div>
-      ) : null}
+      </div>
     </header>
   )
 }

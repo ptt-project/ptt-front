@@ -1,0 +1,9 @@
+{
+  "title": "เข้าสู่ระบบ",
+  "form": {
+    "username": "Username",
+    "password": "Password"
+  },
+  "divider": "หรือ",
+  "forgotPassword": "ลืมรหัสผ่าน"
+}

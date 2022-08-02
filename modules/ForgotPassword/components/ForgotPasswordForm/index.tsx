@@ -1,37 +1,31 @@
 import React, { useState, FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import { Typography, Button, Row, Col, Image, Form, Input } from 'antd'
 import { Rule } from 'antd/lib/form'
-import t from '~/locales'
-import { RegExpList } from '~/constants'
-import { IFieldData } from '~/model/Common'
-import { IForgotPasswordForm } from '~/model/Auth'
+import { LocaleNamespaceConst, RegExpConst } from '~/constants'
+import { IAuthForgotPasswordForm, IFieldData } from '~/interfaces'
 import styles from './ForgotPasswordForm.module.scss'
 
 const { Title } = Typography
 
 interface IForgotPasswordFormProps {
-  onSubmit: (values: IForgotPasswordForm) => void
+  onSubmit: (values: IAuthForgotPasswordForm) => void
 }
 
 const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPasswordFormProps) => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.forgot-password'])
   const [form] = Form.useForm()
-  const [formData, setFormData] = useState<IForgotPasswordForm>({ emailOrMobileNo: '' })
-  const requiredEmailOrMobileNo: string = `${t('common.form.required')} ${t(
-    'auth.forgotPassword.form.emailOrMobileNo'
-  )}` // prevent error hook rules
-  const invalidEmailOrMobileNo: string = `${t('common.form.invalid.head')} ${t(
-    'auth.forgotPassword.form.emailOrMobileNo'
-  )} ${t('common.form.invalid.tail')}` // prevent error hook rules
+  const [formData, setFormData] = useState<IAuthForgotPasswordForm>({ emailOrMobileNo: '' })
 
   function onChangeFields(_: IFieldData[], allFields: IFieldData[]): void {
     if (_.length) {
-      const tempFormData: IForgotPasswordForm = { ...formData }
+      const tempFormData: IAuthForgotPasswordForm = { ...formData }
       tempFormData[_[0].name[0]] = _[0].value
       setFormData(tempFormData)
     }
   }
 
-  function onSubmit(values: IForgotPasswordForm): void {
+  function onSubmit(values: IAuthForgotPasswordForm): void {
     props.onSubmit(values)
   }
 
@@ -51,7 +45,7 @@ const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPassword
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
             <Title className="hps-title" level={4}>
-              {t('auth.forgotPassword.title')}
+              {t('auth.forgot-password:title')}
             </Title>
             <Form
               layout="vertical"
@@ -63,22 +57,33 @@ const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPassword
               <Row>
                 <Col md={{ span: 12, offset: 6 }} xs={24}>
                   <Form.Item
-                    label={t('auth.forgotPassword.form.emailOrMobileNo')}
+                    label={t('auth.forgot-password:form.emailOrMobileNo')}
                     name="emailOrMobileNo"
                     rules={[
-                      { required: true, message: requiredEmailOrMobileNo },
+                      {
+                        required: true,
+                        message: `${t('common:form.required')} ${t(
+                          'auth.forgot-password:form.emailOrMobileNo'
+                        )}`
+                      },
                       (): any => ({
                         validator(_: Rule, value: string): Promise<any> {
                           const isValidEmail: boolean =
-                            value && value.match(RegExpList.CHECK_EMAIL) !== null
+                            value && value.match(RegExpConst.CHECK_EMAIL) !== null
                           const isValidMobileNo: boolean =
                             value &&
                             value.length === 10 &&
-                            value.replace(RegExpList.ALLOW_NUMBER, '').length === 10
+                            value.replace(RegExpConst.ALLOW_NUMBER, '').length === 10
                           if (!value || isValidEmail || isValidMobileNo) {
                             return Promise.resolve()
                           }
-                          return Promise.reject(new Error(invalidEmailOrMobileNo))
+                          return Promise.reject(
+                            new Error(
+                              `${t('common:form.invalid.head')} ${t(
+                                'auth.forgot-password:form.emailOrMobileNo'
+                              )} ${t('common:form.invalid.tail')}`
+                            )
+                          )
                         }
                       })
                     ]}
@@ -89,7 +94,7 @@ const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPassword
                 <Col md={{ span: 12, offset: 6 }} xs={24}>
                   <Form.Item>
                     <Button htmlType="submit" type="primary" block>
-                      {t('common.next')}
+                      {t('common:next')}
                     </Button>
                   </Form.Item>
                 </Col>

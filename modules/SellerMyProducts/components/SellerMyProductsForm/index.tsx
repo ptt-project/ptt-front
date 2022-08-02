@@ -1,11 +1,28 @@
 import React, { FC } from 'react'
-import { Button, Row, Col, Form, Input, Select } from 'antd'
+import { Typography, Button, Row, Col, Form } from 'antd'
 import Helmet from 'react-helmet'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import t from '~/locales'
+import Info from './components/Info'
+import Features from './components/Features'
+import Sales from './components/Sales'
+import Other from './components/Other'
+import Delivery from './components/Delivery'
 
+import styles from './SellerMyProductsForm.module.scss'
+
+const { Text } = Typography
+
+interface IFormModel {
+  isSeller?: boolean
+}
 const SellerMyProductsForm: FC = () => {
+  const [form] = Form.useForm()
+
+  function onSubmit(values: IFormModel): void {
+    console.log(values)
+  }
   return (
     <main className="main">
       <Helmet>
@@ -17,7 +34,7 @@ const SellerMyProductsForm: FC = () => {
         items={[
           { title: t('sellerProducts.list.product') },
           { title: t('sellerProducts.list.myProduct'), href: '/seller/settings/product/list' },
-          { title: t('sellerProducts.list.myProduct'), href: '/seller/settings/product/add-list' }
+          { title: t('sellerProducts.form.addTitle'), href: '/seller/settings/product/add-list' }
         ]}
       />
       <div className="page-content mb-9">
@@ -26,7 +43,37 @@ const SellerMyProductsForm: FC = () => {
             <Col xl={6}>
               <SettingSidebar sidebarType="seller" />
             </Col>
-            <Col xl={18} lg={24}></Col>
+            <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 2 }} md={24}>
+              <Text>
+                <h4 className={`text-center mb-5 ${styles.textSecondary}`}>
+                  {t('sellerProducts.form.addTitle')}
+                </h4>
+              </Text>
+              <Form layout="vertical" form={form} name="productForm" onFinish={onSubmit}>
+                <Info />
+                <Features />
+                <Sales />
+                <Delivery />
+                <Other />
+                <Row gutter={[16, 8]} className="mt-3">
+                  <Col md={8}>
+                    <Button type="text" block>
+                      {t('common.cancel')}
+                    </Button>
+                  </Col>
+                  <Col md={8}>
+                    <Button type="text" block>
+                      {t('sellerProducts.form.saveHide')}
+                    </Button>
+                  </Col>
+                  <Col md={8}>
+                    <Button htmlType="submit" type="primary" block>
+                      {t('sellerProducts.form.savePublish')}
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
+            </Col>
           </Row>
         </div>
       </div>

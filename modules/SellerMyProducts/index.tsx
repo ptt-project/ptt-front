@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
 import { NextRouter, useRouter } from 'next/router'
+import Link from 'next/link'
 import Helmet from 'react-helmet'
 import { Typography, Row, Col, Button, Progress } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import SellerMyProductsFilters from './components/SellerMyProductsFilters'
 import SellerMyProductsTabs from './components/SellerMyProductsTabs'
-import Link from 'next/link'
-import { CustomUrl } from '~/utils/main'
+import { CustomUrlUtil } from '~/utils/main'
 import t from '~/locales'
 import styles from './SellerMyProducts.module.scss'
 
@@ -49,7 +49,7 @@ const SellerMyProduct: FC = () => {
                 </Col>
                 <Col xs={4}>
                   <div className={styles.addNewProduct}>
-                    <Link href={CustomUrl.href('/seller/settings/product/add-list', router.locale)}>
+                    <Link href={CustomUrlUtil('/seller/settings/product/add-list', router.locale)}>
                       <Button type="primary">
                         <i className="fas fa-plus mr-1" />
                         {t('sellerProducts.list.addNewProduct')}

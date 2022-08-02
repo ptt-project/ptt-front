@@ -1,17 +1,20 @@
 import React, { useEffect } from 'react'
 import App from 'next/app'
-import t from '~/locales'
+import { appWithTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import { useStore, Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import Helmet from 'react-helmet'
 import Layout from '~/components/layout'
-import { wrapper } from '../store/index.js'
+import { wrapper } from '../store/index'
 import { demoActions } from '~/store/demo'
 import { currentDemo } from '~/server/queries'
+import { LocaleNamespaceConst } from '../constants/locale.const'
 import '~/public/less/style.less'
 import '~/public/sass/style.scss'
 
 const HappyShoppingApp = ({ Component, pageProps }) => {
+  const { t } = useTranslation(LocaleNamespaceConst)
   const store = useStore()
 
   useEffect(() => {
@@ -36,7 +39,7 @@ const HappyShoppingApp = ({ Component, pageProps }) => {
         }
       >
         <Helmet>
-          <title>{t('meta.title')}</title>
+          <title>{t('common:meta.title')}</title>
           <meta charSet="UTF-8" />
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -57,4 +60,4 @@ HappyShoppingApp.getInitialProps = async (appContext) => {
   return { ...pageProps }
 }
 
-export default wrapper.withRedux(HappyShoppingApp)
+export default wrapper.withRedux(appWithTranslation(HappyShoppingApp))

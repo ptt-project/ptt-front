@@ -1,128 +1,5 @@
 export default {
-  meta: {
-    title: 'Happy Shopping',
-    description: 'Happy Shopping',
-    keywords: 'Happy Shopping',
-    ogTag: {
-      url: '',
-      type: '',
-      title: '',
-      description: '',
-      image: ''
-    }
-  },
-  common: {
-    ok: 'ตกลง',
-    cancel: 'ยกเลิก',
-    next: 'ต่อไป',
-    close: 'ปิด',
-    confirm: 'ยืนยัน',
-    save: 'บันทึก',
-    send: 'ส่ง',
-    add: 'เพิ่ม',
-    remove: 'ลบ',
-    search: 'ค้นหา',
-    reset: 'รีเซ็ต',
-    form: {
-      option: '---------- เลือก ----------',
-      required: 'กรุณาระบุ',
-      invalid: {
-        head: 'รูปแบบ',
-        tail: 'ไม่ถูกต้อง'
-      },
-      min: {
-        head: 'กรุณาระบุตัวอักษรอย่างน้อย',
-        tail: 'ตัวอักษร'
-      },
-      max: {
-        head: 'รองรับตัวอักษรสูงสุด',
-        tail: 'ตัวอักษร'
-      },
-      notMatch: 'ไม่ตรงกัน',
-      notFound: {
-        head: 'ไม่พบ',
-        tail: 'ในระบบ'
-      },
-      unique: 'นี้มีอยู่ในระบบแล้ว'
-    },
-    pagination: {
-      of: 'จาก',
-      items: 'รายการ'
-    }
-  },
-  components: {
-    header: {
-      top: {
-        shop: 'Seller centre',
-        lang: {
-          th: 'TH',
-          en: 'EN'
-        },
-        signIn: 'เข้าสู่ระบบ',
-        signUp: 'ลงทะเบียน'
-      },
-      middle: {
-        tel: {
-          title: 'ติดต่อเรา:',
-          no: '0(800) 123-456'
-        },
-        search: 'Search...'
-      },
-      bottom: {
-        search: 'Search...',
-        a: {
-          title: 'Home'
-        },
-        b: {
-          title: 'Categories'
-        },
-        c: {
-          title: 'Products'
-        },
-        d: {
-          title: 'Pages'
-        },
-        e: {
-          title: 'Blog'
-        },
-        f: {
-          title: 'Elements'
-        },
-        g: {
-          title: 'About Us'
-        }
-      }
-    },
-    footer: {
-      copyRight: 'Happy Shopping © 2022. All Rights Reserved'
-    },
-    otpModal: {
-      title: 'ยืนยัน OTP ไปยังหมายเลขหลัก',
-      label: 'OTP',
-      ref: 'Ref code:',
-      request: 'ส่งอีกครั้ง'
-    }
-  },
   auth: {
-    login: {
-      title: 'เข้าสู่ระบบ',
-      form: {
-        username: 'Username',
-        password: 'Password'
-      },
-      divider: 'หรือ',
-      forgotPassword: 'ลืมรหัสผ่าน'
-    },
-    forgotPassword: {
-      title: 'ลืมรหัสผ่าน',
-      form: {
-        emailOrMobileNo: 'E-mail/หมายเลขโทรศัพท์'
-      },
-      success: {
-        messageA: 'Link ยืนยันตัวตนจะถูกส่งไปที่',
-        messageB: 'กรุณายืนยัน'
-      }
-    },
     changePassword: {
       title: 'เปลี่ยนรหัสผ่าน',
       password: 'รหัสผ่านปัจจุบัน',
@@ -132,74 +9,6 @@ export default {
         setting: 'ตั้งค่า',
         account: 'บัญชีผู้ใช้',
         changePassword: 'เปลี่ยนรหัสผ่าน'
-      }
-    },
-    register: {
-      title: 'สมัครสมาชิก',
-      form: {
-        firstName: 'ชื่อ',
-        lastName: 'นามสกุล',
-        mobileNo: 'หมายเลขโทรศัพท์',
-        email: 'Email',
-        username: 'Username',
-        password: 'Password',
-        passwordHintA: 'ใช้ได้เฉพาะตัวอักษรภาษาอังกฤษ ตัวเลขอารบิกและเครื่องหมายปกติ',
-        passwordHintB: 'ความยาว 8-20 ตัวอักษร ประกอบด้วย',
-        passwordHintC: 'ตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว',
-        passwordHintD: 'ตัวพิมพ์เล็กอย่างน้อย 1 ตัว',
-        passwordHintE: 'ตัวเลขอย่างน้อย 1 ตัว',
-        policyA: 'โดยการเปิดบัญชี PTT รับทราบและตกลงตาม',
-        policyB: 'เงื่อนไขการให้บริการ',
-        policyBContent: '...do something',
-        policyC: 'นโยบายความเป็นส่วนตัว',
-        policyCContent: '...do something',
-        divider: 'หรือ',
-        loginA: 'หากมีบัญชีผู้ใช้แล้ว คุณสามารถ',
-        loginB: 'เข้าสู่ระบบ'
-      },
-      consent: {
-        title: 'ขอความยินยอม',
-        content: '...do something',
-        checkbox: 'กรุณาติ๊กเพื่อรับทราบและยินยอม'
-      },
-      success: {
-        title: 'สมัครสมาชิกสำเร็จ',
-        message: 'ระบบได้สมัครสมาชิกให้เรียบร้อยแล้ว กรุณากดปุ่ม เข้าสู่ระบบ เพื่อเข้าใช้งานถัดไป',
-        login: 'เข้าสู่ระบบ'
-      }
-    },
-    registerSeller: {
-      title: 'ลงทะเบียนเพื่อสมัครร้านค้า',
-      section: {
-        contact: 'ข้อมูลผู้ติดต่อ',
-        brand: 'แบรนด์สินค้า',
-        info: 'ข้อมูลเพิ่มเติม'
-      },
-      form: {
-        shopType: {
-          title: 'ประเภทร้านค้า',
-          normal: 'ร้านค้าปกติ',
-          mall: 'ร้านค้า Mall'
-        },
-        name: 'ชื่อ-นามสกุล',
-        tel: 'หมายเลขโทรศัพท์',
-        email: 'อีเมล',
-        corporateName: 'ชื่อบริษัท',
-        corporateNo: 'เลขทะเบียนนิติบุคคล',
-        brand: 'ชื่อแบรนด์สินค้าหลักที่ต้องการเปิดร้าน',
-        category: 'หมวดหมู่สินค้าหลักของร้านค้า',
-        website: 'เว็บไซต์ของแบรนด์สินค้าหลัก',
-        facebook: 'Facebook Page ของแบรนด์สินค้าหลักหรือร้านค้าของคุณ',
-        instagram: 'Instagram ของแบรนด์สินค้าหลักหรือร้านค้าของคุณ',
-        other: 'Social Media อื่นๆ ของแบรนด์สินค้าหลักหรือร้านค้าของคุณ',
-        corporate: 'นิติบุคคลของคุณเกี่ยวข้องอย่างไรกับแบรนด์สินค้าหลักที่ต้องการเปิดร้าน',
-        corporateDetail:
-          'นอกเหนือจากช่องทางออนไลน์ โปรดยกตัวอย่างชื่อร้านค้าหรือสถานที่จัดจำหน่ายแบรนด์สินค้าของคุณ / ร้านค้าของคุณ',
-        info: 'โปรดระบุข้อมูลเพิ่มเติมเพื่อให้เรารู้จักคุณมากขึ้น'
-      },
-      success: {
-        title: 'กำลังตรวจสอบข้อมูล',
-        message: 'ทีมงานกำลังพิจารณาคำขอเปิดบัญชีร้านค้าของคุณอาจใช้เวลาประมาณ 2-3 วันทำการ'
       }
     }
   },
@@ -289,69 +98,6 @@ export default {
       deletePhone: 'ลบเบอร์โทร'
     }
   },
-  settingSidebar: {
-    buyer: {
-      account: {
-        title: 'บัญชีผู้ใช้',
-        info: 'ข้อมูลส่วนตัว',
-        address: 'ที่อยู่',
-        password: 'เปลี่ยนรหัสผ่าน',
-        relation: 'ความสัมพันธ์'
-      },
-      wallet: {
-        title: 'การเงิน',
-        eWallet: 'E-Wallet',
-        bank: 'บัญชีธนาคาร',
-        point: 'Happy Point'
-      },
-      coupon: {
-        title: 'โค้ดส่วนลด'
-      },
-      history: {
-        title: 'การซื้อของฉัน'
-      },
-      notification: {
-        title: 'การแจ้งเตือน'
-      }
-    },
-    seller: {
-      delivery: {
-        title: 'การจัดส่ง'
-      },
-      order: {
-        title: 'คำสั่งซื้อ'
-      },
-      product: {
-        title: 'สินค้า',
-        list: 'สินค้าของฉัน',
-        addList: 'เพิ่มสินค้าใหม่'
-      },
-      marketing: {
-        title: 'Marketing Centre'
-      },
-      payment: {
-        title: 'การเงิน'
-      },
-      report: {
-        title: 'รายงาน'
-      },
-      shop: {
-        title: 'ร้านค้า',
-        point: 'คะแนนร้านค้า',
-        detail: 'รายละเอียดร้านค้า',
-        category: 'หมวดหมู่ในร้านค้า',
-        recommended: 'ร้านค้าแนะนำ'
-      },
-      management: {
-        title: 'การตั้งค่า',
-        address: 'ที่อยู่ของฉัน',
-        account: 'บัญชี'
-      },
-      service: {
-        title: 'การบริการลูกค้า'
-      }
-    }
-  },
   sellerPoint: {
     shop: 'ร้านค้า',
     title: 'คะแนนร้านค้า',
@@ -379,77 +125,6 @@ export default {
     user: 'ชื่อผู้ใช้',
     orderId: 'Order ID',
     msgReply: 'ข้อความตอบกลับ'
-  },
-  sellerCategory: {
-    title: 'หมวดหมู่ในร้านค้า',
-    addCategory: 'เพิ่มหมวดหมู่',
-    table: {
-      header: {
-        a: 'ชื่อหมวดหมู่สินค้า',
-        b: 'สร้างโดย',
-        c: 'สินค้า',
-        d: 'แสดงที่หน้าร้าน',
-        e: 'ดำเนินการ'
-      },
-      empty: 'ไม่พบสินค้า'
-    },
-    modal: {
-      add: {
-        title: 'เพิ่มหมวดหมู่สินค้า',
-        form: {
-          category: 'ชื่อหมวดหมู่สินค้า'
-        }
-      },
-      edit: {
-        title: 'แก้ไขหมวดหมู่สินค้า',
-        form: {
-          category: 'ชื่อหมวดหมู่สินค้า'
-        }
-      },
-      remove: {
-        title: 'ลบหมวดหมู่',
-        content: 'ยืนยันการลบหมวดหมู่สินค้าหรือไม่'
-      }
-    },
-    add: {
-      title: 'เลือกสินค้า',
-      search: {
-        name: 'ชื่อสินค้า',
-        min: 'ราคาต่ำสุด',
-        max: 'ราคาสูงสุด'
-      },
-      table: {
-        header: {
-          a: 'ชื่อสินค้า',
-          b: 'แบรนด์',
-          c: 'ยอดขาย',
-          d: 'ราคา',
-          e: 'คลัง'
-        }
-      }
-    },
-    edit: {
-      createdBy: 'สร้างโดย',
-      quantity: 'สินค้า',
-      label: 'รายการสินค้า',
-      add: 'เพิ่มสินค้า',
-      search: 'ค้นหาสินค้า',
-      multiRemove: {
-        title: 'ลบสินค้า',
-        placeholderA: 'เลือกสินค้า',
-        placeholderB: 'รายการ'
-      },
-      table: {
-        header: {
-          a: 'ชื่อสินค้า',
-          b: 'ราคา',
-          c: 'คลัง',
-          d: 'สถานะ',
-          e: 'ดำเนินการ'
-        },
-        empty: 'ไม่พบสินค้า'
-      }
-    }
   },
   sellerProducts: {
     list: {
@@ -486,10 +161,68 @@ export default {
     form: {
       addTitle: 'เพิ่มสินค้า',
       editTitle: 'แก้ไขสินค้า',
-      info: 'ข้อมูลทั่วไป',
-      photoCover: 'ภาพปก',
-      picture: 'รูปภาพ',
-      videoProduct: 'วิดีโอสินค้า'
+      saveHide: 'บันทึกและซ่อน',
+      savePublish: 'บันทึกและเผยแพร่',
+      info: {
+        title: 'ข้อมูลทั่วไป',
+        productPicture: 'ภาพสินค้า',
+        photoCover: 'ภาพปก',
+        picture: 'รูปภาพ',
+        videoProduct: 'วิดีโอสินค้า',
+        productName: 'ชื่อสินค้า',
+        productDetail: 'รายละเอียดสินค้า',
+        category: 'หมวดหมู่'
+      },
+      features: {
+        title: 'คุณลักษณะของสินค้า',
+        brand: 'แบรนด์',
+        weight: 'น้ำหนัก',
+        kg: 'กิโลกรัม',
+        shelfLife: 'อายุการเก็บรักษา',
+        day: 'วัน',
+        condition: 'สภาพ',
+        old: 'เก่า',
+        new: 'ใหม่'
+      },
+      sales: {
+        title: 'ข้อมูลการขาย',
+        useOptions: 'ใช้งานตัวเลือกสินค้า',
+        price: 'ราคา',
+        baht: 'บาท',
+        warehouse: 'คลัง',
+        sku: 'เลข SKU',
+        msgSku: 'ถ้าไม่ใส่ระบบจะสร้างให้อัตโนมัติ',
+        optionsForm: {
+          productOptions: 'ตัวเลือกสินค้า',
+          name: 'ชื่อ',
+          choice: 'ตัวเลือก',
+          addOption: 'เพิ่มตัวเลือก',
+          addOptionChoice: 'เพิ่มตัวเลือกสินค้า 2'
+        },
+        titleTable: 'รายการตัวเลือกสินค้า',
+        productModel: 'รุ่นสินค้า',
+        choice2: 'ตัวเลือก 2',
+        priceBaht: 'ราคา (บาท)'
+      },
+      delivery: {
+        title: 'การจัดส่ง',
+        weight: 'น้ำหนัก',
+        size: 'ขนาดพัสดุ',
+        kg: 'กิโลกรัม',
+        cm: 'cm',
+        shippingCost: 'ค่าจัดส่ง',
+        standardDelivery: 'Standard Delivery - ส่งธรรมดาในประเทศ',
+        ems: 'EMS - Thailand Post (max 20 kg)',
+        msgShipping: 'กรุณาใส่น้ำหนักสินค้า'
+      },
+      other: {
+        title: 'อื่นๆ',
+        prepareDeliver: 'เตรียมส่งนานกว่าปกติ',
+        yes: 'ใช่',
+        no: 'ไม่',
+        iNeedTime: 'ฉันต้องใช้เวลา',
+        day: 'วัน'
+      }
     }
   },
   relation: {

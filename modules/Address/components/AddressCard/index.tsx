@@ -1,7 +1,7 @@
 import { Col, Image, Row, Space, Typography } from 'antd'
 import { compact } from 'lodash'
 import React from 'react'
-import { IAddressFormValues } from '~/model/Address'
+import { IAddressFormValues } from '~/interfaces'
 import styles from './AddressCard.module.scss'
 
 const { Text } = Typography
