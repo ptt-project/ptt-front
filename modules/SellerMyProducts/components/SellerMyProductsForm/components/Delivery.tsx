@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Typography, Col, Form, Input, Row, Switch } from 'antd'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import t from '~/locales'
 import styles from '../SellerMyProductsForm.module.scss'
 
-const { Text, Title } = Typography
-const { TextArea } = Input
+const { Text } = Typography
+
 interface IFormProductFeaturesProps {
   label?: string
   value?: boolean
@@ -13,8 +13,8 @@ interface IFormProductFeaturesProps {
   onHintClick?: () => void
   disabled?: boolean
 }
-const Delivery: React.FC<IFormProductFeaturesProps> = (props: IFormProductFeaturesProps) => {
-  const onChange = (checked: boolean) => {
+const Delivery: React.FC<IFormProductFeaturesProps> = () => {
+  const onChange = (checked: boolean): void => {
     console.log(`switch to ${checked}`)
   }
   return (

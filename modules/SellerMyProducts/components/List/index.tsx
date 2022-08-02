@@ -1,13 +1,13 @@
 import React, { FC, useState } from 'react'
 import { Typography, Table, Space, Image } from 'antd'
-import type { ColumnsType, TableProps } from 'antd/es/table'
+import type { ColumnsType } from 'antd/es/table'
 import t from '~/locales'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import styles from './List.module.scss'
 
 const { Text } = Typography
 
-interface DataType {
+interface IDataType {
   key: React.Key
   productName: string
   view: number
@@ -19,8 +19,8 @@ interface DataType {
   sales: string
   img: string
 }
-const data: DataType[] = []
-for (let i = 0; i < 100; i++) {
+const data: IDataType[] = []
+for (let i: number = 0; i < 100; i++) {
   data.push({
     key: i,
     productName: `ดัมเบลหุ้มยาง ${i} กิโลกรัม`,
@@ -35,9 +35,9 @@ for (let i = 0; i < 100; i++) {
   })
 }
 
-const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
+/* const onChange: TableProps<IDataType>['onChange'] = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra)
-}
+} */
 
 const List: FC = () => {
   const [isOpenDelModal, setIsOpenDelModal] = useState<boolean>(false)
@@ -50,12 +50,12 @@ const List: FC = () => {
   const warehouse: string = t('sellerProducts.list.warehouse') // prevent error hook rules
   const sales: string = t('sellerProducts.list.sales') // prevent error hook rules
   const operation: string = t('sellerProducts.list.operation') // prevent error hook rules
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<IDataType> = [
     {
       title: productName,
       dataIndex: 'productName',
-      render: (text, item) => (
-        <div>
+      render: (text: string, item: IDataType) => (
+        <>
           <div>{item.productName}</div>
           <div className={styles.row}>
             <div className={styles.column}>
@@ -76,7 +76,7 @@ const List: FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </>
       )
     },
     {
@@ -92,36 +92,36 @@ const List: FC = () => {
       dataIndex: 'price',
       defaultSortOrder: 'descend',
       align: 'right',
-      sorter: (a, b) => a.price - b.price
+      sorter: (a: IDataType, b: IDataType) => a.price - b.price
     },
     {
       title: warehouse,
       dataIndex: 'warehouse',
       defaultSortOrder: 'descend',
-      sorter: (a, b) => a.warehouse - b.warehouse
+      sorter: (a: IDataType, b: IDataType) => a.warehouse - b.warehouse
     },
     {
       title: sales,
       dataIndex: 'sales',
       defaultSortOrder: 'descend',
       align: 'right',
-      sorter: (a, b) => a.sales - b.sales
+      sorter: (a: IDataType, b: IDataType) => a.sales - b.sales
     },
     {
       title: operation,
       dataIndex: '',
       key: 'x',
-      render: (text, item) => (
+      render: (text: string, item: IDataType) => (
         <Space size="middle" className={styles.textSecondary}>
-          <a>
+          <Text>
             <i className="far fa-eye-slash" />
-          </a>
-          <a>
+          </Text>
+          <Text>
             <i className="fas fa-pen" />
-          </a>
-          <a>
-            <i onClick={() => onDelModal(item)} className="fas fa-trash-alt" />
-          </a>
+          </Text>
+          <Text onClick={(): void => onDelModal(item)}>
+            <i className="fas fa-trash-alt" />
+          </Text>
         </Space>
       )
     }
@@ -131,7 +131,7 @@ const List: FC = () => {
     setIsOpenDelModal(!isOpenDelModal)
   }
 
-  function onDelModal(item): void {
+  function onDelModal(item: IDataType): void {
     if (item) {
       setIsContentImg(item.img)
       setIsContentTextImg(item.productName)
@@ -158,7 +158,7 @@ const List: FC = () => {
       <Table
         columns={columns}
         dataSource={data}
-        onChange={onChange}
+        // onChange={onChange}
         pagination={{ pageSize: 10 }}
         className="hps-table hps-scroll"
       />

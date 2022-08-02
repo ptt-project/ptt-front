@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/typedef */
 import { PlusOutlined } from '@ant-design/icons'
 import { Modal, Upload, Col, Form, Input, Row, Select } from 'antd'
 import type { RcFile, UploadProps } from 'antd/es/upload'
@@ -36,7 +34,6 @@ const Info: React.FC<IFormProductInfoProps> = () => {
 
   const handlePreview = async (file: UploadFile<any>) => {
     if (!file.url && !file.preview) {
-      // eslint-disable-next-line no-param-reassign
       file.preview = await getBase64(file.originFileObj as RcFile)
     }
 

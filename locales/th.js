@@ -486,7 +486,6 @@ export default {
     form: {
       addTitle: 'เพิ่มสินค้า',
       editTitle: 'แก้ไขสินค้า',
-      cancel: 'ยกเลิก',
       saveHide: 'บันทึกและซ่อน',
       savePublish: 'บันทึกและเผยแพร่',
       info: {

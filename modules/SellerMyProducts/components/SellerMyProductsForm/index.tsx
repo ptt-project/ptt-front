@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Typography, Button, Row, Col, Form, Input, Select } from 'antd'
+import { Typography, Button, Row, Col, Form } from 'antd'
 import Helmet from 'react-helmet'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
@@ -13,11 +13,13 @@ import Delivery from './components/Delivery'
 import styles from './SellerMyProductsForm.module.scss'
 
 const { Text } = Typography
+
 interface IFormModel {
   isSeller?: boolean
 }
 const SellerMyProductsForm: FC = () => {
   const [form] = Form.useForm()
+
   function onSubmit(values: IFormModel): void {
     console.log(values)
   }
@@ -56,7 +58,7 @@ const SellerMyProductsForm: FC = () => {
                 <Row gutter={[16, 8]} className="mt-3">
                   <Col md={8}>
                     <Button type="text" block>
-                      {t('sellerProducts.form.cancel')}
+                      {t('common.cancel')}
                     </Button>
                   </Col>
                   <Col md={8}>
