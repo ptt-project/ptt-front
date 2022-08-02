@@ -1,8 +1,8 @@
 import axios, { Axios } from 'axios'
-import { EndPoint } from '../constants'
+import { EndPointUrl } from '../constants'
 
-const register = (payload: any): Promise<Axios> => axios.post(EndPoint.AUTH.REGISTER, payload)
+const register = (payload: any): Promise<Axios> => axios.post(EndPointUrl.AUTH.REGISTER, payload)
 
-const login = (payload: any): Promise<Axios> => axios.post(EndPoint.AUTH.LOGIN, payload)
+const login = (payload: any): Promise<Axios> => axios.post(EndPointUrl.AUTH.LOGIN, payload)
 
 export { login, register }
