@@ -5,7 +5,7 @@ import { Modal, Row, Col, Typography, Input, Button, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import EmptyTableData from '../EmptyTableData'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import { IProductData } from '~/model/Seller'
+import { IProductData } from '~/interfaces'
 import styles from './AddCategoryModal.module.scss'
 
 const { Title, Text } = Typography

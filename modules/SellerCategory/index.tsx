@@ -8,7 +8,7 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import EmptyTableData from './components/EmptyTableData'
-import { ICategoryData } from '~/model/Seller'
+import { ICategoryData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from './SellerCategory.module.scss'
 

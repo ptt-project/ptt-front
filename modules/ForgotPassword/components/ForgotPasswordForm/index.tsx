@@ -3,30 +3,29 @@ import { useTranslation } from 'next-i18next'
 import { Typography, Button, Row, Col, Image, Form, Input } from 'antd'
 import { Rule } from 'antd/lib/form'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import { IFieldData } from '~/model/Common'
-import { IForgotPasswordForm } from '~/model/Auth'
+import { IAuthForgotPasswordForm, IFieldData } from '~/interfaces'
 import styles from './ForgotPasswordForm.module.scss'
 
 const { Title } = Typography
 
 interface IForgotPasswordFormProps {
-  onSubmit: (values: IForgotPasswordForm) => void
+  onSubmit: (values: IAuthForgotPasswordForm) => void
 }
 
 const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPasswordFormProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.forgot-password'])
   const [form] = Form.useForm()
-  const [formData, setFormData] = useState<IForgotPasswordForm>({ emailOrMobileNo: '' })
+  const [formData, setFormData] = useState<IAuthForgotPasswordForm>({ emailOrMobileNo: '' })
 
   function onChangeFields(_: IFieldData[], allFields: IFieldData[]): void {
     if (_.length) {
-      const tempFormData: IForgotPasswordForm = { ...formData }
+      const tempFormData: IAuthForgotPasswordForm = { ...formData }
       tempFormData[_[0].name[0]] = _[0].value
       setFormData(tempFormData)
     }
   }
 
-  function onSubmit(values: IForgotPasswordForm): void {
+  function onSubmit(values: IAuthForgotPasswordForm): void {
     props.onSubmit(values)
   }
 

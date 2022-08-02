@@ -10,7 +10,7 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import EmptyTableData from '../EmptyTableData'
 import AddCategoryModal from '../AddCategoryModal'
-import { IProductData, ICategoryData } from '~/model/Seller'
+import { IProductData, ICategoryData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from './EditCategory.module.scss'
 

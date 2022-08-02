@@ -1,23 +1,21 @@
-interface IBreadcrumbItem {
+export interface IBreadcrumbItem {
   title: string
   href?: string
 }
 
-interface IBreadcrumb {
+export interface IBreadcrumb {
   items?: IBreadcrumbItem[]
 }
 
-interface IOtpData {
+export interface IOtpData {
   otp: string
   refCode: string
 }
 
-interface IFieldData {
+export interface IFieldData {
   name: string | number | (string | number)[]
   value?: any
   touched?: boolean
   validating?: boolean
   errors?: string[]
 }
-
-export type { IBreadcrumbItem, IBreadcrumb, IOtpData, IFieldData }

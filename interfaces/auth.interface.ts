@@ -1,4 +1,4 @@
-interface IRegisterForm {
+export interface IAuthRegisterForm {
   firstName: string
   lastName: string
   mobileNo: string
@@ -7,13 +7,11 @@ interface IRegisterForm {
   password: string
 }
 
-interface ILoginForm {
+export interface IAuthLoginForm {
   username: string
   password: string
 }
 
-interface IForgotPasswordForm {
+export interface IAuthForgotPasswordForm {
   emailOrMobileNo: string
 }
-
-export type { IRegisterForm, ILoginForm, IForgotPasswordForm }

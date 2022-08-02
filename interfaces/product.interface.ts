@@ -1,4 +1,4 @@
-interface IProductData {
+export interface IProductData {
   key: string
   productName: string
   brand: string
@@ -7,5 +7,3 @@ interface IProductData {
   sold: number
   status: number
 }
-
-export type { IProductData }

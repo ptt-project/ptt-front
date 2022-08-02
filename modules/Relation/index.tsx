@@ -13,7 +13,7 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import styles from './Relation.module.scss'
 import RelationTree from './components/RelationTree'
 import RelationTable from './components/RelationTable'
-import { IRelationData, IRelationTableData } from '~/model/Relation'
+import { IRelationData, IRelationTableData } from '~/interfaces'
 
 const { TabPane } = Tabs
 

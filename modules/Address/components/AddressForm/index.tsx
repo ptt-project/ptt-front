@@ -11,7 +11,7 @@ import styles from './AddressForm.module.scss'
 import t from '~/locales'
 import AddressTagField from './components/AddressTagField'
 import AddressCheckboxField from './components/AddressCheckboxField'
-import { IAddressFormValues } from '~/model/Address'
+import { IAddressFormValues } from '~/interfaces'
 import { useVisible } from '~/utils/main/custom-hook'
 
 const { Text, Title } = Typography

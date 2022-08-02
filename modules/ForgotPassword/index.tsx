@@ -6,8 +6,7 @@ import ForgotPasswordByEmailSuccess from './components/ForgotPasswordByEmailSucc
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import OtpModal from '~/components/main/OtpModal'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import { IForgotPasswordForm } from '~/model/Auth'
-import { IOtpData } from '~/model/Common'
+import { IAuthForgotPasswordForm, IOtpData } from '~/interfaces'
 
 const ForgotPassword: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.forgot-password'])
@@ -20,7 +19,7 @@ const ForgotPassword: FC = () => {
     setIsOpen(!isOpen)
   }
 
-  function onSubmit(values: IForgotPasswordForm): void {
+  function onSubmit(values: IAuthForgotPasswordForm): void {
     try {
       console.log(values)
       if (RegExpConst.CHECK_EMAIL.test(values.emailOrMobileNo)) {

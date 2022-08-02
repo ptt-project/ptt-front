@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC, ChangeEvent } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Typography, Button, Row, Col, Input, Modal } from 'antd'
-import { IOtpData } from '~/model/Common'
+import { IOtpData } from '~/interfaces'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import styles from './OtpModal.module.scss'
 

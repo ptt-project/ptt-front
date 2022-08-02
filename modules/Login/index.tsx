@@ -5,8 +5,7 @@ import Helmet from 'react-helmet'
 import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image } from 'antd'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrl } from '~/utils/main'
-import { ILoginForm } from '~/model/Auth'
-import { IFieldData } from '~/model/Common'
+import { IAuthLoginForm, IFieldData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from './Login.module.scss'
 
@@ -16,20 +15,20 @@ const Login: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.login'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
-  const [formData, setFormData] = useState<ILoginForm>({
+  const [formData, setFormData] = useState<IAuthLoginForm>({
     username: '',
     password: ''
   })
 
   function onChangeFields(_: IFieldData[], allFields: IFieldData[]): void {
     if (_.length) {
-      const tempFormData: ILoginForm = { ...formData }
+      const tempFormData: IAuthLoginForm = { ...formData }
       tempFormData[_[0].name[0]] = _[0].value
       setFormData(tempFormData)
     }
   }
 
-  function onSubmit(values: ILoginForm): void {
+  function onSubmit(values: IAuthLoginForm): void {
     console.log(values)
   }
 

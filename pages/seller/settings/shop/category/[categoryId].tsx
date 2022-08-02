@@ -3,7 +3,7 @@ import { NextPageContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { isEmpty } from 'lodash'
 import EditCategory from '~/modules/SellerCategory/components/EditCategory'
-import { ICategoryData } from '~/model/Seller'
+import { ICategoryData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 
 interface IEditCategoryContext {

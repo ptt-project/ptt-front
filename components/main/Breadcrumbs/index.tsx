@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { NextRouter, useRouter } from 'next/router'
 import { Breadcrumb } from 'antd'
-import { IBreadcrumb, IBreadcrumbItem } from '~/model/Common'
+import { IBreadcrumb, IBreadcrumbItem } from '~/interfaces'
 import { CustomUrl } from '~/utils/main'
 
 const Breadcrumbs: FC<IBreadcrumb> = (props: IBreadcrumb) => {

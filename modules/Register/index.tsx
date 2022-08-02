@@ -5,12 +5,12 @@ import RegisterForm from './components/RegisterForm'
 import RegisterConsent from './components/RegisterConsent'
 import RegisterSuccess from './components/RegisterSuccess'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { IRegisterForm } from '~/model/Auth'
 import { LocaleNamespaceConst } from '~/constants'
+import { IAuthRegisterForm } from '~/interfaces'
 
 const Register: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register'])
-  const [form, setForm] = useState<IRegisterForm>({
+  const [form, setForm] = useState<IAuthRegisterForm>({
     firstName: '',
     lastName: '',
     mobileNo: '',

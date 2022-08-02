@@ -5,14 +5,14 @@ import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, Modal
 import { Rule } from 'antd/lib/form'
 import { isEmpty } from 'lodash'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import { IRegisterForm } from '~/model/Auth'
+import { IAuthRegisterForm } from '~/interfaces'
 import { CustomUrl } from '~/utils/main'
 import styles from './RegisterForm.module.scss'
 
 const { Text, Title, Link } = Typography
 
 interface IRegisterFormProps {
-  setForm: (form: IRegisterForm) => void
+  setForm: (form: IAuthRegisterForm) => void
   setStep: (step: number) => void
 }
 
@@ -66,7 +66,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
     }
   }
 
-  function onSubmit(values: IRegisterForm): void {
+  function onSubmit(values: IAuthRegisterForm): void {
     props.setForm(values)
     props.setStep(1)
   }
