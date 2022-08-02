@@ -519,5 +519,38 @@ export default {
       account: 'บัญชีผู้ใช้',
       relation: 'ความสัมพันธ์'
     }
+  },
+  bankAccount: {
+    title: 'บัญชีธนาคาร',
+    listBankAccountTitle: 'รายการบัญชี',
+    addBankAccountTitle: 'เพิ่มบัญชีธนาคาร',
+    editBankAccountTitle: 'แก้ไขบัญชีธนาคาร',
+    addBankAccount: '+ เพิ่มบัญชีธนาคาร',
+    emptyBankAccount: 'ยังไม่มีข้อมูลที่อยู่กรุณา',
+    confirmBankInfo: "ยืนยันข้อมูล",
+    deleteBankAccount: 'ลบบัญชีธนาคาร',
+    confirmDeleteAccountMsg1: 'ยืนยันการลบบัญชี',
+    confirmDeleteAccountMsg2: 'ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้',
+    form: {
+      userInfo: 'ข้อมูลส่วนตัว',
+      fullName: 'ชื่อ-นามสกุล',
+      citizenNo: 'เลขบัตรประจำตัวประชาชน',
+      bankAccountInfo: 'ข้อมูลบัญชีธนาคาร',
+      bankName: 'ชื่อธนาคาร',
+      bankAccountNo: 'เลขที่บัญชี',
+      bankAccountName: 'ชื่อจริงบนบัญชีธนาคาร',
+    },
+    status: {
+      pending: 'รอตรวจสอบ',
+      approved: 'ตรวจสอบแล้ว',
+      rejected: 'ไม่ผ่านการตรวจสอบ'
+    },
+    breadcrumbs: {
+      setting: 'ตั้งค่า',
+      wallet: 'การเงิน',
+      bankAccount: 'บัญชีธนาคาร',
+      addBankAccount: 'เพิ่มบัญชีธนาคาร',
+      editBankAccount: 'แก้ไขบัญชีธนาคาร'
+    }
   }
 }
