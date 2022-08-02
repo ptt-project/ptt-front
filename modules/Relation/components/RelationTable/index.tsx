@@ -3,15 +3,16 @@ import { Col, Row, Select } from 'antd'
 import Table, { ColumnsType, TablePaginationConfig } from 'antd/lib/table'
 import { DefaultOptionType } from 'antd/lib/select'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/lib/table/interface'
-import { IRelationTableData, RelationLevel } from '~/interfaces'
+import { IRelationTableData } from '~/interfaces'
+import { RelationLevelEnum } from '~/enums'
 import t from '~/locales'
 import RelationCount from './RelationCount'
 import styles from './RelationTable.module.scss'
 
 interface ICountDataByRelationLevel {
-  [RelationLevel.CHILD]: number
-  [RelationLevel.GRANDCHILD]: number
-  [RelationLevel.GREAT_GRANDSON]: number
+  [RelationLevelEnum.CHILD]: number
+  [RelationLevelEnum.GRANDCHILD]: number
+  [RelationLevelEnum.GREAT_GRANDSON]: number
 }
 
 interface IRelationTableProps {
@@ -24,15 +25,15 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
   const relationLevelOptions: DefaultOptionType[] = [
     {
       label: t('relation.relationLevel.one'),
-      value: RelationLevel.CHILD
+      value: RelationLevelEnum.CHILD
     },
     {
       label: t('relation.relationLevel.two'),
-      value: RelationLevel.GRANDCHILD
+      value: RelationLevelEnum.GRANDCHILD
     },
     {
       label: t('relation.relationLevel.three'),
-      value: RelationLevel.GREAT_GRANDSON
+      value: RelationLevelEnum.GREAT_GRANDSON
     }
   ]
 
@@ -40,13 +41,13 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
   const levelTwoLabel: string = t('relation.relationLevel.two')
   const levelThreeLabel: string = t('relation.relationLevel.three')
 
-  function getRelationLevelLabel(relationLevel: RelationLevel): string {
+  function getRelationLevelLabel(relationLevel: RelationLevelEnum): string {
     switch (relationLevel) {
-      case RelationLevel.CHILD:
+      case RelationLevelEnum.CHILD:
         return levelOneLabel
-      case RelationLevel.GRANDCHILD:
+      case RelationLevelEnum.GRANDCHILD:
         return levelTwoLabel
-      case RelationLevel.GREAT_GRANDSON:
+      case RelationLevelEnum.GREAT_GRANDSON:
         return levelThreeLabel
       default:
         return ''
@@ -66,9 +67,9 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
       return acc
     },
     {
-      [RelationLevel.CHILD]: 0,
-      [RelationLevel.GRANDCHILD]: 0,
-      [RelationLevel.GREAT_GRANDSON]: 0
+      [RelationLevelEnum.CHILD]: 0,
+      [RelationLevelEnum.GRANDCHILD]: 0,
+      [RelationLevelEnum.GREAT_GRANDSON]: 0
     }
   )
 
