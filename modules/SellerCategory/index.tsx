@@ -148,8 +148,8 @@ const SellerCategory: FC = () => {
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('settingSidebar.seller.shop.title') },
-          { title: t('settingSidebar.seller.shop.category') }
+          { title: t('components.settingSidebar.seller.shop.title') },
+          { title: t('components.settingSidebar.seller.shop.category') }
         ]}
       />
       <Modal
@@ -198,7 +198,7 @@ const SellerCategory: FC = () => {
               <Row>
                 <Col span={12}>
                   <Title className={styles.title} level={4}>
-                    {t('settingSidebar.seller.shop.category')}
+                    {t('components.settingSidebar.seller.shop.category')}
                   </Title>
                 </Col>
                 <Col className="text-right" span={12}>

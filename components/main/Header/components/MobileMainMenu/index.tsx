@@ -209,8 +209,12 @@ const MobileMainMenu: FC = () => {
           </li>
 
           <li className="mobile-list">
+            <a href="/setting">{t('components.header.bottom.g.title')}</a>
+          </li>
+
+          <li className={`mobile-list ${styles.btNone}`}>
             <a href="https://d-themes.com/buynow/riodereact">
-              {t('components.header.bottom.g.title')}
+              {t('components.header.bottom.h.title')}
             </a>
           </li>
         </ul>

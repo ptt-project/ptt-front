@@ -19,7 +19,7 @@ Demo 3
       bottom: (
         padding: 0 2.2rem,
         background: $primary-color,
-        color: #fff,
+        color: $white-color,
         font-weight: 600,
         letter-spacing: -0.015em
       ),
@@ -31,7 +31,7 @@ Demo 3
     ),
     menu: (
       ancestor: (
-        color: #ffc1c5,
+        color: $white-color,
         padding: 2rem 0,
         font-weight: 400,
         letter-spacing: -0.015em
@@ -39,7 +39,7 @@ Demo 3
     ),
     category-menu: (
       padding: 0 0 0.4rem,
-      background: #fff,
+      background: $white-color,
       border: 1px solid $border-color,
       ancestor: (
         border-bottom: false,

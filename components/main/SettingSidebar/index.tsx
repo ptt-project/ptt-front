@@ -45,7 +45,7 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
   // ===========================
   // ========== Buyer ==========
   // ===========================
-  const tBuyer: any = t('settingSidebar.buyer')
+  const tBuyer: any = t('components.settingSidebar.buyer')
   const buyerItems: MenuProps['items'] = [
     getItem(tBuyer.account.title, 'account', <i className="fas fa-user" />, [
       getItem(tBuyer.account.info, 'info'),
@@ -66,7 +66,7 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
   // ============================
   // ========== Seller ==========
   // ============================
-  const tSeller: any = t('settingSidebar.seller')
+  const tSeller: any = t('components.settingSidebar.seller')
   const sellerItems: MenuProps['items'] = [
     getItem(tSeller.delivery.title, 'delivery', <i className="fas fa-truck" />),
     getItem(tSeller.order.title, 'order', <i className="fas fa-file-invoice-dollar" />),
@@ -164,7 +164,6 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
     <div className={getClassName()}>
       <div className="ss-open">
         <Button
-          type="primary"
           icon={<i className="fas fa-chevron-right" />}
           size="large"
           onClick={(): void => setIsOpen(true)}
@@ -177,6 +176,7 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
           </Text>
         </div>
         <Menu
+          className="hps-scroll"
           onClick={onClick}
           defaultOpenKeys={getDefaultOpenKey()}
           selectedKeys={currentSelected}

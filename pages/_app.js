@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import App from 'next/app'
-import t from '~/locales'
+import { appWithTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import { useStore, Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import Helmet from 'react-helmet'
@@ -12,6 +13,7 @@ import '~/public/less/style.less'
 import '~/public/sass/style.scss'
 
 const HappyShoppingApp = ({ Component, pageProps }) => {
+  const { t } = useTranslation('common')
   const store = useStore()
 
   useEffect(() => {
@@ -57,4 +59,4 @@ HappyShoppingApp.getInitialProps = async (appContext) => {
   return { ...pageProps }
 }
 
-export default wrapper.withRedux(HappyShoppingApp)
+export default wrapper.withRedux(appWithTranslation(HappyShoppingApp))

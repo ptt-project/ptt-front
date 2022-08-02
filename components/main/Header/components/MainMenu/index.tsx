@@ -197,7 +197,11 @@ const MainMenu: FC = () => {
         </li>
 
         <li>
-          <ALink href="/pages/about-us">{t('components.header.bottom.g.title')}</ALink>
+          <ALink href="/setting">{t('components.header.bottom.g.title')}</ALink>
+        </li>
+
+        <li>
+          <ALink href="/pages/about-us">{t('components.header.bottom.h.title')}</ALink>
         </li>
       </ul>
     </nav>

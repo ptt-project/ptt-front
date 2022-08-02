@@ -23,14 +23,24 @@
   }
 }
 
-.telLink {
+.headLink {
+  .badge {
+    margin-left: -1rem;
+
+    @media (min-width: 992px) {
+      margin-left: 1.5rem;
+    }
+  }
+
   &:hover,
   &:focus {
-    color: $primary-color !important;
+    .badge {
+      color: $info-color;
+    }
   }
 }
 
-.telNo {
+.headText {
   margin-top: -0.25rem !important;
   margin-bottom: 0 !important;
   line-height: 1 !important;
@@ -40,7 +50,7 @@
   flex: 1;
   margin-right: 3rem;
 
-  @media (max-width: 575px) {
+  @media (max-width: 767px) {
     display: none !important;
   }
 

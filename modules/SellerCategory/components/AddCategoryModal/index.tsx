@@ -1,4 +1,5 @@
 import React, { useState, FC, ChangeEvent, Key } from 'react'
+import numeral from 'numeral'
 import { Modal, Row, Col, Typography, Input, Button, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import EmptyTableData from '../EmptyTableData'
@@ -130,7 +131,9 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
       key: 'amount',
       align: 'right',
       width: 100,
-      sorter: (a: IProductData, b: IProductData) => a.amount - b.amount
+      sorter: (a: IProductData, b: IProductData) => a.amount - b.amount,
+      render: (text: string, recode: IProductData, index: number): string =>
+        numeral(recode.amount).format('0,0.00')
     },
     {
       title: t('sellerCategory.add.table.header.e'),
