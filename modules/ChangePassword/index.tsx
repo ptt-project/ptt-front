@@ -6,7 +6,7 @@ import Helmet from 'react-helmet'
 import t from '~/locales'
 import OtpModal from '~/components/main/OtpModal'
 import { IOtpData } from '~/interfaces'
-import { CustomUrl } from '~/utils/main'
+import { CustomUrlUtil } from '~/utils/main'
 import { RegExpConst } from '~/constants'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
@@ -107,7 +107,7 @@ const ChangePassword: React.FC = () => {
           { title: t('auth.changePassword.breadcrumbs.account') },
           {
             title: t('auth.changePassword.breadcrumbs.changePassword'),
-            href: CustomUrl.href('/settings/account/password', router.locale)
+            href: CustomUrlUtil('/settings/account/password', router.locale)
           }
         ]}
       />

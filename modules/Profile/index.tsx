@@ -19,7 +19,7 @@ import {
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import t from '~/locales'
-import { CustomUrl } from '~/utils/main'
+import { CustomUrlUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import styles from './Profile.module.scss'
 
@@ -172,7 +172,7 @@ const Profile: FC = () => {
                         <Text type="danger">xxxxx@gmail.com</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
-                        <Link href={CustomUrl.href('/settings/account/info/email', router.locale)}>
+                        <Link href={CustomUrlUtil('/settings/account/info/email', router.locale)}>
                           <a className={styles.textSecondary}>
                             <i className="fas fa-pen mr-1" />
                             {t('profile.button.edit')}
@@ -186,7 +186,7 @@ const Profile: FC = () => {
                         <Text type="danger">xxxxx11</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
-                        <Link href={CustomUrl.href('/settings/account/info/phone', router.locale)}>
+                        <Link href={CustomUrlUtil('/settings/account/info/phone', router.locale)}>
                           <a className={styles.textSecondary}>
                             <i className="fas fa-pen mr-1" />
                             {t('profile.button.edit')}

@@ -12,7 +12,7 @@ import t from '~/locales'
 import AddressTagField from './components/AddressTagField'
 import AddressCheckboxField from './components/AddressCheckboxField'
 import { IAddressFormValues } from '~/interfaces'
-import { useVisible } from '~/utils/main/custom-hook'
+import { CustomHookUseVisibleUtil } from '~/utils/main'
 
 const { Text, Title } = Typography
 
@@ -42,7 +42,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
   const { parentForm, initialValues, onSubmit, isSeller } = props
 
   // eslint-disable-next-line @typescript-eslint/typedef
-  const hintModalVisible = useVisible()
+  const hintModalVisible = CustomHookUseVisibleUtil()
 
   const [hintModalData, setHintModalData] = useState<any>({})
 

@@ -4,7 +4,7 @@ import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image } from 'antd'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { CustomUrl } from '~/utils/main'
+import { CustomUrlUtil } from '~/utils/main'
 import { IAuthLoginForm, IFieldData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from './Login.module.scss'
@@ -92,7 +92,7 @@ const Login: FC = () => {
               <Divider>{t('auth.login:divider')}</Divider>
               <Space className={styles.space} wrap>
                 <Link
-                  href={CustomUrl.href('/auth/forgot-password', router.locale)}
+                  href={CustomUrlUtil('/auth/forgot-password', router.locale)}
                   className={styles.link}
                 >
                   {t('auth.login:forgotPassword')}

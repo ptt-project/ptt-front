@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { Typography, Button, Row, Col, Image } from 'antd'
-import { CustomUrl } from '~/utils/main'
+import { CustomUrlUtil } from '~/utils/main'
 import styles from './RegisterSellerSuccess.module.scss'
 import { LocaleNamespaceConst } from '~/constants'
 
@@ -56,7 +56,7 @@ const RegisterSellerSuccess: FC = () => {
                   htmlType="submit"
                   type="primary"
                   block
-                  href={CustomUrl.href('/', router.locale)}
+                  href={CustomUrlUtil('/', router.locale)}
                 >
                   {t('common.ok')}
                 </Button>

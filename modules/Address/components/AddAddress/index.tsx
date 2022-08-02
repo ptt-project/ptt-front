@@ -5,7 +5,7 @@ import Helmet from 'react-helmet'
 import AddressForm from '../AddressForm'
 import t from '~/locales'
 import { IAddressFormValues } from '~/interfaces'
-import { CustomUrl } from '~/utils/main'
+import { CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 
@@ -50,7 +50,7 @@ const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
           { title: t('address.breadcrumbs.account') },
           {
             title: t('address.breadcrumbs.addAddress'),
-            href: CustomUrl.href(`${rootMenu}/settings/account/address`, router.locale)
+            href: CustomUrlUtil(`${rootMenu}/settings/account/address`, router.locale)
           }
         ]}
       />

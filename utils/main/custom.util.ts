@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react'
 
-export const useVisible = (): {
+export function CustomHookUseVisibleUtil(): {
   visible: boolean
   show: VoidFunction
   hide: VoidFunction
-} => {
-  const [visible, setVisible] = useState(false)
+} {
+  const [visible, setVisible] = useState<boolean>(false)
   const show: VoidFunction = useCallback(() => {
     setVisible(true)
   }, [])
@@ -19,4 +19,11 @@ export const useVisible = (): {
     show,
     hide
   }
+}
+
+export function CustomUrlUtil(pathname: string, locale: string): string {
+  if (locale === 'en') {
+    return `/en${pathname}`
+  }
+  return pathname
 }

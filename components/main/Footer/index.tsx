@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { Typography, Row, Col, Image } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import { CustomUrl } from '~/utils/main'
+import { CustomUrlUtil } from '~/utils/main'
 import styles from './Footer.module.scss'
 
 const { Text, Link } = Typography
@@ -18,7 +18,7 @@ const Footer: FC = () => {
         <div className="footer-top">
           <Row>
             <Col span={24}>
-              <Link href={CustomUrl.href('/', router.locale)}>
+              <Link href={CustomUrlUtil('/', router.locale)}>
                 <Image width={100} preview={false} src="./images/main/logo-white.png" alt="logo" />
               </Link>
             </Col>

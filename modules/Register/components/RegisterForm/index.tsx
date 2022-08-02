@@ -6,7 +6,7 @@ import { Rule } from 'antd/lib/form'
 import { isEmpty } from 'lodash'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { IAuthRegisterForm } from '~/interfaces'
-import { CustomUrl } from '~/utils/main'
+import { CustomUrlUtil } from '~/utils/main'
 import styles from './RegisterForm.module.scss'
 
 const { Text, Title, Link } = Typography
@@ -262,7 +262,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
               <Divider>{t('auth.register:form.divider')}</Divider>
               <Space className={styles.space} wrap>
                 <Text>{t('auth.register:form.loginA')}</Text>
-                <Link href={CustomUrl.href('/auth/login', router.locale)} className={styles.link}>
+                <Link href={CustomUrlUtil('/auth/login', router.locale)} className={styles.link}>
                   {t('auth.register:form.loginB')}
                 </Link>
               </Space>

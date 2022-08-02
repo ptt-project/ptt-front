@@ -7,7 +7,7 @@ import { concat, groupBy, map } from 'lodash'
 import { CopyOutlined } from '@ant-design/icons'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import t from '~/locales'
-import { CustomUrl } from '~/utils/main'
+import { CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import styles from './Relation.module.scss'
@@ -80,7 +80,7 @@ const Relation: React.FC = () => {
           { title: t('auth.changePassword.breadcrumbs.account') },
           {
             title: t('relation.breadcrumbs.relation'),
-            href: CustomUrl.href('/settings/account/relation', router.locale)
+            href: CustomUrlUtil('/settings/account/relation', router.locale)
           }
         ]}
       />
