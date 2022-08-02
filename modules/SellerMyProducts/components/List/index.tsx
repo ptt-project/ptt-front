@@ -91,21 +91,21 @@ const List: FC = () => {
       title: price,
       dataIndex: 'price',
       defaultSortOrder: 'descend',
-      align: 'right',
-      sorter: (a: IDataType, b: IDataType) => a.price - b.price
+      align: 'right'
+      // sorter: (a: IDataType, b: IDataType) => a.price - b.price // build error
     },
     {
       title: warehouse,
       dataIndex: 'warehouse',
-      defaultSortOrder: 'descend',
-      sorter: (a: IDataType, b: IDataType) => a.warehouse - b.warehouse
+      defaultSortOrder: 'descend'
+      // sorter: (a: IDataType, b: IDataType) => a.warehouse - b.warehouse // build error
     },
     {
       title: sales,
       dataIndex: 'sales',
       defaultSortOrder: 'descend',
-      align: 'right',
-      sorter: (a: IDataType, b: IDataType) => a.sales - b.sales
+      align: 'right'
+      // sorter: (a: IDataType, b: IDataType) => a.sales - b.sales // build error
     },
     {
       title: operation,

@@ -2,6 +2,7 @@ import { PlusOutlined } from '@ant-design/icons'
 import { Modal, Upload, Col, Form, Input, Row, Select } from 'antd'
 import type { RcFile, UploadProps } from 'antd/es/upload'
 import type { UploadFile } from 'antd/es/upload/interface'
+import { UploadChangeParam } from 'antd/lib/upload'
 import React, { useState } from 'react'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import t from '~/locales'
@@ -18,7 +19,7 @@ interface IFormProductInfoProps {
 }
 
 const getBase64 = (file: RcFile): Promise<string> =>
-  new Promise((resolve, reject) => {
+  new Promise<string>((resolve: any, reject: any) => {
     const reader: FileReader = new FileReader()
     reader.readAsDataURL(file)
     reader.onload = (): void => resolve(reader.result as string)
@@ -32,8 +33,9 @@ const Info: React.FC<IFormProductInfoProps> = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([])
   const handleCancel = (): void => setPreviewVisible(false)
 
-  const handlePreview = async (file: UploadFile<any>) => {
+  const handlePreview = async (file: UploadFile): Promise<void> => {
     if (!file.url && !file.preview) {
+      // eslint-disable-next-line no-param-reassign
       file.preview = await getBase64(file.originFileObj as RcFile)
     }
 
@@ -42,11 +44,13 @@ const Info: React.FC<IFormProductInfoProps> = () => {
     setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1))
   }
 
-  const handleChangePhotoCover: UploadProps['onChange'] = ({ fileList: newFileList }) =>
-    setFilePhotoCoverList(newFileList)
+  const handleChangePhotoCover: UploadProps['onChange'] = ({
+    fileList: newFileList
+  }: UploadChangeParam) => setFilePhotoCoverList(newFileList)
 
-  const handleChangePhoto: UploadProps['onChange'] = ({ fileList: newFileList }) =>
-    setFileList(newFileList)
+  const handleChangePhoto: UploadProps['onChange'] = ({
+    fileList: newFileList
+  }: UploadChangeParam) => setFileList(newFileList)
 
   return (
     <>
@@ -148,7 +152,7 @@ const Info: React.FC<IFormProductInfoProps> = () => {
             ]}
           >
             <Select defaultValue="">
-              <Option value="">Jack</Option>
+              <Select.Option value="">Jack</Select.Option>
             </Select>
           </Form.Item>
         </Col>
