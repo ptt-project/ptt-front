@@ -50,6 +50,7 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
     'react/jsx-no-bind': 'off',
     'react/jsx-pascal-case': ['error'],
+    'react/no-array-index-key': 'off',
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
     'require-explicit-generics/require-explicit-generics': [
@@ -131,7 +132,7 @@ module.exports = {
         }
       }
     ],
-    "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"]
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error']
   }
 }

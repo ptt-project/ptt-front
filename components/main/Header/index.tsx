@@ -1,6 +1,7 @@
 import React, { useEffect, FC } from 'react'
 import { NextRouter, useRouter } from 'next/router'
-import { Typography, Input } from 'antd'
+import numeral from 'numeral'
+import { Typography, Input, Space, Badge } from 'antd'
 import MainMenu from './components/MainMenu'
 import { HiddenHeader } from '~/constants'
 import { headerBorderRemoveList } from '~/utils/data/menu'
@@ -92,17 +93,34 @@ const Header: FC = () => {
             />
           </div>
           <div className="header-right">
-            <Link href="tel:#" className={`${styles.telLink} icon-box icon-box-side`}>
-              <div className="icon-box-icon">
-                <i className="fas fa-phone-alt" />
-              </div>
-              <div className="icon-box-content d-lg-show">
-                <Text className="hps-text-small">{t('components.header.middle.tel.title')}</Text>
-                <Title className={styles.telNo} level={5}>
-                  {t('components.header.middle.tel.no')}
-                </Title>
-              </div>
-            </Link>
+            <Space size="middle">
+              <Link href="tel:#" className={`${styles.headLink} icon-box icon-box-side`}>
+                <div className="icon-box-icon">
+                  <i className="fas fa-phone-alt" />
+                </div>
+                <div className="icon-box-content d-lg-show">
+                  <Text className="hps-text-small">{t('components.header.middle.tel.title')}</Text>
+                  <Title className={styles.headText} level={5}>
+                    {t('components.header.middle.tel.no')}
+                  </Title>
+                </div>
+              </Link>
+              <Link href="/cart" className={`${styles.headLink} icon-box icon-box-side`}>
+                <div className="icon-box-content d-lg-show">
+                  <Text className="hps-text-small">
+                    {t('components.header.middle.cart.title')} (0):
+                  </Text>
+                  <Title className={styles.headText} level={5}>
+                    ฿{numeral(0).format('0,0.00')}
+                  </Title>
+                </div>
+                <Badge className={styles.badge} count={0} showZero>
+                  <div className="icon-box-icon mr-0">
+                    <i className="fas fa-shopping-cart" />
+                  </div>
+                </Badge>
+              </Link>
+            </Space>
           </div>
         </div>
       </div>
