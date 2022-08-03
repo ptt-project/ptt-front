@@ -2,16 +2,16 @@ import React, { useMemo, useState } from 'react'
 import { Col, Typography, Form, Button, Row, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
+import { useTranslation } from 'next-i18next'
 import BankAccountFrom from '../BankAccountFrom'
-import t from '~/locales'
-import { CustomUrl } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { bankMock } from '~/model/BankAccount/mock-data'
-import { IBankAccountData, IBankAccountFromValues } from '~/model/BankAccount'
+import { bankMock } from '~/modules/Address/mock-data'
 import ModalConfirmBankInfo from '../ModalConfirmBankInfo'
 import OtpModal from '~/components/main/OtpModal'
-import { useVisible } from '~/utils/main/custom-hook'
+import { CustomUrlUtil, CustomHookUseVisibleUtil } from '~/utils/main'
+import { IBankAccountData, IBankAccountFromValues } from '~/interfaces'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Title } = Typography
 
@@ -22,12 +22,16 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
   const [form] = Form.useForm()
   const router: NextRouter = useRouter()
   const { bankAccountId } = router.query
+
+  const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
+
   const rootMenu: string = props.isSeller ? '/seller' : ''
   const mobileNo: string = '0901234567'
+
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const [bankAccountData, setBankAccountData] = useState<IBankAccountData>()
   // eslint-disable-next-line @typescript-eslint/typedef
-  const confirmBankInfoVisible = useVisible()
+  const confirmBankInfoVisible = CustomHookUseVisibleUtil()
 
   const bankAccounts: IBankAccountData[] = useMemo(() => bankMock || [], [])
 
@@ -81,16 +85,16 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('bankAccount.editBankAccountTitle')}
+          {t('common:meta.title')} | {t('bank-account:editBankAccountTitle')}
         </title>
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('bankAccount.breadcrumbs.setting') },
-          { title: t('bankAccount.breadcrumbs.wallet') },
+          { title: t('bank-account:breadcrumbs.setting') },
+          { title: t('bank-account:breadcrumbs.wallet') },
           {
-            title: t('bankAccount.breadcrumbs.editBankAccount'),
-            href: CustomUrl.href(`${rootMenu}/settings/wallet/bank/${bankAccountId}`, router.locale)
+            title: t('bank-account:breadcrumbs.editBankAccount'),
+            href: CustomUrlUtil(`${rootMenu}/settings/wallet/bank/${bankAccountId}`, router.locale)
           }
         ]}
       />
@@ -108,7 +112,7 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
             >
               <Col className="mb-4" span={24}>
                 <Title className="hps-title" level={4}>
-                  {t('bankAccount.editBankAccountTitle')}
+                  {t('bank-account:editBankAccountTitle')}
                 </Title>
               </Col>
               <BankAccountFrom
@@ -121,12 +125,12 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
               <Row className="flex-1 mt-5" gutter={[24, 0]}>
                 <Col span={12}>
                   <Button type="text" onClick={onCancelClick} block>
-                    {t('common.cancel')}
+                    {t('common:cancel')}
                   </Button>
                 </Col>
                 <Col span={12}>
                   <Button type="primary" htmlType="submit" onClick={onSaveClick} block>
-                    {t('common.save')}
+                    {t('common:save')}
                   </Button>
                 </Col>
               </Row>

@@ -1,6 +1,6 @@
 import { Image } from 'antd'
 import React, { FC, useMemo } from 'react'
-import { BankName } from '~/model/BankAccount'
+import { BankName } from '~/enums'
 
 interface IBankLogoProps {
   bank: BankName

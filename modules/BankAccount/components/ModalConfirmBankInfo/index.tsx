@@ -1,8 +1,9 @@
 import { Button, Col, Modal, Row, Space, Typography } from 'antd'
 import React, { FC } from 'react'
-import { IBankAccountData } from '~/model/BankAccount'
+import { useTranslation } from 'next-i18next'
 import styles from './ModalConfirmBankInfo.module.scss'
-import t from '~/locales'
+import { IBankAccountData } from '~/interfaces'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Text, Title } = Typography
 
@@ -16,6 +17,8 @@ const ModalConfirmBankInfo: FC<IModalConfirmBankInfoProps> = (
   props: IModalConfirmBankInfoProps
 ) => {
   const { data, visible, onCancelClick, onConfirmClick } = props
+  const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
+
   return (
     <Modal
       visible={visible}
@@ -24,7 +27,7 @@ const ModalConfirmBankInfo: FC<IModalConfirmBankInfoProps> = (
         <Col span={24}>
           <Title className="mb-0" level={4}>
             <i className={`${styles.cInfo} fas fa-info-circle mr-2`} />
-            {t('bankAccount.confirmBankInfo')}
+            {t('bank-account:confirmBankInfo')}
           </Title>
         </Col>
       }
@@ -32,10 +35,10 @@ const ModalConfirmBankInfo: FC<IModalConfirmBankInfoProps> = (
         <Col span={24}>
           <Space>
             <Button type="text" onClick={onCancelClick}>
-              {t('common.cancel')}
+              {t('common:cancel')}
             </Button>
             <Button type="primary" onClick={onConfirmClick}>
-              {t('common.confirm')}
+              {t('common:confirm')}
             </Button>
           </Space>
         </Col>
@@ -43,31 +46,31 @@ const ModalConfirmBankInfo: FC<IModalConfirmBankInfoProps> = (
     >
       <Row className={styles.modalContent} gutter={[4, 16]}>
         <Col span={12}>
-          <Text className={styles.dataLabel}>{t('bankAccount.form.fullName')}</Text>
+          <Text className={styles.dataLabel}>{t('bank-account:form.fullName')}</Text>
         </Col>
         <Col span={12}>
           <Text>{data?.fullName}</Text>
         </Col>
         <Col span={12}>
-          <Text className={styles.dataLabel}>{t('bankAccount.form.citizenNo')}</Text>
+          <Text className={styles.dataLabel}>{t('bank-account:form.citizenNo')}</Text>
         </Col>
         <Col span={12}>
           <Text>{data?.citizenNo}</Text>
         </Col>
         <Col span={12}>
-          <Text className={styles.dataLabel}>{t('bankAccount.form.bankName')}</Text>
+          <Text className={styles.dataLabel}>{t('bank-account:form.bankName')}</Text>
         </Col>
         <Col span={12}>
           <Text>{`${data?.bankFullName} (${data?.bankName})`}</Text>
         </Col>
         <Col span={12}>
-          <Text className={styles.dataLabel}>{t('bankAccount.form.bankName')}</Text>
+          <Text className={styles.dataLabel}>{t('bank-account:form.bankName')}</Text>
         </Col>
         <Col span={12}>
           <Text>{data?.bankAccountNo}</Text>
         </Col>
         <Col span={12}>
-          <Text className={styles.dataLabel}>{t('bankAccount.form.bankAccountName')}</Text>
+          <Text className={styles.dataLabel}>{t('bank-account:form.bankAccountName')}</Text>
         </Col>
         <Col span={12}>
           <Text>{data?.bankAccountName}</Text>

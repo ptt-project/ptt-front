@@ -1,19 +1,19 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Typography, Button, Row, Col, Space, Modal, message, Image } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import { orderBy, pullAt } from 'lodash'
 import Helmet from 'react-helmet'
+import { useTranslation } from 'next-i18next'
 import styles from './BankAccount.module.scss'
-import { useVisible } from '~/utils/main/custom-hook'
-import t from '~/locales'
-import { CustomUrl } from '~/utils/main'
+import { CustomUrlUtil, CustomHookUseVisibleUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import { bankMock } from '~/model/BankAccount/mock-data'
-import { IBankAccountData, IBankAccountFromValues } from '~/model/BankAccount'
+import { bankMock } from '~/modules/Address/mock-data'
 import BankAccountCard from './components/BankAccountCard'
 import { sensorBankAccountNo } from '~/utils/main/helper'
+import { IBankAccountData, IBankAccountFromValues } from '~/interfaces'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Text, Title, Link } = Typography
 
@@ -22,8 +22,10 @@ interface IBankAccountProps {
 }
 const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
   const router: NextRouter = useRouter()
+  const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
+
   // eslint-disable-next-line @typescript-eslint/typedef
-  const deleteBankAccountVisible = useVisible()
+  const deleteBankAccountVisible = CustomHookUseVisibleUtil()
   const [deleteBankAccountId, setDeleteBankAccountId] = useState<string>()
 
   const rootMenu: string = props.isSeller ? '/seller' : ''
@@ -50,12 +52,10 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
     const favoriteBankAccountIndex: number = bankMock?.findIndex(
       (v: IBankAccountData) => v.id === bankAccountId
     )
-    console.debug({ bankMock, bankAccountId, favoriteBankAccountIndex })
     if (favoriteBankAccountIndex >= 0) {
       bankMock?.forEach((v: IBankAccountData, index: number) => {
         bankMock[index].isDefault = index === favoriteBankAccountIndex
       })
-      console.debug({ bankAccountId, bankMock })
     }
 
     message.success('ข้อมูลอัพเดทแล้ว')
@@ -83,24 +83,18 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
     deleteBankAccountVisible.hide()
   }
 
-  useEffect(() => {
-    console.debug({ bankAccounts })
-  }, [bankAccounts])
-
   return (
     <main className="main">
       <Helmet>
-        <title>
-          {t('meta.title')} | {t('bankAccount.title')}
-        </title>
+        {t('common:meta.title')} | {t('bank-account:title')}
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('bankAccount.breadcrumbs.setting') },
-          { title: t('bankAccount.breadcrumbs.wallet') },
+          { title: t('bank-account:breadcrumbs.setting') },
+          { title: t('bank-account:breadcrumbs.wallet') },
           {
-            title: t('bankAccount.breadcrumbs.bankAccount'),
-            href: CustomUrl.href(`${rootMenu}/settings/wallet/bank`, router.locale)
+            title: t('bank-account:breadcrumbs.bankAccount'),
+            href: CustomUrlUtil(`${rootMenu}/settings/wallet/bank`, router.locale)
           }
         ]}
       />
@@ -120,18 +114,18 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
               <Row>
                 <Col span={24}>
                   <Title className="hps-title" level={4}>
-                    {t('bankAccount.title')}
+                    {t('bank-account:title')}
                   </Title>
                 </Col>
                 <Col span={24}>
                   <Row className={styles.addressListHead}>
                     <HighlightLabel
                       className={styles.highlightLabel}
-                      title={t('bankAccount.listBankAccountTitle')}
+                      title={t('bank-account:listBankAccountTitle')}
                     />
                     <Col>
                       <Button className="hps-btn-secondary" onClick={onAddBankAccountClick}>
-                        {t('bankAccount.addBankAccount')}
+                        {t('bank-account:addBankAccount')}
                       </Button>
                     </Col>
                   </Row>
@@ -164,16 +158,16 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                         </div>
                         <div className="mt-4 text-center">
                           <Text>
-                            {t('bankAccount.emptyBankAccount')}
+                            {t('bank-account:emptyBankAccount')}
                             <Link
                               className="ml-1"
-                              href={CustomUrl.href(
+                              href={CustomUrlUtil(
                                 `${rootMenu}/settings/wallet/bank/add`,
                                 router.locale
                               )}
                               underline
                             >
-                              {t('bankAccount.addBankAccountTitle')}
+                              {t('bank-account:addBankAccountTitle')}
                             </Link>
                           </Text>
                         </div>
@@ -188,7 +182,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                     <Col span={24}>
                       <Title className="mb-0" level={4}>
                         <i className={`${styles.cError} fas fa-info-circle mr-2`} />
-                        {t('bankAccount.deleteBankAccount')}
+                        {t('bank-account:deleteBankAccount')}
                       </Title>
                     </Col>
                   }
@@ -196,10 +190,10 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                     <Col span={24}>
                       <Space>
                         <Button type="text" onClick={deleteBankAccountVisible.hide}>
-                          {t('common.cancel')}
+                          {t('common:cancel')}
                         </Button>
                         <Button type="primary" onClick={onConfirmDeleteAddressClick}>
-                          {t('bankAccount.deleteBankAccount')}
+                          {t('bank-account:deleteBankAccount')}
                         </Button>
                       </Space>
                     </Col>
@@ -208,13 +202,13 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                   <Space size={4} direction="vertical">
                     <Space className={styles.contentLayout} size={4} direction="vertical">
                       <Text>
-                        {t('bankAccount.confirmDeleteAccountMsg1')}
+                        {t('bank-account:confirmDeleteAccountMsg1')}
                         {deleteBankAccount?.bankFullName}{' '}
                         {sensorBankAccountNo(deleteBankAccount?.bankAccountNo)}
                       </Text>
                     </Space>
                     <Text>{deleteBankAccount?.bankAccountName}</Text>
-                    <Text type="danger">{t('bankAccount.confirmDeleteAccountMsg2')}</Text>
+                    <Text type="danger">{t('bank-account:confirmDeleteAccountMsg2')}</Text>
                   </Space>
                 </Modal>
               </Row>

@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import { Col, Typography, Form, Button, Row, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
+import { useTranslation } from 'next-i18next'
 import BankAccountFrom from '../BankAccountFrom'
-import t from '~/locales'
-import { CustomUrl } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { IBankAccountData, IBankAccountFromValues } from '~/model/BankAccount'
-import { bankMock } from '~/model/BankAccount/mock-data'
+import { bankMock } from '~/modules/Address/mock-data'
 import ModalConfirmBankInfo from '../ModalConfirmBankInfo'
-import { useVisible } from '~/utils/main/custom-hook'
 import OtpModal from '~/components/main/OtpModal'
+import { CustomUrlUtil, CustomHookUseVisibleUtil } from '~/utils/main'
+import { IBankAccountData, IBankAccountFromValues } from '~/interfaces'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Title } = Typography
 
@@ -22,12 +22,14 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
 
+  const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
+
   const mobileNo: string = '0901234567'
   const rootMenu: string = props.isSeller ? '/seller' : ''
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const [bankAccountData, setBankAccountData] = useState<IBankAccountData>()
   // eslint-disable-next-line @typescript-eslint/typedef
-  const confirmBankInfoVisible = useVisible()
+  const confirmBankInfoVisible = CustomHookUseVisibleUtil()
 
   function onSubmit(values: IBankAccountFromValues): void {
     const newBankAccountData: IBankAccountData = { ...values }
@@ -73,16 +75,16 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('bankAccount.addBankAccountTitle')}
+          {t('common:meta.title')} | {t('bank-account:addBankAccountTitle')}
         </title>
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('bankAccount.breadcrumbs.setting') },
-          { title: t('bankAccount.breadcrumbs.wallet') },
+          { title: t('bank-account:breadcrumbs.setting') },
+          { title: t('bank-account:breadcrumbs.wallet') },
           {
-            title: t('bankAccount.breadcrumbs.addBankAccount'),
-            href: CustomUrl.href(`${rootMenu}/settings/wallet/bank/add`, router.locale)
+            title: t('bank-account:breadcrumbs.addBankAccount'),
+            href: CustomUrlUtil(`${rootMenu}/settings/wallet/bank/add`, router.locale)
           }
         ]}
       />
@@ -100,19 +102,19 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
             >
               <Col span={24}>
                 <Title className="hps-title" level={4}>
-                  {t('bankAccount.addBankAccountTitle')}
+                  {t('bank-account:addBankAccountTitle')}
                 </Title>
               </Col>
               <BankAccountFrom parentForm={form} onSubmit={onSubmit} />
               <Row className="flex-1 mt-5" gutter={[24, 0]}>
                 <Col span={12}>
                   <Button type="text" onClick={onCancelClick} block>
-                    {t('common.cancel')}
+                    {t('common:cancel')}
                   </Button>
                 </Col>
                 <Col span={12}>
                   <Button type="primary" htmlType="submit" onClick={onSaveClick} block>
-                    {t('common.save')}
+                    {t('common:save')}
                   </Button>
                 </Col>
               </Row>

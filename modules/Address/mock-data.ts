@@ -1,4 +1,5 @@
-import { BankName, BankStatus, IBankAccountData } from '.'
+import { BankName, BankStatus } from '~/enums'
+import { IBankAccountData } from '~/interfaces'
 
 export const bankMock: IBankAccountData[] = [
   {

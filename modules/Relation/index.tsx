@@ -6,7 +6,7 @@ import { RawNodeDatum } from 'react-d3-tree/lib/types/common'
 import { concat, groupBy, map } from 'lodash'
 import { CopyOutlined } from '@ant-design/icons'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import t from '~/locales'
+import { useTranslation } from 'next-i18next'
 import { CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
@@ -14,6 +14,7 @@ import styles from './Relation.module.scss'
 import RelationTree from './components/RelationTree'
 import RelationTable from './components/RelationTable'
 import { IRelationData, IRelationTableData } from '~/interfaces'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { TabPane } = Tabs
 
@@ -26,10 +27,12 @@ enum RelationTabs {
 
 const Relation: React.FC = () => {
   const router: NextRouter = useRouter()
+  const { t } = useTranslation([...LocaleNamespaceConst, 'relation'])
+
   const [tabActive, setTabActive] = useState<RelationTabs>(RelationTabs.RELATION_TREE)
 
   const inviteLink: string = 'inviteLink'
-  const messageCopyInviteSuccess: string = t('relation.copyInviteSuccess')
+  const messageCopyInviteSuccess: string = t('relation:copyInviteSuccess')
   const relationData: IRelationData[] = mockRelationData
 
   // eslint-disable-next-line @typescript-eslint/typedef
@@ -71,15 +74,15 @@ const Relation: React.FC = () => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('relation.title')}
+          {t('common:meta.title')} | {t('relation:title')}
         </title>
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('auth.changePassword.breadcrumbs.setting') },
-          { title: t('auth.changePassword.breadcrumbs.account') },
+          { title: t('relation:breadcrumbs.setting') },
+          { title: t('relation:breadcrumbs.account') },
           {
-            title: t('relation.breadcrumbs.relation'),
+            title: t('relation:breadcrumbs.relation'),
             href: CustomUrlUtil('/settings/account/relation', router.locale)
           }
         ]}
@@ -99,22 +102,22 @@ const Relation: React.FC = () => {
             >
               <Row justify="space-between">
                 <Title className="hps-title" level={4}>
-                  {t('relation.title')}
+                  {t('relation:title')}
                 </Title>
                 <CopyToClipboard text={inviteLink} onCopy={onCopyClick}>
                   <Button
                     className={`${styles.copyInviteButton} hps-btn-secondary`}
                     icon={<CopyOutlined />}
                   >
-                    {t('relation.button.copyInvite')}
+                    {t('relation:button.copyInvite')}
                   </Button>
                 </CopyToClipboard>
               </Row>
               <Tabs defaultActiveKey={tabActive} onChange={onTabChange}>
-                <TabPane tab={t('relation.tabs.tree')} key={RelationTabs.RELATION_TREE}>
+                <TabPane tab={t('relation:tabs.tree')} key={RelationTabs.RELATION_TREE}>
                   <RelationTree data={customData.relationDataTree} />
                 </TabPane>
-                <TabPane tab={t('relation.tabs.table')} key={RelationTabs.RELATION_TABLE}>
+                <TabPane tab={t('relation:tabs.table')} key={RelationTabs.RELATION_TABLE}>
                   <RelationTable data={customData.relationTableData} />
                 </TabPane>
               </Tabs>

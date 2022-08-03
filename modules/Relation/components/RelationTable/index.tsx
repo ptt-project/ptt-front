@@ -3,11 +3,12 @@ import { Col, Row, Select } from 'antd'
 import Table, { ColumnsType, TablePaginationConfig } from 'antd/lib/table'
 import { DefaultOptionType } from 'antd/lib/select'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/lib/table/interface'
+import { useTranslation } from 'next-i18next'
 import { IRelationTableData } from '~/interfaces'
 import { RelationLevelEnum } from '~/enums'
-import t from '~/locales'
 import RelationCount from './RelationCount'
 import styles from './RelationTable.module.scss'
+import { LocaleNamespaceConst } from '~/constants'
 
 interface ICountDataByRelationLevel {
   [RelationLevelEnum.CHILD]: number
@@ -20,35 +21,33 @@ interface IRelationTableProps {
 }
 const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps) => {
   const { data } = props
+  const { t } = useTranslation([...LocaleNamespaceConst, 'relation'])
+
   // const totalData: number = data.length
 
   const relationLevelOptions: DefaultOptionType[] = [
     {
-      label: t('relation.relationLevel.one'),
+      label: t('relation:relationLevel.one'),
       value: RelationLevelEnum.CHILD
     },
     {
-      label: t('relation.relationLevel.two'),
+      label: t('relation:relationLevel.two'),
       value: RelationLevelEnum.GRANDCHILD
     },
     {
-      label: t('relation.relationLevel.three'),
+      label: t('relation:relationLevel.three'),
       value: RelationLevelEnum.GREAT_GRANDSON
     }
   ]
 
-  const levelOneLabel: string = t('relation.relationLevel.one')
-  const levelTwoLabel: string = t('relation.relationLevel.two')
-  const levelThreeLabel: string = t('relation.relationLevel.three')
-
   function getRelationLevelLabel(relationLevel: RelationLevelEnum): string {
     switch (relationLevel) {
       case RelationLevelEnum.CHILD:
-        return levelOneLabel
+        return t('relation:relationLevel.one')
       case RelationLevelEnum.GRANDCHILD:
-        return levelTwoLabel
+        return t('relation:relationLevel.two')
       case RelationLevelEnum.GREAT_GRANDSON:
-        return levelThreeLabel
+        return t('relation:relationLevel.three')
       default:
         return ''
     }
@@ -75,21 +74,21 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
 
   const columns: ColumnsType<IRelationTableData> = [
     {
-      title: t('relation.table.username'),
+      title: t('relation:table.username'),
       dataIndex: 'username',
       key: 'username',
       sorter: true,
       showSorterTooltip: false
     },
     {
-      title: t('relation.table.relationLevel'),
+      title: t('relation:table.relationLevel'),
       dataIndex: 'relationLevelLabel',
       key: 'relationLevelLabel',
       sorter: true,
       showSorterTooltip: false
     },
     {
-      title: t('relation.table.commission'),
+      title: t('relation:table.commission'),
       dataIndex: 'commission',
       key: 'commission',
       align: 'right',
@@ -133,7 +132,7 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
         <Col sm={6} xs={24}>
           <Select
             className="w-100"
-            placeholder={t('relation.table.noFilterRelation')}
+            placeholder={t('relation:table.noFilterRelation')}
             allowClear
             autoClearSearchValue
           >

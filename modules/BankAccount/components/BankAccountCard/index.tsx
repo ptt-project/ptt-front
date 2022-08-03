@@ -1,10 +1,12 @@
 import { Col, Image, Row, Typography } from 'antd'
-import React, { useMemo } from 'react'
-import { BankStatus, IBankAccountData } from '~/model/BankAccount'
+import React from 'react'
+import { useTranslation } from 'next-i18next'
 import styles from './BankAccountCard.module.scss'
 import BankLogo from './BankLogo'
-import t from '~/locales'
 import { sensorBankAccountNo } from '~/utils/main/helper'
+import { BankStatus } from '~/enums'
+import { IBankAccountData } from '~/interfaces'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Text } = Typography
 
@@ -17,18 +19,19 @@ interface IBankAccountCardProps {
 
 const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCardProps) => {
   const { data, onEditClick, onFavoriteClick, onDeleteClick } = props
+  const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
 
-  const statusLabel: string = useMemo(() => {
+  function getStatusLabel(): string {
     switch (data.status) {
       case BankStatus.APPROVED:
-        return t('bankAccount.status.approved')
+        return t('bank-account:status.approved')
       case BankStatus.REJECTED:
-        return t('bankAccount.status.rejected')
+        return t('bank-account:status.rejected')
       case BankStatus.PENDING:
       default:
-        return t('bankAccount.status.pending')
+        return t('bank-account:status.pending')
     }
-  }, [data.status])
+  }
 
   function handleFavoriteClick(): void {
     if (!data.isDefault) {
@@ -54,7 +57,7 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
               <Text>{`${data.bankFullName} (${data.bankName})`}</Text>
             </div>
             <div className={styles.bankStatus}>
-              <Text>{statusLabel}</Text>
+              <Text>{getStatusLabel()}</Text>
             </div>
             <div className={styles.bankAccountName}>
               <Text>{data.bankAccountName}</Text>

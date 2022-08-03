@@ -3,11 +3,11 @@ import { Button, Col, Form, Input, notification, Row, Space, Typography } from '
 import { FormInstance, Rule, RuleObject, RuleRender } from 'antd/lib/form'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
-import t from '~/locales'
+import { useTranslation } from 'next-i18next'
 import OtpModal from '~/components/main/OtpModal'
 import { IOtpData } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
-import { RegExpConst } from '~/constants'
+import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 
@@ -24,21 +24,21 @@ interface IChangePasswordFormValues {
 
 const ChangePassword: React.FC = () => {
   const router: NextRouter = useRouter()
+  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register', 'change-password'])
+
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [form] = Form.useForm<IChangePasswordFormValues>()
   const [formValues, setFormValues] = useState<IChangePasswordFormValues>()
 
-  const requiredPassword: string = `${t('common.form.required')} ${t(
-    'auth.changePassword.password'
+  const requiredPassword: string = `${t('common:form.required')} ${t('change-password:password')}` // prevent error hook rules
+  const requiredNewPassword: string = `${t('common:form.required')} ${t(
+    'change-password:newPassword'
   )}` // prevent error hook rules
-  const requiredNewPassword: string = `${t('common.form.required')} ${t(
-    'auth.changePassword.newPassword'
-  )}` // prevent error hook rules
-  const invalidPassword: string = `${t('common.form.invalid.head')} ${t(
-    'auth.changePassword.newPassword'
-  )} ${t('common.form.invalid.tail')}` // prevent error hook rules
-  const notMatchPassword: string = `${t('auth.changePassword.confirmNewPassword')} ${t(
-    'common.form.notMatch'
+  const invalidPassword: string = `${t('common:form.invalid.head')} ${t(
+    'change-password:newPassword'
+  )} ${t('common:form.invalid.tail')}` // prevent error hook rules
+  const notMatchPassword: string = `${t('change-password:confirmNewPassword')} ${t(
+    'common:form.notMatch'
   )}` // prevent error hook rules
 
   function onSubmit(values: IChangePasswordFormValues): void {
@@ -98,15 +98,15 @@ const ChangePassword: React.FC = () => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('auth.changePassword.title')}
+          {t('common:meta.title')} | {t('change-password:title')}
         </title>
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('auth.changePassword.breadcrumbs.setting') },
-          { title: t('auth.changePassword.breadcrumbs.account') },
+          { title: t('change-password:breadcrumbs.setting') },
+          { title: t('change-password:breadcrumbs.account') },
           {
-            title: t('auth.changePassword.breadcrumbs.changePassword'),
+            title: t('change-password:breadcrumbs.changePassword'),
             href: CustomUrlUtil('/settings/account/password', router.locale)
           }
         ]}
@@ -127,13 +127,13 @@ const ChangePassword: React.FC = () => {
               <Row>
                 <Col span={24}>
                   <Title className="hps-title" level={4}>
-                    {t('auth.changePassword.title')}
+                    {t('change-password:title')}
                   </Title>
                 </Col>
                 <Col span={24}>
                   <Form layout="vertical" form={form} onFinish={onSubmit} requiredMark={false}>
                     <Form.Item
-                      label={t('auth.changePassword.password')}
+                      label={t('change-password:password')}
                       name="password"
                       rules={[
                         {
@@ -145,14 +145,14 @@ const ChangePassword: React.FC = () => {
                       <Input.Password maxLength={20} />
                     </Form.Item>
                     <Form.Item
-                      label={t('auth.changePassword.newPassword')}
+                      label={t('change-password:newPassword')}
                       name="newPassword"
                       rules={[...baseRules]}
                     >
                       <Input.Password maxLength={20} />
                     </Form.Item>
                     <Form.Item
-                      label={t('auth.changePassword.confirmNewPassword')}
+                      label={t('change-password:confirmNewPassword')}
                       name="confirmNewPassword"
                       dependencies={['newPassword']}
                       rules={[...baseRules, validateConfirmPasswordMatched]}
@@ -162,24 +162,24 @@ const ChangePassword: React.FC = () => {
                     <Space />
                     <Form.Item>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register.form.passwordHintA')}
+                        {t('auth.register:form.passwordHintA')}
                       </Text>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register.form.passwordHintB')}
+                        {t('auth.register:form.passwordHintB')}
                       </Text>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register.form.passwordHintC')}
+                        {t('auth.register:form.passwordHintC')}
                       </Text>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register.form.passwordHintD')}
+                        {t('auth.register:form.passwordHintD')}
                       </Text>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register.form.passwordHintE')}
+                        {t('auth.register:form.passwordHintE')}
                       </Text>
                     </Form.Item>
                     <Form.Item>
                       <Button type="primary" htmlType="submit" size="large" block>
-                        {t('common.confirm')}
+                        {t('common:confirm')}
                       </Button>
                     </Form.Item>
                   </Form>

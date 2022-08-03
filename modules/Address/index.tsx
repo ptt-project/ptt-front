@@ -3,15 +3,16 @@ import { Typography, Button, Row, Col, Space, Modal, notification, Image } from 
 import { NextRouter, useRouter } from 'next/router'
 import { compact, orderBy } from 'lodash'
 import Helmet from 'react-helmet'
+import { useTranslation } from 'next-i18next'
 import styles from './Address.module.scss'
 import AddressCard from './components/AddressCard'
 import { IAddressFormValues } from '~/interfaces'
 import { CustomHookUseVisibleUtil, CustomUrlUtil } from '~/utils/main'
 import addressesMock from './components/AddressForm/mock-data/mock-addresses.json'
-import t from '~/locales'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Text, Title, Link } = Typography
 
@@ -20,6 +21,8 @@ interface IAddressProps {
 }
 const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
   const router: NextRouter = useRouter()
+  const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
+
   // eslint-disable-next-line @typescript-eslint/typedef
   const deleteAddressVisible = CustomHookUseVisibleUtil()
 
@@ -76,16 +79,14 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
   return (
     <main className="main">
       <Helmet>
-        <title>
-          {t('meta.title')} | {t('address.title')}
-        </title>
+        {t('common:meta.title')} | {t('address:title')}
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('address.breadcrumbs.setting') },
-          { title: t('address.breadcrumbs.account') },
+          { title: t('address:breadcrumbs.setting') },
+          { title: t('address:breadcrumbs.account') },
           {
-            title: t('address.breadcrumbs.address'),
+            title: t('address:breadcrumbs.address'),
             href: CustomUrlUtil(`${rootMenu}/settings/account/address`, router.locale)
           }
         ]}
@@ -106,18 +107,18 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
               <Row>
                 <Col span={24}>
                   <Title className="hps-title" level={4}>
-                    {t('address.listAddressTitle')}
+                    {t('address:listAddressTitle')}
                   </Title>
                 </Col>
                 <Col span={24}>
                   <Row className={styles.addressListHead}>
                     <HighlightLabel
                       className={styles.highlightLabel}
-                      title={t('address.addressLabel')}
+                      title={t('address:addressLabel')}
                     />
                     <Col>
                       <Button className="hps-btn-secondary" onClick={onAddAddressClick}>
-                        {t('address.addAddress')}
+                        {t('address:addAddress')}
                       </Button>
                     </Col>
                   </Row>
@@ -150,7 +151,7 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
                         </div>
                         <div className="mt-4 text-center">
                           <Text>
-                            {t('address.emptyAddress')}
+                            {t('address:emptyAddress')}
                             <Link
                               className="ml-1"
                               href={CustomUrlUtil(
@@ -159,7 +160,7 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
                               )}
                               underline
                             >
-                              {t('address.addAddressTitle')}
+                              {t('address:addAddressTitle')}
                             </Link>
                           </Text>
                         </div>
@@ -175,7 +176,7 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
                     <Col span={24}>
                       <Title className="mb-0" level={4}>
                         <i className={`${styles.cError} fas fa-info-circle mr-2`} />
-                        {t('address.deleteAddress')}
+                        {t('address:deleteAddress')}
                       </Title>
                     </Col>
                   }
@@ -183,10 +184,10 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
                     <Col span={24}>
                       <Space>
                         <Button type="text" onClick={deleteAddressVisible.hide}>
-                          {t('common.cancel')}
+                          {t('common:cancel')}
                         </Button>
                         <Button type="primary" onClick={onConfirmDeleteAddressClick}>
-                          {t('address.deleteAddress')}
+                          {t('address:deleteAddress')}
                         </Button>
                       </Space>
                     </Col>
@@ -195,7 +196,7 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
                   <Space size={4} direction="vertical">
                     <Space className={styles.contentLayout} size={4} direction="vertical">
                       <Text>
-                        {t('address.confirmDeleteAddress')} {deleteAddressData?.fullName}
+                        {t('address:confirmDeleteAddress')} {deleteAddressData?.fullName}
                       </Text>
                       <Text>
                         {compact([
@@ -207,7 +208,7 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
                       </Text>
                     </Space>
                     <Text>{deleteAddressData?.mobileNo}</Text>
-                    <Text type="danger">{t('address.warningMsgDeleteAddress')}</Text>
+                    <Text type="danger">{t('address:warningMsgDeleteAddress')}</Text>
                   </Space>
                 </Modal>
               </Row>
