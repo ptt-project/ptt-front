@@ -1,12 +1,12 @@
-import { BankName, BankStatus } from '~/enums'
+import { BankNameEnum, BankStatusEnum } from '~/enums'
 
 export interface IBankAccountData {
   id?: string
   fullName: string
   citizenNo: string
-  status: BankStatus
+  status: BankStatusEnum
   bankFullName: string
-  bankName: BankName
+  bankName: BankNameEnum
   bankAccountName: string
   bankAccountNo: string
   isDefault: boolean
@@ -14,7 +14,7 @@ export interface IBankAccountData {
 
 export interface IBankOptionData {
   bankFullName: string
-  bankName: BankName
+  bankName: BankNameEnum
 }
 
 export type IBankAccountFromValues = IBankAccountData

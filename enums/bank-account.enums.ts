@@ -1,4 +1,4 @@
-export enum BankName {
+export enum BankNameEnum {
   /**
    * @description บมจ. ธนาคารไทยพาณิชย์
    */
@@ -41,7 +41,7 @@ export enum BankName {
   LH = 'LH'
 }
 
-export enum BankStatus {
+export enum BankStatusEnum {
   PENDING = 'pending',
   APPROVED = 'approved',
   REJECTED = 'rejected'
