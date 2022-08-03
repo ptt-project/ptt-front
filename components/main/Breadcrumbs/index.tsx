@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { NextRouter, useRouter } from 'next/router'
 import { Breadcrumb } from 'antd'
 import { IBreadcrumb, IBreadcrumbItem } from '~/interfaces'
-import { CustomerUrlHrefUtil } from '~/utils/main'
+import { CustomUrlUtil } from '~/utils/main'
 
 const Breadcrumbs: FC<IBreadcrumb> = (props: IBreadcrumb) => {
   const router: NextRouter = useRouter()
@@ -12,7 +12,7 @@ const Breadcrumbs: FC<IBreadcrumb> = (props: IBreadcrumb) => {
       return props.items.map((item: IBreadcrumbItem) => {
         if (item.href) {
           return (
-            <Breadcrumb.Item key={item.title} href={CustomerUrlHrefUtil(item.href, router.locale)}>
+            <Breadcrumb.Item key={item.title} href={CustomUrlUtil(item.href, router.locale)}>
               {item.title}
             </Breadcrumb.Item>
           )
@@ -27,7 +27,7 @@ const Breadcrumbs: FC<IBreadcrumb> = (props: IBreadcrumb) => {
     <div className="container">
       <div className="mt-5 mb-5">
         <Breadcrumb separator={<i className="fas fa-chevron-right" />}>
-          <Breadcrumb.Item href={CustomerUrlHrefUtil('/', router.locale)}>
+          <Breadcrumb.Item href={CustomUrlUtil('/', router.locale)}>
             <i className="fas fa-home" />
           </Breadcrumb.Item>
           {renderItem()}
