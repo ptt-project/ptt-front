@@ -1,5 +1,5 @@
 import { Col, Image, Row, Typography } from 'antd'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'next-i18next'
 import styles from './BankAccountCard.module.scss'
 import BankLogo from './BankLogo'
@@ -33,17 +33,17 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
     }
   }
 
-  function handleFavoriteClick(): void {
+  const handleFavoriteClick: VoidFunction = useCallback((): void => {
     if (!data.isDefault) {
       onFavoriteClick()
     }
-  }
+  }, [data.isDefault, onFavoriteClick])
 
-  function handleDeleteClick(): void {
+  const handleDeleteClick: VoidFunction = useCallback((): void => {
     if (!data.isDefault) {
       onDeleteClick()
     }
-  }
+  }, [data.isDefault, onDeleteClick])
 
   return (
     <Row className={styles.layout} gutter={[8, 8]}>

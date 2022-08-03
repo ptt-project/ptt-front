@@ -1,6 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 import React, { useState } from 'react'
-import { Input, Form, FormInstance, Col, Row, Select } from 'antd'
+import { Form, FormInstance, Col, Row, Select } from 'antd'
 import { DeepPartial } from 'redux'
 import { DefaultOptionType } from 'antd/lib/select'
 import { Rule } from 'antd/lib/form'
@@ -11,6 +11,7 @@ import HighlightLabel from '~/components/main/HighlightLabel'
 import { BankNameEnum } from '~/enums'
 import { IBankOptionData, IBankAccountFromValues } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
+import CustomInput from './CustomInput'
 
 const bankOptionsData: IBankOptionData[] = [
   {
@@ -79,7 +80,7 @@ const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFro
               name="fullName"
               rules={[...baseRules]}
             >
-              <Input />
+              <CustomInput onlyLetter maxLength={250} />
             </Form.Item>
           </Col>
           <Col sm={12} xs={24}>
@@ -99,7 +100,7 @@ const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFro
                 }
               ]}
             >
-              <Input maxLength={13} />
+              <CustomInput onlyNumber minLength={13} maxLength={13} />
             </Form.Item>
           </Col>
           <Col sm={24} xs={24}>
@@ -135,7 +136,7 @@ const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFro
               name="bankAccountNo"
               rules={[...baseRules]}
             >
-              <Input />
+              <CustomInput onlyNumber minLength={10} maxLength={18} />
             </Form.Item>
           </Col>
           <Col sm={12} xs={24}>
@@ -144,7 +145,7 @@ const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFro
               name="bankAccountName"
               rules={[...baseRules]}
             >
-              <Input />
+              <CustomInput onlyLetter maxLength={250} />
             </Form.Item>
           </Col>
         </Row>

@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 import BankAccountFrom from '../BankAccountFrom'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { bankMock } from '~/modules/Address/mock-data'
+import { bankMock } from '~/modules/BankAccount/mock-data'
 import ModalConfirmBankInfo from '../ModalConfirmBankInfo'
 import OtpModal from '~/components/main/OtpModal'
 import { CustomUrlUtil, CustomHookUseVisibleUtil } from '~/utils/main'
@@ -57,7 +57,7 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
   function onOtpSuccess(): void {
     setIsOtpOpen(false)
     bankMock.push(bankAccountData)
-    message.success('ข้อมูลอัพเดทแล้ว')
+    message.success(t('common:dataUpdated'))
     router.replace(`${rootMenu}/settings/wallet/bank`, `${rootMenu}/settings/wallet/bank`, {
       locale: router.locale
     })

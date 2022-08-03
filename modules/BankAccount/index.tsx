@@ -9,7 +9,7 @@ import { CustomUrlUtil, CustomHookUseVisibleUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import { bankMock } from '~/modules/Address/mock-data'
+import { bankMock } from '~/modules/BankAccount/mock-data'
 import BankAccountCard from './components/BankAccountCard'
 import { sensorBankAccountNo } from '~/utils/main/helper'
 import { IBankAccountData, IBankAccountFromValues } from '~/interfaces'
@@ -58,7 +58,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
       })
     }
 
-    message.success('ข้อมูลอัพเดทแล้ว')
+    message.success(t('common:dataUpdated'))
   }
 
   function onDeleteBankAccountClick(bankAccountId: string): void {
@@ -79,7 +79,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
     }
 
     setDeleteBankAccountId('')
-    message.success('ข้อมูลอัพเดทแล้ว')
+    message.success(t('common:dataUpdated'))
     deleteBankAccountVisible.hide()
   }
 
@@ -115,6 +115,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                 <Col span={24}>
                   <Title className="hps-title" level={4}>
                     {t('bank-account:title')}
+                    {t('common:dataUpdated')}
                   </Title>
                 </Col>
                 <Col span={24}>
