@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
@@ -8,12 +9,13 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import SellerMyProductsFilters from './components/SellerMyProductsFilters'
 import SellerMyProductsTabs from './components/SellerMyProductsTabs'
 import { CustomUrlUtil } from '~/utils/main'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './SellerMyProducts.module.scss'
 
 const { Text, Title } = Typography
 
 const SellerMyProduct: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst])
   const router: NextRouter = useRouter()
   return (
     <main className="main">
