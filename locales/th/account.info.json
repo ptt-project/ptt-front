@@ -1,0 +1,53 @@
+{
+  "title": "บัญชีผู้ใช้",
+  "setting": "ตั้งค่า",
+  "personalInfo": "ข้อมูลส่วนตัว",
+  "form": {
+    "memberId": "รหัสสมาชิก",
+    "username": "ชื่อผู้ใช้",
+    "msgChooseImage": "ไฟล์ JPEG,PNG ขนาดไฟล์ไม่เกิน 1 MB",
+    "firstName": "ชื่อ",
+    "lastName": "นามสกุล",
+    "birthday": "วันเกิด",
+    "date": "วันที่",
+    "month": "เดือน",
+    "year": "ปี ค.ศ.",
+    "gender": "เพศ",
+    "man": "ชาย",
+    "female": "หญิง",
+    "other": "อื่นๆ",
+    "email": "อีเมล",
+    "phoneNumber": "หมายเลขโทรศัพท์"
+  },
+  "email": {
+    "title": "แก้ไขอีเมล",
+    "currentEmail": "อีเมลปัจจุบัน",
+    "newEmail": "อีเมลใหม่",
+    "password": "รหัสผ่าน",
+    "msgConfirm": "กรุณายืนยันตัวตนด้วยการใส่รหัสผ่าน เพื่ออัพเดทอีเมลของคุณ"
+  },
+  "phone": {
+    "titleEdit": "แก้ไขหมายเลขโทรศัพท์",
+    "titleAdd": "เพิ่มเบอร์โทร",
+    "phoneList": "รายการเบอร์โทร",
+    "newPhone": "เบอร์โทรศัพท์ใหม่",
+    "msgConfirm": "รหัสยืนยันจะถูกส่งไปที่เบอร์ 082-222-2222",
+    "otp": "OTP",
+    "refCode": "Ref code",
+    "confirmOTP": "ยืนยัน OTP ไปยังหมายเลขหลัก",
+    "deletePhone": "ลบเบอร์โทร",
+    "confirmDelete": "ยืนยันการลบเบอร์โทร",
+    "msgConfirmDelete": "ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้"
+  },
+  "button": {
+    "chooseImage": "เลือกรูป",
+    "edit": "แก้ไข",
+    "save": "บันทึก",
+    "confirm": "ยืนยัน",
+    "addPhone": "เพิ่มเบอร์โทร",
+    "mainNumber": "เบอร์หลัก",
+    "sendVerificationCode": "ส่งรหัสยืนยัน",
+    "close": "ปิด",
+    "deletePhone": "ลบเบอร์โทร"
+  }
+}
