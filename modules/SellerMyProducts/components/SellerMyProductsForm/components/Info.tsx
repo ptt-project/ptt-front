@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next'
 import { PlusOutlined } from '@ant-design/icons'
 import { Modal, Upload, Col, Form, Input, Row, Select } from 'antd'
 import type { RcFile, UploadProps } from 'antd/es/upload'
@@ -5,7 +6,7 @@ import type { UploadFile } from 'antd/es/upload/interface'
 import { UploadChangeParam } from 'antd/lib/upload'
 import React, { useState } from 'react'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from '../SellerMyProductsForm.module.scss'
 
 const { TextArea } = Input
@@ -18,6 +19,7 @@ interface IFormProductInfoProps {
   disabled?: boolean
 }
 const Info: React.FC<IFormProductInfoProps> = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [previewVisible, setPreviewVisible] = useState<boolean>(false)
   const [previewImage, setPreviewImage] = useState<string>('')
   const [previewTitle, setPreviewTitle] = useState<string>('')
@@ -58,11 +60,11 @@ const Info: React.FC<IFormProductInfoProps> = () => {
 
   return (
     <>
-      <HighlightLabel title={t('sellerProducts.form.info.title')} />
+      <HighlightLabel title={t('seller.product:form.info.title')} />
       <Row gutter={[8, 8]}>
         <Col md={24}>
           <Form.Item
-            label={t('sellerProducts.form.info.productPicture')}
+            label={t('seller.product:form.info.productPicture')}
             name="productPicture"
             rules={[
               {
@@ -82,7 +84,7 @@ const Info: React.FC<IFormProductInfoProps> = () => {
               {filePhotoCoverList.length ? null : (
                 <div>
                   <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>{t('sellerProducts.form.info.photoCover')}</div>
+                  <div style={{ marginTop: 8 }}>{t('seller.product:form.info.photoCover')}</div>
                 </div>
               )}
             </Upload>
@@ -99,7 +101,7 @@ const Info: React.FC<IFormProductInfoProps> = () => {
                 <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>
-                    {t('sellerProducts.form.info.picture')} (Max: 7)
+                    {t('seller.product:form.info.picture')} (Max: 7)
                   </div>
                 </div>
               )}
@@ -115,13 +117,13 @@ const Info: React.FC<IFormProductInfoProps> = () => {
           </Form.Item>
         </Col>
         <Col md={24}>
-          <Form.Item label={t('sellerProducts.form.info.videoProduct')} name="videoProduct">
+          <Form.Item label={t('seller.product:form.info.videoProduct')} name="videoProduct">
             <Input maxLength={50} showCount />
           </Form.Item>
         </Col>
         <Col md={24}>
           <Form.Item
-            label={t('sellerProducts.form.info.productName')}
+            label={t('seller.product:form.info.productName')}
             name="productName"
             rules={[
               {
@@ -134,7 +136,7 @@ const Info: React.FC<IFormProductInfoProps> = () => {
         </Col>
         <Col md={24}>
           <Form.Item
-            label={t('sellerProducts.form.info.productDetail')}
+            label={t('seller.product:form.info.productDetail')}
             name="productDetail"
             rules={[
               {
@@ -147,7 +149,7 @@ const Info: React.FC<IFormProductInfoProps> = () => {
         </Col>
         <Col md={12}>
           <Form.Item
-            label={t('sellerProducts.form.info.category')}
+            label={t('seller.product:form.info.category')}
             name="category"
             rules={[
               {

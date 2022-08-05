@@ -1,7 +1,8 @@
 import React from 'react'
+import { useTranslation } from 'next-i18next'
 import { Typography, Radio, Col, Form, Input, Row } from 'antd'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Text } = Typography
 
@@ -12,28 +13,31 @@ interface IFormProductFeaturesProps {
   onHintClick?: () => void
   disabled?: boolean
 }
-const Other: React.FC<IFormProductFeaturesProps> = () => (
-  <>
-    <HighlightLabel title={t('sellerProducts.form.other.title')} />
-    <Row gutter={[16, 8]}>
-      <Col md={12}>
-        <Form.Item label={t('sellerProducts.form.other.prepareDeliver')} name="condition">
-          <Radio.Group>
-            <Radio value={1}>{t('sellerProducts.form.other.yes')}</Radio>
-            <Radio value={2} className="ml-10">
-              {t('sellerProducts.form.other.no')}
-            </Radio>
-          </Radio.Group>
-        </Form.Item>
-      </Col>
-      <Col md={12}>
-        <Form.Item label={t('sellerProducts.form.other.iNeedTime')} name="shelfLife">
-          <Input suffix={<Text type="secondary">{t('sellerProducts.form.other.day')}</Text>} />
-        </Form.Item>
-      </Col>
-    </Row>
-  </>
-)
+const Other: React.FC<IFormProductFeaturesProps> = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
+  return (
+    <>
+      <HighlightLabel title={t('seller.product:form.other.title')} />
+      <Row gutter={[16, 8]}>
+        <Col md={12}>
+          <Form.Item label={t('seller.product:form.other.prepareDeliver')} name="condition">
+            <Radio.Group>
+              <Radio value={1}>{t('seller.product:form.other.yes')}</Radio>
+              <Radio value={2} className="ml-10">
+                {t('seller.product:form.other.no')}
+              </Radio>
+            </Radio.Group>
+          </Form.Item>
+        </Col>
+        <Col md={12}>
+          <Form.Item label={t('seller.product:form.other.iNeedTime')} name="shelfLife">
+            <Input suffix={<Text type="secondary">{t('seller.product:form.other.day')}</Text>} />
+          </Form.Item>
+        </Col>
+      </Row>
+    </>
+  )
+}
 
 Other.defaultProps = {
   value: false,

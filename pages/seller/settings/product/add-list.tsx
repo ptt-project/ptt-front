@@ -7,7 +7,7 @@ import { LocaleNamespaceConst } from '~/constants'
 export async function getStaticProps(context: NextPageContext): Promise<any> {
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst]))
+      ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'seller.product']))
     }
   }
 }

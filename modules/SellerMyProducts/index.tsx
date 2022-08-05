@@ -15,19 +15,19 @@ import styles from './SellerMyProducts.module.scss'
 const { Text, Title } = Typography
 
 const SellerMyProduct: FC = () => {
-  const { t } = useTranslation([...LocaleNamespaceConst])
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const router: NextRouter = useRouter()
   return (
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('sellerProducts.list.myProduct')}
+          {t('common:meta.title')} | {t('seller.product:list.myProduct')}
         </title>
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('sellerProducts.list.product') },
-          { title: t('sellerProducts.list.myProduct'), href: '/seller/settings/product/list' }
+          { title: t('seller.product:list.product') },
+          { title: t('seller.product:list.myProduct'), href: '/seller/settings/product/list' }
         ]}
       />
       <div className="page-content mb-9">
@@ -40,13 +40,13 @@ const SellerMyProduct: FC = () => {
               <Row className="mb-3" align="middle">
                 <Col xs={20}>
                   <Title className={`${styles.h4} ${styles.textSecondary}`} level={4}>
-                    {t('sellerProducts.list.product')} 5 {t('sellerProducts.list.list')}
+                    {t('seller.product:list.product')} 5 {t('seller.product:list.list')}
                   </Title>
                   <div className={styles.progress}>
                     <Progress percent={10} showInfo={false} size="small" />
                   </div>
                   <Text type="secondary">
-                    {t('sellerProducts.list.uploadProduct')} 999 {t('sellerProducts.list.items')}
+                    {t('seller.product:list.uploadProduct')} 999 {t('seller.product:list.items')}
                   </Text>
                 </Col>
                 <Col xs={4}>
@@ -54,7 +54,7 @@ const SellerMyProduct: FC = () => {
                     <Link href={CustomUrlUtil('/seller/settings/product/add-list', router.locale)}>
                       <Button type="primary">
                         <i className="fas fa-plus mr-1" />
-                        {t('sellerProducts.list.addNewProduct')}
+                        {t('seller.product:list.addNewProduct')}
                       </Button>
                     </Link>
                   </div>

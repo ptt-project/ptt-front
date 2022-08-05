@@ -1,8 +1,9 @@
 import React, { FC, useState } from 'react'
+import { useTranslation } from 'next-i18next'
 import { Typography, Table, Space, Image } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
-import t from '~/locales'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './List.module.scss'
 
 const { Text } = Typography
@@ -41,16 +42,17 @@ for (let i: number = 0; i < 100; i++) {
 } */
 
 const List: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [isOpenDelModal, setIsOpenDelModal] = useState<boolean>(false)
   const [isContentImg, setIsContentImg] = useState<string>()
   const [isContentTextImg, setIsContentTextImg] = useState<string>()
-  const productName: string = t('sellerProducts.list.productName') // prevent error hook rules
-  const SKU: string = t('sellerProducts.list.SKU') // prevent error hook rules
-  const productSelection: string = t('sellerProducts.list.productSelection') // prevent error hook rules
-  const price: string = t('sellerProducts.list.price') // prevent error hook rules
-  const warehouse: string = t('sellerProducts.list.warehouse') // prevent error hook rules
-  const sales: string = t('sellerProducts.list.sales') // prevent error hook rules
-  const operation: string = t('sellerProducts.list.operation') // prevent error hook rules
+  const productName: string = t('seller.product:list.productName') // prevent error hook rules
+  const SKU: string = t('seller.product:list.SKU') // prevent error hook rules
+  const productSelection: string = t('seller.product:list.productSelection') // prevent error hook rules
+  const price: string = t('seller.product:list.price') // prevent error hook rules
+  const warehouse: string = t('seller.product:list.warehouse') // prevent error hook rules
+  const sales: string = t('seller.product:list.sales') // prevent error hook rules
+  const operation: string = t('seller.product:list.operation') // prevent error hook rules
   const columns: ColumnsType<IDataType> = [
     {
       title: productName,
@@ -149,9 +151,9 @@ const List: FC = () => {
         isOpen={isOpenDelModal}
         toggle={toggleDelModal}
         type="error"
-        title={t('sellerProducts.delete.title')}
-        content={t('sellerProducts.delete.msgQuestion')}
-        contentWarning={t('sellerProducts.delete.msgWarning')}
+        title={t('seller.product:delete.title')}
+        content={t('seller.product:delete.msgQuestion')}
+        contentWarning={t('seller.product:delete.msgWarning')}
         contentImg={isContentImg}
         contentTextImg={isContentTextImg}
         onSubmit={onRemove}

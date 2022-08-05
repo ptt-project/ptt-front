@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import { Button, Row, Col, Form, Input, Select } from 'antd'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './SellerMyProductsFilters.module.scss'
 
 interface IFormModel {
@@ -10,6 +11,7 @@ interface IFormModel {
 }
 
 const SellerMyProductFilters: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [form] = Form.useForm()
 
   function onSubmit(values: IFormModel): void {
@@ -26,19 +28,19 @@ const SellerMyProductFilters: FC = () => {
     >
       <Row gutter={16}>
         <Col md={12} xs={24}>
-          <Form.Item label={t('sellerProducts.list.filters.group')} name="productName">
-            <Select defaultValue={t('sellerProducts.list.filters.orderId')}>
+          <Form.Item label={t('seller.product:list.filters.group')} name="productName">
+            <Select defaultValue={t('seller.product:list.filters.orderId')}>
               <Select.Option value="jack">Jack</Select.Option>
             </Select>
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
-          <Form.Item label={t('sellerProducts.list.filters.keyword')} name="productNameChoice">
+          <Form.Item label={t('seller.product:list.filters.keyword')} name="productNameChoice">
             <Input />
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
-          <Form.Item label={t('sellerProducts.list.filters.category')} name="date">
+          <Form.Item label={t('seller.product:list.filters.category')} name="date">
             <Select defaultValue="">
               <Select.Option value="jack">Jack</Select.Option>
             </Select>
