@@ -10,21 +10,21 @@ import styles from './ProfilePhone.module.scss'
 const { Title } = Typography
 
 const AddPhone: FC = () => {
-  const { t } = useTranslation([...LocaleNamespaceConst, 'account.info'])
+  const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   return (
     <main className="main">
       <Helmet>
         <title>
-          {t('common:meta.title')} | {t('account.info:phone.titleAdd')}
+          {t('common:meta.title')} | {t('account-info:phone.titleAdd')}
         </title>
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('account.info:setting') },
-          { title: t('account.info:title') },
-          { title: t('account.info:personalInfo'), href: '/settings/account/info' },
-          { title: t('account.info:phone.titleEdit'), href: '/settings/account/info/phone' },
-          { title: t('account.info:phone.titleAdd'), href: '/settings/account/info/add-phone' }
+          { title: t('account-info:setting') },
+          { title: t('account-info:title') },
+          { title: t('account-info:personalInfo'), href: '/settings/account/info' },
+          { title: t('account-info:phone.titleEdit'), href: '/settings/account/info/phone' },
+          { title: t('account-info:phone.titleAdd'), href: '/settings/account/info/add-phone' }
         ]}
       />
       <div className="page-content mb-9">
@@ -35,33 +35,33 @@ const AddPhone: FC = () => {
             </Col>
             <Col xl={18} lg={24}>
               <Title className="hps-title" level={4}>
-                {t('account.info:phone.titleAdd')}
+                {t('account-info:phone.titleAdd')}
               </Title>
               <Form layout="vertical">
                 <Row>
                   <Col xl={{ span: 12, offset: 6 }} md={{ span: 12, offset: 6 }}>
                     <Row>
                       <Col span={24}>
-                        <Form.Item label={t('account.info:phone.newPhone')} name="phone">
+                        <Form.Item label={t('account-info:phone.newPhone')} name="phone">
                           <Input maxLength={10} />
                         </Form.Item>
                       </Col>
                       <Col span={24}>
                         <Form.Item>
                           <Button htmlType="submit" className={styles.textSecondary} block>
-                            {t('account.info:button.sendVerificationCode')}
+                            {t('account-info:button.sendVerificationCode')}
                           </Button>
                         </Form.Item>
                       </Col>
                       <Col span={24}>
-                        <Form.Item label={t('account.info:phone.otp')} name="otp">
+                        <Form.Item label={t('account-info:phone.otp')} name="otp">
                           <Input maxLength={10} />
                         </Form.Item>
                       </Col>
                       <Col span={24}>
                         <Form.Item>
                           <Button type="primary" block>
-                            {t('account.info:button.addPhone')}
+                            {t('account-info:button.addPhone')}
                           </Button>
                         </Form.Item>
                       </Col>
