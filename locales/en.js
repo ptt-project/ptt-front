@@ -98,34 +98,6 @@ export default {
       deletePhone: 'ลบเบอร์โทร'
     }
   },
-  sellerPoint: {
-    shop: 'ร้านค้า',
-    title: 'คะแนนร้านค้า',
-    detail: 'ดู 500 คะแนนล่าสุดที่ร้านค้าได้รับ',
-    part: '5',
-    filters: {
-      productName: 'ชื่อสินค้า',
-      productNameChoice: 'ชื่อตัวเลือกสินค้า',
-      date: 'วัน/เดือน/ปี'
-    },
-    all: 'ทั้งหมด',
-    waitingForReply: 'รอการตอบกลับ',
-    replied: 'ตอบกลับแล้ว',
-    point: {
-      one: '1 ดาว',
-      two: '2 ดาว',
-      three: '3 ดาว',
-      four: '4 ดาว',
-      five: '5 ดาว'
-    },
-    productDetail: 'รายละเอียดสินค้า',
-    reviewDetail: 'รายละเอียดการรีวิว',
-    yourReply: 'การตอบกลับของคุณ',
-    reply: 'ตอบกลับ',
-    user: 'ชื่อผู้ใช้',
-    orderId: 'Order ID',
-    msgReply: 'ข้อความตอบกลับ'
-  },
   relation: {
     title: 'ความสัมพันธ์',
     copyInviteSuccess: 'คัดลอก Link Invite แล้ว',

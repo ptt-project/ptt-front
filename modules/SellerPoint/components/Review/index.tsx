@@ -1,7 +1,8 @@
 import React, { FC, useState } from 'react'
+import { useTranslation } from 'next-i18next'
 import { Button, Row, Col, Typography, Avatar, Image, Rate, Pagination } from 'antd'
 import ReplyModal from '../ReplyModal'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './Review.module.scss'
 
 const { Text } = Typography
@@ -40,6 +41,7 @@ const data: IMockData[] = [
 ]
 
 const Review: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.point'])
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [replyData, setReplyData] = useState<IMockData>({
     id: '',
@@ -72,22 +74,22 @@ const Review: FC = () => {
         detail={replyData.detail}
       />
       <Row className="mb-4">
-        <Button className="mr-1 mb-1">{t('sellerPoint.all')}</Button>
-        <Button className="mr-1 mb-1">{t('sellerPoint.point.five')}</Button>
-        <Button className="mr-1 mb-1">{t('sellerPoint.point.four')}</Button>
-        <Button className="mr-1 mb-1">{t('sellerPoint.point.three')}</Button>
-        <Button className="mr-1 mb-1">{t('sellerPoint.point.two')}</Button>
-        <Button className="mr-1 mb-1">{t('sellerPoint.point.one')}</Button>
+        <Button className="mr-1 mb-1">{t('seller.point:all')}</Button>
+        <Button className="mr-1 mb-1">{t('seller.point:point.five')}</Button>
+        <Button className="mr-1 mb-1">{t('seller.point:point.four')}</Button>
+        <Button className="mr-1 mb-1">{t('seller.point:point.three')}</Button>
+        <Button className="mr-1 mb-1">{t('seller.point:point.two')}</Button>
+        <Button className="mr-1 mb-1">{t('seller.point:point.one')}</Button>
       </Row>
       <Row className={`${styles.hrTitleCol} mb-3`}>
         <Col lg={6} xs={7}>
-          <Text type="danger">{t('sellerPoint.productDetail')}</Text>
+          <Text type="danger">{t('seller.point:productDetail')}</Text>
         </Col>
         <Col md={12} xs={10}>
-          <Text type="danger">{t('sellerPoint.reviewDetail')}</Text>
+          <Text type="danger">{t('seller.point:reviewDetail')}</Text>
         </Col>
         <Col lg={6}>
-          <Text type="danger">{t('sellerPoint.yourReply')}</Text>
+          <Text type="danger">{t('seller.point:yourReply')}</Text>
         </Col>
       </Row>
       <div className={styles.reviewContent}>
@@ -95,7 +97,7 @@ const Review: FC = () => {
           <div key={item.id} className="mb-3">
             <Row className={styles.reviewTitle} align="middle">
               <Col span={18}>
-                <Text>{t('sellerPoint.user')}:</Text>
+                <Text>{t('seller.point:user')}:</Text>
                 <Avatar
                   className={styles.avatar}
                   size={24}
@@ -105,7 +107,7 @@ const Review: FC = () => {
               </Col>
               <Col span={6}>
                 <Text className="ml-2" type="secondary">
-                  {t('sellerPoint.orderId')}: {item.orderId}
+                  {t('seller.point:orderId')}: {item.orderId}
                 </Text>
               </Col>
             </Row>
@@ -124,7 +126,7 @@ const Review: FC = () => {
               <Col className={styles.replyCol} span={6}>
                 {item.status === 'reply' ? (
                   <Button className="mt-1" onClick={(): void => onReply(item)}>
-                    {t('sellerPoint.reply')}
+                    {t('seller.point:reply')}
                   </Button>
                 ) : (
                   <Text className={styles.reply}>{item.productName}</Text>

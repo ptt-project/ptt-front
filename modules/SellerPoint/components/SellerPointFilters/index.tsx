@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import { Button, Row, Col, Form, Input, DatePicker } from 'antd'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './SellerPointFilters.module.scss'
 
 const { RangePicker } = DatePicker
@@ -12,6 +13,7 @@ interface IFormModel {
 }
 
 const SellerPointFilters: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.point'])
   const [form] = Form.useForm()
 
   function onSubmit(values: IFormModel): void {
@@ -27,17 +29,17 @@ const SellerPointFilters: FC = () => {
     >
       <Row gutter={16}>
         <Col md={12} xs={24}>
-          <Form.Item label={t('sellerPoint.filters.productName')} name="productName">
+          <Form.Item label={t('seller.point:filters.productName')} name="productName">
             <Input />
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
-          <Form.Item label={t('sellerPoint.filters.productNameChoice')} name="productNameChoice">
+          <Form.Item label={t('seller.point:filters.productNameChoice')} name="productNameChoice">
             <Input />
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
-          <Form.Item label={t('sellerPoint.filters.date')} name="date">
+          <Form.Item label={t('seller.point:filters.date')} name="date">
             <RangePicker style={{ width: '100%' }} />
           </Form.Item>
         </Col>
@@ -45,11 +47,11 @@ const SellerPointFilters: FC = () => {
       <Row>
         <Form.Item className="mb-0">
           <Button className="mr-3" htmlType="submit" type="primary">
-            {t('common.search')}
+            {t('common:search')}
           </Button>
         </Form.Item>
         <Form.Item className="mb-0">
-          <Button htmlType="reset">{t('common.reset')}</Button>
+          <Button htmlType="reset">{t('common:reset')}</Button>
         </Form.Item>
       </Row>
     </Form>
