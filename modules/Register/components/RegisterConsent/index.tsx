@@ -1,11 +1,15 @@
 import React, { useState, FC } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Typography, Space, Button, Image, Row, Col, Form, Checkbox } from 'antd'
-import type { CheckboxChangeEvent } from 'antd/es/checkbox'
+import { AxiosResponse } from 'axios'
 import { isEmpty } from 'lodash'
+import { Typography, Space, Button, Image, Row, Col, Form, Checkbox, message } from 'antd'
+import type { CheckboxChangeEvent } from 'antd/es/checkbox'
+import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
-import { IAuthRegisterForm, IOtpData } from '~/interfaces'
+import { IAuthRegisterForm, IAuthRegisterService, IOtpData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
+import { AuthService } from '~/services'
+import { CommonApiCodeEnum } from '~/enums'
 import styles from './RegisterConsent.module.scss'
 
 const { Text, Title } = Typography
@@ -21,6 +25,8 @@ interface IRegisterConsentProps {
 
 const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register'])
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [form] = Form.useForm()
   const [checked, setChecked] = useState<boolean>(false)
@@ -45,25 +51,42 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
     }
   }
 
-  function onSubmit(otpData: IOtpData): void {
+  async function onSubmit(otpData: IOtpData): Promise<void> {
+    toggle()
+    setIsLoading(true)
+    let isSuccess: boolean = false
     try {
-      console.log(props.form)
-      console.log(otpData)
-      toggle()
-      props.setStep(2)
+      const payload: IAuthRegisterService = {
+        firstName: props.form.firstName,
+        lastName: props.form.lastName,
+        mobile: props.form.mobile,
+        email: props.form.email,
+        username: props.form.username,
+        password: props.form.password,
+        pdpaStatus: true,
+        otpCode: otpData.otpCode,
+        refCode: otpData.refCode
+      }
+      const result: AxiosResponse = await AuthService.register(payload)
+      if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
+        isSuccess = true
+        props.setStep(2)
+      }
     } catch (error) {
       console.log(error)
     }
+    if (isSuccess) {
+      message.success(t('common.apiMessage.success'))
+    } else {
+      message.success(t('common.apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
   return (
     <>
-      <OtpModal
-        mobileNo={props.form.mobileNo}
-        isOpen={isOpen}
-        toggle={toggle}
-        onSubmit={onSubmit}
-      />
+      <Loading show={isLoading} />
+      <OtpModal mobile={props.form.mobile} isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
@@ -79,12 +102,12 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
               <Title className="hps-title" level={4}>
-                {t('auth.register.consent.title')}
+                {t('auth.register:consent.title')}
               </Title>
               <Row>
                 <Col span={24}>
                   <Space className="mb-5">
-                    <Text type="secondary">{t('auth.register.consent.content')}</Text>
+                    <Text type="secondary">{t('auth.register:consent.content')}</Text>
                   </Space>
                 </Col>
               </Row>
@@ -93,7 +116,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
                   <Col span={24}>
                     <Form.Item className="mb-3" name="acceptConsent" valuePropName="checked">
                       <Checkbox onChange={onChangeChecked}>
-                        {t('auth.register.consent.checkbox')}
+                        {t('auth.register:consent.checkbox')}
                       </Checkbox>
                     </Form.Item>
                   </Col>
@@ -102,7 +125,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
                   <Col span={24}>
                     <Form.Item>
                       <Button htmlType="submit" type="primary" block disabled={!checked}>
-                        {t('common.next')}
+                        {t('common:next')}
                       </Button>
                     </Form.Item>
                   </Col>

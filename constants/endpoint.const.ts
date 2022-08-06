@@ -1,6 +1,9 @@
+const baseUrl: string = `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_VERSION}`
+
 export const EndPointUrlConst: any = {
   AUTH: {
-    LOGIN: '/api/auth/sign-in',
-    REGISTER: '/api/auth/sign-up'
+    REGISTER_VALIDATE: `${baseUrl}/auth/register/validate`,
+    REGISTER: `${baseUrl}/auth/register`,
+    REQUEST_OTP: `${baseUrl}/auth/request-top`
   }
 }

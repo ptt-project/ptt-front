@@ -1,7 +1,7 @@
 export interface IAuthRegisterForm {
   firstName: string
   lastName: string
-  mobileNo: string
+  mobile: string
   email: string
   username: string
   password: string

@@ -52,7 +52,7 @@ const Phone: FC = () => {
 
   return (
     <>
-      <OtpModal mobileNo="12346" isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
+      <OtpModal mobile="12346" isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
       <ConfirmationModal
         isOpen={isOpenDelPhoneModal}
         toggle={toggleDelPhoneModal}

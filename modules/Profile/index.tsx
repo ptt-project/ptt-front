@@ -28,7 +28,7 @@ const { Text, Title } = Typography
 interface IFormModel {
   firstName: string
   lastName: string
-  mobileNo: string
+  mobile: string
   email: string
 }
 

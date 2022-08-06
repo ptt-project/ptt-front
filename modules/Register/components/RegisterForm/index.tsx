@@ -1,12 +1,28 @@
 import React, { useState, FC, ChangeEvent } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, Modal } from 'antd'
-import { Rule } from 'antd/lib/form'
+import { AxiosResponse } from 'axios'
 import { isEmpty } from 'lodash'
+import {
+  Typography,
+  Space,
+  Button,
+  Row,
+  Col,
+  Form,
+  Input,
+  Divider,
+  Image,
+  Modal,
+  message
+} from 'antd'
+import { Rule } from 'antd/lib/form'
+import Loading from '~/components/main/Loading'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import { IAuthRegisterForm } from '~/interfaces'
+import { IAuthRegisterForm, IAuthRegisterValidateService } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
+import { AuthService } from '~/services'
+import { CommonApiCodeEnum } from '~/enums'
 import styles from './RegisterForm.module.scss'
 
 const { Text, Title, Link } = Typography
@@ -19,6 +35,8 @@ interface IRegisterFormProps {
 const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register'])
   const router: NextRouter = useRouter()
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState<string>('')
   const [form] = Form.useForm()
 
@@ -60,19 +78,40 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
 
   function onMobileNoChange(e: ChangeEvent<HTMLInputElement>): void {
     if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
-      form.setFieldsValue({ mobileNo: e.target.value })
+      form.setFieldsValue({ mobile: e.target.value })
     } else {
-      form.setFieldsValue({ mobileNo: e.target.value.replace(RegExpConst.ALLOW_NUMBER, '') })
+      form.setFieldsValue({ mobile: e.target.value.replace(RegExpConst.ALLOW_NUMBER, '') })
     }
   }
 
-  function onSubmit(values: IAuthRegisterForm): void {
-    props.setForm(values)
-    props.setStep(1)
+  async function onSubmit(values: IAuthRegisterForm): Promise<void> {
+    setIsLoading(true)
+    let isSuccess: boolean = false
+    try {
+      const payload: IAuthRegisterValidateService = {
+        email: values.email,
+        username: values.username
+      }
+      const result: AxiosResponse = await AuthService.registerValidate(payload)
+      if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
+        isSuccess = true
+        props.setForm(values)
+        props.setStep(1)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
   return (
     <>
+      <Loading show={isLoading} />
       <Modal
         title={
           <Title className="mb-0 text-center" level={4}>
@@ -145,14 +184,12 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                   </Col>
                   <Col md={12} xs={24}>
                     <Form.Item
-                      label={t('auth.register:form.mobileNo')}
-                      name="mobileNo"
+                      label={t('auth.register:form.mobile')}
+                      name="mobile"
                       rules={[
                         {
                           required: true,
-                          message: `${t('common:form.required')} ${t(
-                            'auth.register:form.mobileNo'
-                          )}`
+                          message: `${t('common:form.required')} ${t('auth.register:form.mobile')}`
                         },
                         {
                           min: 10,
