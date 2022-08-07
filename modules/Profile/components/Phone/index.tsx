@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
@@ -6,16 +7,17 @@ import { Typography, Button, Row, Col, Space } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
-import t from '~/locales'
 import { IOtpData } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './ProfilePhone.module.scss'
 
 const { Text } = Typography
 
 const Phone: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isOpenDelPhoneModal, setIsOpenDelPhoneModal] = useState<boolean>(false)
@@ -57,23 +59,23 @@ const Phone: FC = () => {
         isOpen={isOpenDelPhoneModal}
         toggle={toggleDelPhoneModal}
         type="error"
-        title={t('profile.phone.deletePhone')}
-        content={`${t('profile.phone.confirmDelete')} 081-2226666`}
-        contentWarning={t('profile.phone.msgConfirmDelete')}
+        title={t('account-info:phone.deletePhone')}
+        content={`${t('account-info:phone.confirmDelete')} 081-2226666`}
+        contentWarning={t('account-info:phone.msgConfirmDelete')}
         onSubmit={onRemove}
       />
       <main className="main">
         <Helmet>
           <title>
-            {t('meta.title')} | {t('profile.phone.titleEdit')}
+            {t('common:meta.title')} | {t('account-info:phone.titleEdit')}
           </title>
         </Helmet>
         <Breadcrumbs
           items={[
-            { title: t('profile.setting') },
-            { title: t('profile.title') },
-            { title: t('profile.personalInfo'), href: '/settings/account/info' },
-            { title: t('profile.phone.titleEdit'), href: '/settings/account/info/phone' }
+            { title: t('account-info:setting') },
+            { title: t('account-info:title') },
+            { title: t('account-info:personalInfo'), href: '/settings/account/info' },
+            { title: t('account-info:phone.titleEdit'), href: '/settings/account/info/phone' }
           ]}
         />
         <div className="page-content mb-9">
@@ -85,18 +87,18 @@ const Phone: FC = () => {
               <Col xs={24} xl={18} lg={24}>
                 <Text>
                   <h4 className={`text-center mb-5 ${styles.textSecondary}`}>
-                    {t('profile.phone.titleEdit')}
+                    {t('account-info:phone.titleEdit')}
                   </h4>
                 </Text>
                 <Row>
                   <Col md={12}>
-                    <HighlightLabel title={t('profile.phone.phoneList')} />
+                    <HighlightLabel title={t('account-info:phone.phoneList')} />
                   </Col>
                   <Col md={12} xs={18} className="text-right">
                     <Link href={CustomUrlUtil('/settings/account/info/add-phone', router.locale)}>
                       <Button className="hps-btn-secondary mt-3">
                         <i className="fas fa-plus mr-2" />
-                        {t('profile.button.addPhone')}
+                        {t('account-info:button.addPhone')}
                       </Button>
                     </Link>
                   </Col>
@@ -106,7 +108,7 @@ const Phone: FC = () => {
                     <Text className={`mr-2 ${styles.textPrimary}`}>081-111-1111</Text>
                     <Button>
                       <i className="fas fa-star mr-2" />
-                      {t('profile.button.mainNumber')}
+                      {t('account-info:button.mainNumber')}
                     </Button>
                   </Col>
                 </Row>

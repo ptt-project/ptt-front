@@ -1,63 +1,67 @@
 import React, { FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import { Typography, Row, Col } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import SellerPointFilters from './components/SellerPointFilters'
 import SellerPointTabs from './components/SellerPointTabs'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './SellerPoint.module.scss'
 
 const { Text, Title } = Typography
 
-const SellerPoint: FC = () => (
-  <main className="main">
-    <Helmet>
-      <title>
-        {t('meta.title')} | {t('sellerPoint.title')}
-      </title>
-    </Helmet>
-    <Breadcrumbs
-      items={[
-        { title: t('sellerPoint.shop') },
-        { title: t('sellerPoint.title'), href: '/seller/settings/shop/point' }
-      ]}
-    />
-    <div className="page-content mb-9">
-      <div className="container">
-        <Row gutter={48}>
-          <Col xl={6}>
-            <SettingSidebar sidebarType="seller" />
-          </Col>
-          <Col xl={18} lg={24}>
-            <Row className="mb-3" align="middle">
-              <Col xs={20}>
-                <Title className={`${styles.h4} ${styles.textSecondary}`} level={4}>
-                  {t('sellerPoint.title')}
-                </Title>
-                <Text type="secondary">{t('sellerPoint.detail')}</Text>
-              </Col>
-              <Col xs={4}>
-                <div className={styles.point}>
-                  <Title className={styles.h1} type="danger" level={1}>
-                    5.0
+const SellerPoint: FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.point'])
+  return (
+    <main className="main">
+      <Helmet>
+        <title>
+          {t('common:meta.title')} | {t('seller.point:title')}
+        </title>
+      </Helmet>
+      <Breadcrumbs
+        items={[
+          { title: t('seller.point:shop') },
+          { title: t('seller.point:title'), href: '/seller/settings/shop/point' }
+        ]}
+      />
+      <div className="page-content mb-9">
+        <div className="container">
+          <Row gutter={48}>
+            <Col xl={6}>
+              <SettingSidebar sidebarType="seller" />
+            </Col>
+            <Col xl={18} lg={24}>
+              <Row className="mb-3" align="middle">
+                <Col xs={20}>
+                  <Title className={`${styles.h4} ${styles.textSecondary}`} level={4}>
+                    {t('seller.point:title')}
                   </Title>
-                  <Title className={`${styles.h4} ${styles.space}`} type="secondary" level={4}>
-                    /
-                  </Title>
-                  <Title className={styles.h4} type="secondary" level={4}>
-                    {t('sellerPoint.part')}
-                  </Title>
-                </div>
-              </Col>
-            </Row>
-            <SellerPointFilters />
-            <SellerPointTabs />
-          </Col>
-        </Row>
+                  <Text type="secondary">{t('seller.point:detail')}</Text>
+                </Col>
+                <Col xs={4}>
+                  <div className={styles.point}>
+                    <Title className={styles.h1} type="danger" level={1}>
+                      5.0
+                    </Title>
+                    <Title className={`${styles.h4} ${styles.space}`} type="secondary" level={4}>
+                      /
+                    </Title>
+                    <Title className={styles.h4} type="secondary" level={4}>
+                      {t('seller.point:part')}
+                    </Title>
+                  </div>
+                </Col>
+              </Row>
+              <SellerPointFilters />
+              <SellerPointTabs />
+            </Col>
+          </Row>
+        </div>
       </div>
-    </div>
-  </main>
-)
+    </main>
+  )
+}
 
 export default SellerPoint

@@ -1,7 +1,8 @@
 import React from 'react'
+import { useTranslation } from 'next-i18next'
 import { Typography, Col, Form, Input, Row, Switch } from 'antd'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from '../SellerMyProductsForm.module.scss'
 
 const { Text } = Typography
@@ -14,16 +15,17 @@ interface IFormProductFeaturesProps {
   disabled?: boolean
 }
 const Delivery: React.FC<IFormProductFeaturesProps> = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const onChange = (checked: boolean): void => {
     console.log(`switch to ${checked}`)
   }
   return (
     <>
-      <HighlightLabel title={t('sellerProducts.form.delivery.title')} />
+      <HighlightLabel title={t('seller.product:form.delivery.title')} />
       <Row gutter={[16, 8]}>
         <Col md={12}>
           <Form.Item
-            label={t('sellerProducts.form.delivery.weight')}
+            label={t('seller.product:form.delivery.weight')}
             name="weight"
             rules={[
               {
@@ -31,29 +33,29 @@ const Delivery: React.FC<IFormProductFeaturesProps> = () => {
               }
             ]}
           >
-            <Input suffix={<Text type="secondary">{t('sellerProducts.form.delivery.kg')}</Text>} />
+            <Input suffix={<Text type="secondary">{t('seller.product:form.delivery.kg')}</Text>} />
           </Form.Item>
         </Col>
         <Col md={12}>
-          <Form.Item label={t('sellerProducts.form.delivery.size')} name="size">
+          <Form.Item label={t('seller.product:form.delivery.size')} name="size">
             <Input
-              suffix={<Text type="secondary">{t('sellerProducts.form.delivery.cm')}</Text>}
+              suffix={<Text type="secondary">{t('seller.product:form.delivery.cm')}</Text>}
               style={{ width: 100 }}
             />
             <Input
-              suffix={<Text type="secondary">{t('sellerProducts.form.delivery.cm')}</Text>}
+              suffix={<Text type="secondary">{t('seller.product:form.delivery.cm')}</Text>}
               className="mr-3 ml-3"
               style={{ width: 100 }}
             />
             <Input
-              suffix={<Text type="secondary">{t('sellerProducts.form.delivery.cm')}</Text>}
+              suffix={<Text type="secondary">{t('seller.product:form.delivery.cm')}</Text>}
               style={{ width: 100 }}
             />
           </Form.Item>
         </Col>
         <Col md={24}>
           <Form.Item
-            label={t('sellerProducts.form.delivery.shippingCost')}
+            label={t('seller.product:form.delivery.shippingCost')}
             name="shippingCost"
             rules={[
               {
@@ -63,13 +65,13 @@ const Delivery: React.FC<IFormProductFeaturesProps> = () => {
           >
             <Row gutter={[8, 8]} className={styles.highlight}>
               <Col md={20}>
-                <Text className="ml-2">{t('sellerProducts.form.delivery.standardDelivery')}</Text>
+                <Text className="ml-2">{t('seller.product:form.delivery.standardDelivery')}</Text>
               </Col>
               <Col md={3} className="text-right">
                 <Switch onChange={onChange} defaultChecked />
               </Col>
               <Col md={20}>
-                <Text className="ml-2">{t('sellerProducts.form.delivery.ems')}</Text>
+                <Text className="ml-2">{t('seller.product:form.delivery.ems')}</Text>
               </Col>
               <Col md={3} className="text-right">
                 <Switch onChange={onChange} defaultChecked />

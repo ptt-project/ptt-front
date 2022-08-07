@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import { Typography, Button, Col, Modal, Row, Avatar, Rate, Input, Form } from 'antd'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from './ReplyModal.module.scss'
 
 const { Text, Title } = Typography
@@ -20,6 +21,7 @@ interface IFormModel {
 }
 
 const ReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps) => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.point'])
   const [form] = Form.useForm()
 
   function toggle(): void {
@@ -36,7 +38,7 @@ const ReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps) => 
       title={[
         <Title className="mb-0" level={4}>
           <i className={`fas fa-info-circle mr-2 ${styles.iconInfo}`} />
-          {t('sellerPoint.reply')}
+          {t('seller.point:reply')}
         </Title>
       ]}
       visible={props.isOpen}
@@ -56,12 +58,12 @@ const ReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps) => 
           </Col>
           <Col span={24}>
             <Form.Item
-              label={t('sellerPoint.msgReply')}
+              label={t('seller.point:msgReply')}
               name="comment"
               rules={[
                 {
                   required: true,
-                  message: `${t('common.form.required')} ${t('sellerPoint.msgReply')}`
+                  message: `${t('common.form.required')} ${t('seller.point:msgReply')}`
                 }
               ]}
             >
