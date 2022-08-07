@@ -138,8 +138,8 @@ const Review: FC = () => {
             <Pagination
               className="mb-3"
               showTotal={(total: number, range: [number, number]): string =>
-                `${range[0]}-${range[1]} ${t('common.pagination.of')} ${total} ${t(
-                  'common.pagination.items'
+                `${range[0]}-${range[1]} ${t('common:pagination.of')} ${total} ${t(
+                  'common:pagination.items'
                 )}`
               }
               total={5}
