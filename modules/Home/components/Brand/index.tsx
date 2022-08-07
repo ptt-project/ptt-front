@@ -18,8 +18,8 @@ const Promotion: FC = () => {
       './images/brands/4.png',
       './images/brands/5.png',
       './images/brands/6.png',
-      'https://via.placeholder.com/400x400?text=400 x 400',
-      'https://via.placeholder.com/400x400?text=400 x 400'
+      'https://dummyimage.com/400x400?text=400 x 400',
+      'https://dummyimage.com/400x400?text=400 x 400'
     ]
 
     return images.map((src: string, index: number) => (

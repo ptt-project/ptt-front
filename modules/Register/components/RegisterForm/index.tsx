@@ -76,7 +76,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
     }
   }
 
-  function onMobileNoChange(e: ChangeEvent<HTMLInputElement>): void {
+  function onMobileChange(e: ChangeEvent<HTMLInputElement>): void {
     if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
       form.setFieldsValue({ mobile: e.target.value })
     } else {
@@ -197,7 +197,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={10} onChange={onMobileNoChange} />
+                      <Input maxLength={10} onChange={onMobileChange} />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>

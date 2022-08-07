@@ -13,5 +13,5 @@ export interface IAuthLoginForm {
 }
 
 export interface IAuthForgotPasswordForm {
-  emailOrMobileNo: string
+  reference: string
 }

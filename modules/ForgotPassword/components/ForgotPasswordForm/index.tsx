@@ -15,7 +15,7 @@ interface IForgotPasswordFormProps {
 const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPasswordFormProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.forgot-password'])
   const [form] = Form.useForm()
-  const [formData, setFormData] = useState<IAuthForgotPasswordForm>({ emailOrMobileNo: '' })
+  const [formData, setFormData] = useState<IAuthForgotPasswordForm>({ reference: '' })
 
   function onChangeFields(_: IFieldData[], allFields: IFieldData[]): void {
     if (_.length) {
@@ -57,30 +57,30 @@ const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPassword
               <Row>
                 <Col md={{ span: 12, offset: 6 }} xs={24}>
                   <Form.Item
-                    label={t('auth.forgot-password:form.emailOrMobileNo')}
-                    name="emailOrMobileNo"
+                    label={t('auth.forgot-password:form.reference')}
+                    name="reference"
                     rules={[
                       {
                         required: true,
                         message: `${t('common:form.required')} ${t(
-                          'auth.forgot-password:form.emailOrMobileNo'
+                          'auth.forgot-password:form.reference'
                         )}`
                       },
                       (): any => ({
                         validator(_: Rule, value: string): Promise<any> {
                           const isValidEmail: boolean =
                             value && value.match(RegExpConst.CHECK_EMAIL) !== null
-                          const isValidMobileNo: boolean =
+                          const isValidMobile: boolean =
                             value &&
                             value.length === 10 &&
                             value.replace(RegExpConst.ALLOW_NUMBER, '').length === 10
-                          if (!value || isValidEmail || isValidMobileNo) {
+                          if (!value || isValidEmail || isValidMobile) {
                             return Promise.resolve()
                           }
                           return Promise.reject(
                             new Error(
                               `${t('common:form.invalid.head')} ${t(
-                                'auth.forgot-password:form.emailOrMobileNo'
+                                'auth.forgot-password:form.reference'
                               )} ${t('common:form.invalid.tail')}`
                             )
                           )

@@ -22,11 +22,11 @@ const ForgotPassword: FC = () => {
   function onSubmit(values: IAuthForgotPasswordForm): void {
     try {
       console.log(values)
-      if (RegExpConst.CHECK_EMAIL.test(values.emailOrMobileNo)) {
-        setEmail(values.emailOrMobileNo)
+      if (RegExpConst.CHECK_EMAIL.test(values.reference)) {
+        setEmail(values.reference)
         setStep(1)
-      } else if (values.emailOrMobileNo.replace(RegExpConst.ALLOW_NUMBER, '').length === 10) {
-        setMobile(values.emailOrMobileNo)
+      } else if (values.reference.replace(RegExpConst.ALLOW_NUMBER, '').length === 10) {
+        setMobile(values.reference)
         setIsOpen(true)
       }
     } catch (error) {

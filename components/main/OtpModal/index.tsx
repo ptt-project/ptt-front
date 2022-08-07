@@ -82,7 +82,7 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
     if (isSuccess) {
       message.success(t('common:apiMessage.success'))
     } else {
-      message.success(t('common:apiMessage.error'))
+      message.error(t('common:apiMessage.error'))
     }
     setIsLoading(false)
   }

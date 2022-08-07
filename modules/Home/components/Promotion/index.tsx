@@ -31,7 +31,7 @@ const Promotion: FC = () => {
   function renderImages(): JSX.Element[] {
     const images: string[] = []
     for (let i: number = 0; i < 30; i++) {
-      images.push('https://via.placeholder.com/800x800?text=800 x 800')
+      images.push('https://dummyimage.com/800x800?text=800 x 800')
     }
     const items: JSX.Element[] = images.map((src: string, index: number) => (
       <div className={styles.box} key={index} style={{ width: 148.5 }}>
