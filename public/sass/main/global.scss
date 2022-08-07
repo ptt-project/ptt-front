@@ -72,6 +72,14 @@
   }
 }
 
+.hps-rating {
+  color: $warning-color;
+
+  .ant-rate-star:not(:last-child) {
+    margin-right: 2px;
+  }
+}
+
 .setting-sidebar,
 .main-sidebar {
   .ss-bar,
