@@ -7,11 +7,10 @@ import styles from './SellerPointTabs.module.scss'
 
 const { TabPane } = Tabs
 
-function onChange(key: string): void {
-  console.log(key)
-}
-
 const SellerPointTabs: FC = () => {
+  function onChange(key: string): void {
+    console.log(key)
+  }
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.point'])
   return (
     <Tabs className={`${styles.tabs} hps-scroll`} defaultActiveKey="1" onChange={onChange}>

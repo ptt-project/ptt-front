@@ -52,8 +52,6 @@ const Review: FC = () => {
     avatar: '',
     detail: ''
   })
-  const ofLabel: string = t('common.pagination.of') // prevent error hook rules
-  const itemsLabel: string = t('common.pagination.items') // prevent error hook rules
 
   function toggle(): void {
     setIsOpen(!isOpen)
@@ -140,7 +138,9 @@ const Review: FC = () => {
             <Pagination
               className="mb-3"
               showTotal={(total: number, range: [number, number]): string =>
-                `${range[0]}-${range[1]} ${ofLabel} ${total} ${itemsLabel}`
+                `${range[0]}-${range[1]} ${t('common.pagination.of')} ${total} ${t(
+                  'common.pagination.items'
+                )}`
               }
               total={5}
               showSizeChanger

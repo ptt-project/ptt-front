@@ -38,31 +38,26 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
   const [isCheckButtonProduct2Options, setIsCheckButtonProduct2Options] = useState<boolean>(true)
   const [calProductOptions, setCalProductOptions] = useState<number>(0)
   const [calProduct2Options, setCalProduct2Options] = useState<number>(0)
-  const productModel: string = t('seller.product:form.sales.productModel') // prevent error hook rules
-  const choice: string = t('seller.product:form.sales.choice2') // prevent error hook rules
-  const sku: string = t('seller.product:form.sales.sku') // prevent error hook rules
-  const priceBaht: string = t('seller.product:form.sales.priceBaht') // prevent error hook rules
-  const warehouse: string = t('seller.product:form.sales.warehouse') // prevent error hook rules
 
   const columns: ColumnsType<IDataType> = [
     {
-      title: productModel,
+      title: t('seller.product:form.sales.productModel'),
       dataIndex: 'productModel'
     },
     {
-      title: choice,
+      title: t('seller.product:form.sales.choice2'),
       dataIndex: 'choice'
     },
     {
-      title: sku,
+      title: t('seller.product:form.sales.sku'),
       dataIndex: 'sku'
     },
     {
-      title: priceBaht,
+      title: t('seller.product:form.sales.priceBaht'),
       dataIndex: 'price'
     },
     {
-      title: warehouse,
+      title: t('seller.product:form.sales.warehouse'),
       dataIndex: 'warehouse'
     }
   ]

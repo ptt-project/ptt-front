@@ -46,16 +46,9 @@ const List: FC = () => {
   const [isOpenDelModal, setIsOpenDelModal] = useState<boolean>(false)
   const [isContentImg, setIsContentImg] = useState<string>()
   const [isContentTextImg, setIsContentTextImg] = useState<string>()
-  const productName: string = t('seller.product:list.productName') // prevent error hook rules
-  const SKU: string = t('seller.product:list.SKU') // prevent error hook rules
-  const productSelection: string = t('seller.product:list.productSelection') // prevent error hook rules
-  const price: string = t('seller.product:list.price') // prevent error hook rules
-  const warehouse: string = t('seller.product:list.warehouse') // prevent error hook rules
-  const sales: string = t('seller.product:list.sales') // prevent error hook rules
-  const operation: string = t('seller.product:list.operation') // prevent error hook rules
   const columns: ColumnsType<IDataType> = [
     {
-      title: productName,
+      title: t('seller.product:list.productName'),
       dataIndex: 'productName',
       render: (text: string, item: IDataType) => (
         <>
@@ -83,35 +76,35 @@ const List: FC = () => {
       )
     },
     {
-      title: SKU,
+      title: t('seller.product:list.SKU'),
       dataIndex: 'sku'
     },
     {
-      title: productSelection,
+      title: t('seller.product:list.productSelection'),
       dataIndex: 'productSelection'
     },
     {
-      title: price,
+      title: t('seller.product:list.price'),
       dataIndex: 'price',
       defaultSortOrder: 'descend',
       align: 'right'
       // sorter: (a: IDataType, b: IDataType) => a.price - b.price // build error
     },
     {
-      title: warehouse,
+      title: t('seller.product:list.warehouse'),
       dataIndex: 'warehouse',
       defaultSortOrder: 'descend'
       // sorter: (a: IDataType, b: IDataType) => a.warehouse - b.warehouse // build error
     },
     {
-      title: sales,
+      title: t('seller.product:list.sales'),
       dataIndex: 'sales',
       defaultSortOrder: 'descend',
       align: 'right'
       // sorter: (a: IDataType, b: IDataType) => a.sales - b.sales // build error
     },
     {
-      title: operation,
+      title: t('seller.product:list.operation'),
       dataIndex: '',
       key: 'x',
       render: (text: string, item: IDataType) => (
