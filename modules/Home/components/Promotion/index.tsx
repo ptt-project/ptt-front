@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC } from 'react'
 import { useTranslation } from 'next-i18next'
 import moment from 'moment'
 import numeral from 'numeral'
-import { Typography, Row, Col, Space, Carousel } from 'antd'
+import { Typography, Row, Col, Space, Carousel, Tag } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from './Promotion.module.scss'
 
@@ -30,7 +30,7 @@ const Promotion: FC = () => {
 
   function renderImages(): JSX.Element[] {
     const images: string[] = []
-    for (let i: number = 0; i < 30; i++) {
+    for (let i: number = 0; i < 18; i++) {
       images.push('https://dummyimage.com/800x800?text=800 x 800')
     }
     const items: JSX.Element[] = images.map((src: string, index: number) => (
@@ -39,6 +39,10 @@ const Promotion: FC = () => {
           <div className={styles.imgWrapper}>
             <img src={src} alt="product" />
           </div>
+          <Tag color="red" className={styles.tag}>
+            <i className="fas fa-angle-double-down mr-2" />
+            XX%
+          </Tag>
         </div>
         <div className={styles.detailContainer}>
           <Text className={styles.dTitle} type="secondary">

@@ -6,6 +6,7 @@ import MainSidebar from '~/components/main/MainSidebar'
 import Banner from './components/Banner'
 import Promotion from './components/Promotion'
 import Brand from './components/Brand'
+import Product from './components/Product'
 import { LocaleNamespaceConst } from '~/constants'
 
 const { Title } = Typography
@@ -36,6 +37,9 @@ const Home: FC = () => {
               </div>
               <div className="mb-8">
                 <Brand />
+              </div>
+              <div className="mb-8">
+                <Product />
               </div>
             </Col>
           </Row>
