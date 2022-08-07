@@ -13,7 +13,7 @@ const Register: FC = () => {
   const [form, setForm] = useState<IAuthRegisterForm>({
     firstName: '',
     lastName: '',
-    mobileNo: '',
+    mobile: '',
     email: '',
     username: '',
     password: ''

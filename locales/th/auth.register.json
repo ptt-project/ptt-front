@@ -3,7 +3,7 @@
   "form": {
     "firstName": "ชื่อ",
     "lastName": "นามสกุล",
-    "mobileNo": "หมายเลขโทรศัพท์",
+    "mobile": "หมายเลขโทรศัพท์",
     "email": "Email",
     "username": "Username",
     "password": "Password",

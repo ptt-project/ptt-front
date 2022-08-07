@@ -111,7 +111,7 @@ const ChangePassword: React.FC = () => {
           }
         ]}
       />
-      <OtpModal mobileNo={user.mobileNo} isOpen={isOpen} toggle={toggle} onSubmit={onSubmitOtp} />
+      <OtpModal mobile={user.mobileNo} isOpen={isOpen} toggle={toggle} onSubmit={onSubmitOtp} />
       <div className="page-content mb-9">
         <div className="container">
           <Row>
