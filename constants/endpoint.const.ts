@@ -5,5 +5,8 @@ export const EndPointUrlConst: any = {
     REGISTER_VALIDATE: `${baseUrl}/auth/register/validate`,
     REGISTER: `${baseUrl}/auth/register`,
     REQUEST_OTP: `${baseUrl}/auth/request-top`
+  },
+  MEMBER:{
+    PROFILE:`${baseUrl}/members/profile`
   }
 }
