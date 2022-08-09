@@ -25,14 +25,14 @@ const EWallet: React.FC<IEWalletProps> = (props: IEWalletProps) => {
   return (
     <main className="main">
       <Helmet>
-        {t('common:meta.title')} | {t('address:title')}
+        {t('common:meta.title')} | {t('e-wallet:title')}
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('address:breadcrumbs.setting') },
-          { title: t('address:breadcrumbs.account') },
+          { title: t('e-wallet:breadcrumbs.setting') },
+          { title: t('e-wallet:breadcrumbs.account') },
           {
-            title: t('address:breadcrumbs.address'),
+            title: t('e-wallet:breadcrumbs.eWallet'),
             href: CustomUrlUtil(`${rootMenu}/settings/account/address`, router.locale)
           }
         ]}
@@ -53,13 +53,13 @@ const EWallet: React.FC<IEWalletProps> = (props: IEWalletProps) => {
               <Row className={styles.contentLayout} gutter={[0, 16]}>
                 <Col span={24}>
                   <Title className={styles.sectionTitle} level={4}>
-                    {t('E-Wallet')}
+                    {t('e-wallet:title')}
                   </Title>
                   <BalanceCard balance={balance} />
                 </Col>
                 <Col span={24}>
                   <Title className={styles.sectionTitle} level={4}>
-                    {t('ประวัติการทำรายการ')}
+                    {t('e-wallet:history.title')}
                   </Title>
                   <EWalletHistory />
                 </Col>

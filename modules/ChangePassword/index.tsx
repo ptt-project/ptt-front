@@ -30,17 +30,6 @@ const ChangePassword: React.FC = () => {
   const [form] = Form.useForm<IChangePasswordFormValues>()
   const [formValues, setFormValues] = useState<IChangePasswordFormValues>()
 
-  const requiredPassword: string = `${t('common:form.required')} ${t('change-password:password')}` // prevent error hook rules
-  const requiredNewPassword: string = `${t('common:form.required')} ${t(
-    'change-password:newPassword'
-  )}` // prevent error hook rules
-  const invalidPassword: string = `${t('common:form.invalid.head')} ${t(
-    'change-password:newPassword'
-  )} ${t('common:form.invalid.tail')}` // prevent error hook rules
-  const notMatchPassword: string = `${t('change-password:confirmNewPassword')} ${t(
-    'common:form.notMatch'
-  )}` // prevent error hook rules
-
   function onSubmit(values: IChangePasswordFormValues): void {
     setFormValues(values)
     setIsOpen(true)
@@ -70,7 +59,13 @@ const ChangePassword: React.FC = () => {
       if (!value || RegExpConst.CHECK_PASSWORD.test(value)) {
         return Promise.resolve()
       }
-      return Promise.reject(new Error(invalidPassword))
+      return Promise.reject(
+        new Error(
+          `${t('common:form.invalid.head')} ${t('change-password:newPassword')} ${t(
+            'common:form.invalid.tail'
+          )}`
+        )
+      )
     }
   })
 
@@ -80,7 +75,9 @@ const ChangePassword: React.FC = () => {
     validator(_: Rule, confirmNewPassword: string): Promise<void> {
       const newPassword: string = getFieldValue('newPassword')
       if (newPassword && confirmNewPassword && newPassword !== confirmNewPassword) {
-        return Promise.reject(notMatchPassword)
+        return Promise.reject(
+          new Error(`${t('change-password:confirmNewPassword')} ${t('common:form.notMatch')}`)
+        )
       }
       return Promise.resolve()
     }
@@ -89,7 +86,7 @@ const ChangePassword: React.FC = () => {
   const baseRules: Rule[] = [
     {
       required: true,
-      message: requiredNewPassword
+      message: `${t('common:form.required')} ${t('change-password:newPassword')}`
     },
     validatePasswordFormat
   ]
@@ -97,9 +94,7 @@ const ChangePassword: React.FC = () => {
   return (
     <main className="main">
       <Helmet>
-        <title>
-          {t('common:meta.title')} | {t('change-password:title')}
-        </title>
+        {t('common:meta.title')} | {t('change-password:title')}
       </Helmet>
       <Breadcrumbs
         items={[
@@ -138,7 +133,7 @@ const ChangePassword: React.FC = () => {
                       rules={[
                         {
                           required: true,
-                          message: requiredPassword
+                          message: `${t('common:form.required')} ${t('change-password:password')}`
                         }
                       ]}
                     >

@@ -33,7 +33,7 @@ const EWalletHistory: FC = () => {
     <Row className={styles.layout} justify="space-between" align="middle" gutter={[0, 16]}>
       <Col xs={24} className={styles.filterLayout}>
         <Space className="w-100" direction="vertical" size={8}>
-          <Text className={styles.balanceLabel}>{t('ยอดเงินคงเหลือ :')}</Text>
+          <Text>{t('e-wallet:history.filterDateRange')}</Text>
           <DatePicker.RangePicker
             className="w-100"
             ranges={{
@@ -47,13 +47,13 @@ const EWalletHistory: FC = () => {
       </Col>
       <Col xs={24}>
         <Tabs defaultActiveKey={tabActive} onChange={onTabChange}>
-          <Tabs.TabPane tab={t('ทั้งหมด')} key={EWalletHistoryTabsEnum.ALL}>
+          <Tabs.TabPane tab={t('e-wallet:history.all')} key={EWalletHistoryTabsEnum.ALL}>
             <EWalletHistoryTable data={[]} />
           </Tabs.TabPane>
-          <Tabs.TabPane tab={t('การเติมเงิน')} key={EWalletHistoryTabsEnum.WITHDRAW}>
+          <Tabs.TabPane tab={t('e-wallet:history.withdraw')} key={EWalletHistoryTabsEnum.WITHDRAW}>
             <EWalletHistoryTable data={[]} />
           </Tabs.TabPane>
-          <Tabs.TabPane tab={t('การถอนเงิน')} key={EWalletHistoryTabsEnum.TOP_UP}>
+          <Tabs.TabPane tab={t('e-wallet:history.topUp')} key={EWalletHistoryTabsEnum.TOP_UP}>
             <EWalletHistoryTable data={[]} />
           </Tabs.TabPane>
         </Tabs>

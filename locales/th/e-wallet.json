@@ -1,0 +1,26 @@
+{
+  "breadcrumbs": {
+    "setting": "ตั้งค่า",
+    "account": "บัญชีผู้ใช้",
+    "address": "ที่อยู่",
+    "addAddress": "เพิ่มที่อยู่",
+    "editAddress": "แก้ไขที่อยู่",
+    "eWallet": "E-wallet"
+  },
+  "title": "E-Wallet",
+  "history": {
+    "title": "ประวัติการทำรายการ",
+    "all": "ทั้งหมด",
+    "withdraw": "การเติมเงิน",
+    "topUp": "การถอนเงิน",
+    "createdAt": "วันที่ทำรายการ",
+    "type": "ประเภท",
+    "description": "รายละเอียด",
+    "amount": "จำนวนเงิน",
+    "status": "สถานะ",
+    "filterDateRange": "ช่วงเวลาที่ทำรายการ"
+  },
+  "balance": "ยอดเงินคงเหลือ :",
+  "withdraw": "ถอนเงิน",
+  "topUp": "เติมเงิน"
+}

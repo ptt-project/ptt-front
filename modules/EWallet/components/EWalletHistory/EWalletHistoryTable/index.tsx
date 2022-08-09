@@ -31,21 +31,21 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
   const columns: ColumnsType<IEWalletHistoryData> = useMemo(
     (): ColumnsType<IEWalletHistoryData> => [
       {
-        title: t('วันที่ทำรายการ'),
+        title: t('e-wallet:history.createdAt'),
         dataIndex: 'createdAt',
         key: 'createdAt',
         sorter: false,
         showSorterTooltip: false
       },
       {
-        title: t('ประเภท'),
+        title: t('e-wallet:history.type'),
         dataIndex: 'type',
         key: 'type',
         sorter: false,
         showSorterTooltip: false
       },
       {
-        title: t('รายละเอียด'),
+        title: t('e-wallet:history.description'),
         dataIndex: 'description',
         key: 'description',
         sorter: false,
@@ -58,7 +58,7 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
           })
       },
       {
-        title: t('จำนวนเงิน'),
+        title: t('e-wallet:history.amount'),
         dataIndex: 'amount',
         key: 'amount',
         sorter: false,
@@ -71,7 +71,7 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
           })
       },
       {
-        title: t('สถานะ'),
+        title: t('e-wallet:history.status'),
         dataIndex: 'status',
         key: 'status',
         sorter: false,

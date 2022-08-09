@@ -31,8 +31,7 @@ const Relation: React.FC = () => {
 
   const [tabActive, setTabActive] = useState<RelationTabs>(RelationTabs.RELATION_TREE)
 
-  const inviteLink: string = 'inviteLink'
-  const messageCopyInviteSuccess: string = t('relation:copyInviteSuccess')
+  const inviteLink: string = 'inviteLink' // รอของจริง
   const relationData: IRelationData[] = mockRelationData
 
   // eslint-disable-next-line @typescript-eslint/typedef
@@ -66,16 +65,14 @@ const Relation: React.FC = () => {
 
   function onCopyClick(test: string, isSuccess: boolean): void {
     if (isSuccess) {
-      message.success(messageCopyInviteSuccess)
+      message.success(t('relation:copyInviteSuccess'))
     }
   }
 
   return (
     <main className="main">
       <Helmet>
-        <title>
-          {t('common:meta.title')} | {t('relation:title')}
-        </title>
+        {t('common:meta.title')} | {t('relation:title')}
       </Helmet>
       <Breadcrumbs
         items={[

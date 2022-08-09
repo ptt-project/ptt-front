@@ -25,7 +25,7 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
     <Row className={styles.layout} justify="space-between" align="middle" gutter={[0, 24]}>
       <Col>
         <Space direction="vertical" size={0}>
-          <Text className={styles.balanceLabel}>{t('ยอดเงินคงเหลือ :')}</Text>
+          <Text className={styles.balanceLabel}>{t('e-wallet:balance')}</Text>
           <Text className={styles.balanceValue}>
             {(balance || 0).toLocaleString('th-TH', {
               maximumFractionDigits: 2,
@@ -44,7 +44,7 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
               icon={<Image preview={false} src="./images/main/buyer/icon-withdraw.svg" />}
               onClick={onWithdrawClick}
             >
-              {t('ถอนเงิน')}
+              {t('e-wallet:withdraw')}
             </Button>
           </Col>
           <Col>
@@ -53,7 +53,7 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
               icon={<Image preview={false} src="./images/main/buyer/icon-top-up.svg" />}
               onClick={onTopUpClick}
             >
-              {t('เติมเงิน')}
+              {t('e-wallet:topUp')}
             </Button>
           </Col>
         </Row>
