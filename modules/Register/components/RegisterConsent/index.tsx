@@ -9,7 +9,7 @@ import OtpModal from '~/components/main/OtpModal'
 import { IAuthRegisterForm, IAuthRegisterService, IOtpData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
-import { CommonApiCodeEnum } from '~/enums'
+import { CommonApiCodeEnum, OtpTypeEnum } from '~/enums'
 import styles from './RegisterConsent.module.scss'
 
 const { Text, Title } = Typography
@@ -76,9 +76,9 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
       console.log(error)
     }
     if (isSuccess) {
-      message.success(t('common.apiMessage.success'))
+      message.success(t('common:apiMessage.success'))
     } else {
-      message.success(t('common.apiMessage.error'))
+      message.success(t('common:apiMessage.error'))
     }
     setIsLoading(false)
   }
@@ -86,7 +86,13 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
   return (
     <>
       <Loading show={isLoading} />
-      <OtpModal mobile={props.form.mobile} isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
+      <OtpModal
+        mobile={props.form.mobile}
+        action={OtpTypeEnum.REGISTER}
+        isOpen={isOpen}
+        toggle={toggle}
+        onSubmit={onSubmit}
+      />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
