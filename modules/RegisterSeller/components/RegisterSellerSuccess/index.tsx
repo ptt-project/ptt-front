@@ -58,7 +58,7 @@ const RegisterSellerSuccess: FC = () => {
                   block
                   href={CustomUrlUtil('/', router.locale)}
                 >
-                  {t('common.ok')}
+                  {t('common:ok')}
                 </Button>
               </Col>
             </Row>

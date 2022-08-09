@@ -109,7 +109,7 @@ const Profile: FC = () => {
                       rules={[
                         {
                           required: true,
-                          message: `${t('common.form.required')} ${t(
+                          message: `${t('common:form.required')} ${t(
                             'account-info:form.firstName'
                           )}`
                         }
@@ -125,7 +125,7 @@ const Profile: FC = () => {
                       rules={[
                         {
                           required: true,
-                          message: `${t('common.form.required')} ${t('account-info:form.lastName')}`
+                          message: `${t('common:form.required')} ${t('account-info:form.lastName')}`
                         }
                       ]}
                     >

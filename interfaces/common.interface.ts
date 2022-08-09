@@ -10,6 +10,7 @@ export interface IBreadcrumb {
 export interface IOtpData {
   otpCode: string
   refCode: string
+  reference: string
 }
 
 export interface IFieldData {

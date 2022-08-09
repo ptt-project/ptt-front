@@ -12,6 +12,7 @@ import { CustomUrlUtil } from '~/utils/main'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
+import { OtpTypeEnum } from '~/enums'
 import styles from './ProfilePhone.module.scss'
 
 const { Text } = Typography
@@ -54,7 +55,13 @@ const Phone: FC = () => {
 
   return (
     <>
-      <OtpModal mobile="12346" isOpen={isOpen} toggle={toggle} onSubmit={onSubmit} />
+      <OtpModal
+        mobile="12346"
+        action={OtpTypeEnum.REGISTER}
+        isOpen={isOpen}
+        toggle={toggle}
+        onSubmit={onSubmit}
+      />
       <ConfirmationModal
         isOpen={isOpenDelPhoneModal}
         toggle={toggleDelPhoneModal}

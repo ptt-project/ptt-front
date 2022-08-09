@@ -3,10 +3,10 @@ import { useTranslation } from 'next-i18next'
 import { AxiosResponse } from 'axios'
 import { Typography, Button, Row, Col, Input, Modal, message } from 'antd'
 import Loading from '../Loading'
-import { IAuthRequestOtpService, IOtpData } from '~/interfaces'
+import { IOtpRequestService, IOtpData } from '~/interfaces'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import { AuthService } from '~/services'
-import { CommonApiCodeEnum } from '~/enums'
+import { OtpService } from '~/services'
+import { CommonApiCodeEnum, OtpTypeEnum } from '~/enums'
 import styles from './OtpModal.module.scss'
 
 const { Text, Title } = Typography
@@ -16,6 +16,7 @@ interface IOtpModalProps {
   toggle: () => void
   title?: string
   mobile: string
+  action: OtpTypeEnum
   onSubmit: (otpData: IOtpData) => void
 }
 
@@ -25,9 +26,10 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [otpInput, setOtpInput] = useState<string>('')
   const [timer, setTimer] = useState<number>(0)
-  const [otpData] = useState<IOtpData>({
+  const [otpData, setOtpData] = useState<IOtpData>({
     otpCode: '',
-    refCode: ''
+    refCode: '',
+    reference: ''
   })
 
   useEffect(() => {
@@ -70,10 +72,11 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: IAuthRequestOtpService = { reference: props.mobile }
-      const result: AxiosResponse = await AuthService.requestOtp(payload)
+      const payload: IOtpRequestService = { reference: props.mobile, type: props.action }
+      const result: AxiosResponse = await OtpService.requestOtp(payload)
       if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
         isSuccess = true
+        setOtpData(result.data.data)
         setTimer(1.5 * 60 * 1000)
       }
     } catch (error) {
@@ -145,7 +148,9 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
             <Text>{t('otp-modal:label')}</Text>
           </div>
           <div className={styles.right}>
-            <Text type="secondary">{t('otp-modal:ref')}</Text>
+            <Text type="secondary">
+              {t('otp-modal:ref')} {otpData.refCode}
+            </Text>
           </div>
         </div>
         <Input maxLength={6} onChange={onChangeOtp} value={otpInput} />
