@@ -1,0 +1,11 @@
+@import '../../../../public/sass/config/variables';
+
+.cInfo {
+  color: $info-color;
+}
+
+.modalContent {
+  .dataLabel {
+    color: $text-gray;
+  }
+}

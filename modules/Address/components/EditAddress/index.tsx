@@ -2,13 +2,14 @@ import React, { useMemo } from 'react'
 import { Col, Typography, Form, Button, Row, notification } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
+import { useTranslation } from 'next-i18next'
 import AddressForm from '../AddressForm'
-import t from '~/locales'
 import { IAddressFormValues } from '~/interfaces'
 import addressesMock from '../AddressForm/mock-data/mock-addresses.json'
 import { CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Title } = Typography
 
@@ -18,13 +19,18 @@ interface IEditAddressProps {
 const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
   const [form] = Form.useForm()
   const router: NextRouter = useRouter()
+  const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
+
   const { addressId } = router.query
   const rootMenu: string = props.isSeller ? '/seller' : ''
-  const addresses: IAddressFormValues[] = (addressesMock || []) as IAddressFormValues[]
+  const addresses: IAddressFormValues[] = useMemo(
+    () => (addressesMock || []) as IAddressFormValues[],
+    []
+  )
 
   const address: IAddressFormValues = useMemo(
     (): IAddressFormValues => addresses.find((v: IAddressFormValues) => v.id === addressId),
-    [addressId]
+    [addressId, addresses]
   )
 
   function onSubmit(values: IAddressFormValues): void {
@@ -51,15 +57,15 @@ const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('address.editAddressTitle')}
+          {t('common:meta.title')} | {t('address:editAddressTitle')}
         </title>
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('address.breadcrumbs.setting') },
-          { title: t('address.breadcrumbs.account') },
+          { title: t('address:breadcrumbs.setting') },
+          { title: t('address:breadcrumbs.account') },
           {
-            title: t('address.breadcrumbs.editAddress'),
+            title: t('address:breadcrumbs.editAddress'),
             href: CustomUrlUtil(`${rootMenu}/settings/account/address`, router.locale)
           }
         ]}
@@ -78,7 +84,7 @@ const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
             >
               <Col className="mb-4" span={24}>
                 <Title className="hps-title" level={4}>
-                  {t('address.editAddressTitle')}
+                  {t('address:editAddressTitle')}
                 </Title>
               </Col>
               <AddressForm
@@ -92,12 +98,12 @@ const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
               <Row className="flex-1 mt-5" gutter={[24, 0]}>
                 <Col span={12}>
                   <Button type="text" onClick={onCancelClick} block>
-                    {t('common.cancel')}
+                    {t('common:cancel')}
                   </Button>
                 </Col>
                 <Col span={12}>
                   <Button type="primary" htmlType="submit" onClick={onSaveClick} block>
-                    {t('common.save')}
+                    {t('common:save')}
                   </Button>
                 </Col>
               </Row>

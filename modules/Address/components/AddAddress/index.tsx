@@ -2,12 +2,13 @@ import React from 'react'
 import { Col, Typography, Form, Button, Row, notification } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
+import { useTranslation } from 'next-i18next'
 import AddressForm from '../AddressForm'
-import t from '~/locales'
 import { IAddressFormValues } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Title } = Typography
 
@@ -16,6 +17,8 @@ interface IAddAddressProps {
 }
 const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
   const router: NextRouter = useRouter()
+  const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
+
   const [form] = Form.useForm()
   const rootMenu: string = props.isSeller ? '/seller' : ''
 
@@ -41,15 +44,15 @@ const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
     <main className="main">
       <Helmet>
         <title>
-          {t('meta.title')} | {t('address.addAddressTitle')}
+          {t('common:meta.title')} | {t('address:addAddressTitle')}
         </title>
       </Helmet>
       <Breadcrumbs
         items={[
-          { title: t('address.breadcrumbs.setting') },
-          { title: t('address.breadcrumbs.account') },
+          { title: t('address:breadcrumbs.setting') },
+          { title: t('address:breadcrumbs.account') },
           {
-            title: t('address.breadcrumbs.addAddress'),
+            title: t('address:breadcrumbs.addAddress'),
             href: CustomUrlUtil(`${rootMenu}/settings/account/address`, router.locale)
           }
         ]}
@@ -68,19 +71,19 @@ const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
             >
               <Col span={24}>
                 <Title className="hps-title" level={4}>
-                  {t('address.addAddressTitle')}
+                  {t('address:addAddressTitle')}
                 </Title>
               </Col>
               <AddressForm parentForm={form} onSubmit={onSubmit} isSeller={props.isSeller} />
               <Row className="flex-1 mt-5" gutter={[24, 0]}>
                 <Col span={12}>
                   <Button type="text" onClick={onCancelClick} block>
-                    {t('common.cancel')}
+                    {t('common:cancel')}
                   </Button>
                 </Col>
                 <Col span={12}>
                   <Button type="primary" htmlType="submit" onClick={onSaveClick} block>
-                    {t('common.save')}
+                    {t('common:save')}
                   </Button>
                 </Col>
               </Row>

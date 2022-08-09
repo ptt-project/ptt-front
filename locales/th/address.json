@@ -1,0 +1,33 @@
+{
+  "title": "ที่อยู่",
+  "addressLabel": "ที่อยู่",
+  "listAddressTitle": "บัญชีผู้ใช้",
+  "addAddressTitle": "เพิ่มที่อยู่",
+  "editAddressTitle": "แก้ไขที่อยู่",
+  "addAddress": "+ เพิ่มที่อยู่",
+  "deleteAddress": "ลบที่อยู่",
+  "confirmDeleteAddress": "ยืนยันการลบที่อยู่",
+  "warningMsgDeleteAddress": "ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้",
+  "yourLocation": "Your Location",
+  "emptyAddress": "ยังไม่มีข้อมูลที่อยู่กรุณา",
+  "form": {
+    "fullName": "ชื่อ-นามสกุล",
+    "mobileNo": "หมายเลขโทรศัพท์",
+    "province": "จังหวัด",
+    "district": "เขต/อำเภอ",
+    "postalCode": "รหัสไปรษณีย์",
+    "addressDetails": "รายละเอียดที่อยู่",
+    "location": "ตำแหน่งของคุณ",
+    "addressType": "ติดป้ายเป็น",
+    "isDefault": "เลือกเป็นที่อยู่ตั้งต้น",
+    "isStore": "เลือกเป็นที่อยู่ในการรับสินค้า",
+    "isRefundStore": "เลือกเป็นที่อยู่ในการรับสินค้าคืน"
+  },
+  "breadcrumbs": {
+    "setting": "ตั้งค่า",
+    "account": "บัญชีผู้ใช้",
+    "address": "ที่อยู่",
+    "addAddress": "เพิ่มที่อยู่",
+    "editAddress": "แก้ไขที่อยู่"
+  }
+}
