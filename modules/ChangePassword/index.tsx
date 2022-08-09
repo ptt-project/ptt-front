@@ -10,6 +10,7 @@ import { CustomUrlUtil } from '~/utils/main'
 import { RegExpConst } from '~/constants'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import { OtpTypeEnum } from '~/enums'
 
 const { Text, Title } = Typography
 const user: any = {
@@ -111,7 +112,13 @@ const ChangePassword: React.FC = () => {
           }
         ]}
       />
-      <OtpModal mobile={user.mobileNo} isOpen={isOpen} toggle={toggle} onSubmit={onSubmitOtp} />
+      <OtpModal
+        mobile={user.mobileNo}
+        action={OtpTypeEnum.REGISTER}
+        isOpen={isOpen}
+        toggle={toggle}
+        onSubmit={onSubmitOtp}
+      />
       <div className="page-content mb-9">
         <div className="container">
           <Row>

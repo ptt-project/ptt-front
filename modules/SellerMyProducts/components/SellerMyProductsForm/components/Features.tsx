@@ -26,7 +26,7 @@ const Features: React.FC<IFormProductFeaturesProps> = () => {
             rules={[{ required: true }]}
           >
             <Select defaultValue="">
-              <Select.Option value="">{t('common.form.option')}</Select.Option>
+              <Select.Option value="">{t('common:form.option')}</Select.Option>
             </Select>
           </Form.Item>
         </Col>
