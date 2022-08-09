@@ -38,7 +38,6 @@ const Login: FC = () => {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      console.log(values)
       const payload: IAuthLoginService = { ...values }
       const result: AxiosResponse = await AuthService.login(payload)
       if (result.data?.code === CommonApiCodeEnum.SUCCESS) {

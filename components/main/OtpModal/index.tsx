@@ -77,11 +77,11 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
       if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
         isSuccess = true
         setOtpData(result.data.data)
-        setTimer(1.5 * 60 * 1000)
       }
     } catch (error) {
       console.log(error)
     }
+    setTimer(1.5 * 60 * 1000)
     if (isSuccess) {
       message.success(t('common:apiMessage.success'))
     } else {
@@ -145,7 +145,10 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
         <div className={styles.label}>
           <div className={styles.left}>
             <Text className={styles.required}>*</Text>
-            <Text>{t('otp-modal:label')}</Text>
+            <Text>
+              {/* Mockup */}
+              {t('otp-modal:label')} {otpData.otpCode}
+            </Text>
           </div>
           <div className={styles.right}>
             <Text type="secondary">
