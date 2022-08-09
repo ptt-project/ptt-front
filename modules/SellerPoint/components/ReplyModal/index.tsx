@@ -63,7 +63,7 @@ const ReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps) => 
               rules={[
                 {
                   required: true,
-                  message: `${t('common.form.required')} ${t('seller.point:msgReply')}`
+                  message: `${t('common:form.required')} ${t('seller.point:msgReply')}`
                 }
               ]}
             >
@@ -73,11 +73,11 @@ const ReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps) => 
           <Col span={24}>
             <Row className="justify-content-end">
               <Button type="default" onClick={toggle}>
-                {t('common.cancel')}
+                {t('common:cancel')}
               </Button>
               <Form.Item className="mb-0">
                 <Button htmlType="submit" className="ml-2" type="primary">
-                  {t('common.send')}
+                  {t('common:send')}
                 </Button>
               </Form.Item>
             </Row>

@@ -1,10 +1,13 @@
 import React from 'react'
 import { useGoogleMap } from '@react-google-maps/api'
 import { Button } from 'antd'
+import { useTranslation } from 'next-i18next'
 import styles from '../AddressForm.module.scss'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 
 const ButtonCurrentLocation: React.FC = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
+
   const map: google.maps.Map = useGoogleMap()
 
   function onClick(): void {
@@ -42,7 +45,7 @@ const ButtonCurrentLocation: React.FC = () => {
   }
   return (
     <Button className={styles.currentLocationButton} onClick={onClick}>
-      {t('address.yourLocation')}
+      {t('address:yourLocation')}
     </Button>
   )
 }

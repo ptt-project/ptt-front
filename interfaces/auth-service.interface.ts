@@ -14,7 +14,3 @@ export interface IAuthRegisterService {
   otpCode: string
   refCode: string
 }
-
-export interface IAuthRequestOtpService {
-  reference: string
-}

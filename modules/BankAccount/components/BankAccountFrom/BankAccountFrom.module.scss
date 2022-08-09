@@ -1,0 +1,50 @@
+@import '../../../../public/sass/config/variables';
+
+.cInfo {
+  color: $info-color;
+}
+
+.form {
+  .addressDetails {
+    > textarea {
+      min-height: 80px;
+      max-height: 80px;
+    }
+  }
+}
+
+.button {
+  margin-top: 1.5rem;
+}
+
+.currentLocationButton {
+  position: absolute;
+  right: 0;
+  margin: 1rem;
+}
+
+.addressTagRadioButtonGroup {
+  display: flex;
+  column-gap: 16px;
+
+  .addressTagRadioButton {
+    border: unset !important;
+    padding: unset;
+  }
+
+  label::before {
+    display: none !important;
+  }
+}
+
+.checkBoxLayout {
+  width: 100%;
+  
+  .hint {
+    padding: 0;
+  }
+}
+
+.googleMapLayout {
+  height: 453px;
+}

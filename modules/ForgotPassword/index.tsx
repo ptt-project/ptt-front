@@ -7,6 +7,7 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import OtpModal from '~/components/main/OtpModal'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { IAuthForgotPasswordForm, IOtpData } from '~/interfaces'
+import { OtpTypeEnum } from '~/enums'
 
 const ForgotPassword: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.forgot-password'])
@@ -62,7 +63,13 @@ const ForgotPassword: FC = () => {
         </title>
       </Helmet>
       <Breadcrumbs items={[{ title: t('auth.forgot-password:title') }]} />
-      <OtpModal mobile={mobile} isOpen={isOpen} toggle={toggle} onSubmit={onSubmitOtp} />
+      <OtpModal
+        mobile={mobile}
+        action={OtpTypeEnum.REGISTER}
+        isOpen={isOpen}
+        toggle={toggle}
+        onSubmit={onSubmitOtp}
+      />
       {renderStep()}
     </main>
   )

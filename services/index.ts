@@ -1,4 +1,5 @@
-import * as AuthService from './AuthService'
+import * as AuthService from './auth.service'
+import * as OtpService from './otp.service'
 import * as MembersService from './MembersService'
 
-export { AuthService,MembersService }
+export { AuthService, OtpService, MembersService }

@@ -59,7 +59,7 @@ const SellerMyProductsForm: FC = () => {
                 <Row gutter={[16, 8]} className="mt-3">
                   <Col md={8}>
                     <Button type="text" block>
-                      {t('common.cancel')}
+                      {t('common:cancel')}
                     </Button>
                   </Col>
                   <Col md={8}>
