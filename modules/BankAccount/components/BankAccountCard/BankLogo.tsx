@@ -1,9 +1,9 @@
 import { Image } from 'antd'
 import React, { FC, useMemo } from 'react'
-import { BankNameEnum } from '~/enums'
+import { BankAccountNameEnum } from '~/enums'
 
 interface IBankLogoProps {
-  bank: BankNameEnum
+  bank: BankAccountNameEnum
 }
 const BankLogo: FC<IBankLogoProps> = (props: IBankLogoProps) => {
   const { bank } = props

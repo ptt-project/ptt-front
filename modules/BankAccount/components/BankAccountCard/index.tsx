@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import styles from './BankAccountCard.module.scss'
 import BankLogo from './BankLogo'
 import { sensorBankAccountNo } from '~/utils/main/helper'
-import { BankStatusEnum } from '~/enums'
+import { BankAccountStatusEnum } from '~/enums'
 import { IBankAccountData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 
@@ -23,11 +23,11 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
 
   function getStatusLabel(): string {
     switch (data.status) {
-      case BankStatusEnum.APPROVED:
+      case BankAccountStatusEnum.APPROVED:
         return t('bank-account:status.approved')
-      case BankStatusEnum.REJECTED:
+      case BankAccountStatusEnum.REJECTED:
         return t('bank-account:status.rejected')
-      case BankStatusEnum.PENDING:
+      case BankAccountStatusEnum.PENDING:
       default:
         return t('bank-account:status.pending')
     }

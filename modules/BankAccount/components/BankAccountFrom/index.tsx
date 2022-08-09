@@ -8,7 +8,7 @@ import { keyBy } from 'lodash'
 import { useTranslation } from 'next-i18next'
 import styles from './BankAccountFrom.module.scss'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import { BankNameEnum } from '~/enums'
+import { BankAccountNameEnum } from '~/enums'
 import { IBankOptionData, IBankAccountFromValues } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import CustomInput from './CustomInput'
@@ -16,11 +16,11 @@ import CustomInput from './CustomInput'
 const bankOptionsData: IBankOptionData[] = [
   {
     bankFullName: 'กรุงศรี',
-    bankName: BankNameEnum.BAY
+    bankName: BankAccountNameEnum.BAY
   },
   {
     bankFullName: 'กสิกรไทย',
-    bankName: BankNameEnum.KBANK
+    bankName: BankAccountNameEnum.KBANK
   }
 ]
 const bankOptions: DefaultOptionType[] = bankOptionsData.map((d: IBankOptionData) => ({
