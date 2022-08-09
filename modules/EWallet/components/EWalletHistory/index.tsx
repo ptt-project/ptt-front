@@ -6,6 +6,9 @@ import { RangePickerProps } from 'antd/es/date-picker'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from './EWalletHistory.module.scss'
 import EWalletHistoryTable from './EWalletHistoryTable'
+import { eWalletHistory } from '../../mock-data'
+import { EWalletTypeEnum } from '~/enums'
+import { IEWalletHistoryData } from '~/interfaces'
 
 const { Text } = Typography
 
@@ -48,13 +51,21 @@ const EWalletHistory: FC = () => {
       <Col xs={24}>
         <Tabs defaultActiveKey={tabActive} onChange={onTabChange}>
           <Tabs.TabPane tab={t('e-wallet:history.all')} key={EWalletHistoryTabsEnum.ALL}>
-            <EWalletHistoryTable data={[]} />
+            <EWalletHistoryTable data={eWalletHistory} />
           </Tabs.TabPane>
           <Tabs.TabPane tab={t('e-wallet:history.withdraw')} key={EWalletHistoryTabsEnum.WITHDRAW}>
-            <EWalletHistoryTable data={[]} />
+            <EWalletHistoryTable
+              data={eWalletHistory.filter(
+                (e: IEWalletHistoryData) => e.type === EWalletTypeEnum.WITHDRAW
+              )}
+            />
           </Tabs.TabPane>
           <Tabs.TabPane tab={t('e-wallet:history.topUp')} key={EWalletHistoryTabsEnum.TOP_UP}>
-            <EWalletHistoryTable data={[]} />
+            <EWalletHistoryTable
+              data={eWalletHistory.filter(
+                (e: IEWalletHistoryData) => e.type === EWalletTypeEnum.TOP_UP
+              )}
+            />
           </Tabs.TabPane>
         </Tabs>
       </Col>

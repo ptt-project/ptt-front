@@ -1,24 +1,15 @@
-import { Table } from 'antd'
+import { Col, Image, Row, Space, Table, Typography } from 'antd'
 import { ColumnsType, TablePaginationConfig } from 'antd/lib/table'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/lib/table/interface'
+import moment from 'moment'
 import { useTranslation } from 'next-i18next'
 import React, { FC, useMemo } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
+import { EWalletStatusEnum, EWalletTypeEnum } from '~/enums'
+import { IEWalletHistoryData } from '~/interfaces'
+import styles from './EWalletHistoryTable.module.scss'
 
-enum EWalletStatusEnum {
-  pending,
-  failed,
-  canceled,
-  success
-}
-
-interface IEWalletHistoryData {
-  id?: string
-  description?: string
-  amount: number
-  createdAt: string
-  status: EWalletStatusEnum
-}
+const { Text } = Typography
 
 interface IEWalletHistoryTableProps {
   data: IEWalletHistoryData[]
@@ -35,14 +26,34 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
         dataIndex: 'createdAt',
         key: 'createdAt',
         sorter: false,
-        showSorterTooltip: false
+        showSorterTooltip: false,
+        render: (value: number) => (
+          <Space direction="vertical" size={0}>
+            <Text>{moment(value).format('DD/MM/YYYY')}</Text>
+            <Text>{moment(value).format('HH:mm:ss')}</Text>
+          </Space>
+        )
       },
       {
         title: t('e-wallet:history.type'),
         dataIndex: 'type',
         key: 'type',
         sorter: false,
-        showSorterTooltip: false
+        showSorterTooltip: false,
+        render: (value: EWalletTypeEnum) => (
+          <Row gutter={[4, 0]}>
+            <Col>
+              {value === EWalletTypeEnum.WITHDRAW ? (
+                <Image preview={false} src="./images/main/buyer/icon-withdraw.svg" />
+              ) : (
+                <Image preview={false} src="./images/main/buyer/icon-top-up-red.svg" />
+              )}
+            </Col>
+            <Col>
+              {value === EWalletTypeEnum.WITHDRAW ? t('e-wallet:withdraw') : t('e-wallet:topUp')}
+            </Col>
+          </Row>
+        )
       },
       {
         title: t('e-wallet:history.description'),
@@ -50,12 +61,7 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
         key: 'description',
         sorter: false,
         align: 'left',
-        showSorterTooltip: false,
-        render: (value: number) =>
-          value.toLocaleString('en-EN', {
-            maximumFractionDigits: 2,
-            minimumFractionDigits: 2
-          })
+        showSorterTooltip: false
       },
       {
         title: t('e-wallet:history.amount'),
@@ -64,11 +70,21 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
         sorter: false,
         align: 'right',
         showSorterTooltip: false,
-        render: (value: number) =>
-          value.toLocaleString('en-EN', {
-            maximumFractionDigits: 2,
-            minimumFractionDigits: 2
-          })
+        render: (value: number, record: IEWalletHistoryData) => (
+          <Row justify="end">
+            <Col>
+              <Text>{record.type === EWalletTypeEnum.WITHDRAW ? '-' : '+'}</Text>
+            </Col>
+            <Col>
+              <Text>
+                {value.toLocaleString('en-EN', {
+                  maximumFractionDigits: 2,
+                  minimumFractionDigits: 2
+                })}
+              </Text>
+            </Col>
+          </Row>
+        )
       },
       {
         title: t('e-wallet:history.status'),
@@ -76,7 +92,36 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
         key: 'status',
         sorter: false,
         align: 'center',
-        showSorterTooltip: false
+        showSorterTooltip: false,
+        render: (value: EWalletStatusEnum): JSX.Element => {
+          let statusLabel: string = ''
+          const statusClassNames: string[] = [styles.statusTag]
+          switch (value) {
+            case EWalletStatusEnum.SUCCESS:
+              statusLabel = t('สำเร็จ')
+              statusClassNames.push(styles.tagBlue)
+              break
+            case EWalletStatusEnum.CANCELED:
+              statusLabel = t('ยกเลิก')
+              statusClassNames.push(styles.tagRed)
+              break
+            case EWalletStatusEnum.FAILED:
+              statusLabel = t('ไม่สำเร็จ')
+              statusClassNames.push(styles.tagRed)
+              break
+            case EWalletStatusEnum.PENDING:
+            default:
+              statusLabel = ''
+              break
+          }
+          return (
+            <Row justify="center">
+              <div className={statusClassNames.join(' ')}>
+                <Text>{statusLabel}</Text>
+              </div>
+            </Row>
+          )
+        }
       }
     ],
     [t]
@@ -94,7 +139,7 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
 
   return (
     <Table
-      className="hps-table hps-scroll"
+      className={`${styles.layout} hps-table hps-scroll`}
       columns={columns}
       dataSource={data}
       onChange={onChange}
