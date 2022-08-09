@@ -36,21 +36,32 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
       },
       {
         title: t('e-wallet:history.type'),
+        className: styles.type,
         dataIndex: 'type',
         key: 'type',
         sorter: false,
         showSorterTooltip: false,
         render: (value: EWalletTypeEnum) => (
-          <Row gutter={[4, 0]}>
+          <Row gutter={[4, 0]} wrap={false}>
             <Col>
               {value === EWalletTypeEnum.WITHDRAW ? (
-                <Image preview={false} src="./images/main/buyer/icon-withdraw.svg" />
+                <Image
+                  className={styles.typeIcon}
+                  preview={false}
+                  src="./images/main/buyer/icon-withdraw.svg"
+                />
               ) : (
-                <Image preview={false} src="./images/main/buyer/icon-top-up-red.svg" />
+                <Image
+                  className={styles.typeIcon}
+                  preview={false}
+                  src="./images/main/buyer/icon-top-up-red.svg"
+                />
               )}
             </Col>
             <Col>
-              {value === EWalletTypeEnum.WITHDRAW ? t('e-wallet:withdraw') : t('e-wallet:topUp')}
+              <Text>
+                {value === EWalletTypeEnum.WITHDRAW ? t('e-wallet:withdraw') : t('e-wallet:topUp')}
+              </Text>
             </Col>
           </Row>
         )
@@ -61,7 +72,8 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
         key: 'description',
         sorter: false,
         align: 'left',
-        showSorterTooltip: false
+        showSorterTooltip: false,
+        render: (value: string) => <Text>{value}</Text>
       },
       {
         title: t('e-wallet:history.amount'),
@@ -71,7 +83,7 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
         align: 'right',
         showSorterTooltip: false,
         render: (value: number, record: IEWalletHistoryData) => (
-          <Row justify="end">
+          <Row justify="end" wrap={false}>
             <Col>
               <Text>{record.type === EWalletTypeEnum.WITHDRAW ? '-' : '+'}</Text>
             </Col>
@@ -143,7 +155,18 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
       columns={columns}
       dataSource={data}
       onChange={onChange}
-      pagination={false}
+      pagination={{
+        total: data.length,
+        showTotal: (total: number, range: [number, number]): string =>
+          t('e-wallet:history.paginateLabel', {
+            from: range[0],
+            to: range[1],
+            total
+          }),
+        showSizeChanger: true,
+        defaultPageSize: 10,
+        defaultCurrent: 1
+      }}
       scroll={{ x: true }}
     />
   )

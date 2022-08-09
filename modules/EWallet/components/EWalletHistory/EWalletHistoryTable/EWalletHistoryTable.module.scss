@@ -1,6 +1,12 @@
 @import '../../../../../public/sass/config/variables';
 
 .layout {
+  .type {
+    .typeIcon {
+      min-width: 18px;
+    }
+  }
+
   .statusTag {
     border-radius: 2px;
     padding: 4px 0;

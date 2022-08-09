@@ -18,7 +18,8 @@
     "description": "รายละเอียด",
     "amount": "จำนวนเงิน",
     "status": "สถานะ",
-    "filterDateRange": "ช่วงเวลาที่ทำรายการ"
+    "filterDateRange": "ช่วงเวลาที่ทำรายการ",
+    "paginateLabel": "{{from}}-{{to}} จาก {{total}} รายการ"
   },
   "balance": "ยอดเงินคงเหลือ :",
   "withdraw": "ถอนเงิน",

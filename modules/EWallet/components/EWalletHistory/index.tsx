@@ -53,17 +53,17 @@ const EWalletHistory: FC = () => {
           <Tabs.TabPane tab={t('e-wallet:history.all')} key={EWalletHistoryTabsEnum.ALL}>
             <EWalletHistoryTable data={eWalletHistory} />
           </Tabs.TabPane>
-          <Tabs.TabPane tab={t('e-wallet:history.withdraw')} key={EWalletHistoryTabsEnum.WITHDRAW}>
-            <EWalletHistoryTable
-              data={eWalletHistory.filter(
-                (e: IEWalletHistoryData) => e.type === EWalletTypeEnum.WITHDRAW
-              )}
-            />
-          </Tabs.TabPane>
-          <Tabs.TabPane tab={t('e-wallet:history.topUp')} key={EWalletHistoryTabsEnum.TOP_UP}>
+          <Tabs.TabPane tab={t('e-wallet:history.withdraw')} key={EWalletHistoryTabsEnum.TOP_UP}>
             <EWalletHistoryTable
               data={eWalletHistory.filter(
                 (e: IEWalletHistoryData) => e.type === EWalletTypeEnum.TOP_UP
+              )}
+            />
+          </Tabs.TabPane>
+          <Tabs.TabPane tab={t('e-wallet:history.topUp')} key={EWalletHistoryTabsEnum.WITHDRAW}>
+            <EWalletHistoryTable
+              data={eWalletHistory.filter(
+                (e: IEWalletHistoryData) => e.type === EWalletTypeEnum.WITHDRAW
               )}
             />
           </Tabs.TabPane>

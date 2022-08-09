@@ -3,7 +3,7 @@ import moment from 'moment'
 import { EWalletStatusEnum, EWalletTypeEnum } from '~/enums'
 import { IEWalletHistoryData } from '~/interfaces'
 
-export const eWalletHistory: IEWalletHistoryData[] = times(5).map(
+export const eWalletHistory: IEWalletHistoryData[] = times(50).map(
   (): IEWalletHistoryData => ({
     amount: Math.random() * 1000,
     createdAt: moment()
