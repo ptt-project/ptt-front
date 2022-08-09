@@ -115,7 +115,6 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                 <Col span={24}>
                   <Title className="hps-title" level={4}>
                     {t('bank-account:title')}
-                    {t('common:dataUpdated')}
                   </Title>
                 </Col>
                 <Col span={24}>
