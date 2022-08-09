@@ -1,7 +1,7 @@
 export interface IAuthRegisterForm {
   firstName: string
   lastName: string
-  mobileNo: string
+  mobile: string
   email: string
   username: string
   password: string
@@ -13,5 +13,5 @@ export interface IAuthLoginForm {
 }
 
 export interface IAuthForgotPasswordForm {
-  emailOrMobileNo: string
+  reference: string
 }

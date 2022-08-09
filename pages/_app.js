@@ -6,6 +6,7 @@ import { useStore, Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import Helmet from 'react-helmet'
 import Layout from '~/components/layout'
+import Loading from '~/components/main/Loading'
 import { wrapper } from '../store/index'
 import { demoActions } from '~/store/demo'
 import { currentDemo } from '~/server/queries'
@@ -25,19 +26,7 @@ const HappyShoppingApp = ({ Component, pageProps }) => {
 
   return (
     <Provider store={store}>
-      <PersistGate
-        persistor={store.__persistor}
-        loading={
-          <div className="loading-overlay">
-            <div className="bounce-loader">
-              <div className="bounce1"></div>
-              <div className="bounce2"></div>
-              <div className="bounce3"></div>
-              <div className="bounce4"></div>
-            </div>
-          </div>
-        }
-      >
+      <PersistGate persistor={store.__persistor} loading={<Loading show />}>
         <Helmet>
           <title>{t('common:meta.title')}</title>
           <meta charSet="UTF-8" />

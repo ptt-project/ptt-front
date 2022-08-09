@@ -13,7 +13,7 @@ const ForgotPassword: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [step, setStep] = useState<number>(0) // 0=FORGOT_PASSWORD_FORM, 1=FORGOT_PASSWORD_SUCCESS
   const [email, setEmail] = useState<string>('')
-  const [mobileNo, setMobileNo] = useState<string>('')
+  const [mobile, setMobile] = useState<string>('')
 
   function toggle(): void {
     setIsOpen(!isOpen)
@@ -22,11 +22,11 @@ const ForgotPassword: FC = () => {
   function onSubmit(values: IAuthForgotPasswordForm): void {
     try {
       console.log(values)
-      if (RegExpConst.CHECK_EMAIL.test(values.emailOrMobileNo)) {
-        setEmail(values.emailOrMobileNo)
+      if (RegExpConst.CHECK_EMAIL.test(values.reference)) {
+        setEmail(values.reference)
         setStep(1)
-      } else if (values.emailOrMobileNo.replace(RegExpConst.ALLOW_NUMBER, '').length === 10) {
-        setMobileNo(values.emailOrMobileNo)
+      } else if (values.reference.replace(RegExpConst.ALLOW_NUMBER, '').length === 10) {
+        setMobile(values.reference)
         setIsOpen(true)
       }
     } catch (error) {
@@ -62,7 +62,7 @@ const ForgotPassword: FC = () => {
         </title>
       </Helmet>
       <Breadcrumbs items={[{ title: t('auth.forgot-password:title') }]} />
-      <OtpModal mobileNo={mobileNo} isOpen={isOpen} toggle={toggle} onSubmit={onSubmitOtp} />
+      <OtpModal mobile={mobile} isOpen={isOpen} toggle={toggle} onSubmit={onSubmitOtp} />
       {renderStep()}
     </main>
   )

@@ -8,20 +8,20 @@ interface IImages {
 
 const images: IImages[] = [
   {
-    mobile: 'https://via.placeholder.com/1280x720?text=Banner 1 (1280 x 720)',
-    desktop: 'https://via.placeholder.com/1920x800?text=Banner 1 (1920 x 800)'
+    mobile: 'https://dummyimage.com/1280x720?text=Banner 1 (1280 x 720)',
+    desktop: 'https://dummyimage.com/1920x800?text=Banner 1 (1920 x 800)'
   },
   {
-    mobile: 'https://via.placeholder.com/1280x720?text=Banner 2 (1280 x 720)',
-    desktop: 'https://via.placeholder.com/1920x800?text=Banner 2 (1920 x 800)'
+    mobile: 'https://dummyimage.com/1280x720?text=Banner 2 (1280 x 720)',
+    desktop: 'https://dummyimage.com/1920x800?text=Banner 2 (1920 x 800)'
   },
   {
-    mobile: 'https://via.placeholder.com/1280x720?text=Banner 3 (1280 x 720)',
-    desktop: 'https://via.placeholder.com/1920x800?text=Banner 3 (1920 x 800)'
+    mobile: 'https://dummyimage.com/1280x720?text=Banner 3 (1280 x 720)',
+    desktop: 'https://dummyimage.com/1920x800?text=Banner 3 (1920 x 800)'
   },
   {
-    mobile: 'https://via.placeholder.com/1280x720?text=Banner 4 (1280 x 720)',
-    desktop: 'https://via.placeholder.com/1920x800?text=Banner 4 (1920 x 800)'
+    mobile: 'https://dummyimage.com/1280x720?text=Banner 4 (1280 x 720)',
+    desktop: 'https://dummyimage.com/1920x800?text=Banner 4 (1920 x 800)'
   }
 ]
 

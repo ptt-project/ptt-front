@@ -8,7 +8,7 @@ export interface IBreadcrumb {
 }
 
 export interface IOtpData {
-  otp: string
+  otpCode: string
   refCode: string
 }
 

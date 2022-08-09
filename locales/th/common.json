@@ -49,5 +49,10 @@
     "of": "จาก",
     "items": "รายการ"
   },
+  "apiMessage": {
+    "success": "สำเร็จ",
+    "warning": "คำเตือน",
+    "error": "ล้มเหลว"
+  },
   "dataUpdated": "ข้อมูลอัพเดทแล้ว"
 }

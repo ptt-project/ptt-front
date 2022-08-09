@@ -10,14 +10,6 @@
   margin-bottom: 0 !important;
 }
 
-.space {
-  line-height: 1;
-}
-
-.slider {
-  margin: 0 -5px;
-}
-
 .box {
   display: flex !important;
   flex-direction: column;
@@ -26,8 +18,6 @@
 
   .imgContainer {
     position: relative;
-    width: 136px;
-    height: 136px;
 
     .imgWrapper {
       display: flex;
@@ -38,30 +28,37 @@
       background-color: $background-light;
 
       img {
-        width: 90%;
-        height: 90%;
+        width: 100%;
+        height: 100%;
         object-fit: contain;
       }
     }
 
-    .tag {
+    .tagRecommended {
       position: absolute;
-      top: 8px;
-      right: 8px;
+      top: 1rem;
+      left: 1rem;
+      margin-right: 0;
+    }
+
+    .tagSell {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
       margin-right: 0;
     }
   }
 
   .detailContainer {
-    width: 136px;
+    width: 100%;
     padding: 0.5rem 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
 
     .dTitle {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-align: left;
+      display: block;
     }
 
     .dAmount {

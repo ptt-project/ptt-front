@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'next-i18next'
 import { Typography, Switch, Col, Form, Input, Row, Button, Table } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import t from '~/locales'
+import { LocaleNamespaceConst } from '~/constants'
 import styles from '../SellerMyProductsForm.module.scss'
 
 const { Text } = Typography
@@ -26,6 +27,7 @@ interface IFormProductSalesProps {
   disabled?: boolean
 }
 const Sales: React.FC<IFormProductSalesProps> = () => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [isCheckUseOptions, setIsCheckUseOptions] = useState<boolean>(false)
   const [isFormProductOptions, setIsFormProductOptions] = useState<boolean>(false)
   const [countProductList, setCountProductList] = useState<number>(1)
@@ -36,31 +38,26 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
   const [isCheckButtonProduct2Options, setIsCheckButtonProduct2Options] = useState<boolean>(true)
   const [calProductOptions, setCalProductOptions] = useState<number>(0)
   const [calProduct2Options, setCalProduct2Options] = useState<number>(0)
-  const productModel: string = t('sellerProducts.form.sales.productModel') // prevent error hook rules
-  const choice: string = t('sellerProducts.form.sales.choice2') // prevent error hook rules
-  const sku: string = t('sellerProducts.form.sales.sku') // prevent error hook rules
-  const priceBaht: string = t('sellerProducts.form.sales.priceBaht') // prevent error hook rules
-  const warehouse: string = t('sellerProducts.form.sales.warehouse') // prevent error hook rules
 
   const columns: ColumnsType<IDataType> = [
     {
-      title: productModel,
+      title: t('seller.product:form.sales.productModel'),
       dataIndex: 'productModel'
     },
     {
-      title: choice,
+      title: t('seller.product:form.sales.choice2'),
       dataIndex: 'choice'
     },
     {
-      title: sku,
+      title: t('seller.product:form.sales.sku'),
       dataIndex: 'sku'
     },
     {
-      title: priceBaht,
+      title: t('seller.product:form.sales.priceBaht'),
       dataIndex: 'price'
     },
     {
-      title: warehouse,
+      title: t('seller.product:form.sales.warehouse'),
       dataIndex: 'warehouse'
     }
   ]
@@ -145,7 +142,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
         <>
           <Col md={12}>
             <Form.Item
-              label={t('sellerProducts.form.sales.price')}
+              label={t('seller.product:form.sales.price')}
               name="price"
               rules={[
                 {
@@ -153,11 +150,11 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
                 }
               ]}
             >
-              <Input suffix={<Text type="secondary">{t('sellerProducts.form.sales.baht')}</Text>} />
+              <Input suffix={<Text type="secondary">{t('seller.product:form.sales.baht')}</Text>} />
             </Form.Item>
           </Col>
           <Col md={12}>
-            <Form.Item label={t('sellerProducts.form.sales.warehouse')} name="warehouse">
+            <Form.Item label={t('seller.product:form.sales.warehouse')} name="warehouse">
               <Input />
             </Form.Item>
           </Col>
@@ -165,9 +162,9 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
             <Form.Item
               label={
                 <Text>
-                  {t('sellerProducts.form.sales.sku')}
+                  {t('seller.product:form.sales.sku')}
                   <Text className="ml-1" type="secondary">
-                    {t('sellerProducts.form.sales.msgSku')}
+                    {t('seller.product:form.sales.msgSku')}
                   </Text>
                 </Text>
               }
@@ -186,11 +183,11 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
     return (
       <Row gutter={[8, 8]} className={styles.highlight}>
         <Col md={{ span: 22, offset: 1 }}>
-          <Text>{t('sellerProducts.form.sales.optionsForm.productOptions')} 1</Text>
+          <Text>{t('seller.product:form.sales.optionsForm.productOptions')} 1</Text>
         </Col>
         <Col md={{ span: 22, offset: 1 }}>
           <Form.Item
-            label={t('sellerProducts.form.sales.optionsForm.name')}
+            label={t('seller.product:form.sales.optionsForm.name')}
             name="saleName"
             rules={[
               {
@@ -206,7 +203,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
             return (
               <Col md={{ span: 22, offset: 1 }}>
                 <Form.Item
-                  label={t('sellerProducts.form.sales.optionsForm.choice')}
+                  label={t('seller.product:form.sales.optionsForm.choice')}
                   name="product"
                   rules={[
                     {
@@ -223,7 +220,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
             <>
               <Col md={{ span: 21, offset: 1 }}>
                 <Form.Item
-                  label={t('sellerProducts.form.sales.optionsForm.choice')}
+                  label={t('seller.product:form.sales.optionsForm.choice')}
                   name={`productChoice_${index}`}
                   id={`productChoice_${index}`}
                 >
@@ -247,7 +244,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
               block
             >
               <i className="fas fa-plus mr-2" />
-              {t('sellerProducts.form.sales.optionsForm.addOption')}
+              {t('seller.product:form.sales.optionsForm.addOption')}
             </Button>
           )}
         </Col>
@@ -260,7 +257,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
       return (
         <Row gutter={[8, 8]} className={styles.highlight}>
           <Col md={{ span: 21, offset: 1 }}>
-            <Text>{t('sellerProducts.form.sales.optionsForm.productOptions')} 2</Text>
+            <Text>{t('seller.product:form.sales.optionsForm.productOptions')} 2</Text>
           </Col>
           <Col md={2}>
             <Text onClick={(): void => setIsFormProductOptions(false)}>
@@ -269,7 +266,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
           </Col>
           <Col md={{ span: 22, offset: 1 }}>
             <Form.Item
-              label={t('sellerProducts.form.sales.optionsForm.name')}
+              label={t('seller.product:form.sales.optionsForm.name')}
               name="saleName"
               rules={[
                 {
@@ -285,7 +282,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
               return (
                 <Col md={{ span: 22, offset: 1 }}>
                   <Form.Item
-                    label={t('sellerProducts.form.sales.optionsForm.choice')}
+                    label={t('seller.product:form.sales.optionsForm.choice')}
                     name="choice"
                     rules={[
                       {
@@ -302,7 +299,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
               <>
                 <Col md={{ span: 21, offset: 1 }}>
                   <Form.Item
-                    label={t('sellerProducts.form.sales.optionsForm.choice')}
+                    label={t('seller.product:form.sales.optionsForm.choice')}
                     name={`product2Choice_${index}`}
                     id={`product2Choice_${index}`}
                   >
@@ -325,7 +322,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
                 block
               >
                 <i className="fas fa-plus mr-2" />
-                {t('sellerProducts.form.sales.optionsForm.addOption')}
+                {t('seller.product:form.sales.optionsForm.addOption')}
               </Button>
             </Col>
           )}
@@ -337,11 +334,11 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
 
   return (
     <>
-      <HighlightLabel title={t('sellerProducts.form.sales.title')} />
+      <HighlightLabel title={t('seller.product:form.sales.title')} />
       <Row gutter={[16, 8]}>
         <Col md={24}>
           <Switch onChange={onChangeUseOptions} />
-          <Text className="ml-2 mt-1">{t('sellerProducts.form.sales.useOptions')}</Text>
+          <Text className="ml-2 mt-1">{t('seller.product:form.sales.useOptions')}</Text>
         </Col>
         {renderFormSales()}
         {isCheckUseOptions && (
@@ -352,12 +349,12 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
               <Col md={24}>
                 <Button className="hps-btn-secondary" onClick={onClickButtonAddOption} block>
                   <i className="fas fa-plus mr-2" />
-                  {t('sellerProducts.form.sales.optionsForm.addOptionChoice')}
+                  {t('seller.product:form.sales.optionsForm.addOptionChoice')}
                 </Button>
               </Col>
             )}
             <Col md={24}>
-              <Text>{t('sellerProducts.form.sales.titleTable')}</Text>
+              <Text>{t('seller.product:form.sales.titleTable')}</Text>
             </Col>
           </>
         )}
