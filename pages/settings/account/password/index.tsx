@@ -4,7 +4,7 @@ import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import ChangePassword from '~/modules/ChangePassword'
 
-export async function getServerSideProps(context: NextPageContext): Promise<any> {
+export async function getStaticProps(context: NextPageContext): Promise<any> {
   return {
     props: {
       ...(await serverSideTranslations(context.locale, [
