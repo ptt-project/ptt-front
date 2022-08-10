@@ -1,6 +1,5 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { AxiosResponse } from 'axios'
 import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
@@ -18,15 +17,11 @@ import {
   Select,
   Radio
 } from 'antd'
-import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrlUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
-import { MembersService } from '~/services'
-import { CommonApiCodeEnum } from '~/enums'
-import { IMemberProfileFormModel } from '~/interfaces'
 import styles from './Profile.module.scss'
 
 const { Text, Title } = Typography
@@ -43,8 +38,6 @@ const Profile: FC = () => {
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   const [value, setValue] = useState<number>(1)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [dateMember, setDateMember] = useState<IMemberProfileFormModel>()
 
   function onChange(e: RadioChangeEvent): void {
     setValue(e.target.value)
@@ -53,25 +46,8 @@ const Profile: FC = () => {
   function onSubmit(values: IFormModel): void {
     console.log(values)
   }
-
-  useEffect(() => {
-    setIsLoading(true)
-    const fetchData = async (): Promise<any> => {
-      try {
-        const result: AxiosResponse = await MembersService.memberProfile()
-        if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
-          setDateMember(result.data)
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchData()
-    setIsLoading(false)
-  }, [])
   return (
     <main className="main">
-      <Loading show={isLoading} />
       <Helmet>
         <title>
           {t('common:meta.title')} | {t('account-info:title')}
