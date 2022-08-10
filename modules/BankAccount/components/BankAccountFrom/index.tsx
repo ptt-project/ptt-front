@@ -11,7 +11,7 @@ import HighlightLabel from '~/components/main/HighlightLabel'
 import { BankAccountNameEnum } from '~/enums'
 import { IBankOptionData, IBankAccountFromValues } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
-import CustomInput from './CustomInput'
+import CustomInput from '../../../../components/common/CustomInput'
 
 const bankOptionsData: IBankOptionData[] = [
   {

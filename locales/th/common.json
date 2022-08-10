@@ -57,5 +57,6 @@
   "dataUpdated": "ข้อมูลอัพเดทแล้ว",
   "unit": {
     "baht": "บาท"
-  }
+  },
+  "mainBankAccount": "บัญชีหลัก"
 }

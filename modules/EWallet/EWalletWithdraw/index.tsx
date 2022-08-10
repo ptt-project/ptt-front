@@ -1,36 +1,72 @@
-import React, { ReactNode } from 'react'
-import { Typography, Row, Col, Select, Form, Button, Image, Space, List } from 'antd'
+/* eslint-disable no-template-curly-in-string */
+import React, { ReactNode, useMemo, useState } from 'react'
+import { Typography, Row, Col, Select, Form, Button, Space, Alert, Divider, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import { DefaultOptionType } from 'antd/lib/select'
-import { DownloadOutlined } from '@ant-design/icons'
+import { Rule } from 'antd/lib/form'
 import styles from './EWalletWithdraw.module.scss'
-import { CustomUrlUtil } from '~/utils/main'
+import { CustomUrlUtil, formatNumberDecimal, sensorBankAccountNo } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
+import { bankMock } from '~/modules/BankAccount/mock-data'
+import { IBankAccountData } from '~/interfaces'
+import CustomInput from '~/components/common/CustomInput'
+import OtpModal from '~/components/main/OtpModal'
+import { OtpTypeEnum } from '~/enums'
 
-const { Title, Text } = Typography
+const { Title, Text, Link } = Typography
 
-const topUpAmountOptions: DefaultOptionType[] = [100, 300, 500, 800, 1300, 1500, 2000].map(
-  (amount: number): DefaultOptionType => ({ label: amount.toLocaleString(), value: amount })
-)
-
-interface ITopUpFormValues {
-  topUpAmount: number
+interface IEWalletWithdrawFormValues {
+  bankAccountNo: string
+  withdrawAmount: number
 }
 
 const EWalletWithdraw: React.FC = () => {
   const router: NextRouter = useRouter()
-  const [form] = Form.useForm()
-
+  const [form] = Form.useForm<IEWalletWithdrawFormValues>()
+  const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const { t } = useTranslation([...LocaleNamespaceConst, 'e-wallet'])
-  const balance: number = 3999
 
-  function onFormChange(values: ITopUpFormValues): void {
-    console.log(values)
+  const baseRules: Rule[] = [
+    { required: true, message: [t('common:form.required'), '${label}'].join(' ') }
+  ]
+
+  function toggleOtpOpen(): void {
+    setIsOtpOpen(!isOtpOpen)
   }
+
+  function onOtpSuccess(): void {
+    setIsOtpOpen(false)
+    message.success(t('common:dataUpdated'))
+    router.replace('/settings/wallet/e-wallet', '/settings/wallet/e-wallet', {
+      locale: router.locale
+    })
+  }
+
+  function onSubmit(values: IEWalletWithdrawFormValues): void {
+    console.log(values)
+    setIsOtpOpen(true)
+  }
+
+  function onCancelClick(): void {
+    router.back()
+  }
+
+  const myBankAccountOptions: DefaultOptionType[] = useMemo(
+    () =>
+      bankMock.map(
+        (d: IBankAccountData): DefaultOptionType => ({
+          label: `${d.bankFullName} ${sensorBankAccountNo(d.bankAccountNo)} ${
+            d.isDefault ? `[${t('common:mainBankAccount')}]` : ''
+          }`,
+          value: d.bankAccountNo
+        })
+      ),
+    [t]
+  )
 
   return (
     <main className="main">
@@ -54,103 +90,159 @@ const EWalletWithdraw: React.FC = () => {
               <SettingSidebar sidebarType="buyer" />
             </Col>
             <Col
-              className=" mx-auto"
+              className="mx-auto"
               xl={{ span: 15, offset: 1 }}
               lg={{ span: 18, offset: 3 }}
               sm={24}
               xs={24}
             >
-              <Row
-                className={styles.contentLayout}
-                gutter={16}
-                justify="space-between"
-                wrap={false}
-              >
-                <Col>
+              <Row className={styles.contentLayout} gutter={[24, 24]} justify="space-between">
+                <Col span={24}>
                   <Title className={styles.sectionTitle} level={4}>
                     {t('e-wallet:withdraw.title')}
                   </Title>
                 </Col>
-                <Row gutter={8} align="middle">
-                  <Col>
-                    <Text className={styles.balanceLabel}>{t('e-wallet:balance')}</Text>
+                {!myBankAccountOptions?.length && (
+                  <Col span={24}>
+                    <Alert
+                      message={t('e-wallet:withdraw.noBankAccountTitle')}
+                      description={
+                        <Row>
+                          <Text>
+                            {`${t('e-wallet:withdraw.noBankAccountDescription')} > `}
+                            <Link
+                              href={CustomUrlUtil('/settings/wallet/bank', router.locale)}
+                              underline
+                            >
+                              {t('e-wallet:withdraw.bankAccount')}
+                            </Link>
+                          </Text>
+                        </Row>
+                      }
+                      type="warning"
+                      showIcon
+                      closable
+                    />
                   </Col>
-                  <Col>
-                    <Text className={styles.balanceValue}>
-                      {(balance || 0).toLocaleString('th-TH', {
-                        maximumFractionDigits: 2,
-                        minimumFractionDigits: 2,
-                        style: 'currency',
-                        currency: 'THB'
-                      })}
-                    </Text>
-                  </Col>
-                </Row>
-              </Row>
-              <Row justify="center">
-                <Col className={styles.topUpAmountSelectLayout}>
+                )}
+                <Col span={24}>
                   <Form
                     layout="vertical"
                     labelAlign="right"
                     form={form}
-                    onValuesChange={onFormChange}
+                    onFinish={onSubmit}
+                    disabled={!myBankAccountOptions?.length}
+                    requiredMark
                   >
-                    <Form.Item
-                      name="topUpAmount"
-                      label={t('e-wallet:common.amount')}
-                      requiredMark
-                      required
-                    >
-                      <Select allowClear>
-                        {topUpAmountOptions.map((option: DefaultOptionType) => (
-                          <Select.Option key={`${option.value}`} value={option.value}>
-                            {option.label}
-                          </Select.Option>
-                        ))}
-                      </Select>
-                    </Form.Item>
-                    <Row justify="center">
-                      <Space direction="vertical" size={8}>
-                        <Image preview={false} src="./images/main/buyer/example-qr-code.svg" />
+                    <Row gutter={[20, 20]}>
+                      <Col sm={12} xs={24}>
+                        <Form.Item
+                          name="bankAccountNo"
+                          label={t('e-wallet:withdraw.selectBankAccount')}
+                          rules={[...baseRules]}
+                        >
+                          <Select>
+                            {myBankAccountOptions.map((option: DefaultOptionType) => (
+                              <Select.Option key={`${option.value}`} value={option.value}>
+                                {option.label}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        </Form.Item>
+                      </Col>
+                      <Col sm={12} xs={24}>
+                        <Form.Item
+                          name="withdrawAmount"
+                          label={t('e-wallet:withdraw.withdrawAmount')}
+                          help={t('e-wallet:withdraw.withdrawMinimumDescription')}
+                          rules={[
+                            ...baseRules,
+                            {
+                              validator(_: Rule, value: number): Promise<void> {
+                                const withdrawAmount: number = Number(value || 0)
+                                if (Number.isNaN(withdrawAmount) || !withdrawAmount) {
+                                  return Promise.reject(
+                                    new Error([t('common:form.required'), '${label}'].join(' '))
+                                  )
+                                }
+                                if (withdrawAmount < 100) {
+                                  return Promise.reject(
+                                    new Error(t('e-wallet:withdraw.withdrawMinimumDescription'))
+                                  )
+                                }
+                                return Promise.resolve()
+                              }
+                            }
+                          ]}
+                        >
+                          <CustomInput suffix={t('common:unit.baht')} maxLength={10} onlyNumber />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                    <Divider className={`${styles.divider}`} />
+                    <Row className="mt-5">
+                      <Col
+                        sm={{
+                          offset: 12,
+                          span: 12
+                        }}
+                        xs={{
+                          offset: 4,
+                          span: 20
+                        }}
+                      >
                         <Form.Item shouldUpdate>
-                          {(): JSX.Element => {
-                            const topUpAmount: number = form.getFieldValue('topUpAmount')
+                          {(): ReactNode => {
+                            const values: IEWalletWithdrawFormValues = form.getFieldsValue()
+                            const { withdrawAmount } = values
+                            const vatAmount: number = withdrawAmount * 0.07
+                            const totalAmount: number = withdrawAmount - vatAmount
                             return (
-                              <Row justify="center">
-                                <Button
-                                  className="hps-btn-secondary"
-                                  icon={<DownloadOutlined />}
-                                  disabled={!topUpAmount}
-                                >
-                                  {t('e-wallet:common.download')}
-                                </Button>
-                              </Row>
+                              <Space className="w-100" size={8} direction="vertical">
+                                <Row justify="space-between">
+                                  <Text>{t('e-wallet:common.amount')}</Text>
+                                  <Text>{`${formatNumberDecimal(withdrawAmount)} ${t(
+                                    'บาท'
+                                  )}`}</Text>
+                                </Row>
+                                <Row justify="space-between">
+                                  <Text>{t('e-wallet:common.vatAmount')}</Text>
+                                  <Text>{`${formatNumberDecimal(vatAmount)} ${t('บาท')}`}</Text>
+                                </Row>
+                                <Row justify="space-between">
+                                  <Text>{t('e-wallet:common.totalAmount')}</Text>
+                                  <Text>{`${formatNumberDecimal(totalAmount)} ${t('บาท')}`}</Text>
+                                </Row>
+                              </Space>
                             )
                           }}
                         </Form.Item>
-                      </Space>
+                      </Col>
                     </Row>
+                    <Form.Item shouldUpdate>
+                      {(): ReactNode => (
+                        <Row className="mt-5" gutter={[24, 0]} align="middle">
+                          <Col span={12}>
+                            <Button type="text" onClick={onCancelClick} block>
+                              {t('common:cancel')}
+                            </Button>
+                          </Col>
+                          <Col span={12}>
+                            <Button type="primary" htmlType="submit" block>
+                              {t('common:confirm')}
+                            </Button>
+                          </Col>
+                        </Row>
+                      )}
+                    </Form.Item>
                   </Form>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <List
-                    className={styles.howToLayout}
-                    header={
-                      <Text className={styles.howToTitle}>{t('e-wallet:topUp.howToTitle')}</Text>
-                    }
-                    dataSource={[
-                      t('e-wallet:topUp.howTo1'),
-                      t('e-wallet:topUp.howTo2'),
-                      t('e-wallet:topUp.howTo3')
-                    ]}
-                    split={false}
-                    renderItem={(item: string): ReactNode => (
-                      <List.Item className={styles.howToItem}>
-                        <Text>{item}</Text>
-                      </List.Item>
-                    )}
+                  {/* TODO: wait type otp verify */}
+                  <OtpModal
+                    action={OtpTypeEnum.REGISTER}
+                    mobile="0900000001"
+                    isOpen={isOtpOpen}
+                    toggle={toggleOtpOpen}
+                    onSubmit={onOtpSuccess}
                   />
                 </Col>
               </Row>

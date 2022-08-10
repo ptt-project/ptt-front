@@ -2,6 +2,7 @@ import { Button, Col, Image, Row, Space, Typography } from 'antd'
 import { useTranslation } from 'next-i18next'
 import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
+import { formatNumberDecimal } from '~/utils/main'
 import styles from './BalanceCard.module.scss'
 
 const { Text } = Typography
@@ -21,9 +22,7 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
         <Space direction="vertical" size={0}>
           <Text className={styles.balanceLabel}>{t('e-wallet:balance')}</Text>
           <Text className={styles.balanceValue}>
-            {(balance || 0).toLocaleString('th-TH', {
-              maximumFractionDigits: 2,
-              minimumFractionDigits: 2,
+            {formatNumberDecimal(balance, 2, 'en-EN', {
               style: 'currency',
               currency: 'THB'
             })}

@@ -1,41 +1,19 @@
 @import '../../../public/sass/config/variables';
+@import '../../../public/sass/mixins/core';
+@import '../../../public/sass/mixins/breakpoints';
 
 .contentLayout {
-  .balanceLabel {
-    font-size: 12px;
-    font-weight: 400;
-    color: $text-black;
-  }
-
-  .balanceValue {
-    font-size: 16px;
-    font-weight: 600;
-    color: $text-black;
-  }
-
   .sectionTitle {
     margin-bottom: 1.5rem !important;
     color: #239cd7 !important;
     text-align: left;
   }
-}
 
-.howToLayout {
-  div:first-of-type {
-    padding: 0;
-  }
-  .howToTitle {
-    font-weight: 600;
-  }
+  .divider {
+    margin: 1rem 0;
 
-  li.howToItem {
-    list-style-type: disc !important;
-    padding: 4px 8px;
-    margin-left: 20px;
+    @include mq('xs', 'max') {
+      margin: 2rem 0;
+    }
   }
-}
-
-.topUpAmountSelectLayout {
-  max-width: 330px;
-  flex: 1;
 }

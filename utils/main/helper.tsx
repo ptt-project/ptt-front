@@ -2,3 +2,15 @@ import { takeRight } from 'lodash'
 
 export const sensorBankAccountNo = (bankAccountNo: string): string =>
   `*${takeRight(bankAccountNo, 4).join('')}`
+
+export const formatNumberDecimal = (
+  value: number,
+  digit: number = 2,
+  locale: 'th-TH' | 'en-EN' = 'en-EN',
+  options: Intl.NumberFormatOptions = {}
+): string =>
+  Number(value || 0).toLocaleString(locale, {
+    ...options,
+    maximumFractionDigits: digit,
+    minimumFractionDigits: digit
+  })

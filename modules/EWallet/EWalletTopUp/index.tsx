@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react'
-import { Typography, Row, Col, Select, Form, Button, Image, Space, List } from 'antd'
+import { Typography, Row, Col, Select, Form, Button, Image, Space, List, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import { DefaultOptionType } from 'antd/lib/select'
+import { DownloadOutlined } from '@ant-design/icons'
+import { first } from 'lodash'
 import styles from './EWalletTopUp.module.scss'
-import { CustomUrlUtil } from '~/utils/main'
+import { CustomUrlUtil, formatNumberDecimal } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
@@ -16,7 +18,7 @@ const topUpAmountOptions: DefaultOptionType[] = [100, 300, 500, 800, 1300, 1500,
   (amount: number): DefaultOptionType => ({ label: amount.toLocaleString(), value: amount })
 )
 
-interface ITopUpFormValues {
+interface IEWalletTopUpFormValues {
   topUpAmount: number
 }
 
@@ -27,8 +29,9 @@ const EWalletTopUp: React.FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'e-wallet'])
   const balance: number = 3999
 
-  function onFormChange(values: ITopUpFormValues): void {
-    console.log(values)
+  function onSubmit(values: IEWalletTopUpFormValues): void {
+    console.debug(values)
+    message.success(t('e-wallet:topUp.downloadSuccess'))
   }
 
   return (
@@ -76,9 +79,7 @@ const EWalletTopUp: React.FC = () => {
                   </Col>
                   <Col>
                     <Text className={styles.balanceValue}>
-                      {(balance || 0).toLocaleString('th-TH', {
-                        maximumFractionDigits: 2,
-                        minimumFractionDigits: 2,
+                      {formatNumberDecimal(balance, 2, 'en-EN', {
                         style: 'currency',
                         currency: 'THB'
                       })}
@@ -92,7 +93,10 @@ const EWalletTopUp: React.FC = () => {
                     layout="vertical"
                     labelAlign="right"
                     form={form}
-                    onValuesChange={onFormChange}
+                    initialValues={{
+                      topUpAmount: first(topUpAmountOptions).value
+                    }}
+                    onFinish={onSubmit}
                   >
                     <Form.Item
                       name="topUpAmount"
@@ -100,7 +104,7 @@ const EWalletTopUp: React.FC = () => {
                       requiredMark
                       required
                     >
-                      <Select allowClear>
+                      <Select>
                         {topUpAmountOptions.map((option: DefaultOptionType) => (
                           <Select.Option key={`${option.value}`} value={option.value}>
                             {option.label}
@@ -116,7 +120,12 @@ const EWalletTopUp: React.FC = () => {
                             const topUpAmount: number = form.getFieldValue('topUpAmount')
                             return (
                               <Row justify="center">
-                                <Button className="hps-btn-secondary mt-1" disabled={!topUpAmount}>
+                                <Button
+                                  className="hps-btn-secondary mt-1"
+                                  icon={<DownloadOutlined />}
+                                  disabled={!topUpAmount}
+                                  htmlType="submit"
+                                >
                                   {t('e-wallet:common.download')}
                                 </Button>
                               </Row>
