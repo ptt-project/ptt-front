@@ -6,6 +6,8 @@ import { Typography, Input, Space, Badge } from 'antd'
 import MainMenu from './components/MainMenu'
 import { HiddenHeaderConst, LocaleNamespaceConst } from '~/constants'
 import { headerBorderRemoveList } from '~/utils/data/menu'
+import { AuthGetUserInfo, CustomUrlUtil } from '~/utils/main'
+import { IAuthUserInfo } from '~/interfaces'
 import styles from './Header.module.scss'
 
 const { Text, Link, Title } = Typography
@@ -13,6 +15,7 @@ const { Text, Link, Title } = Typography
 const Header: FC = () => {
   const { t } = useTranslation(LocaleNamespaceConst)
   const router: NextRouter = useRouter()
+  const userInfo: IAuthUserInfo | undefined = AuthGetUserInfo()
 
   useEffect(() => {
     const header: HTMLHeadElement = document.querySelector('header')
@@ -52,25 +55,42 @@ const Header: FC = () => {
               </Link>
               <ul className="dropdown-box">
                 <li>
-                  <Link href="#" className={styles.topLink}>
+                  <Link href={CustomUrlUtil(router.pathname, 'th')} className={styles.topLink}>
                     {t('header:top.lang.th')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className={styles.topLink}>
+                  <Link href={CustomUrlUtil(router.pathname, 'en')} className={styles.topLink}>
                     {t('header:top.lang.en')}
                   </Link>
                 </li>
               </ul>
             </div>
             <div className="divider" />
-            <Link href="#" className={styles.topLink}>
-              {t('header:top.signIn')}
-            </Link>
-            <span className={styles.slash}>/</span>
-            <Link href="#" className={styles.topLink}>
-              {t('header:top.signUp')}
-            </Link>
+            {userInfo ? (
+              <Link
+                href={CustomUrlUtil('/settings/account/info', router.locale)}
+                className={styles.name}
+              >
+                <Text type="secondary" className="mr-1">
+                  {t('header:top.welcome')}
+                </Text>
+                {userInfo.firstname}
+              </Link>
+            ) : (
+              <>
+                <Link href={CustomUrlUtil('/auth/login', router.locale)} className={styles.topLink}>
+                  {t('header:top.signIn')}
+                </Link>
+                <span className={styles.slash}>/</span>
+                <Link
+                  href={CustomUrlUtil('/auth/register', router.locale)}
+                  className={styles.topLink}
+                >
+                  {t('header:top.signUp')}
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -81,7 +101,7 @@ const Header: FC = () => {
             <Link className={`${styles.toggleBar} mobile-menu-toggle`} onClick={showMobileMenu}>
               <i className="fas fa-bars" />
             </Link>
-            <Link href="/" className="logo">
+            <Link href={CustomUrlUtil('/', router.locale)} className="logo">
               <img src="./images/main/logo.png" alt="logo" width="100" />
             </Link>
             <Input.Search
