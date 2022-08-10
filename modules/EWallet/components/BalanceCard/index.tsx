@@ -1,4 +1,4 @@
-import { Button, Col, Image, message, Row, Space, Typography } from 'antd'
+import { Button, Col, Image, Row, Space, Typography } from 'antd'
 import { useTranslation } from 'next-i18next'
 import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
@@ -8,18 +8,12 @@ const { Text } = Typography
 
 interface IBalanceCardProps {
   balance: number
+  onWithdrawClick: () => void
+  onTopUpClick: () => void
 }
 const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
-  const { balance } = props
+  const { balance, onWithdrawClick, onTopUpClick } = props
   const { t } = useTranslation([...LocaleNamespaceConst, 'e-wallet'])
-
-  function onWithdrawClick(): void {
-    message.info('withdraw')
-  }
-
-  function onTopUpClick(): void {
-    message.info('top-up')
-  }
 
   return (
     <Row className={styles.layout} justify="space-between" align="middle" gutter={[0, 24]}>
@@ -44,7 +38,7 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
               icon={<Image preview={false} src="./images/main/buyer/icon-withdraw.svg" />}
               onClick={onWithdrawClick}
             >
-              {t('e-wallet:withdraw')}
+              {t('e-wallet:withdraw.title')}
             </Button>
           </Col>
           <Col>
@@ -53,7 +47,7 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
               icon={<Image preview={false} src="./images/main/buyer/icon-top-up.svg" />}
               onClick={onTopUpClick}
             >
-              {t('e-wallet:topUp')}
+              {t('e-wallet:topUp.title')}
             </Button>
           </Col>
         </Row>

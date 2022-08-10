@@ -1,4 +1,4 @@
-import { Col, Image, Row, Space, Table, Typography } from 'antd'
+import { Col, Image, Row, Space, Table, Tag, TagProps, Typography } from 'antd'
 import { ColumnsType, TablePaginationConfig } from 'antd/lib/table'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/lib/table/interface'
 import moment from 'moment'
@@ -60,7 +60,9 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
             </Col>
             <Col>
               <Text>
-                {value === EWalletTypeEnum.WITHDRAW ? t('e-wallet:withdraw') : t('e-wallet:topUp')}
+                {value === EWalletTypeEnum.WITHDRAW
+                  ? t('e-wallet:withdraw.title')
+                  : t('e-wallet:topUp.title')}
               </Text>
             </Col>
           </Row>
@@ -106,20 +108,20 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
         align: 'center',
         showSorterTooltip: false,
         render: (value: EWalletStatusEnum): JSX.Element => {
+          let tagColor: TagProps['color'] = ''
           let statusLabel: string = ''
-          const statusClassNames: string[] = [styles.statusTag]
           switch (value) {
             case EWalletStatusEnum.SUCCESS:
               statusLabel = t('สำเร็จ')
-              statusClassNames.push(styles.tagBlue)
+              tagColor = 'success'
               break
             case EWalletStatusEnum.CANCELED:
               statusLabel = t('ยกเลิก')
-              statusClassNames.push(styles.tagRed)
+              tagColor = 'error'
               break
             case EWalletStatusEnum.FAILED:
               statusLabel = t('ไม่สำเร็จ')
-              statusClassNames.push(styles.tagRed)
+              tagColor = 'error'
               break
             case EWalletStatusEnum.PENDING:
             default:
@@ -127,11 +129,7 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
               break
           }
           return (
-            <Row justify="center">
-              <div className={statusClassNames.join(' ')}>
-                <Text>{statusLabel}</Text>
-              </div>
-            </Row>
+            <Row justify="center">{statusLabel && <Tag color={tagColor}>{statusLabel}</Tag>}</Row>
           )
         }
       }
