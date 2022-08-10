@@ -1,4 +1,4 @@
-export interface IMemberProfileFormModel {
+export interface IMemberProfile {
   username: string
   firstName: string
   lastName: string

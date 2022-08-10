@@ -22,9 +22,14 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrlUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
+import { IMemberProfile } from '~/interfaces'
 import styles from './Profile.module.scss'
 
 const { Text, Title } = Typography
+
+interface IProps {
+  member: IMemberProfile
+}
 
 interface IFormModel {
   firstName: string
@@ -33,7 +38,8 @@ interface IFormModel {
   email: string
 }
 
-const Profile: FC = () => {
+const Profile: FC<IProps> = (props: IProps) => {
+  console.log(props.member)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
@@ -46,6 +52,7 @@ const Profile: FC = () => {
   function onSubmit(values: IFormModel): void {
     console.log(values)
   }
+
   return (
     <main className="main">
       <Helmet>
