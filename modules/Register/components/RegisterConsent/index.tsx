@@ -78,7 +78,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
     if (isSuccess) {
       message.success(t('common:apiMessage.success'))
     } else {
-      message.success(t('common:apiMessage.error'))
+      message.error(t('common:apiMessage.error'))
     }
     setIsLoading(false)
   }

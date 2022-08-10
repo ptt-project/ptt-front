@@ -1,12 +1,16 @@
 import React, { useState, FC } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
+import { AxiosResponse } from 'axios'
 import Helmet from 'react-helmet'
-import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image } from 'antd'
+import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, message } from 'antd'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { CustomUrlUtil } from '~/utils/main'
-import { IAuthLoginForm, IFieldData } from '~/interfaces'
+import Loading from '~/components/main/Loading'
+import { AuthInitUtil, CustomUrlUtil } from '~/utils/main'
+import { IAuthLoginService, IFieldData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
+import { AuthService } from '~/services'
+import { CommonApiCodeEnum } from '~/enums'
 import styles from './Login.module.scss'
 
 const { Title, Link } = Typography
@@ -14,22 +18,42 @@ const { Title, Link } = Typography
 const Login: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.login'])
   const router: NextRouter = useRouter()
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [form] = Form.useForm()
-  const [formData, setFormData] = useState<IAuthLoginForm>({
+  const [formData, setFormData] = useState<IAuthLoginService>({
     username: '',
     password: ''
   })
 
   function onChangeFields(_: IFieldData[], allFields: IFieldData[]): void {
     if (_.length) {
-      const tempFormData: IAuthLoginForm = { ...formData }
+      const tempFormData: IAuthLoginService = { ...formData }
       tempFormData[_[0].name[0]] = _[0].value
       setFormData(tempFormData)
     }
   }
 
-  function onSubmit(values: IAuthLoginForm): void {
-    console.log(values)
+  async function onSubmit(values: IAuthLoginService): Promise<void> {
+    setIsLoading(true)
+    let isSuccess: boolean = false
+    try {
+      const payload: IAuthLoginService = { ...values }
+      const result: AxiosResponse = await AuthService.login(payload)
+      if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
+        isSuccess = true
+        AuthInitUtil(result.data.data)
+        router.replace('/')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
   return (
@@ -40,6 +64,7 @@ const Login: FC = () => {
         </title>
       </Helmet>
       <Breadcrumbs items={[{ title: t('auth.login:title') }]} />
+      <Loading show={isLoading} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>

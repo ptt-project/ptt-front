@@ -9,6 +9,15 @@
   }
 }
 
+.name {
+  color: $text-black !important;
+
+  &:hover,
+  &:focus {
+    color: $info-color !important;
+  }
+}
+
 .slash {
   color: $text-gray;
   margin: 0 0.25rem;
