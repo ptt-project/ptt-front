@@ -33,7 +33,7 @@ export const AuthGetToken = (): { accessToken: string; refreshToken: string } =>
   }
 }
 
-export const AuthGetUserInfo = (): IAuthUserInfo | undefined => {
+export const AuthGetUserInfoUtil = (): IAuthUserInfo | undefined => {
   const rawUserInfo: string = Cookies.get('UserInfo')
   if (!isEmpty(rawUserInfo)) {
     return JSON.parse(rawUserInfo)
