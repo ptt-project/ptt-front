@@ -1,6 +1,7 @@
+import cookie from 'cookie'
 import Cookies from 'js-cookie'
 import { isEmpty } from 'lodash'
-import { IAuthLoginRes, IAuthUserInfo } from '~/interfaces'
+import { IAuthLoginRes, IAuthToken, IAuthUserInfo } from '~/interfaces'
 
 export const AuthInitUtil = (data: IAuthLoginRes): void => {
   Cookies.set('AccessToken', data.accessToken)
@@ -23,9 +24,20 @@ export const AuthDestroyUtil = (): void => {
   Cookies.remove('UserInfo')
 }
 
-export const AuthGetToken = (): { accessToken: string; refreshToken: string } => {
+export const AuthGetTokenUtil = (): IAuthToken => {
   const accessToken: string = Cookies.get('AccessToken')
   const refreshToken: string = Cookies.get('RefreshToken')
+
+  return {
+    accessToken,
+    refreshToken
+  }
+}
+
+export const AuthGetServerSideTokenUtil = (rawCookie: string): IAuthToken => {
+  const cookies: any = cookie.parse(rawCookie)
+  const accessToken: string = cookies.AccessToken || ''
+  const refreshToken: string = cookies.RefreshToken || ''
 
   return {
     accessToken,
