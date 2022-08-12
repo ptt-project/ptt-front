@@ -20,6 +20,7 @@ module.exports = {
       }
     }
   },
+  ignorePatterns: ['**/*.js', '**/*.jsx'],
   rules: {
     'import/no-unresolved': [
       'error',
