@@ -44,7 +44,7 @@ const Header: FC = () => {
       <div className="header-top">
         <div className="container">
           <div className="header-right">
-            <Link href="#" className={styles.topLink}>
+            <Link href={CustomUrlUtil('/auth/register-seller/', router.locale)} className={styles.topLink}>
               <i className="fas fa-store mr-1" />
               {t('header:top.shop')}
             </Link>
