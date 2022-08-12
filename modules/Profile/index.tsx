@@ -22,18 +22,17 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrlUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
+import { IMemberProfile } from '~/interfaces'
 import styles from './Profile.module.scss'
 
 const { Text, Title } = Typography
 
-interface IFormModel {
-  firstName: string
-  lastName: string
-  mobile: string
-  email: string
+interface IProps {
+  member: IMemberProfile
 }
 
-const Profile: FC = () => {
+const Profile: FC<IProps> = (props: IProps) => {
+  console.log(props.member)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
@@ -43,7 +42,7 @@ const Profile: FC = () => {
     setValue(e.target.value)
   }
 
-  function onSubmit(values: IFormModel): void {
+  function onSubmit(values: IMemberProfile): void {
     console.log(values)
   }
 
@@ -72,7 +71,17 @@ const Profile: FC = () => {
                 {t('account-info:title')}
               </Title>
               <HighlightLabel title={t('account-info:personalInfo')} />
-              <Form layout="vertical" form={form} name="profileForm" onFinish={onSubmit}>
+              <Form
+                layout="vertical"
+                form={form}
+                name="profileForm"
+                onFinish={onSubmit}
+                initialValues={{
+                  firstName: props.member.firstname,
+                  lastName: props.member.lastname,
+                  gender: props.member.gender
+                }}
+              >
                 <Row className={styles.highlight} gutter={[16, 16]} align="middle">
                   <Col sm={4} xs={12}>
                     <Avatar
@@ -98,7 +107,7 @@ const Profile: FC = () => {
                     <Text className={styles.textPrimary}>mem01</Text>
                     <br />
                     <Text className={styles.label}>{t('account-info:form.username')} :</Text>
-                    <Text className={styles.textPrimary}>New_user</Text>
+                    <Text className={styles.textPrimary}>{props.member.username}</Text>
                   </Col>
                 </Row>
                 <Row gutter={[16, 8]}>
@@ -129,7 +138,7 @@ const Profile: FC = () => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={50} value={props.member.lastName} />
                     </Form.Item>
                   </Col>
                   <Col span={24}>
@@ -163,17 +172,22 @@ const Profile: FC = () => {
                         <Text>{t('account-info:form.gender')}</Text>
                       </Col>
                       <Col xs={16}>
-                        <Radio.Group onChange={onChange} value={value} className={styles.radioFlex}>
-                          <Radio value={1}>{t('account-info:form.man')}</Radio>
-                          <Radio value={2}>{t('account-info:form.female')}</Radio>
-                          <Radio value={3}>{t('account-info:form.other')}</Radio>
+                        <Radio.Group
+                          name="gender"
+                          onChange={onChange}
+                          value={value}
+                          className={styles.radioFlex}
+                        >
+                          <Radio value="M">{t('account-info:form.man')}</Radio>
+                          <Radio value="F">{t('account-info:form.female')}</Radio>
+                          <Radio value="O">{t('account-info:form.other')}</Radio>
                         </Radio.Group>
                       </Col>
                       <Col xs={8}>
                         <Text>{t('account-info:form.email')}</Text>
                       </Col>
                       <Col sm={12} xs={11}>
-                        <Text type="danger">xxxxx@gmail.com</Text>
+                        <Text type="danger">{props.member.email}</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
                         <Link href={CustomUrlUtil('/settings/account/info/email', router.locale)}>
@@ -187,7 +201,7 @@ const Profile: FC = () => {
                         <Text>{t('account-info:form.phoneNumber')}</Text>
                       </Col>
                       <Col sm={12} xs={11}>
-                        <Text type="danger">xxxxx11</Text>
+                        <Text type="danger">{props.member.mobile}</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
                         <Link href={CustomUrlUtil('/settings/account/info/phone', router.locale)}>
