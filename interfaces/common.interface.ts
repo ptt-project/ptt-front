@@ -7,12 +7,6 @@ export interface IBreadcrumb {
   items?: IBreadcrumbItem[]
 }
 
-export interface IOtpData {
-  otpCode: string
-  refCode: string
-  reference: string
-}
-
 export interface IFieldData {
   name: string | number | (string | number)[]
   value?: any
