@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 import { useTranslation } from 'next-i18next'
 import styles from './BankAccountCard.module.scss'
 import BankLogo from './BankLogo'
-import { sensorBankAccountNo } from '~/utils/main/helper'
+import { HelperCensorBankAccountNoUtil } from '~/utils/main'
 import { BankAccountStatusEnum } from '~/enums'
 import { IBankAccountData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
@@ -72,7 +72,7 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
       </Col>
       <Col className={styles.bankAccountNo}>
         <div>
-          <Text>{sensorBankAccountNo(data.bankAccountNo)}</Text>
+          <Text>{HelperCensorBankAccountNoUtil(data.bankAccountNo)}</Text>
         </div>
       </Col>
       <Col className={styles.actionLayout} md={4} sm={2}>

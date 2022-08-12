@@ -6,7 +6,7 @@ import { Typography, Input, Space, Badge } from 'antd'
 import MainMenu from './components/MainMenu'
 import { HiddenHeaderConst, LocaleNamespaceConst } from '~/constants'
 import { headerBorderRemoveList } from '~/utils/data/menu'
-import { AuthGetUserInfo, CustomUrlUtil } from '~/utils/main'
+import { AuthGetUserInfoUtil, CustomUrlUtil } from '~/utils/main'
 import { IAuthUserInfo } from '~/interfaces'
 import styles from './Header.module.scss'
 
@@ -15,7 +15,7 @@ const { Text, Link, Title } = Typography
 const Header: FC = () => {
   const { t } = useTranslation(LocaleNamespaceConst)
   const router: NextRouter = useRouter()
-  const userInfo: IAuthUserInfo | undefined = AuthGetUserInfo()
+  const userInfo: IAuthUserInfo | undefined = AuthGetUserInfoUtil()
 
   useEffect(() => {
     const header: HTMLHeadElement = document.querySelector('header')

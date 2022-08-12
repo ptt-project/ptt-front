@@ -5,13 +5,16 @@ import { orderBy, pullAt } from 'lodash'
 import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import styles from './BankAccount.module.scss'
-import { CustomUrlUtil, CustomHookUseVisibleUtil } from '~/utils/main'
+import {
+  CustomUrlUtil,
+  CustomHookUseVisibleUtil,
+  HelperCensorBankAccountNoUtil
+} from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { bankMock } from '~/modules/BankAccount/mock-data'
 import BankAccountCard from './components/BankAccountCard'
-import { sensorBankAccountNo } from '~/utils/main/helper'
 import { IBankAccountData, IBankAccountFromValues } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 
@@ -204,7 +207,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                       <Text>
                         {t('bank-account:confirmDeleteAccountMsg1')}
                         {deleteBankAccount?.bankFullName}{' '}
-                        {sensorBankAccountNo(deleteBankAccount?.bankAccountNo)}
+                        {HelperCensorBankAccountNoUtil(deleteBankAccount?.bankAccountNo)}
                       </Text>
                     </Space>
                     <Text>{deleteBankAccount?.bankAccountName}</Text>

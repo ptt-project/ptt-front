@@ -1,10 +1,11 @@
-import Cookies from 'js-cookie'
+import Cookie from 'cookie'
+import JsCookie from 'js-cookie'
 import { isEmpty } from 'lodash'
-import { IAuthLoginRes, IAuthUserInfo } from '~/interfaces'
+import { IAuthLoginRes, IAuthToken, IAuthUserInfo } from '~/interfaces'
 
 export const AuthInitUtil = (data: IAuthLoginRes): void => {
-  Cookies.set('AccessToken', data.accessToken)
-  Cookies.set('RefreshToken', data.refreshToken)
+  JsCookie.set('AccessToken', data.accessToken)
+  JsCookie.set('RefreshToken', data.refreshToken)
 
   const userInfo: IAuthUserInfo = {
     username: data.username,
@@ -14,18 +15,18 @@ export const AuthInitUtil = (data: IAuthLoginRes): void => {
     email: data.email
   }
 
-  Cookies.set('UserInfo', JSON.stringify(userInfo))
+  JsCookie.set('UserInfo', JSON.stringify(userInfo))
 }
 
 export const AuthDestroyUtil = (): void => {
-  Cookies.remove('AccessToken')
-  Cookies.remove('RefreshToken')
-  Cookies.remove('UserInfo')
+  JsCookie.remove('AccessToken')
+  JsCookie.remove('RefreshToken')
+  JsCookie.remove('UserInfo')
 }
 
-export const AuthGetToken = (): { accessToken: string; refreshToken: string } => {
-  const accessToken: string = Cookies.get('AccessToken')
-  const refreshToken: string = Cookies.get('RefreshToken')
+export const AuthGetTokenUtil = (): IAuthToken => {
+  const accessToken: string = JsCookie.get('AccessToken')
+  const refreshToken: string = JsCookie.get('RefreshToken')
 
   return {
     accessToken,
@@ -33,8 +34,19 @@ export const AuthGetToken = (): { accessToken: string; refreshToken: string } =>
   }
 }
 
-export const AuthGetUserInfo = (): IAuthUserInfo | undefined => {
-  const rawUserInfo: string = Cookies.get('UserInfo')
+export const AuthGetServerSideTokenUtil = (rawCookie: string): IAuthToken => {
+  const cookies: any = Cookie.parse(rawCookie)
+  const accessToken: string = cookies.AccessToken || ''
+  const refreshToken: string = cookies.RefreshToken || ''
+
+  return {
+    accessToken,
+    refreshToken
+  }
+}
+
+export const AuthGetUserInfoUtil = (): IAuthUserInfo | undefined => {
+  const rawUserInfo: string = JsCookie.get('UserInfo')
   if (!isEmpty(rawUserInfo)) {
     return JSON.parse(rawUserInfo)
   }

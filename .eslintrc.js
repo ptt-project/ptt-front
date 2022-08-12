@@ -12,14 +12,6 @@ module.exports = {
     // 'plugin:@typescript-eslint/recommended-requiring-type-checking'
   ],
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true
-    },
-    ecmaVersion: 'latest',
-    project: 'tsconfig.json',
-    sourceType: 'module'
-  },
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'require-explicit-generics'],
   settings: {
     'import/resolver': {
@@ -28,6 +20,7 @@ module.exports = {
       }
     }
   },
+  ignorePatterns: ['**/*.js', '**/*.jsx'],
   rules: {
     'import/no-unresolved': [
       'error',
@@ -80,13 +73,6 @@ module.exports = {
     ],
     '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],
     '@typescript-eslint/no-inferrable-types': 'off',
-    '@typescript-eslint/no-explicit-any': [
-      'error',
-      {
-        fixToUnknown: false,
-        ignoreRestArgs: false
-      }
-    ],
     '@typescript-eslint/explicit-function-return-type': [
       'error',
       {
@@ -103,7 +89,6 @@ module.exports = {
       'error',
       {
         arrayDestructuring: false,
-        arrowParameter: true,
         arrowParameter: true,
         objectDestructuring: false,
         parameter: true,
