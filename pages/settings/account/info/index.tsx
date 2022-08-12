@@ -44,7 +44,7 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
 }
 
 const ProfilePage: FC<IProfilePageProps> = (props: IProfilePageProps) => (
-  <Profile member={props.profile} />
+  <Profile profile={props.profile} />
 )
 
 export default ProfilePage
