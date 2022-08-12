@@ -28,11 +28,10 @@ import styles from './Profile.module.scss'
 const { Text, Title } = Typography
 
 interface IProps {
-  member: IMemberProfile
+  profile: IMemberProfile
 }
 
 const Profile: FC<IProps> = (props: IProps) => {
-  console.log(props.member)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
@@ -77,9 +76,9 @@ const Profile: FC<IProps> = (props: IProps) => {
                 name="profileForm"
                 onFinish={onSubmit}
                 initialValues={{
-                  firstName: props.member.firstname,
-                  lastName: props.member.lastname,
-                  gender: props.member.gender
+                  firstName: props.profile.firstName,
+                  lastName: props.profile.lastName,
+                  gender: props.profile.gender
                 }}
               >
                 <Row className={styles.highlight} gutter={[16, 16]} align="middle">
@@ -107,7 +106,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                     <Text className={styles.textPrimary}>mem01</Text>
                     <br />
                     <Text className={styles.label}>{t('account-info:form.username')} :</Text>
-                    <Text className={styles.textPrimary}>{props.member.username}</Text>
+                    <Text className={styles.textPrimary}>{props.profile.username}</Text>
                   </Col>
                 </Row>
                 <Row gutter={[16, 8]}>
@@ -138,7 +137,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} value={props.member.lastName} />
+                      <Input maxLength={50} value={props.profile.lastName} />
                     </Form.Item>
                   </Col>
                   <Col span={24}>
@@ -187,7 +186,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                         <Text>{t('account-info:form.email')}</Text>
                       </Col>
                       <Col sm={12} xs={11}>
-                        <Text type="danger">{props.member.email}</Text>
+                        <Text type="danger">{props.profile.email}</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
                         <Link href={CustomUrlUtil('/settings/account/info/email', router.locale)}>
@@ -201,7 +200,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                         <Text>{t('account-info:form.phoneNumber')}</Text>
                       </Col>
                       <Col sm={12} xs={11}>
-                        <Text type="danger">{props.member.mobile}</Text>
+                        <Text type="danger">{props.profile.mobile}</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
                         <Link href={CustomUrlUtil('/settings/account/info/phone', router.locale)}>

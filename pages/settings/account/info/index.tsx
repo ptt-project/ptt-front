@@ -8,12 +8,12 @@ import { MembersService } from '~/services'
 import { IMemberProfile } from '~/interfaces'
 import { CommonApiCodeEnum } from '~/enums'
 
-interface IProps {
-  member: IMemberProfile
+interface IProfilePageProps {
+  profile: IMemberProfile
 }
 
 export async function getServerSideProps(context: NextPageContext): Promise<any> {
-  let member: IMemberProfile = {
+  let profile: IMemberProfile = {
     username: '',
     firstName: '',
     lastName: '',
@@ -28,7 +28,7 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
     try {
       const result: AxiosResponse = await MembersService.memberProfile(req)
       if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
-        member = result.data.data
+        profile = result.data.data
       }
     } catch (error) {
       console.log(error)
@@ -38,11 +38,13 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
   return {
     props: {
       ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'account-info'])),
-      member
+      profile
     }
   }
 }
 
-const ProfilePage: FC<IProps> = (props: IProps) => <Profile member={props.member} />
+const ProfilePage: FC<IProfilePageProps> = (props: IProfilePageProps) => (
+  <Profile member={props.profile} />
+)
 
 export default ProfilePage
