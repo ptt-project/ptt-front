@@ -105,7 +105,7 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
   function onChange(
     pagination: TablePaginationConfig,
     filters: Record<string, FilterValue | null>,
-    sorter: SorterResult<IRelationTableData> | SorterResult<IRelationTableData>[],
+    sorter: SorterResult<IRelationTableData>,
     extra: TableCurrentDataSource<IRelationTableData>
   ): void {
     // TODO: handle sort column here

@@ -18,8 +18,8 @@ const AddressTagField: React.FC<IAddressTagFieldProps> = (props: IAddressTagFiel
           <Image preview={false} src="./images/main/buyer/address-tag-home-inactive.svg" />
         )}
       </Radio.Button>
-      <Radio.Button className={styles.addressTagRadioButton} value="office">
-        {value === 'office' ? (
+      <Radio.Button className={styles.addressTagRadioButton} value="work">
+        {value === 'work' ? (
           <Image preview={false} src="./images/main/buyer/address-tag-office-active.svg" />
         ) : (
           <Image preview={false} src="./images/main/buyer/address-tag-office-inactive.svg" />

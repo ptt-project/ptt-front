@@ -1,14 +1,15 @@
 import React from 'react'
-import { Col, Typography, Form, Button, Row, notification } from 'antd'
+import { Col, Typography, Form, Button, Row, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import AddressForm from '../AddressForm'
-import { IAddressFormValues } from '~/interfaces'
+import { IAddressFormValues, ICreateAddress } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
+import { MembersService } from '~/services'
 
 const { Title } = Typography
 
@@ -22,14 +23,25 @@ const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
   const [form] = Form.useForm()
   const rootMenu: string = props.isSeller ? '/seller' : ''
 
-  function onSubmit(values: IAddressFormValues): void {
-    console.log(values)
-    notification.success({
-      message: 'Add Address Success'
-    })
-    router.replace(`${rootMenu}/settings/account/address`, `${rootMenu}/settings/account/address`, {
-      locale: router.locale
-    })
+  async function onSubmit(values: IAddressFormValues): Promise<void> {
+    const payload: ICreateAddress = {
+      ...values,
+      isHome: values.addressType === 'home',
+      isWork: values.addressType === 'work'
+    }
+    try {
+      await MembersService.createAddress(payload)
+      message.success(t('common:dataUpdated'))
+      router.replace(
+        `${rootMenu}/settings/account/address`,
+        `${rootMenu}/settings/account/address`,
+        {
+          locale: router.locale
+        }
+      )
+    } catch (error) {
+      message.error(t('Fail'))
+    }
   }
 
   function onSaveClick(): void {
