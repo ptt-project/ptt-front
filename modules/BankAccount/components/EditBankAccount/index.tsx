@@ -143,6 +143,7 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
             onConfirmClick={onConfirmBankInfoClick}
             onCancelClick={onCancelBankInfoClick}
           />
+          {/* TODO: wait type otp verify */}
           <OtpModal
             mobile={mobileNo}
             action={OtpTypeEnum.REGISTER}

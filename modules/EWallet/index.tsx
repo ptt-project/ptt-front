@@ -13,14 +13,22 @@ import EWalletHistory from './components/EWalletHistory'
 
 const { Title } = Typography
 
-interface IEWalletProps {
-  isSeller?: boolean
-}
-const EWallet: React.FC<IEWalletProps> = (props: IEWalletProps) => {
+const EWallet: React.FC = () => {
   const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'e-wallet'])
-  const rootMenu: string = props.isSeller ? '/seller' : ''
   const balance: number = 3999
+
+  function onTopUpClick(): void {
+    router.push('/settings/wallet/e-wallet/top-up', '/settings/wallet/e-wallet/top-up', {
+      locale: router.locale
+    })
+  }
+
+  function onWithdrawClick(): void {
+    router.push('/settings/wallet/e-wallet/withdraw', '/settings/wallet/e-wallet/withdraw', {
+      locale: router.locale
+    })
+  }
 
   return (
     <main className="main">
@@ -30,10 +38,10 @@ const EWallet: React.FC<IEWalletProps> = (props: IEWalletProps) => {
       <Breadcrumbs
         items={[
           { title: t('e-wallet:breadcrumbs.setting') },
-          { title: t('e-wallet:breadcrumbs.account') },
+          { title: t('e-wallet:breadcrumbs.finance') },
           {
             title: t('e-wallet:breadcrumbs.eWallet'),
-            href: CustomUrlUtil(`${rootMenu}/settings/account/address`, router.locale)
+            href: CustomUrlUtil('/settings/wallet/e-wallet', router.locale)
           }
         ]}
       />
@@ -41,7 +49,7 @@ const EWallet: React.FC<IEWalletProps> = (props: IEWalletProps) => {
         <div className="container">
           <Row>
             <Col xl={6} lg={0}>
-              <SettingSidebar sidebarType={props.isSeller ? 'seller' : 'buyer'} />
+              <SettingSidebar sidebarType="buyer" />
             </Col>
             <Col
               className="mx-auto"
@@ -55,7 +63,11 @@ const EWallet: React.FC<IEWalletProps> = (props: IEWalletProps) => {
                   <Title className={styles.sectionTitle} level={4}>
                     {t('e-wallet:title')}
                   </Title>
-                  <BalanceCard balance={balance} />
+                  <BalanceCard
+                    balance={balance}
+                    onTopUpClick={onTopUpClick}
+                    onWithdrawClick={onWithdrawClick}
+                  />
                 </Col>
                 <Col span={24}>
                   <Title className={styles.sectionTitle} level={4}>

@@ -1,0 +1,19 @@
+@import '../../../public/sass/config/variables';
+@import '../../../public/sass/mixins/core';
+@import '../../../public/sass/mixins/breakpoints';
+
+.contentLayout {
+  .sectionTitle {
+    margin-bottom: 1.5rem !important;
+    color: #239cd7 !important;
+    text-align: left;
+  }
+
+  .divider {
+    margin: 1rem 0;
+
+    @include mq('xs', 'max') {
+      margin: 2rem 0;
+    }
+  }
+}

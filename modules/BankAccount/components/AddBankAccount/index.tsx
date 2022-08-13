@@ -127,6 +127,7 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
             onConfirmClick={onConfirmBankInfoClick}
             onCancelClick={onCancelBankInfoClick}
           />
+          {/* TODO: wait type otp verify */}
           <OtpModal
             mobile={mobileNo}
             action={OtpTypeEnum.REGISTER}
