@@ -1,7 +1,7 @@
 export interface IMemberProfile {
   username: string
-  firstName: string
-  lastName: string
+  firstname: string
+  lastname: string
   mobile: string
   birthday: string
   gender: string

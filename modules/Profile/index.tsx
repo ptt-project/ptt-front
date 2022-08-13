@@ -76,9 +76,9 @@ const Profile: FC<IProps> = (props: IProps) => {
                 name="profileForm"
                 onFinish={onSubmit}
                 initialValues={{
-                  firstName: props.profile.firstName,
-                  lastName: props.profile.lastName,
-                  gender: props.profile.gender
+                  firstName: props.member.firstname,
+                  lastName: props.member.lastname,
+                  gender: props.member.gender
                 }}
               >
                 <Row className={styles.highlight} gutter={[16, 16]} align="middle">
@@ -137,7 +137,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} value={props.profile.lastName} />
+                      <Input maxLength={50} />
                     </Form.Item>
                   </Col>
                   <Col span={24}>
