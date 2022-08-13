@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
+import { AxiosResponse } from 'axios'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
 import type { RadioChangeEvent } from 'antd'
@@ -15,14 +16,18 @@ import {
   Avatar,
   Image,
   Select,
-  Radio
+  Radio,
+  message
 } from 'antd'
+import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrlUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
-import { IMemberProfile } from '~/interfaces'
+import { IMemberProfile, IMemberProfileUpdate } from '~/interfaces'
+import { MembersService } from '~/services'
+import { CommonApiCodeEnum } from '~/enums'
 import styles from './Profile.module.scss'
 
 const { Text, Title } = Typography
@@ -35,18 +40,42 @@ const Profile: FC<IProps> = (props: IProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
-  const [value, setValue] = useState<number>(1)
+  const [valueGender, setValueGender] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   function onChange(e: RadioChangeEvent): void {
-    setValue(e.target.value)
+    setValueGender(e.target.value)
   }
 
-  function onSubmit(values: IMemberProfile): void {
-    console.log(values)
+  async function onSubmit(values: IMemberProfile): Promise<void> {
+    setIsLoading(true)
+    let isSuccess: boolean = false
+    try {
+      const payload: IMemberProfileUpdate = {
+        firstname: values.firstname,
+        lastname: values.lastname,
+        birthday: `${values.birthYear}-${values.birthMonth}-${values.birthday}`,
+        gender: valueGender
+      }
+      console.log('payload=', payload)
+      const result: AxiosResponse = await MembersService.memberProfileUpdate(payload)
+      if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
+        isSuccess = true
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
   return (
     <main className="main">
+      <Loading show={isLoading} />
       <Helmet>
         <title>
           {t('common:meta.title')} | {t('account-info:title')}
@@ -76,8 +105,8 @@ const Profile: FC<IProps> = (props: IProps) => {
                 name="profileForm"
                 onFinish={onSubmit}
                 initialValues={{
-                  firstName: props.member.firstname,
-                  lastName: props.member.lastname,
+                  firstname: props.member.firstname,
+                  lastname: props.member.lastname,
                   gender: props.member.gender
                 }}
               >
@@ -113,7 +142,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                   <Col sm={12} xs={24}>
                     <Form.Item
                       label={t('account-info:form.firstName')}
-                      name="firstName"
+                      name="firstname"
                       rules={[
                         {
                           required: true,
@@ -129,7 +158,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                   <Col sm={12} xs={24}>
                     <Form.Item
                       label={t('account-info:form.lastName')}
-                      name="lastName"
+                      name="lastname"
                       rules={[
                         {
                           required: true,
@@ -143,7 +172,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                   <Col span={24}>
                     <Row gutter={8}>
                       <Col md={3} sm={4} xs={6}>
-                        <Form.Item label={t('account-info:form.birthday')} name="birthday">
+                        <Form.Item label={t('account-info:form.birthday')} name="birthDay">
                           <Select defaultValue="">
                             <Select.Option value="">{t('account-info:form.date')}</Select.Option>
                           </Select>

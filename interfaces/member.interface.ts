@@ -4,6 +4,15 @@ export interface IMemberProfile {
   lastname: string
   mobile: string
   birthday: string
+  birthMonth: string
+  birthYear: string
   gender: string
   email: string
+}
+
+export interface IMemberProfileUpdate {
+  firstname: string
+  lastname: string
+  birthday: string
+  gender: string
 }

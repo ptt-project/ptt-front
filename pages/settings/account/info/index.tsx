@@ -15,10 +15,12 @@ interface IProfilePageProps {
 export async function getServerSideProps(context: NextPageContext): Promise<any> {
   let profile: IMemberProfile = {
     username: '',
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     mobile: '',
     birthday: '',
+    birthMonth: '',
+    birthYear: '',
     gender: '',
     email: ''
   }
