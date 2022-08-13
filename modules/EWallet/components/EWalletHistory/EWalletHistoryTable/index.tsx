@@ -142,7 +142,7 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
   function onChange(
     pagination: TablePaginationConfig,
     filters: Record<string, FilterValue | null>,
-    sorter: SorterResult<IEWalletHistoryData> | SorterResult<IEWalletHistoryData>[],
+    sorter: SorterResult<IEWalletHistoryData>,
     extra: TableCurrentDataSource<IEWalletHistoryData>
   ): void {
     // TODO: handle sort column here

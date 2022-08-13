@@ -12,6 +12,7 @@ import OtpModal from '~/components/main/OtpModal'
 import { CustomUrlUtil, CustomHookUseVisibleUtil } from '~/utils/main'
 import { IBankAccountData, IBankAccountFromValues } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
+import { OtpTypeEnum } from '~/enums'
 
 const { Title } = Typography
 
@@ -143,7 +144,8 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
             onCancelClick={onCancelBankInfoClick}
           />
           <OtpModal
-            mobileNo={mobileNo}
+            mobile={mobileNo}
+            action={OtpTypeEnum.REGISTER}
             isOpen={isOtpOpen}
             toggle={toggleOtpOpen}
             onSubmit={onOtpSuccess}
