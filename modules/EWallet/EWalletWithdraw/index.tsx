@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next'
 import { DefaultOptionType } from 'antd/lib/select'
 import { Rule } from 'antd/lib/form'
 import styles from './EWalletWithdraw.module.scss'
-import { CustomUrlUtil, formatNumberDecimal, sensorBankAccountNo } from '~/utils/main'
+import { CustomUrlUtil, formatNumberDecimal, HelperCensorBankAccountNoUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
@@ -59,7 +59,7 @@ const EWalletWithdraw: React.FC = () => {
     () =>
       bankMock.map(
         (d: IBankAccountData): DefaultOptionType => ({
-          label: `${d.bankFullName} ${sensorBankAccountNo(d.bankAccountNo)} ${
+          label: `${d.bankFullName} ${HelperCensorBankAccountNoUtil(d.bankAccountNo)} ${
             d.isDefault ? `[${t('common:mainBankAccount')}]` : ''
           }`,
           value: d.bankAccountNo

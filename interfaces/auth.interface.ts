@@ -50,3 +50,8 @@ export interface IAuthUserInfo {
   mobile: string
   email: string
 }
+
+export interface IAuthToken {
+  accessToken: string
+  refreshToken: string
+}

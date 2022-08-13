@@ -1,20 +1,20 @@
 import { Col, Image, Row, Space, Typography } from 'antd'
 import { compact } from 'lodash'
 import React from 'react'
-import { IAddressFormValues } from '~/interfaces'
+import { IAddress } from '~/interfaces'
 import styles from './AddressCard.module.scss'
 
 const { Text } = Typography
 
 interface IAddressCard {
-  data: IAddressFormValues
+  data: IAddress
   onEditClick: () => void
-  onFavoriteClick: () => void
+  onSetMainClick: () => void
   onDeleteClick: () => void
 }
 
 const AddressCard: React.FC<IAddressCard> = (props: IAddressCard) => {
-  const { data, onEditClick, onFavoriteClick, onDeleteClick } = props
+  const { data, onEditClick, onSetMainClick, onDeleteClick } = props
 
   return (
     <Row
@@ -27,27 +27,25 @@ const AddressCard: React.FC<IAddressCard> = (props: IAddressCard) => {
       <Col md={20} sm={12}>
         <Space size={8} direction="vertical">
           <Space size={4} direction="horizontal">
-            {data.addressType === 'home' && (
+            {data.isHome && (
               <Image preview={false} src="./images/main/buyer/address-tag-home-active.svg" />
             )}
-            {data.addressType === 'office' && (
+            {data.isWork && (
               <Image preview={false} src="./images/main/buyer/address-tag-office-active.svg" />
             )}
-            {data.isDefault && (
+            {data.isMain && (
               <Image preview={false} src="./images/main/buyer/address-tag-default.svg" />
             )}
           </Space>
           <Space className={styles.contentLayout} size={4} direction="vertical">
-            <Text>{data.fullName}</Text>
+            <Text>{data.name}</Text>
             <Text>
-              {compact([data.addressDetails, data.district, data.province, data.postalCode]).join(
-                ' '
-              )}
+              {compact([data.address, data.district, data.province, data.postcode]).join(' ')}
             </Text>
           </Space>
           <Space size={4} direction="horizontal" align="end">
             <Image preview={false} src="./images/main/buyer/icon-phone.svg" />
-            <Text>{data.mobileNo}</Text>
+            <Text>{data.mobile}</Text>
           </Space>
         </Space>
       </Col>
@@ -58,15 +56,15 @@ const AddressCard: React.FC<IAddressCard> = (props: IAddressCard) => {
           src="./images/main/buyer/icon-edit.svg"
           onClick={onEditClick}
         />
-        {!data.isDefault && (
+        {!data.isMain && (
           <Image
             className={[styles.clickable, styles.actionIcon].join(' ')}
             preview={false}
             src="./images/main/buyer/icon-favorite.svg"
-            onClick={onFavoriteClick}
+            onClick={onSetMainClick}
           />
         )}
-        {!data.isDefault && (
+        {!data.isMain && (
           <Image
             className={[styles.clickable, styles.actionIcon].join(' ')}
             preview={false}

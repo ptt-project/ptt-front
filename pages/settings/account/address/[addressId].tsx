@@ -1,17 +1,50 @@
-import { NextPageContext } from 'next'
+import { GetServerSidePropsResult, NextPageContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
-import EditAddress from '~/modules/Address/components/EditAddress'
+import { IAddress } from '~/interfaces'
+import EditAddress, { IEditAddressProps } from '~/modules/Address/components/EditAddress'
+import { MembersService } from '~/services'
 
-export async function getServerSideProps(context: NextPageContext): Promise<any> {
+type IEditAddressPageProps = Pick<IEditAddressProps, 'address'>
+
+export async function getServerSideProps(
+  context: NextPageContext
+): Promise<GetServerSidePropsResult<IEditAddressPageProps>> {
+  let address: IAddress
+  const { req, query } = context
+  const { addressId } = query || {}
+  if (req && addressId && typeof addressId === 'string') {
+    try {
+      const { data } = await MembersService.getAddress(req, addressId)
+
+      if (!data?.data) {
+        // if no found throw error for redirect to page address list in catch handle
+        throw new Error('no data')
+      }
+
+      address = data.data
+    } catch (error) {
+      console.error(error)
+      return {
+        redirect: {
+          destination: '/settings/account/address',
+          permanent: true
+        }
+      }
+    }
+  }
+
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'address']))
+      ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'address'])),
+      address
     }
   }
 }
 
-const EditAddressPage: FC = () => <EditAddress />
+const EditAddressPage: FC = (props: IEditAddressPageProps) => (
+  <EditAddress address={props.address} />
+)
 
 export default EditAddressPage

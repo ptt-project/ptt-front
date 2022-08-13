@@ -145,8 +145,8 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
           />
           {/* TODO: wait type otp verify */}
           <OtpModal
-            action={OtpTypeEnum.REGISTER}
             mobile={mobileNo}
+            action={OtpTypeEnum.REGISTER}
             isOpen={isOtpOpen}
             toggle={toggleOtpOpen}
             onSubmit={onOtpSuccess}

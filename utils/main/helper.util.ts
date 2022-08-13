@@ -1,6 +1,6 @@
 import { takeRight } from 'lodash'
 
-export const sensorBankAccountNo = (bankAccountNo: string): string =>
+export const HelperCensorBankAccountNoUtil = (bankAccountNo: string): string =>
   `*${takeRight(bankAccountNo, 4).join('')}`
 
 export const formatNumberDecimal = (
