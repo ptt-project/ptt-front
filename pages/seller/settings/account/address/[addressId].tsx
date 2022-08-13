@@ -12,25 +12,24 @@ export async function getServerSideProps(
   context: NextPageContext
 ): Promise<GetServerSidePropsResult<IEditAddressPageProps>> {
   let address: IAddress
-  const { req, query } = context
+  const { query } = context
   const { addressId } = query || {}
-  if (req && addressId && typeof addressId === 'string') {
-    try {
-      const { data } = await MembersService.getAddress(req, addressId)
 
-      if (!data?.data) {
-        // if no found throw error for redirect to page address list in catch handle
-        throw new Error('no data')
-      }
+  try {
+    const { data } = await MembersService.getAddress(addressId)
 
-      address = data.data
-    } catch (error) {
-      console.error(error)
-      return {
-        redirect: {
-          destination: '/settings/account/address',
-          permanent: true
-        }
+    if (!data?.data) {
+      // if no found throw error for redirect to page address list in catch handle
+      throw new Error('no data')
+    }
+
+    address = data.data
+  } catch (error) {
+    console.error(error)
+    return {
+      redirect: {
+        destination: '/settings/account/address',
+        permanent: true
       }
     }
   }

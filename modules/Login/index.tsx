@@ -7,7 +7,7 @@ import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, messa
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import Loading from '~/components/main/Loading'
 import { AuthInitUtil, CustomUrlUtil } from '~/utils/main'
-import { IAuthLoginService, IFieldData } from '~/interfaces'
+import { IApiResponse, IAuthLoginService, IFieldData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
 import { CommonApiCodeEnum } from '~/enums'

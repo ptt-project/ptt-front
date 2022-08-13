@@ -10,15 +10,14 @@ type IAddressPageProps = Pick<IAddressProps, 'addresses'>
 
 export async function getServerSideProps(context: NextPageContext): Promise<any> {
   let addresses: IAddress[] = []
-  const { req } = context
-  if (req) {
-    try {
-      const { data } = await MembersService.getAddresses(req)
-      addresses = data.data
-    } catch (error) {
-      console.error(error)
-    }
+
+  try {
+    const { data } = await MembersService.getAddresses()
+    addresses = data.data
+  } catch (error) {
+    console.error(error)
   }
+
   return {
     props: {
       ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'address'])),

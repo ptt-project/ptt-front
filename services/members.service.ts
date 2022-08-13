@@ -9,19 +9,16 @@ import {
 } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
 
-export const memberProfile = (req: NextIncomingMessage): Promise<AxiosResponse> =>
-  axios.get(EndPointUrlConst.MEMBER.PROFILE, { headers: { Cookie: req.headers.cookie } })
+export const getProfile = (): Promise<AxiosResponse> => axios.get(EndPointUrlConst.MEMBER.PROFILE)
 
-export const getAddresses = (req: NextIncomingMessage): Promise<IAxiosResponse<IAddress[]>> =>
-  axios.get(EndPointUrlConst.MEMBER.ADDRESSES, { headers: { Cookie: req.headers.cookie } })
+export const getAddresses = (): Promise<IAxiosResponse<IAddress[]>> =>
+  axios.get(EndPointUrlConst.MEMBER.ADDRESSES)
 
 export const getAddress = (
   req: NextIncomingMessage,
   addressId: string
 ): Promise<IAxiosResponse<IAddress>> =>
-  axios.get(`${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}`, {
-    headers: { Cookie: req.headers.cookie }
-  })
+  axios.get(`${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}`)
 
 export const createAddress = (payload: ICreateAddress): Promise<IAxiosResponse<IAddress>> =>
   axios.post(`${EndPointUrlConst.MEMBER.ADDRESSES}`, payload)
@@ -36,16 +33,10 @@ export const deleteAddress = (
   req: NextIncomingMessage,
   addressId: string
 ): Promise<IAxiosResponse<IAddress>> =>
-  axios.delete(`${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}`, {
-    headers: { Cookie: req.headers.cookie }
-  })
+  axios.delete(`${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}`)
 
 export const setMainAddress = (
   req: NextIncomingMessage,
   addressId: string
 ): Promise<AxiosResponse<IApiResponse>> =>
-  axios.patch(
-    `${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}`,
-    {},
-    { headers: { Cookie: req.headers.cookie } }
-  )
+  axios.patch(`${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}`, {})
