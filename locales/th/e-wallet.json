@@ -1,11 +1,10 @@
 {
   "breadcrumbs": {
     "setting": "ตั้งค่า",
-    "account": "บัญชีผู้ใช้",
-    "address": "ที่อยู่",
-    "addAddress": "เพิ่มที่อยู่",
-    "editAddress": "แก้ไขที่อยู่",
-    "eWallet": "E-wallet"
+    "finance": "การเงิน",
+    "eWallet": "E-wallet",
+    "withdraw": "ถอนเงิน",
+    "topUp": "เติมเงิน"
   },
   "title": "E-Wallet",
   "history": {
@@ -22,6 +21,27 @@
     "paginateLabel": "{{from}}-{{to}} จาก {{total}} รายการ"
   },
   "balance": "ยอดเงินคงเหลือ :",
-  "withdraw": "ถอนเงิน",
-  "topUp": "เติมเงิน"
+  "withdraw": {
+    "title": "ถอนเงิน",
+    "noBankAccountTitle": "ยังไม่มีข้อมูลบัญชีธนาคาร",
+    "noBankAccountDescription": "กรุณาเพิ่มข้อมูลบัญชีธนาคารที่เมนูการเงิน",
+    "bankAccount": "บัญชีธนาคาร",
+    "selectBankAccount": "บัญชีปลายทาง",
+    "withdrawAmount": "ยอดที่ต้องการถอน",
+    "withdrawMinimumDescription": "จำนวนขั้นต่ำในการถอน 100 บาท"
+  },
+  "topUp": {
+    "title": "เติมเงิน",
+    "howToTitle": "วิธีเติมเงิน",
+    "howTo1": "กดดาวน์โหลดรูป QR พร้อมเพย์ด้านบนลงในโทรศัพท์มือถือของคุณ",
+    "howTo2": "เปิดแอปพลิเคชันธนาคารที่คุณมีเพื่อเติมเงิน",
+    "howTo3": "ไปยังเมนู “สแกน” หรือ “สแกนจ่าย” จากนั้นกดที่ปุ่ม “รูปภาพ” ในหน้าสแกนเพื่อเลือกรูป QR ในมือถือของคุณ",
+    "downloadSuccess": "ดาวน์โหลดข้อมูลสำเร็จ"
+  },
+  "common": {
+    "amount": "จำนวนเงิน",
+    "download": "ดาวน์โหลด",
+    "vatAmount": "หักค่าธรรมเนียม",
+    "totalAmount": "ยอดสุทธิ"
+  }
 }

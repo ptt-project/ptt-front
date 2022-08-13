@@ -7,7 +7,7 @@ import { RegExpConst } from '~/constants'
 
 interface ICustomInputProps extends Omit<InputProps, 'value' | 'onChange'> {
   value?: string
-  onChange?: (value: string) => void
+  onChange?: (value: string | number) => void
   onlyNumber?: true
   onlyLetter?: true
 }
@@ -16,11 +16,12 @@ const CustomInput: React.FC<ICustomInputProps> = (props: ICustomInputProps) => {
   const { value, onChange, onlyNumber, onlyLetter, ...restProps } = props
 
   const parseValue = useCallback(
-    (v: string): string => {
-      let tempV = v || ''
+    (v: string): string | number => {
+      let tempV: string | number = v || ''
 
       if (onlyNumber) {
         tempV = tempV.replace(RegExpConst.ALLOW_NUMBER, '')
+        tempV = Number(tempV)
       } else if (onlyLetter) {
         tempV = tempV.replace(RegExpConst.ALLOW_LETTER, '')
       }
