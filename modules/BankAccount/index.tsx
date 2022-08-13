@@ -15,7 +15,7 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { bankMock } from '~/modules/BankAccount/mock-data'
 import BankAccountCard from './components/BankAccountCard'
-import { IBankAccountData, IBankAccountFromValues } from '~/interfaces'
+import { IBankAccountData, IBankAccountFromValues, ICustomHookUseVisibleUtil } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 
 const { Text, Title, Link } = Typography
@@ -27,8 +27,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
   const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
 
-  // eslint-disable-next-line @typescript-eslint/typedef
-  const deleteBankAccountVisible = CustomHookUseVisibleUtil()
+  const deleteBankAccountVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
   const [deleteBankAccountId, setDeleteBankAccountId] = useState<string>()
 
   const rootMenu: string = props.isSeller ? '/seller' : ''

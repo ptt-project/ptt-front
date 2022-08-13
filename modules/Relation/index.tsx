@@ -34,26 +34,25 @@ const Relation: React.FC = () => {
   const inviteLink: string = 'inviteLink' // รอของจริง
   const relationData: IRelationData[] = mockRelationData
 
-  // eslint-disable-next-line @typescript-eslint/typedef
-  const customData = useMemo(() => {
-    // eslint-disable-next-line @typescript-eslint/typedef
-    const relationByParent = groupBy(relationData, 'parent')
-    const relationTableData: IRelationTableData[] = []
+  const customData: { relationDataTree: RawNodeDatum; relationTableData: IRelationTableData[] } =
+    useMemo(() => {
+      const relationByParent: any = groupBy(relationData, 'parent')
+      const relationTableData: IRelationTableData[] = []
 
-    const childrenOf = (parent: string, relationLevel: number): RawNodeDatum[] =>
-      map(relationByParent[parent] || [], (item: IRelationData) => {
-        relationTableData.push({ ...item, relationLevel })
-        return {
-          name: item.username,
-          children: childrenOf(item.username, relationLevel + 1)
-        }
-      })
-    const relationDataTree: RawNodeDatum = {
-      name: 'Me',
-      children: childrenOf('Me', 1)
-    }
-    return { relationDataTree, relationTableData }
-  }, [relationData])
+      const childrenOf = (parent: string, relationLevel: number): RawNodeDatum[] =>
+        map(relationByParent[parent] || [], (item: IRelationData) => {
+          relationTableData.push({ ...item, relationLevel })
+          return {
+            name: item.username,
+            children: childrenOf(item.username, relationLevel + 1)
+          }
+        })
+      const relationDataTree: RawNodeDatum = {
+        name: 'Me',
+        children: childrenOf('Me', 1)
+      }
+      return { relationDataTree, relationTableData }
+    }, [relationData])
 
   function onTabChange(tabKey: RelationTabs): void {
     setTabActive(tabKey)

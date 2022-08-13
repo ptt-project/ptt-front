@@ -6,13 +6,12 @@ import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import styles from './Address.module.scss'
 import AddressCard from './components/AddressCard'
-import { IAddress, IAddressFormValues } from '~/interfaces'
+import { IAddress, IAddressFormValues, ICustomHookUseVisibleUtil } from '~/interfaces'
 import { CustomHookUseVisibleUtil, CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
-import { MembersService } from '~/services'
 
 const { Text, Title, Link } = Typography
 
@@ -26,8 +25,7 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
 
-  // eslint-disable-next-line @typescript-eslint/typedef
-  const deleteAddressVisible = CustomHookUseVisibleUtil()
+  const deleteAddressVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
 
   const rootMenu: string = props.isSeller ? '/seller' : ''
 

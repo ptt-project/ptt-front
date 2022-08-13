@@ -1,7 +1,6 @@
 const baseUrl: string = `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_VERSION}`
 
-// eslint-disable-next-line @typescript-eslint/typedef
-export const EndPointUrlConst = {
+export const EndPointUrlConst: any = {
   AUTH: {
     REGISTER_VALIDATE: `${baseUrl}/auth/register/validate`,
     REGISTER: `${baseUrl}/auth/register`,
@@ -14,4 +13,4 @@ export const EndPointUrlConst = {
     PROFILE: `${baseUrl}/members/profile`,
     ADDRESSES: `${baseUrl}/members/addresses`
   }
-} as const
+}

@@ -7,7 +7,7 @@ import { DefaultOptionType } from 'antd/lib/select'
 import { DownloadOutlined } from '@ant-design/icons'
 import { first } from 'lodash'
 import styles from './EWalletTopUp.module.scss'
-import { CustomUrlUtil, formatNumberDecimal } from '~/utils/main'
+import { CustomUrlUtil, HelperDecimalFormatUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
@@ -79,7 +79,7 @@ const EWalletTopUp: React.FC = () => {
                   </Col>
                   <Col>
                     <Text className={styles.balanceValue}>
-                      {formatNumberDecimal(balance, 2, 'en-EN', {
+                      {HelperDecimalFormatUtil(balance, 2, 'en-EN', {
                         style: 'currency',
                         currency: 'THB'
                       })}

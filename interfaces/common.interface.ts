@@ -17,6 +17,12 @@ export interface IFieldData {
   errors?: string[]
 }
 
+export interface ICustomHookUseVisibleUtil {
+  visible: boolean
+  show: () => void
+  hide: () => void
+}
+
 export interface IApiResponse<T = any> {
   message: string
   code: string

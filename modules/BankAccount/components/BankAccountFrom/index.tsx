@@ -28,8 +28,7 @@ const bankOptions: DefaultOptionType[] = bankOptionsData.map((d: IBankOptionData
   value: d.bankName
 }))
 
-// eslint-disable-next-line @typescript-eslint/typedef
-const bankOptionsHash = keyBy(bankOptionsData, (v) => v.bankName)
+const bankOptionsHash: any = keyBy(bankOptionsData, (v: IBankOptionData) => v.bankName)
 
 interface IBankAccountFromProps {
   parentForm: FormInstance

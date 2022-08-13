@@ -9,7 +9,7 @@ import { RelationLevelEnum } from '~/enums'
 import RelationCount from './RelationCount'
 import styles from './RelationTable.module.scss'
 import { LocaleNamespaceConst } from '~/constants'
-import { formatNumberDecimal } from '~/utils/main'
+import { HelperDecimalFormatUtil } from '~/utils/main'
 
 interface ICountDataByRelationLevel {
   [RelationLevelEnum.CHILD]: number
@@ -95,7 +95,7 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
       align: 'right',
       sorter: true,
       showSorterTooltip: false,
-      render: (value: number) => formatNumberDecimal(value, 2)
+      render: (value: number) => HelperDecimalFormatUtil(value, 2)
     }
   ]
 
