@@ -28,7 +28,7 @@ module.exports = {
         ignore: ['^[~]', '\\.module.scss$']
       }
     ],
-    'import/extensions': ['error', 'never'],
+    'import/extensions': 'off',
     'import/no-import-module-exports': 'off',
     'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': 'off',
@@ -43,6 +43,7 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
     'react/jsx-no-bind': 'off',
     'react/jsx-pascal-case': ['error'],
+    'react/jsx-props-no-spreading': 'off',
     'react/no-array-index-key': 'off',
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
@@ -61,6 +62,7 @@ module.exports = {
     'no-else-return': ['error', { allowElseIf: false }],
     'no-plusplus': 'off',
     'no-use-before-define': 'off',
+    'no-underscore-dangle': 'off',
     radix: ['error', 'as-needed'],
     'padding-line-between-statements': 'off',
     '@typescript-eslint/padding-line-between-statements': [

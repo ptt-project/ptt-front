@@ -23,16 +23,13 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
     email: ''
   }
 
-  const { req } = context
-  if (req) {
-    try {
-      const result: AxiosResponse = await MembersService.memberProfile(req)
-      if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
-        profile = result.data.data
-      }
-    } catch (error) {
-      console.log(error)
+  try {
+    const result: AxiosResponse = await MembersService.getProfile()
+    if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
+      profile = result.data.data
     }
+  } catch (error) {
+    console.log(error)
   }
 
   return {
