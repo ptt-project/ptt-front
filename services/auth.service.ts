@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
+import { AxiosService } from './axios.service'
 import {
   IApiResponse,
   IAuthLoginService,
@@ -10,10 +11,10 @@ import { EndPointUrlConst } from '../constants'
 export const registerValidate = (
   payload: IAuthRegisterValidateService
 ): Promise<AxiosResponse<IApiResponse>> =>
-  axios.post(EndPointUrlConst.AUTH.REGISTER_VALIDATE, payload)
+  AxiosService.post(EndPointUrlConst.AUTH.REGISTER_VALIDATE, payload)
 
 export const register = (payload: IAuthRegisterService): Promise<AxiosResponse<IApiResponse>> =>
-  axios.post(EndPointUrlConst.AUTH.REGISTER, payload)
+  AxiosService.post(EndPointUrlConst.AUTH.REGISTER, payload)
 
 export const login = (payload: IAuthLoginService): Promise<AxiosResponse<IApiResponse>> =>
-  axios.post(EndPointUrlConst.AUTH.LOGIN, payload)
+  AxiosService.post(EndPointUrlConst.AUTH.LOGIN, payload)

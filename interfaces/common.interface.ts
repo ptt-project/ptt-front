@@ -25,7 +25,7 @@ export interface ICustomHookUseVisibleUtil {
 
 export interface IApiResponse<T = any> {
   message: string
-  code: string
+  code: number
   data: T extends undefined ? never : T
 }
 

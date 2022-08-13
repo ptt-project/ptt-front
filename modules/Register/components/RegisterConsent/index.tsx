@@ -1,6 +1,5 @@
 import React, { useState, FC } from 'react'
 import { useTranslation } from 'next-i18next'
-import { AxiosResponse } from 'axios'
 import { isEmpty } from 'lodash'
 import { Typography, Space, Button, Image, Row, Col, Form, Checkbox, message } from 'antd'
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
@@ -9,7 +8,7 @@ import OtpModal from '~/components/main/OtpModal'
 import { IAuthRegisterForm, IAuthRegisterService, IOtpData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
-import { CommonApiCodeEnum, OtpTypeEnum } from '~/enums'
+import { ApiCodeEnum, OtpTypeEnum } from '~/enums'
 import styles from './RegisterConsent.module.scss'
 
 const { Text, Title } = Typography
@@ -67,8 +66,8 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
         otpCode: otpData.otpCode,
         refCode: otpData.refCode
       }
-      const result: AxiosResponse = await AuthService.register(payload)
-      if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
+      const { data: result } = await AuthService.register(payload)
+      if (result.code === ApiCodeEnum.SUCCESS) {
         isSuccess = true
         props.setStep(2)
       }

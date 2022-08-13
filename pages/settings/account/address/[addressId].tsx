@@ -2,6 +2,7 @@ import { GetServerSidePropsResult, NextPageContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
+import { ApiCodeEnum } from '~/enums'
 import { IAddress } from '~/interfaces'
 import EditAddress, { IEditAddressProps } from '~/modules/Address/components/EditAddress'
 import { MembersService } from '~/services'
@@ -16,14 +17,14 @@ export async function getServerSideProps(
   const { addressId } = query || {}
 
   try {
-    const { data } = await MembersService.getAddress(addressId)
+    const { data: result } = await MembersService.getAddress(addressId.toString())
 
-    if (!data?.data) {
+    if (result.code === ApiCodeEnum.SUCCESS) {
+      address = result.data
+    } else {
       // if no found throw error for redirect to page address list in catch handle
       throw new Error('no data')
     }
-
-    address = data.data
   } catch (error) {
     console.error(error)
     return {

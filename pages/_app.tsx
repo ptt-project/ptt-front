@@ -3,7 +3,6 @@ import { AppProps } from 'next/app'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 import { useStore, Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
-import axios, { AxiosRequestConfig } from 'axios'
 import Helmet from 'react-helmet'
 import Layout from '~/components/layout'
 import Loading from '~/components/main/Loading'
@@ -13,13 +12,6 @@ import { currentDemo } from '~/server/queries'
 import { LocaleNamespaceConst } from '../constants/locale.const'
 import '~/public/less/style.less'
 import '~/public/sass/style.scss'
-
-axios.interceptors.request.use((config: AxiosRequestConfig) => {
-  const newConfig: AxiosRequestConfig = { ...config }
-  newConfig.timeout = 300000
-  newConfig.withCredentials = true
-  return newConfig
-})
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   const { t } = useTranslation(LocaleNamespaceConst)

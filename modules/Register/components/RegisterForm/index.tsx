@@ -1,7 +1,6 @@
 import React, { useState, FC, ChangeEvent } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import { AxiosResponse } from 'axios'
 import { isEmpty } from 'lodash'
 import {
   Typography,
@@ -22,7 +21,7 @@ import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { IAuthRegisterForm, IAuthRegisterValidateService } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import { AuthService } from '~/services'
-import { CommonApiCodeEnum } from '~/enums'
+import { ApiCodeEnum } from '~/enums'
 import styles from './RegisterForm.module.scss'
 
 const { Text, Title, Link } = Typography
@@ -92,8 +91,8 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
         email: values.email,
         username: values.username
       }
-      const result: AxiosResponse = await AuthService.registerValidate(payload)
-      if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
+      const { data: result } = await AuthService.registerValidate(payload)
+      if (result.code === ApiCodeEnum.SUCCESS) {
         isSuccess = true
         props.setForm(values)
         props.setStep(1)

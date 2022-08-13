@@ -1,16 +1,15 @@
 import React, { useState, FC } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import { AxiosResponse } from 'axios'
 import Helmet from 'react-helmet'
 import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, message } from 'antd'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import Loading from '~/components/main/Loading'
 import { AuthInitUtil, CustomUrlUtil } from '~/utils/main'
-import { IApiResponse, IAuthLoginService, IFieldData } from '~/interfaces'
+import { IAuthLoginService, IFieldData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
-import { CommonApiCodeEnum } from '~/enums'
+import { ApiCodeEnum } from '~/enums'
 import styles from './Login.module.scss'
 
 const { Title, Link } = Typography
@@ -39,10 +38,10 @@ const Login: FC = () => {
     let isSuccess: boolean = false
     try {
       const payload: IAuthLoginService = { ...values }
-      const result: AxiosResponse = await AuthService.login(payload)
-      if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
+      const { data: result } = await AuthService.login(payload)
+      if (result.code === ApiCodeEnum.SUCCESS) {
         isSuccess = true
-        AuthInitUtil(result.data.data)
+        AuthInitUtil(result.data)
         router.replace('/')
       }
     } catch (error) {

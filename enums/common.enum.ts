@@ -1,7 +1,7 @@
-export enum CommonApiCodeEnum {
+export enum ApiCodeEnum {
   SUCCESS = 0
 }
 
-export enum CommonApiMessageEnum {
+export enum ApiMessageEnum {
   SUCCESS = 'success'
 }
