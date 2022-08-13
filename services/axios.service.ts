@@ -4,7 +4,7 @@ import { IApiResponse } from '~/interfaces'
 axios.interceptors.request.use((config: AxiosRequestConfig) => {
   const newConfig: AxiosRequestConfig = { ...config }
   newConfig.timeout = 300000
-  newConfig.withCredentials = true
+  // newConfig.withCredentials = true
   return newConfig
 })
 

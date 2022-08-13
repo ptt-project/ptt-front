@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC, ChangeEvent } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Typography, Button, Row, Col, Input, Modal, message } from 'antd'
 import Loading from '../Loading'
-import { IOtpRequestService, IOtpData } from '~/interfaces'
+import { IOtpRequestService, IOtpData, IApiResponse } from '~/interfaces'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { OtpService } from '~/services'
 import { ApiCodeEnum, OtpTypeEnum } from '~/enums'
@@ -72,7 +72,7 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
     let isSuccess: boolean = false
     try {
       const payload: IOtpRequestService = { reference: props.mobile, type: props.action }
-      const { data: result } = await OtpService.requestOtp(payload)
+      const result: IApiResponse = await OtpService.requestOtp(payload)
       if (result.code === ApiCodeEnum.SUCCESS) {
         isSuccess = true
         setOtpData(result.data)

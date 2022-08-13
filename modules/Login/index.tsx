@@ -6,7 +6,7 @@ import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, messa
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import Loading from '~/components/main/Loading'
 import { AuthInitUtil, CustomUrlUtil } from '~/utils/main'
-import { IAuthLoginService, IFieldData } from '~/interfaces'
+import { IApiResponse, IAuthLoginService, IFieldData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
 import { ApiCodeEnum } from '~/enums'
@@ -38,7 +38,7 @@ const Login: FC = () => {
     let isSuccess: boolean = false
     try {
       const payload: IAuthLoginService = { ...values }
-      const { data: result } = await AuthService.login(payload)
+      const result: IApiResponse = await AuthService.login(payload)
       if (result.code === ApiCodeEnum.SUCCESS) {
         isSuccess = true
         AuthInitUtil(result.data)

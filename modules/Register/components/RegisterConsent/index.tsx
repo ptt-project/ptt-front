@@ -5,7 +5,7 @@ import { Typography, Space, Button, Image, Row, Col, Form, Checkbox, message } f
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
-import { IAuthRegisterForm, IAuthRegisterService, IOtpData } from '~/interfaces'
+import { IApiResponse, IAuthRegisterForm, IAuthRegisterService, IOtpData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
 import { ApiCodeEnum, OtpTypeEnum } from '~/enums'
@@ -66,7 +66,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
         otpCode: otpData.otpCode,
         refCode: otpData.refCode
       }
-      const { data: result } = await AuthService.register(payload)
+      const result: IApiResponse = await AuthService.register(payload)
       if (result.code === ApiCodeEnum.SUCCESS) {
         isSuccess = true
         props.setStep(2)

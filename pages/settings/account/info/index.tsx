@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Profile from '~/modules/Profile'
 import { LocaleNamespaceConst } from '~/constants'
 import { MembersService } from '~/services'
-import { IMemberProfile } from '~/interfaces'
+import { IApiResponse, IMemberProfile } from '~/interfaces'
 import { ApiCodeEnum } from '~/enums'
 
 interface IProfilePageProps {
@@ -23,9 +23,9 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
   }
 
   try {
-    const { data: result } = await MembersService.getProfile()
+    const result: IApiResponse = await MembersService.getProfile()
     if (result.code === ApiCodeEnum.SUCCESS) {
-      profile = result.data.data
+      profile = result.data
     }
   } catch (error) {
     console.log(error)

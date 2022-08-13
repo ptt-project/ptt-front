@@ -3,7 +3,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import { ApiCodeEnum } from '~/enums'
-import { IAddress } from '~/interfaces'
+import { IAddress, IApiResponse } from '~/interfaces'
 import EditAddress, { IEditAddressProps } from '~/modules/Address/components/EditAddress'
 import { MembersService } from '~/services'
 
@@ -17,7 +17,7 @@ export async function getServerSideProps(
   const { addressId } = query || {}
 
   try {
-    const { data: result } = await MembersService.getAddress(addressId.toString())
+    const result: IApiResponse = await MembersService.getAddress(addressId.toString())
 
     if (result.code === ApiCodeEnum.SUCCESS) {
       address = result.data
