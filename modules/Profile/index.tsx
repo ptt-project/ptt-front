@@ -1,10 +1,11 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { AxiosResponse } from 'axios'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
 import type { RadioChangeEvent } from 'antd'
+import _ from 'lodash'
 import {
   Typography,
   Button,
@@ -30,12 +31,9 @@ import { MembersService } from '~/services'
 import styles from './Profile.module.scss'
 
 const { Text, Title } = Typography
+const { Option } = Select
 
-interface IProps {
-  profile: IMemberProfile
-}
-
-const Profile: FC<IProps> = (props: IProps) => {
+const Profile: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const { memberId } = router.query
@@ -70,6 +68,17 @@ const Profile: FC<IProps> = (props: IProps) => {
     setIsLoading(false)
   }
 
+  async function fetchData(): Promise<void> {
+    try {
+      await MembersService.getProfile()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
   return (
     <main className="main">
       <Loading show={isLoading} />
@@ -102,9 +111,9 @@ const Profile: FC<IProps> = (props: IProps) => {
                 name="profileForm"
                 onFinish={onSubmit}
                 initialValues={{
-                  firstname: props.member.firstname,
-                  lastname: props.member.lastname,
-                  gender: props.member.gender
+                  firstname: '',
+                  lastname: '',
+                  gender: ''
                 }}
               >
                 <Row className={styles.highlight} gutter={[16, 16]} align="middle">
@@ -132,7 +141,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                     <Text className={styles.textPrimary}>mem01</Text>
                     <br />
                     <Text className={styles.label}>{t('account-info:form.username')} :</Text>
-                    <Text className={styles.textPrimary}>{props.profile.username}</Text>
+                    <Text className={styles.textPrimary} />
                   </Col>
                 </Row>
                 <Row gutter={[16, 8]}>
@@ -171,7 +180,12 @@ const Profile: FC<IProps> = (props: IProps) => {
                       <Col md={3} sm={4} xs={6}>
                         <Form.Item label={t('account-info:form.birthday')} name="birthDay">
                           <Select defaultValue="">
-                            <Select.Option value="">{t('account-info:form.date')}</Select.Option>
+                            <Option value="">{t('account-info:form.date')}</Option>
+                            {_.range(1, 31 + 1).map((value: number) => (
+                              <Option key={value} value={value}>
+                                {value}
+                              </Option>
+                            ))}
                           </Select>
                         </Form.Item>
                       </Col>
@@ -200,7 +214,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                         <Radio.Group
                           name="gender"
                           onChange={onChange}
-                          value={value}
+                          value={valueGender}
                           className={styles.radioFlex}
                         >
                           <Radio value="M">{t('account-info:form.man')}</Radio>
@@ -212,7 +226,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                         <Text>{t('account-info:form.email')}</Text>
                       </Col>
                       <Col sm={12} xs={11}>
-                        <Text type="danger">{props.profile.email}</Text>
+                        <Text type="danger">111</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
                         <Link href={CustomUrlUtil('/settings/account/info/email', router.locale)}>
@@ -226,7 +240,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                         <Text>{t('account-info:form.phoneNumber')}</Text>
                       </Col>
                       <Col sm={12} xs={11}>
-                        <Text type="danger">{props.profile.mobile}</Text>
+                        <Text type="danger">22</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
                         <Link href={CustomUrlUtil('/settings/account/info/phone', router.locale)}>

@@ -1,5 +1,3 @@
-import axios, { AxiosResponse } from 'axios'
-import { NextIncomingMessage } from 'next/dist/server/request-meta'
 import { AxiosService } from './axios.service'
 import { IApiResponse, ICreateAddress, IUpdateAddress, IMemberProfileUpdate } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
@@ -25,11 +23,8 @@ export const deleteAddress = (addressId: string): Promise<IApiResponse> =>
 export const setMainAddress = (addressId: string): Promise<IApiResponse> =>
   AxiosService.patch(`${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}`, {})
 
-export const getMemberProfile = (req: NextIncomingMessage): Promise<AxiosResponse> =>
-  axios.get(EndPointUrlConst.MEMBER.PROFILE, { headers: { Cookie: req.headers.cookie } })
-
 export const updateMemberProfile = (
   memberId: string,
   payload: IMemberProfileUpdate
-): Promise<AxiosResponse> =>
+): Promise<IApiResponse> =>
   AxiosService.put(`${EndPointUrlConst.MEMBER.PROFILE}/${memberId}`, payload)
