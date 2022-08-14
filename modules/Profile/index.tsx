@@ -192,14 +192,24 @@ const Profile: FC = () => {
                       <Col md={5} sm={6} xs={9}>
                         <Form.Item label="&nbsp;" name="birthMonth">
                           <Select defaultValue="">
-                            <Select.Option value="">{t('account-info:form.month')}</Select.Option>
+                            <Option value="">{t('account-info:form.month')}</Option>
+                            {_.range(1, 31 + 1).map((value: number) => (
+                              <Option key={value} value={value}>
+                                {value}
+                              </Option>
+                            ))}
                           </Select>
                         </Form.Item>
                       </Col>
                       <Col md={5} sm={6} xs={9}>
                         <Form.Item label="&nbsp;" name="birthYear">
                           <Select defaultValue="">
-                            <Select.Option value="">{t('account-info:form.year')}</Select.Option>
+                            <Option value="">{t('account-info:form.year')}</Option>
+                            {_.range(1938, 2004 + 1).map((value: number) => (
+                              <Option key={value} value={value}>
+                                {value}
+                              </Option>
+                            ))}
                           </Select>
                         </Form.Item>
                       </Col>
