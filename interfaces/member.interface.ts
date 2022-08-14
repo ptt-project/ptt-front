@@ -8,6 +8,7 @@ export interface IMemberProfile {
   birthYear: string
   gender: string
   email: string
+  code: number
 }
 
 export interface IMemberProfileUpdate {

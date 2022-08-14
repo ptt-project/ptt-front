@@ -1,12 +1,11 @@
 import React, { FC } from 'react'
-import { AxiosResponse } from 'axios'
 import { NextPageContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Profile from '~/modules/Profile'
 import { LocaleNamespaceConst } from '~/constants'
 import { MembersService } from '~/services'
 import { IMemberProfile } from '~/interfaces'
-import { CommonApiCodeEnum } from '~/enums'
+import { ApiCodeEnum } from '~/enums'
 
 interface IProfilePageProps {
   profile: IMemberProfile
@@ -22,19 +21,17 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
     birthMonth: '',
     birthYear: '',
     gender: '',
-    email: ''
+    email: '',
+    code: 0
   }
 
-  const { req } = context
-  if (req) {
-    try {
-      const result: AxiosResponse = await MembersService.memberProfile(req)
-      if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
-        profile = result.data.data
-      }
-    } catch (error) {
-      console.log(error)
+  try {
+    const result: IMemberProfile = await MembersService.getMemberProfile()
+    if (result.code === ApiCodeEnum.SUCCESS) {
+      profile = result.data
     }
+  } catch (error) {
+    console.log(error)
   }
 
   return {

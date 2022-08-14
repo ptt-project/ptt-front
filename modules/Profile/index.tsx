@@ -27,7 +27,6 @@ import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
 import { IMemberProfile, IMemberProfileUpdate } from '~/interfaces'
 import { MembersService } from '~/services'
-import { CommonApiCodeEnum } from '~/enums'
 import styles from './Profile.module.scss'
 
 const { Text, Title } = Typography
@@ -39,6 +38,7 @@ interface IProps {
 const Profile: FC<IProps> = (props: IProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
+  const { memberId } = router.query
   const [form] = Form.useForm()
   const [valueGender, setValueGender] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -49,7 +49,7 @@ const Profile: FC<IProps> = (props: IProps) => {
 
   async function onSubmit(values: IMemberProfile): Promise<void> {
     setIsLoading(true)
-    let isSuccess: boolean = false
+    const isSuccess: boolean = false
     try {
       const payload: IMemberProfileUpdate = {
         firstname: values.firstname,
@@ -57,11 +57,8 @@ const Profile: FC<IProps> = (props: IProps) => {
         birthday: `${values.birthYear}-${values.birthMonth}-${values.birthday}`,
         gender: valueGender
       }
-      console.log('payload=', payload)
-      const result: AxiosResponse = await MembersService.memberProfileUpdate(payload)
-      if (result.data?.code === CommonApiCodeEnum.SUCCESS) {
-        isSuccess = true
-      }
+      const result: AxiosResponse = await MembersService.updateMemberProfile(memberId, payload)
+      console.log(result)
     } catch (error) {
       console.log(error)
     }

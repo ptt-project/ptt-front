@@ -6,27 +6,4 @@
       min-width: 18px;
     }
   }
-
-  .statusTag {
-    border-radius: 2px;
-    padding: 4px 0;
-    max-width: 58px;
-    width: 100%;
-
-    > * {
-      color: inherit;
-    }
-
-    &.tagRed {
-      color: $error-color;
-      background-color: $error-color-light;
-      border: 1px solid $error-color;
-    }
-
-    &.tagBlue {
-      color: $success-color;
-      background-color: $success-color-light;
-      border: 1px solid $success-color;
-    }
-  }
 }

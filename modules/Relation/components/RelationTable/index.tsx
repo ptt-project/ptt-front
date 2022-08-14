@@ -9,6 +9,7 @@ import { RelationLevelEnum } from '~/enums'
 import RelationCount from './RelationCount'
 import styles from './RelationTable.module.scss'
 import { LocaleNamespaceConst } from '~/constants'
+import { HelperDecimalFormatUtil } from '~/utils/main'
 
 interface ICountDataByRelationLevel {
   [RelationLevelEnum.CHILD]: number
@@ -94,18 +95,14 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
       align: 'right',
       sorter: true,
       showSorterTooltip: false,
-      render: (value: number) =>
-        value.toLocaleString('en-EN', {
-          maximumFractionDigits: 2,
-          minimumFractionDigits: 2
-        })
+      render: (value: number) => HelperDecimalFormatUtil(value, 2)
     }
   ]
 
   function onChange(
     pagination: TablePaginationConfig,
     filters: Record<string, FilterValue | null>,
-    sorter: SorterResult<IRelationTableData> | SorterResult<IRelationTableData>[],
+    sorter: SorterResult<IRelationTableData>,
     extra: TableCurrentDataSource<IRelationTableData>
   ): void {
     // TODO: handle sort column here

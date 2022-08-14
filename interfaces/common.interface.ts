@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios'
+
 export interface IBreadcrumbItem {
   title: string
   href?: string
@@ -14,3 +16,17 @@ export interface IFieldData {
   validating?: boolean
   errors?: string[]
 }
+
+export interface ICustomHookUseVisibleUtil {
+  visible: boolean
+  show: () => void
+  hide: () => void
+}
+
+export interface IApiResponse<T = any> {
+  message: string
+  code: number
+  data: T extends undefined ? never : T
+}
+
+export type IAxiosResponse<T = any> = AxiosResponse<IApiResponse<T>>

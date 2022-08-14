@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
-import { Typography, Button, Row, Col, Space, Modal, notification, Image } from 'antd'
+import React, { FC, useState } from 'react'
+import { Typography, Button, Row, Col, Space, Modal, Image, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import { compact, orderBy } from 'lodash'
 import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import styles from './Address.module.scss'
 import AddressCard from './components/AddressCard'
-import { IAddressFormValues } from '~/interfaces'
+import { IAddress, IAddressFormValues, ICustomHookUseVisibleUtil } from '~/interfaces'
 import { CustomHookUseVisibleUtil, CustomUrlUtil } from '~/utils/main'
-import addressesMock from './components/AddressForm/mock-data/mock-addresses.json'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
@@ -16,17 +15,18 @@ import { LocaleNamespaceConst } from '~/constants'
 
 const { Text, Title, Link } = Typography
 
-interface IAddressProps {
+export interface IAddressProps {
   isSeller?: boolean
+  addresses?: IAddress[]
 }
-const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
+const Address: FC<IAddressProps> = (props: IAddressProps) => {
+  const { addresses } = props
   const router: NextRouter = useRouter()
+
   const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
 
-  // eslint-disable-next-line @typescript-eslint/typedef
-  const deleteAddressVisible = CustomHookUseVisibleUtil()
+  const deleteAddressVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
 
-  const addresses: IAddressFormValues[] = (addressesMock || []) as IAddressFormValues[]
   const rootMenu: string = props.isSeller ? '/seller' : ''
 
   const [deleteAddressId, setDeleteAddressId] = useState<string>()
@@ -51,10 +51,13 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
     )
   }
 
-  function onFavoriteAddressClick(/* addressId: string */): void {
-    notification.success({
-      message: 'Set Favorite Address Success'
-    })
+  async function onSetMainAddressClick(/* addressId: string */): Promise<void> {
+    try {
+      // await MembersService.setMainAddress?.(deleteAddressId)
+      message.success(t('common:dataUpdated'))
+    } catch (error) {
+      //
+    }
   }
 
   function onDeleteAddressClick(addressId: string): void {
@@ -63,12 +66,13 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
   }
 
   async function onConfirmDeleteAddressClick(): Promise<void> {
-    console.log({ deleteAddressId })
-    setDeleteAddressId('')
-
-    notification.success({
-      message: 'Delete Address Success'
-    })
+    try {
+      // await MembersService.deleteAddress?.(deleteAddressId)
+      message.success(t('common:dataUpdated'))
+      setDeleteAddressId('')
+    } catch (error) {
+      //
+    }
     deleteAddressVisible.hide()
   }
 
@@ -125,14 +129,14 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
 
                   <Row className="mt-4" gutter={[0, 16]}>
                     {addresses.length ? (
-                      orderBy(addresses, (v: IAddressFormValues) => (v.isDefault ? 1 : 0), [
+                      orderBy(addresses, (v: IAddressFormValues) => (v.isMain ? 1 : 0), [
                         'desc'
                       ]).map((address: IAddressFormValues) => (
                         <Col key={`${address.id}`} span={24}>
                           <AddressCard
                             data={address}
                             onEditClick={onEditAddressClick.bind(null, address.id)}
-                            onFavoriteClick={onFavoriteAddressClick.bind(null, address.id)}
+                            onSetMainClick={onSetMainAddressClick.bind(null, address.id)}
                             onDeleteClick={onDeleteAddressClick.bind(null, address.id)}
                           />
                         </Col>
@@ -196,18 +200,18 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
                   <Space size={4} direction="vertical">
                     <Space className={styles.contentLayout} size={4} direction="vertical">
                       <Text>
-                        {t('address:confirmDeleteAddress')} {deleteAddressData?.fullName}
+                        {t('address:confirmDeleteAddress')} {deleteAddressData?.name}
                       </Text>
                       <Text>
                         {compact([
-                          deleteAddressData?.addressDetails,
+                          deleteAddressData?.address,
                           deleteAddressData?.district,
                           deleteAddressData?.province,
-                          deleteAddressData?.postalCode
+                          deleteAddressData?.postcode
                         ]).join(' ')}
                       </Text>
                     </Space>
-                    <Text>{deleteAddressData?.mobileNo}</Text>
+                    <Text>{deleteAddressData?.mobile}</Text>
                     <Text type="danger">{t('address:warningMsgDeleteAddress')}</Text>
                   </Space>
                 </Modal>
@@ -221,7 +225,8 @@ const Address: React.FC<IAddressProps> = (props: IAddressProps) => {
 }
 
 Address.defaultProps = {
-  isSeller: false
+  isSeller: false,
+  addresses: []
 }
 
 export default Address

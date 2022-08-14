@@ -11,7 +11,7 @@ import districtData from './mock-data/district-data.json'
 import styles from './AddressForm.module.scss'
 import AddressTagField from './components/AddressTagField'
 import AddressCheckboxField from './components/AddressCheckboxField'
-import { IAddressFormValues } from '~/interfaces'
+import { IAddressFormValues, ICustomHookUseVisibleUtil } from '~/interfaces'
 import { CustomHookUseVisibleUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
 
@@ -43,8 +43,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
   const { parentForm, initialValues, onSubmit, isSeller } = props
   const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
 
-  // eslint-disable-next-line @typescript-eslint/typedef
-  const hintModalVisible = CustomHookUseVisibleUtil()
+  const hintModalVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
 
   const [hintModalData, setHintModalData] = useState<any>({})
 
@@ -96,14 +95,14 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
       >
         <Row className="" gutter={[20, 0]}>
           <Col sm={12} xs={24}>
-            <Form.Item label={t('address:form.fullName')} name="fullName" rules={[...baseRules]}>
+            <Form.Item label={t('address:form.fullName')} name="name" rules={[...baseRules]}>
               <Input />
             </Form.Item>
           </Col>
           <Col sm={12} xs={24}>
             <Form.Item
               label={t('address:form.mobileNo')}
-              name="mobileNo"
+              name="mobile"
               rules={[
                 ...baseRules,
                 {
@@ -152,11 +151,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
             </Form.Item>
           </Col>
           <Col sm={12} xs={24}>
-            <Form.Item
-              label={t('address:form.postalCode')}
-              name="postalCode"
-              rules={[...baseRules]}
-            >
+            <Form.Item label={t('address:form.postalCode')} name="postcode" rules={[...baseRules]}>
               <Select
                 filterOption={(value: string, options: DefaultOptionType): boolean =>
                   `${options.value}`.includes(value)
@@ -175,7 +170,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
           <Col span={24}>
             <Form.Item
               label={t('address:form.addressDetails')}
-              name="addressDetails"
+              name="address"
               rules={[...baseRules]}
             >
               <Input.TextArea
@@ -187,7 +182,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
             </Form.Item>
           </Col>
           <Col sm={24} xs={24}>
-            <Form.Item label={t('address:form.location')} name="location">
+            <Form.Item label={t('address:form.location')} name="geoName">
               <PickLocationField />
             </Form.Item>
           </Col>
@@ -204,7 +199,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
             <Form.Item name="isDefault" noStyle>
               <AddressCheckboxField
                 label={t('address:form.isDefault')}
-                disabled={!!initialValues?.isDefault}
+                disabled={!!initialValues?.isMain}
               />
             </Form.Item>
           </Col>

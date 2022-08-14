@@ -10,8 +10,9 @@ import { bankMock } from '~/modules/BankAccount/mock-data'
 import ModalConfirmBankInfo from '../ModalConfirmBankInfo'
 import OtpModal from '~/components/main/OtpModal'
 import { CustomUrlUtil, CustomHookUseVisibleUtil } from '~/utils/main'
-import { IBankAccountData, IBankAccountFromValues } from '~/interfaces'
+import { IBankAccountData, IBankAccountFromValues, ICustomHookUseVisibleUtil } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
+import { OtpTypeEnum } from '~/enums'
 
 const { Title } = Typography
 
@@ -30,8 +31,7 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
 
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const [bankAccountData, setBankAccountData] = useState<IBankAccountData>()
-  // eslint-disable-next-line @typescript-eslint/typedef
-  const confirmBankInfoVisible = CustomHookUseVisibleUtil()
+  const confirmBankInfoVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
 
   const bankAccounts: IBankAccountData[] = useMemo(() => bankMock || [], [])
 
@@ -142,8 +142,10 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
             onConfirmClick={onConfirmBankInfoClick}
             onCancelClick={onCancelBankInfoClick}
           />
+          {/* TODO: wait type otp verify */}
           <OtpModal
-            mobileNo={mobileNo}
+            mobile={mobileNo}
+            action={OtpTypeEnum.REGISTER}
             isOpen={isOtpOpen}
             toggle={toggleOtpOpen}
             onSubmit={onOtpSuccess}

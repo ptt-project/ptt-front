@@ -10,6 +10,7 @@ export const EndPointUrlConst: any = {
     REQUEST: `${baseUrl}/otp/request`
   },
   MEMBER: {
-    PROFILE: `${baseUrl}/members/profile`
+    PROFILE: `${baseUrl}/members/profile`,
+    ADDRESSES: `${baseUrl}/members/addresses`
   }
 }

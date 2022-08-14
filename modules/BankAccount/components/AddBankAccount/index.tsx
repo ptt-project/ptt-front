@@ -1,17 +1,18 @@
-import React, { useState } from 'react'
-import { Col, Typography, Form, Button, Row, message } from 'antd'
+import { Button, Col, Form, Row, Typography, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
+import React, { useState } from 'react'
 import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
+import { CustomHookUseVisibleUtil, CustomUrlUtil } from '~/utils/main'
+import { IBankAccountData, IBankAccountFromValues, ICustomHookUseVisibleUtil } from '~/interfaces'
 import BankAccountFrom from '../BankAccountFrom'
-import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { bankMock } from '~/modules/BankAccount/mock-data'
+import { LocaleNamespaceConst } from '~/constants'
 import ModalConfirmBankInfo from '../ModalConfirmBankInfo'
 import OtpModal from '~/components/main/OtpModal'
-import { CustomUrlUtil, CustomHookUseVisibleUtil } from '~/utils/main'
-import { IBankAccountData, IBankAccountFromValues } from '~/interfaces'
-import { LocaleNamespaceConst } from '~/constants'
+import { OtpTypeEnum } from '~/enums'
+import SettingSidebar from '~/components/main/SettingSidebar'
+import { bankMock } from '~/modules/BankAccount/mock-data'
 
 const { Title } = Typography
 
@@ -28,8 +29,7 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
   const rootMenu: string = props.isSeller ? '/seller' : ''
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const [bankAccountData, setBankAccountData] = useState<IBankAccountData>()
-  // eslint-disable-next-line @typescript-eslint/typedef
-  const confirmBankInfoVisible = CustomHookUseVisibleUtil()
+  const confirmBankInfoVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
 
   function onSubmit(values: IBankAccountFromValues): void {
     const newBankAccountData: IBankAccountData = { ...values }
@@ -126,8 +126,10 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
             onConfirmClick={onConfirmBankInfoClick}
             onCancelClick={onCancelBankInfoClick}
           />
+          {/* TODO: wait type otp verify */}
           <OtpModal
-            mobileNo={mobileNo}
+            mobile={mobileNo}
+            action={OtpTypeEnum.REGISTER}
             isOpen={isOtpOpen}
             toggle={toggleOtpOpen}
             onSubmit={onOtpSuccess}

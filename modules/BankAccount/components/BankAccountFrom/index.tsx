@@ -11,7 +11,7 @@ import HighlightLabel from '~/components/main/HighlightLabel'
 import { BankAccountNameEnum } from '~/enums'
 import { IBankOptionData, IBankAccountFromValues } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
-import CustomInput from './CustomInput'
+import CustomInput from '../../../../components/common/CustomInput'
 
 const bankOptionsData: IBankOptionData[] = [
   {
@@ -28,8 +28,7 @@ const bankOptions: DefaultOptionType[] = bankOptionsData.map((d: IBankOptionData
   value: d.bankName
 }))
 
-// eslint-disable-next-line @typescript-eslint/typedef
-const bankOptionsHash = keyBy(bankOptionsData, (v) => v.bankName)
+const bankOptionsHash: any = keyBy(bankOptionsData, (v: IBankOptionData) => v.bankName)
 
 interface IBankAccountFromProps {
   parentForm: FormInstance

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import { Typography, Row, Col } from 'antd'
@@ -8,11 +8,24 @@ import Promotion from './components/Promotion'
 import Brand from './components/Brand'
 import Product from './components/Product'
 import { LocaleNamespaceConst } from '~/constants'
+import { MembersService } from '~/services'
 
 const { Title } = Typography
 
 const Home: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'home'])
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  async function fetchData(): Promise<void> {
+    try {
+      await MembersService.getProfile()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="main mt-lg-4 mb-4">
