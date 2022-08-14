@@ -16,16 +16,17 @@ const { Title } = Typography
 export interface IEditAddressProps {
   isSeller?: boolean
   address?: IAddress
+  googleMapsApiKey: string
 }
 const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
-  const { address } = props
+  const { address, googleMapsApiKey, isSeller } = props
   const [form] = Form.useForm()
   const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
 
   const { addressId } = router.query
 
-  const rootMenu: string = props.isSeller ? '/seller' : ''
+  const rootMenu: string = isSeller ? '/seller' : ''
 
   async function onSubmit(values: IAddressFormValues): Promise<void> {
     console.debug({ values })
@@ -88,7 +89,7 @@ const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
         <div className="container">
           <Row>
             <Col xl={6} lg={0}>
-              <SettingSidebar sidebarType={props.isSeller ? 'seller' : 'buyer'} />
+              <SettingSidebar sidebarType={isSeller ? 'seller' : 'buyer'} />
             </Col>
             <Col
               className="mx-auto"
@@ -105,7 +106,8 @@ const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
                 parentForm={form}
                 initialValues={initialValues}
                 onSubmit={onSubmit}
-                isSeller={props.isSeller}
+                isSeller={isSeller}
+                googleMapsApiKey={googleMapsApiKey}
               />
               <Row className="flex-1 mt-5" gutter={[24, 0]}>
                 <Col span={12}>

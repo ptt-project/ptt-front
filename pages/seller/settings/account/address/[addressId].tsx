@@ -44,7 +44,11 @@ export async function getServerSideProps(
 }
 
 const EditAddressPage: FC = (props: IEditAddressPageProps) => (
-  <EditAddress isSeller address={props.address} />
+  <EditAddress
+    isSeller
+    address={props.address}
+    googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_TOKEN}
+  />
 )
 
 export default EditAddressPage

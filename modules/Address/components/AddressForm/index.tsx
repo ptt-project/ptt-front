@@ -37,10 +37,11 @@ interface IAddressFormProps {
   initialValues?: Partial<IAddressFormValues>
   onSubmit: (values: IAddressFormValues) => void
   isSeller?: boolean
+  googleMapsApiKey: string
 }
 
 const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
-  const { parentForm, initialValues, onSubmit, isSeller } = props
+  const { parentForm, initialValues, onSubmit, isSeller, googleMapsApiKey } = props
   const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
 
   // eslint-disable-next-line @typescript-eslint/typedef
@@ -184,7 +185,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
           </Col>
           <Col sm={24} xs={24}>
             <Form.Item label={t('address:form.location')} name="geoName">
-              <PickLocationField />
+              <PickLocationField googleMapsApiKey={googleMapsApiKey} />
             </Form.Item>
           </Col>
           <Col sm={12} xs={24}>

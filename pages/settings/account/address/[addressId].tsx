@@ -6,7 +6,7 @@ import { IAddress } from '~/interfaces'
 import EditAddress, { IEditAddressProps } from '~/modules/Address/components/EditAddress'
 import { MembersService } from '~/services'
 
-type IEditAddressPageProps = Pick<IEditAddressProps, 'address'>
+type IEditAddressPageProps = Pick<IEditAddressProps, 'address' | 'googleMapsApiKey'>
 
 export async function getServerSideProps(
   context: NextPageContext
@@ -34,17 +34,18 @@ export async function getServerSideProps(
       }
     }
   }
-
+  const googleMapsApiKey: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_TOKEN
   return {
     props: {
       ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'address'])),
-      address
+      address,
+      googleMapsApiKey
     }
   }
 }
 
 const EditAddressPage: FC = (props: IEditAddressPageProps) => (
-  <EditAddress address={props.address} />
+  <EditAddress address={props.address} googleMapsApiKey={props.googleMapsApiKey} />
 )
 
 export default EditAddressPage

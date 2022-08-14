@@ -4,8 +4,6 @@ import { debounce } from 'lodash'
 import ButtonCurrentLocation from './ButtonCurrentLocation'
 import styles from '../AddressForm.module.scss'
 
-const GOOGLE_MAP_API_TOKEN: string = `${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_TOKEN}`
-
 // lat, lng แถว ๆ กรุงเทพ ครับ
 const DEFAULT_THAILAND_LOCATION: google.maps.LatLngLiteral = {
   lat: 13.736717,
@@ -21,14 +19,16 @@ const containerStyle: any = {
 interface IPickLocationFieldProps {
   value?: google.maps.LatLngLiteral
   onChange?: (value: google.maps.LatLngLiteral) => void
+  googleMapsApiKey: string
 }
 const PickLocationField: React.FC<IPickLocationFieldProps> = (props: IPickLocationFieldProps) => {
-  const { value, onChange } = props
+  const { value, onChange, googleMapsApiKey } = props
 
+  console.log({ value, googleMapsApiKey })
   const googleMapInstantRef: MutableRefObject<google.maps.Map> = useRef<google.maps.Map>()
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: GOOGLE_MAP_API_TOKEN,
+    googleMapsApiKey,
     libraries: ['places'],
     language: 'th-TH'
   })
@@ -44,8 +44,8 @@ const PickLocationField: React.FC<IPickLocationFieldProps> = (props: IPickLocati
     if (googleMapInstant) {
       const center: google.maps.LatLng = googleMapInstant.getCenter()
       const newValue: google.maps.LatLngLiteral = {
-        lat: center.lat(),
-        lng: center.lng()
+        lat: center?.lat(),
+        lng: center?.lng()
       }
       if (
         !value?.lat ||
