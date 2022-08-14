@@ -1,16 +1,14 @@
-const baseUrl: string = `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_VERSION}`
-
 export const EndPointUrlConst: any = {
   AUTH: {
-    REGISTER_VALIDATE: `${baseUrl}/auth/register/validate`,
-    REGISTER: `${baseUrl}/auth/register`,
-    LOGIN: `${baseUrl}/auth/login`
+    REGISTER_VALIDATE: '/auth/register/validate',
+    REGISTER: '/auth/register',
+    LOGIN: '/auth/login'
   },
   OTP: {
-    REQUEST: `${baseUrl}/otp/request`
+    REQUEST: '/otp/request'
   },
   MEMBER: {
-    PROFILE: `${baseUrl}/members/profile`,
-    ADDRESSES: `${baseUrl}/members/addresses`
+    PROFILE: '/members/profile',
+    ADDRESSES: '/members/addresses'
   }
 }
