@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
-import App from 'next/app'
-import { appWithTranslation } from 'next-i18next'
-import { useTranslation } from 'next-i18next'
+import { AppProps } from 'next/app'
+import { appWithTranslation, useTranslation } from 'next-i18next'
 import { useStore, Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import Helmet from 'react-helmet'
@@ -14,9 +13,9 @@ import { LocaleNamespaceConst } from '../constants/locale.const'
 import '~/public/less/style.less'
 import '~/public/sass/style.scss'
 
-const HappyShoppingApp = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   const { t } = useTranslation(LocaleNamespaceConst)
-  const store = useStore()
+  const store: any = useStore()
 
   useEffect(() => {
     if (store.getState().demo.current !== currentDemo) {
@@ -30,11 +29,11 @@ const HappyShoppingApp = ({ Component, pageProps }) => {
         <Helmet>
           <title>{t('common:meta.title')}</title>
           <meta charSet="UTF-8" />
-          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-          <meta name="keywords" content="React Template" />
-          <meta name="description" content="Riode - React eCommerce Template" />
-          <meta name="author" content="D-THEMES" />
+          <meta name="keywords" content={t('common:meta.keywords')} />
+          <meta name="description" content={t('common:meta.description')} />
+          <meta name="author" content="PTT" />
         </Helmet>
         <Layout>
           <Component {...pageProps} />
@@ -44,9 +43,4 @@ const HappyShoppingApp = ({ Component, pageProps }) => {
   )
 }
 
-HappyShoppingApp.getInitialProps = async (appContext) => {
-  const pageProps = await App.getInitialProps(appContext)
-  return { ...pageProps }
-}
-
-export default wrapper.withRedux(appWithTranslation(HappyShoppingApp))
+export default wrapper.withRedux(appWithTranslation(App))

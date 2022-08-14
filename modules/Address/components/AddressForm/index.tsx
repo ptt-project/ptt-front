@@ -11,7 +11,7 @@ import districtData from './mock-data/district-data.json'
 import styles from './AddressForm.module.scss'
 import AddressTagField from './components/AddressTagField'
 import AddressCheckboxField from './components/AddressCheckboxField'
-import { IAddressFormValues } from '~/interfaces'
+import { IAddressFormValues, ICustomHookUseVisibleUtil } from '~/interfaces'
 import { CustomHookUseVisibleUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
 
@@ -44,8 +44,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
   const { parentForm, initialValues, onSubmit, isSeller, googleMapsApiKey } = props
   const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
 
-  // eslint-disable-next-line @typescript-eslint/typedef
-  const hintModalVisible = CustomHookUseVisibleUtil()
+  const hintModalVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
 
   const [hintModalData, setHintModalData] = useState<any>({})
 

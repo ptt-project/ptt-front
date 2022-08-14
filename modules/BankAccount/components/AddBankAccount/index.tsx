@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import { CustomHookUseVisibleUtil, CustomUrlUtil } from '~/utils/main'
-import { IBankAccountData, IBankAccountFromValues } from '~/interfaces'
+import { IBankAccountData, IBankAccountFromValues, ICustomHookUseVisibleUtil } from '~/interfaces'
 import BankAccountFrom from '../BankAccountFrom'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
@@ -29,8 +29,7 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
   const rootMenu: string = props.isSeller ? '/seller' : ''
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const [bankAccountData, setBankAccountData] = useState<IBankAccountData>()
-  // eslint-disable-next-line @typescript-eslint/typedef
-  const confirmBankInfoVisible = CustomHookUseVisibleUtil()
+  const confirmBankInfoVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
 
   function onSubmit(values: IBankAccountFromValues): void {
     const newBankAccountData: IBankAccountData = { ...values }

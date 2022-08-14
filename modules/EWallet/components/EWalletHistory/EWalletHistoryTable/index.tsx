@@ -7,7 +7,7 @@ import React, { FC, useMemo } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import { EWalletStatusEnum, EWalletTypeEnum } from '~/enums'
 import { IEWalletHistoryData } from '~/interfaces'
-import { formatNumberDecimal } from '~/utils/main'
+import { HelperDecimalFormatUtil } from '~/utils/main'
 import styles from './EWalletHistoryTable.module.scss'
 
 const { Text } = Typography
@@ -91,7 +91,7 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
               <Text>{record.type === EWalletTypeEnum.WITHDRAW ? '-' : '+'}</Text>
             </Col>
             <Col>
-              <Text>{formatNumberDecimal(value)}</Text>
+              <Text>{HelperDecimalFormatUtil(value)}</Text>
             </Col>
           </Row>
         )

@@ -2,7 +2,8 @@ import { GetServerSidePropsResult, NextPageContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
-import { IAddress } from '~/interfaces'
+import { ApiCodeEnum } from '~/enums'
+import { IAddress, IApiResponse } from '~/interfaces'
 import EditAddress, { IEditAddressProps } from '~/modules/Address/components/EditAddress'
 import { MembersService } from '~/services'
 
@@ -12,25 +13,24 @@ export async function getServerSideProps(
   context: NextPageContext
 ): Promise<GetServerSidePropsResult<IEditAddressPageProps>> {
   let address: IAddress
-  const { req, query } = context
+  const { query } = context
   const { addressId } = query || {}
-  if (req && addressId && typeof addressId === 'string') {
-    try {
-      const { data } = await MembersService.getAddress(req, addressId)
 
-      if (!data?.data) {
-        // if no found throw error for redirect to page address list in catch handle
-        throw new Error('no data')
-      }
+  try {
+    const result: IApiResponse = await MembersService.getAddress(addressId.toString())
 
-      address = data.data
-    } catch (error) {
-      console.error(error)
-      return {
-        redirect: {
-          destination: '/settings/account/address',
-          permanent: true
-        }
+    if (result.code === ApiCodeEnum.SUCCESS) {
+      address = result.data
+    } else {
+      // if no found throw error for redirect to page address list in catch handle
+      throw new Error('no data')
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      redirect: {
+        destination: '/settings/account/address',
+        permanent: true
       }
     }
   }

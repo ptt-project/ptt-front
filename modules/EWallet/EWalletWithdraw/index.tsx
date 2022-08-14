@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next'
 import { DefaultOptionType } from 'antd/lib/select'
 import { Rule } from 'antd/lib/form'
 import styles from './EWalletWithdraw.module.scss'
-import { CustomUrlUtil, formatNumberDecimal, HelperCensorBankAccountNoUtil } from '~/utils/main'
+import { CustomUrlUtil, HelperDecimalFormatUtil, HelperCensorBankAccountNoUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
@@ -201,17 +201,17 @@ const EWalletWithdraw: React.FC = () => {
                               <Space className="w-100" size={8} direction="vertical">
                                 <Row justify="space-between">
                                   <Text>{t('e-wallet:common.amount')}</Text>
-                                  <Text>{`${formatNumberDecimal(withdrawAmount)} ${t(
+                                  <Text>{`${HelperDecimalFormatUtil(withdrawAmount)} ${t(
                                     'บาท'
                                   )}`}</Text>
                                 </Row>
                                 <Row justify="space-between">
                                   <Text>{t('e-wallet:common.vatAmount')}</Text>
-                                  <Text>{`${formatNumberDecimal(vatAmount)} ${t('บาท')}`}</Text>
+                                  <Text>{`${HelperDecimalFormatUtil(vatAmount)} ${t('บาท')}`}</Text>
                                 </Row>
                                 <Row justify="space-between">
                                   <Text>{t('e-wallet:common.totalAmount')}</Text>
-                                  <Text>{`${formatNumberDecimal(totalAmount)} ${t('บาท')}`}</Text>
+                                  <Text>{`${HelperDecimalFormatUtil(totalAmount)} ${t('บาท')}`}</Text>
                                 </Row>
                               </Space>
                             )

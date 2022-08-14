@@ -3,7 +3,7 @@ import { Col, Row, Typography } from 'antd'
 import { useTranslation } from 'next-i18next'
 import styles from './RelationCount.module.scss'
 import { LocaleNamespaceConst } from '~/constants'
-import { formatNumberDecimal } from '~/utils/main'
+import { HelperDecimalFormatUtil } from '~/utils/main'
 
 const { Text } = Typography
 
@@ -25,7 +25,7 @@ const RelationCount: React.FC<IRelationCountProps> = (props: IRelationCountProps
         <Text>{props.relationLevelLabel}</Text>
       </Col>
       <Col className="text-right font-weight-bold" flex="auto">
-        <Text>{formatNumberDecimal(props.count, 0)}</Text>
+        <Text>{HelperDecimalFormatUtil(props.count, 0)}</Text>
       </Col>
       <Col>
         <Text>{t('relation:table.childrenUnit')}</Text>
