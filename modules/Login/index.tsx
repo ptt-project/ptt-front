@@ -42,7 +42,11 @@ const Login: FC = () => {
       if (result.code === ApiCodeEnum.SUCCESS) {
         isSuccess = true
         AuthInitUtil(result.data)
-        router.replace('/')
+        if (router.query.redirect) {
+          router.replace(router.query.redirect.toString())
+        } else {
+          router.replace('/')
+        }
       }
     } catch (error) {
       console.log(error)
