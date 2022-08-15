@@ -2,13 +2,12 @@ const withLess = require('next-with-less')
 const { i18n } = require('./next-i18next.config')
 
 module.exports = withLess({
-  // basePath: '/react/riode/demo-3'
+  reactStrictMode: true,
   swcMinify: true,
   lessLoaderOptions: {},
   i18n,
   distDir: 'build',
-  trailingSlash: true,
-  reactStrictMode: true,
+  output: 'standalone',
   images: {
     domains: ['', 'localhost']
   }
