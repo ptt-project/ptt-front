@@ -45,8 +45,8 @@ export const AuthCheckAuthenticate = (context: NextPageContext): any => {
 }
 
 export const AuthGetTokenUtil = (): IAuthToken => {
-  const accessToken: string = JsCookie.get('AccessToken')
-  const refreshToken: string = JsCookie.get('RefreshToken')
+  const accessToken: string = JsCookie.get('AccessToken') || ''
+  const refreshToken: string = JsCookie.get('RefreshToken') || ''
 
   return {
     accessToken,
