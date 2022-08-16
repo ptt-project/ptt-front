@@ -1,7 +1,7 @@
 export interface IMemberProfile {
   username: string
-  firstname: string
-  lastname: string
+  firstName: string
+  lastName: string
   mobile: string
   birthday: string
   birthMonth: string
@@ -12,8 +12,13 @@ export interface IMemberProfile {
 }
 
 export interface IMemberProfileUpdate {
-  firstname: string
-  lastname: string
+  firstName: string
+  lastName: string
   birthday: string
   gender: string
+}
+
+export interface IEmailUpdate {
+  newEmail: string
+  password: string
 }

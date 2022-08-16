@@ -33,10 +33,12 @@ import styles from './Profile.module.scss'
 const { Text, Title } = Typography
 const { Option } = Select
 
-const Profile: FC = () => {
+interface IProps {
+  profile: IMemberProfile
+}
+const Profile: FC<IProps> = (props: IProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
-  const { memberId } = router.query
   const [form] = Form.useForm()
   const [valueGender, setValueGender] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -50,12 +52,12 @@ const Profile: FC = () => {
     const isSuccess: boolean = false
     try {
       const payload: IMemberProfileUpdate = {
-        firstname: values.firstname,
-        lastname: values.lastname,
+        firstName: values.firstName,
+        lastName: values.lastName,
         birthday: `${values.birthYear}-${values.birthMonth}-${values.birthday}`,
         gender: valueGender
       }
-      const result: AxiosResponse = await MembersService.updateMemberProfile(memberId, payload)
+      const result: AxiosResponse = await MembersService.updateMemberProfile(payload)
       console.log(result)
     } catch (error) {
       console.log(error)
@@ -111,8 +113,8 @@ const Profile: FC = () => {
                 name="profileForm"
                 onFinish={onSubmit}
                 initialValues={{
-                  firstname: '',
-                  lastname: '',
+                  firstName: '',
+                  lastName: '',
                   gender: ''
                 }}
               >
@@ -164,7 +166,7 @@ const Profile: FC = () => {
                   <Col sm={12} xs={24}>
                     <Form.Item
                       label={t('account-info:form.lastName')}
-                      name="lastname"
+                      name="lastName"
                       rules={[
                         {
                           required: true,
