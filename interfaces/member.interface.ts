@@ -22,3 +22,9 @@ export interface IEmailUpdate {
   newEmail: string
   password: string
 }
+
+export interface ICreateMobile {
+  mobile: string
+  refCode: string
+  otpCode: string
+}
