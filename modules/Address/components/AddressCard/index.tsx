@@ -40,7 +40,13 @@ const AddressCard: React.FC<IAddressCard> = (props: IAddressCard) => {
           <Space className={styles.contentLayout} size={4} direction="vertical">
             <Text>{data.name}</Text>
             <Text>
-              {compact([data.address, data.district, data.province, data.postcode]).join(' ')}
+              {compact([
+                data.address,
+                data.tambon,
+                data.district,
+                data.province,
+                data.postcode
+              ]).join(' ')}
             </Text>
           </Space>
           <Space size={4} direction="horizontal" align="end">

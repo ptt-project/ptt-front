@@ -12,28 +12,31 @@ type IEditAddressPageProps = Pick<IEditAddressProps, 'address' | 'googleMapsApiK
 export async function getServerSideProps(
   context: NextPageContext
 ): Promise<GetServerSidePropsResult<IEditAddressPageProps>> {
-  let address: IAddress
+  let address: IAddress | null = null
   const { query } = context
   const { addressId } = query || {}
-
   try {
-    const result: IApiResponse = await MembersService.getAddress(addressId.toString())
-
-    if (result.code === ApiCodeEnum.SUCCESS) {
-      address = result.data
-    } else {
-      // if no found throw error for redirect to page address list in catch handle
-      throw new Error('no data')
-    }
-  } catch (error) {
-    console.error(error)
-    return {
-      redirect: {
-        destination: '/settings/account/address',
-        permanent: true
+    if (addressId?.toString()) {
+      const result: IApiResponse<IAddress> = await MembersService.getAddress(addressId.toString())
+      if (result?.code === ApiCodeEnum.SUCCESS) {
+        address = result?.data
+      } else {
+        // if no found throw error for redirect to page address list in catch handle
+        throw new Error('no data')
       }
     }
+  } catch (error) {
+    console.log({ error })
+    // return {
+    //   redirect: {
+    //     destination: '/settings/account/address',
+    //     permanent: true
+    //   }
+    // }
   }
+
+  console.log({ addressId, address })
+
   const googleMapsApiKey: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_TOKEN
   return {
     props: {

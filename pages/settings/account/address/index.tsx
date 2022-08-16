@@ -13,12 +13,14 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
   let addresses: IAddress[] = []
 
   try {
-    const result: IApiResponse = await MembersService.getAddresses()
-    if (result.code === ApiCodeEnum.SUCCESS) {
-      addresses = result.data
+    const result: IApiResponse<IAddress[]> = await MembersService.getAddresses()
+    console.log(JSON.stringify({ result }))
+    if (result?.code === ApiCodeEnum.SUCCESS) {
+      console.log({ data: result.data })
+      addresses = result?.data || []
     }
   } catch (error) {
-    console.error(error)
+    // console.error(error)
   }
 
   return {

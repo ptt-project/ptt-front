@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { Typography, Button, Row, Col, Space, Modal, Image, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import { compact, orderBy } from 'lodash'
@@ -6,12 +6,14 @@ import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import styles from './Address.module.scss'
 import AddressCard from './components/AddressCard'
-import { IAddress, IAddressFormValues, ICustomHookUseVisibleUtil } from '~/interfaces'
+import { IAddress, IAddressFormValues, IApiResponse, ICustomHookUseVisibleUtil } from '~/interfaces'
 import { CustomHookUseVisibleUtil, CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
+import { ApiCodeEnum } from '~/enums'
+import { MembersService } from '~/services'
 
 const { Text, Title, Link } = Typography
 
@@ -20,16 +22,33 @@ export interface IAddressProps {
   addresses?: IAddress[]
 }
 const Address: FC<IAddressProps> = (props: IAddressProps) => {
-  const { addresses } = props
+  const { addresses: addressesFromServerSide } = props
+
   const router: NextRouter = useRouter()
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
-
+  const [addresses, setAddresses] = useState<IAddress[]>(addressesFromServerSide || [])
   const deleteAddressVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
 
   const rootMenu: string = props.isSeller ? '/seller' : ''
 
   const [deleteAddressId, setDeleteAddressId] = useState<string>()
+
+  useEffect(() => {
+    const fetchAddresses = async (): Promise<void> => {
+      if (!addressesFromServerSide?.length) {
+        try {
+          const result: IApiResponse<IAddress[]> = await MembersService.getAddresses()
+          if (result.code === ApiCodeEnum.SUCCESS) {
+            setAddresses(result.data)
+          }
+        } catch (error) {
+          // console.error(error)
+        }
+      }
+    }
+    fetchAddresses()
+  }, [addressesFromServerSide])
 
   function onAddAddressClick(): void {
     router.push(
