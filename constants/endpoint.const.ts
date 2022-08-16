@@ -1,5 +1,3 @@
-const baseUrl: string = `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_VERSION}`
-
 // eslint-disable-next-line @typescript-eslint/typedef
 export const EndPointUrlConst = {
   AUTH: {
