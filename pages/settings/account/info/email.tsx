@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { NextPage, NextPageContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Email from '~/modules/Profile/components/Email'
@@ -17,6 +17,7 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
     const result: IApiResponse = await MembersService.getAddresses()
     if (result.code === ApiCodeEnum.SUCCESS) {
       profile = result.data
+      console.log(profile)
     }
   } catch (error) {
     console.error(error)

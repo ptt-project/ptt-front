@@ -5,7 +5,7 @@ import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Form, Input, message } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { ICreateMobile } from '~/interfaces'
+import { IMobile } from '~/interfaces'
 import Loading from '~/components/main/Loading'
 import { LocaleNamespaceConst } from '~/constants'
 import { MembersService } from '~/services'
@@ -17,11 +17,11 @@ const AddPhone: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  async function onSubmit(values: ICreateMobile): Promise<void> {
+  async function onSubmit(values: IMobile): Promise<void> {
     setIsLoading(true)
     const isSuccess: boolean = false
     try {
-      const payload: ICreateMobile = {
+      const payload: IMobile = {
         mobile: values.mobile,
         otpCode: values.otpCode,
         refCode: ''

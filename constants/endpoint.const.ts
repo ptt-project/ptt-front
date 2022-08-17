@@ -10,8 +10,7 @@ export const EndPointUrlConst: any = {
   MEMBER: {
     PROFILE: '/members/profile',
     ADDRESSES: '/members/addresses',
-    EMAIL_UPDATE:'/members/edit-email',
-    MOBILE:'mobiles/add'
-
+    EMAIL:'/members/email',
+    MOBILE:'/members/mobiles'
   }
 }
