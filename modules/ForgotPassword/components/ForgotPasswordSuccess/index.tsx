@@ -4,16 +4,18 @@ import { NextRouter, useRouter } from 'next/router'
 import { Typography, Space, Button, Image, Row, Col } from 'antd'
 import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './ForgotPasswordByEmailSuccess.module.scss'
+import { OtpReferenceTypeEnum } from '~/enums'
+import styles from './ForgotPasswordSuccess.module.scss'
 
 const { Text, Title } = Typography
 
-interface IForgotPasswordByEmailSuccessProps {
-  email: string
+interface IForgotPasswordSuccessProps {
+  reference: string
+  referenceType: OtpReferenceTypeEnum
 }
 
-const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
-  props: IForgotPasswordByEmailSuccessProps
+const ForgotPasswordSuccess: FC<IForgotPasswordSuccessProps> = (
+  props: IForgotPasswordSuccessProps
 ) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.forgot-password'])
   const router: NextRouter = useRouter()
@@ -34,7 +36,7 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
             <Title className="hps-title" level={4}>
-              {t('auth.forgot-password:title')}
+              {t('auth.forgot-password:success.title')}
             </Title>
             <Row>
               <Col xl={{ span: 12, offset: 6 }} xs={24}>
@@ -51,9 +53,13 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
             <Row>
               <Col span={24}>
                 <Space className={styles.space} wrap>
-                  <Text>{t('auth.forgot-password:success.messageA')}</Text>
-                  <Text className={styles.cSecondary}>{props.email}</Text>
-                  <Text>{t('auth.forgot-password:success.messageB')}</Text>
+                  {props.referenceType === OtpReferenceTypeEnum.MOBILE && (
+                    <Text>{t('auth.forgot-password:success.mobile')}</Text>
+                  )}
+                  {props.referenceType === OtpReferenceTypeEnum.EMAIL && (
+                    <Text>{t('auth.forgot-password:success.email')}</Text>
+                  )}
+                  <Text className={styles.cSecondary}>{props.reference}</Text>
                 </Space>
               </Col>
             </Row>
@@ -64,9 +70,9 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
                   htmlType="submit"
                   type="primary"
                   block
-                  href={CustomUrlUtil('/', router.locale)}
+                  href={CustomUrlUtil('/auth/login', router.locale)}
                 >
-                  {t('common:ok')}
+                  {t('common:login')}
                 </Button>
               </Col>
             </Row>
@@ -77,4 +83,4 @@ const ForgotPasswordByEmailSuccess: FC<IForgotPasswordByEmailSuccessProps> = (
   )
 }
 
-export default ForgotPasswordByEmailSuccess
+export default ForgotPasswordSuccess

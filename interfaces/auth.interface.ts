@@ -37,16 +37,16 @@ export interface IAuthLoginRes {
   accessToken: string
   refreshToken: string
   username: string
-  firstname: string
-  lastname: string
+  firstName: string
+  lastName: string
   mobile: string
   email: string
 }
 
 export interface IAuthUserInfo {
   username: string
-  firstname: string
-  lastname: string
+  firstName: string
+  lastName: string
   mobile: string
   email: string
 }
