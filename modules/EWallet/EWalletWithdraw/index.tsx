@@ -13,7 +13,7 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
 import { bankMock } from '~/modules/BankAccount/mock-data'
 import { IBankAccountData } from '~/interfaces'
-import CustomInput from '~/components/common/CustomInput'
+import CustomInput from '~/components/main/CustomInput'
 import OtpModal from '~/components/main/OtpModal'
 import { OtpTypeEnum } from '~/enums'
 
@@ -211,7 +211,9 @@ const EWalletWithdraw: React.FC = () => {
                                 </Row>
                                 <Row justify="space-between">
                                   <Text>{t('e-wallet:common.totalAmount')}</Text>
-                                  <Text>{`${HelperDecimalFormatUtil(totalAmount)} ${t('บาท')}`}</Text>
+                                  <Text>{`${HelperDecimalFormatUtil(totalAmount)} ${t(
+                                    'บาท'
+                                  )}`}</Text>
                                 </Row>
                               </Space>
                             )

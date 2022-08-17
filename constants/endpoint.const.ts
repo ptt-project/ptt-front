@@ -12,5 +12,8 @@ export const EndPointUrlConst: any = {
     ADDRESSES: '/members/addresses',
     EMAIL:'/members/email',
     MOBILE:'/members/mobiles'
+  },
+  SELLER: {
+    REGISTER: '/seller/register'
   }
 }

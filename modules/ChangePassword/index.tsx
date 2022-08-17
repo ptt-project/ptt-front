@@ -164,19 +164,19 @@ const ChangePassword: React.FC = () => {
                     <Space />
                     <Form.Item>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register:form.passwordHintA')}
+                        {t('common:passwordHint.a')}
                       </Text>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register:form.passwordHintB')}
+                        {t('common:passwordHint.b')}
                       </Text>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register:form.passwordHintC')}
+                        {t('common:passwordHint.c')}
                       </Text>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register:form.passwordHintD')}
+                        {t('common:passwordHint.d')}
                       </Text>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register:form.passwordHintE')}
+                        {t('common:passwordHint.e')}
                       </Text>
                     </Form.Item>
                     <Form.Item>

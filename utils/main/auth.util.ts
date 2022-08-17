@@ -10,8 +10,8 @@ export const AuthInitUtil = (data: IAuthLoginRes): void => {
 
   const userInfo: IAuthUserInfo = {
     username: data.username,
-    firstname: data.firstname,
-    lastname: data.lastname,
+    firstName: data.firstName,
+    lastName: data.lastName,
     mobile: data.mobile,
     email: data.email
   }

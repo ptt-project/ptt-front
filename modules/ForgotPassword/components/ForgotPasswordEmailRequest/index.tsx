@@ -1,15 +1,21 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import { Typography, Button, Row, Col, Image } from 'antd'
+import { Typography, Space, Button, Image, Row, Col } from 'antd'
 import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './RegisterSuccess.module.scss'
+import styles from './ForgotPasswordEmailRequest.module.scss'
 
 const { Text, Title } = Typography
 
-const RegisterSuccess: FC = () => {
-  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register'])
+interface IForgotPasswordEmailRequestProps {
+  email: string
+}
+
+const ForgotPasswordEmailRequest: FC<IForgotPasswordEmailRequestProps> = (
+  props: IForgotPasswordEmailRequestProps
+) => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.forgot-password'])
   const router: NextRouter = useRouter()
 
   return (
@@ -21,14 +27,14 @@ const RegisterSuccess: FC = () => {
               <Image
                 rootClassName={styles.imgWrapper}
                 preview={false}
-                src="./images/main/buyer/register-form.png"
-                alt="register-form"
+                src="./images/main/buyer/forgot-password.png"
+                alt="forgot-password"
               />
             </div>
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
             <Title className="hps-title" level={4}>
-              {t('auth.register:success.title')}
+              {t('auth.forgot-password:emailReqequest.title')}
             </Title>
             <Row>
               <Col xl={{ span: 12, offset: 6 }} xs={24}>
@@ -36,17 +42,19 @@ const RegisterSuccess: FC = () => {
                   <Image
                     rootClassName={styles.imgWrapper}
                     preview={false}
-                    src="./images/main/buyer/register-success.png"
-                    alt="register-success"
+                    src="./images/main/buyer/forgot-password-success.png"
+                    alt="forgot-password-success"
                   />
                 </div>
               </Col>
             </Row>
             <Row>
               <Col span={24}>
-                <div className={styles.message}>
-                  <Text type="secondary">{t('auth.register:success.message')}</Text>
-                </div>
+                <Space className={styles.space} wrap>
+                  <Text>{t('auth.forgot-password:emailRequest.head')}</Text>
+                  <Text className={styles.cSecondary}>{props.email}</Text>
+                  <Text>{t('auth.forgot-password:emailRequest.tail')}</Text>
+                </Space>
               </Col>
             </Row>
             <Row>
@@ -56,9 +64,9 @@ const RegisterSuccess: FC = () => {
                   htmlType="submit"
                   type="primary"
                   block
-                  href={CustomUrlUtil('/auth/login', router.locale)}
+                  href={CustomUrlUtil('/', router.locale)}
                 >
-                  {t('common:login')}
+                  {t('common:ok')}
                 </Button>
               </Col>
             </Row>
@@ -69,4 +77,4 @@ const RegisterSuccess: FC = () => {
   )
 }
 
-export default RegisterSuccess
+export default ForgotPasswordEmailRequest
