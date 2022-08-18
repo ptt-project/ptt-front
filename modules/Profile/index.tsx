@@ -150,7 +150,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                   <Col sm={12} xs={24}>
                     <Form.Item
                       label={t('account-info:form.firstName')}
-                      name="firstname"
+                      name="firstName"
                       rules={[
                         {
                           required: true,

@@ -8,7 +8,7 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
-import { IOtpData, IMobile, IApiResponse } from '~/interfaces'
+import { IOtpData, IMemberMobile, IApiResponse } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
@@ -44,7 +44,7 @@ const Phone: FC = () => {
     setIsLoading(true)
     const isSuccess: boolean = false
     try {
-      const payload: IMobile = {
+      const payload: IMemberMobile = {
         mobile: '',
         otpCode: '',
         refCode: ''
@@ -68,7 +68,7 @@ const Phone: FC = () => {
     setIsLoading(true)
     const isSuccess: boolean = false
     try {
-      const payload: IMobile = {
+      const payload: IMemberMobile = {
         mobile: '',
         otpCode: '',
         refCode: ''

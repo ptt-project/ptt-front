@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { AxiosResponse } from 'axios'
 import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Form, Input, message } from 'antd'
-import { IMemberProfile, IEmailUpdate } from '~/interfaces'
+import { IMemberProfile, IMemberEmailUpdate } from '~/interfaces'
 import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
@@ -13,20 +13,20 @@ import styles from './ProfileEmail.module.scss'
 
 const { Text, Title } = Typography
 
-interface IProps {
+interface IEmailProps {
   profile: IMemberProfile
 }
 
-const Email: FC<IProps> = (props: IProps) => {
+const Email: FC<IEmailProps> = (props: IEmailProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  async function onSubmit(values: IEmailUpdate): Promise<void> {
+  async function onSubmit(values: IMemberEmailUpdate): Promise<void> {
     setIsLoading(true)
     const isSuccess: boolean = false
     try {
-      const payload: IEmailUpdate = {
+      const payload: IMemberEmailUpdate = {
         newEmail: values.newEmail,
         password: values.password
       }

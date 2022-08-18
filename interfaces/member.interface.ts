@@ -18,12 +18,12 @@ export interface IMemberProfileUpdate {
   gender: string
 }
 
-export interface IEmailUpdate {
+export interface IMemberEmailUpdate {
   newEmail: string
   password: string
 }
 
-export interface IMobile {
+export interface IMemberMobile {
   mobile: string
   refCode: string
   otpCode: string
