@@ -254,7 +254,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                   </Form.Item>
                 </Col>
                 <Col xs={24}>
-                  <Form.Item label={t('auth.register-seller:form.other')} name="socialMedia">
+                  <Form.Item label={t('auth.register-seller:form.social')} name="socialMedia">
                     <TextArea maxLength={200} showCount />
                   </Form.Item>
                 </Col>
