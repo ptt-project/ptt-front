@@ -9,7 +9,9 @@ export const EndPointUrlConst: any = {
   },
   MEMBER: {
     PROFILE: '/members/profile',
-    ADDRESSES: '/members/addresses'
+    ADDRESSES: '/members/addresses',
+    EMAIL:'/members/email',
+    MOBILES:'/members/mobiles'
   },
   SELLER: {
     REGISTER: '/seller/register'
