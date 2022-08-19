@@ -1,30 +1,29 @@
 @import '../../public/sass/config/variables';
 .landing {
+  cursor: pointer;
   .title {
     font-weight: bold;
     font-size: 1.5rem;
   }
   .msgDetail {
     font-size: 1.2rem;
-    display: inline-block;
+    display: block;
   }
   .icon {
     color: #df1f29;
     font-size: 3.5rem;
   }
-  .contentCol {
-    padding: 0.5rem;
+  .iconWrapper {
+    display: flex;
     align-items: center;
+    min-height: 9rem;
+    padding: 1rem;
     border: 1px solid #d9d9d9;
     border-radius: 5px;
-    .iconWrapper {
-      display: flex;
-      align-items: center;
 
-      .headerContent {
-        display: inline-block;
-        margin-left: 1rem;
-      }
+    .headerContent {
+      display: inline-block;
+      margin-left: 1rem;
     }
   }
 }
