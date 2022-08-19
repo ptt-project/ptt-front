@@ -141,7 +141,6 @@ const Profile: FC<IProps> = (props: IProps) => {
                   <Col sm={12} xs={24}>
                     <Text className={styles.label}>{t('account-info:form.memberId')} :</Text>
                     <Text className={styles.textPrimary}>mem01</Text>
-                    <br />
                     <Text className={styles.label}>{t('account-info:form.username')} :</Text>
                     <Text className={styles.textPrimary} />
                   </Col>
