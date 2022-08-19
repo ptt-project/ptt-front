@@ -1,34 +1,25 @@
-import React, { FC } from 'react'
-import { NextPageContext } from 'next'
+import React from 'react'
+import { NextPage, NextPageContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Profile from '~/modules/Profile'
 import { LocaleNamespaceConst } from '~/constants'
-import { MembersService } from '~/services'
-import { IApiResponse, IMemberProfile } from '~/interfaces'
 import { ApiCodeEnum } from '~/enums'
+import { IMemberProfile, IApiResponse } from '~/interfaces'
+import { MembersService } from '~/services'
 
 interface IProfilePageProps {
   profile: IMemberProfile
 }
 
 export async function getServerSideProps(context: NextPageContext): Promise<any> {
-  let profile: IMemberProfile = {
-    username: '',
-    firstName: '',
-    lastName: '',
-    mobile: '',
-    birthday: '',
-    gender: '',
-    email: ''
-  }
-
+  let profile: IMemberProfile[] = []
   try {
-    const result: IApiResponse = await MembersService.getProfile()
+    const result: IApiResponse = await MembersService.getAddresses()
     if (result.code === ApiCodeEnum.SUCCESS) {
       profile = result.data
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 
   return {
@@ -38,8 +29,7 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
     }
   }
 }
-
-const ProfilePage: FC<IProfilePageProps> = (props: IProfilePageProps) => (
+const ProfilePage: NextPage<IProfilePageProps> = (props: IProfilePageProps) => (
   <Profile profile={props.profile} />
 )
 

@@ -3,16 +3,18 @@ import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
-import { Typography, Button, Row, Col, Space } from 'antd'
+import { Typography, Button, Row, Col, Space, message } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
+import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
-import { IOtpData } from '~/interfaces'
+import { IOtpData, IMemberMobile, IApiResponse } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
 import { OtpTypeEnum } from '~/enums'
+import { MembersService } from '~/services'
 import styles from './ProfilePhone.module.scss'
 
 const { Text } = Typography
@@ -22,6 +24,7 @@ const Phone: FC = () => {
   const router: NextRouter = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isOpenDelPhoneModal, setIsOpenDelPhoneModal] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   function toggle(): void {
     setIsOpen(!isOpen)
@@ -35,13 +38,52 @@ const Phone: FC = () => {
     setIsOpenDelPhoneModal(true)
   }
 
-  function onFavoritePhone(): void {
+  async function onFavoritePhone(): Promise<void> {
     setIsOpen(true)
+    toggleDelPhoneModal()
+    setIsLoading(true)
+    const isSuccess: boolean = false
+    try {
+      const payload: IMemberMobile = {
+        mobile: '',
+        otpCode: '',
+        refCode: ''
+      }
+      const result: IApiResponse = await MembersService.deleteMobile(payload)
+      console.log(result)
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
-  function onRemove(): void {
+  async function onRemove(): Promise<void> {
     console.log('reomove')
     toggleDelPhoneModal()
+    setIsLoading(true)
+    const isSuccess: boolean = false
+    try {
+      const payload: IMemberMobile = {
+        mobile: '',
+        otpCode: '',
+        refCode: ''
+      }
+      const result: IApiResponse = await MembersService.deleteMobile(payload)
+      console.log(result)
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
   function onSubmit(otpData: IOtpData): void {
@@ -55,6 +97,7 @@ const Phone: FC = () => {
 
   return (
     <>
+      <Loading show={isLoading} />
       <OtpModal
         mobile="12346"
         action={OtpTypeEnum.REGISTER}
