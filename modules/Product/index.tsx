@@ -7,8 +7,12 @@ import styles from './Product.module.scss'
 
 const { Text, Title, Link } = Typography
 
-const Product: FC = () => {
-  const { t } = useTranslation([...LocaleNamespaceConst, 'home'])
+interface IProductProps {
+  page?: 'Home' | ''
+}
+
+const Product: FC<IProductProps> = (props: IProductProps) => {
+  const { t } = useTranslation([...LocaleNamespaceConst, 'product'])
 
   function renderProducts(): JSX.Element[] {
     const images: string[] = []
@@ -23,7 +27,7 @@ const Product: FC = () => {
               <img src={src} alt="product" />
             </div>
             <Tag color="#40a9ff" className={styles.tagRecommended}>
-              {t('home:product.recommended')}
+              {t('product:recommended')}
             </Tag>
             <Tag color="red" className={styles.tagSell}>
               <i className="fas fa-angle-double-down mr-2" />
@@ -34,9 +38,12 @@ const Product: FC = () => {
             <Text className={styles.dTitle}>Mock Up Title XXXXXXXXXXXXXXXXXXXX</Text>
             <Text className={styles.dAmount}>฿{numeral(5555).format('0,0')}</Text>
             <Text className={`${styles.dSold} hps-text-small`} type="secondary">
-              {t('home:promotion.sold')} {numeral(10).format('0,0')} ชิ้น
+              {t('common:sold')} {numeral(10).format('0,0')} ชิ้น
             </Text>
             <Rate className="hps-rating hps-text-small" disabled defaultValue={3} />
+          </div>
+          <div className={styles.favorite}>
+            <i className="far fa-heart" />
           </div>
         </div>
       </Col>
@@ -46,21 +53,27 @@ const Product: FC = () => {
 
   return (
     <>
-      <Row className={styles.header} align="middle">
-        <Col span={16}>
-          <Title className={styles.title} level={3}>
-            {t('home:product.title')}
-          </Title>
-        </Col>
-        <Col className="text-right" span={8}>
-          <Link href="#" className="hps-link">
-            {t('common:viewAll')}
-          </Link>
-        </Col>
-      </Row>
+      {props.page === 'Home' ? (
+        <Row className={styles.header} align="middle">
+          <Col span={16}>
+            <Title className={styles.title} level={3}>
+              {t('product:title')}
+            </Title>
+          </Col>
+          <Col className="text-right" span={8}>
+            <Link href="#">
+              <a className="hps-link">{t('common:viewAll')}</a>
+            </Link>
+          </Col>
+        </Row>
+      ) : null}
       <Row gutter={[24, 24]}>{renderProducts()}</Row>
     </>
   )
+}
+
+Product.defaultProps = {
+  page: ''
 }
 
 export default Product

@@ -64,7 +64,7 @@ const Promotion: FC = () => {
         <Col span={16}>
           <Space className={styles.space} align="center" size="middle">
             <Title className={styles.title} level={3}>
-              {t('home:promotion.title')}
+              {t('home:promotion')}
             </Title>
             <Text type="secondary">
               <i className="fas fa-clock mr-1" />
@@ -73,8 +73,8 @@ const Promotion: FC = () => {
           </Space>
         </Col>
         <Col className="text-right" span={8}>
-          <Link href="#" className="hps-link">
-            {t('common:viewAll')}
+          <Link href="#">
+            <a className="hps-link">{t('common:viewAll')}</a>
           </Link>
         </Col>
       </Row>

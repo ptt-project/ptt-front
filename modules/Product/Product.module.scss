@@ -1,4 +1,4 @@
-@import '../../../../public/sass/config/_variables.scss';
+@import '../../public/sass/config/_variables.scss';
 
 .header {
   margin-bottom: 1.5rem;
@@ -68,6 +68,30 @@
 
     .dSold {
       display: block;
+    }
+  }
+
+  .favorite {
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
+    color: $text-gray;
+    cursor: pointer;
+
+    &:hover, &:focus {
+      color: $primary-color;
+    }
+  }
+
+  .favoriteSave {
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
+    color: $primary-color;
+    cursor: pointer;
+
+    &:hover, &:focus {
+      color: $text-gray;
     }
   }
 }

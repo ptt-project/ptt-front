@@ -4,9 +4,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "i18n-ally.localesPaths": [
-    "locales"
-  ],
+  "i18n-ally.localesPaths": ["locales"],
   "i18n-ally.pathMatcher": "{locale}/{namespaces}.json",
   "i18n-ally.enabledParsers": ["ts", "js", "json"],
   "i18n-ally.namespace": true,

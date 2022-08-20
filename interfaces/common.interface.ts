@@ -1,5 +1,10 @@
 import { AxiosResponse } from 'axios'
 
+export interface IOption {
+  label: string
+  value: string | number
+}
+
 export interface IBreadcrumbItem {
   title: string
   href?: string

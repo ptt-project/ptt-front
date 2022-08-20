@@ -1,0 +1,62 @@
+@import '../../../../public/sass/config/_variables.scss';
+
+.container {
+  padding: 1rem;
+}
+
+.section {
+  margin-bottom: 24px;
+  border-bottom: 2px solid $border-color;
+
+  &:nth-last-child(1) {
+    border-bottom: none;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+.control {
+  margin-bottom: 24px;
+
+  button {
+    margin-top: 8px;
+  }
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    padding-bottom: 8px;
+    margin-top: 8px;
+    border-bottom: 1px solid $border-color;
+
+    &:nth-last-child(1) {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+  }
+}
+
+.radio {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-top: 8px;
+  }
+}
+
+.rating {
+  color: $warning-color;
+  font-size: 1.5rem;
+}
