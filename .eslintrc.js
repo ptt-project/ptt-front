@@ -57,6 +57,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     'comma-dangle': ['error', 'never'],
+    'comma-spacing': ['error', { before: false, after: true }],
     'no-console': 'off',
     'no-unused-vars': [2, { args: 'none' }],
     'no-else-return': ['error', { allowElseIf: false }],
