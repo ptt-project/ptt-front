@@ -57,8 +57,8 @@ const Profile: FC<IProps> = (props: IProps) => {
         birthday: `${values.birthYear}-${values.birthMonth}-${values.birthday}`,
         gender: valueGender
       }
-      const result: AxiosResponse = await MembersService.updateMemberProfile(payload)
-      console.log(result)
+      // const result: AxiosResponse = await MembersService.updateMemberProfile(payload)
+      // console.log(result)
     } catch (error) {
       console.log(error)
     }

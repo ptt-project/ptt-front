@@ -26,8 +26,8 @@ const AddPhone: FC = () => {
         otpCode: values.otpCode,
         refCode: ''
       }
-      const result: AxiosResponse = await MembersService.createMobile(payload)
-      console.log(result)
+      // const result: AxiosResponse = await MembersService.createMobile(payload)
+      // console.log(result)
     } catch (error) {
       console.log(error)
     }
