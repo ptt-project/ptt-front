@@ -30,8 +30,8 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
         newEmail: values.newEmail,
         password: values.password
       }
-      const result: AxiosResponse = await MembersService.updateEmail(payload)
-      console.log(result)
+      // const result: AxiosResponse = await MembersService.updateEmail(payload)
+      // console.log(result)
     } catch (error) {
       console.log(error)
     }
@@ -74,7 +74,7 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
                   <Text>{t('account-info:email.currentEmail')} :</Text>
                 </Col>
                 <Col md={12} xs={16}>
-                  <Text className={styles.textPrimary}>{props.email}</Text>
+                  <Text className={styles.textPrimary}>{props.profile.email}</Text>
                 </Col>
               </Row>
               <Row>
@@ -85,7 +85,7 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
                     name="newEmail"
                     onFinish={onSubmit}
                     initialValues={{
-                      email: props.email
+                      email: props.profile.email
                     }}
                   >
                     <Row>
