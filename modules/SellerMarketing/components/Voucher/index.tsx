@@ -11,7 +11,7 @@ import { LocaleNamespaceConst } from '~/constants'
 import VoucherTabs from '../VoucherTabs'
 import styles from './Voucher.module.scss'
 
-const { Text, Title } = Typography
+const { Title } = Typography
 
 const Voucher: FC = () => {
   const router: NextRouter = useRouter()
@@ -24,9 +24,7 @@ const Voucher: FC = () => {
           {t('common:meta.title')} | {t('account-info:title')}
         </title>
       </Helmet>
-      <Breadcrumbs
-        items={[{ title: t('account-info:setting') }, { title: t('seller.marketing:title') }]}
-      />
+      <Breadcrumbs items={[{ title: t('seller.marketing:title') }]} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
