@@ -1,13 +1,11 @@
-@import '../../../../public/sass/config/variables';
-
-.textPrimary {
-  color: $primary-color;
-}
+@import '../../../../../../public/sass/config/variables';
 
 .textSecondary {
   color: $secondary-color !important;
 }
-
+.uploadImg {
+  width: auto;
+}
 .highlight {
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -17,12 +15,4 @@
   @media (min-width: 768px) {
     padding: 1.5rem 0;
   }
-}
-
-.hrTitleCol {
-  border-bottom: 1px solid red;
-}
-
-.tr {
-  border-bottom: 1px solid #d9d9d9;
 }

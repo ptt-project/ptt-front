@@ -8,7 +8,7 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
-import VoucherTabs from '../VoucherTabs'
+import VoucherTabs from './components/VoucherTabs'
 import styles from './Voucher.module.scss'
 
 const { Title } = Typography
@@ -24,7 +24,14 @@ const Voucher: FC = () => {
           {t('common:meta.title')} | {t('account-info:title')}
         </title>
       </Helmet>
-      <Breadcrumbs items={[{ title: t('seller.marketing:title') }]} />
+      <Breadcrumbs
+        items={[
+          {
+            title: t('seller.marketing:title'),
+            href: '/seller/settings/marketing'
+          }
+        ]}
+      />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>

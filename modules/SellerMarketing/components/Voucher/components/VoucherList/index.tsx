@@ -51,18 +51,6 @@ const VoucherList: FC = () => {
   const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.marketing'])
   const [isOpenDelModal, setIsOpenDelModal] = useState<boolean>(false)
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [replyData, setReplyData] = useState<IMockData>({
-    id: '',
-    code: '',
-    type: '',
-    value: '',
-    available: '',
-    used: '',
-    status: '',
-    colorStatus: '',
-    periodGetCode: ''
-  })
 
   function toggleDelModal(): void {
     setIsOpenDelModal(!isOpenDelModal)
