@@ -28,10 +28,11 @@ interface IVoucherFormProps {
 const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
   const { parentForm, initialValues, onSubmit } = props
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.marketing'])
-  const [form] = Form.useForm()
+  const [form] = Form.useForm(parentForm)
 
   function onFormFinish(values: IVoucherFormProps): void {
-    console.log(values)
+    console.log({ formValues: values })
+    onSubmit?.({ ...initialValues, ...values })
   }
   const onChange: DatePickerProps['onChange'] = (date: moment.Moment, dateString: string) => {
     console.log(date, dateString)
