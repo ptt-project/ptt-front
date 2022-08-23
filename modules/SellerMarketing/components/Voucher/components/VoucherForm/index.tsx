@@ -15,7 +15,6 @@ import {
 import { LocaleNamespaceConst } from '~/constants'
 import { IVoucherFormData } from '~/interfaces'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import styles from './VoucherForm.module.scss'
 
 const { Text } = Typography
 
@@ -28,12 +27,12 @@ interface IVoucherFormProps {
 }
 const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
   const { parentForm, initialValues, onSubmit } = props
+  console.log('initialValues--', initialValues.voucherName)
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.marketing'])
   const [form] = Form.useForm(parentForm)
 
   function onFormFinish(values: IVoucherFormProps): void {
-    console.log({ formValues: values })
-    onSubmit?.({ ...initialValues, ...values })
+    // onSubmit?.({ ...initialValues, ...values })
   }
 
   function onFormChange(values: IVoucherFormProps): void {
@@ -51,7 +50,7 @@ const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
         <Col md={12}>
           <Form.Item
             label={t('seller.marketing:voucher.form.voucherName')}
-            name="name"
+            name="voucherName"
             rules={[{ required: true }]}
           >
             <Input />
@@ -95,7 +94,7 @@ const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
         <Col md={12}>
           <Form.Item
             label={t('seller.marketing:voucher.form.typeDiscount')}
-            name="brand"
+            name="typeDiscount"
             rules={[{ required: true }]}
           >
             <Select defaultValue="">
@@ -106,7 +105,7 @@ const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
         <Col md={12}>
           <Form.Item
             label={t('seller.marketing:voucher.form.valueDiscount')}
-            name="weight"
+            name="valueDiscount"
             rules={[
               {
                 required: true
@@ -137,7 +136,7 @@ const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
         <Col md={12}>
           <Form.Item
             label={t('seller.marketing:voucher.form.minDiscount')}
-            name="weight"
+            name="minDiscount"
             rules={[
               {
                 required: true
@@ -152,7 +151,7 @@ const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
         <Col md={12}>
           <Form.Item
             label={t('seller.marketing:voucher.form.amountAvailable')}
-            name="weight"
+            name="amountAvailable"
             rules={[
               {
                 required: true

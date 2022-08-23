@@ -1,9 +1,7 @@
 import React, { FC, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import Link from 'next/link'
 import { Row, Col, Typography, Pagination, Tag } from 'antd'
-import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import styles from './VoucherList.module.scss'
@@ -64,6 +62,17 @@ const VoucherList: FC = () => {
 
   function onRemove(): void {
     console.log('reomove')
+  }
+
+  function onEditVoucherClick(voucherId: string): void {
+    console.log('voucherId++', voucherId)
+    router.push(
+      `/seller/settings/marketing/voucher/${voucherId}`,
+      `/seller/settings/marketing/voucher/${voucherId}`,
+      {
+        locale: router.locale
+      }
+    )
   }
   return (
     <>
@@ -126,11 +135,9 @@ const VoucherList: FC = () => {
               <Text>{item.periodGetCode}</Text>
             </Col>
             <Col lg={4}>
-              <Link
-                href={CustomUrlUtil(`/seller/settings/marketing/voucher/${item.id}`, router.locale)}
-              >
+              <Text onClick={(): void => onEditVoucherClick(item.id)}>
                 <i className={`${styles.textSecondary} fas fa-pen mr-1`} />
-              </Link>
+              </Text>
               <Text onClick={(): void => onDelModal(item)}>
                 <i className={`${styles.textSecondary} fas fa-trash-alt mr-1`} />
               </Text>

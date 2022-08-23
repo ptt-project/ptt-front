@@ -1,6 +1,6 @@
 export interface IVoucherFormData {
   id?: string
-  name: string
+  voucherName: string
   code: string
   periodCode: string
   typeDiscount: string

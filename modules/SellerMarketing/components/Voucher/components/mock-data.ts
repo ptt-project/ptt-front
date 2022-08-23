@@ -1,10 +1,10 @@
 import { IVoucherFormData } from '~/interfaces'
 
-export const bankMock: IVoucherFormData[] = [
+export const voucherMock: IVoucherFormData[] = [
   {
-    name: '001',
+    voucherName: '001',
     code: '001',
-    periodCode: '2022-08-20-2022-08-25',
+    periodCode: '',
     typeDiscount: 'โดย%',
     valueDiscount: '50',
     maxDiscount: 'ไม่จำกัด',
@@ -13,9 +13,9 @@ export const bankMock: IVoucherFormData[] = [
     id: '1'
   },
   {
-    name: '002',
+    voucherName: '002',
     code: '002',
-    periodCode: '2022-08-20-2022-08-25',
+    periodCode: '',
     typeDiscount: 'โดย%',
     valueDiscount: '50',
     maxDiscount: 'ไม่จำกัด',
