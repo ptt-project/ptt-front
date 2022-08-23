@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react'
+import React, { useState, useEffect, FC } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
@@ -16,11 +16,17 @@ const Search: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'search'])
   const router: NextRouter = useRouter()
 
-  const [keyword] = useState<string>(getKeyword())
+  const [keyword, setKeyword] = useState<string>()
 
   function getKeyword(): string {
     return router?.query?.keyword ? router.query.keyword.toString() : ''
   }
+
+  useEffect(() => {
+    if (router?.query) {
+      setKeyword(getKeyword())
+    }
+  }, [router.query])
 
   return (
     <div className="main mt-lg-4 mb-4">

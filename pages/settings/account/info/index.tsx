@@ -14,7 +14,7 @@ interface IProfilePageProps {
 export async function getServerSideProps(context: NextPageContext): Promise<any> {
   let profile: IMemberProfile[] = []
   try {
-    const result: IApiResponse = await MembersService.getAddresses()
+    const result: IApiResponse = await MembersService.getProfile()
     if (result.code === ApiCodeEnum.SUCCESS) {
       profile = result.data
     }
@@ -29,6 +29,7 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
     }
   }
 }
+
 const ProfilePage: NextPage<IProfilePageProps> = (props: IProfilePageProps) => (
   <Profile profile={props.profile} />
 )
