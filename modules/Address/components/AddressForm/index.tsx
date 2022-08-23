@@ -17,7 +17,7 @@ import {
   AddressFieldsEnum,
   IFindAddressResult,
   provinceData,
-  queryAddress
+  AddressFinder
 } from './data/address-finder'
 
 const { Text, Title } = Typography
@@ -66,7 +66,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
   )
 
   const districtOptions: DefaultOptionType[] = useMemo(() => {
-    const districtData: IFindAddressResult[] = queryAddress(AddressFieldsEnum.PROVINCE, province)
+    const districtData: IFindAddressResult[] = AddressFinder.queryDistrict(province)
     return uniqBy(
       districtData.map((d: IFindAddressResult) => ({
         label: d[AddressFieldsEnum.DISTRICT],
@@ -77,7 +77,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
   }, [province])
 
   const tambonOptions: DefaultOptionType[] = useMemo(() => {
-    const tambonData: IFindAddressResult[] = queryAddress(AddressFieldsEnum.DISTRICT, district)
+    const tambonData: IFindAddressResult[] = AddressFinder.queryTambon(province, district)
     return uniqBy(
       tambonData.map((d: IFindAddressResult) => ({
         label: d[AddressFieldsEnum.TAMBON],
@@ -85,10 +85,14 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
       })),
       'value'
     )
-  }, [district])
+  }, [province, district])
 
   const postalCodeOptions: DefaultOptionType[] = useMemo(() => {
-    const postalCodeData: IFindAddressResult[] = queryAddress(AddressFieldsEnum.TAMBON, tambon)
+    const postalCodeData: IFindAddressResult[] = AddressFinder.queryZipcode(
+      province,
+      district,
+      tambon
+    )
     return uniqBy(
       postalCodeData.map((d: any) => ({
         label: d[AddressFieldsEnum.ZIPCODE],
@@ -96,7 +100,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
       })),
       'value'
     )
-  }, [tambon])
+  }, [district, province, tambon])
 
   useEffect(() => {
     console.log({ province, district, tambon })
@@ -182,8 +186,8 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
                   `${options.value}`.includes(value)
                 }
                 onChange={clearRelateFields('province')}
-                allowClear
                 autoClearSearchValue
+                showSearch
               >
                 {provinceOptions.map((option: DefaultOptionType) => (
                   <Select.Option key={`${option.value}`} value={option.value}>
@@ -201,8 +205,8 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
                 }
                 onChange={clearRelateFields('district')}
                 disabled={!province}
-                allowClear
                 autoClearSearchValue
+                showSearch
               >
                 {districtOptions.map((option: DefaultOptionType) => (
                   <Select.Option key={`${option.value}`} value={option.value}>
@@ -220,8 +224,8 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
                 }
                 onChange={clearRelateFields('tambon')}
                 disabled={!district}
-                allowClear
                 autoClearSearchValue
+                showSearch
               >
                 {tambonOptions.map((option: DefaultOptionType) => (
                   <Select.Option key={`${option.value}`} value={option.value}>
@@ -238,8 +242,8 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
                   `${options.value}`.includes(value)
                 }
                 disabled={!tambon}
-                allowClear
                 autoClearSearchValue
+                showSearch
               >
                 {postalCodeOptions.map((option: DefaultOptionType) => (
                   <Select.Option key={`${option.value}`} value={option.value}>

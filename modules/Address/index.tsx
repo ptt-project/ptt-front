@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { Typography, Button, Row, Col, Space, Modal, Image, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import { compact, orderBy } from 'lodash'
@@ -34,21 +34,22 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
 
   const [deleteAddressId, setDeleteAddressId] = useState<string>()
 
-  useEffect(() => {
-    const fetchAddresses = async (): Promise<void> => {
-      if (!addressesFromServerSide?.length) {
-        try {
-          const result: IApiResponse<IAddress[]> = await MembersService.getAddresses()
-          if (result.code === ApiCodeEnum.SUCCESS) {
-            setAddresses(result.data)
-          }
-        } catch (error) {
-          // console.error(error)
-        }
+  const fetchAddresses: () => Promise<void> = useCallback(async (): Promise<void> => {
+    try {
+      const result: IApiResponse<IAddress[]> = await MembersService.getAddresses()
+      if (result.code === ApiCodeEnum.SUCCESS) {
+        setAddresses(result.data)
       }
+    } catch (error) {
+      // console.error(error)
     }
-    fetchAddresses()
-  }, [addressesFromServerSide])
+  }, [])
+
+  useEffect(() => {
+    if (!addressesFromServerSide?.length) {
+      fetchAddresses()
+    }
+  }, [addressesFromServerSide, fetchAddresses])
 
   function onAddAddressClick(): void {
     router.push(
@@ -70,9 +71,10 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
     )
   }
 
-  async function onSetMainAddressClick(/* addressId: string */): Promise<void> {
+  async function onSetMainAddressClick(addressId: string): Promise<void> {
     try {
-      // await MembersService.setMainAddress?.(deleteAddressId)
+      await MembersService.setMainAddress(addressId)
+      await fetchAddresses()
       message.success(t('common:dataUpdated'))
     } catch (error) {
       //
@@ -86,7 +88,8 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
 
   async function onConfirmDeleteAddressClick(): Promise<void> {
     try {
-      // await MembersService.deleteAddress?.(deleteAddressId)
+      await MembersService.deleteAddress(deleteAddressId)
+      await fetchAddresses()
       message.success(t('common:dataUpdated'))
       setDeleteAddressId('')
     } catch (error) {
@@ -95,8 +98,9 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
     deleteAddressVisible.hide()
   }
 
-  const deleteAddressData: IAddressFormValues = (addresses as IAddressFormValues[]).find(
-    (address: IAddressFormValues) => address.id === deleteAddressId
+  const deleteAddressData: IAddress = useMemo(
+    () => addresses.find((address: IAddress) => address.id === deleteAddressId),
+    [addresses, deleteAddressId]
   )
 
   return (

@@ -93,8 +93,8 @@ const PickLocationField: React.FC<IPickLocationFieldProps> = (props: IPickLocati
           }}
           onCenterChanged={debounce(onCenterChanged, 200)}
         >
-          {/* <ButtonCurrentLocation /> */}
-          <AddressMarker text="HELLO" position={position} />
+          <ButtonCurrentLocation />
+          <AddressMarker position={position} />
         </GoogleMap>
       ) : (
         <Loading />

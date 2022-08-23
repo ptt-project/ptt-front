@@ -1,9 +1,11 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
+import { AxiosResponse } from 'axios'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
 import type { RadioChangeEvent } from 'antd'
+import _ from 'lodash'
 import {
   Typography,
   Button,
@@ -15,38 +17,73 @@ import {
   Avatar,
   Image,
   Select,
-  Radio
+  Radio,
+  message
 } from 'antd'
+import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrlUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
-import { IMemberProfile } from '~/interfaces'
+import { IMemberProfile, IMemberProfileUpdate } from '~/interfaces'
+import { MembersService } from '~/services'
 import styles from './Profile.module.scss'
 
 const { Text, Title } = Typography
+const { Option } = Select
 
 interface IProps {
   profile: IMemberProfile
 }
-
 const Profile: FC<IProps> = (props: IProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
-  const [value, setValue] = useState<number>(1)
+  const [valueGender, setValueGender] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   function onChange(e: RadioChangeEvent): void {
-    setValue(e.target.value)
+    setValueGender(e.target.value)
   }
 
-  function onSubmit(values: IMemberProfile): void {
-    console.log(values)
+  async function onSubmit(values: IMemberProfile): Promise<void> {
+    setIsLoading(true)
+    const isSuccess: boolean = false
+    try {
+      const payload: IMemberProfileUpdate = {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        birthday: `${values.birthYear}-${values.birthMonth}-${values.birthday}`,
+        gender: valueGender
+      }
+      // const result: AxiosResponse = await MembersService.updateMemberProfile(payload)
+      // console.log(result)
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
+  async function fetchData(): Promise<void> {
+    try {
+      await MembersService.getProfile()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
   return (
     <main className="main">
+      <Loading show={isLoading} />
       <Helmet>
         <title>
           {t('common:meta.title')} | {t('account-info:title')}
@@ -76,9 +113,9 @@ const Profile: FC<IProps> = (props: IProps) => {
                 name="profileForm"
                 onFinish={onSubmit}
                 initialValues={{
-                  firstName: props.profile.firstName,
-                  lastName: props.profile.lastName,
-                  gender: props.profile.gender
+                  firstName: '',
+                  lastName: '',
+                  gender: ''
                 }}
               >
                 <Row className={styles.highlight} gutter={[16, 16]} align="middle">
@@ -104,9 +141,8 @@ const Profile: FC<IProps> = (props: IProps) => {
                   <Col sm={12} xs={24}>
                     <Text className={styles.label}>{t('account-info:form.memberId')} :</Text>
                     <Text className={styles.textPrimary}>mem01</Text>
-                    <br />
                     <Text className={styles.label}>{t('account-info:form.username')} :</Text>
-                    <Text className={styles.textPrimary}>{props.profile.username}</Text>
+                    <Text className={styles.textPrimary} />
                   </Col>
                 </Row>
                 <Row gutter={[16, 8]}>
@@ -137,29 +173,44 @@ const Profile: FC<IProps> = (props: IProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} value={props.profile.lastName} />
+                      <Input maxLength={50} />
                     </Form.Item>
                   </Col>
                   <Col span={24}>
                     <Row gutter={8}>
                       <Col md={3} sm={4} xs={6}>
-                        <Form.Item label={t('account-info:form.birthday')} name="birthday">
+                        <Form.Item label={t('account-info:form.birthday')} name="birthDay">
                           <Select defaultValue="">
-                            <Select.Option value="">{t('account-info:form.date')}</Select.Option>
+                            <Option value="">{t('account-info:form.date')}</Option>
+                            {_.range(1, 31 + 1).map((value: number) => (
+                              <Option key={value} value={value}>
+                                {value}
+                              </Option>
+                            ))}
                           </Select>
                         </Form.Item>
                       </Col>
                       <Col md={5} sm={6} xs={9}>
                         <Form.Item label="&nbsp;" name="birthMonth">
                           <Select defaultValue="">
-                            <Select.Option value="">{t('account-info:form.month')}</Select.Option>
+                            <Option value="">{t('account-info:form.month')}</Option>
+                            {_.range(1, 31 + 1).map((value: number) => (
+                              <Option key={value} value={value}>
+                                {value}
+                              </Option>
+                            ))}
                           </Select>
                         </Form.Item>
                       </Col>
                       <Col md={5} sm={6} xs={9}>
                         <Form.Item label="&nbsp;" name="birthYear">
                           <Select defaultValue="">
-                            <Select.Option value="">{t('account-info:form.year')}</Select.Option>
+                            <Option value="">{t('account-info:form.year')}</Option>
+                            {_.range(1938, 2004 + 1).map((value: number) => (
+                              <Option key={value} value={value}>
+                                {value}
+                              </Option>
+                            ))}
                           </Select>
                         </Form.Item>
                       </Col>
@@ -174,7 +225,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                         <Radio.Group
                           name="gender"
                           onChange={onChange}
-                          value={value}
+                          value={valueGender}
                           className={styles.radioFlex}
                         >
                           <Radio value="M">{t('account-info:form.man')}</Radio>
@@ -186,7 +237,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                         <Text>{t('account-info:form.email')}</Text>
                       </Col>
                       <Col sm={12} xs={11}>
-                        <Text type="danger">{props.profile.email}</Text>
+                        <Text type="danger">111</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
                         <Link href={CustomUrlUtil('/settings/account/info/email', router.locale)}>
@@ -200,7 +251,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                         <Text>{t('account-info:form.phoneNumber')}</Text>
                       </Col>
                       <Col sm={12} xs={11}>
-                        <Text type="danger">{props.profile.mobile}</Text>
+                        <Text type="danger">22</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
                         <Link href={CustomUrlUtil('/settings/account/info/phone', router.locale)}>

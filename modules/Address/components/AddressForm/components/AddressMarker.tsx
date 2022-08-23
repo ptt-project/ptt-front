@@ -17,8 +17,7 @@ const AddressMarker: FC<MarkerProps> = (props: MarkerProps) => {
 
   const markerIcon: google.maps.Icon = useMemo(
     () => ({
-      url: './images/main/buyer/location-pin.svg',
-      scaledSize: new google.maps.Size(50, 50)
+      url: './images/main/buyer/location-pin.svg'
     }),
     []
   )

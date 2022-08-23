@@ -66,12 +66,62 @@ const DB = new JQL(data)
 
 export const provinceData = uniq(map(data || [], (d) => d[AddressFieldsEnum.PROVINCE]))
 
-export const queryAddress = (type: AddressFieldsEnum, searchStr: string): IFindAddressResult[] => {
-  let possibles: IFindAddressResult[] = []
-  try {
-    possibles = DB.select('*').where(type).match(`^${searchStr}`).orderBy(type).fetch()
-  } catch (e) {
-    return []
+export class AddressFinder {
+  static queryDistrict(searchProvince: string): IFindAddressResult[] {
+    let possibles: IFindAddressResult[] = []
+    const province = AddressFieldsEnum.PROVINCE
+    try {
+      possibles = DB.select('*')
+        .where(province)
+        .match(`^${searchProvince}`)
+        .orderBy(province)
+        .fetch()
+    } catch (e) {
+      return []
+    }
+    return possibles
   }
-  return possibles
+
+  static queryTambon(searchProvince: string, searchDistrict: string): IFindAddressResult[] {
+    let possibles: IFindAddressResult[] = []
+    const province = AddressFieldsEnum.PROVINCE
+    const district = AddressFieldsEnum.DISTRICT
+    try {
+      possibles = DB.select('*')
+        .where(province)
+        .match(`^${searchProvince}`)
+        .where(district)
+        .match(`^${searchDistrict}`)
+        .orderBy(district)
+        .fetch()
+    } catch (e) {
+      return []
+    }
+    return possibles
+  }
+
+  static queryZipcode(
+    searchProvince: string,
+    searchDistrict: string,
+    searchTambon: string
+  ): IFindAddressResult[] {
+    let possibles: IFindAddressResult[] = []
+    const province = AddressFieldsEnum.PROVINCE
+    const district = AddressFieldsEnum.DISTRICT
+    const tambon = AddressFieldsEnum.TAMBON
+    try {
+      possibles = DB.select('*')
+        .where(province)
+        .match(`^${searchProvince}`)
+        .where(district)
+        .match(`^${searchDistrict}`)
+        .where(tambon)
+        .match(`^${searchTambon}`)
+        .orderBy(tambon)
+        .fetch()
+    } catch (e) {
+      return []
+    }
+    return possibles
+  }
 }

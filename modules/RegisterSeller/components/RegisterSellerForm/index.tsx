@@ -15,30 +15,13 @@ import {
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import styles from './RegisterSellerForm.module.scss'
+import { ISellerRegisterService } from '~/interfaces'
 
 const { Text, Title } = Typography
 const { TextArea } = Input
 
 interface IRegisterSellerFormProps {
   setStep: (step: number) => void
-}
-
-interface IRegisterSellerForm {
-  shopType: number
-  name: string
-  tel: string
-  email: string
-  corporateName?: string
-  corporateNo?: string
-  brand: string
-  category: number
-  website: string
-  facebook: string
-  instagram: string
-  other: string
-  corporate?: string
-  corporateDetail?: string
-  info: string
 }
 
 const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSellerFormProps) => {
@@ -66,7 +49,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
     }
   }
 
-  function onSubmit(values: IRegisterSellerForm): void {
+  function onSubmit(values: ISellerRegisterService): void {
     console.log(values)
     props.setStep(1)
   }
@@ -107,7 +90,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                       <Text>{t('auth.register-seller:form.shopType.title')}</Text>
                     </Col>
                     <Col sm={16} xs={24}>
-                      <Form.Item className="mb-0" name="shopType">
+                      <Form.Item className="mb-0" name="type">
                         <Radio.Group className={styles.radio} onChange={onRadioChange}>
                           <Radio value="0">{t('auth.register-seller:form.shopType.normal')}</Radio>
                           <Radio value="1">{t('auth.register-seller:form.shopType.mall')}</Radio>
@@ -122,7 +105,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                 <Col md={12} xs={24}>
                   <Form.Item
                     label={t('auth.register-seller:form.name')}
-                    name="name"
+                    name="fullName"
                     rules={[
                       {
                         required: true,
@@ -138,7 +121,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                 <Col md={12} xs={24}>
                   <Form.Item
                     label={t('auth.register-seller:form.tel')}
-                    name="tel"
+                    name="mobile"
                     rules={[
                       {
                         required: true,
@@ -201,7 +184,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                     <Col md={12} xs={24}>
                       <Form.Item
                         label={t('auth.register-seller:form.corporateNo')}
-                        name="corporateNo"
+                        name="corporateId"
                         rules={[
                           {
                             required: true,
@@ -223,7 +206,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                 <Col md={12} xs={24}>
                   <Form.Item
                     label={t('auth.register-seller:form.brand')}
-                    name="brand"
+                    name="brandName"
                     rules={[
                       {
                         required: true,
@@ -261,7 +244,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                   </Form.Item>
                 </Col>
                 <Col xs={24}>
-                  <Form.Item label={t('auth.register-seller:form.facebook')} name="facebook">
+                  <Form.Item label={t('auth.register-seller:form.facebook')} name="facebookPage">
                     <Input maxLength={50} />
                   </Form.Item>
                 </Col>
@@ -271,7 +254,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                   </Form.Item>
                 </Col>
                 <Col xs={24}>
-                  <Form.Item label={t('auth.register-seller:form.other')} name="other">
+                  <Form.Item label={t('auth.register-seller:form.social')} name="socialMedia">
                     <TextArea maxLength={200} showCount />
                   </Form.Item>
                 </Col>
@@ -279,7 +262,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                   <>
                     <Col span={24}>
                       <Form.Item
-                        name="corporate"
+                        name="mallApplicantRole"
                         label={t('auth.register-seller:form.corporate')}
                         rules={[
                           {
@@ -299,7 +282,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                     <Col span={24}>
                       <Form.Item
                         label={t('auth.register-seller:form.corporateDetail')}
-                        name="corporateDetail"
+                        name="mallOfflineShopDetail"
                       >
                         <TextArea rows={4} maxLength={1000} showCount />
                       </Form.Item>
@@ -310,7 +293,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                   <HighlightLabel title={t('auth.register-seller:section.info')} />
                 </Col>
                 <Col xs={24}>
-                  <Form.Item label={t('auth.register-seller:form.info')} name="info">
+                  <Form.Item label={t('auth.register-seller:form.info')} name="mallShopDescription">
                     <TextArea rows={4} maxLength={1000} showCount />
                   </Form.Item>
                 </Col>

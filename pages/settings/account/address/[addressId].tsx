@@ -13,11 +13,15 @@ export async function getServerSideProps(
   context: NextPageContext
 ): Promise<GetServerSidePropsResult<IEditAddressPageProps>> {
   let address: IAddress | null = null
-  const { query } = context
+  const { query, req } = context
+  const { headers } = req
   const { addressId } = query || {}
   try {
     if (addressId?.toString()) {
-      const result: IApiResponse<IAddress> = await MembersService.getAddress(addressId.toString())
+      const result: IApiResponse<IAddress> = await MembersService.getAddress(
+        addressId.toString(),
+        headers
+      )
       if (result?.code === ApiCodeEnum.SUCCESS) {
         address = result?.data
       } else {
