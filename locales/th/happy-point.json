@@ -1,0 +1,38 @@
+{
+  "breadcrumbs": {
+    "setting": "ตั้งค่า",
+    "finance": "การเงิน",
+    "happyPoint": "Happy Point",
+    "buy": "ซื้อ",
+    "sell": "ขาย",
+    "transfer": "โอน"
+  },
+  "title": "Happy Point",
+  "history": {
+    "title": "ประวัติการทำรายการ",
+    "all": "ทั้งหมด",
+    "buy": "รายการซื้อ",
+    "sell": "รายการขาย",
+    "transfer": "รายการโอน",
+    "createdAt": "วันที่ทำรายการ",
+    "type": "ประเภท",
+    "description": "รายละเอียด",
+    "amount": "จำนวน",
+    "status": "สถานะ",
+    "filterDateRange": "ช่วงเวลาที่ทำรายการ",
+    "paginateLabel": "{{from}}-{{to}} จาก {{total}} รายการ"
+  },
+  "buy": {
+    "title": "ซื้อ"
+  },
+  "sell": {
+    "title": "ขาย"
+  },
+  "transfer": {
+    "title": "โอน"
+  },
+  "common": {
+    "balance": "ยอดคงเหลือ :",
+    "happyPoint": "Happy Point"
+  }
+}
