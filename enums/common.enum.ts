@@ -5,3 +5,9 @@ export enum ApiCodeEnum {
 export enum ApiMessageEnum {
   SUCCESS = 'success'
 }
+
+export enum FormModeEnum {
+  ADD = 'add',
+  EDIT = 'edit',
+  VIEW = 'view'
+}

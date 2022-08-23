@@ -74,7 +74,6 @@ module.exports = {
         next: ['interface', 'class', 'function', 'export']
       }
     ],
-    '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/explicit-function-return-type': [
       'error',

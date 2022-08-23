@@ -50,7 +50,7 @@ const Promotion: FC = () => {
           </Text>
           <Text className={styles.dAmount}>฿{numeral(5555).format('0,0')}</Text>
           <Text className={`${styles.dSold} hps-text-small`} type="secondary">
-            {t('home:promotion.sold')} {numeral(10).format('0,0')}
+            {t('common:sold')} {numeral(10).format('0,0')}
           </Text>
         </div>
       </div>

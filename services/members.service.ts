@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from 'axios'
 import { AxiosService } from './axios.service'
 import {
   IApiResponse,
@@ -9,8 +10,8 @@ import {
 } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
 
-export const getProfile = (): Promise<IApiResponse> =>
-  AxiosService.get(EndPointUrlConst.MEMBER.PROFILE)
+export const getProfile = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
+  AxiosService.get(EndPointUrlConst.MEMBER.PROFILE, option)
 
 export const getAddresses = (): Promise<IApiResponse> =>
   AxiosService.get(EndPointUrlConst.MEMBER.ADDRESSES)

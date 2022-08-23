@@ -3,12 +3,12 @@ export interface IMemberProfile {
   firstName: string
   lastName: string
   mobile: string
-  birthday: string
-  birthMonth: string
-  birthYear: string
-  gender: string
+  birthday?: string
+  birthMonth?: string
+  birthYear?: string
+  gender?: string
   email: string
-  code: number
+  code?: string
 }
 
 export interface IMemberProfileUpdate {
