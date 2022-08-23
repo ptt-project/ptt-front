@@ -8,7 +8,6 @@ import {
   Form,
   Input,
   DatePicker,
-  DatePickerProps,
   Select,
   Radio,
   FormInstance
@@ -19,6 +18,8 @@ import HighlightLabel from '~/components/main/HighlightLabel'
 import styles from './VoucherForm.module.scss'
 
 const { Text } = Typography
+
+const { RangePicker } = DatePicker
 
 interface IVoucherFormProps {
   parentForm: FormInstance
@@ -33,9 +34,6 @@ const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
   function onFormFinish(values: IVoucherFormProps): void {
     console.log({ formValues: values })
     onSubmit?.({ ...initialValues, ...values })
-  }
-  const onChange: DatePickerProps['onChange'] = (date: moment.Moment, dateString: string) => {
-    console.log(date, dateString)
   }
 
   function onFormChange(values: IVoucherFormProps): void {
@@ -53,7 +51,7 @@ const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
         <Col md={12}>
           <Form.Item
             label={t('seller.marketing:voucher.form.voucherName')}
-            name="voucherName"
+            name="name"
             rules={[{ required: true }]}
           >
             <Input />
@@ -65,7 +63,7 @@ const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
         <Col md={12}>
           <Form.Item
             label={t('seller.marketing:voucher.form.voucher')}
-            name="weight"
+            name="code"
             rules={[
               {
                 required: true
@@ -81,14 +79,14 @@ const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
         <Col md={12}>
           <Form.Item
             label={t('seller.marketing:voucher.form.periodCode')}
-            name="weight"
+            name="periodCode"
             rules={[
               {
                 required: true
               }
             ]}
           >
-            <DatePicker onChange={onChange} style={{ width: '100%' }} />
+            <RangePicker style={{ width: '100%' }} />
           </Form.Item>
         </Col>
         <Col md={24}>
