@@ -48,7 +48,7 @@ const Voucher: FC = () => {
                 <Col xs={4}>
                   <div className={styles.addNewProduct}>
                     <Link
-                      href={CustomUrlUtil('/seller/settings/marketing/add-voucher', router.locale)}
+                      href={CustomUrlUtil('/seller/settings/marketing/voucher/add', router.locale)}
                     >
                       <Button type="primary">
                         <i className="fas fa-plus mr-1" />

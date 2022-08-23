@@ -126,7 +126,9 @@ const VoucherList: FC = () => {
               <Text>{item.periodGetCode}</Text>
             </Col>
             <Col lg={4}>
-              <Link href={CustomUrlUtil('/settings/', router.locale)}>
+              <Link
+                href={CustomUrlUtil(`/seller/settings/marketing/voucher/${item.id}`, router.locale)}
+              >
                 <i className={`${styles.textSecondary} fas fa-pen mr-1`} />
               </Link>
               <Text onClick={(): void => onDelModal(item)}>
