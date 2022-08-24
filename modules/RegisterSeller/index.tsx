@@ -5,15 +5,20 @@ import RegisterSellerForm from './components/RegisterSellerForm'
 import RegisterSellerSuccess from './components/RegisterSellerSuccess'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
+import { ISellerInfoRes } from '~/interfaces'
 
-const RegisterSeller: FC = () => {
+interface IRegisterSellerProps {
+  shopInfo?: ISellerInfoRes
+}
+
+const RegisterSeller: FC<IRegisterSellerProps> = (props: IRegisterSellerProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register-seller'])
   const [step, setStep] = useState<number>(0) // 0=REGISTER_SELLER_FORM, 1=REGISTER_SELLER_SUCCESS
 
   function renderStep(): JSX.Element {
     switch (step) {
       case 0: // REGISTER_SELLER_FORM
-        return <RegisterSellerForm setStep={setStep} />
+        return <RegisterSellerForm setStep={setStep} shopInfo={props.shopInfo} />
       case 1: // REGISTER_SELLER_SUCCESS
         return <RegisterSellerSuccess />
       default:
@@ -32,6 +37,10 @@ const RegisterSeller: FC = () => {
       {renderStep()}
     </main>
   )
+}
+
+RegisterSeller.defaultProps = {
+  shopInfo: null
 }
 
 export default RegisterSeller

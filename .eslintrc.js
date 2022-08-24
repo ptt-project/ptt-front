@@ -57,6 +57,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     'comma-dangle': ['error', 'never'],
+    'comma-spacing': ['error', { before: false, after: true }],
     'no-console': 'off',
     'no-unused-vars': [2, { args: 'none' }],
     'no-else-return': ['error', { allowElseIf: false }],
@@ -73,7 +74,6 @@ module.exports = {
         next: ['interface', 'class', 'function', 'export']
       }
     ],
-    '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/explicit-function-return-type': [
       'error',

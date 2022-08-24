@@ -11,10 +11,11 @@ export const EndPointUrlConst = {
   MEMBER: {
     PROFILE: '/members/profile',
     ADDRESSES: '/members/addresses',
-    EMAIL:'/members/email',
-    MOBILES:'/members/mobiles'
+    EMAIL: '/members/email',
+    MOBILES: '/members/mobiles'
   },
   SELLER: {
-    REGISTER: '/seller/register'
+    REGISTER: '/sellers/register',
+    SHOP_INFO: '/sellers/shop-info'
   }
 }
