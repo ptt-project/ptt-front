@@ -19,17 +19,17 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
 
   return (
     <Row className={styles.layout} justify="space-between" align="middle" gutter={[0, 24]}>
-      <Col>
+      <Col sm={12} xs={24}>
         <Space direction="vertical" size={0}>
           <Text className={styles.balanceLabel}>{t('happy-point:common.balance')}</Text>
-          <Space align="end" size={8} direction="horizontal">
+          <Space align="center" size={8} direction="horizontal">
             <Text className={styles.balanceValue}>{HelperDecimalFormatUtil(balance, 2)}</Text>
             <Text className={styles.balanceUnit}>{t('happy-point:common.happyPoint')}</Text>
           </Space>
         </Space>
       </Col>
-      <Col>
-        <Row gutter={[16, 16]}>
+      <Col sm={12} xs={24}>
+        <Row gutter={[16, 16]} justify="space-between">
           <Col>
             <Button
               className={`${styles.button} hps-btn-secondary`}

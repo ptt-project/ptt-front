@@ -8,3 +8,9 @@ export interface IHappyPointHistoryData {
   status: HappyPointStatusEnum
   type: HappyPointTypeEnum
 }
+
+export interface IHappyPointFormValues {
+  date: moment.Moment
+  happyPointAmount: number
+  receiverCode?: string
+}

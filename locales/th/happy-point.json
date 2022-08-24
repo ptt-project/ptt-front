@@ -23,16 +23,35 @@
     "paginateLabel": "{{from}}-{{to}} จาก {{total}} รายการ"
   },
   "buy": {
-    "title": "ซื้อ"
+    "title": "ซื้อ",
+    "eWalletNotEnough": {
+      "title": "ยอดเงินใน E-Wallet ของคุณไม่เพียงพอ",
+      "description": "กรุณาเติมเงินเข้า E-Wallet ที่เมนูการเงิน",
+      "eWalletLink": "E-Wallet"
+    }
   },
   "sell": {
-    "title": "ขาย"
+    "title": "ขาย",
+    "sellProcessInfo": {
+      "title": "เงินที่ได้จากการขาย Happy Point จะถูกโอนเข้า E-Wallet ของคุณภายใน 24 ชั่วโมงหลังอนุมัติรายการ"
+    }
   },
   "transfer": {
     "title": "โอน"
   },
+  "form": {
+    "date": "วันที่ทำรายการ",
+    "eWalletBalance": "ยอดเงินคงเหลือ {{amount}}",
+    "amountRateDescription": "อัตราแลกเปลี่ยน 1 Happy Point = {{rateBahtPerHappyPoint}} บาท",
+    "bahtAmount": "จำนวนเงิน",
+    "happyPointAmount": "จำนวน Happy Point",
+    "vatAmount": "หักค่าธรรมเนียม",
+    "totalAmount": "ยอดสุทธิ",
+    "receiverCode": "รหัสสมาชิกผู้รับ"
+  },
   "common": {
     "balance": "ยอดคงเหลือ :",
-    "happyPoint": "Happy Point"
+    "happyPoint": "Happy Point",
+    "remain": "คงเหลือ :"
   }
 }

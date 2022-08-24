@@ -19,21 +19,25 @@ const HappyPoint: React.FC = () => {
   const balance: number = 3999
 
   function onBuyClick(): void {
-    router.push('/settings/wallet/happy-point/buy', '/settings/wallet/happy-point/buy', {
+    router.push('/settings/finance/happy-point/buy', '/settings/finance/happy-point/buy', {
       locale: router.locale
     })
   }
 
   function onSellClick(): void {
-    router.push('/settings/wallet/happy-point/sell', '/settings/wallet/happy-point/sell', {
+    router.push('/settings/finance/happy-point/sell', '/settings/finance/happy-point/sell', {
       locale: router.locale
     })
   }
 
   function onTransferClick(): void {
-    router.push('/settings/wallet/happy-point/transfer', '/settings/wallet/happy-point/transfer', {
-      locale: router.locale
-    })
+    router.push(
+      '/settings/finance/happy-point/transfer',
+      '/settings/finance/happy-point/transfer',
+      {
+        locale: router.locale
+      }
+    )
   }
 
   return (
@@ -47,7 +51,7 @@ const HappyPoint: React.FC = () => {
           { title: t('happy-point:breadcrumbs.finance') },
           {
             title: t('happy-point:breadcrumbs.happyPoint'),
-            href: CustomUrlUtil('/settings/wallet/e-wallet', router.locale)
+            href: CustomUrlUtil('/settings/finance/happy-point', router.locale)
           }
         ]}
       />

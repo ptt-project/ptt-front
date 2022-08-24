@@ -1,4 +1,6 @@
 @import '../../../../public/sass/config/variables';
+@import '../../../../public/sass/mixins/core';
+@import '../../../../public/sass/mixins/breakpoints';
 
 .layout {
   padding: 2rem;
@@ -30,6 +32,11 @@
       > img {
         vertical-align: sub;
       }
+    }
+
+    @include mq('sm', 'max') {
+      min-width: 88px;
+      width: 100%;
     }
   }
 }
