@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/typedef */
 /* eslint-disable no-template-curly-in-string */
 import React, { useCallback } from 'react'
-import { Input, InputProps } from 'antd'
+import { Input } from 'antd'
 import NumberFormat, {
   InputAttributes,
   NumberFormatPropsBase,
@@ -14,8 +14,7 @@ import NumberFormat, {
 type IInputNumberFormatProps = Omit<
 NumberFormatPropsBase<InputAttributes>,
 'value' | 'onChange' | 'customInput' | 'onValueChange' | 'suffix'
-> &
-Pick<InputProps, 'suffix'> & {
+> & {
   value?: string
   onChange?: (value: number) => void
 }
