@@ -1,4 +1,5 @@
-export const EndPointUrlConst: any = {
+// eslint-disable-next-line @typescript-eslint/typedef
+export const EndPointUrlConst = {
   AUTH: {
     REGISTER_VALIDATE: '/auth/register/validate',
     REGISTER: '/auth/register',
@@ -11,7 +12,8 @@ export const EndPointUrlConst: any = {
     PROFILE: '/members/profile',
     ADDRESSES: '/members/addresses',
     EMAIL: '/members/email',
-    MOBILES: '/members/mobiles'
+    MOBILES: '/members/mobiles',
+    CHANGE_PASSWORD: '/members/change-password'
   },
   SELLER: {
     REGISTER: '/sellers/register',

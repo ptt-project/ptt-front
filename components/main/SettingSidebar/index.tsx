@@ -54,10 +54,10 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
       getItem(t('setting-sidebar:buyer.account.password'), 'password'),
       getItem(t('setting-sidebar:buyer.account.relation'), 'relation')
     ]),
-    getItem(t('setting-sidebar:buyer.wallet.title'), 'wallet', <i className="fas fa-wallet" />, [
+    getItem(t('setting-sidebar:buyer.wallet.title'), 'finance', <i className="fas fa-wallet" />, [
       getItem(t('setting-sidebar:buyer.wallet.eWallet'), 'e-wallet'),
       getItem(t('setting-sidebar:buyer.wallet.bank'), 'bank'),
-      getItem(t('setting-sidebar:buyer.wallet.point'), 'point')
+      getItem(t('setting-sidebar:buyer.wallet.point'), 'happy-point')
     ]),
     getItem(t('setting-sidebar:buyer.coupon.title'), 'coupon', <i className="fas fa-ticket-alt" />),
     getItem(

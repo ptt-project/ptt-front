@@ -19,13 +19,13 @@ const EWallet: React.FC = () => {
   const balance: number = 3999
 
   function onTopUpClick(): void {
-    router.push('/settings/wallet/e-wallet/top-up', '/settings/wallet/e-wallet/top-up', {
+    router.push('/settings/finance/e-wallet/top-up', '/settings/finance/e-wallet/top-up', {
       locale: router.locale
     })
   }
 
   function onWithdrawClick(): void {
-    router.push('/settings/wallet/e-wallet/withdraw', '/settings/wallet/e-wallet/withdraw', {
+    router.push('/settings/finance/e-wallet/withdraw', '/settings/finance/e-wallet/withdraw', {
       locale: router.locale
     })
   }
@@ -41,7 +41,7 @@ const EWallet: React.FC = () => {
           { title: t('e-wallet:breadcrumbs.finance') },
           {
             title: t('e-wallet:breadcrumbs.eWallet'),
-            href: CustomUrlUtil('/settings/wallet/e-wallet', router.locale)
+            href: CustomUrlUtil('/settings/finance/e-wallet', router.locale)
           }
         ]}
       />

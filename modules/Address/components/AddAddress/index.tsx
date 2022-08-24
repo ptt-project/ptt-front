@@ -5,23 +5,25 @@ import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import AddressForm from '../AddressForm'
 import { IAddressFormValues, ICreateAddress } from '~/interfaces'
-import { CustomUrlUtil } from '~/utils/main'
+import {  CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { LocaleNamespaceConst } from '~/constants'
+import {  LocaleNamespaceConst } from '~/constants'
 import { MembersService } from '~/services'
 
 const { Title } = Typography
 
 interface IAddAddressProps {
   isSeller?: boolean
+  googleMapsApiKey: string
 }
 const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
+  const { googleMapsApiKey, isSeller } = props
   const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
 
   const [form] = Form.useForm()
-  const rootMenu: string = props.isSeller ? '/seller' : ''
+  const rootMenu: string = isSeller ? '/seller' : ''
 
   async function onSubmit(values: IAddressFormValues): Promise<void> {
     const payload: ICreateAddress = {
@@ -31,6 +33,7 @@ const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
     }
     try {
       await MembersService.createAddress(payload)
+     
       message.success(t('common:dataUpdated'))
       router.replace(
         `${rootMenu}/settings/account/address`,
@@ -73,7 +76,7 @@ const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
         <div className="container">
           <Row>
             <Col xl={6} lg={0}>
-              <SettingSidebar sidebarType={props.isSeller ? 'seller' : 'buyer'} />
+              <SettingSidebar sidebarType={isSeller ? 'seller' : 'buyer'} />
             </Col>
             <Col
               className="mx-auto"
@@ -86,7 +89,12 @@ const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
                   {t('address:addAddressTitle')}
                 </Title>
               </Col>
-              <AddressForm parentForm={form} onSubmit={onSubmit} isSeller={props.isSeller} />
+              <AddressForm
+                parentForm={form}
+                onSubmit={onSubmit}
+                isSeller={isSeller}
+                googleMapsApiKey={googleMapsApiKey}
+              />
               <Row className="flex-1 mt-5" gutter={[24, 0]}>
                 <Col span={12}>
                   <Button type="text" onClick={onCancelClick} block>

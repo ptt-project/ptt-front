@@ -20,7 +20,12 @@ const AddressCheckboxField: React.FC<IAddressCheckboxFieldProps> = (
 
   return (
     <Space className={styles.checkBoxLayout} direction="horizontal">
-      <Checkbox value={!!value} defaultChecked={!!value} onClick={handleChange} disabled={disabled}>
+      <Checkbox
+        checked={!!value}
+        defaultChecked={!!value}
+        onClick={handleChange}
+        disabled={disabled}
+      >
         {label}
       </Checkbox>
       {onHintClick && (

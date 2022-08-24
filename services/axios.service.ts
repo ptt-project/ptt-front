@@ -1,20 +1,46 @@
-import axios, { Axios, AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { Axios, AxiosError, AxiosInstance, AxiosResponse } from 'axios'
+import { pick } from 'lodash'
+import { ApiCodeEnum } from '~/enums'
 import { IApiResponse } from '~/interfaces'
 
-axios.interceptors.request.use((config: AxiosRequestConfig) => {
-  const newConfig: AxiosRequestConfig = { ...config }
-  newConfig.baseURL = `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_VERSION}`
-  newConfig.timeout = 30000
-  newConfig.withCredentials = true
-  return newConfig
-})
+const createAxios = (): AxiosInstance => {
+  const ax: AxiosInstance = axios.create({
+    baseURL: `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_VERSION}`,
+    timeout: 30 * 1000,
+    withCredentials: true
+  })
 
-axios.interceptors.response.use(
-  (response: AxiosResponse<IApiResponse>) => response.data,
-  (error: AxiosError) => {
-    console.log(error)
-    return Promise.reject(error)
-  }
-)
+  ax.interceptors.response.use(
+    (response: AxiosResponse<IApiResponse>) => {
+      const { data, config } = response || {}
+      const request: any = pick(config, ['method', 'url', 'params', 'headers'])
+      console.log({ request })
+      if (data.code === ApiCodeEnum.SUCCESS) return response.data
+      return Promise.reject(response)
+    },
+    (error: AxiosError) => {
+      const { config } = error
+      const request: any = pick(config, ['method', 'url', 'params', 'headers'])
+      const error2: any = pick(error, ['message', 'stack', 'cause', 'code', 'status'])
+      if (!request || !error2) {
+        console.log({ error })
+      } else {
+        console.log(
+          JSON.stringify(
+            {
+              request,
+              error2
+            },
+            null,
+            2
+          )
+        )
+      }
+      return Promise.reject(error)
+    }
+  )
 
-export const AxiosService: Axios = axios
+  return ax
+}
+
+export const AxiosService: Axios = createAxios()

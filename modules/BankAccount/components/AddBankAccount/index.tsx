@@ -58,7 +58,7 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
     setIsOtpOpen(false)
     bankMock.push(bankAccountData)
     message.success(t('common:dataUpdated'))
-    router.replace(`${rootMenu}/settings/wallet/bank`, `${rootMenu}/settings/wallet/bank`, {
+    router.replace(`${rootMenu}/settings/finance/bank`, `${rootMenu}/settings/finance/bank`, {
       locale: router.locale
     })
   }
@@ -84,7 +84,7 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
           { title: t('bank-account:breadcrumbs.wallet') },
           {
             title: t('bank-account:breadcrumbs.addBankAccount'),
-            href: CustomUrlUtil(`${rootMenu}/settings/wallet/bank/add`, router.locale)
+            href: CustomUrlUtil(`${rootMenu}/settings/finance/bank/add`, router.locale)
           }
         ]}
       />
