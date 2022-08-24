@@ -1,6 +1,5 @@
 import axios, { Axios, AxiosError, AxiosInstance, AxiosResponse } from 'axios'
 import { pick } from 'lodash'
-import { ApiCodeEnum } from '~/enums'
 import { IApiResponse } from '~/interfaces'
 
 const createAxios = (): AxiosInstance => {
@@ -12,11 +11,8 @@ const createAxios = (): AxiosInstance => {
 
   ax.interceptors.response.use(
     (response: AxiosResponse<IApiResponse>) => {
-      const { data, config } = response || {}
-      const request: any = pick(config, ['method', 'url', 'params', 'headers'])
-      console.log({ request })
-      if (data.code === ApiCodeEnum.SUCCESS) return response.data
-      return Promise.reject(response)
+      const { data } = response || {}
+      return data
     },
     (error: AxiosError) => {
       const { config } = error
