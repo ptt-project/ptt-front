@@ -188,6 +188,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
                 onChange={clearRelateFields('province')}
                 autoClearSearchValue
                 showSearch
+                aria-autocomplete="none"
               >
                 {provinceOptions.map((option: DefaultOptionType) => (
                   <Select.Option key={`${option.value}`} value={option.value}>
@@ -207,6 +208,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
                 disabled={!province}
                 autoClearSearchValue
                 showSearch
+                aria-autocomplete="none"
               >
                 {districtOptions.map((option: DefaultOptionType) => (
                   <Select.Option key={`${option.value}`} value={option.value}>
@@ -226,6 +228,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
                 disabled={!district}
                 autoClearSearchValue
                 showSearch
+                aria-autocomplete="none"
               >
                 {tambonOptions.map((option: DefaultOptionType) => (
                   <Select.Option key={`${option.value}`} value={option.value}>
@@ -244,6 +247,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
                 disabled={!tambon}
                 autoClearSearchValue
                 showSearch
+                aria-autocomplete="none"
               >
                 {postalCodeOptions.map((option: DefaultOptionType) => (
                   <Select.Option key={`${option.value}`} value={option.value}>
@@ -282,7 +286,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
             </Form.Item>
           </Col>
           <Col className="align-items-center" sm={12} xs={24}>
-            <Form.Item name="isDefault" noStyle>
+            <Form.Item name="isMain" noStyle>
               <AddressCheckboxField
                 label={t('address:form.isDefault')}
                 disabled={!!initialValues?.isMain}
