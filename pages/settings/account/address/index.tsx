@@ -1,4 +1,4 @@
-import { NextPage, NextPageContext } from 'next'
+import { GetServerSidePropsResult, NextPage, NextPageContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 import { LocaleNamespaceConst } from '~/constants'
@@ -6,10 +6,18 @@ import { ApiCodeEnum } from '~/enums'
 import { IAddress, IApiResponse } from '~/interfaces'
 import Address, { IAddressProps } from '~/modules/Address'
 import { MembersService } from '~/services'
+import { AuthCheckAuthenticate } from '~/utils/main'
 
 type IAddressPageProps = Pick<IAddressProps, 'addresses'>
 
-export async function getServerSideProps(context: NextPageContext): Promise<any> {
+export async function getServerSideProps(
+  context: NextPageContext
+): Promise<GetServerSidePropsResult<any>> {
+  const authenticate: GetServerSidePropsResult<any> = AuthCheckAuthenticate(context)
+  if (authenticate) {
+    return authenticate
+  }
+
   let addresses: IAddress[] = []
   const { req } = context
   const { headers } = req

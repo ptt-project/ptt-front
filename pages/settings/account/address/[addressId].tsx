@@ -6,12 +6,18 @@ import { ApiCodeEnum } from '~/enums'
 import { IAddress, IApiResponse } from '~/interfaces'
 import EditAddress, { IEditAddressProps } from '~/modules/Address/components/EditAddress'
 import { MembersService } from '~/services'
+import { AuthCheckAuthenticate } from '~/utils/main'
 
 type IEditAddressPageProps = Pick<IEditAddressProps, 'address' | 'googleMapsApiKey'>
 
 export async function getServerSideProps(
   context: NextPageContext
 ): Promise<GetServerSidePropsResult<IEditAddressPageProps>> {
+  const authenticate: GetServerSidePropsResult<any> = AuthCheckAuthenticate(context)
+  if (authenticate) {
+    return authenticate
+  }
+
   let address: IAddress | null = null
   const { query, req } = context
   const { headers } = req
@@ -30,16 +36,13 @@ export async function getServerSideProps(
       }
     }
   } catch (error) {
-    console.log({ error })
-    // return {
-    //   redirect: {
-    //     destination: '/settings/account/address',
-    //     permanent: true
-    //   }
-    // }
+    return {
+      redirect: {
+        destination: '/settings/account/address',
+        permanent: true
+      }
+    }
   }
-
-  console.log({ addressId, address })
 
   const googleMapsApiKey: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_TOKEN
   return {
