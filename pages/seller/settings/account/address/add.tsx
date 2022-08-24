@@ -12,6 +12,8 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
   }
 }
 
-const AddAddressPage: FC = () => <AddAddress isSeller />
+const AddAddressPage: FC = () => (
+  <AddAddress isSeller googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_TOKEN} />
+)
 
 export default AddAddressPage

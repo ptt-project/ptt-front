@@ -36,7 +36,7 @@ const Header: FC = () => {
   }
 
   function onSearch(value: string): void {
-    console.log(value)
+    router.push(CustomUrlUtil(`/search?keyword=${value}`, router.locale))
   }
 
   return (

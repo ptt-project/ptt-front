@@ -56,7 +56,7 @@ const RegisterSellerSuccess: FC = () => {
                   htmlType="submit"
                   type="primary"
                   block
-                  href={CustomUrlUtil('/', router.locale)}
+                  href={CustomUrlUtil('/seller/settings/product/list', router.locale)}
                 >
                   {t('common:ok')}
                 </Button>

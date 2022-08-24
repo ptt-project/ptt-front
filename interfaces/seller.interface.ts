@@ -18,34 +18,35 @@ export interface ISellerRegisterService {
   note?: string
 }
 
-export interface ISellerRegisterRes {
+export interface ISellerInfoRes {
+  id: number
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date
   type: SellerShopTypeEnum
   fullName: string
   mobile: string
   email: string
-  corporateName?: string
-  corporateId?: string
   brandName: string
   category: string
   website?: string
   facebookPage?: string
   instagram?: string
   socialMedia?: string
+  corperateName?: string
+  corperateId?: string
+  approvalStatus: SellerApprovalStatusEnum
+  shopName?: string
+  shopDescription?: string
+  productCount: number
+  replyRate: string
+  shopScore: string
+  scoreCount: number
+  cancelRate: string
   mallApplicantRole?: string
   mallOfflineShopDetail?: string
   note?: string
-
-  id: string
-  memberId: string
-  shopName?: string
-  shopDescription?: string
-  approvalStatus: SellerApprovalStatusEnum
-  productCount: number
-  replyRate: number
-  shopScore: number
-  scoreCount: number
-  cancelRate: number
-  createdAt: Date
-  updatedAt: Date
-  deletedAt?: Date
+  profileImagePath?: string
+  coverImagePath?: string
+  memberId: number
 }

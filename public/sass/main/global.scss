@@ -80,6 +80,15 @@
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .setting-sidebar,
 .main-sidebar {
   .ss-bar,
@@ -220,15 +229,6 @@
     }
   }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
   @media (max-width: 1199px) {
     &.ss-collapsed,
     &.ms-collapsed {
@@ -298,6 +298,101 @@
 
       .ss-close,
       .ms-close {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.hps-sidebar {
+  .hps-sidebar__open {
+    display: none;
+    position: fixed;
+    top: 30%;
+    left: 0;
+    transform: translate(0, -30%);
+    animation: fadeIn 0.5s;
+    z-index: 2;
+
+    button {
+      background-color: rgba(33, 33, 33, 0.8);
+      color: $white-color;
+      border-color: rgba(33, 33, 33, 0.8);
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+
+      &:hover,
+      &:focus {
+        opacity: 0.9;
+      }
+    }
+  }
+
+  .hps-sidebar__bar {
+    .hps-sidebar__close {
+      display: none;
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 3rem;
+      line-height: 1;
+      animation: fadeIn 1s;
+      cursor: pointer;
+
+      span {
+        color: $light-color;
+
+        &:hover,
+        &:focus {
+          color: $white-color;
+        }
+      }
+    }
+
+    .hps-sidebar__frame {
+      .hps-sidebar__frame-wrapper {
+        height: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 1199px) {
+    &.hps-sidebar__collapsed {
+      .hps-sidebar__bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 0;
+        margin-left: -256px;
+        transition: margin 0.5s;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+
+        .hps-sidebar__frame {
+          width: 256px;
+          height: 100%;
+          padding: 1.5rem;
+          background-color: $white-color;
+        }
+      }
+    }
+
+    &:not(.hps-sidebar__active) {
+      .hps-sidebar__open {
+        display: inline-block;
+      }
+    }
+
+    &.hps-sidebar__active {
+      .hps-sidebar__bar {
+        display: inline;
+        width: auto;
+        margin-left: 0;
+      }
+
+      .hps-sidebar__close {
         display: inline-block;
       }
     }

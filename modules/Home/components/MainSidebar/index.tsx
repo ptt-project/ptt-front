@@ -4,6 +4,7 @@ import { NextRouter, useRouter } from 'next/router'
 import { Typography, Button, Menu, MenuProps } from 'antd'
 import { MenuInfo } from 'rc-menu/lib/interface'
 import { LocaleNamespaceConst } from '~/constants'
+import { CustomUrlUtil } from '~/utils/main'
 
 const { Text, Title } = Typography
 
@@ -41,26 +42,26 @@ const MainSidebar: FC = () => {
   const [currentSelected, setCurrentSelected] = useState<string[]>([])
 
   const items: MenuProps['items'] = [
-    getItem(t('main-sidebar:a'), 'a', <i className="fas fa-tshirt" />),
-    getItem(t('main-sidebar:b'), 'b', <i className="fas fa-shoe-prints" />),
-    getItem(t('main-sidebar:c'), 'c', <i className="fas fa-utensils" />),
-    getItem(t('main-sidebar:d'), 'd', <i className="fas fa-glass-cheers" />),
-    getItem(t('main-sidebar:e'), 'e', <i className="fas fa-heartbeat" />),
-    getItem(t('main-sidebar:f'), 'f', <i className="fas fa-baby-carriage" />),
-    getItem(t('main-sidebar:g'), 'g', <i className="fas fa-gem" />),
-    getItem(t('main-sidebar:h'), 'h', <i className="fas fa-mobile-alt" />),
-    getItem(t('main-sidebar:i'), 'i', <i className="fas fa-tv" />),
-    getItem(t('main-sidebar:j'), 'j', <i className="fas fa-basketball-ball" />),
-    getItem(t('main-sidebar:k'), 'k', <i className="fas fa-gamepad" />),
-    getItem(t('main-sidebar:l'), 'l', <i className="fas fa-couch" />),
-    getItem(t('main-sidebar:m'), 'm', <i className="fas fa-dog" />),
-    getItem(t('main-sidebar:n'), 'n', <i className="fas fa-clock" />),
-    getItem(t('main-sidebar:o'), 'o', <i className="fas fa-glasses" />),
-    getItem(t('main-sidebar:p'), 'p', <i className="fas fa-shopping-bag" />),
-    getItem(t('main-sidebar:q'), 'q', <i className="fas fa-ticket-alt" />),
-    getItem(t('main-sidebar:r'), 'r', <i className="fas fa-pencil-alt" />),
-    getItem(t('main-sidebar:s'), 's', <i className="fas fa-car" />),
-    getItem(t('main-sidebar:t'), 't', <i className="fas fa-music" />)
+    getItem(t('home:sidebar.a'), 'a', <i className="fas fa-tshirt" />),
+    getItem(t('home:sidebar.b'), 'b', <i className="fas fa-shoe-prints" />),
+    getItem(t('home:sidebar.c'), 'c', <i className="fas fa-utensils" />),
+    getItem(t('home:sidebar.d'), 'd', <i className="fas fa-glass-cheers" />),
+    getItem(t('home:sidebar.e'), 'e', <i className="fas fa-heartbeat" />),
+    getItem(t('home:sidebar.f'), 'f', <i className="fas fa-baby-carriage" />),
+    getItem(t('home:sidebar.g'), 'g', <i className="fas fa-gem" />),
+    getItem(t('home:sidebar.h'), 'h', <i className="fas fa-mobile-alt" />),
+    getItem(t('home:sidebar.i'), 'i', <i className="fas fa-tv" />),
+    getItem(t('home:sidebar.j'), 'j', <i className="fas fa-basketball-ball" />),
+    getItem(t('home:sidebar.k'), 'k', <i className="fas fa-gamepad" />),
+    getItem(t('home:sidebar.l'), 'l', <i className="fas fa-couch" />),
+    getItem(t('home:sidebar.m'), 'm', <i className="fas fa-dog" />),
+    getItem(t('home:sidebar.n'), 'n', <i className="fas fa-clock" />),
+    getItem(t('home:sidebar.o'), 'o', <i className="fas fa-glasses" />),
+    getItem(t('home:sidebar.p'), 'p', <i className="fas fa-shopping-bag" />),
+    getItem(t('home:sidebar.q'), 'q', <i className="fas fa-ticket-alt" />),
+    getItem(t('home:sidebar.r'), 'r', <i className="fas fa-pencil-alt" />),
+    getItem(t('home:sidebar.s'), 's', <i className="fas fa-car" />),
+    getItem(t('home:sidebar.t'), 't', <i className="fas fa-music" />)
   ]
 
   useEffect(() => {
@@ -115,6 +116,7 @@ const MainSidebar: FC = () => {
 
   function onClick(e: MenuInfo): void {
     console.log(e)
+    router.push(CustomUrlUtil('/search', router.locale))
   }
 
   function onClose(e: any): void {
@@ -141,7 +143,7 @@ const MainSidebar: FC = () => {
         <div className="ms-frame">
           <div className="ms-frame-wrapper hps-scroll">
             <div className="ms-label">
-              <Title level={5}>{t('main-sidebar:title')}</Title>
+              <Title level={5}>{t('home:sidebar.title')}</Title>
             </div>
             <Menu
               onClick={onClick}

@@ -45,7 +45,7 @@ const EWalletTopUp: React.FC = () => {
           { title: t('e-wallet:breadcrumbs.finance') },
           {
             title: t('e-wallet:breadcrumbs.topUp'),
-            href: CustomUrlUtil('/settings/wallet/e-wallet/top-up', router.locale)
+            href: CustomUrlUtil('/settings/finance/e-wallet/top-up', router.locale)
           }
         ]}
       />

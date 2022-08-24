@@ -23,6 +23,6 @@ export function CustomHookUseVisibleUtil(): {
 
 export function CustomUrlUtil(pathname: string, locale: string): string {
   const localeVal: string = locale === 'th' ? '' : `/${locale}`
-  
+
   return `${localeVal}${pathname}`
 }

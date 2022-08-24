@@ -7,7 +7,11 @@ import { LocaleNamespaceConst } from '~/constants'
 export async function getServerSideProps(context: NextPageContext): Promise<any> {
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'home']))
+      ...(await serverSideTranslations(context.locale, [
+        ...LocaleNamespaceConst,
+        'home',
+        'product'
+      ]))
     }
   }
 }

@@ -1,0 +1,14 @@
+@import '../../public/sass/config/_variables.scss';
+
+.header {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid $border-color;
+}
+
+.icon {
+  color: $primary-color;
+}
+
+.control {
+  margin-bottom: 12px;
+}

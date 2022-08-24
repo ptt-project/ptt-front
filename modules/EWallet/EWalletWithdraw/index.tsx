@@ -41,7 +41,7 @@ const EWalletWithdraw: React.FC = () => {
   function onOtpSuccess(): void {
     setIsOtpOpen(false)
     message.success(t('common:dataUpdated'))
-    router.replace('/settings/wallet/e-wallet', '/settings/wallet/e-wallet', {
+    router.replace('/settings/finance/e-wallet', '/settings/finance/e-wallet', {
       locale: router.locale
     })
   }
@@ -79,7 +79,7 @@ const EWalletWithdraw: React.FC = () => {
           { title: t('e-wallet:breadcrumbs.finance') },
           {
             title: t('e-wallet:breadcrumbs.withdraw'),
-            href: CustomUrlUtil('/settings/wallet/e-wallet/withdraw', router.locale)
+            href: CustomUrlUtil('/settings/finance/e-wallet/withdraw', router.locale)
           }
         ]}
       />
@@ -111,7 +111,7 @@ const EWalletWithdraw: React.FC = () => {
                           <Text>
                             {`${t('e-wallet:withdraw.noBankAccountDescription')} > `}
                             <Link
-                              href={CustomUrlUtil('/settings/wallet/bank', router.locale)}
+                              href={CustomUrlUtil('/settings/finance/bank', router.locale)}
                               underline
                             >
                               {t('e-wallet:withdraw.bankAccount')}
