@@ -19,7 +19,7 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
 
   return (
     <Row className={styles.layout} justify="space-between" align="middle" gutter={[0, 24]}>
-      <Col sm={12} xs={24}>
+      <Col>
         <Space direction="vertical" size={0}>
           <Text className={styles.balanceLabel}>{t('happy-point:common.balance')}</Text>
           <Space align="center" size={8} direction="horizontal">
@@ -28,7 +28,7 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
           </Space>
         </Space>
       </Col>
-      <Col sm={12} xs={24}>
+      <Col>
         <Row gutter={[16, 16]} justify="space-between">
           <Col>
             <Button

@@ -6,7 +6,9 @@ import {
   IUpdateAddress,
   IMemberProfileUpdate,
   IMemberEmailUpdate,
-  IMemberMobile
+  IMemberMobile,
+  IAddress,
+  IMemberChangePassword
 } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
 
@@ -32,6 +34,9 @@ export const deleteAddress = (addressId: string): Promise<IApiResponse> =>
 
 export const setMainAddress = (addressId: string): Promise<IApiResponse> =>
   AxiosService.patch(`${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}/set-main`)
+
+export const changePassword = (payload: IMemberChangePassword): Promise<IApiResponse> =>
+  AxiosService.patch(`${EndPointUrlConst.MEMBER.CHANGE_PASSWORD}`, payload)
 
 export const updateMemberProfile = (payload: IMemberProfileUpdate): Promise<IApiResponse> =>
   AxiosService.put(`${EndPointUrlConst.MEMBER.PROFILE}`, payload)

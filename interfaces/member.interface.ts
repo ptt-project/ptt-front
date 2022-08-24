@@ -28,3 +28,8 @@ export interface IMemberMobile {
   refCode: string
   otpCode: string
 }
+
+export interface IMemberChangePassword {
+  oldPassword: string
+  newPassword: string
+}

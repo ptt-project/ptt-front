@@ -11,6 +11,7 @@ import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { OtpTypeEnum } from '~/enums'
+import { MembersService } from '~/services'
 
 const { Text, Title } = Typography
 const user: any = {
@@ -40,9 +41,14 @@ const ChangePassword: React.FC = () => {
     setIsOpen(!isOpen)
   }
 
-  function onSubmitOtp(otpData: IOtpData): void {
+  async function onSubmitOtp(otpData: IOtpData): Promise<void> {
     try {
       console.log({ otpData, formValues })
+      const { password, newPassword } = formValues
+      await MembersService.changePassword({
+        oldPassword: password,
+        newPassword
+      })
       notification.success({
         message: 'Change Password Success'
       })
