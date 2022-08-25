@@ -11,15 +11,16 @@ import {
   Select,
   Radio,
   RadioChangeEvent,
-  message
+  message,
+  Alert
 } from 'antd'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import Loading from '~/components/main/Loading'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import styles from './RegisterSellerForm.module.scss'
-import { ISellerInfoRes, ISellerRegisterService } from '~/interfaces'
-import { FormModeEnum, SellerShopTypeEnum } from '~/enums'
-import { SellersService } from '~/services'
+import { ISellerInfoRes, ISellerRegisterPayload } from '~/interfaces'
+import { FormModeEnum, SellerApprovalStatusEnum, SellerShopTypeEnum } from '~/enums'
+import { SellerService } from '~/services'
 
 const { Text, Title } = Typography
 const { TextArea } = Input
@@ -45,7 +46,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
   }
 
   function initForm():
-    | ISellerRegisterService
+    | ISellerRegisterPayload
     | { type: SellerShopTypeEnum; category: string; mallApplicantRole: string } {
     if (props.shopInfo) {
       return props.shopInfo
@@ -78,12 +79,12 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
     }
   }
 
-  async function onSubmit(values: ISellerRegisterService): Promise<void> {
+  async function onSubmit(values: ISellerRegisterPayload): Promise<void> {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: ISellerRegisterService = { ...values }
-      await SellersService.register(payload)
+      const payload: ISellerRegisterPayload = { ...values }
+      await SellerService.register(payload)
       isSuccess = true
       props.setStep(1)
     } catch (error) {
@@ -95,6 +96,33 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
       message.error(t('common:apiMessage.error'))
     }
     setIsLoading(false)
+  }
+
+  function renderStatus(): JSX.Element {
+    switch (props.shopInfo?.approvalStatus) {
+      case SellerApprovalStatusEnum.REQUESTED:
+        return (
+          <Alert
+            className="mb-5"
+            message={t('auth.register-seller:form.alert.requested.title')}
+            description={t('auth.register-seller:form.alert.requested.detail')}
+            type="warning"
+            showIcon
+          />
+        )
+      case SellerApprovalStatusEnum.REJECTED:
+        return (
+          <Alert
+            className="mb-5"
+            message={t('auth.register-seller:form.alert.rejected.title')}
+            description={t('auth.register-seller:form.alert.rejected.detail')}
+            type="error"
+            showIcon
+          />
+        )
+      default:
+        return null
+    }
   }
 
   return (
@@ -117,6 +145,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
               <Title className="hps-title" level={4}>
                 {t('auth.register-seller:title')}
               </Title>
+              {renderStatus()}
               <Form
                 initialValues={initForm()}
                 layout="vertical"

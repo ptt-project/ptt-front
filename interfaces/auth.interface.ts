@@ -11,12 +11,12 @@ export interface IAuthForgotPasswordForm {
   reference: string
 }
 
-export interface IAuthRegisterValidateService {
+export interface IAuthRegisterValidatePayload {
   email: string
   username: string
 }
 
-export interface IAuthRegisterService {
+export interface IAuthRegisterPayload {
   firstName: string
   lastName: string
   mobile: string
@@ -28,7 +28,7 @@ export interface IAuthRegisterService {
   refCode: string
 }
 
-export interface IAuthLoginService {
+export interface IAuthLoginPayload {
   username: string
   password: string
 }

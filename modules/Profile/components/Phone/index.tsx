@@ -14,7 +14,7 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
 import { OtpTypeEnum } from '~/enums'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
 import styles from './ProfilePhone.module.scss'
 
 const { Text } = Typography
@@ -49,7 +49,7 @@ const Phone: FC = () => {
         otpCode: '',
         refCode: ''
       }
-      const result: IApiResponse = await MembersService.deleteMobile(payload)
+      const result: IApiResponse = await MemberService.deleteMobile(payload)
       console.log(result)
     } catch (error) {
       console.log(error)
@@ -73,7 +73,7 @@ const Phone: FC = () => {
         otpCode: '',
         refCode: ''
       }
-      const result: IApiResponse = await MembersService.deleteMobile(payload)
+      const result: IApiResponse = await MemberService.deleteMobile(payload)
       console.log(result)
     } catch (error) {
       console.log(error)

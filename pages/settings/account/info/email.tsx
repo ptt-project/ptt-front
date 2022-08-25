@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Email from '~/modules/Profile/components/Email'
 import { LocaleNamespaceConst } from '~/constants'
 import { IMemberProfile, IApiResponse } from '~/interfaces'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
 
 interface IProfilePageProps {
   profile: IMemberProfile
@@ -13,7 +13,7 @@ interface IProfilePageProps {
 export async function getServerSideProps(context: NextPageContext): Promise<any> {
   let profile: IMemberProfile[] = []
   try {
-    const { data }: IApiResponse = await MembersService.getAddresses()
+    const { data }: IApiResponse = await MemberService.getAddresses()
     profile = data
     console.log(profile)
   } catch (error) {

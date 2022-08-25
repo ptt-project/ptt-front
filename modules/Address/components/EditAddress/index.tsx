@@ -9,7 +9,7 @@ import { CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
 
 const { Title } = Typography
 
@@ -33,7 +33,7 @@ const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
     const fetchAddresses = async (): Promise<void> => {
       if (!addressFromServerSide) {
         try {
-          const { data }: IApiResponse = await MembersService.getAddress(addressId.toString())
+          const { data }: IApiResponse = await MemberService.getAddress(addressId.toString())
           setAddress(data)
         } catch (error) {
           console.error(error)
@@ -51,7 +51,7 @@ const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
           isHome: values.addressType === 'home',
           isWork: values.addressType === 'work'
         }
-        await MembersService.updateAddress(addressId, payload)
+        await MemberService.updateAddress(addressId, payload)
         message.success(t('common:dataUpdated'))
         router.replace(
           `${rootMenu}/settings/account/address`,

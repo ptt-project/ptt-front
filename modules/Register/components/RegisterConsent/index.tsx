@@ -5,7 +5,7 @@ import { Typography, Space, Button, Image, Row, Col, Form, Checkbox, message } f
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
-import { IAuthRegisterForm, IAuthRegisterService, IOtpData } from '~/interfaces'
+import { IAuthRegisterForm, IAuthRegisterPayload, IOtpData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
 import { OtpTypeEnum } from '~/enums'
@@ -55,7 +55,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: IAuthRegisterService = {
+      const payload: IAuthRegisterPayload = {
         firstName: props.form.firstName,
         lastName: props.form.lastName,
         mobile: props.form.mobile,

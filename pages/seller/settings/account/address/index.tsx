@@ -4,7 +4,7 @@ import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import { IAddress, IApiResponse } from '~/interfaces'
 import Address, { IAddressProps } from '~/modules/Address'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
 
 type IAddressPageProps = Pick<IAddressProps, 'addresses'>
 
@@ -12,7 +12,7 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
   let addresses: IAddress[] = []
 
   try {
-    const { data }: IApiResponse<IAddress[]> = await MembersService.getAddresses()
+    const { data }: IApiResponse<IAddress[]> = await MemberService.getAddresses()
     console.log({ data })
     addresses = data || []
   } catch (error) {

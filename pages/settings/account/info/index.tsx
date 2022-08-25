@@ -5,7 +5,7 @@ import { AxiosRequestConfig } from 'axios'
 import Profile from '~/modules/Profile'
 import { LocaleNamespaceConst } from '~/constants'
 import { IMemberProfile, IApiResponse } from '~/interfaces'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
 
 interface IProfilePageProps {
   profile: IMemberProfile
@@ -13,14 +13,14 @@ interface IProfilePageProps {
 
 export async function getServerSideProps(context: NextPageContext): Promise<any> {
   let profile: IMemberProfile
-
   const { req } = context
+
   if (req) {
     try {
       const option: AxiosRequestConfig = {
         headers: { Cookie: req.headers.cookie }
       }
-      const { data }: IApiResponse = await MembersService.getProfile(option)
+      const { data }: IApiResponse = await MemberService.getProfile(option)
       profile = data
     } catch (error) {
       console.error(error)

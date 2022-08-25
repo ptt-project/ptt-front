@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC, ChangeEvent } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Typography, Button, Row, Col, Input, Modal, message } from 'antd'
 import Loading from '../Loading'
-import { IOtpRequestService, IOtpData, IApiResponse } from '~/interfaces'
+import { IOtpRequestPayload, IOtpData, IApiResponse } from '~/interfaces'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { OtpService } from '~/services'
 import { OtpTypeEnum } from '~/enums'
@@ -71,7 +71,7 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: IOtpRequestService = { reference: props.mobile, type: props.action }
+      const payload: IOtpRequestPayload = { reference: props.mobile, type: props.action }
       const { data }: IApiResponse = await OtpService.requestOtp(payload)
       isSuccess = true
       setOtpData(data)

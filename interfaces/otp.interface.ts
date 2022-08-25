@@ -1,6 +1,6 @@
 import { OtpTypeEnum } from '~/enums'
 
-export interface IOtpRequestService {
+export interface IOtpRequestPayload {
   reference: string
   type: OtpTypeEnum
 }

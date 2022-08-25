@@ -1,10 +1,11 @@
+import { AxiosRequestConfig } from 'axios'
 import { GetServerSidePropsResult, NextPageContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import { IAddress, IApiResponse } from '~/interfaces'
 import EditAddress, { IEditAddressProps } from '~/modules/Address/components/EditAddress'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
 
 type IEditAddressPageProps = Pick<IEditAddressProps, 'address' | 'googleMapsApiKey'>
 
@@ -13,23 +14,26 @@ export async function getServerSideProps(
 ): Promise<GetServerSidePropsResult<IEditAddressPageProps>> {
   let address: IAddress | null = null
   const { query, req } = context
-  const { headers } = req
   const { addressId } = query || {}
-  try {
-    if (addressId?.toString()) {
-      const { data }: IApiResponse<IAddress> = await MembersService.getAddress(
-        addressId.toString(),
-        headers
-      )
-      address = data
-    }
-  } catch (error) {
-    console.log(error)
 
-    return {
-      redirect: {
-        destination: '/error',
-        permanent: true
+  if (req) {
+    try {
+      if (addressId?.toString()) {
+        const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
+        const { data }: IApiResponse<IAddress> = await MemberService.getAddress(
+          addressId.toString(),
+          option
+        )
+        address = data
+      }
+    } catch (error) {
+      console.log(error)
+
+      return {
+        redirect: {
+          destination: '/error',
+          permanent: true
+        }
       }
     }
   }

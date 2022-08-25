@@ -1,20 +1,22 @@
+import { AxiosRequestConfig } from 'axios'
 import { NextPage, NextPageContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import { IAddress, IApiResponse } from '~/interfaces'
 import Address, { IAddressProps } from '~/modules/Address'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
 
 type IAddressPageProps = Pick<IAddressProps, 'addresses'>
 
 export async function getServerSideProps(context: NextPageContext): Promise<any> {
   let addresses: IAddress[] = []
   const { req } = context
-  const { headers } = req
+
   if (req) {
     try {
-      const { data }: IApiResponse<IAddress[]> = await MembersService.getAddresses(headers)
+      const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
+      const { data }: IApiResponse<IAddress[]> = await MemberService.getAddresses(option)
       addresses = data || []
     } catch (error) {
       console.log(error)

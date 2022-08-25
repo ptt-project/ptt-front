@@ -1,6 +1,6 @@
 import { SellerApprovalStatusEnum, SellerShopTypeEnum } from '~/enums'
 
-export interface ISellerRegisterService {
+export interface ISellerRegisterPayload {
   type: SellerShopTypeEnum
   fullName: string
   mobile: string

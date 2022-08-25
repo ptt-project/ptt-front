@@ -18,7 +18,7 @@ import {
 import { Rule } from 'antd/lib/form'
 import Loading from '~/components/main/Loading'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import { IAuthRegisterForm, IAuthRegisterValidateService } from '~/interfaces'
+import { IAuthRegisterForm, IAuthRegisterValidatePayload } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import { AuthService } from '~/services'
 import styles from './RegisterForm.module.scss'
@@ -86,7 +86,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: IAuthRegisterValidateService = {
+      const payload: IAuthRegisterValidatePayload = {
         email: values.email,
         username: values.username
       }

@@ -7,7 +7,8 @@ import RegisterSeller from '~/modules/RegisterSeller'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthCheckAuthenticate } from '~/utils/main'
 import { IApiResponse, ISellerInfoRes } from '~/interfaces'
-import { SellersService } from '~/services'
+import { SellerService } from '~/services'
+import { SellerApprovalStatusEnum } from '~/enums'
 
 interface IRegisterSellerPageProps {
   shopInfo?: ISellerInfoRes
@@ -20,15 +21,24 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
   }
 
   let shopInfo: ISellerInfoRes
-
   const { req } = context
+
   if (req) {
     try {
       const option: AxiosRequestConfig = {
         headers: { Cookie: req.headers.cookie }
       }
-      const { data }: IApiResponse = await SellersService.shopInfo(option)
+      const { data }: IApiResponse = await SellerService.shopInfo(option)
       shopInfo = data
+
+      if (shopInfo.approvalStatus === SellerApprovalStatusEnum.APPROVED) {
+        return {
+          redirect: {
+            destination: '/seller/settings/product/list',
+            permanent: true
+          }
+        }
+      }
     } catch (error) {
       console.log(error)
 

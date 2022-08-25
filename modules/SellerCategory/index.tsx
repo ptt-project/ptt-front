@@ -11,8 +11,13 @@ import EmptyTableData from './components/EmptyTableData'
 import { ICategoryData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from './SellerCategory.module.scss'
+import { IShopCategory } from '~/interfaces/shop.interface'
 
 const { Text, Title } = Typography
+
+interface ISellerCategoryProps {
+  category: IShopCategory[]
+}
 
 const dataSource: ICategoryData[] = [
   {
@@ -38,7 +43,7 @@ const dataSource: ICategoryData[] = [
   }
 ]
 
-const SellerCategory: FC = () => {
+const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.catefory'])
   const router: NextRouter = useRouter()
   const columns: ColumnsType<ICategoryData> = [

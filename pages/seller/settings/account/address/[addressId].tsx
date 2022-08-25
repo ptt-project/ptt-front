@@ -4,7 +4,7 @@ import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import { IAddress, IApiResponse } from '~/interfaces'
 import EditAddress, { IEditAddressProps } from '~/modules/Address/components/EditAddress'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
 
 type IEditAddressPageProps = Pick<IEditAddressProps, 'address' | 'googleMapsApiKey'>
 
@@ -16,7 +16,7 @@ export async function getServerSideProps(
   const { addressId } = query || {}
   try {
     if (addressId?.toString()) {
-      const { data }: IApiResponse<IAddress> = await MembersService.getAddress(addressId.toString())
+      const { data }: IApiResponse<IAddress> = await MemberService.getAddress(addressId.toString())
       address = data
     }
   } catch (error) {

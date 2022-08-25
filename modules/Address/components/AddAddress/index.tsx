@@ -5,11 +5,11 @@ import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import AddressForm from '../AddressForm'
 import { IAddressFormValues, ICreateAddress } from '~/interfaces'
-import {  CustomUrlUtil } from '~/utils/main'
+import { CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import {  LocaleNamespaceConst } from '~/constants'
-import { MembersService } from '~/services'
+import { LocaleNamespaceConst } from '~/constants'
+import { MemberService } from '~/services'
 
 const { Title } = Typography
 
@@ -32,8 +32,8 @@ const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
       isWork: values.addressType === 'work'
     }
     try {
-      await MembersService.createAddress(payload)
-     
+      await MemberService.createAddress(payload)
+
       message.success(t('common:dataUpdated'))
       router.replace(
         `${rootMenu}/settings/account/address`,

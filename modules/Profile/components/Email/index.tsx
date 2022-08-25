@@ -8,7 +8,7 @@ import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
 import styles from './ProfileEmail.module.scss'
 
 const { Text, Title } = Typography
@@ -30,7 +30,7 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
         newEmail: values.newEmail,
         password: values.password
       }
-      // const result: AxiosResponse = await MembersService.updateEmail(payload)
+      // const result: AxiosResponse = await MemberService.updateEmail(payload)
       // console.log(result)
     } catch (error) {
       console.log(error)

@@ -8,7 +8,7 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { IMemberMobile } from '~/interfaces'
 import Loading from '~/components/main/Loading'
 import { LocaleNamespaceConst } from '~/constants'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
 import styles from './ProfilePhone.module.scss'
 
 const { Title } = Typography
@@ -26,7 +26,7 @@ const AddPhone: FC = () => {
         otpCode: values.otpCode,
         refCode: ''
       }
-      // const result: AxiosResponse = await MembersService.createMobile(payload)
+      // const result: AxiosResponse = await MemberService.createMobile(payload)
       // console.log(result)
     } catch (error) {
       console.log(error)

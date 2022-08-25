@@ -12,7 +12,7 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
 
 const { Text, Title, Link } = Typography
 
@@ -35,7 +35,7 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
 
   const fetchAddresses: () => Promise<void> = useCallback(async (): Promise<void> => {
     try {
-      const { data }: IApiResponse<IAddress[]> = await MembersService.getAddresses()
+      const { data }: IApiResponse<IAddress[]> = await MemberService.getAddresses()
       setAddresses(data)
     } catch (error) {
       console.error(error)
@@ -70,7 +70,7 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
 
   async function onSetMainAddressClick(addressId: string): Promise<void> {
     try {
-      await MembersService.setMainAddress(addressId)
+      await MemberService.setMainAddress(addressId)
       await fetchAddresses()
       message.success(t('common:dataUpdated'))
     } catch (error) {
@@ -85,7 +85,7 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
 
   async function onConfirmDeleteAddressClick(): Promise<void> {
     try {
-      await MembersService.deleteAddress(deleteAddressId)
+      await MemberService.deleteAddress(deleteAddressId)
       await fetchAddresses()
       message.success(t('common:dataUpdated'))
       setDeleteAddressId('')

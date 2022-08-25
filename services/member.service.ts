@@ -13,15 +13,14 @@ import { EndPointUrlConst } from '../constants'
 export const getProfile = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
   AxiosService.get(EndPointUrlConst.MEMBER.PROFILE, option)
 
-export const getAddresses = (headers?: any): Promise<IApiResponse<IAddress[]>> =>
-  AxiosService.get(EndPointUrlConst.MEMBER.ADDRESSES, {
-    headers: { ...headers }
-  })
+export const getAddresses = (option?: AxiosRequestConfig): Promise<IApiResponse<IAddress[]>> =>
+  AxiosService.get(EndPointUrlConst.MEMBER.ADDRESSES, option)
 
-export const getAddress = (addressId: string, headers?: any): Promise<IApiResponse<IAddress>> =>
-  AxiosService.get(`${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}`, {
-    headers: { ...headers }
-  })
+export const getAddress = (
+  addressId: string,
+  option?: AxiosRequestConfig
+): Promise<IApiResponse<IAddress>> =>
+  AxiosService.get(`${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}`, option)
 
 export const createAddress = (payload: ICreateAddress): Promise<IApiResponse> =>
   AxiosService.post(EndPointUrlConst.MEMBER.ADDRESSES, payload)
