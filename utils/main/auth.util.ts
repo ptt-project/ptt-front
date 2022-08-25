@@ -2,6 +2,7 @@ import Cookie from 'cookie'
 import JsCookie from 'js-cookie'
 import { isEmpty } from 'lodash'
 import { NextPageContext } from 'next'
+import { SellerApprovalStatusEnum } from '~/enums'
 import { IAuthLogin, IAuthToken, IAuthUserInfo } from '~/interfaces'
 
 export const AuthInitUtil = (data: IAuthLogin): void => {
@@ -24,25 +25,6 @@ export const AuthDestroyUtil = (): void => {
   JsCookie.remove('AccessToken')
   JsCookie.remove('RefreshToken')
   JsCookie.remove('UserInfo')
-}
-
-export const AuthCheckAuthenticate = (context: NextPageContext): any => {
-  const { req, locale: rawLocale } = context
-  const locale: string = rawLocale === 'th' ? '' : rawLocale
-
-  if (req) {
-    const { accessToken, refreshToken }: IAuthToken = AuthGetServerSideTokenUtil(req.headers.cookie)
-    if (!accessToken || !refreshToken) {
-      return {
-        redirect: {
-          destination: `${locale}/auth/login?redirect=${req.url}`,
-          permanent: false
-        }
-      }
-    }
-  }
-
-  return null
 }
 
 export const AuthGetTokenUtil = (): IAuthToken => {
@@ -77,4 +59,64 @@ export const AuthGetUserInfoUtil = (): IAuthUserInfo | undefined => {
   }
 
   return undefined
+}
+
+export const AuthGetServerSideUserInfoUtil = (
+  cookie: string | undefined
+): IAuthUserInfo | undefined => {
+  let cookies: any = {}
+  if (cookie) {
+    cookies = Cookie.parse(cookie)
+  }
+
+  return cookies.userInfo
+}
+
+export const AuthCheckAuthenticate = (context: NextPageContext): any => {
+  const { req, locale: rawLocale } = context
+  const locale: string = rawLocale === 'th' ? '' : rawLocale
+
+  if (req) {
+    const { accessToken, refreshToken }: IAuthToken = AuthGetServerSideTokenUtil(req.headers.cookie)
+    if (!accessToken || !refreshToken) {
+      return {
+        redirect: {
+          destination: `${locale}/auth/login?redirect=${req.url}`,
+          permanent: false
+        }
+      }
+    }
+  }
+
+  return null
+}
+
+export const AuthCheckAuthenticateWithSeller = (context: NextPageContext): any => {
+  const { req, locale: rawLocale } = context
+  const locale: string = rawLocale === 'th' ? '' : rawLocale
+
+  if (req) {
+    const { accessToken, refreshToken }: IAuthToken = AuthGetServerSideTokenUtil(req.headers.cookie)
+    if (!accessToken || !refreshToken) {
+      return {
+        redirect: {
+          destination: `${locale}/auth/login?redirect=${req.url}`,
+          permanent: false
+        }
+      }
+    }
+
+    const userInfo: IAuthUserInfo | undefined = AuthGetServerSideUserInfoUtil(req.headers.cookie)
+    if (userInfo?.approvalStatus !== SellerApprovalStatusEnum.APPROVED) {
+      // return {
+      //   redirect: {
+      //     destination: `${locale}/auth/register-seller`,
+      //     permanent: false
+      //   }
+      // }
+      return null
+    }
+  }
+
+  return null
 }

@@ -9,17 +9,16 @@ import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import EmptyTableData from './components/EmptyTableData'
-import { IApiResponse } from '~/interfaces'
+import { IApiResponse, IShopAddCategoryPayload, IShopCategory } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
-import { IShopAddCategoryPayload, IShopCategory } from '~/interfaces/shop.interface'
 import { ShopService } from '~/services'
-import styles from './SellerCategory.module.scss'
 import { ShopCategoryStatusEnum } from '~/enums'
+import styles from './SellerCategory.module.scss'
 
 const { Text, Title } = Typography
 
 interface ISellerCategoryProps {
-  category: IShopCategory[]
+  categories: IShopCategory[]
 }
 
 const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) => {
@@ -55,7 +54,7 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
           className="hps-switch"
           key={index}
           defaultChecked={recode.status === ShopCategoryStatusEnum.ACTIVE}
-          onChange={(checked: boolean): Promise<void> => onChangeSwitch(recode, checked)}
+          onChange={(checked: boolean): Promise<void> => onChangeSwitch(checked, recode)}
         />
       )
     },
@@ -92,13 +91,13 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
   const [isOpenAdd, setIsOpenAdd] = useState<boolean>(false)
   const [isOpenRemove, setIsOpenRemove] = useState<boolean>(false)
   const [categoryName, setCategoryName] = useState<string>('')
-  const [category, setCategory] = useState<IShopCategory[]>(props.category)
+  const [category, setCategory] = useState<IShopCategory[]>(props.categories)
   const [removeCategory, setRemoveCategory] = useState<IShopCategory>()
 
   async function fetchData(): Promise<void> {
     setIsLoading(true)
     try {
-      const { data }: IApiResponse = await ShopService.getCategory()
+      const { data }: IApiResponse = await ShopService.getCategories()
       setCategory(data)
     } catch (error) {
       console.log(error)
