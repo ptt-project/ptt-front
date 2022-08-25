@@ -17,8 +17,8 @@ import HighlightLabel from '~/components/main/HighlightLabel'
 import Loading from '~/components/main/Loading'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import styles from './RegisterSellerForm.module.scss'
-import { IApiResponse, ISellerInfoRes, ISellerRegisterService } from '~/interfaces'
-import { ApiCodeEnum, FormModeEnum, SellerShopTypeEnum } from '~/enums'
+import { ISellerInfoRes, ISellerRegisterService } from '~/interfaces'
+import { FormModeEnum, SellerShopTypeEnum } from '~/enums'
 import { SellersService } from '~/services'
 
 const { Text, Title } = Typography
@@ -83,11 +83,9 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
     let isSuccess: boolean = false
     try {
       const payload: ISellerRegisterService = { ...values }
-      const result: IApiResponse = await SellersService.register(payload)
-      if (result.code === ApiCodeEnum.SUCCESS) {
-        isSuccess = true
-        props.setStep(1)
-      }
+      await SellersService.register(payload)
+      isSuccess = true
+      props.setStep(1)
     } catch (error) {
       console.log(error)
     }

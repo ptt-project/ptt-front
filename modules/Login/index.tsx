@@ -9,7 +9,6 @@ import { AuthInitUtil, CustomUrlUtil } from '~/utils/main'
 import { IApiResponse, IAuthLoginService, IFieldData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
-import { ApiCodeEnum } from '~/enums'
 import styles from './Login.module.scss'
 
 const { Title, Link } = Typography
@@ -38,15 +37,13 @@ const Login: FC = () => {
     let isSuccess: boolean = false
     try {
       const payload: IAuthLoginService = { ...values }
-      const result: IApiResponse = await AuthService.login(payload)
-      if (result.code === ApiCodeEnum.SUCCESS) {
-        isSuccess = true
-        AuthInitUtil(result.data)
-        if (router.query.redirect) {
-          router.replace(router.query.redirect.toString())
-        } else {
-          router.replace('/')
-        }
+      const { data }: IApiResponse = await AuthService.login(payload)
+      isSuccess = true
+      AuthInitUtil(data)
+      if (router.query.redirect) {
+        router.replace(router.query.redirect.toString())
+      } else {
+        router.replace('/')
       }
     } catch (error) {
       console.log(error)

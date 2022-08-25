@@ -3,7 +3,6 @@ import { NextPage, NextPageContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Email from '~/modules/Profile/components/Email'
 import { LocaleNamespaceConst } from '~/constants'
-import { ApiCodeEnum } from '~/enums'
 import { IMemberProfile, IApiResponse } from '~/interfaces'
 import { MembersService } from '~/services'
 
@@ -14,13 +13,18 @@ interface IProfilePageProps {
 export async function getServerSideProps(context: NextPageContext): Promise<any> {
   let profile: IMemberProfile[] = []
   try {
-    const result: IApiResponse = await MembersService.getAddresses()
-    if (result.code === ApiCodeEnum.SUCCESS) {
-      profile = result.data
-      console.log(profile)
-    }
+    const { data }: IApiResponse = await MembersService.getAddresses()
+    profile = data
+    console.log(profile)
   } catch (error) {
-    console.error(error)
+    console.log(error)
+
+    return {
+      redirect: {
+        destination: '/error',
+        permanent: true
+      }
+    }
   }
 
   return {

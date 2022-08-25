@@ -12,7 +12,6 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
-import { ApiCodeEnum } from '~/enums'
 import { MembersService } from '~/services'
 
 const { Text, Title, Link } = Typography
@@ -36,10 +35,8 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
 
   const fetchAddresses: () => Promise<void> = useCallback(async (): Promise<void> => {
     try {
-      const result: IApiResponse<IAddress[]> = await MembersService.getAddresses()
-      if (result.code === ApiCodeEnum.SUCCESS) {
-        setAddresses(result.data)
-      }
+      const { data }: IApiResponse<IAddress[]> = await MembersService.getAddresses()
+      setAddresses(data)
     } catch (error) {
       console.error(error)
     }

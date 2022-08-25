@@ -8,7 +8,6 @@ import { LocaleNamespaceConst } from '~/constants'
 import { AuthCheckAuthenticate } from '~/utils/main'
 import { IApiResponse, ISellerInfoRes } from '~/interfaces'
 import { SellersService } from '~/services'
-import { ApiCodeEnum } from '~/enums'
 
 interface IRegisterSellerPageProps {
   shopInfo?: ISellerInfoRes
@@ -28,10 +27,8 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
       const option: AxiosRequestConfig = {
         headers: { Cookie: req.headers.cookie }
       }
-      const result: IApiResponse = await SellersService.shopInfo(option)
-      if (result.code === ApiCodeEnum.SUCCESS) {
-        shopInfo = result.data
-      }
+      const { data }: IApiResponse = await SellersService.shopInfo(option)
+      shopInfo = data
     } catch (error) {
       console.log(error)
 

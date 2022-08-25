@@ -2,7 +2,6 @@ import { NextPage, NextPageContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 import { LocaleNamespaceConst } from '~/constants'
-import { ApiCodeEnum } from '~/enums'
 import { IAddress, IApiResponse } from '~/interfaces'
 import Address, { IAddressProps } from '~/modules/Address'
 import { MembersService } from '~/services'
@@ -15,12 +14,17 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
   const { headers } = req
   if (req) {
     try {
-      const result: IApiResponse<IAddress[]> = await MembersService.getAddresses(headers)
-      if (result?.code === ApiCodeEnum.SUCCESS) {
-        addresses = result?.data || []
-      }
+      const { data }: IApiResponse<IAddress[]> = await MembersService.getAddresses(headers)
+      addresses = data || []
     } catch (error) {
-      // console.error(error)
+      console.log(error)
+
+      return {
+        redirect: {
+          destination: '/error',
+          permanent: true
+        }
+      }
     }
   }
 

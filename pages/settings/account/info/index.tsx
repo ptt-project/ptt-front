@@ -4,7 +4,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AxiosRequestConfig } from 'axios'
 import Profile from '~/modules/Profile'
 import { LocaleNamespaceConst } from '~/constants'
-import { ApiCodeEnum } from '~/enums'
 import { IMemberProfile, IApiResponse } from '~/interfaces'
 import { MembersService } from '~/services'
 
@@ -21,10 +20,8 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
       const option: AxiosRequestConfig = {
         headers: { Cookie: req.headers.cookie }
       }
-      const result: IApiResponse = await MembersService.getProfile(option)
-      if (result.code === ApiCodeEnum.SUCCESS) {
-        profile = result.data
-      }
+      const { data }: IApiResponse = await MembersService.getProfile(option)
+      profile = data
     } catch (error) {
       console.error(error)
 

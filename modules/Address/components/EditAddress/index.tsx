@@ -10,7 +10,6 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
 import { MembersService } from '~/services'
-import { ApiCodeEnum } from '~/enums'
 
 const { Title } = Typography
 
@@ -34,10 +33,8 @@ const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
     const fetchAddresses = async (): Promise<void> => {
       if (!addressFromServerSide) {
         try {
-          const result: IApiResponse = await MembersService.getAddress(addressId.toString())
-          if (result.code === ApiCodeEnum.SUCCESS) {
-            setAddress(result.data)
-          }
+          const { data }: IApiResponse = await MembersService.getAddress(addressId.toString())
+          setAddress(data)
         } catch (error) {
           console.error(error)
         }

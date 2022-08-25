@@ -5,7 +5,7 @@ import Loading from '../Loading'
 import { IOtpRequestService, IOtpData, IApiResponse } from '~/interfaces'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { OtpService } from '~/services'
-import { ApiCodeEnum, OtpTypeEnum } from '~/enums'
+import { OtpTypeEnum } from '~/enums'
 import styles from './OtpModal.module.scss'
 
 const { Text, Title } = Typography
@@ -72,11 +72,9 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
     let isSuccess: boolean = false
     try {
       const payload: IOtpRequestService = { reference: props.mobile, type: props.action }
-      const result: IApiResponse = await OtpService.requestOtp(payload)
-      if (result.code === ApiCodeEnum.SUCCESS) {
-        isSuccess = true
-        setOtpData(result.data)
-      }
+      const { data }: IApiResponse = await OtpService.requestOtp(payload)
+      isSuccess = true
+      setOtpData(data)
     } catch (error) {
       console.log(error)
     }

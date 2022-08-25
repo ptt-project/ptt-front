@@ -18,10 +18,9 @@ import {
 import { Rule } from 'antd/lib/form'
 import Loading from '~/components/main/Loading'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import { IApiResponse, IAuthRegisterForm, IAuthRegisterValidateService } from '~/interfaces'
+import { IAuthRegisterForm, IAuthRegisterValidateService } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import { AuthService } from '~/services'
-import { ApiCodeEnum } from '~/enums'
 import styles from './RegisterForm.module.scss'
 
 const { Text, Title, Link } = Typography
@@ -91,12 +90,10 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
         email: values.email,
         username: values.username
       }
-      const result: IApiResponse = await AuthService.registerValidate(payload)
-      if (result.code === ApiCodeEnum.SUCCESS) {
-        isSuccess = true
-        props.setForm(values)
-        props.setStep(1)
-      }
+      AuthService.registerValidate(payload)
+      isSuccess = true
+      props.setForm(values)
+      props.setStep(1)
     } catch (error) {
       console.log(error)
     }
