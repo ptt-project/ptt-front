@@ -4,8 +4,9 @@ export interface IMemberProfile {
   lastName: string
   mobile: string
   birthday?: string
-  birthMonth?: string
-  birthYear?: string
+  day?: string
+  month?: string
+  year?: string
   gender?: string
   email: string
   code?: string
