@@ -21,43 +21,28 @@ const { Text } = Typography
 const { RangePicker } = DatePicker
 
 interface IVoucherFormProps {
-  parentForm: FormInstance
-  initialValues?: Partial<IVoucherFormData>
-  onSubmit: (values: IVoucherFormData) => void
+  initialValues: IVoucherFormData
 }
 const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
-  const { parentForm, initialValues, onSubmit } = props
-  console.log('initialValues--', initialValues.voucherName)
+  console.log('initialValues', props.initialValues)
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.marketing'])
-  const [form] = Form.useForm(parentForm)
+  const [form] = Form.useForm()
 
-  function onFormFinish(values: IVoucherFormProps): void {
-    // onSubmit?.({ ...initialValues, ...values })
-  }
-
-  function onFormChange(values: IVoucherFormProps): void {
-    console.log(values)
-  }
   return (
-    <Form
-      layout="vertical"
-      form={form}
-      initialValues={initialValues}
-      onValuesChange={onFormChange}
-      onFinish={onFormFinish}
-    >
+    <Form layout="vertical" form={form} initialValues={props.initialValues}>
       <Row gutter={[16, 8]} className="mt-3">
         <Col md={12}>
           <Form.Item
             label={t('seller.marketing:voucher.form.voucherName')}
             name="voucherName"
             rules={[{ required: true }]}
+            className="mb-1"
           >
             <Input />
-            <Text type="secondary" className="hps-text-small d-block">
-              {t('seller.marketing:voucher.form.msgVoucherName')}
-            </Text>
           </Form.Item>
+          <Text type="secondary" className="hps-text-small d-block">
+            {t('seller.marketing:voucher.form.msgVoucherName')}
+          </Text>
         </Col>
         <Col md={12}>
           <Form.Item
@@ -68,12 +53,13 @@ const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
                 required: true
               }
             ]}
+            className="mb-1"
           >
             <Input />
-            <Text type="secondary" className="hps-text-small d-block">
-              {t('seller.marketing:voucher.form.msgVoucher')}
-            </Text>
           </Form.Item>
+          <Text type="secondary" className="hps-text-small d-block">
+            {t('seller.marketing:voucher.form.msgVoucher')}
+          </Text>
         </Col>
         <Col md={12}>
           <Form.Item
@@ -99,6 +85,8 @@ const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
           >
             <Select defaultValue="">
               <Select.Option value="">โดย %</Select.Option>
+              <Select.Option value="1">10 %</Select.Option>
+              <Select.Option value="2">20 %</Select.Option>
             </Select>
           </Form.Item>
         </Col>

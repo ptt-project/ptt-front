@@ -65,7 +65,6 @@ const VoucherList: FC = () => {
   }
 
   function onEditVoucherClick(voucherId: string): void {
-    console.log('voucherId++', voucherId)
     router.push(
       `/seller/settings/marketing/voucher/${voucherId}`,
       `/seller/settings/marketing/voucher/${voucherId}`,

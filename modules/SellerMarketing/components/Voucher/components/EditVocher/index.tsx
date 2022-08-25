@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Typography, Row, Col, Form } from 'antd'
+import { Typography, Row, Col } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import SettingSidebar from '~/components/main/SettingSidebar'
@@ -8,7 +8,7 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import VoucherForm from '../VoucherForm'
-import { IVoucherFormData, IVoucherFormValues } from '~/interfaces'
+import { IVoucherFormData } from '~/interfaces'
 import { voucherMock } from '../mock-data'
 import styles from './EditVocher.module.scss'
 
@@ -16,7 +16,6 @@ const { Text } = Typography
 
 const EditVocher: React.FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.marketing'])
-  const [form] = Form.useForm()
   const router: NextRouter = useRouter()
   const { voucherId } = router.query
   const voucherData: IVoucherFormData[] = useMemo(() => voucherMock || [], [])
@@ -25,10 +24,6 @@ const EditVocher: React.FC = () => {
     [voucherId, voucherList]
   )
 
-  function onSubmit(values: IVoucherFormValues): void {
-    const newVoucherData: IVoucherFormData = { ...values }
-    console.log(newVoucherData)
-  }
   return (
     <main className="main">
       <Helmet>
@@ -62,13 +57,7 @@ const EditVocher: React.FC = () => {
                 </h4>
               </Text>
               <HighlightLabel title={t('seller.marketing:voucher.form.general')} />
-              <VoucherForm
-                parentForm={form}
-                initialValues={{
-                  ...voucherList
-                }}
-                onSubmit={onSubmit}
-              />
+              <VoucherForm initialValues={voucherList} />
             </Col>
           </Row>
         </div>
