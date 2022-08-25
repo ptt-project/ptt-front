@@ -20,10 +20,7 @@ export async function getServerSideProps(
     try {
       if (addressId?.toString()) {
         const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
-        const { data }: IApiResponse<IAddress> = await MemberService.getAddress(
-          addressId.toString(),
-          option
-        )
+        const { data }: IApiResponse = await MemberService.getAddress(addressId.toString(), option)
         address = data
       }
     } catch (error) {

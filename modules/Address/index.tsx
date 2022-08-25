@@ -35,7 +35,7 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
 
   const fetchAddresses: () => Promise<void> = useCallback(async (): Promise<void> => {
     try {
-      const { data }: IApiResponse<IAddress[]> = await MemberService.getAddresses()
+      const { data }: IApiResponse = await MemberService.getAddresses()
       setAddresses(data)
     } catch (error) {
       console.error(error)

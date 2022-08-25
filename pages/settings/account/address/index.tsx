@@ -16,7 +16,7 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
   if (req) {
     try {
       const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
-      const { data }: IApiResponse<IAddress[]> = await MemberService.getAddresses(option)
+      const { data }: IApiResponse = await MemberService.getAddresses(option)
       addresses = data || []
     } catch (error) {
       console.log(error)

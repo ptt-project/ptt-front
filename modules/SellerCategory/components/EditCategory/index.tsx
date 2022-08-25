@@ -10,14 +10,15 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import EmptyTableData from '../EmptyTableData'
 import AddCategoryModal from '../AddCategoryModal'
-import { IProductData, ICategoryData } from '~/interfaces'
+import { IProductData, IShopCategory } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
+import { ShopCategoryStatusEnum } from '~/enums'
 import styles from './EditCategory.module.scss'
 
 const { Text, Title } = Typography
 
 interface IEditCategoryProps {
-  category: ICategoryData
+  category: IShopCategory
 }
 
 const dataSource: IProductData[] = [
@@ -104,7 +105,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
   const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false)
   const [isOpenRemove, setIsOpenRemove] = useState<boolean>(false)
   const [isOpenMultiRemove, setIsOpenMultiRemove] = useState<boolean>(false)
-  const [categoryName, setCategoryName] = useState<string>(props.category.categoryName)
+  const [categoryName, setCategoryName] = useState<string>(props.category.name)
   const [selection, setSelection] = useState<IProductData[]>([])
   const multiRemoveText: any = t('seller.category:edit.multiRemove')
 
@@ -178,7 +179,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
             title: t('setting-sidebar:seller.shop.category'),
             href: '/seller/settings/shop/category'
           },
-          { title: props.category.categoryName }
+          { title: props.category.name }
         ]}
       />
       <AddCategoryModal isOpen={isOpenAdd} toggle={toggleAdd} onSubmit={onConfirmAdd} />
@@ -237,7 +238,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                 <Col span={18}>
                   <Space align="center">
                     <Title className={styles.title} level={4}>
-                      {props.category.categoryName}
+                      {props.category.name}
                     </Title>
                     <Text className={styles.edit} onClick={toggleEdit}>
                       <i className="fa fa-pen" />
@@ -249,7 +250,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                         {t('seller.category:edit.createdBy')}: {props.category.createdBy}
                       </Text>
                       <Text type="secondary">
-                        {t('seller.category:edit.quantity')}: {props.category.quantity}
+                        {t('seller.category:edit.quantity')}: {props.category.productCount}
                       </Text>
                     </Space>
                   </div>
@@ -257,7 +258,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                 <Col className="text-right" span={6}>
                   <Switch
                     className="hps-switch"
-                    defaultChecked={props.category.status === 1}
+                    defaultChecked={props.category.status === ShopCategoryStatusEnum.ACTIVE}
                     onChange={onChangeSwitch}
                   />
                 </Col>

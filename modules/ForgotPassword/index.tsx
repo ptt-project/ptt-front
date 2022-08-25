@@ -8,7 +8,7 @@ import ForgotPasswordSuccess from './components/ForgotPasswordSuccess'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import OtpModal from '~/components/main/OtpModal'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import { IAuthForgotPasswordForm, IOtpData } from '~/interfaces'
+import { IAuthForgotPasswordForm, IOtp } from '~/interfaces'
 import { OtpReferenceTypeEnum, OtpTypeEnum } from '~/enums'
 import { AuthDestroyUtil } from '~/utils/main'
 
@@ -18,7 +18,7 @@ const ForgotPassword: FC = () => {
   const [step, setStep] = useState<number>(0) // 0=FORGOT_PASSWORD_FORM, 1=FORGOT_PASSWORD_EMAIL_REQUEST, 2=FORGOT_PASSWORD_CONFIRM, 3=FORGOT_PASSWORD_SUCCESS
   const [reference, setReference] = useState<string>('')
   const [referenceType, setReferenceType] = useState<OtpReferenceTypeEnum>()
-  const [otpData, setOtpData] = useState<IOtpData>({
+  const [otpData, setOtpData] = useState<IOtp>({
     otpCode: '',
     refCode: '',
     reference: ''
@@ -43,7 +43,7 @@ const ForgotPassword: FC = () => {
     }
   }
 
-  function onSubmitOtp(values: IOtpData): void {
+  function onSubmitOtp(values: IOtp): void {
     try {
       setOtpData(values)
       setStep(2)

@@ -5,7 +5,7 @@ export interface IShopAddCategoryPayload {
 }
 
 export interface IShopCategory {
-  id: string
+  id: number
   createdAt: Date
   updatedAt: Date
   deletedAt?: Date
@@ -15,4 +15,14 @@ export interface IShopCategory {
   status: ShopCategoryStatusEnum
   productCount: number
   priority: number
+}
+
+export interface IProductData {
+  key: string
+  productName: string
+  brand: string
+  amount: number
+  quantity: number
+  sold: number
+  status: number
 }

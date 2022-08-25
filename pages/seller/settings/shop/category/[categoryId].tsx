@@ -2,9 +2,12 @@ import React, { FC } from 'react'
 import { NextPageContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { isEmpty } from 'lodash'
+import { AxiosRequestConfig } from 'axios'
 import EditCategory from '~/modules/SellerCategory/components/EditCategory'
-import { ICategoryData } from '~/interfaces'
+import { IApiResponse, IShopCategory } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
+import { AuthCheckAuthenticateWithSeller } from '~/utils/main'
+import { ShopService } from '~/services'
 
 interface IEditCategoryContext {
   params: {
@@ -12,49 +15,46 @@ interface IEditCategoryContext {
   }
 }
 
-const dataSource: ICategoryData[] = [
-  {
-    key: '1',
-    categoryName: 'ดัมเบล',
-    createdBy: 'ผู้ขาย',
-    quantity: 10,
-    status: 1
-  },
-  {
-    key: '2',
-    categoryName: 'รองเท้าวิ่ง',
-    createdBy: 'ผู้ขาย',
-    quantity: 5,
-    status: 0
-  },
-  {
-    key: '3',
-    categoryName: 'อาหารเสริม',
-    createdBy: 'ผู้ขาย',
-    quantity: 0,
-    status: 1
-  }
-]
+interface IEditCategoryPageProps {
+  category: IShopCategory
+}
 
 export async function getServerSideProps(
   context: NextPageContext & IEditCategoryContext
 ): Promise<any> {
-  const { categoryId } = context.params
-  const data: ICategoryData = dataSource.find((item: ICategoryData) => item.key === categoryId)
-  if (!isEmpty(data)) {
-    return {
-      props: {
-        ...(await serverSideTranslations(context.locale, [
-          ...LocaleNamespaceConst,
-          'seller.category'
-        ])),
-        data
-      }
+  const authenticate: boolean = AuthCheckAuthenticateWithSeller(context)
+  if (!isEmpty(authenticate)) {
+    return authenticate
+  }
+
+  let category: IShopCategory
+  const { req, params } = context
+
+  if (req) {
+    try {
+      const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
+      const { data }: IApiResponse = await ShopService.getCategory(params.categoryId, option)
+      category = data
+    } catch (error) {
+      console.log(error)
+
+      return { notFound: true }
     }
   }
-  return { notFound: isEmpty(data) }
+
+  return {
+    props: {
+      ...(await serverSideTranslations(context.locale, [
+        ...LocaleNamespaceConst,
+        'seller.category'
+      ])),
+      category
+    }
+  }
 }
 
-const EditCategoryPage: FC = (props: any) => <EditCategory category={props.data} />
+const EditCategoryPage: FC<IEditCategoryPageProps> = (props: IEditCategoryPageProps) => (
+  <EditCategory category={props.category} />
+)
 
 export default EditCategoryPage

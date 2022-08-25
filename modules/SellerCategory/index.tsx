@@ -2,81 +2,59 @@ import React, { useState, FC, ChangeEvent } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
-import { Typography, Row, Col, Button, Table, Switch, Space, Modal, Input } from 'antd'
+import { Typography, Row, Col, Button, Table, Switch, Space, Modal, Input, message } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import EmptyTableData from './components/EmptyTableData'
-import { ICategoryData } from '~/interfaces'
+import { IApiResponse, IShopAddCategoryPayload, IShopCategory } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
+import { ShopService } from '~/services'
+import { ShopCategoryStatusEnum } from '~/enums'
 import styles from './SellerCategory.module.scss'
-import { IShopCategory } from '~/interfaces/shop.interface'
 
 const { Text, Title } = Typography
 
 interface ISellerCategoryProps {
-  category: IShopCategory[]
+  categories: IShopCategory[]
 }
-
-const dataSource: ICategoryData[] = [
-  {
-    key: '1',
-    categoryName: 'ดัมเบล',
-    createdBy: 'ผู้ขาย',
-    quantity: 10,
-    status: 1
-  },
-  {
-    key: '2',
-    categoryName: 'รองเท้าวิ่ง',
-    createdBy: 'ผู้ขาย',
-    quantity: 5,
-    status: 0
-  },
-  {
-    key: '3',
-    categoryName: 'อาหารเสริม',
-    createdBy: 'ผู้ขาย',
-    quantity: 0,
-    status: 1
-  }
-]
 
 const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.catefory'])
   const router: NextRouter = useRouter()
-  const columns: ColumnsType<ICategoryData> = [
+  const columns: ColumnsType<IShopCategory> = [
     {
       title: t('seller.category:table.header.a'),
-      dataIndex: 'categoryName',
-      key: 'categoryName',
-      sorter: (a: ICategoryData, b: ICategoryData) => a.categoryName.localeCompare(b.categoryName)
+      dataIndex: 'name',
+      key: 'name',
+      sorter: (a: IShopCategory, b: IShopCategory) => a.name.localeCompare(b.name)
     },
     {
       title: t('seller.category:table.header.b'),
       dataIndex: 'createdBy',
       key: 'createdBy',
-      sorter: (a: ICategoryData, b: ICategoryData) => a.createdBy.localeCompare(b.createdBy)
+      sorter: (a: IShopCategory, b: IShopCategory) => a.createdBy.localeCompare(b.createdBy)
     },
     {
       title: t('seller.category:table.header.c'),
-      dataIndex: 'quantity',
-      key: 'quantity',
+      dataIndex: 'productCount',
+      key: 'productCount',
       align: 'right',
-      sorter: (a: ICategoryData, b: ICategoryData) => a.quantity - b.quantity
+      sorter: (a: IShopCategory, b: IShopCategory) => a.productCount - b.productCount
     },
     {
       title: t('seller.category:table.header.d'),
       key: 'status',
       align: 'center',
-      sorter: (a: ICategoryData, b: ICategoryData) => a.status - b.status,
-      render: (text: string, recode: ICategoryData, index: number): JSX.Element => (
+      sorter: (a: IShopCategory, b: IShopCategory) => a.status.localeCompare(b.status),
+      render: (text: string, recode: IShopCategory, index: number): JSX.Element => (
         <Switch
           className="hps-switch"
           key={index}
-          defaultChecked={recode.status === 1}
-          onChange={onChangeSwitch}
+          defaultChecked={recode.status === ShopCategoryStatusEnum.ACTIVE}
+          onChange={(checked: boolean): Promise<void> => onChangeSwitch(checked, recode)}
         />
       )
     },
@@ -84,9 +62,9 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
       title: t('seller.category:table.header.e'),
       key: 'action',
       align: 'right',
-      render: (text: string, record: ICategoryData, index: number): JSX.Element => {
-        const disabled: boolean = record.quantity > 0
-        const pathname: string = `/seller/settings/shop/category/${record.key}`
+      render: (text: string, record: IShopCategory, index: number): JSX.Element => {
+        const disabled: boolean = record.productCount > 0
+        const pathname: string = `/seller/settings/shop/category/${record.id}`
         return (
           <Space size="middle">
             <Text
@@ -109,9 +87,23 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
       }
     }
   ]
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isOpenAdd, setIsOpenAdd] = useState<boolean>(false)
   const [isOpenRemove, setIsOpenRemove] = useState<boolean>(false)
-  const [category, setCategory] = useState<string>('')
+  const [categoryName, setCategoryName] = useState<string>('')
+  const [category, setCategory] = useState<IShopCategory[]>(props.categories)
+  const [removeCategory, setRemoveCategory] = useState<IShopCategory>()
+
+  async function fetchData(): Promise<void> {
+    setIsLoading(true)
+    try {
+      const { data }: IApiResponse = await ShopService.getCategories()
+      setCategory(data)
+    } catch (error) {
+      console.log(error)
+    }
+    setIsLoading(false)
+  }
 
   function toggleAdd(): void {
     setIsOpenAdd(!isOpenAdd)
@@ -121,29 +113,72 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
     setIsOpenRemove(!isOpenRemove)
   }
 
-  function onChangeSwitch(checked: boolean): void {
-    console.log(checked)
+  async function onChangeSwitch(checked: boolean, item: IShopCategory): Promise<void> {
+    setIsLoading(true)
+    let isSuccess: boolean = false
+    try {
+      // await ShopService.toggleCategoryStatus(item.id.toString())
+      isSuccess = true
+      fetchData()
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
-  function onChangeCategory(e: ChangeEvent<HTMLInputElement>): void {
-    setCategory(e.target.value)
+  function onChangeCategoryName(e: ChangeEvent<HTMLInputElement>): void {
+    setCategoryName(e.target.value)
   }
 
-  function onRemove(item: ICategoryData, disabled?: boolean): void {
-    console.log(item)
+  function onRemove(item: IShopCategory, disabled?: boolean): void {
+    setRemoveCategory(item)
     if (!disabled) {
       toggleRemove()
     }
   }
 
-  function onConfirmRemove(): void {
-    console.log('remove')
-    toggleRemove()
+  async function onConfirmRemove(): Promise<void> {
+    setIsLoading(true)
+    let isSuccess: boolean = false
+    try {
+      await ShopService.deleteCategotry(removeCategory.id.toString())
+      isSuccess = true
+      toggleRemove()
+      fetchData()
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
-  function onSubmit(): void {
-    console.log(category)
-    toggleAdd()
+  async function onSubmit(): Promise<void> {
+    setIsLoading(true)
+    let isSuccess: boolean = false
+    try {
+      const payload: IShopAddCategoryPayload = { name: categoryName }
+      await ShopService.addCategotry(payload)
+      isSuccess = true
+      toggleAdd()
+      fetchData()
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
   return (
@@ -159,6 +194,7 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
           { title: t('setting-sidebar:seller.shop.category') }
         ]}
       />
+      <Loading show={isLoading} />
       <Modal
         title={
           <Title className="mb-0" level={4}>
@@ -174,7 +210,7 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
               <Button type="default" onClick={toggleAdd}>
                 {t('common:cancel')}
               </Button>
-              <Button type="primary" disabled={!category} onClick={onSubmit}>
+              <Button type="primary" disabled={!categoryName} onClick={onSubmit}>
                 {t('common:confirm')}
               </Button>
             </Col>
@@ -185,7 +221,7 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
           <Text className={styles.required}>*</Text>
           <Text>{t('seller.category:modal.add.form.category')}</Text>
         </div>
-        <Input showCount maxLength={40} onChange={onChangeCategory} value={category} />
+        <Input showCount maxLength={40} onChange={onChangeCategoryName} value={categoryName} />
       </Modal>
       <ConfirmationModal
         type="error"
@@ -220,7 +256,7 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
                     className="hps-table hps-scroll"
                     size="middle"
                     columns={columns}
-                    dataSource={dataSource}
+                    dataSource={category}
                     pagination={{ position: ['none', 'none'] as any }}
                     locale={{ emptyText: <EmptyTableData /> }}
                   />
