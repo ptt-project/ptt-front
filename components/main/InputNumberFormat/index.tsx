@@ -12,8 +12,8 @@ import NumberFormat, {
 } from 'react-number-format'
 
 type IInputNumberFormatProps = Omit<
-NumberFormatPropsBase<InputAttributes>,
-'value' | 'onChange' | 'customInput' | 'onValueChange' | 'suffix'
+  NumberFormatPropsBase<InputAttributes>,
+  'value' | 'onChange' | 'customInput' | 'onValueChange' | 'suffix'
 > & {
   value?: string
   onChange?: (value: number) => void

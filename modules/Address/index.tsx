@@ -41,7 +41,7 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
         setAddresses(result.data)
       }
     } catch (error) {
-      // console.error(error)
+      console.error(error)
     }
   }, [])
 
