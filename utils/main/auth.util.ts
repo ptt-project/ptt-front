@@ -5,8 +5,9 @@ import { NextPageContext } from 'next'
 import { IAuthLoginRes, IAuthToken, IAuthUserInfo } from '~/interfaces'
 
 export const AuthInitUtil = (data: IAuthLoginRes): void => {
-  JsCookie.set('AccessToken', data.accessToken)
-  JsCookie.set('RefreshToken', data.refreshToken)
+  // Set From API
+  // JsCookie.set('AccessToken', data.accessToken)
+  // JsCookie.set('RefreshToken', data.refreshToken)
 
   const userInfo: IAuthUserInfo = {
     username: data.username,
