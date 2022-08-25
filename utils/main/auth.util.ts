@@ -2,9 +2,9 @@ import Cookie from 'cookie'
 import JsCookie from 'js-cookie'
 import { isEmpty } from 'lodash'
 import { NextPageContext } from 'next'
-import { IAuthLoginRes, IAuthToken, IAuthUserInfo } from '~/interfaces'
+import { IAuthLogin, IAuthToken, IAuthUserInfo } from '~/interfaces'
 
-export const AuthInitUtil = (data: IAuthLoginRes): void => {
+export const AuthInitUtil = (data: IAuthLogin): void => {
   // Set From API
   // JsCookie.set('AccessToken', data.accessToken)
   // JsCookie.set('RefreshToken', data.refreshToken)

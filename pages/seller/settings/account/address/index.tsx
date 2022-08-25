@@ -12,7 +12,7 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
   let addresses: IAddress[] = []
 
   try {
-    const { data }: IApiResponse<IAddress[]> = await MemberService.getAddresses()
+    const { data }: IApiResponse = await MemberService.getAddresses()
     console.log({ data })
     addresses = data || []
   } catch (error) {

@@ -5,7 +5,7 @@ export interface IOtpRequestPayload {
   type: OtpTypeEnum
 }
 
-export interface IOtpData {
+export interface IOtp {
   otpCode: string
   refCode: string
   reference: string

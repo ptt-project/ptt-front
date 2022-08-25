@@ -5,7 +5,6 @@ import {
   ICreateAddress,
   IUpdateAddress,
   IMemberMobile,
-  IAddress,
   IMemberChangePassword
 } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
@@ -13,13 +12,10 @@ import { EndPointUrlConst } from '../constants'
 export const getProfile = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
   AxiosService.get(EndPointUrlConst.MEMBER.PROFILE, option)
 
-export const getAddresses = (option?: AxiosRequestConfig): Promise<IApiResponse<IAddress[]>> =>
+export const getAddresses = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
   AxiosService.get(EndPointUrlConst.MEMBER.ADDRESSES, option)
 
-export const getAddress = (
-  addressId: string,
-  option?: AxiosRequestConfig
-): Promise<IApiResponse<IAddress>> =>
+export const getAddress = (addressId: string, option?: AxiosRequestConfig): Promise<IApiResponse> =>
   AxiosService.get(`${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}`, option)
 
 export const createAddress = (payload: ICreateAddress): Promise<IApiResponse> =>

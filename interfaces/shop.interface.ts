@@ -5,7 +5,7 @@ export interface IShopAddCategoryPayload {
 }
 
 export interface IShopCategory {
-  id: string
+  id: number
   createdAt: Date
   updatedAt: Date
   deletedAt?: Date

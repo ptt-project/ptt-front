@@ -16,7 +16,7 @@ export async function getServerSideProps(
   const { addressId } = query || {}
   try {
     if (addressId?.toString()) {
-      const { data }: IApiResponse<IAddress> = await MemberService.getAddress(addressId.toString())
+      const { data }: IApiResponse = await MemberService.getAddress(addressId.toString())
       address = data
     }
   } catch (error) {

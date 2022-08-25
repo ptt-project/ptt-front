@@ -5,7 +5,7 @@ import { Typography, Space, Button, Image, Row, Col, Form, Checkbox, message } f
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
-import { IAuthRegisterForm, IAuthRegisterPayload, IOtpData } from '~/interfaces'
+import { IAuthRegisterForm, IAuthRegisterPayload, IOtp } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
 import { OtpTypeEnum } from '~/enums'
@@ -50,7 +50,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
     }
   }
 
-  async function onSubmit(otpData: IOtpData): Promise<void> {
+  async function onSubmit(otpData: IOtp): Promise<void> {
     toggle()
     setIsLoading(true)
     let isSuccess: boolean = false

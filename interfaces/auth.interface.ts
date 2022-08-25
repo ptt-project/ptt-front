@@ -33,7 +33,7 @@ export interface IAuthLoginPayload {
   password: string
 }
 
-export interface IAuthLoginRes {
+export interface IAuthLogin {
   accessToken: string
   refreshToken: string
   username: string

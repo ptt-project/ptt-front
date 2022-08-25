@@ -9,3 +9,6 @@ export const getCategory = (option?: AxiosRequestConfig): Promise<IApiResponse> 
 
 export const addCategotry = (payload?: IShopAddCategoryPayload): Promise<IApiResponse> =>
   AxiosService.post(EndPointUrlConst.SHOP.CATEGORIES, payload)
+
+export const deleteCategotry = (categoryId: string): Promise<IApiResponse> =>
+  AxiosService.delete(`${EndPointUrlConst.SHOP.CATEGORIES}/${categoryId}`)

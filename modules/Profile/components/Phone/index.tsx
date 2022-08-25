@@ -8,7 +8,7 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
-import { IOtpData, IMemberMobile, IApiResponse } from '~/interfaces'
+import { IOtp, IMemberMobile, IApiResponse } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
@@ -86,7 +86,7 @@ const Phone: FC = () => {
     setIsLoading(false)
   }
 
-  function onSubmit(otpData: IOtpData): void {
+  function onSubmit(otpData: IOtp): void {
     try {
       console.log(otpData)
       toggle()
