@@ -8,10 +8,10 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
-import VoucherTabs from '../VoucherTabs'
+import VoucherTabs from './components/VoucherTabs'
 import styles from './Voucher.module.scss'
 
-const { Text, Title } = Typography
+const { Title } = Typography
 
 const Voucher: FC = () => {
   const router: NextRouter = useRouter()
@@ -21,11 +21,16 @@ const Voucher: FC = () => {
     <main className="main">
       <Helmet>
         <title>
-          {t('common:meta.title')} | {t('account-info:title')}
+          {t('common:meta.title')} | {t('seller.marketing:title')}
         </title>
       </Helmet>
       <Breadcrumbs
-        items={[{ title: t('account-info:setting') }, { title: t('seller.marketing:title') }]}
+        items={[
+          {
+            title: t('seller.marketing:title'),
+            href: '/seller/settings/marketing'
+          }
+        ]}
       />
       <div className="page-content mb-9">
         <div className="container">
@@ -43,7 +48,7 @@ const Voucher: FC = () => {
                 <Col xs={4}>
                   <div className={styles.addNewProduct}>
                     <Link
-                      href={CustomUrlUtil('/seller/settings/marketing/add-voucher', router.locale)}
+                      href={CustomUrlUtil('/seller/settings/marketing/voucher/add', router.locale)}
                     >
                       <Button type="primary">
                         <i className="fas fa-plus mr-1" />
