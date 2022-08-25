@@ -1,5 +1,5 @@
-import React from 'react'
-import { NextPage, NextPageContext } from 'next'
+import React, { FC } from 'react'
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Email from '~/modules/Profile/components/Email'
 import { LocaleNamespaceConst } from '~/constants'
@@ -10,7 +10,9 @@ interface IProfilePageProps {
   profile: IMemberProfile
 }
 
-export async function getServerSideProps(context: NextPageContext): Promise<any> {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<any>> {
   let profile: IMemberProfile[] = []
   try {
     const { data }: IApiResponse = await MemberService.getAddresses()
@@ -33,7 +35,7 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
     }
   }
 }
-const EmailPage: NextPage<IProfilePageProps> = (props: IProfilePageProps) => (
+const EmailPage: FC<IProfilePageProps> = (props: IProfilePageProps) => (
   <Email profile={props.profile} />
 )
 
