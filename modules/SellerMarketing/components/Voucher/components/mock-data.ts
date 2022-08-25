@@ -2,12 +2,12 @@ import { IVoucherFormData } from '~/interfaces'
 
 export const voucherMock: IVoucherFormData[] = [
   {
-    voucherName: '001',
-    code: '001',
+    voucherName: 'ลดราคากระเป๋าสีน้ำตาล',
+    code: 'AOPP11',
     periodCode: '',
-    typeDiscount: 'โดย%',
+    typeDiscount: '2',
     valueDiscount: '50',
-    maxDiscount: 'ไม่จำกัด',
+    maxDiscount: 2,
     minDiscount: '100',
     amountAvailable: '100',
     id: '1'
@@ -16,9 +16,9 @@ export const voucherMock: IVoucherFormData[] = [
     voucherName: '002',
     code: '002',
     periodCode: '',
-    typeDiscount: 'โดย%',
+    typeDiscount: '1',
     valueDiscount: '50',
-    maxDiscount: 'ไม่จำกัด',
+    maxDiscount: 1,
     minDiscount: '100',
     amountAvailable: '100',
     id: '2'

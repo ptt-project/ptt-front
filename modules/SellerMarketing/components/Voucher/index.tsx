@@ -21,7 +21,7 @@ const Voucher: FC = () => {
     <main className="main">
       <Helmet>
         <title>
-          {t('common:meta.title')} | {t('account-info:title')}
+          {t('common:meta.title')} | {t('seller.marketing:title')}
         </title>
       </Helmet>
       <Breadcrumbs

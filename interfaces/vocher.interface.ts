@@ -5,9 +5,7 @@ export interface IVoucherFormData {
   periodCode: string
   typeDiscount: string
   valueDiscount: string
-  maxDiscount: string
+  maxDiscount: number
   minDiscount: string
   amountAvailable: string
 }
-
-export type IVoucherFormValues = IVoucherFormData
