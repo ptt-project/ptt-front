@@ -1,5 +1,5 @@
-import React from 'react'
-import { NextPage, NextPageContext } from 'next'
+import React, { FC } from 'react'
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AxiosRequestConfig } from 'axios'
 import Profile from '~/modules/Profile'
@@ -11,7 +11,9 @@ interface IProfilePageProps {
   profile: IMemberProfile
 }
 
-export async function getServerSideProps(context: NextPageContext): Promise<any> {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<any>> {
   let profile: IMemberProfile
   const { req } = context
 
@@ -42,7 +44,7 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
   }
 }
 
-const ProfilePage: NextPage<IProfilePageProps> = (props: IProfilePageProps) => (
+const ProfilePage: FC<IProfilePageProps> = (props: IProfilePageProps) => (
   <Profile profile={props.profile} />
 )
 

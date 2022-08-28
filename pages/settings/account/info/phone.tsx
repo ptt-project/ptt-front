@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { NextPageContext } from 'next'
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AxiosRequestConfig } from 'axios'
 import Phone from '~/modules/Profile/components/Phone'
@@ -7,11 +7,9 @@ import { IMemberProfile, IApiResponse } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { MemberService } from '~/services'
 
-interface IProfilePageProps {
-  profile: IMemberProfile
-}
-
-export async function getServerSideProps(context: NextPageContext): Promise<any> {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<any>> {
   let profile: IMemberProfile
   const { req } = context
 
@@ -33,7 +31,6 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
       }
     }
   }
-
   return {
     props: {
       ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'account-info'])),

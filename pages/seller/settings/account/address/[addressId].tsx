@@ -1,4 +1,4 @@
-import { GetServerSidePropsResult, NextPageContext } from 'next'
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
@@ -9,7 +9,7 @@ import { MemberService } from '~/services'
 type IEditAddressPageProps = Pick<IEditAddressProps, 'address' | 'googleMapsApiKey'>
 
 export async function getServerSideProps(
-  context: NextPageContext
+  context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<IEditAddressPageProps>> {
   let address: IAddress
   const { query } = context

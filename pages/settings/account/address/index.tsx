@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from 'axios'
-import { NextPage, NextPageContext } from 'next'
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import React from 'react'
+import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import { IAddress, IApiResponse } from '~/interfaces'
 import Address, { IAddressProps } from '~/modules/Address'
@@ -9,7 +9,9 @@ import { MemberService } from '~/services'
 
 type IAddressPageProps = Pick<IAddressProps, 'addresses'>
 
-export async function getServerSideProps(context: NextPageContext): Promise<any> {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<any>> {
   let addresses: IAddress[] = []
   const { req } = context
 
@@ -38,7 +40,7 @@ export async function getServerSideProps(context: NextPageContext): Promise<any>
   }
 }
 
-const AddressPage: NextPage<IAddressPageProps> = (props: IAddressPageProps) => (
+const AddressPage: FC<IAddressPageProps> = (props: IAddressPageProps) => (
   <Address addresses={props.addresses} />
 )
 
