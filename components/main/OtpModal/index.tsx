@@ -2,10 +2,10 @@ import React, { useState, useEffect, FC, ChangeEvent } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Typography, Button, Row, Col, Input, Modal, message } from 'antd'
 import Loading from '../Loading'
-import { IOtpRequestService, IOtpData, IApiResponse } from '~/interfaces'
+import { IOtpRequestPayload, IOtp, IApiResponse } from '~/interfaces'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { OtpService } from '~/services'
-import { ApiCodeEnum, OtpTypeEnum } from '~/enums'
+import { OtpTypeEnum } from '~/enums'
 import styles from './OtpModal.module.scss'
 
 const { Text, Title } = Typography
@@ -16,7 +16,7 @@ interface IOtpModalProps {
   title?: string
   mobile: string
   action: OtpTypeEnum
-  onSubmit: (otpData: IOtpData) => void
+  onSubmit: (otpData: IOtp) => void
 }
 
 const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
@@ -25,7 +25,7 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [otpInput, setOtpInput] = useState<string>('')
   const [timer, setTimer] = useState<number>(0)
-  const [otpData, setOtpData] = useState<IOtpData>({
+  const [otpData, setOtpData] = useState<IOtp>({
     otpCode: '',
     refCode: '',
     reference: ''
@@ -71,12 +71,10 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: IOtpRequestService = { reference: props.mobile, type: props.action }
-      const result: IApiResponse = await OtpService.requestOtp(payload)
-      if (result.code === ApiCodeEnum.SUCCESS) {
-        isSuccess = true
-        setOtpData(result.data)
-      }
+      const payload: IOtpRequestPayload = { reference: props.mobile, type: props.action }
+      const { data }: IApiResponse = await OtpService.requestOtp(payload)
+      isSuccess = true
+      setOtpData({ ...data, otpCode: data.otpCode || '' })
     } catch (error) {
       console.log(error)
     }

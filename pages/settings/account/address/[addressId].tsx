@@ -1,45 +1,36 @@
-import { GetServerSidePropsResult, NextPageContext } from 'next'
+import { AxiosRequestConfig } from 'axios'
+import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
-import { ApiCodeEnum } from '~/enums'
 import { IAddress, IApiResponse } from '~/interfaces'
 import EditAddress, { IEditAddressProps } from '~/modules/Address/components/EditAddress'
-import { MembersService } from '~/services'
-import { AuthCheckAuthenticate } from '~/utils/main'
+import { MemberService } from '~/services'
 
 type IEditAddressPageProps = Pick<IEditAddressProps, 'address' | 'googleMapsApiKey'>
 
 export async function getServerSideProps(
-  context: NextPageContext
+  context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<IEditAddressPageProps>> {
-  const authenticate: GetServerSidePropsResult<any> = AuthCheckAuthenticate(context)
-  if (authenticate) {
-    return authenticate
-  }
-
   let address: IAddress | null = null
   const { query, req } = context
-  const { headers } = req
   const { addressId } = query || {}
-  try {
-    if (addressId?.toString()) {
-      const result: IApiResponse<IAddress> = await MembersService.getAddress(
-        addressId.toString(),
-        headers
-      )
-      if (result?.code === ApiCodeEnum.SUCCESS) {
-        address = result?.data
-      } else {
-        // if no found throw error for redirect to page address list in catch handle
-        throw new Error('no data')
+
+  if (req) {
+    try {
+      if (addressId?.toString()) {
+        const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
+        const { data }: IApiResponse = await MemberService.getAddress(addressId.toString(), option)
+        address = data
       }
-    }
-  } catch (error) {
-    return {
-      redirect: {
-        destination: '/settings/account/address',
-        permanent: true
+    } catch (error) {
+      console.log(error)
+
+      return {
+        redirect: {
+          destination: '/error',
+          permanent: true
+        }
       }
     }
   }

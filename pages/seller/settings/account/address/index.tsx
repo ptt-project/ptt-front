@@ -1,34 +1,30 @@
-import { GetServerSidePropsResult, NextPage, NextPageContext } from 'next'
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 import { LocaleNamespaceConst } from '~/constants'
-import { ApiCodeEnum } from '~/enums'
 import { IAddress, IApiResponse } from '~/interfaces'
 import Address, { IAddressProps } from '~/modules/Address'
-import { MembersService } from '~/services'
-import { AuthCheckAuthenticate } from '~/utils/main'
+import { MemberService } from '~/services'
 
 type IAddressPageProps = Pick<IAddressProps, 'addresses'>
 
 export async function getServerSideProps(
-  context: NextPageContext
+  context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<any>> {
-  const authenticate: GetServerSidePropsResult<any> = AuthCheckAuthenticate(context)
-  if (authenticate) {
-    return authenticate
-  }
-
   let addresses: IAddress[] = []
-  const { req } = context
-  const { headers } = req
-  if (req) {
-    try {
-      const result: IApiResponse<IAddress[]> = await MembersService.getAddresses(headers)
-      if (result?.code === ApiCodeEnum.SUCCESS) {
-        addresses = result?.data || []
+
+  try {
+    const { data }: IApiResponse = await MemberService.getAddresses()
+    console.log({ data })
+    addresses = data || []
+  } catch (error) {
+    console.log(error)
+
+    return {
+      redirect: {
+        destination: '/error',
+        permanent: true
       }
-    } catch (error) {
-      // console.error(error)
     }
   }
 

@@ -1,10 +1,9 @@
 import React, { FC, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import Link from 'next/link'
 import { Row, Col, Typography, Pagination, Tag } from 'antd'
-import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
+import ConfirmationModal from '~/components/main/ConfirmationModal'
 import styles from './VoucherList.module.scss'
 
 const { Text } = Typography
@@ -49,20 +48,41 @@ const data: IMockData[] = [
 const VoucherList: FC = () => {
   const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.marketing'])
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [replyData, setReplyData] = useState<IMockData>({
-    id: '',
-    code: '',
-    type: '',
-    value: '',
-    available: '',
-    used: '',
-    status: '',
-    colorStatus: '',
-    periodGetCode: ''
-  })
+  const [isOpenDelModal, setIsOpenDelModal] = useState<boolean>(false)
+
+  function toggleDelModal(): void {
+    setIsOpenDelModal(!isOpenDelModal)
+  }
+
+  function onDelModal(item: IMockData): void {
+    if (item) {
+      setIsOpenDelModal(true)
+    }
+  }
+
+  function onRemove(): void {
+    console.log('reomove')
+  }
+
+  function onEditVoucherClick(voucherId: string): void {
+    router.push(
+      `/seller/settings/marketing/voucher/${voucherId}`,
+      `/seller/settings/marketing/voucher/${voucherId}`,
+      {
+        locale: router.locale
+      }
+    )
+  }
   return (
     <>
+      <ConfirmationModal
+        isOpen={isOpenDelModal}
+        toggle={toggleDelModal}
+        type="error"
+        title={t('seller.marketing:voucher.col.deleteHeader')}
+        content={t('seller.marketing:voucher.col.deleteMsg')}
+        onSubmit={onRemove}
+      />
       <Row className={`${styles.hrTitleCol} text-center mb-3`}>
         <Col lg={3} xs={4}>
           <Text type="danger">{t('seller.marketing:voucher.col.voucher')}</Text>
@@ -114,12 +134,12 @@ const VoucherList: FC = () => {
               <Text>{item.periodGetCode}</Text>
             </Col>
             <Col lg={4}>
-              <Link href={CustomUrlUtil('/settings/', router.locale)}>
+              <Text onClick={(): void => onEditVoucherClick(item.id)}>
                 <i className={`${styles.textSecondary} fas fa-pen mr-1`} />
-              </Link>
-              <Link href={CustomUrlUtil('/settings/', router.locale)}>
+              </Text>
+              <Text onClick={(): void => onDelModal(item)}>
                 <i className={`${styles.textSecondary} fas fa-trash-alt mr-1`} />
-              </Link>
+              </Text>
             </Col>
           </Row>
         </div>

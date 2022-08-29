@@ -5,13 +5,13 @@ import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import OtpModal from '~/components/main/OtpModal'
-import { IOtpData } from '~/interfaces'
+import { IOtp } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { OtpTypeEnum } from '~/enums'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
 
 const { Text, Title } = Typography
 const user: any = {
@@ -41,11 +41,11 @@ const ChangePassword: React.FC = () => {
     setIsOpen(!isOpen)
   }
 
-  async function onSubmitOtp(otpData: IOtpData): Promise<void> {
+  async function onSubmitOtp(otpData: IOtp): Promise<void> {
     try {
       console.log({ otpData, formValues })
       const { password, newPassword } = formValues
-      await MembersService.changePassword({
+      await MemberService.changePassword({
         oldPassword: password,
         newPassword
       })

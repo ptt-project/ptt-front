@@ -4,5 +4,7 @@ export enum SellerShopTypeEnum {
 }
 
 export enum SellerApprovalStatusEnum {
-  REQUESTED = 'requested'
+  REQUESTED = 'requested',
+  APPROVED = 'approved',
+  REJECTED = 'rejected'
 }

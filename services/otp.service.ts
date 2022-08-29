@@ -1,6 +1,6 @@
 import { AxiosService } from './axios.service'
-import { IApiResponse, IOtpRequestService } from '~/interfaces'
+import { IApiResponse, IOtpRequestPayload } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
 
-export const requestOtp = (payload: IOtpRequestService): Promise<IApiResponse> =>
+export const requestOtp = (payload: IOtpRequestPayload): Promise<IApiResponse> =>
   AxiosService.post(EndPointUrlConst.OTP.REQUEST, payload)

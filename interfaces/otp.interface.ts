@@ -1,11 +1,11 @@
 import { OtpTypeEnum } from '~/enums'
 
-export interface IOtpRequestService {
+export interface IOtpRequestPayload {
   reference: string
   type: OtpTypeEnum
 }
 
-export interface IOtpData {
+export interface IOtp {
   otpCode: string
   refCode: string
   reference: string

@@ -1,10 +1,5 @@
-export const RegExpConst: {
-  CHECK_NUMBER: RegExp
-  ALLOW_NUMBER: RegExp
-  ALLOW_LETTER: RegExp
-  CHECK_EMAIL: RegExp
-  CHECK_PASSWORD: RegExp
-} = {
+// eslint-disable-next-line @typescript-eslint/typedef
+export const RegExpConst = {
   CHECK_NUMBER: /^[0-9\b]+$/,
   ALLOW_NUMBER: /[^0-9.]/g,
   ALLOW_LETTER: /[^\u0E00-\u0E7Fa-zA-Z ]/g,

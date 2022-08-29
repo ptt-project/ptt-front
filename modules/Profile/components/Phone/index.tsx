@@ -8,13 +8,13 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
-import { IOtpData, IMemberMobile, IApiResponse } from '~/interfaces'
+import { IOtp, IMemberMobile, IApiResponse } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
 import { OtpTypeEnum } from '~/enums'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
 import styles from './ProfilePhone.module.scss'
 
 const { Text } = Typography
@@ -49,7 +49,7 @@ const Phone: FC = () => {
         otpCode: '',
         refCode: ''
       }
-      const result: IApiResponse = await MembersService.deleteMobile(payload)
+      const result: IApiResponse = await MemberService.deleteMobile(payload)
       console.log(result)
     } catch (error) {
       console.log(error)
@@ -73,7 +73,7 @@ const Phone: FC = () => {
         otpCode: '',
         refCode: ''
       }
-      const result: IApiResponse = await MembersService.deleteMobile(payload)
+      const result: IApiResponse = await MemberService.deleteMobile(payload)
       console.log(result)
     } catch (error) {
       console.log(error)
@@ -86,7 +86,7 @@ const Phone: FC = () => {
     setIsLoading(false)
   }
 
-  function onSubmit(otpData: IOtpData): void {
+  function onSubmit(otpData: IOtp): void {
     try {
       console.log(otpData)
       toggle()

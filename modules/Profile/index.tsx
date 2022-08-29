@@ -27,7 +27,7 @@ import { CustomUrlUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
 import { IMemberProfile, IMemberProfileUpdate } from '~/interfaces'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
 import styles from './Profile.module.scss'
 
 const { Text, Title } = Typography
@@ -57,7 +57,7 @@ const Profile: FC<IProps> = (props: IProps) => {
         birthday: `${values.birthYear}-${values.birthMonth}-${values.birthday}`,
         gender: valueGender
       }
-      // const result: AxiosResponse = await MembersService.updateMemberProfile(payload)
+      // const result: AxiosResponse = await MemberService.updateMemberProfile(payload)
       // console.log(result)
     } catch (error) {
       console.log(error)
@@ -72,7 +72,7 @@ const Profile: FC<IProps> = (props: IProps) => {
 
   async function fetchData(): Promise<void> {
     try {
-      await MembersService.getProfile()
+      await MemberService.getProfile()
     } catch (error) {
       console.log(error)
     }

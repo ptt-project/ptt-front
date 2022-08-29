@@ -18,5 +18,9 @@ export const EndPointUrlConst = {
   SELLER: {
     REGISTER: '/sellers/register',
     SHOP_INFO: '/sellers/shop-info'
+  },
+  SHOP: {
+    CATEGORIES: '/shops/categories',
+    PRODUCTS: '/shops/products'
   }
 }
