@@ -52,11 +52,12 @@ const Profile: FC<IProps> = (props: IProps) => {
     let isSuccess: boolean = false
     try {
       const payload: IMemberProfileUpdate = {
-        firstName: values.firstName,
-        lastName: values.lastName,
+        firstname: values.firstName,
+        lastname: values.lastName,
         birthday: `${values.year}-${values.month}-${values.day}`,
         gender: valueGender
       }
+      console.log('payload', payload)
       await MemberService.updateMemberProfile(payload)
       isSuccess = true
     } catch (error) {

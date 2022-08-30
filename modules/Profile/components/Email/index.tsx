@@ -23,13 +23,12 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
 
   async function onSubmit(values: IMemberEmailUpdate): Promise<void> {
     setIsLoading(true)
-    let isSuccess: boolean = false
+    let isSuccess: boolean = true
     try {
       const payload: IMemberEmailUpdate = {
         newEmail: values.newEmail,
         password: values.password
       }
-      console.log(payload)
       await MemberService.updateEmail(payload)
       isSuccess = true
     } catch (error) {
@@ -82,7 +81,6 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
                   <Form
                     layout="vertical"
                     form={form}
-                    name="newEmail"
                     onFinish={onSubmit}
                     initialValues={{
                       email: props.profile.email
@@ -92,7 +90,7 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
                       <Col span={24}>
                         <Form.Item
                           label={t('account-info:email.currentEmail')}
-                          name="email"
+                          name="newEmail"
                           rules={[
                             {
                               required: true,

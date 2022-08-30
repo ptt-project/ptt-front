@@ -35,10 +35,8 @@ export const setMainAddress = (addressId: string): Promise<IApiResponse> =>
 export const changePassword = (payload: IMemberChangePassword): Promise<IApiResponse> =>
   AxiosService.patch(EndPointUrlConst.MEMBER.CHANGE_PASSWORD, payload)
 
-export const updateMemberProfile = (
-  memberId: string,
-  payload: IMemberProfileUpdate
-): Promise<IApiResponse> => AxiosService.put(`${EndPointUrlConst.MEMBER.PROFILE}`, payload)
+export const updateMemberProfile = (payload: IMemberProfileUpdate): Promise<IApiResponse> =>
+  AxiosService.put(`${EndPointUrlConst.MEMBER.PROFILE}`, payload)
 
 export const updateEmail = (payload: IMemberEmailUpdate): Promise<IApiResponse> =>
   AxiosService.patch(EndPointUrlConst.MEMBER.EMAIL, payload)
