@@ -47,6 +47,7 @@
     "addPhone": "เพิ่มเบอร์โทร",
     "mainNumber": "เบอร์หลัก",
     "sendVerificationCode": "ส่งรหัสยืนยัน",
+    "sendVerificationCodeAgain": "ส่งอีกครั้ง",
     "close": "ปิด",
     "deletePhone": "ลบเบอร์โทร"
   }

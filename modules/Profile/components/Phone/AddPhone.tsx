@@ -1,14 +1,14 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
-import { AxiosResponse } from 'axios'
 import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Form, Input, message } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { IMemberMobile } from '~/interfaces'
+import { IMemberMobile, IOtpRequestPayload, IOtp, IApiResponse } from '~/interfaces'
 import Loading from '~/components/main/Loading'
 import { LocaleNamespaceConst } from '~/constants'
-import { MemberService } from '~/services'
+import { MemberService, OtpService } from '~/services'
+import { OtpTypeEnum } from '~/enums'
 import styles from './ProfilePhone.module.scss'
 
 const { Title } = Typography
@@ -16,6 +16,17 @@ const { Title } = Typography
 const AddPhone: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isCheckButtonSendCode, setIsCheckButtonSendCode] = useState<boolean>(true)
+  const [isLabelButtonSendCode, setIsLabelButtonSendCode] = useState<string>(
+    t('account-info:button.sendVerificationCode')
+  )
+  const [dataMobile, setMobile] = useState<string>('')
+  const [otpData, setOtpData] = useState<IOtp>({
+    otpCode: '',
+    refCode: '',
+    reference: ''
+  })
+  const [timer, setTimer] = useState<number>(0)
 
   async function onSubmit(values: IMemberMobile): Promise<void> {
     setIsLoading(true)
@@ -38,6 +49,63 @@ const AddPhone: FC = () => {
     }
     setIsLoading(false)
   }
+
+  function onCheckMobile(event: string): void {
+    if (event.target.value.length === 10) {
+      setMobile(event.target.value)
+      setIsCheckButtonSendCode(false)
+    }
+  }
+
+  async function onRequestOtp(): Promise<void> {
+    setIsLoading(true)
+    let isSuccess: boolean = false
+    console.log(`${t('account-info:button.sendVerificationCodeAgain')}${renderTimer()}`)
+    try {
+      const payload: IOtpRequestPayload = {
+        reference: dataMobile,
+        type: OtpTypeEnum.ADD_PHONE
+      }
+      // const { data }: IApiResponse = await OtpService.requestOtp(payload)
+      // setOtpData({ ...data, otpCode: data.otpCode || '' })
+      setIsLabelButtonSendCode(
+        `${t('account-info:button.sendVerificationCodeAgain')}${renderTimer()}`
+      )
+
+      isSuccess = true
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
+  }
+
+  function renderTimer(): string {
+    if (timer) {
+      const min: number = Math.floor(timer / 60000)
+      const sec: string = ((timer % 60000) / 1000).toFixed(0)
+      return ` (${min}:${parseInt(sec) < 10 ? '0' : ''}${sec})`
+    }
+    return ''
+  }
+  useEffect(() => {
+    const countDown: any = setInterval(() => {
+      if (timer > 0) {
+        setTimer(timer - 1000)
+      }
+      if (timer === 0) {
+        clearInterval(countDown)
+      }
+    }, 1000)
+    return (): void => {
+      clearInterval(countDown)
+    }
+  }, [timer])
+
   return (
     <main className="main">
       <Loading show={isLoading} />
@@ -70,14 +138,28 @@ const AddPhone: FC = () => {
                   <Col xl={{ span: 12, offset: 6 }} md={{ span: 12, offset: 6 }}>
                     <Row>
                       <Col span={24}>
-                        <Form.Item label={t('account-info:phone.newPhone')} name="mobile">
-                          <Input maxLength={10} />
+                        <Form.Item
+                          label={t('account-info:phone.newPhone')}
+                          name="mobile"
+                          rules={[
+                            {
+                              min: 10
+                            }
+                          ]}
+                        >
+                          <Input onChange={onCheckMobile} />
                         </Form.Item>
                       </Col>
                       <Col span={24}>
                         <Form.Item>
-                          <Button htmlType="submit" className={styles.textSecondary} block>
-                            {t('account-info:button.sendVerificationCode')}
+                          <Button
+                            htmlType="submit"
+                            className={styles.textSecondary}
+                            disabled={timer === 0 && isCheckButtonSendCode}
+                            onClick={onRequestOtp}
+                            block
+                          >
+                            {isLabelButtonSendCode}
                           </Button>
                         </Form.Item>
                       </Col>

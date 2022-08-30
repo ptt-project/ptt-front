@@ -57,7 +57,6 @@ const Profile: FC<IProps> = (props: IProps) => {
         birthday: `${values.year}-${values.month}-${values.day}`,
         gender: valueGender
       }
-      console.log('payload', payload)
       await MemberService.updateMemberProfile(payload)
       isSuccess = true
     } catch (error) {
