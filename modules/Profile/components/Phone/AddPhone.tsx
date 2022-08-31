@@ -17,10 +17,8 @@ const AddPhone: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isCheckButtonSendCode, setIsCheckButtonSendCode] = useState<boolean>(true)
-  const [isLabelButtonSendCode, setIsLabelButtonSendCode] = useState<string>(
-    t('account-info:button.sendVerificationCode')
-  )
   const [dataMobile, setMobile] = useState<string>('')
+  const [otpInput, setOtpInput] = useState<string>('')
   const [otpData, setOtpData] = useState<IOtp>({
     otpCode: '',
     refCode: '',
@@ -60,7 +58,6 @@ const AddPhone: FC = () => {
   async function onRequestOtp(): Promise<void> {
     setIsLoading(true)
     let isSuccess: boolean = false
-    console.log(`${t('account-info:button.sendVerificationCodeAgain')}${renderTimer()}`)
     try {
       const payload: IOtpRequestPayload = {
         reference: dataMobile,
@@ -68,9 +65,7 @@ const AddPhone: FC = () => {
       }
       // const { data }: IApiResponse = await OtpService.requestOtp(payload)
       // setOtpData({ ...data, otpCode: data.otpCode || '' })
-      setIsLabelButtonSendCode(
-        `${t('account-info:button.sendVerificationCodeAgain')}${renderTimer()}`
-      )
+      setTimer(1.5 * 60 * 1000)
 
       isSuccess = true
     } catch (error) {
@@ -93,6 +88,7 @@ const AddPhone: FC = () => {
     return ''
   }
   useEffect(() => {
+    console.log(timer)
     const countDown: any = setInterval(() => {
       if (timer > 0) {
         setTimer(timer - 1000)
@@ -105,7 +101,6 @@ const AddPhone: FC = () => {
       clearInterval(countDown)
     }
   }, [timer])
-
   return (
     <main className="main">
       <Loading show={isLoading} />
@@ -155,11 +150,15 @@ const AddPhone: FC = () => {
                           <Button
                             htmlType="submit"
                             className={styles.textSecondary}
-                            disabled={timer === 0 && isCheckButtonSendCode}
+                            disabled={timer > 0}
                             onClick={onRequestOtp}
                             block
                           >
-                            {isLabelButtonSendCode}
+                            {!timer
+                              ? t('account-info:button.sendVerificationCode')
+                              : `${t(
+                                  'account-info:button.sendVerificationCodeAgain'
+                                )}${renderTimer()}`}
                           </Button>
                         </Form.Item>
                       </Col>
