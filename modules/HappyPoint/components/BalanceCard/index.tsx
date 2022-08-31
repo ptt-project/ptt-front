@@ -25,7 +25,7 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
           <Space align="center" size={8} direction="horizontal">
             <Image
               preview={false}
-              style={{ display: 'flex' }}
+              className={styles.happyPointIcon}
               src="./images/main/buyer/happy-point-icon.svg"
             />
             <Text className={styles.balanceValue}>{HelperDecimalFormatUtil(balance, 2)}</Text>
