@@ -117,7 +117,7 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      // await ShopService.toggleCategoryStatus(item.id.toString())
+      await ShopService.toggleCategoryStatus(item.id.toString())
       isSuccess = true
       fetchData()
     } catch (error) {

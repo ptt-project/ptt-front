@@ -99,6 +99,7 @@ export const withAuth =
     return gsspProps
   }
 
+// HOC
 export const withSellerAuth =
   (gssp: GetServerSideProps) =>
   async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<any>> => {
