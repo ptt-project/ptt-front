@@ -3,16 +3,18 @@ import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import { isEmpty } from 'lodash'
 import numeral from 'numeral'
-import { Typography, Row, Col, Button, Table, Switch, Space, Input, Modal } from 'antd'
+import { Typography, Row, Col, Button, Table, Switch, Space, Input, Modal, message } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import SettingSidebar from '~/components/main/SettingSidebar'
+import Loading from '~/components/main/Loading'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import EmptyTableData from '../EmptyTableData'
 import AddCategoryModal from '../AddCategoryModal'
-import { IProductData, IShopCategory } from '~/interfaces'
+import { IProductData, IShopCategory, IShopUpdateCategoryPayload } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { ShopCategoryStatusEnum } from '~/enums'
+import { ShopService } from '~/services'
 import styles from './EditCategory.module.scss'
 
 const { Text, Title } = Typography
@@ -101,10 +103,15 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       )
     }
   ]
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isOpenAdd, setIsOpenAdd] = useState<boolean>(false)
   const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false)
   const [isOpenRemove, setIsOpenRemove] = useState<boolean>(false)
   const [isOpenMultiRemove, setIsOpenMultiRemove] = useState<boolean>(false)
+  const [currentCategoryName, setCurrentCategoryName] = useState<string>(props.category.name)
+  const [currentCategoryStatus, setCurrentCategoryStatus] = useState<ShopCategoryStatusEnum>(
+    props.category.status
+  )
   const [categoryName, setCategoryName] = useState<string>(props.category.name)
   const [selection, setSelection] = useState<IProductData[]>([])
   const multiRemoveText: any = t('seller.category:edit.multiRemove')
@@ -132,8 +139,27 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
     setCategoryName(e.target.value)
   }
 
-  function onChangeSwitch(checked: boolean): void {
-    console.log(checked)
+  async function onChangeSwitch(checked: boolean): Promise<void> {
+    setIsLoading(true)
+    let isSuccess: boolean = false
+    try {
+      const status: ShopCategoryStatusEnum = checked
+        ? ShopCategoryStatusEnum.ACTIVE
+        : ShopCategoryStatusEnum.INACTIVE
+      await ShopService.changeCategoryStatus(props.category.id.toString(), status)
+      isSuccess = true
+      setCurrentCategoryStatus(
+        checked ? ShopCategoryStatusEnum.ACTIVE : ShopCategoryStatusEnum.INACTIVE
+      )
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
   function onChangeSelectRow(selectedRowKeys: Key[], selectedRows: IProductData[]): void {
@@ -150,9 +176,24 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
     toggleAdd()
   }
 
-  function onConfirmEdit(): void {
-    console.log(categoryName)
-    toggleEdit()
+  async function onConfirmEdit(): Promise<void> {
+    setIsLoading(true)
+    let isSuccess: boolean = false
+    try {
+      const payload: IShopUpdateCategoryPayload = { name: categoryName, productIds: [] }
+      await ShopService.updateCategory(props.category.id.toString(), payload)
+      isSuccess = true
+      toggleEdit()
+      setCurrentCategoryName(categoryName)
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
   function onConfirmRemove(): void {
@@ -179,9 +220,10 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
             title: t('setting-sidebar:seller.shop.category'),
             href: '/seller/settings/shop/category'
           },
-          { title: props.category.name }
+          { title: currentCategoryName }
         ]}
       />
+      <Loading show={isLoading} />
       <AddCategoryModal isOpen={isOpenAdd} toggle={toggleAdd} onSubmit={onConfirmAdd} />
       <Modal
         title={
@@ -238,7 +280,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                 <Col span={18}>
                   <Space align="center">
                     <Title className={styles.title} level={4}>
-                      {props.category.name}
+                      {currentCategoryName}
                     </Title>
                     <Text className={styles.edit} onClick={toggleEdit}>
                       <i className="fa fa-pen" />
@@ -258,7 +300,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                 <Col className="text-right" span={6}>
                   <Switch
                     className="hps-switch"
-                    defaultChecked={props.category.status === ShopCategoryStatusEnum.ACTIVE}
+                    defaultChecked={currentCategoryStatus === ShopCategoryStatusEnum.ACTIVE}
                     onChange={onChangeSwitch}
                   />
                 </Col>

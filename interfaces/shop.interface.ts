@@ -4,6 +4,11 @@ export interface IShopAddCategoryPayload {
   name: string
 }
 
+export interface IShopUpdateCategoryPayload {
+  name: string
+  productIds: number[]
+}
+
 export interface IShopCategory {
   id: number
   createdAt: Date
