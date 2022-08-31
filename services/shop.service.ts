@@ -3,6 +3,7 @@ import { AxiosService } from './axios.service'
 import { IApiResponse } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
 import { IShopAddCategoryPayload, IShopUpdateCategoryPayload } from '~/interfaces/shop.interface'
+import { ShopCategoryStatusEnum } from '~/enums'
 
 export const getCategories = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
   AxiosService.get(EndPointUrlConst.SHOP.CATEGORIES, option)
@@ -25,5 +26,8 @@ export const updateCategory = (
 export const deleteCategotry = (categoryId: string): Promise<IApiResponse> =>
   AxiosService.delete(`${EndPointUrlConst.SHOP.CATEGORIES}/${categoryId}`)
 
-export const toggleCategoryStatus = (categoryId: string): Promise<IApiResponse> =>
-  AxiosService.patch(`${EndPointUrlConst.SHOP.CATEGORIES}/${categoryId}/status`)
+export const changeCategoryStatus = (
+  categoryId: string,
+  status: ShopCategoryStatusEnum
+): Promise<IApiResponse> =>
+  AxiosService.patch(`${EndPointUrlConst.SHOP.CATEGORIES}/${categoryId}/status`, { status })

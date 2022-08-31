@@ -143,7 +143,10 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      await ShopService.toggleCategoryStatus(props.category.id.toString())
+      const status: ShopCategoryStatusEnum = checked
+        ? ShopCategoryStatusEnum.ACTIVE
+        : ShopCategoryStatusEnum.INACTIVE
+      await ShopService.changeCategoryStatus(props.category.id.toString(), status)
       isSuccess = true
       setCurrentCategoryStatus(
         checked ? ShopCategoryStatusEnum.ACTIVE : ShopCategoryStatusEnum.INACTIVE
