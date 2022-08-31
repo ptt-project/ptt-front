@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { Col, Row, Select } from 'antd'
 import Table, { ColumnsType, TablePaginationConfig } from 'antd/lib/table'
 import { DefaultOptionType } from 'antd/lib/select'
@@ -26,78 +26,86 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
 
   // const totalData: number = data.length
 
-  const relationLevelOptions: DefaultOptionType[] = [
-    {
-      label: t('relation:relationLevel.one'),
-      value: RelationLevelEnum.CHILD
+  const getRelationLevelLabel: (relationLevel: RelationLevelEnum) => string = useCallback(
+    (relationLevel: RelationLevelEnum): string => {
+      switch (relationLevel) {
+        case RelationLevelEnum.CHILD:
+          return t('relation:relationLevel.one')
+        case RelationLevelEnum.GRANDCHILD:
+          return t('relation:relationLevel.two')
+        case RelationLevelEnum.GREAT_GRANDSON:
+          return t('relation:relationLevel.three')
+        default:
+          return ''
+      }
     },
-    {
-      label: t('relation:relationLevel.two'),
-      value: RelationLevelEnum.GRANDCHILD
-    },
-    {
-      label: t('relation:relationLevel.three'),
-      value: RelationLevelEnum.GREAT_GRANDSON
-    }
-  ]
-
-  function getRelationLevelLabel(relationLevel: RelationLevelEnum): string {
-    switch (relationLevel) {
-      case RelationLevelEnum.CHILD:
-        return t('relation:relationLevel.one')
-      case RelationLevelEnum.GRANDCHILD:
-        return t('relation:relationLevel.two')
-      case RelationLevelEnum.GREAT_GRANDSON:
-        return t('relation:relationLevel.three')
-      default:
-        return ''
-    }
-  }
-
-  const customData: IRelationTableData[] = data.map((d: IRelationTableData): IRelationTableData => {
-    const { relationLevel } = d
-    const relationLevelLabel: string = getRelationLevelLabel(relationLevel)
-    return { ...d, relationLevelLabel }
-  })
-
-  const countDataByRelationLevel: ICountDataByRelationLevel = data.reduce(
-    (acc: ICountDataByRelationLevel, cur: IRelationTableData) => {
-      const { relationLevel } = cur
-      acc[relationLevel] += 1
-      return acc
-    },
-    {
-      [RelationLevelEnum.CHILD]: 0,
-      [RelationLevelEnum.GRANDCHILD]: 0,
-      [RelationLevelEnum.GREAT_GRANDSON]: 0
-    }
+    [t]
   )
 
-  const columns: ColumnsType<IRelationTableData> = [
-    {
-      title: t('relation:table.username'),
-      dataIndex: 'username',
-      key: 'username',
-      sorter: true,
-      showSorterTooltip: false
-    },
-    {
-      title: t('relation:table.relationLevel'),
-      dataIndex: 'relationLevelLabel',
-      key: 'relationLevelLabel',
-      sorter: true,
-      showSorterTooltip: false
-    },
-    {
-      title: t('relation:table.commission'),
-      dataIndex: 'commission',
-      key: 'commission',
-      align: 'right',
-      sorter: true,
-      showSorterTooltip: false,
-      render: (value: number) => HelperDecimalFormatUtil(value, 2)
-    }
-  ]
+  const relationLevelOptions: DefaultOptionType[] = useMemo(
+    () => [
+      {
+        label: t('relation:relationLevel.one'),
+        value: RelationLevelEnum.CHILD
+      },
+      {
+        label: t('relation:relationLevel.two'),
+        value: RelationLevelEnum.GRANDCHILD
+      },
+      {
+        label: t('relation:relationLevel.three'),
+        value: RelationLevelEnum.GREAT_GRANDSON
+      }
+    ],
+    [t]
+  )
+
+  const countDataByRelationLevel: ICountDataByRelationLevel = useMemo(
+    () =>
+      data.reduce(
+        (acc: ICountDataByRelationLevel, cur: IRelationTableData) => {
+          const { level } = cur
+          acc[level] += 1
+          return acc
+        },
+        {
+          [RelationLevelEnum.CHILD]: 0,
+          [RelationLevelEnum.GRANDCHILD]: 0,
+          [RelationLevelEnum.GREAT_GRANDSON]: 0
+        }
+      ),
+    [data]
+  )
+
+  const columns: ColumnsType<IRelationTableData> = useMemo(
+    () => [
+      {
+        title: t('relation:table.username'),
+        dataIndex: 'username',
+        key: 'username',
+        sorter: true,
+        showSorterTooltip: false
+      },
+      {
+        title: t('relation:table.relationLevel'),
+        dataIndex: 'level',
+        key: 'level',
+        sorter: true,
+        showSorterTooltip: false,
+        render: (level: RelationLevelEnum) => getRelationLevelLabel(level)
+      },
+      {
+        title: t('relation:table.commission'),
+        dataIndex: 'commission',
+        key: 'commission',
+        align: 'right',
+        sorter: true,
+        showSorterTooltip: false,
+        render: (value: number) => HelperDecimalFormatUtil(value, 2)
+      }
+    ],
+    [getRelationLevelLabel, t]
+  )
 
   function onChange(
     pagination: TablePaginationConfig,
@@ -145,7 +153,7 @@ const RelationTable: React.FC<IRelationTableProps> = (props: IRelationTableProps
         className={`${styles.relationTable} ${styles.relationTableSm} hps-table hps-scroll`}
         rowKey="username"
         columns={columns}
-        dataSource={customData}
+        dataSource={data}
         onChange={onChange}
         pagination={false}
         scroll={{ x: true }}
