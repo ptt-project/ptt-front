@@ -37,7 +37,7 @@ const SellerMyProduct: FC = () => {
             <Col xl={6}>
               <SettingSidebar sidebarType="seller" />
             </Col>
-            <Col xl={18} lg={24}>
+            <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 2 }} md={24}>
               <Row className="mb-3" align="middle">
                 <Col xs={20}>
                   <Title className={`${styles.h4} ${styles.textSecondary}`} level={4}>
@@ -52,7 +52,7 @@ const SellerMyProduct: FC = () => {
                 </Col>
                 <Col xs={4}>
                   <div className={styles.addNewProduct}>
-                    <Link href={CustomUrlUtil('/seller/settings/product/add-list', router.locale)}>
+                    <Link href={CustomUrlUtil('/seller/settings/product/add', router.locale)}>
                       <Button type="primary">
                         <i className="fas fa-plus mr-1" />
                         {t('seller.product:list.addNewProduct')}

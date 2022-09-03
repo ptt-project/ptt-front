@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import SellerMyProductsForm from '~/modules/SellerMyProducts/components/SellerMyProductsForm'
+import SellerAddProduct from '~/modules/SellerProduct/components/ProductForm'
 import { LocaleNamespaceConst } from '~/constants'
 
 export async function getStaticProps(
@@ -13,6 +13,6 @@ export async function getStaticProps(
     }
   }
 }
-const SellerMyProductsAddPage: FC = () => <SellerMyProductsForm />
+const SellerAddProductPage: FC = () => <SellerAddProduct />
 
-export default SellerMyProductsAddPage
+export default SellerAddProductPage

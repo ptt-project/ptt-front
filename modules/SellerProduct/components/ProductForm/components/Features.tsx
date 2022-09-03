@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { Typography, Radio, Col, Form, Input, Row, Select } from 'antd'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
+import styles from '../ProductForm.module.scss'
 
 const { Text } = Typography
 
@@ -19,8 +20,8 @@ const Features: React.FC<IFormProductFeaturesProps> = () => {
   return (
     <>
       <HighlightLabel title={t('seller.product:form.features.title')} />
-      <Row gutter={[16, 8]}>
-        <Col md={12}>
+      <Row gutter={16}>
+        <Col md={12} xs={24}>
           <Form.Item
             label={t('seller.product:form.features.brand')}
             name="brand"
@@ -31,30 +32,24 @@ const Features: React.FC<IFormProductFeaturesProps> = () => {
             </Select>
           </Form.Item>
         </Col>
-        <Col md={12}>
+        <Col md={12} xs={24}>
           <Form.Item
             label={t('seller.product:form.features.weight')}
             name="weight"
-            rules={[
-              {
-                required: true
-              }
-            ]}
+            rules={[{ required: true }]}
           >
             <Input suffix={<Text type="secondary">{t('seller.product:form.features.kg')}</Text>} />
           </Form.Item>
         </Col>
-        <Col md={12}>
+        <Col md={12} xs={24}>
           <Form.Item label={t('seller.product:form.features.shelfLife')} name="shelfLife">
             <Input suffix={<Text type="secondary">{t('seller.product:form.features.day')}</Text>} />
           </Form.Item>
         </Col>
-        <Col md={12}>
+        <Col md={12} xs={24}>
           <Form.Item label={t('seller.product:form.features.condition')} name="condition">
-            <Radio.Group>
-              <Radio value={1} className="mr-5">
-                {t('seller.product:form.features.old')}
-              </Radio>
+            <Radio.Group className={styles.radio}>
+              <Radio value={1}>{t('seller.product:form.features.old')}</Radio>
               <Radio value={2}>{t('seller.product:form.features.new')}</Radio>
             </Radio.Group>
           </Form.Item>
