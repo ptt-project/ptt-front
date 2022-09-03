@@ -17,7 +17,6 @@ const AddPhone: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isCheckButtonSendCode, setIsCheckButtonSendCode] = useState<boolean>(true)
   const [dataMobile, setMobile] = useState<string>('')
-  const [otpInput, setOtpInput] = useState<string>('')
   const [otpData, setOtpData] = useState<IOtp>({
     otpCode: '',
     refCode: '',
