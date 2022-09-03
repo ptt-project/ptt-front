@@ -15,6 +15,7 @@ interface IFormProductFeaturesProps {
 }
 const Features: React.FC<IFormProductFeaturesProps> = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
+
   return (
     <>
       <HighlightLabel title={t('seller.product:form.features.title')} />

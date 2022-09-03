@@ -14,11 +14,14 @@ interface IFormProductFeaturesProps {
   onHintClick?: () => void
   disabled?: boolean
 }
+
 const Delivery: React.FC<IFormProductFeaturesProps> = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
-  const onChange = (checked: boolean): void => {
+
+  function onChange(checked: boolean): void {
     console.log(`switch to ${checked}`)
   }
+
   return (
     <>
       <HighlightLabel title={t('seller.product:form.delivery.title')} />

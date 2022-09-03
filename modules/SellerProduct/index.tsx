@@ -6,17 +6,18 @@ import Helmet from 'react-helmet'
 import { Typography, Row, Col, Button, Progress } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import SellerMyProductsFilters from './components/SellerMyProductsFilters'
-import SellerMyProductsTabs from './components/SellerMyProductsTabs'
+import ProductFilters from './components/ProductFilters'
+import ProductTabs from './components/ProductTabs'
 import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './SellerMyProducts.module.scss'
+import styles from './SellerProduct.module.scss'
 
 const { Text, Title } = Typography
 
 const SellerMyProduct: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const router: NextRouter = useRouter()
+
   return (
     <main className="main">
       <Helmet>
@@ -60,8 +61,8 @@ const SellerMyProduct: FC = () => {
                   </div>
                 </Col>
               </Row>
-              <SellerMyProductsFilters />
-              <SellerMyProductsTabs />
+              <ProductFilters />
+              <ProductTabs />
             </Col>
           </Row>
         </div>

@@ -13,8 +13,10 @@ interface IFormProductFeaturesProps {
   onHintClick?: () => void
   disabled?: boolean
 }
+
 const Other: React.FC<IFormProductFeaturesProps> = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
+
   return (
     <>
       <HighlightLabel title={t('seller.product:form.other.title')} />

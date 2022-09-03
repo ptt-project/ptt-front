@@ -2,24 +2,24 @@ import React, { FC } from 'react'
 import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AxiosRequestConfig } from 'axios'
-import EditCategory from '~/modules/SellerCategory/components/EditCategory'
+import SellerEditCategory from '~/modules/SellerCategory/components/EditCategory'
 import { IApiResponse, IShopCategory } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
-import { withSellerAuth } from '~/utils/main'
 import { ShopService } from '~/services'
+import { withSellerAuth } from '../../../../../hocs/with-seller'
 
-interface IEditCategoryContext {
+interface ISellerEditCategoryContext {
   params: {
     categoryId: string
   }
 }
 
-interface IEditCategoryPageProps {
+interface ISellerEditCategoryPageProps {
   category: IShopCategory
 }
 
 export const getServerSideProps: any = withSellerAuth(
-  async (context: GetServerSidePropsContext & IEditCategoryContext) => {
+  async (context: GetServerSidePropsContext & ISellerEditCategoryContext) => {
     let category: IShopCategory
     const { req, params } = context
 
@@ -47,8 +47,8 @@ export const getServerSideProps: any = withSellerAuth(
   }
 )
 
-const EditCategoryPage: FC<IEditCategoryPageProps> = (props: IEditCategoryPageProps) => (
-  <EditCategory category={props.category} />
-)
+const SellerEditCategoryPage: FC<ISellerEditCategoryPageProps> = (
+  props: ISellerEditCategoryPageProps
+) => <SellerEditCategory category={props.category} />
 
-export default EditCategoryPage
+export default SellerEditCategoryPage

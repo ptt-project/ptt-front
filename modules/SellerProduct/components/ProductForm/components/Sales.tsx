@@ -26,6 +26,7 @@ interface IFormProductSalesProps {
   onHintClick?: () => void
   disabled?: boolean
 }
+
 const Sales: React.FC<IFormProductSalesProps> = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [isCheckUseOptions, setIsCheckUseOptions] = useState<boolean>(false)
@@ -61,7 +62,8 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
       dataIndex: 'warehouse'
     }
   ]
-  const onChangeUseOptions = (checked: boolean): void => {
+
+  function onChangeUseOptions(checked: boolean): void {
     setIsCheckUseOptions(checked)
   }
 

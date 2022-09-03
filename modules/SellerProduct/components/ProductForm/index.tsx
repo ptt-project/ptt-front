@@ -10,20 +10,22 @@ import Sales from './components/Sales'
 import Other from './components/Other'
 import Delivery from './components/Delivery'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './SellerMyProductsForm.module.scss'
+import styles from './ProductForm.module.scss'
 
 const { Text } = Typography
 
 interface IFormModel {
   isSeller?: boolean
 }
-const SellerMyProductsForm: FC = () => {
+
+const ProductForm: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [form] = Form.useForm()
 
   function onSubmit(values: IFormModel): void {
     console.log(values)
   }
+
   return (
     <main className="main">
       <Helmet>
@@ -82,4 +84,4 @@ const SellerMyProductsForm: FC = () => {
   )
 }
 
-export default SellerMyProductsForm
+export default ProductForm
