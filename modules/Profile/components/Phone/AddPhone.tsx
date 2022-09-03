@@ -11,8 +11,7 @@ import { MemberService, OtpService } from '~/services'
 import { OtpTypeEnum } from '~/enums'
 import styles from './ProfilePhone.module.scss'
 
-const { Title } = Typography
-
+const { Text, Title } = Typography
 const AddPhone: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -25,6 +24,7 @@ const AddPhone: FC = () => {
     reference: ''
   })
   const [timer, setTimer] = useState<number>(0)
+  const [msgSendOTP, setMsgSendOTP] = useState<string>('')
 
   async function onSubmit(values: IMemberMobile): Promise<void> {
     setIsLoading(true)
@@ -35,8 +35,8 @@ const AddPhone: FC = () => {
         otpCode: values.otpCode,
         refCode: ''
       }
-      // const result: AxiosResponse = await MemberService.createMobile(payload)
-      // console.log(result)
+      const { data }: IApiResponse = await MemberService.createMobile(payload)
+      console.log(data)
     } catch (error) {
       console.log(error)
     }
@@ -63,10 +63,11 @@ const AddPhone: FC = () => {
         reference: dataMobile,
         type: OtpTypeEnum.ADD_PHONE
       }
-      // const { data }: IApiResponse = await OtpService.requestOtp(payload)
-      // setOtpData({ ...data, otpCode: data.otpCode || '' })
+      const { data }: IApiResponse = await OtpService.requestOtp(payload)
+      setOtpData({ ...data, otpCode: data.otpCode || '' })
+      console.log(data.otpCode)
       setTimer(1.5 * 60 * 1000)
-
+      setMsgSendOTP(`${t('account-info:phone.msgConfirm')} ${dataMobile}`)
       isSuccess = true
     } catch (error) {
       console.log(error)
@@ -88,7 +89,6 @@ const AddPhone: FC = () => {
     return ''
   }
   useEffect(() => {
-    console.log(timer)
     const countDown: any = setInterval(() => {
       if (timer > 0) {
         setTimer(timer - 1000)
@@ -150,7 +150,7 @@ const AddPhone: FC = () => {
                           <Button
                             htmlType="submit"
                             className={styles.textSecondary}
-                            disabled={timer > 0}
+                            disabled={timer > 0 || isCheckButtonSendCode}
                             onClick={onRequestOtp}
                             block
                           >
@@ -162,8 +162,22 @@ const AddPhone: FC = () => {
                           </Button>
                         </Form.Item>
                       </Col>
+                      <Col span={24} className="mb-2">
+                        <Text type="secondary">{msgSendOTP}</Text>
+                      </Col>
                       <Col span={24}>
-                        <Form.Item label={t('account-info:phone.otp')} name="otpCode">
+                        <div className={styles.label}>
+                          <div className={styles.left}>
+                            <Text className={styles.required}>*</Text>
+                            <Text>{t('account-info:phone.otp')}</Text>
+                          </div>
+                          <div className={styles.right}>
+                            <Text type="secondary">
+                              {otpData.refCode ? `${t('otp-modal:ref')} ${otpData.refCode}` : ''}
+                            </Text>
+                          </div>
+                        </div>
+                        <Form.Item name="otpCode">
                           <Input maxLength={10} />
                         </Form.Item>
                       </Col>
