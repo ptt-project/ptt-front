@@ -33,7 +33,7 @@ const AddPhone: FC = () => {
       const payload: IMemberMobile = {
         mobile: values.mobile,
         otpCode: values.otpCode,
-        refCode: ''
+        refCode: otpData.refCode
       }
       const { data }: IApiResponse = await MemberService.createMobile(payload)
       console.log(data)

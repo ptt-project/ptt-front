@@ -12,7 +12,7 @@ export const EndPointUrlConst = {
     PROFILE: '/members/profile',
     ADDRESSES: '/members/addresses',
     EMAIL: '/members/edit-email',
-    MOBILES: '/members/mobiles',
+    MOBILES: '/members/mobiles/add',
     CHANGE_PASSWORD: '/members/change-password'
   },
   SELLER: {
