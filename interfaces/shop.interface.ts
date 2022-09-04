@@ -22,6 +22,35 @@ export interface IShopCategory {
   priority: number
 }
 
+export interface IShopProductPayload {
+  name: string
+  detail: string
+  platformCategoryId: number
+  brandId?: number
+  weight: number
+  exp?: number
+  condition?: string
+  isSendLated?: boolean
+  extraDay?: number
+  videoLink?: string
+  imageIds?: string[]
+  width: number
+  length: number
+  height: number
+  isMultipleOptions: boolean
+  price: number
+  stock: number
+  sku?: string
+  productOptions: { name: string; options: string[] }
+  products: {
+    option1: string
+    option2: string
+    price: number
+    stock: number
+    sku?: string
+  }
+}
+
 export interface IShopProduct {
   id: number
   createdAt: Date

@@ -1,24 +1,17 @@
 import { useTranslation } from 'next-i18next'
 import { PlusOutlined } from '@ant-design/icons'
 import { Modal, Upload, Col, Form, Input, Row, Select } from 'antd'
-import type { RcFile, UploadProps } from 'antd/es/upload'
-import type { UploadFile } from 'antd/es/upload/interface'
+import { RcFile, UploadProps } from 'antd/es/upload'
+import { UploadFile } from 'antd/es/upload/interface'
 import { UploadChangeParam } from 'antd/lib/upload'
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from '../ProductForm.module.scss'
 
 const { TextArea } = Input
 
-interface IFormProductInfoProps {
-  label?: string
-  value?: boolean
-  onChange?: (value: boolean) => void
-  onHintClick?: () => void
-  disabled?: boolean
-}
-const Info: React.FC<IFormProductInfoProps> = () => {
+const Info: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [previewVisible, setPreviewVisible] = useState<boolean>(false)
   const [previewImage, setPreviewImage] = useState<string>('')
@@ -149,13 +142,6 @@ const Info: React.FC<IFormProductInfoProps> = () => {
       </Row>
     </>
   )
-}
-
-Info.defaultProps = {
-  value: false,
-  onChange: undefined,
-  onHintClick: undefined,
-  disabled: false
 }
 
 export default Info
