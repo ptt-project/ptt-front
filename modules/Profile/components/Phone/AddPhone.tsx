@@ -156,7 +156,7 @@ const AddPhone: FC = () => {
                             }
                           ]}
                         >
-                          <Input onChange={onCheckMobile} />
+                          <Input onChange={onCheckMobile} maxLength={10} />
                         </Form.Item>
                       </Col>
                       <Col span={24}>
