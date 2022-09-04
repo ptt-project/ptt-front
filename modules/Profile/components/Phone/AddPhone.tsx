@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, ChangeEvent } from 'react'
 import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Form, Input, message } from 'antd'
@@ -6,7 +6,7 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { IMemberMobile, IOtpRequestPayload, IOtp, IApiResponse } from '~/interfaces'
 import Loading from '~/components/main/Loading'
-import { LocaleNamespaceConst } from '~/constants'
+import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { MemberService, OtpService } from '~/services'
 import { OtpTypeEnum } from '~/enums'
 import styles from './ProfilePhone.module.scss'
@@ -24,14 +24,15 @@ const AddPhone: FC = () => {
   })
   const [timer, setTimer] = useState<number>(0)
   const [msgSendOTP, setMsgSendOTP] = useState<string>('')
+  const [otpInput, setOtpInput] = useState<string>('')
 
-  async function onSubmit(values: IMemberMobile): Promise<void> {
+  async function onSubmit(): Promise<void> {
     setIsLoading(true)
     const isSuccess: boolean = false
     try {
       const payload: IMemberMobile = {
-        mobile: values.mobile,
-        otpCode: values.otpCode,
+        mobile: dataMobile,
+        otpCode: otpInput,
         refCode: otpData.refCode
       }
       const { data }: IApiResponse = await MemberService.createMobile(payload)
@@ -47,7 +48,7 @@ const AddPhone: FC = () => {
     setIsLoading(false)
   }
 
-  function onCheckMobile(event: string): void {
+  function onCheckMobile(event: ChangeEvent<HTMLInputElement>): void {
     if (event.target.value.length === 10) {
       setMobile(event.target.value)
       setIsCheckButtonSendCode(false)
@@ -87,6 +88,15 @@ const AddPhone: FC = () => {
     }
     return ''
   }
+
+  function onChangeOtp(e: ChangeEvent<HTMLInputElement>): void {
+    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+      setOtpInput(e.target.value)
+    } else {
+      setOtpInput(e.target.value.replace(RegExpConst.ALLOW_NUMBER, ''))
+    }
+  }
+
   useEffect(() => {
     const countDown: any = setInterval(() => {
       if (timer > 0) {
@@ -127,7 +137,7 @@ const AddPhone: FC = () => {
               <Title className="hps-title" level={4}>
                 {t('account-info:phone.titleAdd')}
               </Title>
-              <Form layout="vertical" onFinish={onSubmit}>
+              <Form layout="vertical">
                 <Row>
                   <Col xl={{ span: 12, offset: 6 }} md={{ span: 12, offset: 6 }}>
                     <Row>
@@ -177,12 +187,17 @@ const AddPhone: FC = () => {
                           </div>
                         </div>
                         <Form.Item name="otpCode">
-                          <Input maxLength={10} />
+                          <Input maxLength={6} onChange={onChangeOtp} value={otpInput} />
                         </Form.Item>
                       </Col>
                       <Col span={24}>
                         <Form.Item>
-                          <Button type="primary" block>
+                          <Button
+                            type="primary"
+                            block
+                            onClick={onSubmit}
+                            disabled={otpInput.length !== 6}
+                          >
                             {t('account-info:button.addPhone')}
                           </Button>
                         </Form.Item>
