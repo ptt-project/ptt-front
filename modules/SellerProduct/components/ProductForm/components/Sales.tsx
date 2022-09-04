@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Typography, Switch, Col, Form, Input, Row, Button, Table, Space } from 'antd'
-import type { ColumnsType } from 'antd/es/table'
+import { ColumnsType } from 'antd/es/table'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from '../ProductForm.module.scss'
@@ -17,17 +17,10 @@ interface IDataType {
   price: string
   warehouse: string
 }
+
 const data: IDataType[] = []
 
-interface IFormProductSalesProps {
-  label?: string
-  value?: boolean
-  onChange?: (value: boolean) => void
-  onHintClick?: () => void
-  disabled?: boolean
-}
-
-const Sales: React.FC<IFormProductSalesProps> = () => {
+const Sales: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [isCheckUseOptions, setIsCheckUseOptions] = useState<boolean>(false)
   const [isFormProductOptions, setIsFormProductOptions] = useState<boolean>(false)
@@ -67,16 +60,10 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
     setIsCheckUseOptions(checked)
   }
 
-  /* const handleProductChange = (e: ChangeEvent<HTMLInputElement>, index: number): void => {
-    const { name, value } = e.target
-    const list: object[] = [...productList]
-    list[index][name] = value
-    setProductList(list)
-  } */
-
   function handleProductRemove(index: number, type: string, list: object[]): void {
     const tmpList: object[] = [...list]
     tmpList.splice(index, 1)
+
     if (type === 'choice1') {
       setProductList(tmpList)
       const countAddButton: number = countProductList - 1
@@ -84,6 +71,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
 
       const calLimitProduct2: number = Math.floor(50 / countAddButton)
       setCalProduct2Options(calLimitProduct2)
+
       if (calProductOptions >= countAddButton) {
         setIsCheckButtonProductOptions(true)
       }
@@ -96,6 +84,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
       setCountProduct2List(countAdd2Button)
       const calLimitProduct: number = Math.floor(50 / countAdd2Button)
       setCalProductOptions(calLimitProduct)
+
       if (calProduct2Options >= countAdd2Button) {
         setIsCheckButtonProduct2Options(true)
       }
@@ -112,6 +101,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
       setCountProductList(countAddButton)
       const calLimitProduct2: number = Math.floor(50 / countAddButton)
       setCalProduct2Options(calLimitProduct2)
+
       if (
         (countAddButton === 50 && countProduct2List === 1) ||
         countAddButton === calProductOptions
@@ -125,6 +115,7 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
       setCountProduct2List(countAdd2Button)
       const calLimitProduct: number = Math.floor(50 / countAdd2Button)
       setCalProductOptions(calLimitProduct)
+
       if (countAdd2Button === calProduct2Options) {
         setIsCheckButtonProduct2Options(false)
         setIsCheckButtonProductOptions(false)
@@ -344,13 +335,6 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
       )}
     </>
   )
-}
-
-Sales.defaultProps = {
-  value: false,
-  onChange: undefined,
-  onHintClick: undefined,
-  disabled: false
 }
 
 export default Sales
