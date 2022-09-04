@@ -146,25 +146,41 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
             <Form.Item
               label={t('seller.product:form.sales.price')}
               name="price"
-              rules={[{ required: true }]}
+              rules={[
+                {
+                  required: true,
+                  message: `${t('common:form.required')} ${t('seller.product:form.sales.price')}`
+                }
+              ]}
             >
               <Input suffix={<Text type="secondary">{t('seller.product:form.sales.baht')}</Text>} />
             </Form.Item>
           </Col>
           <Col md={12} xs={24}>
-            <Form.Item label={t('seller.product:form.sales.warehouse')} name="warehouse">
+            <Form.Item
+              label={t('seller.product:form.sales.warehouse')}
+              name="stock"
+              rules={[
+                {
+                  required: true,
+                  message: `${t('common:form.required')} ${t(
+                    'seller.product:form.sales.warehouse'
+                  )}`
+                }
+              ]}
+            >
               <Input />
             </Form.Item>
           </Col>
           <Col md={12} xs={24}>
             <Form.Item
               label={
-                <Text>
-                  {t('seller.product:form.sales.sku')}
-                  <Text className="ml-1" type="secondary">
+                <Space>
+                  <Text>{t('seller.product:form.sales.sku')}</Text>
+                  <Text className="hps-text-small" type="secondary">
                     {t('seller.product:form.sales.msgSku')}
                   </Text>
-                </Text>
+                </Space>
               }
               name="sku"
             >
@@ -187,8 +203,15 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
           <Form.Item
             className="mt-3"
             label={t('seller.product:form.sales.optionsForm.name')}
-            name="saleName"
-            rules={[{ required: true }]}
+            name="optionLabelOne"
+            rules={[
+              {
+                required: true,
+                message: `${t('common:form.required')} ${t(
+                  'seller.product:form.sales.optionsForm.name'
+                )}`
+              }
+            ]}
           >
             <TextArea rows={1} showCount maxLength={20} />
           </Form.Item>
@@ -199,8 +222,15 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
               <Col span={24}>
                 <Form.Item
                   label={t('seller.product:form.sales.optionsForm.choice')}
-                  name="product"
-                  rules={[{ required: true }]}
+                  name={`optionValueOne_${index}`}
+                  rules={[
+                    {
+                      required: true,
+                      message: `${t('common:form.required')} ${t(
+                        'seller.product:form.sales.optionsForm.choice'
+                      )}`
+                    }
+                  ]}
                 >
                   <TextArea rows={1} showCount maxLength={20} />
                 </Form.Item>
@@ -212,8 +242,8 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
               <Col span={22}>
                 <Form.Item
                   label={t('seller.product:form.sales.optionsForm.choice')}
-                  name={`productChoice_${index}`}
-                  id={`productChoice_${index}`}
+                  name={`optionValueOne_${index}`}
+                  id={`optionValueOne_${index}`}
                 >
                   <TextArea rows={1} showCount maxLength={20} />
                 </Form.Item>
@@ -266,8 +296,15 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
             <Form.Item
               className="mt-3"
               label={t('seller.product:form.sales.optionsForm.name')}
-              name="saleName"
-              rules={[{ required: true }]}
+              name="optionLabelTwo"
+              rules={[
+                {
+                  required: true,
+                  message: `${t('common:form.required')} ${t(
+                    'seller.product:form.sales.optionsForm.name'
+                  )}`
+                }
+              ]}
             >
               <TextArea rows={1} showCount maxLength={20} />
             </Form.Item>
@@ -278,8 +315,15 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
                 <Col span={24}>
                   <Form.Item
                     label={t('seller.product:form.sales.optionsForm.choice')}
-                    name="choice"
-                    rules={[{ required: true }]}
+                    name={`optionValueTwo_${index}`}
+                    rules={[
+                      {
+                        required: true,
+                        message: `${t('common:form.required')} ${t(
+                          'seller.product:form.sales.optionsForm.choice'
+                        )}`
+                      }
+                    ]}
                   >
                     <TextArea rows={1} showCount maxLength={20} />
                   </Form.Item>
@@ -291,8 +335,8 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
                 <Col span={22}>
                   <Form.Item
                     label={t('seller.product:form.sales.optionsForm.choice')}
-                    name={`product2Choice_${index}`}
-                    id={`product2Choice_${index}`}
+                    name={`optionValueTwo_${index}`}
+                    id={`optionValueTwo_${index}`}
                   >
                     <TextArea rows={1} showCount maxLength={20} />
                   </Form.Item>

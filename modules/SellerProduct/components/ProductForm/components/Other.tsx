@@ -23,15 +23,15 @@ const Other: React.FC<IFormProductFeaturesProps> = () => {
       <HighlightLabel title={t('seller.product:form.other.title')} />
       <Row gutter={16}>
         <Col md={12} xs={24}>
-          <Form.Item label={t('seller.product:form.other.prepareDeliver')} name="condition">
+          <Form.Item label={t('seller.product:form.other.prepareDeliver')} name="isSendLated">
             <Radio.Group className={styles.radio}>
               <Radio value={1}>{t('seller.product:form.other.yes')}</Radio>
-              <Radio value={2}>{t('seller.product:form.other.no')}</Radio>
+              <Radio value={0}>{t('seller.product:form.other.no')}</Radio>
             </Radio.Group>
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
-          <Form.Item label={t('seller.product:form.other.iNeedTime')} name="shelfLife">
+          <Form.Item label={t('seller.product:form.other.iNeedTime')} name="extraDay">
             <Input suffix={<Text type="secondary">{t('seller.product:form.other.day')}</Text>} />
           </Form.Item>
         </Col>
