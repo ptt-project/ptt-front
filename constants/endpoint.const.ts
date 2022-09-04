@@ -8,18 +8,18 @@ export const EndPointUrlConst = {
   OTP: {
     REQUEST: '/otp/request'
   },
-  MEMBER: {
+  MEMBERS: {
     PROFILE: '/members/profile',
     ADDRESSES: '/members/addresses',
     EMAIL: '/members/edit-email',
     MOBILES: '/members/mobiles/add',
     CHANGE_PASSWORD: '/members/change-password'
   },
-  SELLER: {
+  SELLERS: {
     REGISTER: '/sellers/register',
     SHOP_INFO: '/sellers/shop-info'
   },
-  SHOP: {
+  SHOPS: {
     CATEGORIES: '/shops/categories',
     PRODUCTS: '/shops/products'
   }

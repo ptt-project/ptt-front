@@ -1,8 +1,6 @@
 import Cookie from 'cookie'
 import JsCookie from 'js-cookie'
 import { isEmpty } from 'lodash'
-import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
-import { SellerApprovalStatusEnum } from '~/enums'
 import { IAuthLogin, IAuthToken, IAuthUserInfo } from '~/interfaces'
 
 export const AuthInitUtil = (data: IAuthLogin): void => {
@@ -71,66 +69,3 @@ export const AuthGetServerSideUserInfoUtil = (
 
   return cookies.userInfo
 }
-
-// HOC
-export const withAuth =
-  (gssp: GetServerSideProps) =>
-  async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<any>> => {
-    const { req, locale: rawLocale } = context
-    const locale: string = rawLocale === 'th' ? '' : rawLocale
-
-    if (req) {
-      const { accessToken, refreshToken }: IAuthToken = AuthGetServerSideTokenUtil(
-        req.headers.cookie
-      )
-
-      if (!accessToken || !refreshToken) {
-        return {
-          redirect: {
-            destination: `${locale}/auth/login?redirect=${req.url}`,
-            permanent: false
-          }
-        }
-      }
-    }
-
-    const gsspProps: GetServerSidePropsResult<any> = await gssp(context)
-
-    return gsspProps
-  }
-
-// HOC
-export const withSellerAuth =
-  (gssp: GetServerSideProps) =>
-  async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<any>> => {
-    const { req, locale: rawLocale } = context
-    const locale: string = rawLocale === 'th' ? '' : rawLocale
-
-    if (req) {
-      const { accessToken, refreshToken }: IAuthToken = AuthGetServerSideTokenUtil(
-        req.headers.cookie
-      )
-      if (!accessToken || !refreshToken) {
-        return {
-          redirect: {
-            destination: `${locale}/auth/login?redirect=${req.url}`,
-            permanent: false
-          }
-        }
-      }
-
-      const userInfo: IAuthUserInfo | undefined = AuthGetServerSideUserInfoUtil(req.headers.cookie)
-      if (userInfo?.approvalStatus !== SellerApprovalStatusEnum.APPROVED) {
-        // return {
-        //   redirect: {
-        //     destination: `${locale}/auth/register-seller`,
-        //     permanent: false
-        //   }
-        // }
-      }
-    }
-
-    const gsspProps: GetServerSidePropsResult<any> = await gssp(context)
-
-    return gsspProps
-  }

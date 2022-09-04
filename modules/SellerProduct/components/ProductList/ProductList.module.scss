@@ -7,14 +7,19 @@
 .textSecondary {
   color: $secondary-color !important;
 }
+
 .textGrey {
   color: $grey-color;
 }
+
 .column {
   float: left;
   padding: 0.5rem;
 }
-.row:after {
-  display: table;
-  clear: both;
+
+.row {
+  &::after {
+    display: table;
+    clear: both;
+  }
 }

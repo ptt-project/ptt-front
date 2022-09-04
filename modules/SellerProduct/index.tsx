@@ -6,17 +6,18 @@ import Helmet from 'react-helmet'
 import { Typography, Row, Col, Button, Progress } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import SellerMyProductsFilters from './components/SellerMyProductsFilters'
-import SellerMyProductsTabs from './components/SellerMyProductsTabs'
+import ProductFilters from './components/ProductFilters'
+import ProductTabs from './components/ProductTabs'
 import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './SellerMyProducts.module.scss'
+import styles from './SellerProduct.module.scss'
 
 const { Text, Title } = Typography
 
 const SellerMyProduct: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const router: NextRouter = useRouter()
+
   return (
     <main className="main">
       <Helmet>
@@ -36,7 +37,7 @@ const SellerMyProduct: FC = () => {
             <Col xl={6}>
               <SettingSidebar sidebarType="seller" />
             </Col>
-            <Col xl={18} lg={24}>
+            <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 2 }} md={24}>
               <Row className="mb-3" align="middle">
                 <Col xs={20}>
                   <Title className={`${styles.h4} ${styles.textSecondary}`} level={4}>
@@ -51,7 +52,7 @@ const SellerMyProduct: FC = () => {
                 </Col>
                 <Col xs={4}>
                   <div className={styles.addNewProduct}>
-                    <Link href={CustomUrlUtil('/seller/settings/product/add-list', router.locale)}>
+                    <Link href={CustomUrlUtil('/seller/settings/product/add', router.locale)}>
                       <Button type="primary">
                         <i className="fas fa-plus mr-1" />
                         {t('seller.product:list.addNewProduct')}
@@ -60,8 +61,8 @@ const SellerMyProduct: FC = () => {
                   </div>
                 </Col>
               </Row>
-              <SellerMyProductsFilters />
-              <SellerMyProductsTabs />
+              <ProductFilters />
+              <ProductTabs />
             </Col>
           </Row>
         </div>

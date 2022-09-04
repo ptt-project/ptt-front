@@ -10,20 +10,22 @@ import Sales from './components/Sales'
 import Other from './components/Other'
 import Delivery from './components/Delivery'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './SellerMyProductsForm.module.scss'
+import styles from './ProductForm.module.scss'
 
 const { Text } = Typography
 
 interface IFormModel {
   isSeller?: boolean
 }
-const SellerMyProductsForm: FC = () => {
+
+const ProductForm: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [form] = Form.useForm()
 
   function onSubmit(values: IFormModel): void {
     console.log(values)
   }
+
   return (
     <main className="main">
       <Helmet>
@@ -35,7 +37,7 @@ const SellerMyProductsForm: FC = () => {
         items={[
           { title: t('seller.product:list.product') },
           { title: t('seller.product:list.myProduct'), href: '/seller/settings/product/list' },
-          { title: t('seller.product:form.addTitle'), href: '/seller/settings/product/add-list' }
+          { title: t('seller.product:form.addTitle'), href: '/seller/settings/product/add' }
         ]}
       />
       <div className="page-content mb-9">
@@ -57,17 +59,17 @@ const SellerMyProductsForm: FC = () => {
                 <Delivery />
                 <Other />
                 <Row gutter={[16, 8]} className="mt-3">
-                  <Col md={8}>
+                  <Col md={{ span: 8, order: 1 }} xs={{ span: 12, order: 2 }}>
                     <Button type="text" block>
                       {t('common:cancel')}
                     </Button>
                   </Col>
-                  <Col md={8}>
+                  <Col md={{ span: 8, order: 2 }} xs={{ span: 12, order: 3 }}>
                     <Button type="text" block>
                       {t('seller.product:form.saveHide')}
                     </Button>
                   </Col>
-                  <Col md={8}>
+                  <Col md={{ span: 8, order: 3 }} xs={{ span: 24, order: 1 }}>
                     <Button htmlType="submit" type="primary" block>
                       {t('seller.product:form.savePublish')}
                     </Button>
@@ -82,4 +84,4 @@ const SellerMyProductsForm: FC = () => {
   )
 }
 
-export default SellerMyProductsForm
+export default ProductForm

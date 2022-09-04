@@ -7,7 +7,7 @@ import { UploadChangeParam } from 'antd/lib/upload'
 import React, { useState } from 'react'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from '../SellerMyProductsForm.module.scss'
+import styles from '../ProductForm.module.scss'
 
 const { TextArea } = Input
 
@@ -61,16 +61,12 @@ const Info: React.FC<IFormProductInfoProps> = () => {
   return (
     <>
       <HighlightLabel title={t('seller.product:form.info.title')} />
-      <Row gutter={[8, 8]}>
-        <Col md={24}>
+      <Row>
+        <Col span={24}>
           <Form.Item
             label={t('seller.product:form.info.productPicture')}
             name="productPicture"
-            rules={[
-              {
-                required: true
-              }
-            ]}
+            rules={[{ required: true }]}
           >
             <Upload
               maxCount={1}
@@ -116,46 +112,34 @@ const Info: React.FC<IFormProductInfoProps> = () => {
             </Modal>
           </Form.Item>
         </Col>
-        <Col md={24}>
+        <Col span={24}>
           <Form.Item label={t('seller.product:form.info.videoProduct')} name="videoProduct">
             <Input maxLength={50} showCount />
           </Form.Item>
         </Col>
-        <Col md={24}>
+        <Col span={24}>
           <Form.Item
             label={t('seller.product:form.info.productName')}
             name="productName"
-            rules={[
-              {
-                required: true
-              }
-            ]}
+            rules={[{ required: true }]}
           >
             <TextArea rows={1} showCount maxLength={120} />
           </Form.Item>
         </Col>
-        <Col md={24}>
+        <Col span={24}>
           <Form.Item
             label={t('seller.product:form.info.productDetail')}
             name="productDetail"
-            rules={[
-              {
-                required: true
-              }
-            ]}
+            rules={[{ required: true }]}
           >
             <TextArea rows={3} showCount maxLength={500} />
           </Form.Item>
         </Col>
-        <Col md={12}>
+        <Col md={12} xs={24}>
           <Form.Item
             label={t('seller.product:form.info.category')}
             name="category"
-            rules={[
-              {
-                required: true
-              }
-            ]}
+            rules={[{ required: true }]}
           >
             <Select defaultValue="">
               <Select.Option value="">Jack</Select.Option>

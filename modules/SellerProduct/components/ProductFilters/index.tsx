@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Button, Row, Col, Form, Input, Select } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './SellerMyProductsFilters.module.scss'
+import styles from './ProductFilters.module.scss'
 
 interface IFormModel {
   productName: string
@@ -10,7 +10,7 @@ interface IFormModel {
   date: string
 }
 
-const SellerMyProductFilters: FC = () => {
+const ProductFilters: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [form] = Form.useForm()
 
@@ -61,4 +61,4 @@ const SellerMyProductFilters: FC = () => {
   )
 }
 
-export default SellerMyProductFilters
+export default ProductFilters

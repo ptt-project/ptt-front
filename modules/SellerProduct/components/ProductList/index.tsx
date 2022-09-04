@@ -4,7 +4,7 @@ import { Typography, Table, Space, Image } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './List.module.scss'
+import styles from './ProductList.module.scss'
 
 const { Text } = Typography
 
@@ -41,7 +41,7 @@ for (let i: number = 0; i < 100; i++) {
   console.log('params', pagination, filters, sorter, extra)
 } */
 
-const List: FC = () => {
+const ProductList: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [isOpenDelModal, setIsOpenDelModal] = useState<boolean>(false)
   const [isContentImg, setIsContentImg] = useState<string>()
@@ -138,6 +138,7 @@ const List: FC = () => {
   function onRemove(): void {
     console.log('reomove')
   }
+
   return (
     <>
       <ConfirmationModal
@@ -162,4 +163,4 @@ const List: FC = () => {
   )
 }
 
-export default List
+export default ProductList

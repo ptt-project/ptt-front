@@ -84,7 +84,7 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
     ),
     getItem(t('setting-sidebar:seller.product.title'), 'product', <i className="fas fa-box" />, [
       getItem(t('setting-sidebar:seller.product.list'), 'list'),
-      getItem(t('setting-sidebar:seller.product.addList'), 'add-list')
+      getItem(t('setting-sidebar:seller.product.add'), 'add')
     ]),
     getItem(t('setting-sidebar:seller.marketing.title'), 'marketing', <i className="fas fa-tag" />),
     getItem(t('setting-sidebar:seller.payment.title'), 'payment', <i className="fas fa-wallet" />),
