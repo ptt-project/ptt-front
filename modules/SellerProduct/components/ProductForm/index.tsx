@@ -52,7 +52,13 @@ const ProductForm: FC = () => {
                   {t('seller.product:form.addTitle')}
                 </h4>
               </Text>
-              <Form layout="vertical" form={form} name="productForm" onFinish={onSubmit}>
+              <Form
+                layout="vertical"
+                initialValues={{ platformCategoryId: null, brandId: null, condition: 'new' }}
+                form={form}
+                name="productForm"
+                onFinish={onSubmit}
+              >
                 <Info />
                 <Features />
                 <Sales />

@@ -18,10 +18,6 @@ interface IFormProductFeaturesProps {
 const Delivery: React.FC<IFormProductFeaturesProps> = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
 
-  function onChange(checked: boolean): void {
-    console.log(`switch to ${checked}`)
-  }
-
   return (
     <>
       <HighlightLabel title={t('seller.product:form.delivery.title')} />
@@ -32,7 +28,8 @@ const Delivery: React.FC<IFormProductFeaturesProps> = () => {
             name="weight"
             rules={[
               {
-                required: true
+                required: true,
+                message: `${t('common:form.required')} ${t('seller.product:form.features.weight')}`
               }
             ]}
           >
@@ -40,19 +37,19 @@ const Delivery: React.FC<IFormProductFeaturesProps> = () => {
           </Form.Item>
         </Col>
         <Col md={4} xs={8}>
-          <Form.Item label={t('seller.product:form.delivery.size')} name="size">
+          <Form.Item label={t('seller.product:form.delivery.size')} name="width">
             <Input suffix={<Text type="secondary">{t('seller.product:form.delivery.cm')}</Text>} />
           </Form.Item>
         </Col>
         <Col md={4} xs={8}>
           <div className={styles.hiddenLabel} />
-          <Form.Item name="size">
+          <Form.Item name="length">
             <Input suffix={<Text type="secondary">{t('seller.product:form.delivery.cm')}</Text>} />
           </Form.Item>
         </Col>
         <Col md={4} xs={8}>
           <div className={styles.hiddenLabel} />
-          <Form.Item name="size">
+          <Form.Item name="height">
             <Input suffix={<Text type="secondary">{t('seller.product:form.delivery.cm')}</Text>} />
           </Form.Item>
         </Col>
@@ -70,8 +67,8 @@ const Delivery: React.FC<IFormProductFeaturesProps> = () => {
                   <Text type="secondary" className="mr-2">
                     {t('seller.product:form.delivery.msgShipping')}
                   </Text>
-                  <Form.Item className="mb-0" name="shippingCost" rules={[{ required: true }]}>
-                    <Switch className="hps-switch" onChange={onChange} defaultChecked />
+                  <Form.Item className="mb-0">
+                    <Switch className="hps-switch" checked />
                   </Form.Item>
                 </div>
               </div>
@@ -81,8 +78,8 @@ const Delivery: React.FC<IFormProductFeaturesProps> = () => {
                   <Text type="secondary" className="mr-2">
                     {t('seller.product:form.delivery.msgShipping')}
                   </Text>
-                  <Form.Item className="mb-0" name="shippingCost" rules={[{ required: true }]}>
-                    <Switch className="hps-switch" onChange={onChange} defaultChecked />
+                  <Form.Item className="mb-0">
+                    <Switch className="hps-switch" checked />
                   </Form.Item>
                 </div>
               </div>

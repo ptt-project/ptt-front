@@ -3,7 +3,7 @@ import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AxiosRequestConfig } from 'axios'
 import SellerEditCategory from '~/modules/SellerCategory/components/EditCategory'
-import { IApiResponse, IShopCategory } from '~/interfaces'
+import { IApiResponse, ICategory } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { ShopService } from '~/services'
 import { withSellerAuth } from '../../../../../hocs/with-seller'
@@ -15,12 +15,12 @@ interface ISellerEditCategoryContext {
 }
 
 interface ISellerEditCategoryPageProps {
-  category: IShopCategory
+  category: ICategory
 }
 
 export const getServerSideProps: any = withSellerAuth(
   async (context: GetServerSidePropsContext & ISellerEditCategoryContext) => {
-    let category: IShopCategory
+    let category: ICategory
     const { req, params } = context
 
     if (req) {

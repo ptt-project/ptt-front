@@ -138,117 +138,38 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
     setCountProduct2List(1)
   }
 
-  function renderFormSales(): JSX.Element {
-    if (!isCheckUseOptions) {
-      return (
-        <>
-          <Col md={12} xs={24}>
-            <Form.Item
-              label={t('seller.product:form.sales.price')}
-              name="price"
-              rules={[{ required: true }]}
-            >
-              <Input suffix={<Text type="secondary">{t('seller.product:form.sales.baht')}</Text>} />
-            </Form.Item>
-          </Col>
-          <Col md={12} xs={24}>
-            <Form.Item label={t('seller.product:form.sales.warehouse')} name="warehouse">
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col md={12} xs={24}>
-            <Form.Item
-              label={
-                <Text>
-                  {t('seller.product:form.sales.sku')}
-                  <Text className="ml-1" type="secondary">
-                    {t('seller.product:form.sales.msgSku')}
-                  </Text>
-                </Text>
-              }
-              name="sku"
-            >
-              <TextArea rows={1} showCount maxLength={20} />
-            </Form.Item>
-          </Col>
-        </>
-      )
+  function rederFormProductOptions(mode: 1 | 2): JSX.Element {
+    if (mode === 2 && !isFormProductOptions) {
+      return null
     }
-    return null
-  }
 
-  function rederFormProductOptionsOne(): JSX.Element {
+    let items: any
+    let optionLabelName: string
+    let optionValueName: string
+    let choiceName: string
+    let canAddOption: boolean
+
+    if (mode === 1) {
+      items = productList
+      optionLabelName = 'optionLabelOne'
+      optionValueName = 'optionValueOne'
+      choiceName = 'choice1'
+      canAddOption = isCheckButtonProductOptions
+    } else {
+      items = product2List
+      optionLabelName = 'optionLabelTwo'
+      optionValueName = 'optionValueTwo'
+      choiceName = 'choice2'
+      canAddOption = isCheckButtonProduct2Options
+    }
+
     return (
       <Row className={styles.highlight}>
-        <Col span={24}>
-          <Text strong>{t('seller.product:form.sales.optionsForm.productOptions')} 1</Text>
-        </Col>
-        <Col span={24}>
-          <Form.Item
-            className="mt-3"
-            label={t('seller.product:form.sales.optionsForm.name')}
-            name="saleName"
-            rules={[{ required: true }]}
-          >
-            <TextArea rows={1} showCount maxLength={20} />
-          </Form.Item>
-        </Col>
-        {productList.map((item: object, index: number) => {
-          if (index === 0) {
-            return (
-              <Col span={24}>
-                <Form.Item
-                  label={t('seller.product:form.sales.optionsForm.choice')}
-                  name="product"
-                  rules={[{ required: true }]}
-                >
-                  <TextArea rows={1} showCount maxLength={20} />
-                </Form.Item>
-              </Col>
-            )
-          }
-          return (
-            <>
-              <Col span={22}>
-                <Form.Item
-                  label={t('seller.product:form.sales.optionsForm.choice')}
-                  name={`productChoice_${index}`}
-                  id={`productChoice_${index}`}
-                >
-                  <TextArea rows={1} showCount maxLength={20} />
-                </Form.Item>
-              </Col>
-              <Col className={styles.binWrapper} span={2}>
-                <Text
-                  className={styles.bin}
-                  onClick={(): void => handleProductRemove(index, 'choice1', productList)}
-                >
-                  <i className={`fas fa-trash-alt ${styles.textSecondary}`} />
-                </Text>
-              </Col>
-            </>
-          )
-        })}
-        <Col span={24}>
-          {isCheckButtonProductOptions && (
-            <Button
-              className="hps-btn-secondary mt-5"
-              onClick={(): void => handleProductAdd('choice1')}
-              block
-            >
-              <i className="fas fa-plus mr-2" />
-              {t('seller.product:form.sales.optionsForm.addOption')}
-            </Button>
-          )}
-        </Col>
-      </Row>
-    )
-  }
-
-  function rederFormProductOptionsTwo(): JSX.Element {
-    if (isFormProductOptions) {
-      return (
-        <Row className={styles.highlight}>
+        {mode === 1 ? (
+          <Col span={24}>
+            <Text strong>{t('seller.product:form.sales.optionsForm.productOptions')} 1</Text>
+          </Col>
+        ) : (
           <Col span={24}>
             <div className={styles.optionLabelBox}>
               <Text strong className={styles.optionLabel}>
@@ -262,68 +183,81 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
               </Text>
             </div>
           </Col>
-          <Col span={24}>
-            <Form.Item
-              className="mt-3"
-              label={t('seller.product:form.sales.optionsForm.name')}
-              name="saleName"
-              rules={[{ required: true }]}
-            >
-              <TextArea rows={1} showCount maxLength={20} />
-            </Form.Item>
-          </Col>
-          {product2List.map((item: object, index: number) => {
-            if (index === 0) {
-              return (
-                <Col span={24}>
-                  <Form.Item
-                    label={t('seller.product:form.sales.optionsForm.choice')}
-                    name="choice"
-                    rules={[{ required: true }]}
-                  >
-                    <TextArea rows={1} showCount maxLength={20} />
-                  </Form.Item>
-                </Col>
-              )
-            }
+        )}
+        <Col span={24}>
+          <Form.Item
+            className="mt-3"
+            label={t('seller.product:form.sales.optionsForm.name')}
+            name={optionLabelName}
+            rules={[
+              {
+                required: true,
+                message: `${t('common:form.required')} ${t(
+                  'seller.product:form.sales.optionsForm.name'
+                )}`
+              }
+            ]}
+          >
+            <TextArea rows={1} showCount maxLength={20} />
+          </Form.Item>
+        </Col>
+        {items.map((item: any, index: number) => {
+          if (index === 0) {
             return (
-              <>
-                <Col span={22}>
-                  <Form.Item
-                    label={t('seller.product:form.sales.optionsForm.choice')}
-                    name={`product2Choice_${index}`}
-                    id={`product2Choice_${index}`}
-                  >
-                    <TextArea rows={1} showCount maxLength={20} />
-                  </Form.Item>
-                </Col>
-                <Col className={styles.binWrapper} span={2}>
-                  <Text
-                    className={styles.bin}
-                    onClick={(): void => handleProductRemove(index, 'choice2', product2List)}
-                  >
-                    <i className={`fas fa-trash-alt ${styles.textSecondary}`} />
-                  </Text>
-                </Col>
-              </>
+              <Col span={24}>
+                <Form.Item
+                  label={t('seller.product:form.sales.optionsForm.choice')}
+                  name={`${optionValueName}_${index}`}
+                  rules={[
+                    {
+                      required: true,
+                      message: `${t('common:form.required')} ${t(
+                        'seller.product:form.sales.optionsForm.choice'
+                      )}`
+                    }
+                  ]}
+                >
+                  <TextArea rows={1} showCount maxLength={20} />
+                </Form.Item>
+              </Col>
             )
-          })}
-          {isCheckButtonProduct2Options && (
-            <Col span={24}>
-              <Button
-                className="hps-btn-secondary mt-5"
-                onClick={(): void => handleProductAdd('choice2')}
-                block
-              >
-                <i className="fas fa-plus mr-2" />
-                {t('seller.product:form.sales.optionsForm.addOption')}
-              </Button>
-            </Col>
+          }
+          return (
+            <>
+              <Col span={22}>
+                <Form.Item
+                  label={t('seller.product:form.sales.optionsForm.choice')}
+                  name={`${optionValueName}_${index}`}
+                  id={`${optionValueName}_${index}`}
+                >
+                  <TextArea rows={1} showCount maxLength={20} />
+                </Form.Item>
+              </Col>
+              <Col className={styles.binWrapper} span={2}>
+                <Text
+                  className={styles.bin}
+                  onClick={(): void => handleProductRemove(index, choiceName, productList)}
+                >
+                  <i className={`fas fa-trash-alt ${styles.textSecondary}`} />
+                </Text>
+              </Col>
+            </>
+          )
+        })}
+        <Col span={24}>
+          {canAddOption && (
+            <Button
+              className="hps-btn-secondary mt-5"
+              onClick={(): void => handleProductAdd(choiceName)}
+              block
+            >
+              <i className="fas fa-plus mr-2" />
+              {t('seller.product:form.sales.optionsForm.addOption')}
+            </Button>
           )}
-        </Row>
-      )
-    }
-    return null
+        </Col>
+      </Row>
+    )
   }
 
   return (
@@ -336,11 +270,61 @@ const Sales: React.FC<IFormProductSalesProps> = () => {
             <Text>{t('seller.product:form.sales.useOptions')}</Text>
           </Space>
         </Col>
-        {renderFormSales()}
+        {!isCheckUseOptions ? (
+          <>
+            <Col md={12} xs={24}>
+              <Form.Item
+                label={t('seller.product:form.sales.price')}
+                name="price"
+                rules={[
+                  {
+                    required: true,
+                    message: `${t('common:form.required')} ${t('seller.product:form.sales.price')}`
+                  }
+                ]}
+              >
+                <Input
+                  suffix={<Text type="secondary">{t('seller.product:form.sales.baht')}</Text>}
+                />
+              </Form.Item>
+            </Col>
+            <Col md={12} xs={24}>
+              <Form.Item
+                label={t('seller.product:form.sales.warehouse')}
+                name="stock"
+                rules={[
+                  {
+                    required: true,
+                    message: `${t('common:form.required')} ${t(
+                      'seller.product:form.sales.warehouse'
+                    )}`
+                  }
+                ]}
+              >
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col md={12} xs={24}>
+              <Form.Item
+                label={
+                  <Space>
+                    <Text>{t('seller.product:form.sales.sku')}</Text>
+                    <Text className="hps-text-small" type="secondary">
+                      {t('seller.product:form.sales.msgSku')}
+                    </Text>
+                  </Space>
+                }
+                name="sku"
+              >
+                <TextArea rows={1} showCount maxLength={20} />
+              </Form.Item>
+            </Col>
+          </>
+        ) : null}
         {isCheckUseOptions && (
           <>
-            <Col span={24}>{rederFormProductOptionsOne()}</Col>
-            <Col span={24}>{rederFormProductOptionsTwo()}</Col>
+            <Col span={24}>{rederFormProductOptions(1)}</Col>
+            <Col span={24}>{rederFormProductOptions(2)}</Col>
             {!isFormProductOptions && (
               <Col span={24}>
                 <Button className="hps-btn-secondary mb-3" onClick={onClickButtonAddOption} block>
