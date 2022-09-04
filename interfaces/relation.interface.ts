@@ -6,7 +6,18 @@ export interface IRelationData {
   commission: number
 }
 
-export interface IRelationTableData extends IRelationData {
-  relationLevel: RelationLevelEnum
-  relationLevelLabel?: string
+export interface IRelationTableData {
+  username: string
+  level: RelationLevelEnum
+}
+
+export interface IRelationTreeData {
+  name: string
+  level: RelationLevelEnum
+  children: IRelationTreeData[]
+}
+
+export interface IRelationResponse {
+  relationTree: IRelationTreeData
+  relationTable: IRelationTableData[]
 }

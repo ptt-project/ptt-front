@@ -3,16 +3,15 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import EWallet from '~/modules/EWallet'
+import { withAuth } from '../../../../hocs/with-user'
 
-export async function getServerSideProps(
-  context: GetServerSidePropsContext
-): Promise<GetServerSidePropsResult<any>> {
-  return {
+export const getServerSideProps: any = withAuth(
+  async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<any>> => ({
     props: {
       ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'e-wallet']))
     }
-  }
-}
+  })
+)
 
 const EWalletPage: FC = () => <EWallet />
 

@@ -1,10 +1,9 @@
-import React, { MutableRefObject, useCallback, useMemo, useRef } from 'react'
+import React, { MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { GoogleMap, useLoadScript, GoogleMapProps } from '@react-google-maps/api'
 import { debounce } from 'lodash'
 import ButtonCurrentLocation from './ButtonCurrentLocation'
 import styles from '../AddressForm.module.scss'
 import Loading from '~/components/main/Loading'
-import AddressMarker from './AddressMarker'
 
 // lat, lng แถว ๆ กรุงเทพ ครับ
 const DEFAULT_THAILAND_LOCATION: google.maps.LatLngLiteral = {
@@ -27,6 +26,7 @@ const PickLocationField: React.FC<IPickLocationFieldProps> = (props: IPickLocati
   const { value, onChange, googleMapsApiKey } = props
 
   const googleMapInstantRef: MutableRefObject<google.maps.Map> = useRef<google.maps.Map>()
+  const [marker, setMarker] = useState<google.maps.Marker>()
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey,
@@ -34,13 +34,30 @@ const PickLocationField: React.FC<IPickLocationFieldProps> = (props: IPickLocati
     language: 'th-TH'
   })
 
+  const position: google.maps.LatLngLiteral = useMemo(
+    () => ({
+      lat: Number(value?.lat || DEFAULT_THAILAND_LOCATION.lat),
+      lng: Number(value?.lng || DEFAULT_THAILAND_LOCATION.lng)
+    }),
+    [value?.lat, value?.lng]
+  )
+
   const onMapLoaded: GoogleMapProps['onLoad'] = useCallback(
     (googleMapInstant: google.maps.Map): void => {
       if (googleMapInstant) {
         googleMapInstantRef.current = googleMapInstant
+        setMarker(
+          new google.maps.Marker({
+            position,
+            icon: {
+              url: './images/main/buyer/location-pin.svg'
+            },
+            map: googleMapInstant
+          })
+        )
       }
     },
-    []
+    [position]
   )
 
   const onCenterChanged: VoidFunction = useCallback(async (): Promise<void> => {
@@ -61,17 +78,13 @@ const PickLocationField: React.FC<IPickLocationFieldProps> = (props: IPickLocati
     }
   }, [value, onChange])
 
-  const position: google.maps.LatLngLiteral = useMemo(
-    () => ({
-      lat: value?.lat || DEFAULT_THAILAND_LOCATION.lat,
-      lng: value?.lng || DEFAULT_THAILAND_LOCATION.lng
-    }),
-    [value?.lat, value?.lng]
-  )
+  useEffect(() => {
+    marker?.setPosition(position)
+  }, [marker, position])
 
   return (
     <div
-      id="googlemaps"
+      id="google-maps"
       className={`grey-section google-map ${styles.googleMapLayout} ${
         isLoaded ? styles.googleMapHide : ''
       }`}
@@ -94,7 +107,6 @@ const PickLocationField: React.FC<IPickLocationFieldProps> = (props: IPickLocati
           onCenterChanged={debounce(onCenterChanged, 200)}
         >
           <ButtonCurrentLocation />
-          <AddressMarker position={position} />
         </GoogleMap>
       ) : (
         <Loading />

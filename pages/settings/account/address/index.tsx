@@ -6,39 +6,40 @@ import { LocaleNamespaceConst } from '~/constants'
 import { IAddress, IApiResponse } from '~/interfaces'
 import Address, { IAddressProps } from '~/modules/Address'
 import { MemberService } from '~/services'
+import { withAuth } from '../../../../hocs/with-user'
 
 type IAddressPageProps = Pick<IAddressProps, 'addresses'>
 
-export async function getServerSideProps(
-  context: GetServerSidePropsContext
-): Promise<GetServerSidePropsResult<any>> {
-  let addresses: IAddress[] = []
-  const { req } = context
+export const getServerSideProps: any = withAuth(
+  async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<any>> => {
+    let addresses: IAddress[] = []
+    const { req } = context
 
-  if (req) {
-    try {
-      const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
-      const { data }: IApiResponse = await MemberService.getAddresses(option)
-      addresses = data || []
-    } catch (error) {
-      console.log(error)
+    if (req) {
+      try {
+        const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
+        const { data }: IApiResponse = await MemberService.getAddresses(option)
+        addresses = data || []
+      } catch (error) {
+        console.log(error)
 
-      return {
-        redirect: {
-          destination: '/error',
-          permanent: true
+        return {
+          redirect: {
+            destination: '/error',
+            permanent: true
+          }
         }
       }
     }
-  }
 
-  return {
-    props: {
-      ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'address'])),
-      addresses
+    return {
+      props: {
+        ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'address'])),
+        addresses
+      }
     }
   }
-}
+)
 
 const AddressPage: FC<IAddressPageProps> = (props: IAddressPageProps) => (
   <Address addresses={props.addresses} />
