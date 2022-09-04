@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect, ChangeEvent } from 'react'
 import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Form, Input, message } from 'antd'
+import { NextRouter, useRouter } from 'next/router'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { IMemberMobile, IOtpRequestPayload, IOtp, IApiResponse } from '~/interfaces'
@@ -25,18 +26,22 @@ const AddPhone: FC = () => {
   const [timer, setTimer] = useState<number>(0)
   const [msgSendOTP, setMsgSendOTP] = useState<string>('')
   const [otpInput, setOtpInput] = useState<string>('')
+  const router: NextRouter = useRouter()
 
   async function onSubmit(): Promise<void> {
     setIsLoading(true)
-    const isSuccess: boolean = false
+    let isSuccess: boolean = false
     try {
       const payload: IMemberMobile = {
         mobile: dataMobile,
         otpCode: otpInput,
         refCode: otpData.refCode
       }
-      const { data }: IApiResponse = await MemberService.createMobile(payload)
-      console.log(data)
+      await MemberService.createMobile(payload)
+      isSuccess = true
+      router.push('/settings/account/info/phone', '/settings/account/info/phone', {
+        locale: router.locale
+      })
     } catch (error) {
       console.log(error)
     }
