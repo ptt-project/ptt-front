@@ -1,8 +1,12 @@
 import { AxiosRequestConfig } from 'axios'
 import { AxiosService } from './axios.service'
-import { IApiResponse } from '~/interfaces'
+import {
+  IApiResponse,
+  IShopAddCategoryPayload,
+  IShopProductPayload,
+  IShopUpdateCategoryPayload
+} from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
-import { IShopAddCategoryPayload, IShopUpdateCategoryPayload } from '~/interfaces/shop.interface'
 import { ShopCategoryStatusEnum } from '~/enums'
 
 export const getCategories = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
@@ -34,3 +38,6 @@ export const changeCategoryStatus = (
 
 export const getProducts = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
   AxiosService.get(EndPointUrlConst.SHOPS.PRODUCTS, option)
+
+export const addProduct = (payload: IShopProductPayload): Promise<IApiResponse> =>
+  AxiosService.post(EndPointUrlConst.SHOPS.PRODUCTS, payload)

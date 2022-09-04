@@ -4,9 +4,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AxiosRequestConfig } from 'axios'
 import SellerCategory from '~/modules/SellerCategory'
 import { LocaleNamespaceConst } from '~/constants'
-import { IApiResponse } from '~/interfaces'
+import { IApiResponse, IShopCategory } from '~/interfaces'
 import { ShopService } from '~/services'
-import { IShopCategory } from '~/interfaces/shop.interface'
 import { withSellerAuth } from '../../../../../hocs/with-seller'
 
 interface ICategoryPageProps {
