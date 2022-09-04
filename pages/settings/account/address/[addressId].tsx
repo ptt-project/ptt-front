@@ -6,7 +6,7 @@ import { LocaleNamespaceConst } from '~/constants'
 import { IAddress, IApiResponse } from '~/interfaces'
 import EditAddress, { IEditAddressProps } from '~/modules/Address/components/EditAddress'
 import { MemberService } from '~/services'
-import { withAuth } from '~/utils/main'
+import { withAuth } from '../../../../hocs/with-user'
 
 type IEditAddressPageProps = Pick<IEditAddressProps, 'address' | 'googleMapsApiKey'>
 

@@ -6,7 +6,7 @@ import { LocaleNamespaceConst } from '~/constants'
 import { IAddress, IApiResponse } from '~/interfaces'
 import Address, { IAddressProps } from '~/modules/Address'
 import { MemberService } from '~/services'
-import { withAuth } from '~/utils/main'
+import { withAuth } from '../../../../hocs/with-user'
 
 type IAddressPageProps = Pick<IAddressProps, 'addresses'>
 
