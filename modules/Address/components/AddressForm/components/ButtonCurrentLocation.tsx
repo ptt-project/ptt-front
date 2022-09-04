@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useGoogleMap } from '@react-google-maps/api'
 import { Button } from 'antd'
 import { useTranslation } from 'next-i18next'
@@ -9,11 +9,13 @@ const ButtonCurrentLocation: React.FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
 
   const map: google.maps.Map = useGoogleMap()
+  const [geolocation, setGeolocation] = useState<Geolocation>()
 
-  function onClick(): void {
-    const infoWindow: google.maps.InfoWindow = new google.maps.InfoWindow()
+  // eslint-disable-next-line @typescript-eslint/typedef
+  const handleLocationError = useCallback(
+    (browserHasGeolocation: boolean, pos: google.maps.LatLng): void => {
+      const infoWindow: google.maps.InfoWindow = new google.maps.InfoWindow()
 
-    const handleLocationError = (browserHasGeolocation: boolean, pos: google.maps.LatLng): void => {
       infoWindow.setPosition(pos)
       infoWindow.setContent(
         browserHasGeolocation
@@ -21,33 +23,46 @@ const ButtonCurrentLocation: React.FC = () => {
           : 'Error: Your browser does not support geolocation.'
       )
       infoWindow.open(map)
-    }
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position: GeolocationPosition) => {
-          const pos: google.maps.LatLngLiteral = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          }
-          // infoWindow.setPosition(pos)
-          // infoWindow.setContent('Location found.')
-          // infoWindow.open(map)
-          map.setCenter(pos)
-        },
-        () => {
-          handleLocationError(false, map.getCenter())
+    },
+    [map]
+  )
+
+  const onClick: VoidFunction = useCallback((): void => {
+    geolocation.getCurrentPosition(
+      (position: GeolocationPosition) => {
+        const pos: google.maps.LatLngLiteral = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
         }
+        map.setCenter(pos)
+      },
+      () => {
+        handleLocationError(false, map.getCenter())
+      }
+    )
+  }, [geolocation, handleLocationError, map])
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      // test get current location
+      navigator.geolocation.getCurrentPosition(
+        () => {
+          setGeolocation(navigator.geolocation)
+        },
+        undefined,
+        { enableHighAccuracy: true }
       )
     } else {
       // Browser doesn't support Geolocation
       handleLocationError(false, map.getCenter())
     }
-  }
-  return (
+  }, [handleLocationError, map])
+
+  return geolocation ? (
     <Button className={styles.currentLocationButton} onClick={onClick}>
       {t('address:yourLocation')}
     </Button>
-  )
+  ) : null
 }
 
 export default ButtonCurrentLocation

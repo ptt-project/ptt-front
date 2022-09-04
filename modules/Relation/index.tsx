@@ -3,7 +3,6 @@ import { Button, Col, message, Row, Tabs, Typography } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { RawNodeDatum } from 'react-d3-tree/lib/types/common'
-import { concat, groupBy, map } from 'lodash'
 import { CopyOutlined } from '@ant-design/icons'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { useTranslation } from 'next-i18next'
@@ -13,8 +12,9 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import styles from './Relation.module.scss'
 import RelationTree from './components/RelationTree'
 import RelationTable from './components/RelationTable'
-import { IRelationData, IRelationTableData } from '~/interfaces'
+import { IRelationTableData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
+import { RelationLevelEnum } from '~/enums'
 
 const { TabPane } = Tabs
 
@@ -31,28 +31,40 @@ const Relation: React.FC = () => {
 
   const [tabActive, setTabActive] = useState<RelationTabs>(RelationTabs.RELATION_TREE)
 
-  const inviteLink: string = 'inviteLink' // รอของจริง
-  const relationData: IRelationData[] = mockRelationData
+  const inviteLink: string = 'inviteLink' // TODO: รอ inviteLink ของจริง
 
-  const customData: { relationDataTree: RawNodeDatum; relationTableData: IRelationTableData[] } =
-    useMemo(() => {
-      const relationByParent: any = groupBy(relationData, 'parent')
-      const relationTableData: IRelationTableData[] = []
-
-      const childrenOf = (parent: string, relationLevel: number): RawNodeDatum[] =>
-        map(relationByParent[parent] || [], (item: IRelationData) => {
-          relationTableData.push({ ...item, relationLevel })
-          return {
-            name: item.username,
-            children: childrenOf(item.username, relationLevel + 1)
-          }
-        })
-      const relationDataTree: RawNodeDatum = {
-        name: 'Me',
-        children: childrenOf('Me', 1)
+  const relationTableData: IRelationTableData[] = useMemo(
+    () => [
+      {
+        username: 'zamzbugg3',
+        level: RelationLevelEnum.CHILD
+      },
+      {
+        username: 'zamzbugg4',
+        level: RelationLevelEnum.CHILD
       }
-      return { relationDataTree, relationTableData }
-    }, [relationData])
+    ],
+    []
+  )
+  const relationDataTree: RawNodeDatum = useMemo(
+    () => ({
+      name: 'testuser01',
+      children: [
+        {
+          name: 'zamzbugg3',
+          children: [],
+          level: 1
+        },
+        {
+          name: 'zamzbugg4',
+          children: [],
+          level: 1
+        }
+      ],
+      level: 0
+    }),
+    []
+  )
 
   function onTabChange(tabKey: RelationTabs): void {
     setTabActive(tabKey)
@@ -111,10 +123,10 @@ const Relation: React.FC = () => {
               </Row>
               <Tabs defaultActiveKey={tabActive} onChange={onTabChange}>
                 <TabPane tab={t('relation:tabs.tree')} key={RelationTabs.RELATION_TREE}>
-                  <RelationTree data={customData.relationDataTree} />
+                  <RelationTree data={relationDataTree} />
                 </TabPane>
                 <TabPane tab={t('relation:tabs.table')} key={RelationTabs.RELATION_TABLE}>
-                  <RelationTable data={customData.relationTableData} />
+                  <RelationTable data={relationTableData} />
                 </TabPane>
               </Tabs>
             </Col>
@@ -124,74 +136,5 @@ const Relation: React.FC = () => {
     </main>
   )
 }
-
-const mockRelationDataLevel1: IRelationData[] = [
-  {
-    username: 'EnthusiastBulldog',
-    commission: 10,
-    parent: 'Me'
-  },
-  {
-    username: 'Lumberturtle',
-    commission: 10,
-    parent: 'Me'
-  },
-  {
-    username: 'SmartsWarthog',
-    commission: 1,
-    parent: 'Me'
-  }
-]
-
-const mockRelationDataLevel2: IRelationData[] = [
-  {
-    username: 'GamerPaintedTurtle',
-    commission: 3,
-    parent: 'EnthusiastBulldog'
-  },
-  {
-    username: 'TechieCardinal',
-    commission: 7,
-    parent: 'EnthusiastBulldog'
-  },
-  {
-    username: 'DorkTundraWolf',
-    commission: 2,
-    parent: 'SmartsWarthog'
-  },
-  {
-    username: 'WizardGuineaPig',
-    commission: 3,
-    parent: 'SmartsWarthog'
-  },
-  {
-    username: 'WhizFiddlerCrab',
-    commission: 37,
-    parent: 'SmartsWarthog'
-  },
-  {
-    username: 'HipsterWalkingstick',
-    commission: 99,
-    parent: 'SmartsWarthog'
-  },
-  {
-    username: 'NerdMoth',
-    commission: 40,
-    parent: 'SmartsWarthog'
-  }
-]
-
-const mockRelationDataLevel3: IRelationData[] = [
-  {
-    username: 'GothZorro',
-    commission: 20,
-    parent: 'NerdMoth'
-  }
-]
-const mockRelationData: IRelationData[] = concat(
-  mockRelationDataLevel1,
-  mockRelationDataLevel2,
-  mockRelationDataLevel3
-)
 
 export default Relation
