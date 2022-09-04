@@ -25,6 +25,7 @@ const Phone: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isOpenDelPhoneModal, setIsOpenDelPhoneModal] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [dataMobile, setdataMobile] = useState<string>('')
 
   function toggle(): void {
     setIsOpen(!isOpen)
@@ -38,9 +39,14 @@ const Phone: FC = () => {
     setIsOpenDelPhoneModal(true)
   }
 
-  async function onFavoritePhone(): Promise<void> {
+  function onSetMobile(mobile: string): void {
+    console.log(mobile)
+    // setdataMobile(mobile)
+  }
+
+  async function onFavoritePhone(otpData: IOtp): Promise<void> {
     setIsOpen(true)
-    toggleDelPhoneModal()
+    toggle()
     setIsLoading(true)
     const isSuccess: boolean = false
     try {
@@ -49,8 +55,9 @@ const Phone: FC = () => {
         otpCode: '',
         refCode: ''
       }
-      const result: IApiResponse = await MemberService.deleteMobile(payload)
-      console.log(result)
+      console.log(payload)
+      // const result: IApiResponse = await MemberService.deleteMobile(payload)
+      // console.log(result)
     } catch (error) {
       console.log(error)
     }
@@ -86,15 +93,6 @@ const Phone: FC = () => {
     setIsLoading(false)
   }
 
-  function onSubmit(otpData: IOtp): void {
-    try {
-      console.log(otpData)
-      toggle()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   return (
     <>
       <Loading show={isLoading} />
@@ -103,7 +101,7 @@ const Phone: FC = () => {
         action={OtpTypeEnum.REGISTER}
         isOpen={isOpen}
         toggle={toggle}
-        onSubmit={onSubmit}
+        onSubmit={onFavoritePhone}
       />
       <ConfirmationModal
         isOpen={isOpenDelPhoneModal}
@@ -168,7 +166,7 @@ const Phone: FC = () => {
                   </Col>
                   <Col sm={8} xs={12} className="text-right">
                     <Space size="middle">
-                      <a onClick={onFavoritePhone} aria-hidden="true">
+                      <a onClick={onSetMobile('0647012666')} aria-hidden="true">
                         <i className="fas fa-star" />
                       </a>
                       <a onClick={onDelPhoneModal} aria-hidden="true">
