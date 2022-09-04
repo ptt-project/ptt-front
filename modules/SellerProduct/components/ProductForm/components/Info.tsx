@@ -54,12 +54,19 @@ const Info: FC = () => {
   return (
     <>
       <HighlightLabel title={t('seller.product:form.info.title')} />
-      <Row>
+      <Row gutter={16}>
         <Col span={24}>
           <Form.Item
             label={t('seller.product:form.info.productPicture')}
-            name="productPicture"
-            rules={[{ required: true }]}
+            name="images"
+            rules={[
+              {
+                required: true,
+                message: `${t('common:form.required')} ${t(
+                  'seller.product:form.info.productPicture'
+                )}`
+              }
+            ]}
           >
             <Upload
               maxCount={1}
@@ -106,15 +113,20 @@ const Info: FC = () => {
           </Form.Item>
         </Col>
         <Col span={24}>
-          <Form.Item label={t('seller.product:form.info.videoProduct')} name="videoProduct">
+          <Form.Item label={t('seller.product:form.info.videoProduct')} name="videoLink">
             <Input maxLength={50} showCount />
           </Form.Item>
         </Col>
         <Col span={24}>
           <Form.Item
             label={t('seller.product:form.info.productName')}
-            name="productName"
-            rules={[{ required: true }]}
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: `${t('common:form.required')} ${t('seller.product:form.info.productName')}`
+              }
+            ]}
           >
             <TextArea rows={1} showCount maxLength={120} />
           </Form.Item>
@@ -122,8 +134,15 @@ const Info: FC = () => {
         <Col span={24}>
           <Form.Item
             label={t('seller.product:form.info.productDetail')}
-            name="productDetail"
-            rules={[{ required: true }]}
+            name="detail"
+            rules={[
+              {
+                required: true,
+                message: `${t('common:form.required')} ${t(
+                  'seller.product:form.info.productDetail'
+                )}`
+              }
+            ]}
           >
             <TextArea rows={3} showCount maxLength={500} />
           </Form.Item>
@@ -131,11 +150,17 @@ const Info: FC = () => {
         <Col md={12} xs={24}>
           <Form.Item
             label={t('seller.product:form.info.category')}
-            name="category"
-            rules={[{ required: true }]}
+            name="platformCategoryId"
+            rules={[
+              {
+                required: true,
+                message: `${t('common:form.required')} ${t('seller.product:form.info.category')}`
+              }
+            ]}
           >
-            <Select defaultValue="">
-              <Select.Option value="">Jack</Select.Option>
+            <Select>
+              <Select.Option value={null}>{t('common:form.option')}</Select.Option>
+              <Select.Option value={1}>เสื้อกีฬา</Select.Option>
             </Select>
           </Form.Item>
         </Col>

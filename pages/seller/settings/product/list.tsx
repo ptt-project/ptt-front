@@ -4,13 +4,13 @@ import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import SellerProduct from '~/modules/SellerProduct'
 import { LocaleNamespaceConst } from '~/constants'
-import { /* IApiResponse, */ IShopProduct } from '../../../../interfaces'
+import { /* IApiResponse, */ IProduct } from '../../../../interfaces'
 import { withSellerAuth } from '../../../../hocs/with-seller'
 // import { ShopService } from '../../../../services'
 
 export const getServerSideProps: any = withSellerAuth(
   async (context: GetServerSidePropsContext) => {
-    const products: IShopProduct[] = []
+    const products: IProduct[] = []
     // const { req } = context
 
     // if (req) {

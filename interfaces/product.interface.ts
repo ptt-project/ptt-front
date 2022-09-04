@@ -1,35 +1,13 @@
-import { ShopCategoryStatusEnum, ShopProductStatusEnum } from '~/enums'
+import { ProductConditionEnum, ProductStatusEnum } from '../enums'
 
-export interface IShopAddCategoryPayload {
-  name: string
-}
-
-export interface IShopUpdateCategoryPayload {
-  name: string
-  productIds: number[]
-}
-
-export interface IShopCategory {
-  id: number
-  createdAt: Date
-  updatedAt: Date
-  deletedAt?: Date
-  shopId: number
-  name: string
-  createdBy: string
-  status: ShopCategoryStatusEnum
-  productCount: number
-  priority: number
-}
-
-export interface IShopProductPayload {
+export interface ICreateProductPayload {
   name: string
   detail: string
   platformCategoryId: number
   brandId?: number
   weight: number
   exp?: number
-  condition?: string
+  condition?: ProductConditionEnum
   isSendLated?: boolean
   extraDay?: number
   videoLink?: string
@@ -51,7 +29,7 @@ export interface IShopProductPayload {
   }
 }
 
-export interface IShopProduct {
+export interface IProduct {
   id: number
   createdAt: Date
   updatedAt: Date
@@ -64,7 +42,7 @@ export interface IShopProduct {
   stock: number
 }
 
-export interface IShopProductProfile {
+export interface IProductProfile {
   id: number
   createdAt: Date
   updatedAt: Date
@@ -74,14 +52,14 @@ export interface IShopProductProfile {
   shopId: number
   platformCategoryId: number
   brandId?: number
-  status: ShopProductStatusEnum
+  status: ProductStatusEnum
   approval: boolean
   weight: string
   width: number
   length: number
   height: number
   exp?: number
-  condition?: string
+  condition?: ProductConditionEnum
   isSendLated?: boolean
   extraDay?: number
   videoLink?: string
@@ -90,7 +68,7 @@ export interface IShopProductProfile {
   like: number
 }
 
-export interface IShopProductOption {
+export interface IProductOption {
   id: number
   createdAt: Date
   updatedAt: Date
