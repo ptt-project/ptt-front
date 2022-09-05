@@ -17,7 +17,7 @@ const Features: FC = () => {
         <Col md={12} xs={24}>
           <Form.Item label={t('seller.product:form.features.brand')} name="brandId">
             <Select>
-              <Select.Option value={null}>{t('common:form.option')}</Select.Option>
+              <Select.Option value="">{t('common:form.option')}</Select.Option>
               <Select.Option value={1}>Adidas</Select.Option>
             </Select>
           </Form.Item>

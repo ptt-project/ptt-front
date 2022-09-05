@@ -50,6 +50,7 @@
   }
 
   .optionBin {
+    color: $info-color;
     cursor: pointer;
   }
 }
@@ -95,5 +96,11 @@
       flex: 1 100%;
       justify-content: flex-end;
     }
+  }
+}
+
+.table {
+  td {
+    vertical-align: top;
   }
 }

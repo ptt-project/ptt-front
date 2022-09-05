@@ -128,7 +128,7 @@ const Info: FC = () => {
             ]}
           >
             <Select>
-              <Select.Option value={null}>{t('common:form.option')}</Select.Option>
+              <Select.Option value="">{t('common:form.option')}</Select.Option>
               <Select.Option value={1}>เสื้อกีฬา</Select.Option>
             </Select>
           </Form.Item>

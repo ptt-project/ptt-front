@@ -54,14 +54,14 @@ const ProductForm: FC = () => {
               </Text>
               <Form
                 layout="vertical"
-                initialValues={{ platformCategoryId: null, brandId: null, condition: 'new' }}
+                initialValues={{ platformCategoryId: '', brandId: '', condition: 'new' }}
                 form={form}
                 name="productForm"
                 onFinish={onSubmit}
               >
                 <Info />
                 <Features />
-                <Sales />
+                <Sales form={form} />
                 <Delivery />
                 <Other />
                 <Row gutter={[16, 8]} className="mt-3">

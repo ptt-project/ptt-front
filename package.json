@@ -16,7 +16,7 @@
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.4.1",
     "@react-google-maps/api": "^2.12.1",
-    "antd": "^4.21.3",
+    "antd": "^4.23.0",
     "antd-img-crop": "^4.2.4",
     "apollo-boost": "^0.4.9",
     "axios": "^0.27.2",
