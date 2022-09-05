@@ -4,15 +4,18 @@
   color: $secondary-color !important;
 }
 
-.uploadImg {
-  width: auto;
-}
-
 .highlight {
   padding: 2rem;
   margin-bottom: 1rem;
   background-color: $background-light;
   border-radius: $border-radius;
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .radio {

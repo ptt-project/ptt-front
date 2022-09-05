@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
-import { PlusOutlined } from '@ant-design/icons'
-import { Modal, Upload, Col, Form, Input, Row, Select } from 'antd'
-import { RcFile, UploadProps } from 'antd/es/upload'
+import ImgCrop from 'antd-img-crop'
+import { Upload, Col, Form, Input, Row, Select, Typography } from 'antd'
+import { RcFile } from 'antd/es/upload'
 import { UploadFile } from 'antd/es/upload/interface'
 import { UploadChangeParam } from 'antd/lib/upload'
 import React, { FC, useState } from 'react'
@@ -9,47 +9,37 @@ import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from '../ProductForm.module.scss'
 
-const { TextArea } = Input
+const { Text } = Typography
 
 const Info: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
-  const [previewVisible, setPreviewVisible] = useState<boolean>(false)
-  const [previewImage, setPreviewImage] = useState<string>('')
-  const [previewTitle, setPreviewTitle] = useState<string>('')
-  const [filePhotoCoverList, setFilePhotoCoverList] = useState<UploadFile[]>([])
   const [fileList, setFileList] = useState<UploadFile[]>([])
 
-  async function getBase64(file: RcFile): Promise<string> {
-    return new Promise<string>((resolve: any, reject: any) => {
-      const reader: FileReader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = (): void => resolve(reader.result as string)
-      reader.onerror = (error: ProgressEvent<FileReader>): void => reject(error)
-    })
-  }
-
-  function handleCancel(): void {
-    setPreviewVisible(false)
-  }
-
-  async function handlePreview(file: UploadFile): Promise<void> {
-    if (!file.url && !file.preview) {
-      // eslint-disable-next-line no-param-reassign
-      file.preview = await getBase64(file.originFileObj as RcFile)
+  function normFile(e: any): any {
+    if (Array.isArray(e)) {
+      return e
     }
-
-    setPreviewImage(file.url || (file.preview as string))
-    setPreviewVisible(true)
-    setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1))
+    return e?.fileList
   }
 
-  const handleChangePhotoCover: UploadProps['onChange'] = ({
-    fileList: newFileList
-  }: UploadChangeParam) => setFilePhotoCoverList(newFileList)
+  function onChange({ fileList: newFileList }: UploadChangeParam<UploadFile<any>>): void {
+    setFileList(newFileList)
+  }
 
-  const handleChangePhoto: UploadProps['onChange'] = ({
-    fileList: newFileList
-  }: UploadChangeParam) => setFileList(newFileList)
+  async function onPreview(file: UploadFile): Promise<void> {
+    let src: string = file.url
+    if (!src) {
+      src = await new Promise((resolve: any) => {
+        const reader: FileReader = new FileReader()
+        reader.readAsDataURL(file.originFileObj as RcFile)
+        reader.onload = (): any => resolve(reader.result as string)
+      })
+    }
+    const image: HTMLImageElement = new Image()
+    image.src = src
+    const imgWindow: Window = window.open(src)
+    imgWindow?.document.write(image.outerHTML)
+  }
 
   return (
     <>
@@ -59,6 +49,8 @@ const Info: FC = () => {
           <Form.Item
             label={t('seller.product:form.info.productPicture')}
             name="images"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
             rules={[
               {
                 required: true,
@@ -68,48 +60,25 @@ const Info: FC = () => {
               }
             ]}
           >
-            <Upload
-              maxCount={1}
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              listType="picture-card"
-              fileList={filePhotoCoverList}
-              onPreview={handlePreview}
-              onChange={handleChangePhotoCover}
-              className={styles.uploadImg}
-            >
-              {filePhotoCoverList.length ? null : (
-                <div>
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>{t('seller.product:form.info.photoCover')}</div>
-                </div>
-              )}
-            </Upload>
-            <Upload
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              listType="picture-card"
-              fileList={fileList}
-              onPreview={handlePreview}
-              onChange={handleChangePhoto}
-              className={styles.uploadImg}
-              maxCount={7}
-            >
-              {fileList.length >= 7 ? null : (
-                <div>
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>
-                    {t('seller.product:form.info.picture')} (Max: 7)
+            <ImgCrop rotate>
+              <Upload
+                listType="picture-card"
+                fileList={fileList}
+                onChange={onChange}
+                onPreview={onPreview}
+              >
+                {fileList.length < 7 ? (
+                  <div className={styles.upload}>
+                    <Text type="secondary">
+                      <i className="fas fa-plus" />
+                    </Text>
+                    <Text type="secondary">
+                      {t('seller.product:form.info.picture')} {fileList.length + 1}
+                    </Text>
                   </div>
-                </div>
-              )}
-            </Upload>
-            <Modal
-              visible={previewVisible}
-              title={previewTitle}
-              footer={null}
-              onCancel={handleCancel}
-            >
-              <img alt="example" style={{ width: '100%' }} src={previewImage} />
-            </Modal>
+                ) : null}
+              </Upload>
+            </ImgCrop>
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -128,7 +97,7 @@ const Info: FC = () => {
               }
             ]}
           >
-            <TextArea rows={1} showCount maxLength={120} />
+            <Input.TextArea rows={1} showCount maxLength={120} />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -144,7 +113,7 @@ const Info: FC = () => {
               }
             ]}
           >
-            <TextArea rows={3} showCount maxLength={500} />
+            <Input.TextArea rows={3} showCount maxLength={500} />
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>

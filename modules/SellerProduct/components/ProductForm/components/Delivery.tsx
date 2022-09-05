@@ -29,19 +29,44 @@ const Delivery: FC = () => {
           </Form.Item>
         </Col>
         <Col md={4} xs={8}>
-          <Form.Item label={t('seller.product:form.delivery.size')} name="width">
+          <Form.Item
+            label={t('seller.product:form.delivery.size')}
+            name="width"
+            rules={[
+              {
+                required: true,
+                message: `${t('common:form.required')} ${t('seller.product:form.delivery.width')}`
+              }
+            ]}
+          >
             <Input suffix={<Text type="secondary">{t('seller.product:form.delivery.cm')}</Text>} />
           </Form.Item>
         </Col>
         <Col md={4} xs={8}>
           <div className={styles.hiddenLabel} />
-          <Form.Item name="length">
+          <Form.Item
+            name="length"
+            rules={[
+              {
+                required: true,
+                message: `${t('common:form.required')} ${t('seller.product:form.delivery.length')}`
+              }
+            ]}
+          >
             <Input suffix={<Text type="secondary">{t('seller.product:form.delivery.cm')}</Text>} />
           </Form.Item>
         </Col>
         <Col md={4} xs={8}>
           <div className={styles.hiddenLabel} />
-          <Form.Item name="height">
+          <Form.Item
+            name="height"
+            rules={[
+              {
+                required: true,
+                message: `${t('common:form.required')} ${t('seller.product:form.delivery.height')}`
+              }
+            ]}
+          >
             <Input suffix={<Text type="secondary">{t('seller.product:form.delivery.cm')}</Text>} />
           </Form.Item>
         </Col>

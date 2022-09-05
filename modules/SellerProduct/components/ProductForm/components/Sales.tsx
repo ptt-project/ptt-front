@@ -10,11 +10,11 @@ const { Text } = Typography
 
 interface IDataType {
   key: React.Key
-  productModel: string
-  choice: string
-  sku: string
+  option1: string
+  option2: string
   price: string
-  warehouse: string
+  stock: string
+  sku: string
 }
 
 const data: IDataType[] = []
@@ -34,24 +34,24 @@ const Sales: FC = () => {
 
   const columns: ColumnsType<IDataType> = [
     {
-      title: t('seller.product:form.sales.productModel'),
-      dataIndex: 'productModel'
+      title: `${t('seller.product:form.sales.optionsForm.productOptions')} 1`,
+      dataIndex: 'option1'
     },
     {
-      title: t('seller.product:form.sales.choice2'),
-      dataIndex: 'choice'
-    },
-    {
-      title: t('seller.product:form.sales.sku'),
-      dataIndex: 'sku'
+      title: `${t('seller.product:form.sales.optionsForm.productOptions')} 2`,
+      dataIndex: 'option2'
     },
     {
       title: t('seller.product:form.sales.priceBaht'),
       dataIndex: 'price'
     },
     {
+      title: t('seller.product:form.sales.sku'),
+      dataIndex: 'sku'
+    },
+    {
       title: t('seller.product:form.sales.warehouse'),
-      dataIndex: 'warehouse'
+      dataIndex: 'stock'
     }
   ]
 
