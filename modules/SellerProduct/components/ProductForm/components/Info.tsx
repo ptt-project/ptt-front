@@ -1,5 +1,4 @@
 import { useTranslation } from 'next-i18next'
-import ImgCrop from 'antd-img-crop'
 import { Upload, Col, Form, Input, Row, Select, Typography } from 'antd'
 import { RcFile } from 'antd/es/upload'
 import { UploadFile } from 'antd/es/upload/interface'
@@ -60,25 +59,23 @@ const Info: FC = () => {
               }
             ]}
           >
-            <ImgCrop rotate>
-              <Upload
-                listType="picture-card"
-                fileList={fileList}
-                onChange={onChange}
-                onPreview={onPreview}
-              >
-                {fileList.length < 7 ? (
-                  <div className={styles.upload}>
-                    <Text type="secondary">
-                      <i className="fas fa-plus" />
-                    </Text>
-                    <Text type="secondary">
-                      {t('seller.product:form.info.picture')} {fileList.length + 1}
-                    </Text>
-                  </div>
-                ) : null}
-              </Upload>
-            </ImgCrop>
+            <Upload
+              listType="picture-card"
+              fileList={fileList}
+              onChange={onChange}
+              onPreview={onPreview}
+            >
+              {fileList.length < 7 ? (
+                <div className={styles.upload}>
+                  <Text type="secondary">
+                    <i className="fas fa-plus" />
+                  </Text>
+                  <Text type="secondary">
+                    {t('seller.product:form.info.picture')} {fileList.length + 1}
+                  </Text>
+                </div>
+              ) : null}
+            </Upload>
           </Form.Item>
         </Col>
         <Col span={24}>
