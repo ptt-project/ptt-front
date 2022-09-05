@@ -60,9 +60,9 @@ const ProductForm: FC = () => {
                 onFinish={onSubmit}
               >
                 <Info />
-                <Features />
+                <Features form={form} />
                 <Sales form={form} />
-                <Delivery />
+                <Delivery form={form} />
                 <Other />
                 <Row gutter={[16, 8]} className="mt-3">
                   <Col md={{ span: 8, order: 1 }} xs={{ span: 12, order: 2 }}>
