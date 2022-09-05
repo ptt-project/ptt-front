@@ -7,7 +7,6 @@ import { LocaleNamespaceConst } from '~/constants'
 import styles from '../ProductForm.module.scss'
 
 const { Text } = Typography
-const { TextArea } = Input
 
 interface IDataType {
   key: React.Key
@@ -170,7 +169,7 @@ const Sales: FC = () => {
                 className={styles.optionBin}
                 onClick={(): void => setIsFormProductOptions(false)}
               >
-                <i className={`fas fa-trash-alt ${styles.textSecondary}`} />
+                <i className="fas fa-trash-alt" />
               </Text>
             </div>
           </Col>
@@ -189,7 +188,7 @@ const Sales: FC = () => {
               }
             ]}
           >
-            <TextArea rows={1} showCount maxLength={20} />
+            <Input showCount maxLength={20} />
           </Form.Item>
         </Col>
         {items.map((item: any, index: number) => {
@@ -208,7 +207,7 @@ const Sales: FC = () => {
                     }
                   ]}
                 >
-                  <TextArea rows={1} showCount maxLength={20} />
+                  <Input showCount maxLength={20} />
                 </Form.Item>
               </Col>
             )
@@ -221,7 +220,7 @@ const Sales: FC = () => {
                   name={`${optionValueName}_${index}`}
                   id={`${optionValueName}_${index}`}
                 >
-                  <TextArea rows={1} showCount maxLength={20} />
+                  <Input showCount maxLength={20} />
                 </Form.Item>
               </Col>
               <Col className={styles.binWrapper} span={2}>
@@ -229,7 +228,7 @@ const Sales: FC = () => {
                   className={styles.bin}
                   onClick={(): void => handleProductRemove(index, choiceName, productList)}
                 >
-                  <i className={`fas fa-trash-alt ${styles.textSecondary}`} />
+                  <i className="fas fa-trash-alt" />
                 </Text>
               </Col>
             </>
@@ -307,7 +306,7 @@ const Sales: FC = () => {
                 }
                 name="sku"
               >
-                <TextArea rows={1} showCount maxLength={20} />
+                <Input showCount maxLength={20} />
               </Form.Item>
             </Col>
           </>
