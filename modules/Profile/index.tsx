@@ -25,7 +25,7 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrlUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import { LocaleNamespaceConst } from '~/constants'
+import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import { IMemberProfile, IMemberProfileUpdate } from '~/interfaces'
 import { MemberService } from '~/services'
 import styles from './Profile.module.scss'
@@ -131,7 +131,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                     />
                   </Col>
                   <Col sm={8} xs={12} className="text-center">
-                    <Upload>
+                    <Upload accept={ImageAcceptConst.toString()}>
                       <Button className="hps-btn-secondary">
                         {t('account-info:button.chooseImage')}
                       </Button>

@@ -5,7 +5,7 @@ import { UploadFile } from 'antd/es/upload/interface'
 import { UploadChangeParam } from 'antd/lib/upload'
 import React, { FC, useState } from 'react'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import { LocaleNamespaceConst } from '~/constants'
+import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import styles from '../ProductForm.module.scss'
 
 const { Text } = Typography
@@ -64,6 +64,7 @@ const Info: FC = () => {
               fileList={fileList}
               onChange={onChange}
               onPreview={onPreview}
+              accept={ImageAcceptConst.toString()}
             >
               {fileList.length < 7 ? (
                 <div className={styles.upload}>
