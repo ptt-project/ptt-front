@@ -1,5 +1,18 @@
 import { ProductConditionEnum, ProductStatusEnum } from '../enums'
 
+export interface IProductDetailOption {
+  name: string
+  options: string[]
+}
+
+export interface IProductDetail {
+  option1: string
+  option2: string
+  price: number
+  stock: number
+  sku?: string
+}
+
 export interface ICreateProductPayload {
   name: string
   detail: string
@@ -19,14 +32,8 @@ export interface ICreateProductPayload {
   price: number
   stock: number
   sku?: string
-  productOptions: { name: string; options: string[] }
-  products: {
-    option1: string
-    option2: string
-    price: number
-    stock: number
-    sku?: string
-  }
+  productOptions: IProductDetailOption[]
+  products: IProductDetail[]
 }
 
 export interface IProduct {

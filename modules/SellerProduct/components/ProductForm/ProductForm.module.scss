@@ -4,15 +4,18 @@
   color: $secondary-color !important;
 }
 
-.uploadImg {
-  width: auto;
-}
-
 .highlight {
   padding: 2rem;
   margin-bottom: 1rem;
   background-color: $background-light;
   border-radius: $border-radius;
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .radio {
@@ -34,6 +37,7 @@
     transform: translate(-50%, -50%);
     padding: 0.25rem 0.5rem;
     margin-top: 0.25rem;
+    color: $info-color;
     cursor: pointer;
   }
 }
@@ -46,6 +50,7 @@
   }
 
   .optionBin {
+    color: $info-color;
     cursor: pointer;
   }
 }
@@ -91,5 +96,11 @@
       flex: 1 100%;
       justify-content: flex-end;
     }
+  }
+}
+
+.table {
+  td {
+    vertical-align: top;
   }
 }

@@ -1,21 +1,29 @@
-import React from 'react'
+import React, { ChangeEvent, FC } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Typography, Radio, Col, Form, Input, Row, Select } from 'antd'
+import { Typography, Radio, Col, Form, Input, Row, Select, FormInstance } from 'antd'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import { LocaleNamespaceConst } from '~/constants'
+import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import styles from '../ProductForm.module.scss'
 
 const { Text } = Typography
 
-interface IFormProductFeaturesProps {
-  label?: string
-  value?: boolean
-  onChange?: (value: boolean) => void
-  onHintClick?: () => void
-  disabled?: boolean
+interface IFeaturesProps {
+  form: FormInstance
 }
-const Features: React.FC<IFormProductFeaturesProps> = () => {
+
+const Features: FC<IFeaturesProps> = (props: IFeaturesProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
+
+  function onChange(e: ChangeEvent<HTMLInputElement>): void {
+    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+      props.form.setFieldValue('weight', e.target.value)
+    } else {
+      props.form.setFieldValue(
+        'weight',
+        e.target.value.replace(RegExpConst.ALLOW_NUMBER_AND_DOT, '')
+      )
+    }
+  }
 
   return (
     <>
@@ -24,7 +32,7 @@ const Features: React.FC<IFormProductFeaturesProps> = () => {
         <Col md={12} xs={24}>
           <Form.Item label={t('seller.product:form.features.brand')} name="brandId">
             <Select>
-              <Select.Option value={null}>{t('common:form.option')}</Select.Option>
+              <Select.Option value="">{t('common:form.option')}</Select.Option>
               <Select.Option value={1}>Adidas</Select.Option>
             </Select>
           </Form.Item>
@@ -40,7 +48,10 @@ const Features: React.FC<IFormProductFeaturesProps> = () => {
               }
             ]}
           >
-            <Input suffix={<Text type="secondary">{t('seller.product:form.features.kg')}</Text>} />
+            <Input
+              suffix={<Text type="secondary">{t('seller.product:form.features.kg')}</Text>}
+              onChange={onChange}
+            />
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
@@ -59,13 +70,6 @@ const Features: React.FC<IFormProductFeaturesProps> = () => {
       </Row>
     </>
   )
-}
-
-Features.defaultProps = {
-  value: false,
-  onChange: undefined,
-  onHintClick: undefined,
-  disabled: false
 }
 
 export default Features

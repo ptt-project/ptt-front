@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Typography, Radio, Col, Form, Input, Row } from 'antd'
 import HighlightLabel from '~/components/main/HighlightLabel'
@@ -7,15 +7,7 @@ import styles from '../ProductForm.module.scss'
 
 const { Text } = Typography
 
-interface IFormProductFeaturesProps {
-  label?: string
-  value?: boolean
-  onChange?: (value: boolean) => void
-  onHintClick?: () => void
-  disabled?: boolean
-}
-
-const Other: React.FC<IFormProductFeaturesProps> = () => {
+const Other: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
 
   return (
@@ -38,13 +30,6 @@ const Other: React.FC<IFormProductFeaturesProps> = () => {
       </Row>
     </>
   )
-}
-
-Other.defaultProps = {
-  value: false,
-  onChange: undefined,
-  onHintClick: undefined,
-  disabled: false
 }
 
 export default Other
