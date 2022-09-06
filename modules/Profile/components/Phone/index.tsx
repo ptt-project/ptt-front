@@ -25,7 +25,8 @@ const Phone: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isOpenDelPhoneModal, setIsOpenDelPhoneModal] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [dataMobile, setdataMobile] = useState<string>('')
+  const [dataMobile, setDataMobile] = useState<string>('')
+  const [typeOTP, setTypeOTP] = useState<string>('')
 
   function toggle(): void {
     setIsOpen(!isOpen)
@@ -39,25 +40,31 @@ const Phone: FC = () => {
     setIsOpenDelPhoneModal(true)
   }
 
-  function onSetMobile(mobile: string): void {
-    console.log(mobile)
-    // setdataMobile(mobile)
+  function onSetMobile(mobile: string, type: string): void {
+    setDataMobile(mobile)
+    setTypeOTP(type)
+    if (type === 'main') {
+      toggle()
+    }
   }
 
-  async function onFavoritePhone(otpData: IOtp): Promise<void> {
-    setIsOpen(true)
+  async function onSubmit(otpData: IOtp): Promise<void> {
     toggle()
     setIsLoading(true)
-    const isSuccess: boolean = false
+    let isSuccess: boolean = false
     try {
       const payload: IMemberMobile = {
-        mobile: '',
-        otpCode: '',
-        refCode: ''
+        mobile: dataMobile,
+        otpCode: otpData.otpCode,
+        refCode: otpData.refCode
       }
       console.log(payload)
-      // const result: IApiResponse = await MemberService.deleteMobile(payload)
-      // console.log(result)
+      if (typeOTP === 'main') {
+        await MemberService.deleteMobile(payload)
+      } else {
+        await MemberService.setMainMobile(payload)
+      }
+      isSuccess = true
     } catch (error) {
       console.log(error)
     }
@@ -73,42 +80,24 @@ const Phone: FC = () => {
     console.log('reomove')
     toggleDelPhoneModal()
     setIsLoading(true)
-    const isSuccess: boolean = false
-    try {
-      const payload: IMemberMobile = {
-        mobile: '',
-        otpCode: '',
-        refCode: ''
-      }
-      const result: IApiResponse = await MemberService.deleteMobile(payload)
-      console.log(result)
-    } catch (error) {
-      console.log(error)
-    }
-    if (isSuccess) {
-      message.success(t('common:apiMessage.success'))
-    } else {
-      message.error(t('common:apiMessage.error'))
-    }
-    setIsLoading(false)
   }
 
   return (
     <>
       <Loading show={isLoading} />
       <OtpModal
-        mobile="12346"
+        mobile={dataMobile}
         action={OtpTypeEnum.REGISTER}
         isOpen={isOpen}
         toggle={toggle}
-        onSubmit={onFavoritePhone}
+        onSubmit={onSubmit}
       />
       <ConfirmationModal
         isOpen={isOpenDelPhoneModal}
         toggle={toggleDelPhoneModal}
         type="error"
         title={t('account-info:phone.deletePhone')}
-        content={`${t('account-info:phone.confirmDelete')} 081-2226666`}
+        content={t('account-info:phone.confirmDelete') + dataMobile}
         contentWarning={t('account-info:phone.msgConfirmDelete')}
         onSubmit={onRemove}
       />
@@ -166,7 +155,7 @@ const Phone: FC = () => {
                   </Col>
                   <Col sm={8} xs={12} className="text-right">
                     <Space size="middle">
-                      <a onClick={onSetMobile('0647012666')} aria-hidden="true">
+                      <a onClick={(): void => onSetMobile('0647012666', 'main')} aria-hidden="true">
                         <i className="fas fa-star" />
                       </a>
                       <a onClick={onDelPhoneModal} aria-hidden="true">
