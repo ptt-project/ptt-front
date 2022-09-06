@@ -8,7 +8,7 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
-import { IOtp, IMemberMobile, IApiResponse } from '~/interfaces'
+import { IOtp, IMemberMobile } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
@@ -26,7 +26,6 @@ const Phone: FC = () => {
   const [isOpenDelPhoneModal, setIsOpenDelPhoneModal] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [dataMobile, setDataMobile] = useState<string>('')
-  const [typeOTP, setTypeOTP] = useState<string>('')
 
   function toggle(): void {
     setIsOpen(!isOpen)
@@ -36,20 +35,20 @@ const Phone: FC = () => {
     setIsOpenDelPhoneModal(!isOpenDelPhoneModal)
   }
 
-  function onDelPhoneModal(): void {
-    setIsOpenDelPhoneModal(true)
-  }
-
   function onSetMobile(mobile: string, type: string): void {
     setDataMobile(mobile)
-    setTypeOTP(type)
     if (type === 'main') {
       toggle()
+    } else {
+      setIsOpenDelPhoneModal(true)
     }
   }
 
   async function onSubmit(otpData: IOtp): Promise<void> {
-    toggle()
+    if (!otpData) {
+      toggle()
+    }
+
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
@@ -59,11 +58,7 @@ const Phone: FC = () => {
         refCode: otpData.refCode
       }
       console.log(payload)
-      if (typeOTP === 'main') {
-        await MemberService.deleteMobile(payload)
-      } else {
-        await MemberService.setMainMobile(payload)
-      }
+      await MemberService.setMainMobile(payload)
       isSuccess = true
     } catch (error) {
       console.log(error)
@@ -76,10 +71,30 @@ const Phone: FC = () => {
     setIsLoading(false)
   }
 
-  async function onRemove(): Promise<void> {
-    console.log('reomove')
-    toggleDelPhoneModal()
+  async function onRemove(otpData: IOtp): Promise<void> {
+    if (!otpData) {
+      toggle()
+    }
     setIsLoading(true)
+    let isSuccess: boolean = false
+    try {
+      const payload: IMemberMobile = {
+        mobile: dataMobile,
+        otpCode: otpData.otpCode,
+        refCode: otpData.refCode
+      }
+      console.log(payload)
+      await MemberService.deleteMobile(payload)
+      isSuccess = true
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
   return (
@@ -97,7 +112,7 @@ const Phone: FC = () => {
         toggle={toggleDelPhoneModal}
         type="error"
         title={t('account-info:phone.deletePhone')}
-        content={t('account-info:phone.confirmDelete') + dataMobile}
+        content={`${t('account-info:phone.confirmDelete')}${dataMobile}`}
         contentWarning={t('account-info:phone.msgConfirmDelete')}
         onSubmit={onRemove}
       />
@@ -158,7 +173,10 @@ const Phone: FC = () => {
                       <a onClick={(): void => onSetMobile('0647012666', 'main')} aria-hidden="true">
                         <i className="fas fa-star" />
                       </a>
-                      <a onClick={onDelPhoneModal} aria-hidden="true">
+                      <a
+                        onClick={(): void => onSetMobile('0647012666', 'delete')}
+                        aria-hidden="true"
+                      >
                         <i className="fas fa-trash-alt" />
                       </a>
                     </Space>
