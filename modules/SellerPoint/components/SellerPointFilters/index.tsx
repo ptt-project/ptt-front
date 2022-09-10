@@ -6,7 +6,7 @@ import styles from './SellerPointFilters.module.scss'
 
 const { RangePicker } = DatePicker
 
-interface IFormModel {
+interface IFormData {
   productName: string
   productNameChoice: string
   date: string
@@ -16,7 +16,7 @@ const SellerPointFilters: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.point'])
   const [form] = Form.useForm()
 
-  function onSubmit(values: IFormModel): void {
+  function onSubmit(values: IFormData): void {
     console.log(values)
   }
   return (

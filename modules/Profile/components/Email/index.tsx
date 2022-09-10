@@ -45,7 +45,6 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
 
   return (
     <main className="main">
-      <Loading show={isLoading} />
       <Helmet>
         <title>
           {t('common:meta.title')} | {t('account-info:email.title')}
@@ -59,6 +58,7 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
           { title: t('account-info:email.title'), href: '/settings/account/info/email' }
         ]}
       />
+      <Loading show={isLoading} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>

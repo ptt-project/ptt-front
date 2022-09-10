@@ -13,7 +13,7 @@ import styles from './RegisterConsent.module.scss'
 
 const { Text, Title } = Typography
 
-interface IFormConsentModel {
+interface IFormConsentData {
   acceptConsent: boolean
 }
 
@@ -38,7 +38,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
     setChecked(e.target.checked)
   }
 
-  function onAccept(values: IFormConsentModel): void {
+  function onAccept(values: IFormConsentData): void {
     let isInvalid: number = 0
     Object.keys(props.form).forEach((key: string) => {
       if (isEmpty(props.form[key])) {

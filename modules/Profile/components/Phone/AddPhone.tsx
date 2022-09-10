@@ -40,7 +40,6 @@ const AddPhone: FC = () => {
   }
   return (
     <main className="main">
-      <Loading show={isLoading} />
       <Helmet>
         <title>
           {t('common:meta.title')} | {t('account-info:phone.titleAdd')}
@@ -55,6 +54,7 @@ const AddPhone: FC = () => {
           { title: t('account-info:phone.titleAdd'), href: '/settings/account/info/add-phone' }
         ]}
       />
+      <Loading show={isLoading} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>

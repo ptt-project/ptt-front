@@ -1,0 +1,85 @@
+.hps-text-small {
+  font-size: 12px;
+}
+
+.hps-scroll {
+  overflow: auto;
+
+  &::-webkit-scrollbar-track {
+    background-color: $background-dark;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: $white-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $secondary-color;
+    border-radius: 8px;
+  }
+}
+
+.hps-link {
+  color: $secondary-color !important;
+
+  &:hover,
+  &:focus {
+    color: $secondary-color-dark !important;
+  }
+}
+
+.hps-title {
+  margin-bottom: 2.5rem !important;
+  color: $secondary-color !important;
+  text-align: center;
+}
+
+.hps-btn-secondary {
+  color: $secondary-color;
+  border-color: $secondary-color;
+
+  &:hover,
+  &:focus {
+    color: $secondary-color-dark;
+    border-color: $secondary-color-dark;
+  }
+}
+
+.hps-switch {
+  &.ant-switch-checked {
+    background: $info-color;
+  }
+}
+
+.hps-table {
+  th {
+    color: $primary-color !important;
+    background-color: $white-color !important;
+    border-color: $primary-color !important;
+
+    &:hover,
+    &:focus {
+      background-color: $error-color-light !important;
+    }
+  }
+
+  th,
+  td {
+    white-space: nowrap;
+  }
+}
+
+.hps-rating {
+  color: $warning-color;
+
+  .ant-rate-star:not(:last-child) {
+    margin-right: 2px;
+  }
+}
+
+.ant-message {
+  margin-top: 100px;
+}
