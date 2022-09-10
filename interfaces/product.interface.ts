@@ -29,11 +29,11 @@ export interface ICreateProductPayload {
   length: number
   height: number
   isMultipleOptions: boolean
-  price: number
-  stock: number
+  price?: number
+  stock?: number
   sku?: string
-  productOptions: IProductDetailOption[]
-  products: IProductDetail[]
+  productOptions?: IProductDetailOption[]
+  products?: IProductDetail[]
 }
 
 export interface IProduct {
