@@ -12,6 +12,14 @@ const { Text } = Typography
 
 interface ISalesProps {
   form: FormInstance
+  productOptionLabelOne: string
+  productOptionLabelTwo: string
+  productOptionValueOne: string[]
+  productOptionValueTwo: string[]
+  setProductOptionLabelOne: (value: string) => void
+  setProductOptionLabelTwo: (value: string) => void
+  setProductOptionValueOne: (values: string[]) => void
+  setProductOptionValueTwo: (values: string[]) => void
 }
 
 interface ITempProductDetail {
@@ -50,23 +58,21 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
   const [calcProductOptionOne, setCalcProductOptionOne] = useState<number>(0)
   const [calcProductOptionTwo, setCalcProductOptionTwo] = useState<number>(0)
   const [dataSource, setDataSource] = useState<ITempProductDetail[]>([])
-  const [productOptionLabelOne, setProductOptionLabelOne] = useState<string>('')
-  const [productOptionLabelTwo, setProductOptionLabelTwo] = useState<string>('')
-  const [productOptionValueOne, setProductOptionValueOne] = useState<string[]>([])
-  const [productOptionValueTwo, setProductOptionValueTwo] = useState<string[]>([])
   // const [productOptionElementNameOne, setProductOptionElementNameOne] = useState<string[]>([])
   const [productOptionElementNameTwo, setProductOptionElementNameTwo] = useState<string[]>([])
 
   const columns: ColumnsType<ITempProductDetail> = [
     {
       title:
-        productOptionLabelOne || `${t('seller.product:form.sales.optionsForm.productOptions')} 1`,
+        props.productOptionLabelOne ||
+        `${t('seller.product:form.sales.optionsForm.productOptions')} 1`,
       dataIndex: 'option1',
       key: 'option1'
     },
     {
       title:
-        productOptionLabelTwo || `${t('seller.product:form.sales.optionsForm.productOptions')} 2`,
+        props.productOptionLabelTwo ||
+        `${t('seller.product:form.sales.optionsForm.productOptions')} 2`,
       dataIndex: 'option2',
       key: 'option2'
     },
@@ -131,7 +137,12 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
 
   useEffect(() => {
     initTableDataSource()
-  }, [productOptionLabelOne, productOptionLabelTwo, productOptionValueOne, productOptionValueTwo])
+  }, [
+    props.productOptionLabelOne,
+    props.productOptionLabelTwo,
+    props.productOptionValueOne,
+    props.productOptionValueTwo
+  ])
 
   function toggleCheckOption(checked: boolean): void {
     setIsCheckedOption(checked)
@@ -146,11 +157,10 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
     } else {
       props.form.setFieldValue(EOptionLabel.TWO, '')
       productOptionElementNameTwo.forEach((i: string) => {
-        console.log(i)
         props.form.setFieldValue(i, '')
       })
-      setProductOptionLabelTwo('')
-      setProductOptionValueTwo([])
+      props.setProductOptionLabelTwo('')
+      props.setProductOptionValueTwo([])
     }
   }
 
@@ -232,10 +242,10 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
 
   function initTableDataSource(): void {
     const data: ITempProductDetail[] = []
-    if (productOptionLabelOne && productOptionValueOne.length) {
-      productOptionValueOne.forEach((i: string) => {
-        if (productOptionLabelTwo && productOptionValueTwo.length) {
-          productOptionValueTwo.forEach((j: string) => {
+    if (props.productOptionLabelOne && props.productOptionValueOne.length) {
+      props.productOptionValueOne.forEach((i: string) => {
+        if (props.productOptionLabelTwo && props.productOptionValueTwo.length) {
+          props.productOptionValueTwo.forEach((j: string) => {
             data.push({
               option1: i,
               option2: j
@@ -253,9 +263,9 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
 
   function onChangeProductDetailOptionLabel(e: ChangeEvent<HTMLInputElement>, mode: 1 | 2): void {
     if (mode === 1) {
-      setProductOptionLabelOne(e.target.value)
+      props.setProductOptionLabelOne(e.target.value)
     } else {
-      setProductOptionLabelTwo(e.target.value)
+      props.setProductOptionLabelTwo(e.target.value)
     }
   }
 
@@ -264,9 +274,9 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
     let optionElementName: string[]
 
     if (mode === 1) {
-      option = [...productOptionValueOne]
+      option = [...props.productOptionValueOne]
       option[index] = value
-      setProductOptionValueOne(option.filter((i: string) => !isEmpty(i)))
+      props.setProductOptionValueOne(option.filter((i: string) => !isEmpty(i)))
 
       // optionElementName = [...productOptionElementNameOne]
       // optionElementName.push(`${EOptionValue.ONE}_${index + 1}`)
@@ -274,9 +284,9 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
       //   optionElementName.filter((item: string, i: number) => optionElementName.indexOf(item) === i)
       // )
     } else {
-      option = [...productOptionValueTwo]
+      option = [...props.productOptionValueTwo]
       option[index] = value
-      setProductOptionValueTwo(option.filter((i: string) => !isEmpty(i)))
+      props.setProductOptionValueTwo(option.filter((i: string) => !isEmpty(i)))
 
       optionElementName = [...productOptionElementNameTwo]
       optionElementName.push(`${EOptionValue.TWO}_${index + 1}`)
@@ -358,6 +368,8 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
           </Form.Item>
         </Col>
         {items.map((item: string, index: number) => {
+          const canRemove: boolean = items.length - index === 1
+
           if (index === 0) {
             return (
               <Col span={24} key={index}>
@@ -399,8 +411,12 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
               </Col>
               <Col className={styles.binWrapper} span={2}>
                 <Text
-                  className={styles.bin}
-                  onClick={(): void => handleProductRemove(choiceName, item, items, index, mode)}
+                  className={canRemove ? styles.bin : styles.disabledBin}
+                  onClick={(): void => {
+                    if (canRemove) {
+                      handleProductRemove(choiceName, item, items, index, mode)
+                    }
+                  }}
                 >
                   <i className="fas fa-trash-alt" />
                 </Text>

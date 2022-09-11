@@ -83,7 +83,6 @@ const Profile: FC<IProps> = (props: IProps) => {
   }, [])
   return (
     <main className="main">
-      <Loading show={isLoading} />
       <Helmet>
         <title>
           {t('common:meta.title')} | {t('account-info:title')}
@@ -96,6 +95,7 @@ const Profile: FC<IProps> = (props: IProps) => {
           { title: t('account-info:personalInfo'), href: '/settings/account/info' }
         ]}
       />
+      <Loading show={isLoading} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>

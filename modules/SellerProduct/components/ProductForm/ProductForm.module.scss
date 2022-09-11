@@ -30,15 +30,24 @@
 .binWrapper {
   position: relative;
 
-  .bin {
+  .bin,
+  .disabledBin {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 0.25rem 0.5rem;
     margin-top: 0.25rem;
+  }
+
+  .bin {
     color: $info-color;
     cursor: pointer;
+  }
+
+  .disabledBin {
+    color: $text-gray;
+    cursor: not-allowed;
   }
 }
 

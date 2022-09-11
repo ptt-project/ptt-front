@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { Typography, Radio, Col, Form, Input, Row, Select, FormInstance } from 'antd'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
+import { ProductConditionEnum } from '../../../../../enums'
 import styles from '../ProductForm.module.scss'
 
 const { Text } = Typography
@@ -14,7 +15,15 @@ interface IFeaturesProps {
 const Features: FC<IFeaturesProps> = (props: IFeaturesProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
 
-  function onChange(e: ChangeEvent<HTMLInputElement>): void {
+  function onChangeExp(e: ChangeEvent<HTMLInputElement>): void {
+    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+      props.form.setFieldValue('exp', e.target.value)
+    } else {
+      props.form.setFieldValue('exp', e.target.value.replace(RegExpConst.ALLOW_NUMBER, ''))
+    }
+  }
+
+  function onChangeWeight(e: ChangeEvent<HTMLInputElement>): void {
     if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
       props.form.setFieldValue('weight', e.target.value)
     } else {
@@ -50,20 +59,27 @@ const Features: FC<IFeaturesProps> = (props: IFeaturesProps) => {
           >
             <Input
               suffix={<Text type="secondary">{t('seller.product:form.features.kg')}</Text>}
-              onChange={onChange}
+              onChange={onChangeWeight}
             />
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
           <Form.Item label={t('seller.product:form.features.shelfLife')} name="exp">
-            <Input suffix={<Text type="secondary">{t('seller.product:form.features.day')}</Text>} />
+            <Input
+              suffix={<Text type="secondary">{t('seller.product:form.features.day')}</Text>}
+              onChange={onChangeExp}
+            />
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
           <Form.Item label={t('seller.product:form.features.condition')} name="condition">
             <Radio.Group className={styles.radio}>
-              <Radio value="old">{t('seller.product:form.features.old')}</Radio>
-              <Radio value="new">{t('seller.product:form.features.new')}</Radio>
+              <Radio value={ProductConditionEnum.OLD}>
+                {t('seller.product:form.features.old')}
+              </Radio>
+              <Radio value={ProductConditionEnum.NEW}>
+                {t('seller.product:form.features.new')}
+              </Radio>
             </Radio.Group>
           </Form.Item>
         </Col>

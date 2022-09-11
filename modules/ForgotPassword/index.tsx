@@ -1,19 +1,23 @@
 import React, { useState, FC } from 'react'
 import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
+import { message } from 'antd'
 import ForgotPasswordForm from './components/ForgotPasswordForm'
 import ForgotPasswordEmailRequest from './components/ForgotPasswordEmailRequest'
 import ForgotPasswordConfirm from './components/ForgotPasswordConfirm'
 import ForgotPasswordSuccess from './components/ForgotPasswordSuccess'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import Loading from '../../components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { IAuthForgotPasswordForm, IOtp } from '~/interfaces'
 import { OtpReferenceTypeEnum, OtpTypeEnum } from '~/enums'
 import { AuthDestroyUtil } from '~/utils/main'
+// import { MemberService } from '../../services'
 
 const ForgotPassword: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.forgot-password'])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [step, setStep] = useState<number>(0) // 0=FORGOT_PASSWORD_FORM, 1=FORGOT_PASSWORD_EMAIL_REQUEST, 2=FORGOT_PASSWORD_CONFIRM, 3=FORGOT_PASSWORD_SUCCESS
   const [reference, setReference] = useState<string>('')
@@ -53,11 +57,24 @@ const ForgotPassword: FC = () => {
     }
   }
 
-  function onSubmitNewPassword(values: { password: string }): void {
+  async function onSubmitNewPassword(values: { password: string }): Promise<void> {
     console.log(otpData)
-    console.log(values)
-    setStep(3)
-    AuthDestroyUtil()
+    setIsLoading(true)
+    let isSuccess: boolean = false
+    try {
+      // const { data } = await MemberService.forgotPassword({ password })
+      isSuccess = true
+      setStep(3)
+      AuthDestroyUtil()
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
   function renderStep(): JSX.Element {
@@ -83,6 +100,7 @@ const ForgotPassword: FC = () => {
         </title>
       </Helmet>
       <Breadcrumbs items={[{ title: t('auth.forgot-password:title') }]} />
+      <Loading show={isLoading} />
       <OtpModal
         mobile={reference}
         action={OtpTypeEnum.REGISTER}

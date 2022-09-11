@@ -1,14 +1,26 @@
-import React, { FC } from 'react'
+import React, { ChangeEvent, FC } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Typography, Radio, Col, Form, Input, Row } from 'antd'
+import { Typography, Radio, Col, Form, Input, Row, FormInstance } from 'antd'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import { LocaleNamespaceConst } from '~/constants'
+import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import styles from '../ProductForm.module.scss'
 
 const { Text } = Typography
 
-const Other: FC = () => {
+interface IOtherProps {
+  form: FormInstance
+}
+
+const Other: FC<IOtherProps> = (props: IOtherProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
+
+  function onChange(e: ChangeEvent<HTMLInputElement>): void {
+    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+      props.form.setFieldValue('extraDay', e.target.value)
+    } else {
+      props.form.setFieldValue('extraDay', e.target.value.replace(RegExpConst.ALLOW_NUMBER, ''))
+    }
+  }
 
   return (
     <>
@@ -24,7 +36,10 @@ const Other: FC = () => {
         </Col>
         <Col md={12} xs={24}>
           <Form.Item label={t('seller.product:form.other.iNeedTime')} name="extraDay">
-            <Input suffix={<Text type="secondary">{t('seller.product:form.other.day')}</Text>} />
+            <Input
+              suffix={<Text type="secondary">{t('seller.product:form.other.day')}</Text>}
+              onChange={onChange}
+            />
           </Form.Item>
         </Col>
       </Row>

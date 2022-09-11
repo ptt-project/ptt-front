@@ -1,5 +1,5 @@
 import { useTranslation } from 'next-i18next'
-import { Upload, Col, Form, Input, Row, Select, Typography } from 'antd'
+import { Upload, Col, Form, Input, Row, Select, Typography, FormInstance } from 'antd'
 import { RcFile } from 'antd/es/upload'
 import { UploadFile } from 'antd/es/upload/interface'
 import { UploadChangeParam } from 'antd/lib/upload'
@@ -10,7 +10,11 @@ import styles from '../ProductForm.module.scss'
 
 const { Text } = Typography
 
-const Info: FC = () => {
+interface IInfoProps {
+  form: FormInstance
+}
+
+const Info: FC<IInfoProps> = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [fileList, setFileList] = useState<UploadFile[]>([])
 

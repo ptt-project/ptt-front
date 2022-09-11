@@ -24,5 +24,8 @@ export const EndPointUrlConst = {
   SHOPS: {
     CATEGORIES: '/shops/categories',
     PRODUCTS: '/shops/products'
+  },
+  IMAGES: {
+    UPLOAD: '/images/upload-image'
   }
 }
