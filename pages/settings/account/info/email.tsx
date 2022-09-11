@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { AxiosRequestConfig } from 'axios'
 import Email from '~/modules/Profile/components/Email'
 import { LocaleNamespaceConst } from '~/constants'
 import { IMemberProfile, IApiResponse } from '~/interfaces'
@@ -14,24 +15,30 @@ export async function getServerSideProps(
   context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<any>> {
   let profile: IMemberProfile[] = []
-  try {
-    const { data }: IApiResponse = await MemberService.getAddresses()
-    profile = data
-    console.log(profile)
-  } catch (error) {
-    console.log(error)
+  const { req } = context
+  if (req) {
+    try {
+      const option: AxiosRequestConfig = {
+        headers: { Cookie: req.headers.cookie }
+      }
+      const { data }: IApiResponse = await MemberService.getProfile(option)
+      profile = data
+    } catch (error) {
+      console.error(error)
 
-    return {
-      redirect: {
-        destination: '/error',
-        permanent: true
+      return {
+        redirect: {
+          destination: '/error',
+          permanent: true
+        }
       }
     }
   }
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'account-info']))
+      ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'account-info'])),
+      profile
     }
   }
 }

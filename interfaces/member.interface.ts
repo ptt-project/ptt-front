@@ -4,16 +4,17 @@ export interface IMemberProfile {
   lastName: string
   mobile: string
   birthday?: string
-  birthMonth?: string
-  birthYear?: string
+  day?: string
+  month?: string
+  year?: string
   gender?: string
   email: string
   code?: string
 }
 
 export interface IMemberProfileUpdate {
-  firstName: string
-  lastName: string
+  firstname: string
+  lastname: string
   birthday: string
   gender: string
 }

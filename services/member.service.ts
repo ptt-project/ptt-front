@@ -40,7 +40,10 @@ export const updateEmail = (email: string): Promise<IApiResponse> =>
   AxiosService.put(`${EndPointUrlConst.MEMBERS.EMAIL}/${email}`)
 
 export const createMobile = (payload: IMemberMobile): Promise<IApiResponse> =>
-  AxiosService.post(EndPointUrlConst.MEMBERS.MOBILES, payload)
+  AxiosService.post(EndPointUrlConst.MEMBERS.MOBILES_ADD, payload)
 
-export const deleteMobile = (mobile: string): Promise<IApiResponse> =>
-  AxiosService.delete(`${EndPointUrlConst.MEMBERS.MOBILES}/${mobile}`)
+export const deleteMobile = (payload: IMemberMobile): Promise<IApiResponse> =>
+  AxiosService.patch(EndPointUrlConst.MEMBERS.MOBILES_DELETE, payload)
+
+export const setMainMobile = (payload: IMemberMobile): Promise<IApiResponse> =>
+  AxiosService.patch(EndPointUrlConst.MEMBERS.MOBILES_SET_MAIN, payload)
