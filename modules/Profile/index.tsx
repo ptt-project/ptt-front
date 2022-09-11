@@ -36,12 +36,25 @@ interface IProps {
   profile: IMemberProfile
 }
 const Profile: FC<IProps> = (props: IProps) => {
-  console.log(props.profile)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   const [valueGender, setValueGender] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const month = {
+    '01': 'January',
+    '02': 'February',
+    '03': 'March',
+    '04': 'April',
+    '05': 'May',
+    '06': 'June',
+    '07': 'July',
+    '08': 'August',
+    '09': 'September',
+    '10': 'October',
+    '11': 'November',
+    '12': 'December'
+  }
 
   function onChange(e: RadioChangeEvent): void {
     setValueGender(e.target.value)
@@ -194,11 +207,11 @@ const Profile: FC<IProps> = (props: IProps) => {
                         <Form.Item label="&nbsp;" name="month">
                           <Select defaultValue="">
                             <Option value="">{t('account-info:form.month')}</Option>
-                            {_.range(1, 12 + 1).map((value: number) => (
-                              <Option key={value} value={value}>
-                                {value}
+                            {Object.keys(month).forEach((key: string, index: number) => {
+                              ;<Option key={index} value={key}>
+                                {month[key]}
                               </Option>
-                            ))}
+                            })}
                           </Select>
                         </Form.Item>
                       </Col>
