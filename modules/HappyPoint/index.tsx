@@ -19,25 +19,15 @@ const HappyPoint: React.FC = () => {
   const balance: number = 3999
 
   function onBuyClick(): void {
-    router.push('/settings/finance/happy-point/buy', '/settings/finance/happy-point/buy', {
-      locale: router.locale
-    })
+    router.push('/settings/finance/happy-point/buy')
   }
 
   function onSellClick(): void {
-    router.push('/settings/finance/happy-point/sell', '/settings/finance/happy-point/sell', {
-      locale: router.locale
-    })
+    router.push('/settings/finance/happy-point/sell')
   }
 
   function onTransferClick(): void {
-    router.push(
-      '/settings/finance/happy-point/transfer',
-      '/settings/finance/happy-point/transfer',
-      {
-        locale: router.locale
-      }
-    )
+    router.push('/settings/finance/happy-point/transfer')
   }
 
   return (

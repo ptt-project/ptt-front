@@ -175,7 +175,7 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
       })
     }
     if (pathname) {
-      router.push(pathname, pathname, { locale: router.locale })
+      router.push(pathname)
     }
   }
 

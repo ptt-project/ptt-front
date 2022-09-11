@@ -58,9 +58,7 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
     setIsOtpOpen(false)
     bankMock.push(bankAccountData)
     message.success(t('common:dataUpdated'))
-    router.replace(`${rootMenu}/settings/finance/bank`, `${rootMenu}/settings/finance/bank`, {
-      locale: router.locale
-    })
+    router.replace(`${rootMenu}/settings/finance/bank`)
   }
 
   function onSaveClick(): void {

@@ -76,9 +76,7 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
       }
     })
     message.success(t('common:dataUpdated'))
-    router.replace(`${rootMenu}/settings/finance/bank`, `${rootMenu}/settings/finance/bank`, {
-      locale: router.locale
-    })
+    router.replace(`${rootMenu}/settings/finance/bank`)
   }
 
   return (

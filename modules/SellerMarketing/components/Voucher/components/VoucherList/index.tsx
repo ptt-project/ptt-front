@@ -65,13 +65,7 @@ const VoucherList: FC = () => {
   }
 
   function onEditVoucherClick(voucherId: string): void {
-    router.push(
-      `/seller/settings/marketing/voucher/${voucherId}`,
-      `/seller/settings/marketing/voucher/${voucherId}`,
-      {
-        locale: router.locale
-      }
-    )
+    router.push(`/seller/settings/marketing/voucher/${voucherId}`)
   }
   return (
     <>
