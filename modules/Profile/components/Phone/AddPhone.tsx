@@ -39,14 +39,12 @@ const AddPhone: FC = () => {
       }
       await MemberService.createMobile(payload)
       isSuccess = true
-      router.push('/settings/account/info/phone', '/settings/account/info/phone', {
-        locale: router.locale
-      })
     } catch (error) {
       console.log(error)
     }
     if (isSuccess) {
       message.success(t('common:apiMessage.success'))
+      router.push('/settings/account/info/phone')
     } else {
       message.error(t('common:apiMessage.error'))
     }
