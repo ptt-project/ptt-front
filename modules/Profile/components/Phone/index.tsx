@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
@@ -8,7 +8,7 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
-import { IOtp, IMemberMobile } from '~/interfaces'
+import { IOtp, IMemberMobile, IMemberMobilePayload } from '~/interfaces'
 import { CustomUrlUtil, HelperMobileFormat } from '~/utils/main'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
@@ -30,9 +30,20 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
   const [isOpenDelPhoneModal, setIsOpenDelPhoneModal] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [dataMobile, setDataMobile] = useState<string>('')
+  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false)
+  const [dataMainMobile, setDataMainMobile] = useState<string>('')
 
   function toggle(): void {
     setIsOpen(!isOpen)
+  }
+
+  function toggleDelete(): void {
+    setIsOpenDelete(!isOpen)
+  }
+
+  function onConfirmDelete(): void {
+    setIsOpenDelPhoneModal(false)
+    setIsOpenDelete(true)
   }
 
   function toggleDelPhoneModal(): void {
@@ -52,55 +63,54 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
     if (!otpData) {
       toggle()
     }
-
-    setIsLoading(true)
-    let isSuccess: boolean = false
     try {
-      const payload: IMemberMobile = {
+      const payload: IMemberMobilePayload = {
         mobile: dataMobile,
         otpCode: otpData.otpCode,
         refCode: otpData.refCode
       }
-      console.log(payload)
       await MemberService.setMainMobile(payload)
-      isSuccess = true
     } catch (error) {
       console.log(error)
     }
-    if (isSuccess) {
-      message.success(t('common:apiMessage.success'))
-    } else {
-      message.error(t('common:apiMessage.error'))
-    }
-    setIsLoading(false)
   }
 
   async function onRemove(otpData: IOtp): Promise<void> {
-    if (!otpData) {
-      toggle()
-    }
-    setIsLoading(true)
-    let isSuccess: boolean = false
     try {
-      const payload: IMemberMobile = {
+      const payload: IMemberMobilePayload = {
         mobile: dataMobile,
         otpCode: otpData.otpCode,
         refCode: otpData.refCode
       }
       console.log(payload)
       await MemberService.deleteMobile(payload)
-      isSuccess = true
     } catch (error) {
       console.log(error)
     }
-    if (isSuccess) {
-      message.success(t('common:apiMessage.success'))
-    } else {
-      message.error(t('common:apiMessage.error'))
-    }
-    setIsLoading(false)
   }
 
+  function getMobileMain(mobileList: IMemberMobile): void {
+    const mainMobile: string = mobileList.filter((item: IMemberMobile): string => {
+      if (item.isPrimary === true) {
+        return item.mobile
+      }
+    })
+    console.log(mainMobile)
+    setDataMainMobile(mainMobile[0].mobile)
+  }
+
+  async function fetchData(): Promise<void> {
+    try {
+      await MemberService.getMobile()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getMobileMain(props.mobile)
+    console.log('dataMainMobile=', dataMainMobile)
+    fetchData()
+  }, [])
   return (
     <>
       <Loading show={isLoading} />
@@ -111,6 +121,13 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
         toggle={toggle}
         onSubmit={onSubmit}
       />
+      <OtpModal
+        mobile="0647012777"
+        action={OtpTypeEnum.REGISTER}
+        isOpen={isOpenDelete}
+        toggle={toggleDelete}
+        onSubmit={onRemove}
+      />
       <ConfirmationModal
         isOpen={isOpenDelPhoneModal}
         toggle={toggleDelPhoneModal}
@@ -118,7 +135,7 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
         title={t('account-info:phone.deletePhone')}
         content={`${t('account-info:phone.confirmDelete')}${dataMobile}`}
         contentWarning={t('account-info:phone.msgConfirmDelete')}
-        onSubmit={onRemove}
+        onSubmit={onConfirmDelete}
       />
       <main className="main">
         <Helmet>

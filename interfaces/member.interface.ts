@@ -31,6 +31,12 @@ export interface IMemberMobile {
   deletedAt: string
 }
 
+export interface IMemberMobilePayload {
+  mobile: string
+  otpCode: string
+  refCode: string
+}
+
 export interface IMemberChangePassword {
   oldPassword: string
   newPassword: string
