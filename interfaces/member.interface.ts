@@ -25,9 +25,10 @@ export interface IMemberEmailUpdate {
 }
 
 export interface IMemberMobile {
+  id: number
   mobile: string
-  refCode: string
-  otpCode: string
+  isPrimary: boolean
+  deletedAt: string
 }
 
 export interface IMemberChangePassword {

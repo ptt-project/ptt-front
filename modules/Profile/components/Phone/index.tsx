@@ -9,7 +9,7 @@ import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import { IOtp, IMemberMobile } from '~/interfaces'
-import { CustomUrlUtil } from '~/utils/main'
+import { CustomUrlUtil, HelperMobileFormat } from '~/utils/main'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
@@ -19,7 +19,11 @@ import styles from './ProfilePhone.module.scss'
 
 const { Text } = Typography
 
-const Phone: FC = () => {
+interface IMemberMobileProps {
+  mobile: IMemberMobile
+}
+const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
+  console.log(props.mobile)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -155,33 +159,45 @@ const Phone: FC = () => {
                     </Link>
                   </Col>
                 </Row>
-                <Row className={styles.highlight}>
-                  <Col md={{ span: 6, offset: 2 }}>
-                    <Text className={`mr-2 ${styles.textPrimary}`}>081-111-1111</Text>
-                    <Button>
-                      <i className="fas fa-star mr-2" />
-                      {t('account-info:button.mainNumber')}
-                    </Button>
-                  </Col>
-                </Row>
-                <Row className={styles.phoneListWrapper}>
-                  <Col sm={{ span: 12, offset: 2 }} xs={12}>
-                    <Text className={`${styles.textPrimary}`}>081-111-2222</Text>
-                  </Col>
-                  <Col sm={8} xs={12} className="text-right">
-                    <Space size="middle">
-                      <a onClick={(): void => onSetMobile('0647012666', 'main')} aria-hidden="true">
-                        <i className="fas fa-star" />
-                      </a>
-                      <a
-                        onClick={(): void => onSetMobile('0647012666', 'delete')}
-                        aria-hidden="true"
-                      >
-                        <i className="fas fa-trash-alt" />
-                      </a>
-                    </Space>
-                  </Col>
-                </Row>
+                {props.mobile?.map((item: IMemberMobile) =>
+                  item.isPrimary ? (
+                    <Row className={styles.highlight}>
+                      <Col md={{ span: 6, offset: 2 }}>
+                        <Text className={`mr-2 ${styles.textPrimary}`}>
+                          {HelperMobileFormat(item.mobile)}
+                        </Text>
+                        <Button>
+                          <i className="fas fa-star mr-2" />
+                          {t('account-info:button.mainNumber')}
+                        </Button>
+                      </Col>
+                    </Row>
+                  ) : (
+                    <Row className={styles.phoneListWrapper}>
+                      <Col sm={{ span: 12, offset: 2 }} xs={12}>
+                        <Text className={`${styles.textPrimary}`}>
+                          {HelperMobileFormat(item.mobile)}
+                        </Text>
+                      </Col>
+                      <Col sm={8} xs={12} className="text-right">
+                        <Space size="middle">
+                          <a
+                            onClick={(): void => onSetMobile(`${item.mobile}`, 'main')}
+                            aria-hidden="true"
+                          >
+                            <i className="fas fa-star" />
+                          </a>
+                          <a
+                            onClick={(): void => onSetMobile(`${item.mobile}`, 'delete')}
+                            aria-hidden="true"
+                          >
+                            <i className="fas fa-trash-alt" />
+                          </a>
+                        </Space>
+                      </Col>
+                    </Row>
+                  )
+                )}
               </Col>
             </Row>
           </div>

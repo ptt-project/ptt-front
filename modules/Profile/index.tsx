@@ -32,10 +32,11 @@ import styles from './Profile.module.scss'
 const { Text, Title } = Typography
 const { Option } = Select
 
-interface IProps {
+interface IProfile {
   profile: IMemberProfile
 }
-const Profile: FC<IProps> = (props: IProps) => {
+const Profile: FC<IProfile> = (props: IProfile) => {
+  console.log(props)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
