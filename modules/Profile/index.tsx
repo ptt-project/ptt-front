@@ -207,11 +207,6 @@ const Profile: FC<IProps> = (props: IProps) => {
                         <Form.Item label="&nbsp;" name="month">
                           <Select defaultValue="">
                             <Option value="">{t('account-info:form.month')}</Option>
-                            {Object.keys(month).forEach((key: string, index: number) => {
-                              ;<Option key={index} value={key}>
-                                {month[key]}
-                              </Option>
-                            })}
                           </Select>
                         </Form.Item>
                       </Col>

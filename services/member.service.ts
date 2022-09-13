@@ -47,3 +47,6 @@ export const deleteMobile = (payload: IMemberMobile): Promise<IApiResponse> =>
 
 export const setMainMobile = (payload: IMemberMobile): Promise<IApiResponse> =>
   AxiosService.patch(EndPointUrlConst.MEMBERS.MOBILES_SET_MAIN, payload)
+
+export const getMobile = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
+  AxiosService.get(EndPointUrlConst.MEMBERS.MOBILES, option)
