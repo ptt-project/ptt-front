@@ -53,12 +53,12 @@
     width: 100%;
     padding: 0.5rem 1rem;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     text-align: left;
 
     .dTitle {
       display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .dAmount {
@@ -78,7 +78,8 @@
     color: $text-gray;
     cursor: pointer;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       color: $primary-color;
     }
   }
@@ -90,7 +91,8 @@
     color: $primary-color;
     cursor: pointer;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       color: $text-gray;
     }
   }

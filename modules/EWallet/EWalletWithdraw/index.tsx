@@ -41,9 +41,7 @@ const EWalletWithdraw: React.FC = () => {
   function onOtpSuccess(): void {
     setIsOtpOpen(false)
     message.success(t('common:dataUpdated'))
-    router.replace('/settings/finance/e-wallet', '/settings/finance/e-wallet', {
-      locale: router.locale
-    })
+    router.replace('/settings/finance/e-wallet')
   }
 
   function onSubmit(values: IEWalletWithdrawFormValues): void {

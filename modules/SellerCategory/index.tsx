@@ -67,12 +67,7 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
         const pathname: string = `/seller/settings/shop/category/${record.id}`
         return (
           <Space size="middle">
-            <Text
-              className={styles.action}
-              onClick={(): Promise<boolean> =>
-                router.push(pathname, pathname, { locale: router.locale })
-              }
-            >
+            <Text className={styles.action} onClick={(): Promise<boolean> => router.push(pathname)}>
               <i className="fa fa-pen" />
             </Text>
             <Text

@@ -52,9 +52,7 @@ const ChangePassword: React.FC = () => {
       notification.success({
         message: 'Change Password Success'
       })
-      router.replace('/auth/login', '/auth/login', {
-        locale: router.locale
-      })
+      router.replace('/auth/login')
       // success go to login
       setIsOpen(false)
     } catch (error) {

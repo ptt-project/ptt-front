@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react'
+import { NextRouter, useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { isEmpty } from 'lodash'
 import { Typography, Button, Row, Col, Form, message, UploadFile } from 'antd'
@@ -42,6 +43,7 @@ interface IFormData {
 
 const ProductForm: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
+  const router: NextRouter = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [form] = Form.useForm()
   const [productOptionLabelOne, setProductOptionLabelOne] = useState<string>('')
@@ -118,8 +120,7 @@ const ProductForm: FC = () => {
       uploadImages.forEach((data: { id: string }) => imageIds.push(data.id))
       payload.imageIds = imageIds
 
-      const { data }: IApiResponse = await ShopService.createProduct(payload)
-      console.log(data)
+      await ShopService.createProduct(payload)
 
       isSuccess = true
     } catch (error) {
@@ -127,6 +128,7 @@ const ProductForm: FC = () => {
     }
     if (isSuccess) {
       message.success(t('common:apiMessage.success'))
+      router.push('/seller/settings/product/list')
     } else {
       message.error(t('common:apiMessage.error'))
     }

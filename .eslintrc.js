@@ -46,7 +46,6 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/no-array-index-key': 'off',
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
-    'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
     'require-explicit-generics/require-explicit-generics': [
       'error',
       // List your functions here

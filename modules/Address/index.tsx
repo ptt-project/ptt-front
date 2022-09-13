@@ -49,23 +49,11 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
   }, [addressesFromServerSide, fetchAddresses])
 
   function onAddAddressClick(): void {
-    router.push(
-      `${rootMenu}/settings/account/address/add`,
-      `${rootMenu}/settings/account/address/add`,
-      {
-        locale: router.locale
-      }
-    )
+    router.push(`${rootMenu}/settings/account/address/add`)
   }
 
   function onEditAddressClick(addressId: string): void {
-    router.push(
-      `${rootMenu}/settings/account/address/${addressId}`,
-      `${rootMenu}/settings/account/address/${addressId}`,
-      {
-        locale: router.locale
-      }
-    )
+    router.push(`${rootMenu}/settings/account/address/${addressId}`)
   }
 
   async function onSetMainAddressClick(addressId: string): Promise<void> {
