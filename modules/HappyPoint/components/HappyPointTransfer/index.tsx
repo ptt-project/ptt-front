@@ -43,9 +43,7 @@ const HappyPointTransfer: React.FC = () => {
   function onOtpSuccess(): void {
     setIsOtpOpen(false)
     message.success(t('common:dataUpdated'))
-    router.replace('/settings/finance/happy-point', '/settings/finance/happy-point', {
-      locale: router.locale
-    })
+    router.replace('/settings/finance/happy-point')
   }
 
   return (

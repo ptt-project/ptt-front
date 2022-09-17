@@ -8,18 +8,20 @@ export const EndPointUrlConst = {
   OTP: {
     REQUEST: '/otp/request'
   },
-  MEMBER: {
+  MEMBERS: {
     PROFILE: '/members/profile',
     ADDRESSES: '/members/addresses',
-    EMAIL: '/members/email',
-    MOBILES: '/members/mobiles',
+    EMAIL: '/members/edit-email',
+    MOBILES_ADD: '/members/mobiles/add',
+    MOBILES_DELETE: '/members/mobiles/delete',
+    MOBILES_SET_MAIN: '/members/mobiles/set-main',
     CHANGE_PASSWORD: '/members/change-password'
   },
-  SELLER: {
+  SELLERS: {
     REGISTER: '/sellers/register',
     SHOP_INFO: '/sellers/shop-info'
   },
-  SHOP: {
+  SHOPS: {
     CATEGORIES: '/shops/categories',
     PRODUCTS: '/shops/products'
   },
@@ -31,5 +33,8 @@ export const EndPointUrlConst = {
   },
   BANK_ACCOUNT: {
     BANK_ACCOUNTS: '/bank-accounts'
+  },
+  IMAGES: {
+    UPLOAD: '/images/upload-image'
   }
 }

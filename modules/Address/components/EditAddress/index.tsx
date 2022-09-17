@@ -53,13 +53,7 @@ const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
         }
         await MemberService.updateAddress(addressId, payload)
         message.success(t('common:dataUpdated'))
-        router.replace(
-          `${rootMenu}/settings/account/address`,
-          `${rootMenu}/settings/account/address`,
-          {
-            locale: router.locale
-          }
-        )
+        router.replace(`${rootMenu}/settings/account/address`)
       }
     } catch (error) {
       message.error(t('Fail'))

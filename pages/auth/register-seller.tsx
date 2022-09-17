@@ -7,7 +7,7 @@ import { LocaleNamespaceConst } from '~/constants'
 import { IApiResponse, ISellerInfoRes } from '~/interfaces'
 import { SellerService } from '~/services'
 import { SellerApprovalStatusEnum } from '~/enums'
-import { withSellerAuth } from '~/utils/main'
+import { withSellerAuth } from '../../hocs/with-seller'
 
 interface IRegisterSellerPageProps {
   shopInfo?: ISellerInfoRes

@@ -4,7 +4,6 @@ import { NextRouter, useRouter } from 'next/router'
 import { Typography, Button, Menu, MenuProps } from 'antd'
 import { MenuInfo } from 'rc-menu/lib/interface'
 import { LocaleNamespaceConst } from '~/constants'
-import { CustomUrlUtil } from '~/utils/main'
 
 const { Text, Title } = Typography
 
@@ -116,7 +115,7 @@ const MainSidebar: FC = () => {
 
   function onClick(e: MenuInfo): void {
     console.log(e)
-    router.push(CustomUrlUtil('/search', router.locale))
+    router.push('/search')
   }
 
   function onClose(e: any): void {

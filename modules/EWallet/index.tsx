@@ -21,15 +21,11 @@ const EWallet: React.FC = () => {
   const balance: number = useMemo(() => wallet?.balance || 0, [wallet?.balance])
 
   function onTopUpClick(): void {
-    router.push('/settings/finance/e-wallet/top-up', '/settings/finance/e-wallet/top-up', {
-      locale: router.locale
-    })
+    router.push('/settings/finance/e-wallet/top-up')
   }
 
   function onWithdrawClick(): void {
-    router.push('/settings/finance/e-wallet/withdraw', '/settings/finance/e-wallet/withdraw', {
-      locale: router.locale
-    })
+    router.push('/settings/finance/e-wallet/withdraw')
   }
 
   return (

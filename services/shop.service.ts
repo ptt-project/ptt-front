@@ -1,29 +1,43 @@
 import { AxiosRequestConfig } from 'axios'
 import { AxiosService } from './axios.service'
-import { IApiResponse } from '~/interfaces'
+import {
+  IApiResponse,
+  ICreateCategoryPayload,
+  ICreateProductPayload,
+  IUpdateCategoryPayload
+} from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
-import { IShopAddCategoryPayload, IShopUpdateCategoryPayload } from '~/interfaces/shop.interface'
+import { CategoryStatusEnum } from '~/enums'
 
 export const getCategories = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
-  AxiosService.get(EndPointUrlConst.SHOP.CATEGORIES, option)
+  AxiosService.get(EndPointUrlConst.SHOPS.CATEGORIES, option)
 
 export const getCategory = (
   categoryId: string,
   option?: AxiosRequestConfig
 ): Promise<IApiResponse> =>
-  AxiosService.get(`${EndPointUrlConst.SHOP.CATEGORIES}/${categoryId}`, option)
+  AxiosService.get(`${EndPointUrlConst.SHOPS.CATEGORIES}/${categoryId}`, option)
 
-export const addCategotry = (payload?: IShopAddCategoryPayload): Promise<IApiResponse> =>
-  AxiosService.post(EndPointUrlConst.SHOP.CATEGORIES, payload)
+export const createCategory = (payload?: ICreateCategoryPayload): Promise<IApiResponse> =>
+  AxiosService.post(EndPointUrlConst.SHOPS.CATEGORIES, payload)
 
 export const updateCategory = (
   categoryId: string,
-  payload: IShopUpdateCategoryPayload
+  payload: IUpdateCategoryPayload
 ): Promise<IApiResponse> =>
-  AxiosService.put(`${EndPointUrlConst.SHOP.CATEGORIES}/${categoryId}`, payload)
+  AxiosService.put(`${EndPointUrlConst.SHOPS.CATEGORIES}/${categoryId}`, payload)
 
 export const deleteCategotry = (categoryId: string): Promise<IApiResponse> =>
-  AxiosService.delete(`${EndPointUrlConst.SHOP.CATEGORIES}/${categoryId}`)
+  AxiosService.delete(`${EndPointUrlConst.SHOPS.CATEGORIES}/${categoryId}`)
 
-export const toggleCategoryStatus = (categoryId: string): Promise<IApiResponse> =>
-  AxiosService.patch(`${EndPointUrlConst.SHOP.CATEGORIES}/${categoryId}/status`)
+export const changeCategoryStatus = (
+  categoryId: string,
+  status: CategoryStatusEnum
+): Promise<IApiResponse> =>
+  AxiosService.patch(`${EndPointUrlConst.SHOPS.CATEGORIES}/${categoryId}/status`, { status })
+
+export const getProducts = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
+  AxiosService.get(EndPointUrlConst.SHOPS.PRODUCTS, option)
+
+export const createProduct = (payload: ICreateProductPayload): Promise<IApiResponse> =>
+  AxiosService.post(EndPointUrlConst.SHOPS.PRODUCTS, payload)

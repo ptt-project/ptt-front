@@ -12,7 +12,8 @@ export async function getServerSideProps(
       ...(await serverSideTranslations(context.locale, [
         ...LocaleNamespaceConst,
         'search',
-        'product'
+        'product',
+        'shop'
       ]))
     }
   }

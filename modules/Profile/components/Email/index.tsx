@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { AxiosResponse } from 'axios'
 import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Form, Input, message } from 'antd'
 import { IMemberProfile, IMemberEmailUpdate } from '~/interfaces'
@@ -24,14 +23,14 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
 
   async function onSubmit(values: IMemberEmailUpdate): Promise<void> {
     setIsLoading(true)
-    const isSuccess: boolean = false
+    let isSuccess: boolean = true
     try {
       const payload: IMemberEmailUpdate = {
         newEmail: values.newEmail,
         password: values.password
       }
-      // const result: AxiosResponse = await MemberService.updateEmail(payload)
-      // console.log(result)
+      await MemberService.updateEmail(payload)
+      isSuccess = true
     } catch (error) {
       console.log(error)
     }
@@ -45,7 +44,6 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
 
   return (
     <main className="main">
-      <Loading show={isLoading} />
       <Helmet>
         <title>
           {t('common:meta.title')} | {t('account-info:email.title')}
@@ -59,6 +57,7 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
           { title: t('account-info:email.title'), href: '/settings/account/info/email' }
         ]}
       />
+      <Loading show={isLoading} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
@@ -82,7 +81,6 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
                   <Form
                     layout="vertical"
                     form={form}
-                    name="newEmail"
                     onFinish={onSubmit}
                     initialValues={{
                       email: props.profile.email
@@ -90,7 +88,24 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
                   >
                     <Row>
                       <Col span={24}>
-                        <Form.Item label={t('account-info:email.currentEmail')} name="email">
+                        <Form.Item
+                          label={t('account-info:email.currentEmail')}
+                          name="newEmail"
+                          rules={[
+                            {
+                              required: true,
+                              message: `${t('common:form.required')} ${t(
+                                'account-info:form.email'
+                              )}`
+                            },
+                            {
+                              type: 'email',
+                              message: `${t('common:form.invalid.head')} ${t(
+                                'account-info:form.email'
+                              )} ${t('common:form.invalid.tail')}`
+                            }
+                          ]}
+                        >
                           <Input maxLength={50} />
                         </Form.Item>
                       </Col>
@@ -104,12 +119,6 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
                               message: `${t('common:form.required')} ${t(
                                 'account-info:form.email'
                               )}`
-                            },
-                            {
-                              type: 'email',
-                              message: `${t('common:form.invalid.head')} ${t(
-                                'account-info:form.email'
-                              )} ${t('common:form.invalid.tail')}`
                             }
                           ]}
                         >

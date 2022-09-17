@@ -3,7 +3,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import Relation from '~/modules/Relation'
-import { withAuth } from '~/utils/main'
+import { withAuth } from '../../../../hocs/with-user'
 
 export const getServerSideProps: any = withAuth(
   async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<any>> => ({

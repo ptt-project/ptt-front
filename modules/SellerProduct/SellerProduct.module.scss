@@ -1,0 +1,20 @@
+@import '../../public/sass/config/variables';
+
+.textSecondary {
+  color: $secondary-color !important;
+}
+
+.progress {
+  width: 12rem;
+}
+
+.addNewProduct {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.h4 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}

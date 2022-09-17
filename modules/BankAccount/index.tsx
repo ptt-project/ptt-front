@@ -67,19 +67,11 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
   }, [])
 
   function onAddBankAccountClick(): void {
-    router.push(`${rootMenu}/settings/finance/bank/add`, `${rootMenu}/settings/finance/bank/add`, {
-      locale: router.locale
-    })
+    router.push(`${rootMenu}/settings/finance/bank/add`)
   }
 
   function onEditBankAccountClick(bankAccountId: string): void {
-    router.push(
-      `${rootMenu}/settings/finance/bank/${bankAccountId}`,
-      `${rootMenu}/settings/finance/bank/${bankAccountId}`,
-      {
-        locale: router.locale
-      }
-    )
+    router.push(`${rootMenu}/settings/finance/bank/${bankAccountId}`)
   }
 
   function onFavoriteBankAccountClick(bankAccountId: string): void {

@@ -40,16 +40,16 @@ const Login: FC = () => {
       const { data }: IApiResponse = await AuthService.login(payload)
       isSuccess = true
       AuthInitUtil(data)
-      if (router.query.redirect) {
-        router.replace(router.query.redirect.toString())
-      } else {
-        router.replace('/')
-      }
     } catch (error) {
       console.log(error)
     }
     if (isSuccess) {
       message.success(t('common:apiMessage.success'))
+      if (router.query.redirect) {
+        router.replace(router.query.redirect.toString())
+      } else {
+        router.replace('/')
+      }
     } else {
       message.error(t('common:apiMessage.error'))
     }

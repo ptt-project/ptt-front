@@ -11,16 +11,16 @@ import Loading from '~/components/main/Loading'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import EmptyTableData from '../EmptyTableData'
 import AddCategoryModal from '../AddCategoryModal'
-import { IProductData, IShopCategory, IShopUpdateCategoryPayload } from '~/interfaces'
+import { ICategory, IProductData, IUpdateCategoryPayload } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
-import { ShopCategoryStatusEnum } from '~/enums'
+import { CategoryStatusEnum } from '~/enums'
 import { ShopService } from '~/services'
 import styles from './EditCategory.module.scss'
 
 const { Text, Title } = Typography
 
 interface IEditCategoryProps {
-  category: IShopCategory
+  category: ICategory
 }
 
 const dataSource: IProductData[] = [
@@ -109,7 +109,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
   const [isOpenRemove, setIsOpenRemove] = useState<boolean>(false)
   const [isOpenMultiRemove, setIsOpenMultiRemove] = useState<boolean>(false)
   const [currentCategoryName, setCurrentCategoryName] = useState<string>(props.category.name)
-  const [currentCategoryStatus, setCurrentCategoryStatus] = useState<ShopCategoryStatusEnum>(
+  const [currentCategoryStatus, setCurrentCategoryStatus] = useState<CategoryStatusEnum>(
     props.category.status
   )
   const [categoryName, setCategoryName] = useState<string>(props.category.name)
@@ -143,11 +143,12 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      await ShopService.toggleCategoryStatus(props.category.id.toString())
+      const status: CategoryStatusEnum = checked
+        ? CategoryStatusEnum.ACTIVE
+        : CategoryStatusEnum.INACTIVE
+      await ShopService.changeCategoryStatus(props.category.id.toString(), status)
       isSuccess = true
-      setCurrentCategoryStatus(
-        checked ? ShopCategoryStatusEnum.ACTIVE : ShopCategoryStatusEnum.INACTIVE
-      )
+      setCurrentCategoryStatus(checked ? CategoryStatusEnum.ACTIVE : CategoryStatusEnum.INACTIVE)
     } catch (error) {
       console.log(error)
     }
@@ -177,7 +178,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: IShopUpdateCategoryPayload = { name: categoryName, productIds: [] }
+      const payload: IUpdateCategoryPayload = { name: categoryName, productIds: [] }
       await ShopService.updateCategory(props.category.id.toString(), payload)
       isSuccess = true
       toggleEdit()
@@ -297,7 +298,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                 <Col className="text-right" span={6}>
                   <Switch
                     className="hps-switch"
-                    defaultChecked={currentCategoryStatus === ShopCategoryStatusEnum.ACTIVE}
+                    defaultChecked={currentCategoryStatus === CategoryStatusEnum.ACTIVE}
                     onChange={onChangeSwitch}
                   />
                 </Col>

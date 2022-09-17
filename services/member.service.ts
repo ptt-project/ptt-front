@@ -10,37 +10,40 @@ import {
 import { EndPointUrlConst } from '../constants'
 
 export const getProfile = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
-  AxiosService.get(EndPointUrlConst.MEMBER.PROFILE, option)
+  AxiosService.get(EndPointUrlConst.MEMBERS.PROFILE, option)
 
 export const getAddresses = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
-  AxiosService.get(EndPointUrlConst.MEMBER.ADDRESSES, option)
+  AxiosService.get(EndPointUrlConst.MEMBERS.ADDRESSES, option)
 
 export const getAddress = (addressId: string, option?: AxiosRequestConfig): Promise<IApiResponse> =>
-  AxiosService.get(`${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}`, option)
+  AxiosService.get(`${EndPointUrlConst.MEMBERS.ADDRESSES}/${addressId}`, option)
 
 export const createAddress = (payload: ICreateAddress): Promise<IApiResponse> =>
-  AxiosService.post(EndPointUrlConst.MEMBER.ADDRESSES, payload)
+  AxiosService.post(EndPointUrlConst.MEMBERS.ADDRESSES, payload)
 
 export const updateAddress = (addressId: string, payload: IUpdateAddress): Promise<IApiResponse> =>
-  AxiosService.put(`${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}`, payload)
+  AxiosService.put(`${EndPointUrlConst.MEMBERS.ADDRESSES}/${addressId}`, payload)
 
 export const deleteAddress = (addressId: string): Promise<IApiResponse> =>
-  AxiosService.delete(`${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}`)
+  AxiosService.delete(`${EndPointUrlConst.MEMBERS.ADDRESSES}/${addressId}`)
 
 export const setMainAddress = (addressId: string): Promise<IApiResponse> =>
-  AxiosService.patch(`${EndPointUrlConst.MEMBER.ADDRESSES}/${addressId}/set-main`)
+  AxiosService.patch(`${EndPointUrlConst.MEMBERS.ADDRESSES}/${addressId}/set-main`)
 
 export const changePassword = (payload: IMemberChangePassword): Promise<IApiResponse> =>
-  AxiosService.patch(EndPointUrlConst.MEMBER.CHANGE_PASSWORD, payload)
+  AxiosService.patch(EndPointUrlConst.MEMBERS.CHANGE_PASSWORD, payload)
 
 export const updateMemberProfile = (memberId: string): Promise<IApiResponse> =>
-  AxiosService.put(`${EndPointUrlConst.MEMBER.PROFILE}/${memberId}`)
+  AxiosService.put(`${EndPointUrlConst.MEMBERS.PROFILE}/${memberId}`)
 
 export const updateEmail = (email: string): Promise<IApiResponse> =>
-  AxiosService.put(`${EndPointUrlConst.MEMBER.EMAIL}/${email}`)
+  AxiosService.put(`${EndPointUrlConst.MEMBERS.EMAIL}/${email}`)
 
 export const createMobile = (payload: IMemberMobile): Promise<IApiResponse> =>
-  AxiosService.post(EndPointUrlConst.MEMBER.MOBILES, payload)
+  AxiosService.post(EndPointUrlConst.MEMBERS.MOBILES_ADD, payload)
 
-export const deleteMobile = (mobile: string): Promise<IApiResponse> =>
-  AxiosService.delete(`${EndPointUrlConst.MEMBER.MOBILES}/${mobile}`)
+export const deleteMobile = (payload: IMemberMobile): Promise<IApiResponse> =>
+  AxiosService.patch(EndPointUrlConst.MEMBERS.MOBILES_DELETE, payload)
+
+export const setMainMobile = (payload: IMemberMobile): Promise<IApiResponse> =>
+  AxiosService.patch(EndPointUrlConst.MEMBERS.MOBILES_SET_MAIN, payload)

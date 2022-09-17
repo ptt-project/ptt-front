@@ -9,51 +9,51 @@ import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import EmptyTableData from './components/EmptyTableData'
-import { IApiResponse, IShopAddCategoryPayload, IShopCategory } from '~/interfaces'
+import { IApiResponse, ICreateCategoryPayload, ICategory } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { ShopService } from '~/services'
-import { ShopCategoryStatusEnum } from '~/enums'
+import { CategoryStatusEnum } from '~/enums'
 import styles from './SellerCategory.module.scss'
 
 const { Text, Title } = Typography
 
 interface ISellerCategoryProps {
-  categories: IShopCategory[]
+  categories: ICategory[]
 }
 
 const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.catefory'])
   const router: NextRouter = useRouter()
-  const columns: ColumnsType<IShopCategory> = [
+  const columns: ColumnsType<ICategory> = [
     {
       title: t('seller.category:table.header.a'),
       dataIndex: 'name',
       key: 'name',
-      sorter: (a: IShopCategory, b: IShopCategory) => a.name.localeCompare(b.name)
+      sorter: (a: ICategory, b: ICategory) => a.name.localeCompare(b.name)
     },
     {
       title: t('seller.category:table.header.b'),
       dataIndex: 'createdBy',
       key: 'createdBy',
-      sorter: (a: IShopCategory, b: IShopCategory) => a.createdBy.localeCompare(b.createdBy)
+      sorter: (a: ICategory, b: ICategory) => a.createdBy.localeCompare(b.createdBy)
     },
     {
       title: t('seller.category:table.header.c'),
       dataIndex: 'productCount',
       key: 'productCount',
       align: 'right',
-      sorter: (a: IShopCategory, b: IShopCategory) => a.productCount - b.productCount
+      sorter: (a: ICategory, b: ICategory) => a.productCount - b.productCount
     },
     {
       title: t('seller.category:table.header.d'),
       key: 'status',
       align: 'center',
-      sorter: (a: IShopCategory, b: IShopCategory) => a.status.localeCompare(b.status),
-      render: (text: string, recode: IShopCategory, index: number): JSX.Element => (
+      sorter: (a: ICategory, b: ICategory) => a.status.localeCompare(b.status),
+      render: (text: string, recode: ICategory, index: number): JSX.Element => (
         <Switch
           className="hps-switch"
           key={index}
-          defaultChecked={recode.status === ShopCategoryStatusEnum.ACTIVE}
+          defaultChecked={recode.status === CategoryStatusEnum.ACTIVE}
           onChange={(checked: boolean): Promise<void> => onChangeSwitch(checked, recode)}
         />
       )
@@ -62,17 +62,12 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
       title: t('seller.category:table.header.e'),
       key: 'action',
       align: 'right',
-      render: (text: string, record: IShopCategory, index: number): JSX.Element => {
+      render: (text: string, record: ICategory, index: number): JSX.Element => {
         const disabled: boolean = record.productCount > 0
         const pathname: string = `/seller/settings/shop/category/${record.id}`
         return (
           <Space size="middle">
-            <Text
-              className={styles.action}
-              onClick={(): Promise<boolean> =>
-                router.push(pathname, pathname, { locale: router.locale })
-              }
-            >
+            <Text className={styles.action} onClick={(): Promise<boolean> => router.push(pathname)}>
               <i className="fa fa-pen" />
             </Text>
             <Text
@@ -91,8 +86,8 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
   const [isOpenAdd, setIsOpenAdd] = useState<boolean>(false)
   const [isOpenRemove, setIsOpenRemove] = useState<boolean>(false)
   const [categoryName, setCategoryName] = useState<string>('')
-  const [category, setCategory] = useState<IShopCategory[]>(props.categories)
-  const [removeCategory, setRemoveCategory] = useState<IShopCategory>()
+  const [category, setCategory] = useState<ICategory[]>(props.categories)
+  const [removeCategory, setRemoveCategory] = useState<ICategory>()
 
   async function fetchData(): Promise<void> {
     setIsLoading(true)
@@ -113,11 +108,14 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
     setIsOpenRemove(!isOpenRemove)
   }
 
-  async function onChangeSwitch(checked: boolean, item: IShopCategory): Promise<void> {
+  async function onChangeSwitch(checked: boolean, item: ICategory): Promise<void> {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      await ShopService.toggleCategoryStatus(item.id.toString())
+      const status: CategoryStatusEnum = checked
+        ? CategoryStatusEnum.ACTIVE
+        : CategoryStatusEnum.INACTIVE
+      await ShopService.changeCategoryStatus(item.id.toString(), status)
       isSuccess = true
       fetchData()
     } catch (error) {
@@ -135,7 +133,7 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
     setCategoryName(e.target.value)
   }
 
-  function onRemove(item: IShopCategory, disabled?: boolean): void {
+  function onRemove(item: ICategory, disabled?: boolean): void {
     setRemoveCategory(item)
     if (!disabled) {
       toggleRemove()
@@ -165,8 +163,8 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: IShopAddCategoryPayload = { name: categoryName }
-      await ShopService.addCategotry(payload)
+      const payload: ICreateCategoryPayload = { name: categoryName }
+      await ShopService.createCategory(payload)
       isSuccess = true
       toggleAdd()
       fetchData()

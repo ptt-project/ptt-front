@@ -8,6 +8,7 @@ import { LocaleNamespaceConst } from '~/constants'
 import SearchSidebar from './components/SearchSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import Product from '../Product'
+import Shop from '../Shop'
 import styles from './Search.module.scss'
 
 const { Title, Text } = Typography
@@ -15,7 +16,6 @@ const { Title, Text } = Typography
 const Search: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'search'])
   const router: NextRouter = useRouter()
-
   const [keyword, setKeyword] = useState<string>()
 
   function getKeyword(): string {
@@ -58,11 +58,15 @@ const Search: FC = () => {
                   </Title>
                 </Col>
                 <Col className="text-right" span={8}>
-                  <Link href="#">
+                  <Link href={`/search/shop?keyword=${keyword}`}>
                     <a className="hps-link">{t('common:viewAll')}</a>
                   </Link>
                 </Col>
               </Row>
+              <div className="mb-3">
+                <Shop />
+                <Shop />
+              </div>
               <Row className={styles.header}>
                 <Col>
                   <Title level={4}>
