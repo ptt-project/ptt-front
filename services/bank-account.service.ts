@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/typedef */
 import { AxiosRequestConfig } from 'axios'
-import useSWR from 'swr'
+import { useQuery } from '@tanstack/react-query'
 import { AxiosService } from './axios.service'
 import {
   IAddBankAccountParams,
@@ -22,7 +22,7 @@ export const addBankAccount = (
   AxiosService.post(EndPointUrlConst.BANK_ACCOUNT.BANK_ACCOUNTS, payload)
 
 export const useGetBankAccounts = (option?: AxiosRequestConfig) =>
-  useSWR([EndPointUrlConst.BANK_ACCOUNT.BANK_ACCOUNTS], async () => {
+  useQuery([EndPointUrlConst.BANK_ACCOUNT.BANK_ACCOUNTS], async () => {
     const response = await getBankAccounts(option)
     return response.data
   })

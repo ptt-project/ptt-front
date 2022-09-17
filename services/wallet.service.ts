@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/typedef */
 import { AxiosRequestConfig } from 'axios'
-import useSWR from 'swr'
+import { useQuery } from '@tanstack/react-query'
 import { AxiosService } from './axios.service'
 import {
   IApiResponse,
@@ -36,14 +36,14 @@ export const postWalletWithdraw = (
   AxiosService.post(EndPointUrlConst.WALLET.WITHDRAW, payload)
 
 export const useGetWalletHistory = (params: IGetWalletHistoryParams, option?: AxiosRequestConfig) =>
-  useSWR([EndPointUrlConst.WALLET.HISTORY, params], async () => {
+  useQuery([EndPointUrlConst.WALLET.HISTORY, params], async () => {
     console.log({ params })
     const response = await getWalletHistory(params, option)
     return response.data
   })
 
 export const useGetMyWallet = (option?: AxiosRequestConfig) =>
-  useSWR([EndPointUrlConst.WALLET.WALLETS], async () => {
+  useQuery([EndPointUrlConst.WALLET.WALLETS], async () => {
     const response = await getMyWallet(option)
     return response.data
   })
