@@ -1,11 +1,13 @@
 export enum EWalletStatusEnum {
-  PENDING,
-  FAILED,
-  CANCELED,
-  SUCCESS
+  PENDING = 'pending',
+  FAILED = 'fail',
+  CANCELED = 'cancel',
+  SUCCESS = 'success'
 }
 
 export enum EWalletTypeEnum {
-  WITHDRAW,
-  TOP_UP
+  WITHDRAW = 'withdraw',
+  DEPOSIT = 'deposit',
+  BUY = 'buy',
+  SELL = 'sell'
 }

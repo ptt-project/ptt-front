@@ -22,5 +22,14 @@ export const EndPointUrlConst = {
   SHOP: {
     CATEGORIES: '/shops/categories',
     PRODUCTS: '/shops/products'
+  },
+  WALLET: {
+    WALLETS: '/wallets',
+    HISTORY: '/wallets/history',
+    DEPOSIT_QR_CODE: '/wallets/deposit/qrcode',
+    WITHDRAW: '/wallets/withdraw'
+  },
+  BANK_ACCOUNT: {
+    BANK_ACCOUNTS: '/bank-accounts'
   }
 }

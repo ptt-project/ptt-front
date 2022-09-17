@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/typedef */
 /* eslint-disable no-template-curly-in-string */
 import React, { useCallback } from 'react'
-import { Input } from 'antd'
+import { Input, InputProps } from 'antd'
 import NumberFormat, {
   InputAttributes,
   NumberFormatPropsBase,
@@ -14,28 +14,48 @@ import NumberFormat, {
 type IInputNumberFormatProps = Omit<
   NumberFormatPropsBase<InputAttributes>,
   'value' | 'onChange' | 'customInput' | 'onValueChange' | 'suffix'
-> & {
-  value?: string
-  onChange?: (value: number) => void
-}
+> &
+  Pick<InputProps, 'suffix'> &
+  (
+    | {
+        value?: number
+        onChange?: (value: number) => void
+        isValueString?: false
+      }
+    | {
+        value?: string
+        onChange?: (value: string) => void
+        isValueString?: true
+      }
+  )
 
 const InputNumberFormat: React.FC<IInputNumberFormatProps> = (props: IInputNumberFormatProps) => {
-  const { value, onChange, ...restProps } = props
+  const { value, onChange, isValueString, suffix, ...restProps } = props
 
   const handleChange = useCallback(
     (values: NumberFormatValues): void => {
-      const { floatValue } = values
-      onChange?.(floatValue)
+      const { floatValue, value: stringValue } = values
+
+      if (isValueString) {
+        onChange?.(stringValue)
+      } else if (isValueString === false) {
+        onChange?.(floatValue)
+      }
     },
-    [onChange]
+    [onChange, isValueString]
+  )
+
+  const renderCustomInput = useCallback(
+    (customInputProps: any) => <Input {...customInputProps} suffix={suffix} />,
+    [suffix]
   )
 
   return (
     <NumberFormat
       {...restProps}
       value={value}
-      // customInput={(customInputProps: any) => <Input {...customInputProps} suffix={suffix} />}
-      customInput={Input}
+      customInput={renderCustomInput}
+      // customInput={Input}
       onValueChange={handleChange}
     />
   )
@@ -43,7 +63,8 @@ const InputNumberFormat: React.FC<IInputNumberFormatProps> = (props: IInputNumbe
 
 InputNumberFormat.defaultProps = {
   value: undefined,
-  onChange: undefined
+  onChange: undefined,
+  isValueString: false
 }
 
 export default InputNumberFormat

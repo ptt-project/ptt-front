@@ -4,7 +4,12 @@ import React, { useState } from 'react'
 import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import { CustomHookUseVisibleUtil, CustomUrlUtil } from '~/utils/main'
-import { IBankAccountData, IBankAccountFromValues, ICustomHookUseVisibleUtil } from '~/interfaces'
+import {
+  IBankAccountData,
+  IBankAccountFromValues,
+  ICustomHookUseVisibleUtil,
+  IOtp
+} from '~/interfaces'
 import BankAccountFrom from '../BankAccountFrom'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
@@ -13,6 +18,7 @@ import OtpModal from '~/components/main/OtpModal'
 import { OtpTypeEnum } from '~/enums'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import { bankMock } from '~/modules/BankAccount/mock-data'
+import { BankAccountService } from '~/services'
 
 const { Title } = Typography
 
@@ -21,11 +27,11 @@ interface IAddBankAccountProps {
 }
 const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountProps) => {
   const router: NextRouter = useRouter()
-  const [form] = Form.useForm()
+  const [form] = Form.useForm<IBankAccountFromValues>()
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
 
-  const mobileNo: string = '0901234567'
+  const mobileNo: string = '0901061303'
   const rootMenu: string = props.isSeller ? '/seller' : ''
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const [bankAccountData, setBankAccountData] = useState<IBankAccountData>()
@@ -54,13 +60,27 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
     setIsOtpOpen(!isOtpOpen)
   }
 
-  function onOtpSuccess(): void {
+  async function onOtpSuccess(otpData: IOtp): Promise<void> {
     setIsOtpOpen(false)
-    bankMock.push(bankAccountData)
-    message.success(t('common:dataUpdated'))
-    router.replace(`${rootMenu}/settings/finance/bank`, `${rootMenu}/settings/finance/bank`, {
-      locale: router.locale
-    })
+    const formValues: IBankAccountFromValues = form.getFieldsValue()
+    try {
+      await BankAccountService.addBankAccount({
+        accountHolder: formValues.bankAccountName,
+        accountNumber: formValues.bankAccountNo,
+        bankCode: formValues.bankCode,
+        fullName: formValues.fullName,
+        thaiId: formValues.citizenNo,
+        otpCode: otpData.otpCode,
+        refCode: otpData.refCode
+      })
+      message.success(t('common:dataUpdated'))
+      router.replace(`${rootMenu}/settings/finance/bank`, `${rootMenu}/settings/finance/bank`, {
+        locale: router.locale
+      })
+    } catch (error) {
+      //
+    }
+    // bankMock.push(bankAccountData)
   }
 
   function onSaveClick(): void {

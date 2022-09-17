@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Typography, Row, Col } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
@@ -10,13 +10,15 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
 import BalanceCard from './components/BalanceCard'
 import EWalletHistory from './components/EWalletHistory'
+import { WalletService } from '~/services'
 
 const { Title } = Typography
 
 const EWallet: React.FC = () => {
   const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'e-wallet'])
-  const balance: number = 3999
+  const { data: wallet } = WalletService.useGetMyWallet()
+  const balance: number = useMemo(() => wallet?.balance || 0, [wallet?.balance])
 
   function onTopUpClick(): void {
     router.push('/settings/finance/e-wallet/top-up', '/settings/finance/e-wallet/top-up', {

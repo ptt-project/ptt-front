@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/typedef */
 import JQL from 'jqljs'
 import { map, uniq } from 'lodash'
-import RawAddressData from './address-data2.json'
+import RawAddressData from './address-data.json'
 
 export enum AddressFieldsEnum {
-  TAMBON = 't', // ตำบล
-  DISTRICT = 'd', // อำเภอ
-  PROVINCE = 'p', // จังหวัด
-  ZIPCODE = 'z' // รหัสไปรษณีย์
+  SUB_DISTRICT = 'subDistrict', // ตำบล
+  DISTRICT = 'district', // อำเภอ
+  PROVINCE = 'province', // จังหวัด
+  POSTCODE = 'postcode' // รหัสไปรษณีย์
 }
 
 /**
@@ -19,17 +19,17 @@ type IAddressDataType = [
   [
     string, // district
     [
-      string, // tambon
+      string, // subDistrict
       string[] // zip
     ][]
   ][]
 ][]
 
 export interface IFindAddressResult {
-  [AddressFieldsEnum.TAMBON]: string
+  [AddressFieldsEnum.SUB_DISTRICT]: string
   [AddressFieldsEnum.DISTRICT]: string
   [AddressFieldsEnum.PROVINCE]: string
-  [AddressFieldsEnum.ZIPCODE]: string
+  [AddressFieldsEnum.POSTCODE]: string
 }
 const preprocess = (data: IAddressDataType): IFindAddressResult[] => {
   if (!data[0].length) {
@@ -40,20 +40,17 @@ const preprocess = (data: IAddressDataType): IFindAddressResult[] => {
   // [["province",[["amphoe",[["district",["zip"...]]...]]...]]...]
   const expanded: IFindAddressResult[] = []
   data.forEach((provinceEntry) => {
-    const province = provinceEntry[0]
-    const districtList = provinceEntry[1]
+    const [province, districtList] = provinceEntry
     districtList.forEach((districtEntry) => {
-      const district = districtEntry[0]
-      const tambonList = districtEntry[1]
-      tambonList.forEach((tambonEntry) => {
-        const tambon = tambonEntry[0]
-        const zipCodeList = tambonEntry[1]
-        zipCodeList.forEach((zipCode) => {
+      const [district, subDistrictList] = districtEntry
+      subDistrictList.forEach((subDistrict) => {
+        const [tambon, postcodeList] = subDistrict
+        postcodeList.forEach((postcode) => {
           expanded.push({
-            [AddressFieldsEnum.TAMBON]: tambon,
+            [AddressFieldsEnum.SUB_DISTRICT]: tambon,
             [AddressFieldsEnum.DISTRICT]: district,
             [AddressFieldsEnum.PROVINCE]: province,
-            [AddressFieldsEnum.ZIPCODE]: zipCode
+            [AddressFieldsEnum.POSTCODE]: postcode
           })
         })
       })
@@ -62,6 +59,7 @@ const preprocess = (data: IAddressDataType): IFindAddressResult[] => {
   return expanded
 }
 const data = preprocess(RawAddressData as unknown as IAddressDataType)
+// console.log(JSON.stringify(data))
 const DB = new JQL(data)
 
 export const provinceData = uniq(map(data || [], (d) => d[AddressFieldsEnum.PROVINCE]))
@@ -108,7 +106,7 @@ export class AddressFinder {
     let possibles: IFindAddressResult[] = []
     const province = AddressFieldsEnum.PROVINCE
     const district = AddressFieldsEnum.DISTRICT
-    const tambon = AddressFieldsEnum.TAMBON
+    const tambon = AddressFieldsEnum.SUB_DISTRICT
     try {
       possibles = DB.select('*')
         .where(province)

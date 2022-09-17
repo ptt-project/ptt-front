@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect, useMemo } from 'react'
 import { Typography, Row, Col, Select, Form, Button, Image, Space, List, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
@@ -6,11 +6,14 @@ import { useTranslation } from 'next-i18next'
 import { DefaultOptionType } from 'antd/lib/select'
 import { DownloadOutlined } from '@ant-design/icons'
 import { first } from 'lodash'
+import useSWR, { useSWRConfig } from 'swr'
 import styles from './EWalletTopUp.module.scss'
 import { CustomUrlUtil, HelperDecimalFormatUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { LocaleNamespaceConst } from '~/constants'
+import { EndPointUrlConst, LocaleNamespaceConst } from '~/constants'
+import { WalletService } from '~/services'
+import { IWalletDepositQrCodeParams } from '~/interfaces'
 
 const { Title, Text } = Typography
 
@@ -26,13 +29,55 @@ const EWalletTopUp: React.FC = () => {
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
 
+  const topUpAmount: number = Form.useWatch('topUpAmount', form)
+
   const { t } = useTranslation([...LocaleNamespaceConst, 'e-wallet'])
-  const balance: number = 3999
+  const params: IWalletDepositQrCodeParams = {
+    amount: topUpAmount
+  }
+
+  const { data: wallet, mutate: fetchWallet } = WalletService.useGetMyWallet()
+  // TODO: wait response qrCode base64
+  const { data: depositQrCode } = useSWR(
+    [EndPointUrlConst.WALLET.DEPOSIT_QR_CODE, params],
+    async () => {
+      console.log({ params })
+      const { data } = await WalletService.postWalletDepositQrCode(params)
+      return data
+    },
+    {
+      isPaused: () => true,
+      onSuccess: () => {
+        fetchWallet()
+      }
+    }
+  )
+  const { mutate: getDepositQrCode } = useSWRConfig()
+  const balance: number = useMemo(() => wallet?.balance || 0, [wallet?.balance])
 
   function onSubmit(values: IEWalletTopUpFormValues): void {
     console.debug(values)
     message.success(t('e-wallet:topUp.downloadSuccess'))
+    getDepositQrCode(
+      [
+        EndPointUrlConst.WALLET.DEPOSIT_QR_CODE,
+        {
+          amount: values.topUpAmount
+        }
+      ],
+      async () => {
+        console.log({ params })
+        const { data } = await WalletService.postWalletDepositQrCode(params)
+        return data
+      }
+    )
   }
+
+  useEffect(() => {
+    if (depositQrCode) {
+      fetchWallet()
+    }
+  }, [depositQrCode, fetchWallet])
 
   return (
     <main className="main">
@@ -116,21 +161,18 @@ const EWalletTopUp: React.FC = () => {
                       <Space direction="vertical" size={8}>
                         <Image preview={false} src="./images/main/buyer/example-qr-code.svg" />
                         <Form.Item shouldUpdate>
-                          {(): JSX.Element => {
-                            const topUpAmount: number = form.getFieldValue('topUpAmount')
-                            return (
-                              <Row justify="center">
-                                <Button
-                                  className="hps-btn-secondary mt-1"
-                                  icon={<DownloadOutlined />}
-                                  disabled={!topUpAmount}
-                                  htmlType="submit"
-                                >
-                                  {t('e-wallet:common.download')}
-                                </Button>
-                              </Row>
-                            )
-                          }}
+                          {(): JSX.Element => (
+                            <Row justify="center">
+                              <Button
+                                className="hps-btn-secondary mt-1"
+                                icon={<DownloadOutlined />}
+                                disabled={!topUpAmount}
+                                htmlType="submit"
+                              >
+                                {t('e-wallet:common.download')}
+                              </Button>
+                            </Row>
+                          )}
                         </Form.Item>
                       </Space>
                     </Row>
