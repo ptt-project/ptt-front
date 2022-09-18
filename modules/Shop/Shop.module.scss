@@ -50,6 +50,10 @@
     }
   }
 
+  @media (max-width: 767px) {
+    margin: 0 -20px 20px -20px;
+  }
+
   @media (max-width: 575px) {
     margin: 0 -15px 15px -15px;
   }
@@ -107,7 +111,7 @@
     }
   }
 
-  @media (max-width: 575px) {
+  @media (max-width: 767px) {
     height: auto;
     margin-bottom: 3rem;
 
@@ -173,7 +177,7 @@
   padding-top: 66.66%;
   position: relative;
 
-  @media (max-width: 575px) {
+  @media (max-width: 767px) {
     margin-bottom: 1.5rem;
   }
 }
