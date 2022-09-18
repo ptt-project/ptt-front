@@ -1,12 +1,26 @@
 {
-  "follower": "ผู้ติดตาม",
-  "following": "กำลังติดตาม",
-  "numOfProduct": "จำนวนสินค้า",
-  "rating": "คะแนนร้านค้า",
-  "replyRate": "อัตราการตอบกลับ",
-  "replyTime": {
-    "title": "เวลาในการตอบกลับ",
-    "head": "ภายใน",
-    "tail": "นาที"
+  "card": {
+    "follower": "ผู้ติดตาม",
+    "following": "กำลังติดตาม",
+    "numOfProduct": "จำนวนสินค้า",
+    "rating": "คะแนนร้านค้า",
+    "replyRate": "อัตราการตอบกลับ",
+    "replyTime": {
+      "title": "เวลาในการตอบกลับ",
+      "label": "ภายใน"
+    }
+  },
+  "info": {
+    "follow": "ติดตาม",
+    "chat": "แชท",
+    "numOfProduct": "จำนวนสินค้า",
+    "follower": "จำนวนผู้ติดตาม",
+    "following": "จำนวนกำลังติดตาม",
+    "rating": "คะแนนร้านค้า",
+    "joinAt": "เข้าร่วมเมื่อ",
+    "tabMore": "เพิ่มเติม",
+    "aboutUs": "เกี่ยวกับร้านค้า",
+    "recommended": "สินค้าแนะนำสำหรับคุณ",
+    "bestSeller": "สินค้าขายดี"
   }
 }

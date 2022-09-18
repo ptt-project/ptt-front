@@ -1,83 +1,254 @@
-import React, { FC } from 'react'
-import { Avatar, Col, Row, Space, Typography } from 'antd'
+import React, { FC, useState, useEffect } from 'react'
+import { NextRouter, useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import Helmet from 'react-helmet'
+import { Avatar, Button, Carousel, Col, Image, Row, Space, Tabs, Typography } from 'antd'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
+import Product from '../Product'
 import { LocaleNamespaceConst } from '../../constants'
 import styles from './Shop.module.scss'
 
-const { Text, Title } = Typography
+const { Text, Title, Link } = Typography
+
+const tabItems: string[] = [
+  'หน้าแรก',
+  'บอร์ดเกม',
+  'การ์ดเกม',
+  'นิยาย',
+  'การ์ตูน',
+  'ของสะสม',
+  'เสื้อกีฬา',
+  'กางเกงกฬา',
+  'อุปกรณ์ไฟฟ้า',
+  'ภาพยนตร์',
+  'โมเดล',
+  'โปสเตอร์'
+]
+
+const images: string[] = [
+  'https://dummyimage.com/720x480?text=Shop Banner 1 720 x 480',
+  'https://dummyimage.com/720x480?text=Shop Banner 2 720 x 480',
+  'https://dummyimage.com/720x480?text=Shop Banner 3 720 x 480',
+  'https://dummyimage.com/720x480?text=Shop Banner 4 720 x 480',
+  'https://dummyimage.com/720x480?text=Shop Banner 5 720 x 480'
+]
 
 const Shop: FC = () => {
-  const { t } = useTranslation([...LocaleNamespaceConst, 'shop'])
+  const { t } = useTranslation([...LocaleNamespaceConst, 'search', 'shop'])
+  const router: NextRouter = useRouter()
+  const [keyword, setKeyword] = useState<string>()
+  const [activeTab, setActiveTab] = useState<string>('0')
+
+  function getKeyword(): string {
+    return router?.query?.keyword ? router.query.keyword.toString() : ''
+  }
+
+  useEffect(() => {
+    if (router?.query) {
+      setKeyword(getKeyword())
+    }
+  }, [router.query])
+
+  function renderImages(): JSX.Element[] {
+    const items: JSX.Element[] = images.map((data: string, index: number) => (
+      <div className={styles.imgAboutUsContainer} key={index}>
+        <Image rootClassName={styles.imgWrapper} preview={false} src={data} alt="shop" />
+      </div>
+    ))
+    return items
+  }
 
   return (
-    <Row gutter={[24, 24]}>
-      <Col span={24}>
-        <Row className={styles.card} align="middle">
-          <Col xl={10} lg={11} md={24} xs={24}>
-            <Space className={styles.boxHWrapper} size="large">
-              <Avatar className={styles.avatar} size={80} />
-              <div className={styles.name}>
-                <Title level={5}>Fantasy Flight</Title>
-                <div className={styles.boxH}>
-                  <div>
-                    <Text className={`${styles.text} mr-1`}>50</Text>
-                    <Text>{t('shop:follower')}</Text>
+    <div className="main mt-lg-4 mb-4">
+      <Helmet>
+        <title>
+          {t('common:meta.title')} | {t('search:searchShop.title')}
+        </title>
+      </Helmet>
+      <Breadcrumbs
+        items={[
+          { title: t('search:title'), href: `/search?keyword=${keyword}` },
+          { title: t('search:searchShop.title') }
+        ]}
+      />
+      <Title className="d-none" level={1}>
+        {t('search:searchShop.title')}
+      </Title>
+      <div className="page-content">
+        <div className="container">
+          <Row gutter={24}>
+            <Col xl={6}>
+              <div className={styles.imgContainer}>
+                <Image
+                  rootClassName={styles.imgWrapper}
+                  preview={false}
+                  src="./images/main/buyer/shop.png"
+                  alt="shop"
+                />
+              </div>
+            </Col>
+            <Col xl={18} md={24}>
+              <Row gutter={24}>
+                <Col md={12} xs={24}>
+                  <div
+                    className={styles.infoLeft}
+                    style={{
+                      backgroundImage: 'url("https://dummyimage.com/800x150?text=800 x 150")',
+                      backgroundPosition: 'center'
+                    }}
+                  >
+                    <Avatar className={styles.avatar} size={80} />
+                    <div className={styles.infoLeftWrapper}>
+                      <Title className={`${styles.dwrap} text-white mb-2`} level={5}>
+                        Fantasy Flight
+                      </Title>
+                      <Text className="text-white mb-2">Active 1 ชั่วโมงที่ผ่านมา</Text>
+                      <div className={styles.btnGroup}>
+                        <Button className="hps-btn-secondary">
+                          <i className="fas fa-bookmark mr-1" />
+                          {t('shop:info.follow')}
+                        </Button>
+                        <Button className="hps-btn-secondary">
+                          <i className="fas fa-comment-dots mr-1" />
+                          {t('shop:info.chat')}
+                        </Button>
+                      </div>
+                    </div>
                   </div>
-                  <div className={styles.divider} style={{ height: 'auto' }} />
-                  <div>
-                    <Text className={`${styles.text} mr-1`}>145</Text>
-                    <Text>{t('shop:following')}</Text>
+                </Col>
+                <Col md={12} xs={24}>
+                  <div className={styles.infoRight}>
+                    <div className={styles.infoBox}>
+                      <Text className={styles.dwrap}>{t('shop:info.numOfProduct')}</Text>
+                      <div className={styles.dwrap}>
+                        <Text className={styles.text}>
+                          <i className="fas fa-box mr-1" />
+                          142
+                        </Text>
+                      </div>
+                    </div>
+                    <div className={styles.infoBox}>
+                      <Text className={styles.dwrap}>{t('shop:info.follower')}</Text>
+                      <div className={styles.dwrap}>
+                        <Text className={styles.text}>
+                          <i className="fas fa-bookmark mr-1" />
+                          1.2 พัน
+                        </Text>
+                      </div>
+                    </div>
+                    <div className={styles.infoBox}>
+                      <Text className={styles.dwrap}>{t('shop:info.following')}</Text>
+                      <div className={styles.dwrap}>
+                        <Text className={styles.text}>
+                          <i className="fas fa-heart mr-1" />
+                          42
+                        </Text>
+                      </div>
+                    </div>
+                    <div className={styles.infoBox}>
+                      <Text className={styles.dwrap}>{t('shop:info.rating')}</Text>
+                      <div className={styles.dwrap}>
+                        <Text className={styles.text}>
+                          <i className="fas fa-star mr-1" />
+                          4.7
+                        </Text>
+                      </div>
+                    </div>
+                    <div className={styles.infoBox}>
+                      <Text className={styles.dwrap}>{t('shop:info.joinAt')}</Text>
+                      <div className={styles.dwrap}>
+                        <Text className={styles.text}>
+                          <i className="fas fa-calendar mr-1" />
+                          22 เดือนที่ผ่านมา
+                        </Text>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </Space>
-          </Col>
-          <Col xl={14} lg={13} md={24} xs={24}>
-            <div className={styles.boxVWrapper}>
-              <div className={`${styles.boxV} ${styles.bd}`}>
-                <Text>{t('shop:numOfProduct')}</Text>
-                <div>
-                  <Text className={styles.text}>
-                    <i className="fas fa-box mr-1" />
-                    142
-                  </Text>
-                </div>
-              </div>
-              <div className={styles.divider} />
-              <div className={styles.boxV}>
-                <Text>{t('shop:rating')}</Text>
-                <div>
-                  <Text className={styles.text}>
-                    <i className="fas fa-star mr-1" />
-                    4.7
-                  </Text>
-                </div>
-              </div>
-              <div className={styles.divider} />
-              <div className={`${styles.boxV} ${styles.bd}`}>
-                <Text>{t('shop:replyRate')}</Text>
-                <div>
-                  <Text className={styles.text}>
-                    <i className="fas fa-comment-dots mr-1" />
-                    97%
-                  </Text>
-                </div>
-              </div>
-              <div className={styles.divider} />
-              <div className={styles.boxV}>
-                <Text>{t('shop:replyTime.title')}</Text>
-                <div>
-                  <Text className={styles.text}>
-                    <i className="fas fa-clock mr-1" />
-                    {t('shop:replyTime.head')} 10 {t('shop:replyTime.tail')}
-                  </Text>
-                </div>
-              </div>
-            </div>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+                </Col>
+              </Row>
+              <Row className="mb-3">
+                <Col className={styles.tabWrapper} span={24}>
+                  <Tabs
+                    className={styles.tab}
+                    activeKey={activeTab}
+                    onChange={(activeKey: string): void => setActiveTab(activeKey)}
+                    items={tabItems.map((data: string, i: number) => ({
+                      label: data,
+                      key: i.toString()
+                    }))}
+                    moreIcon={
+                      <Text className={styles.tabMore}>
+                        {t('shop:info.tabMore')}
+                        <i className="fas fa-chevron-down ml-1" />
+                      </Text>
+                    }
+                  />
+                </Col>
+              </Row>
+              <Row gutter={24} className="mb-8">
+                <Col span={24}>
+                  <Title className="mb-3" level={4}>
+                    <Text>{t('shop:info.aboutUs')}</Text>
+                  </Title>
+                </Col>
+                <Col md={12} xs={24}>
+                  <Carousel swipeToSlide draggable autoplay>
+                    {renderImages()}
+                  </Carousel>
+                </Col>
+                <Col md={12} xs={24}>
+                  <Text>...do something</Text>
+                </Col>
+              </Row>
+              <Row className="mb-8">
+                <Col span={24}>
+                  <Row className={styles.header} align="middle">
+                    <Col span={16}>
+                      <Title className={styles.title} level={4}>
+                        <Space size="middle">
+                          <Text className={styles.icon}>
+                            <i className="fas fa-heart" />
+                          </Text>
+                          <Text>{t('shop:info.recommended')}</Text>
+                        </Space>
+                      </Title>
+                    </Col>
+                    <Col className="text-right" span={8}>
+                      <Link href="#">
+                        <a className="hps-link">{t('common:viewAll')}</a>
+                      </Link>
+                    </Col>
+                  </Row>
+                  <Product />
+                </Col>
+              </Row>
+              <Row>
+                <Col span={24}>
+                  <Row className={styles.header} align="middle">
+                    <Col span={16}>
+                      <Title className={styles.title} level={4}>
+                        <Space size="middle">
+                          <Text className={styles.icon}>
+                            <i className="fas fa-heart" />
+                          </Text>
+                          <Text>{t('shop:info.bestSeller')}</Text>
+                        </Space>
+                      </Title>
+                    </Col>
+                    <Col className="text-right" span={8}>
+                      <Link href="#">
+                        <a className="hps-link">{t('common:viewAll')}</a>
+                      </Link>
+                    </Col>
+                  </Row>
+                  <Product />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </div>
+      </div>
+    </div>
   )
 }
 

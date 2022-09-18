@@ -4,7 +4,7 @@ import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { Col, Image, Row, Space, Typography } from 'antd'
 import Breadcrumbs from '../../../../components/main/Breadcrumbs'
-import Shop from '../../../Shop'
+import ShopCard from '../../../Shop/components/ShopCard'
 import { LocaleNamespaceConst } from '../../../../constants'
 import styles from './SearchShop.module.scss'
 
@@ -63,9 +63,9 @@ const SearchShop: FC = () => {
                   <Text>{`${t('search:shop.title')} "${keyword || t('common:all')}"`}</Text>
                 </Space>
               </Title>
-              <Shop />
-              <Shop />
-              <Shop />
+              <ShopCard showOptions />
+              <ShopCard showOptions />
+              <ShopCard showOptions />
             </Col>
           </Row>
         </div>

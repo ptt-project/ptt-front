@@ -8,8 +8,9 @@ import Promotion from './components/Promotion'
 import Brand from './components/Brand'
 import Product from '../Product'
 import { LocaleNamespaceConst } from '~/constants'
+import styles from './Home.module.scss'
 
-const { Title } = Typography
+const { Title, Link } = Typography
 
 const Home: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'home'])
@@ -39,7 +40,19 @@ const Home: FC = () => {
                 <Brand />
               </div>
               <div className="mb-8">
-                <Product page="Home" />
+                <Row className={styles.header} align="middle">
+                  <Col span={16}>
+                    <Title className={styles.title} level={3}>
+                      {t('product:title')}
+                    </Title>
+                  </Col>
+                  <Col className="text-right" span={8}>
+                    <Link href="#">
+                      <a className="hps-link">{t('common:viewAll')}</a>
+                    </Link>
+                  </Col>
+                </Row>
+                <Product />
               </div>
             </Col>
           </Row>
