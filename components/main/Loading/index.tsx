@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { Spin } from 'antd'
+import styles from './Loading.module.scss'
 
 interface ILoadingProps {
   show?: boolean
@@ -11,7 +12,7 @@ const Loading: FC<ILoadingProps> = (props: ILoadingProps) => {
   }
 
   return (
-    <div className="loading-overlay">
+    <div className={styles.overlay}>
       <div className="bounce-loader">
         <Spin size="large" />
         {/* 

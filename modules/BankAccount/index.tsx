@@ -35,19 +35,11 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
   const bankAccounts: IBankAccountData[] = useMemo(() => bankMock || [], [])
 
   function onAddBankAccountClick(): void {
-    router.push(`${rootMenu}/settings/wallet/bank/add`, `${rootMenu}/settings/wallet/bank/add`, {
-      locale: router.locale
-    })
+    router.push(`${rootMenu}/settings/finance/bank/add`)
   }
 
   function onEditBankAccountClick(bankAccountId: string): void {
-    router.push(
-      `${rootMenu}/settings/wallet/bank/${bankAccountId}`,
-      `${rootMenu}/settings/wallet/bank/${bankAccountId}`,
-      {
-        locale: router.locale
-      }
-    )
+    router.push(`${rootMenu}/settings/finance/bank/${bankAccountId}`)
   }
 
   function onFavoriteBankAccountClick(bankAccountId: string): void {
@@ -96,7 +88,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
           { title: t('bank-account:breadcrumbs.wallet') },
           {
             title: t('bank-account:breadcrumbs.bankAccount'),
-            href: CustomUrlUtil(`${rootMenu}/settings/wallet/bank`, router.locale)
+            href: CustomUrlUtil(`${rootMenu}/settings/finance/bank`, router.locale)
           }
         ]}
       />
@@ -164,7 +156,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                             <Link
                               className="ml-1"
                               href={CustomUrlUtil(
-                                `${rootMenu}/settings/wallet/bank/add`,
+                                `${rootMenu}/settings/finance/bank/add`,
                                 router.locale
                               )}
                               underline

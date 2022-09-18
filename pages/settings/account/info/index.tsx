@@ -1,34 +1,39 @@
 import React, { FC } from 'react'
-import { NextPageContext } from 'next'
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { AxiosRequestConfig } from 'axios'
 import Profile from '~/modules/Profile'
 import { LocaleNamespaceConst } from '~/constants'
-import { MembersService } from '~/services'
-import { IApiResponse, IMemberProfile } from '~/interfaces'
-import { ApiCodeEnum } from '~/enums'
+import { IMemberProfile, IApiResponse } from '~/interfaces'
+import { MemberService } from '~/services'
 
 interface IProfilePageProps {
   profile: IMemberProfile
 }
 
-export async function getServerSideProps(context: NextPageContext): Promise<any> {
-  let profile: IMemberProfile = {
-    username: '',
-    firstName: '',
-    lastName: '',
-    mobile: '',
-    birthday: '',
-    gender: '',
-    email: ''
-  }
+export async function getServerSideProps(
+  context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<any>> {
+  let profile: IMemberProfile
+  const { req } = context
 
-  try {
-    const result: IApiResponse = await MembersService.getProfile()
-    if (result.code === ApiCodeEnum.SUCCESS) {
-      profile = result.data
+  if (req) {
+    try {
+      const option: AxiosRequestConfig = {
+        headers: { Cookie: req.headers.cookie }
+      }
+      const { data }: IApiResponse = await MemberService.getProfile(option)
+      profile = data
+    } catch (error) {
+      console.error(error)
+
+      return {
+        redirect: {
+          destination: '/error',
+          permanent: true
+        }
+      }
     }
-  } catch (error) {
-    console.log(error)
   }
 
   return {

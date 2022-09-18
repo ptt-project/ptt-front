@@ -1,0 +1,59 @@
+@import '../../../../public/sass/config/variables';
+@import '../../../../public/sass/mixins/core';
+@import '../../../../public/sass/mixins/breakpoints';
+
+.cInfo {
+  color: $info-color;
+}
+
+.form {
+  margin-top: 2rem;
+}
+
+.balanceLabel {
+  font-size: 12px;
+  font-weight: 400;
+  color: $text-black;
+}
+
+.balanceValue {
+  font-size: 16px;
+  font-weight: 600;
+  color: $text-black;
+}
+
+.balanceUnit {
+  font-size: 12px;
+  font-weight: 400;
+  color: $text-gray;
+}
+
+.eWalletBalance {
+  font-size: 12px;
+  font-weight: 400;
+  color: $secondary-color;
+}
+
+.customFormLabel {
+  label {
+    width: 100%;
+  }
+}
+
+.amountHelp {
+  font-size: 12px;
+  font-weight: 400;
+  color: $text-gray;
+}
+
+.button {
+  margin-top: 1.5rem;
+}
+
+.divider {
+  margin: 1rem 0;
+
+  @include mq('xs', 'max') {
+    margin: 2rem 0;
+  }
+}

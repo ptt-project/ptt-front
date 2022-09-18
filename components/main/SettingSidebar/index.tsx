@@ -54,10 +54,10 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
       getItem(t('setting-sidebar:buyer.account.password'), 'password'),
       getItem(t('setting-sidebar:buyer.account.relation'), 'relation')
     ]),
-    getItem(t('setting-sidebar:buyer.wallet.title'), 'wallet', <i className="fas fa-wallet" />, [
+    getItem(t('setting-sidebar:buyer.wallet.title'), 'finance', <i className="fas fa-wallet" />, [
       getItem(t('setting-sidebar:buyer.wallet.eWallet'), 'e-wallet'),
       getItem(t('setting-sidebar:buyer.wallet.bank'), 'bank'),
-      getItem(t('setting-sidebar:buyer.wallet.point'), 'point')
+      getItem(t('setting-sidebar:buyer.wallet.point'), 'happy-point')
     ]),
     getItem(t('setting-sidebar:buyer.coupon.title'), 'coupon', <i className="fas fa-ticket-alt" />),
     getItem(
@@ -84,7 +84,7 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
     ),
     getItem(t('setting-sidebar:seller.product.title'), 'product', <i className="fas fa-box" />, [
       getItem(t('setting-sidebar:seller.product.list'), 'list'),
-      getItem(t('setting-sidebar:seller.product.addList'), 'add-list')
+      getItem(t('setting-sidebar:seller.product.add'), 'add')
     ]),
     getItem(t('setting-sidebar:seller.marketing.title'), 'marketing', <i className="fas fa-tag" />),
     getItem(t('setting-sidebar:seller.payment.title'), 'payment', <i className="fas fa-wallet" />),
@@ -175,7 +175,7 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
       })
     }
     if (pathname) {
-      router.push(pathname, pathname, { locale: router.locale })
+      router.push(pathname)
     }
   }
 

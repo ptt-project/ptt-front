@@ -5,12 +5,13 @@ import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import OtpModal from '~/components/main/OtpModal'
-import { IOtpData } from '~/interfaces'
+import { IOtp } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { OtpTypeEnum } from '~/enums'
+import { MemberService } from '~/services'
 
 const { Text, Title } = Typography
 const user: any = {
@@ -40,15 +41,18 @@ const ChangePassword: React.FC = () => {
     setIsOpen(!isOpen)
   }
 
-  function onSubmitOtp(otpData: IOtpData): void {
+  async function onSubmitOtp(otpData: IOtp): Promise<void> {
     try {
       console.log({ otpData, formValues })
+      const { password, newPassword } = formValues
+      await MemberService.changePassword({
+        oldPassword: password,
+        newPassword
+      })
       notification.success({
         message: 'Change Password Success'
       })
-      router.replace('/auth/login', '/auth/login', {
-        locale: router.locale
-      })
+      router.replace('/auth/login')
       // success go to login
       setIsOpen(false)
     } catch (error) {
@@ -164,19 +168,19 @@ const ChangePassword: React.FC = () => {
                     <Space />
                     <Form.Item>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register:form.passwordHintA')}
+                        {t('common:passwordHint.a')}
                       </Text>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register:form.passwordHintB')}
+                        {t('common:passwordHint.b')}
                       </Text>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register:form.passwordHintC')}
+                        {t('common:passwordHint.c')}
                       </Text>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register:form.passwordHintD')}
+                        {t('common:passwordHint.d')}
                       </Text>
                       <Text type="secondary" className="hps-text-small d-block">
-                        {t('auth.register:form.passwordHintE')}
+                        {t('common:passwordHint.e')}
                       </Text>
                     </Form.Item>
                     <Form.Item>

@@ -33,10 +33,10 @@
     "product": {
       "title": "สินค้า",
       "list": "สินค้าของฉัน",
-      "addList": "เพิ่มสินค้าใหม่"
+      "add": "เพิ่มสินค้าใหม่"
     },
     "marketing": {
-      "title": "Marketing Centre"
+      "title": "เครื่องมือส่งเสริมการขาย"
     },
     "payment": {
       "title": "การเงิน"

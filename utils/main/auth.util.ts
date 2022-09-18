@@ -1,16 +1,17 @@
 import Cookie from 'cookie'
 import JsCookie from 'js-cookie'
 import { isEmpty } from 'lodash'
-import { IAuthLoginRes, IAuthToken, IAuthUserInfo } from '~/interfaces'
+import { IAuthLogin, IAuthToken, IAuthUserInfo } from '~/interfaces'
 
-export const AuthInitUtil = (data: IAuthLoginRes): void => {
-  JsCookie.set('AccessToken', data.accessToken)
-  JsCookie.set('RefreshToken', data.refreshToken)
+export const AuthInitUtil = (data: IAuthLogin): void => {
+  // Set From API
+  // JsCookie.set('AccessToken', data.accessToken)
+  // JsCookie.set('RefreshToken', data.refreshToken)
 
   const userInfo: IAuthUserInfo = {
     username: data.username,
-    firstname: data.firstname,
-    lastname: data.lastname,
+    firstName: data.firstName,
+    lastName: data.lastName,
     mobile: data.mobile,
     email: data.email
   }
@@ -25,8 +26,8 @@ export const AuthDestroyUtil = (): void => {
 }
 
 export const AuthGetTokenUtil = (): IAuthToken => {
-  const accessToken: string = JsCookie.get('AccessToken')
-  const refreshToken: string = JsCookie.get('RefreshToken')
+  const accessToken: string = JsCookie.get('AccessToken') || ''
+  const refreshToken: string = JsCookie.get('RefreshToken') || ''
 
   return {
     accessToken,
@@ -34,8 +35,12 @@ export const AuthGetTokenUtil = (): IAuthToken => {
   }
 }
 
-export const AuthGetServerSideTokenUtil = (rawCookie: string): IAuthToken => {
-  const cookies: any = Cookie.parse(rawCookie)
+export const AuthGetServerSideTokenUtil = (cookie: string | undefined): IAuthToken => {
+  let cookies: any = {}
+  if (cookie) {
+    cookies = Cookie.parse(cookie)
+  }
+
   const accessToken: string = cookies.AccessToken || ''
   const refreshToken: string = cookies.RefreshToken || ''
 
@@ -52,4 +57,15 @@ export const AuthGetUserInfoUtil = (): IAuthUserInfo | undefined => {
   }
 
   return undefined
+}
+
+export const AuthGetServerSideUserInfoUtil = (
+  cookie: string | undefined
+): IAuthUserInfo | undefined => {
+  let cookies: any = {}
+  if (cookie) {
+    cookies = Cookie.parse(cookie)
+  }
+
+  return cookies.userInfo
 }

@@ -13,7 +13,7 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
 import { bankMock } from '~/modules/BankAccount/mock-data'
 import { IBankAccountData } from '~/interfaces'
-import CustomInput from '~/components/common/CustomInput'
+import CustomInput from '~/components/main/CustomInput'
 import OtpModal from '~/components/main/OtpModal'
 import { OtpTypeEnum } from '~/enums'
 
@@ -41,9 +41,7 @@ const EWalletWithdraw: React.FC = () => {
   function onOtpSuccess(): void {
     setIsOtpOpen(false)
     message.success(t('common:dataUpdated'))
-    router.replace('/settings/wallet/e-wallet', '/settings/wallet/e-wallet', {
-      locale: router.locale
-    })
+    router.replace('/settings/finance/e-wallet')
   }
 
   function onSubmit(values: IEWalletWithdrawFormValues): void {
@@ -79,7 +77,7 @@ const EWalletWithdraw: React.FC = () => {
           { title: t('e-wallet:breadcrumbs.finance') },
           {
             title: t('e-wallet:breadcrumbs.withdraw'),
-            href: CustomUrlUtil('/settings/wallet/e-wallet/withdraw', router.locale)
+            href: CustomUrlUtil('/settings/finance/e-wallet/withdraw', router.locale)
           }
         ]}
       />
@@ -111,7 +109,7 @@ const EWalletWithdraw: React.FC = () => {
                           <Text>
                             {`${t('e-wallet:withdraw.noBankAccountDescription')} > `}
                             <Link
-                              href={CustomUrlUtil('/settings/wallet/bank', router.locale)}
+                              href={CustomUrlUtil('/settings/finance/bank', router.locale)}
                               underline
                             >
                               {t('e-wallet:withdraw.bankAccount')}
@@ -211,7 +209,9 @@ const EWalletWithdraw: React.FC = () => {
                                 </Row>
                                 <Row justify="space-between">
                                   <Text>{t('e-wallet:common.totalAmount')}</Text>
-                                  <Text>{`${HelperDecimalFormatUtil(totalAmount)} ${t('บาท')}`}</Text>
+                                  <Text>{`${HelperDecimalFormatUtil(totalAmount)} ${t(
+                                    'บาท'
+                                  )}`}</Text>
                                 </Row>
                               </Space>
                             )

@@ -3,7 +3,34 @@ export interface IMemberProfile {
   firstName: string
   lastName: string
   mobile: string
+  birthday?: string
+  day?: string
+  month?: string
+  year?: string
+  gender?: string
+  email: string
+  code?: string
+}
+
+export interface IMemberProfileUpdate {
+  firstname: string
+  lastname: string
   birthday: string
   gender: string
-  email: string
+}
+
+export interface IMemberEmailUpdate {
+  newEmail: string
+  password: string
+}
+
+export interface IMemberMobile {
+  mobile: string
+  refCode: string
+  otpCode: string
+}
+
+export interface IMemberChangePassword {
+  oldPassword: string
+  newPassword: string
 }

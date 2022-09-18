@@ -1,0 +1,118 @@
+@import '../../../../public/sass/config/variables';
+
+.card {
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+}
+
+.boxHWrapper {
+  .boxH {
+    display: flex;
+  }
+
+  .name {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (max-width: 374px) {
+    gap: 10px !important;
+
+    .avatar {
+      width: 48px !important;
+      height: 48px !important;
+    }
+  }
+
+  @media (max-width: 991px) {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+
+  @media (min-width: 576px) {
+    justify-content: center;
+  }
+}
+
+.boxVWrapper {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+
+  .boxV {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 575px) {
+      align-items: flex-start;
+    }
+  }
+
+  .boxAction {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1rem;
+
+    .actionBtn {
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        color: $info-color !important;
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    flex-wrap: wrap;
+
+    .boxV {
+      flex: 1 50%;
+      max-width: calc(50% - 5px);
+    }
+
+    .boxAction {
+      flex-direction: row;
+      justify-content: space-between;
+      flex: 0 0 70px;
+      margin-top: 1rem;
+      margin-left: 0;
+    }
+
+    .bd {
+      border-right: 1px solid $border-color;
+    }
+
+    .divider {
+      display: none;
+    }
+  }
+}
+
+.text {
+  color: $primary-color;
+
+  i {
+    color: $text-gray;
+  }
+}
+
+.divider {
+  width: 1px;
+  height: 50px;
+  margin: 0 0.75rem;
+  background-color: $border-color;
+
+  &::after {
+    content: '\00a0';
+  }
+}

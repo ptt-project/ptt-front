@@ -16,7 +16,7 @@ interface IPointReplyModalProps {
   toggle: () => void
 }
 
-interface IFormModel {
+interface IFormData {
   msgReply: string
 }
 
@@ -28,7 +28,7 @@ const ReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps) => 
     props.toggle()
   }
 
-  function onSubmit(values: IFormModel): void {
+  function onSubmit(values: IFormData): void {
     console.log(values)
     toggle()
   }

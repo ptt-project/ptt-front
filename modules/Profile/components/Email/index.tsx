@@ -1,25 +1,45 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
-import { Typography, Button, Row, Col, Form, Input } from 'antd'
+import { Typography, Button, Row, Col, Form, Input, message } from 'antd'
+import { IMemberProfile, IMemberEmailUpdate } from '~/interfaces'
+import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
+import { MemberService } from '~/services'
 import styles from './ProfileEmail.module.scss'
 
 const { Text, Title } = Typography
 
-interface IFormModel {
-  email: string
-  password: string
+interface IEmailProps {
+  profile: IMemberProfile
 }
 
-const Email: FC = () => {
+const Email: FC<IEmailProps> = (props: IEmailProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const [form] = Form.useForm()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  function onSubmit(values: IFormModel): void {
-    console.log(values)
+  async function onSubmit(values: IMemberEmailUpdate): Promise<void> {
+    setIsLoading(true)
+    let isSuccess: boolean = true
+    try {
+      const payload: IMemberEmailUpdate = {
+        newEmail: values.newEmail,
+        password: values.password
+      }
+      await MemberService.updateEmail(payload)
+      isSuccess = true
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
   return (
@@ -37,6 +57,7 @@ const Email: FC = () => {
           { title: t('account-info:email.title'), href: '/settings/account/info/email' }
         ]}
       />
+      <Loading show={isLoading} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
@@ -52,15 +73,39 @@ const Email: FC = () => {
                   <Text>{t('account-info:email.currentEmail')} :</Text>
                 </Col>
                 <Col md={12} xs={16}>
-                  <Text className={styles.textPrimary}>Ne******@gmail.com</Text>
+                  <Text className={styles.textPrimary}>{props.profile.email}</Text>
                 </Col>
               </Row>
               <Row>
                 <Col xl={{ span: 12, offset: 6 }} md={{ span: 12, offset: 6 }}>
-                  <Form layout="vertical" form={form} name="accountEmail" onFinish={onSubmit}>
+                  <Form
+                    layout="vertical"
+                    form={form}
+                    onFinish={onSubmit}
+                    initialValues={{
+                      email: props.profile.email
+                    }}
+                  >
                     <Row>
                       <Col span={24}>
-                        <Form.Item label={t('account-info:email.currentEmail')} name="currentEmail">
+                        <Form.Item
+                          label={t('account-info:email.currentEmail')}
+                          name="newEmail"
+                          rules={[
+                            {
+                              required: true,
+                              message: `${t('common:form.required')} ${t(
+                                'account-info:form.email'
+                              )}`
+                            },
+                            {
+                              type: 'email',
+                              message: `${t('common:form.invalid.head')} ${t(
+                                'account-info:form.email'
+                              )} ${t('common:form.invalid.tail')}`
+                            }
+                          ]}
+                        >
                           <Input maxLength={50} />
                         </Form.Item>
                       </Col>
@@ -74,12 +119,6 @@ const Email: FC = () => {
                               message: `${t('common:form.required')} ${t(
                                 'account-info:form.email'
                               )}`
-                            },
-                            {
-                              type: 'email',
-                              message: `${t('common:form.invalid.head')} ${t(
-                                'account-info:form.email'
-                              )} ${t('common:form.invalid.tail')}`
                             }
                           ]}
                         >

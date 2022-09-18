@@ -1,9 +1,10 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
 import type { RadioChangeEvent } from 'antd'
+import _ from 'lodash'
 import {
   Typography,
   Button,
@@ -15,36 +16,71 @@ import {
   Avatar,
   Image,
   Select,
-  Radio
+  Radio,
+  message
 } from 'antd'
+import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrlUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import { LocaleNamespaceConst } from '~/constants'
-import { IMemberProfile } from '~/interfaces'
+import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
+import { IMemberProfile, IMemberProfileUpdate } from '~/interfaces'
+import { MemberService } from '~/services'
 import styles from './Profile.module.scss'
 
 const { Text, Title } = Typography
+const { Option } = Select
 
 interface IProps {
   profile: IMemberProfile
 }
-
 const Profile: FC<IProps> = (props: IProps) => {
+  console.log(props.profile)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
-  const [value, setValue] = useState<number>(1)
+  const [valueGender, setValueGender] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   function onChange(e: RadioChangeEvent): void {
-    setValue(e.target.value)
+    setValueGender(e.target.value)
   }
 
-  function onSubmit(values: IMemberProfile): void {
-    console.log(values)
+  async function onSubmit(values: IMemberProfile): Promise<void> {
+    setIsLoading(true)
+    let isSuccess: boolean = false
+    try {
+      const payload: IMemberProfileUpdate = {
+        firstname: values.firstName,
+        lastname: values.lastName,
+        birthday: `${values.year}-${values.month}-${values.day}`,
+        gender: valueGender
+      }
+      await MemberService.updateMemberProfile(payload)
+      isSuccess = true
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
+  async function fetchData(): Promise<void> {
+    try {
+      await MemberService.getProfile()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
   return (
     <main className="main">
       <Helmet>
@@ -59,6 +95,7 @@ const Profile: FC<IProps> = (props: IProps) => {
           { title: t('account-info:personalInfo'), href: '/settings/account/info' }
         ]}
       />
+      <Loading show={isLoading} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
@@ -75,11 +112,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                 form={form}
                 name="profileForm"
                 onFinish={onSubmit}
-                initialValues={{
-                  firstName: props.profile.firstName,
-                  lastName: props.profile.lastName,
-                  gender: props.profile.gender
-                }}
+                initialValues={{ ...props.profile }}
               >
                 <Row className={styles.highlight} gutter={[16, 16]} align="middle">
                   <Col sm={4} xs={12}>
@@ -94,7 +127,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                     />
                   </Col>
                   <Col sm={8} xs={12} className="text-center">
-                    <Upload>
+                    <Upload accept={ImageAcceptConst.toString()}>
                       <Button className="hps-btn-secondary">
                         {t('account-info:button.chooseImage')}
                       </Button>
@@ -102,11 +135,14 @@ const Profile: FC<IProps> = (props: IProps) => {
                     <Text type="secondary">{t('account-info:form.msgChooseImage')}</Text>
                   </Col>
                   <Col sm={12} xs={24}>
-                    <Text className={styles.label}>{t('account-info:form.memberId')} :</Text>
-                    <Text className={styles.textPrimary}>mem01</Text>
-                    <br />
-                    <Text className={styles.label}>{t('account-info:form.username')} :</Text>
-                    <Text className={styles.textPrimary}>{props.profile.username}</Text>
+                    <div>
+                      <Text className={styles.label}>{t('account-info:form.memberId')} :</Text>
+                      <Text className={styles.textPrimary}>mem01</Text>
+                    </div>
+                    <div>
+                      <Text className={styles.label}>{t('account-info:form.username')} :</Text>
+                      <Text className={styles.textPrimary}>{props.profile.username}</Text>
+                    </div>
                   </Col>
                 </Row>
                 <Row gutter={[16, 8]}>
@@ -137,29 +173,44 @@ const Profile: FC<IProps> = (props: IProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} value={props.profile.lastName} />
+                      <Input maxLength={50} />
                     </Form.Item>
                   </Col>
                   <Col span={24}>
                     <Row gutter={8}>
                       <Col md={3} sm={4} xs={6}>
-                        <Form.Item label={t('account-info:form.birthday')} name="birthday">
+                        <Form.Item label={t('account-info:form.birthday')} name="day">
                           <Select defaultValue="">
-                            <Select.Option value="">{t('account-info:form.date')}</Select.Option>
+                            <Option value="">{t('account-info:form.date')}</Option>
+                            {_.range(1, 31 + 1).map((value: number) => (
+                              <Option key={value} value={value}>
+                                {value}
+                              </Option>
+                            ))}
                           </Select>
                         </Form.Item>
                       </Col>
                       <Col md={5} sm={6} xs={9}>
-                        <Form.Item label="&nbsp;" name="birthMonth">
+                        <Form.Item label="&nbsp;" name="month">
                           <Select defaultValue="">
-                            <Select.Option value="">{t('account-info:form.month')}</Select.Option>
+                            <Option value="">{t('account-info:form.month')}</Option>
+                            {_.range(1, 12 + 1).map((value: number) => (
+                              <Option key={value} value={value}>
+                                {value}
+                              </Option>
+                            ))}
                           </Select>
                         </Form.Item>
                       </Col>
                       <Col md={5} sm={6} xs={9}>
-                        <Form.Item label="&nbsp;" name="birthYear">
+                        <Form.Item label="&nbsp;" name="year">
                           <Select defaultValue="">
-                            <Select.Option value="">{t('account-info:form.year')}</Select.Option>
+                            <Option value="">{t('account-info:form.year')}</Option>
+                            {_.range(1938, 2004 + 1).map((value: number) => (
+                              <Option key={value} value={value}>
+                                {value}
+                              </Option>
+                            ))}
                           </Select>
                         </Form.Item>
                       </Col>
@@ -174,7 +225,7 @@ const Profile: FC<IProps> = (props: IProps) => {
                         <Radio.Group
                           name="gender"
                           onChange={onChange}
-                          value={value}
+                          value={valueGender}
                           className={styles.radioFlex}
                         >
                           <Radio value="M">{t('account-info:form.man')}</Radio>

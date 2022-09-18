@@ -1,8 +1,5 @@
 .vscode
-build
-node_modules
 .dockerignore
-.env*
 .eslintignore
 .eslintrc.js
 .gitignore

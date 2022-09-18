@@ -47,8 +47,8 @@ const Promotion: FC = () => {
           </Title>
         </Col>
         <Col className="text-right" span={8}>
-          <Link href="#" className="hps-link">
-            {t('common:viewAll')}
+          <Link href="#">
+            <a className="hps-link">{t('common:viewAll')}</a>
           </Link>
         </Col>
       </Row>

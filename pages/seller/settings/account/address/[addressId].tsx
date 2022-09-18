@@ -1,50 +1,58 @@
-import { GetServerSidePropsResult, NextPageContext } from 'next'
+import { AxiosRequestConfig } from 'axios'
+import { GetServerSidePropsResult, GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
-import { ApiCodeEnum } from '~/enums'
 import { IAddress, IApiResponse } from '~/interfaces'
 import EditAddress, { IEditAddressProps } from '~/modules/Address/components/EditAddress'
-import { MembersService } from '~/services'
+import { MemberService } from '~/services'
+import { withAuth } from '../../../../../hocs/with-user'
 
-type IEditAddressPageProps = Pick<IEditAddressProps, 'address'>
+type IEditAddressPageProps = Pick<IEditAddressProps, 'address' | 'googleMapsApiKey'>
 
-export async function getServerSideProps(
-  context: NextPageContext
-): Promise<GetServerSidePropsResult<IEditAddressPageProps>> {
-  let address: IAddress
-  const { query } = context
-  const { addressId } = query || {}
+export const getServerSideProps: any = withAuth(
+  async (
+    context: GetServerSidePropsContext
+  ): Promise<GetServerSidePropsResult<IEditAddressPageProps>> => {
+    let address: IAddress | null = null
+    const { query, req } = context
+    const { addressId } = query || {}
 
-  try {
-    const result: IApiResponse = await MembersService.getAddress(addressId.toString())
+    if (req) {
+      try {
+        if (addressId?.toString()) {
+          const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
+          const { data }: IApiResponse = await MemberService.getAddress(
+            addressId.toString(),
+            option
+          )
+          address = data
+        }
+      } catch (error) {
+        console.log(error)
 
-    if (result.code === ApiCodeEnum.SUCCESS) {
-      address = result.data
-    } else {
-      // if no found throw error for redirect to page address list in catch handle
-      throw new Error('no data')
+        return {
+          redirect: {
+            destination: '/error',
+            permanent: true
+          }
+        }
+      }
     }
-  } catch (error) {
-    console.error(error)
+
+    const googleMapsApiKey: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_TOKEN
     return {
-      redirect: {
-        destination: '/settings/account/address',
-        permanent: true
+      props: {
+        ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'address'])),
+        address,
+        googleMapsApiKey
       }
     }
   }
-
-  return {
-    props: {
-      ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'address'])),
-      address
-    }
-  }
-}
+)
 
 const EditAddressPage: FC = (props: IEditAddressPageProps) => (
-  <EditAddress isSeller address={props.address} />
+  <EditAddress isSeller address={props.address} googleMapsApiKey={props.googleMapsApiKey} />
 )
 
 export default EditAddressPage

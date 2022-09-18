@@ -1,0 +1,184 @@
+@import '../../public/sass/config/variables';
+
+.imgContainer {
+  width: 100%;
+  padding-top: 150%;
+  position: relative;
+}
+
+.imgWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.infoLeft {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  height: 140px;
+  padding: 1.5rem;
+
+  .avatar {
+    border: 1px solid $white-color;
+  }
+
+  .infoLeftWrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+
+    .btnGroup {
+      display: flex;
+      gap: 1.5rem;
+
+      button {
+        width: 100%;
+        max-width: 150px;
+      }
+    }
+  }
+
+  @media (max-width: 575px) {
+    margin: 0 -15px 15px -15px;
+  }
+
+  @media (max-width: 374px) {
+    gap: 1rem;
+    height: auto;
+    padding: 1rem;
+
+    .infoLeftWrapper {
+      .btnGroup {
+        gap: 1rem;
+      }
+    }
+  }
+}
+
+.infoRight {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: $background-light;
+  gap: 1rem;
+  height: 140px;
+  padding: 1.5rem;
+
+  .infoBox {
+    display: flex;
+    flex-direction: column;
+    flex: 1 33.33%;
+    max-width: calc(33.33% - 1rem);
+    white-space: nowrap;
+    overflow: hidden;
+
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(4) {
+      border-right: 1px solid $border-color;
+    }
+
+    &:nth-child(4),
+    &:nth-child(5) {
+      margin-top: 1rem;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    gap: 8px;
+    padding: 1rem;
+
+    .infoBox {
+      &:nth-child(4),
+      &:nth-child(5) {
+        margin-top: 8px;
+      }
+    }
+  }
+
+  @media (max-width: 575px) {
+    height: auto;
+    margin-bottom: 3rem;
+
+    .infoBox {
+      flex: 1 50%;
+      max-width: calc(50% - 1rem);
+
+      &:nth-child(2),
+      &:nth-child(4) {
+        border-right: none;
+      }
+
+      &:nth-child(3) {
+        margin-top: 1rem;
+        border-right: 1px solid $border-color;
+      }
+    }
+  }
+}
+
+.text {
+  color: $primary-color;
+
+  i {
+    color: $text-gray;
+  }
+}
+
+.tabWrapper {
+  background-color: $background-light;
+}
+
+.tab > div[role='tablist'] {
+  background-color: $white-color;
+}
+
+.tabMore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 46px;
+  margin: -8px -16px;
+  cursor: pointer;
+}
+
+.header {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid $border-color;
+}
+
+.title {
+  color: $primary-color !important;
+  margin-bottom: 0 !important;
+}
+
+.icon {
+  color: $primary-color;
+}
+
+.imgAboutUsContainer {
+  width: 100%;
+  padding-top: 66.66%;
+  position: relative;
+
+  @media (max-width: 575px) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.dwrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

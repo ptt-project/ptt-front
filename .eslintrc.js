@@ -46,7 +46,6 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/no-array-index-key': 'off',
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
-    'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
     'require-explicit-generics/require-explicit-generics': [
       'error',
       // List your functions here
@@ -57,6 +56,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     'comma-dangle': ['error', 'never'],
+    'comma-spacing': ['error', { before: false, after: true }],
     'no-console': 'off',
     'no-unused-vars': [2, { args: 'none' }],
     'no-else-return': ['error', { allowElseIf: false }],
@@ -73,7 +73,6 @@ module.exports = {
         next: ['interface', 'class', 'function', 'export']
       }
     ],
-    '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/explicit-function-return-type': [
       'error',

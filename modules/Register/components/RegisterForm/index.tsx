@@ -18,10 +18,9 @@ import {
 import { Rule } from 'antd/lib/form'
 import Loading from '~/components/main/Loading'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import { IApiResponse, IAuthRegisterForm, IAuthRegisterValidateService } from '~/interfaces'
+import { IAuthRegisterForm, IAuthRegisterValidatePayload } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import { AuthService } from '~/services'
-import { ApiCodeEnum } from '~/enums'
 import styles from './RegisterForm.module.scss'
 
 const { Text, Title, Link } = Typography
@@ -87,16 +86,14 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: IAuthRegisterValidateService = {
+      const payload: IAuthRegisterValidatePayload = {
         email: values.email,
         username: values.username
       }
-      const result: IApiResponse = await AuthService.registerValidate(payload)
-      if (result.code === ApiCodeEnum.SUCCESS) {
-        isSuccess = true
-        props.setForm(values)
-        props.setStep(1)
-      }
+      AuthService.registerValidate(payload)
+      isSuccess = true
+      props.setForm(values)
+      props.setStep(1)
     } catch (error) {
       console.log(error)
     }
@@ -261,19 +258,19 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                       <Input.Password maxLength={50} />
                     </Form.Item>
                     <Text type="secondary" className="hps-text-small d-block">
-                      {t('auth.register:form.passwordHintA')}
+                      {t('common:passwordHint.a')}
                     </Text>
                     <Text type="secondary" className="hps-text-small d-block">
-                      {t('auth.register:form.passwordHintB')}
+                      {t('common:passwordHint.b')}
                     </Text>
                     <Text type="secondary" className="hps-text-small d-block">
-                      {t('auth.register:form.passwordHintC')}
+                      {t('common:passwordHint.c')}
                     </Text>
                     <Text type="secondary" className="hps-text-small d-block">
-                      {t('auth.register:form.passwordHintD')}
+                      {t('common:passwordHint.d')}
                     </Text>
                     <Text type="secondary" className="hps-text-small d-block">
-                      {t('auth.register:form.passwordHintE')}
+                      {t('common:passwordHint.e')}
                     </Text>
                   </Col>
                 </Row>

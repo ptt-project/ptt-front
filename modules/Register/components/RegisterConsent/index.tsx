@@ -5,15 +5,15 @@ import { Typography, Space, Button, Image, Row, Col, Form, Checkbox, message } f
 import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
-import { IApiResponse, IAuthRegisterForm, IAuthRegisterService, IOtpData } from '~/interfaces'
+import { IAuthRegisterForm, IAuthRegisterPayload, IOtp } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
-import { ApiCodeEnum, OtpTypeEnum } from '~/enums'
+import { OtpTypeEnum } from '~/enums'
 import styles from './RegisterConsent.module.scss'
 
 const { Text, Title } = Typography
 
-interface IFormConsentModel {
+interface IFormConsentData {
   acceptConsent: boolean
 }
 
@@ -38,7 +38,7 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
     setChecked(e.target.checked)
   }
 
-  function onAccept(values: IFormConsentModel): void {
+  function onAccept(values: IFormConsentData): void {
     let isInvalid: number = 0
     Object.keys(props.form).forEach((key: string) => {
       if (isEmpty(props.form[key])) {
@@ -50,12 +50,12 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
     }
   }
 
-  async function onSubmit(otpData: IOtpData): Promise<void> {
+  async function onSubmit(otpData: IOtp): Promise<void> {
     toggle()
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: IAuthRegisterService = {
+      const payload: IAuthRegisterPayload = {
         firstName: props.form.firstName,
         lastName: props.form.lastName,
         mobile: props.form.mobile,
@@ -66,11 +66,9 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
         otpCode: otpData.otpCode,
         refCode: otpData.refCode
       }
-      const result: IApiResponse = await AuthService.register(payload)
-      if (result.code === ApiCodeEnum.SUCCESS) {
-        isSuccess = true
-        props.setStep(2)
-      }
+      await AuthService.register(payload)
+      isSuccess = true
+      props.setStep(2)
     } catch (error) {
       console.log(error)
     }

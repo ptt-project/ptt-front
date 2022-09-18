@@ -3,16 +3,18 @@ import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
-import { Typography, Button, Row, Col, Space } from 'antd'
+import { Typography, Button, Row, Col, Space, message } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
+import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
-import { IOtpData } from '~/interfaces'
+import { IOtp, IMemberMobile } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
 import { OtpTypeEnum } from '~/enums'
+import { MemberService } from '~/services'
 import styles from './ProfilePhone.module.scss'
 
 const { Text } = Typography
@@ -22,6 +24,8 @@ const Phone: FC = () => {
   const router: NextRouter = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isOpenDelPhoneModal, setIsOpenDelPhoneModal] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [dataMobile, setDataMobile] = useState<string>('')
 
   function toggle(): void {
     setIsOpen(!isOpen)
@@ -31,32 +35,73 @@ const Phone: FC = () => {
     setIsOpenDelPhoneModal(!isOpenDelPhoneModal)
   }
 
-  function onDelPhoneModal(): void {
-    setIsOpenDelPhoneModal(true)
-  }
-
-  function onFavoritePhone(): void {
-    setIsOpen(true)
-  }
-
-  function onRemove(): void {
-    console.log('reomove')
-    toggleDelPhoneModal()
-  }
-
-  function onSubmit(otpData: IOtpData): void {
-    try {
-      console.log(otpData)
+  function onSetMobile(mobile: string, type: string): void {
+    setDataMobile(mobile)
+    if (type === 'main') {
       toggle()
+    } else {
+      setIsOpenDelPhoneModal(true)
+    }
+  }
+
+  async function onSubmit(otpData: IOtp): Promise<void> {
+    if (!otpData) {
+      toggle()
+    }
+
+    setIsLoading(true)
+    let isSuccess: boolean = false
+    try {
+      const payload: IMemberMobile = {
+        mobile: dataMobile,
+        otpCode: otpData.otpCode,
+        refCode: otpData.refCode
+      }
+      console.log(payload)
+      await MemberService.setMainMobile(payload)
+      isSuccess = true
     } catch (error) {
       console.log(error)
     }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
+  }
+
+  async function onRemove(otpData: IOtp): Promise<void> {
+    if (!otpData) {
+      toggle()
+    }
+    setIsLoading(true)
+    let isSuccess: boolean = false
+    try {
+      const payload: IMemberMobile = {
+        mobile: dataMobile,
+        otpCode: otpData.otpCode,
+        refCode: otpData.refCode
+      }
+      console.log(payload)
+      await MemberService.deleteMobile(payload)
+      isSuccess = true
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
   return (
     <>
+      <Loading show={isLoading} />
       <OtpModal
-        mobile="12346"
+        mobile={dataMobile}
         action={OtpTypeEnum.REGISTER}
         isOpen={isOpen}
         toggle={toggle}
@@ -67,7 +112,7 @@ const Phone: FC = () => {
         toggle={toggleDelPhoneModal}
         type="error"
         title={t('account-info:phone.deletePhone')}
-        content={`${t('account-info:phone.confirmDelete')} 081-2226666`}
+        content={`${t('account-info:phone.confirmDelete')}${dataMobile}`}
         contentWarning={t('account-info:phone.msgConfirmDelete')}
         onSubmit={onRemove}
       />
@@ -125,10 +170,13 @@ const Phone: FC = () => {
                   </Col>
                   <Col sm={8} xs={12} className="text-right">
                     <Space size="middle">
-                      <a onClick={onFavoritePhone} aria-hidden="true">
+                      <a onClick={(): void => onSetMobile('0647012666', 'main')} aria-hidden="true">
                         <i className="fas fa-star" />
                       </a>
-                      <a onClick={onDelPhoneModal} aria-hidden="true">
+                      <a
+                        onClick={(): void => onSetMobile('0647012666', 'delete')}
+                        aria-hidden="true"
+                      >
                         <i className="fas fa-trash-alt" />
                       </a>
                     </Space>

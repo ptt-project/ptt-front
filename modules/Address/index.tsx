@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { Typography, Button, Row, Col, Space, Modal, Image, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import { compact, orderBy } from 'lodash'
@@ -6,12 +6,13 @@ import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import styles from './Address.module.scss'
 import AddressCard from './components/AddressCard'
-import { IAddress, IAddressFormValues, ICustomHookUseVisibleUtil } from '~/interfaces'
+import { IAddress, IAddressFormValues, IApiResponse, ICustomHookUseVisibleUtil } from '~/interfaces'
 import { CustomHookUseVisibleUtil, CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
+import { MemberService } from '~/services'
 
 const { Text, Title, Link } = Typography
 
@@ -20,40 +21,45 @@ export interface IAddressProps {
   addresses?: IAddress[]
 }
 const Address: FC<IAddressProps> = (props: IAddressProps) => {
-  const { addresses } = props
+  const { addresses: addressesFromServerSide } = props
+
   const router: NextRouter = useRouter()
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
-
+  const [addresses, setAddresses] = useState<IAddress[]>(addressesFromServerSide || [])
   const deleteAddressVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
 
   const rootMenu: string = props.isSeller ? '/seller' : ''
 
   const [deleteAddressId, setDeleteAddressId] = useState<string>()
 
+  const fetchAddresses: () => Promise<void> = useCallback(async (): Promise<void> => {
+    try {
+      const { data }: IApiResponse = await MemberService.getAddresses()
+      setAddresses(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!addressesFromServerSide?.length) {
+      fetchAddresses()
+    }
+  }, [addressesFromServerSide, fetchAddresses])
+
   function onAddAddressClick(): void {
-    router.push(
-      `${rootMenu}/settings/account/address/add`,
-      `${rootMenu}/settings/account/address/add`,
-      {
-        locale: router.locale
-      }
-    )
+    router.push(`${rootMenu}/settings/account/address/add`)
   }
 
   function onEditAddressClick(addressId: string): void {
-    router.push(
-      `${rootMenu}/settings/account/address/${addressId}`,
-      `${rootMenu}/settings/account/address/${addressId}`,
-      {
-        locale: router.locale
-      }
-    )
+    router.push(`${rootMenu}/settings/account/address/${addressId}`)
   }
 
-  async function onSetMainAddressClick(/* addressId: string */): Promise<void> {
+  async function onSetMainAddressClick(addressId: string): Promise<void> {
     try {
-      // await MembersService.setMainAddress?.(deleteAddressId)
+      await MemberService.setMainAddress(addressId)
+      await fetchAddresses()
       message.success(t('common:dataUpdated'))
     } catch (error) {
       //
@@ -67,7 +73,8 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
 
   async function onConfirmDeleteAddressClick(): Promise<void> {
     try {
-      // await MembersService.deleteAddress?.(deleteAddressId)
+      await MemberService.deleteAddress(deleteAddressId)
+      await fetchAddresses()
       message.success(t('common:dataUpdated'))
       setDeleteAddressId('')
     } catch (error) {
@@ -76,8 +83,9 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
     deleteAddressVisible.hide()
   }
 
-  const deleteAddressData: IAddressFormValues = (addresses as IAddressFormValues[]).find(
-    (address: IAddressFormValues) => address.id === deleteAddressId
+  const deleteAddressData: IAddress = useMemo(
+    () => addresses.find((address: IAddress) => address.id === deleteAddressId),
+    [addresses, deleteAddressId]
   )
 
   return (

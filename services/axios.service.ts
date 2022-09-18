@@ -1,19 +1,29 @@
-import axios, { Axios, AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { Axios, AxiosError, AxiosInstance, AxiosResponse } from 'axios'
+import { ApiCodeEnum } from '~/enums'
 import { IApiResponse } from '~/interfaces'
 
-axios.interceptors.request.use((config: AxiosRequestConfig) => {
-  const newConfig: AxiosRequestConfig = { ...config }
-  newConfig.timeout = 300000
-  // newConfig.withCredentials = true
-  return newConfig
-})
+const createAxios = (): AxiosInstance => {
+  const ax: AxiosInstance = axios.create({
+    baseURL: `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_VERSION}`,
+    timeout: 30 * 1000, // 30s
+    withCredentials: true
+  })
 
-axios.interceptors.response.use(
-  (response: AxiosResponse<IApiResponse>) => response.data,
-  (error: AxiosError) => {
-    console.log(error)
-    return Promise.reject(error)
-  }
-)
+  ax.interceptors.response.use(
+    (response: AxiosResponse<IApiResponse>) => {
+      const { data } = response || {}
+      if (data.code === ApiCodeEnum.SUCCESS) {
+        return response.data
+      }
+      return Promise.reject(response)
+    },
+    (error: AxiosError) => {
+      console.log(error.response)
+      return Promise.reject(error)
+    }
+  )
 
-export const AxiosService: Axios = axios
+  return ax
+}
+
+export const AxiosService: Axios = createAxios()

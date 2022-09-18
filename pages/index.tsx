@@ -1,13 +1,19 @@
 import React, { FC } from 'react'
-import { NextPageContext } from 'next'
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Home from '~/modules/Home'
 import { LocaleNamespaceConst } from '~/constants'
 
-export async function getServerSideProps(context: NextPageContext): Promise<any> {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<any>> {
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'home']))
+      ...(await serverSideTranslations(context.locale, [
+        ...LocaleNamespaceConst,
+        'home',
+        'product'
+      ]))
     }
   }
 }

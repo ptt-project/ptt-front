@@ -1,6 +1,19 @@
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React, { FC } from 'react'
 import Helmet from 'react-helmet'
 import ALink from '~/components/features/custom-link'
+import { LocaleNamespaceConst } from '~/constants'
+
+export async function getStaticProps(
+  context: GetStaticPropsContext
+): Promise<GetStaticPropsResult<any>> {
+  return {
+    props: {
+      ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst]))
+    }
+  }
+}
 
 const Error404: FC = () => (
   <main className="main">
@@ -24,4 +37,4 @@ const Error404: FC = () => (
   </main>
 )
 
-export default React.memo(Error404)
+export default Error404

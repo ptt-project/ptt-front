@@ -6,10 +6,9 @@ import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, messa
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import Loading from '~/components/main/Loading'
 import { AuthInitUtil, CustomUrlUtil } from '~/utils/main'
-import { IApiResponse, IAuthLoginService, IFieldData } from '~/interfaces'
+import { IApiResponse, IAuthLoginPayload, IFieldData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
-import { ApiCodeEnum } from '~/enums'
 import styles from './Login.module.scss'
 
 const { Title, Link } = Typography
@@ -20,35 +19,37 @@ const Login: FC = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [form] = Form.useForm()
-  const [formData, setFormData] = useState<IAuthLoginService>({
+  const [formData, setFormData] = useState<IAuthLoginPayload>({
     username: '',
     password: ''
   })
 
   function onChangeFields(_: IFieldData[], allFields: IFieldData[]): void {
     if (_.length) {
-      const tempFormData: IAuthLoginService = { ...formData }
+      const tempFormData: IAuthLoginPayload = { ...formData }
       tempFormData[_[0].name[0]] = _[0].value
       setFormData(tempFormData)
     }
   }
 
-  async function onSubmit(values: IAuthLoginService): Promise<void> {
+  async function onSubmit(values: IAuthLoginPayload): Promise<void> {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: IAuthLoginService = { ...values }
-      const result: IApiResponse = await AuthService.login(payload)
-      if (result.code === ApiCodeEnum.SUCCESS) {
-        isSuccess = true
-        AuthInitUtil(result.data)
-        router.replace('/')
-      }
+      const payload: IAuthLoginPayload = { ...values }
+      const { data }: IApiResponse = await AuthService.login(payload)
+      isSuccess = true
+      AuthInitUtil(data)
     } catch (error) {
       console.log(error)
     }
     if (isSuccess) {
       message.success(t('common:apiMessage.success'))
+      if (router.query.redirect) {
+        router.replace(router.query.redirect.toString())
+      } else {
+        router.replace('/')
+      }
     } else {
       message.error(t('common:apiMessage.error'))
     }

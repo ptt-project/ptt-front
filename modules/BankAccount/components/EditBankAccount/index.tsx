@@ -76,9 +76,7 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
       }
     })
     message.success(t('common:dataUpdated'))
-    router.replace(`${rootMenu}/settings/wallet/bank`, `${rootMenu}/settings/wallet/bank`, {
-      locale: router.locale
-    })
+    router.replace(`${rootMenu}/settings/finance/bank`)
   }
 
   return (
@@ -94,7 +92,7 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
           { title: t('bank-account:breadcrumbs.wallet') },
           {
             title: t('bank-account:breadcrumbs.editBankAccount'),
-            href: CustomUrlUtil(`${rootMenu}/settings/wallet/bank/${bankAccountId}`, router.locale)
+            href: CustomUrlUtil(`${rootMenu}/settings/finance/bank/${bankAccountId}`, router.locale)
           }
         ]}
       />

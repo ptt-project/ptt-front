@@ -58,7 +58,7 @@ const RegisterSuccess: FC = () => {
                   block
                   href={CustomUrlUtil('/auth/login', router.locale)}
                 >
-                  {t('auth.register:success.login')}
+                  {t('common:login')}
                 </Button>
               </Col>
             </Row>

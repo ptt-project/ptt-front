@@ -1,16 +1,31 @@
-const baseUrl: string = `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_VERSION}`
-
-export const EndPointUrlConst: any = {
+// eslint-disable-next-line @typescript-eslint/typedef
+export const EndPointUrlConst = {
   AUTH: {
-    REGISTER_VALIDATE: `${baseUrl}/auth/register/validate`,
-    REGISTER: `${baseUrl}/auth/register`,
-    LOGIN: `${baseUrl}/auth/login`
+    REGISTER_VALIDATE: '/auth/register/validate',
+    REGISTER: '/auth/register',
+    LOGIN: '/auth/login'
   },
   OTP: {
-    REQUEST: `${baseUrl}/otp/request`
+    REQUEST: '/otp/request'
   },
-  MEMBER: {
-    PROFILE: `${baseUrl}/members/profile`,
-    ADDRESSES: `${baseUrl}/members/addresses`
+  MEMBERS: {
+    PROFILE: '/members/profile',
+    ADDRESSES: '/members/addresses',
+    EMAIL: '/members/edit-email',
+    MOBILES_ADD: '/members/mobiles/add',
+    MOBILES_DELETE: '/members/mobiles/delete',
+    MOBILES_SET_MAIN: '/members/mobiles/set-main',
+    CHANGE_PASSWORD: '/members/change-password'
+  },
+  SELLERS: {
+    REGISTER: '/sellers/register',
+    SHOP_INFO: '/sellers/shop-info'
+  },
+  SHOPS: {
+    CATEGORIES: '/shops/categories',
+    PRODUCTS: '/shops/products'
+  },
+  IMAGES: {
+    UPLOAD: '/images/upload-image'
   }
 }

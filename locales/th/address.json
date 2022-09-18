@@ -8,7 +8,7 @@
   "deleteAddress": "ลบที่อยู่",
   "confirmDeleteAddress": "ยืนยันการลบที่อยู่",
   "warningMsgDeleteAddress": "ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้",
-  "yourLocation": "Your Location",
+  "yourLocation": "ที่อยู่ของคุณ",
   "emptyAddress": "ยังไม่มีข้อมูลที่อยู่กรุณา",
   "form": {
     "fullName": "ชื่อ-นามสกุล",
@@ -21,7 +21,8 @@
     "addressType": "ติดป้ายเป็น",
     "isDefault": "เลือกเป็นที่อยู่ตั้งต้น",
     "isStore": "เลือกเป็นที่อยู่ในการรับสินค้า",
-    "isRefundStore": "เลือกเป็นที่อยู่ในการรับสินค้าคืน"
+    "isRefundStore": "เลือกเป็นที่อยู่ในการรับสินค้าคืน",
+    "tambon": "แขวง/ตำบล"
   },
   "breadcrumbs": {
     "setting": "ตั้งค่า",

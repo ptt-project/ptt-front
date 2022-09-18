@@ -1,0 +1,46 @@
+@import '../../../../public/sass/config/variables';
+@import '../../../../public/sass/mixins/core';
+@import '../../../../public/sass/mixins/breakpoints';
+
+.layout {
+  padding: 2rem;
+  border: 1px solid $primary-color;
+  border-radius: 4px;
+
+  box-sizing: border-box;
+  padding: 24px;
+
+  .balanceLabel {
+    font-size: 12px;
+    font-weight: 400;
+    color: $text-black;
+  }
+  .balanceValue {
+    font-size: 16px;
+    font-weight: 600;
+    color: $text-black;
+  }
+  .balanceUnit {
+    font-size: 12px;
+    font-weight: 400;
+    color: $text-gray;
+  }
+  .button {
+    min-width: 120px;
+    > div {
+      margin-right: 8px;
+      > img {
+        vertical-align: sub;
+      }
+    }
+
+    @include mq('sm', 'max') {
+      min-width: 89px;
+      width: 100%;
+    }
+  }
+
+  .happyPointIcon {
+    display: flex;
+  }
+}

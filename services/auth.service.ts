@@ -1,17 +1,17 @@
 import { AxiosService } from './axios.service'
 import {
   IApiResponse,
-  IAuthLoginService,
-  IAuthRegisterService,
-  IAuthRegisterValidateService
+  IAuthLoginPayload,
+  IAuthRegisterPayload,
+  IAuthRegisterValidatePayload
 } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
 
-export const registerValidate = (payload: IAuthRegisterValidateService): Promise<IApiResponse> =>
+export const registerValidate = (payload: IAuthRegisterValidatePayload): Promise<IApiResponse> =>
   AxiosService.post(EndPointUrlConst.AUTH.REGISTER_VALIDATE, payload)
 
-export const register = (payload: IAuthRegisterService): Promise<IApiResponse> =>
+export const register = (payload: IAuthRegisterPayload): Promise<IApiResponse> =>
   AxiosService.post(EndPointUrlConst.AUTH.REGISTER, payload)
 
-export const login = (payload: IAuthLoginService): Promise<IApiResponse> =>
+export const login = (payload: IAuthLoginPayload): Promise<IApiResponse> =>
   AxiosService.post(EndPointUrlConst.AUTH.LOGIN, payload)
