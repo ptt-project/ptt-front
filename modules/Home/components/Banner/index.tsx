@@ -54,7 +54,7 @@ const Banner: FC = () => {
   }
 
   return (
-    <Carousel swipeToSlide draggable>
+    <Carousel swipeToSlide draggable autoplay>
       {renderImages()}
     </Carousel>
   )

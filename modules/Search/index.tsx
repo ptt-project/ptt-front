@@ -8,7 +8,7 @@ import { LocaleNamespaceConst } from '~/constants'
 import SearchSidebar from './components/SearchSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import Product from '../Product'
-import Shop from '../Shop'
+import ShopCard from '../Shop/components/ShopCard'
 import styles from './Search.module.scss'
 
 const { Title, Text } = Typography
@@ -64,8 +64,8 @@ const Search: FC = () => {
                 </Col>
               </Row>
               <div className="mb-3">
-                <Shop />
-                <Shop />
+                <ShopCard />
+                <ShopCard />
               </div>
               <Row className={styles.header}>
                 <Col>

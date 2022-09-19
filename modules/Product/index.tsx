@@ -5,18 +5,14 @@ import { Typography, Row, Col, Tag, Rate } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from './Product.module.scss'
 
-const { Text, Title, Link } = Typography
+const { Text } = Typography
 
-interface IProductProps {
-  page?: 'Home' | ''
-}
-
-const Product: FC<IProductProps> = (props: IProductProps) => {
+const Product: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'product'])
 
   function renderProducts(): JSX.Element[] {
     const images: string[] = []
-    for (let i: number = 0; i < 16; i++) {
+    for (let i: number = 0; i < 8; i++) {
       images.push('https://dummyimage.com/800x800?text=800 x 800')
     }
     const items: JSX.Element[] = images.map((src: string, index: number) => (
@@ -51,25 +47,7 @@ const Product: FC<IProductProps> = (props: IProductProps) => {
     return items
   }
 
-  return (
-    <>
-      {props.page === 'Home' ? (
-        <Row className={styles.header} align="middle">
-          <Col span={16}>
-            <Title className={styles.title} level={3}>
-              {t('product:title')}
-            </Title>
-          </Col>
-          <Col className="text-right" span={8}>
-            <Link href="#">
-              <a className="hps-link">{t('common:viewAll')}</a>
-            </Link>
-          </Col>
-        </Row>
-      ) : null}
-      <Row gutter={[24, 24]}>{renderProducts()}</Row>
-    </>
-  )
+  return <Row gutter={[24, 24]}>{renderProducts()}</Row>
 }
 
 Product.defaultProps = {

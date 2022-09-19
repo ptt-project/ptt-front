@@ -1,74 +1,133 @@
 @import '../../public/sass/config/variables';
 
-.card {
-  padding: 1rem 1.5rem;
-  margin-bottom: 1.5rem;
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
+.imgContainer {
+  width: 100%;
+  padding-top: 150%;
+  position: relative;
 }
 
-.boxHWrapper {
-  .boxH {
-    display: flex;
-  }
+.imgWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 
-  .name {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  @media (max-width: 374px) {
-    gap: 10px !important;
-
-    .avatar {
-      width: 48px !important;
-      height: 48px !important;
-    }
-  }
-
-  @media (max-width: 991px) {
-    display: flex;
-    margin-bottom: 1rem;
-  }
-
-  @media (min-width: 576px) {
-    justify-content: center;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }
 
-.boxVWrapper {
+.infoLeft {
   display: flex;
-  gap: 8px;
   justify-content: center;
   align-items: center;
+  gap: 1.5rem;
+  height: 140px;
+  padding: 1.5rem;
 
-  .boxV {
+  .avatar {
+    border: 1px solid $white-color;
+  }
+
+  .infoLeftWrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
 
-    @media (max-width: 575px) {
-      align-items: flex-start;
+    .btnGroup {
+      display: flex;
+      gap: 1.5rem;
+
+      button {
+        width: 100%;
+        max-width: 150px;
+      }
     }
   }
 
   @media (max-width: 767px) {
-    flex-wrap: wrap;
+    margin: 0 -20px 20px -20px;
+  }
 
-    .boxV {
-      flex: 1 50%;
-      max-width: calc(50% - 8px);
+  @media (max-width: 575px) {
+    margin: 0 -15px 15px -15px;
+  }
+
+  @media (max-width: 374px) {
+    gap: 1rem;
+    height: auto;
+    padding: 1rem;
+
+    .infoLeftWrapper {
+      .btnGroup {
+        gap: 1rem;
+      }
     }
+  }
+}
 
-    .bd {
+.infoRight {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: $background-light;
+  gap: 1rem;
+  height: 140px;
+  padding: 1.5rem;
+
+  .infoBox {
+    display: flex;
+    flex-direction: column;
+    flex: 1 33.33%;
+    max-width: calc(33.33% - 1rem);
+    white-space: nowrap;
+    overflow: hidden;
+
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(4) {
       border-right: 1px solid $border-color;
     }
 
-    .divider {
-      display: none;
+    &:nth-child(4),
+    &:nth-child(5) {
+      margin-top: 1rem;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    gap: 8px;
+    padding: 1rem;
+
+    .infoBox {
+      &:nth-child(4),
+      &:nth-child(5) {
+        margin-top: 8px;
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    height: auto;
+    margin-bottom: 3rem;
+
+    .infoBox {
+      flex: 1 50%;
+      max-width: calc(50% - 1rem);
+
+      &:nth-child(2),
+      &:nth-child(4) {
+        border-right: none;
+      }
+
+      &:nth-child(3) {
+        margin-top: 1rem;
+        border-right: 1px solid $border-color;
+      }
     }
   }
 }
@@ -81,13 +140,49 @@
   }
 }
 
-.divider {
-  width: 1px;
-  height: 50px;
-  margin: 0 0.75rem;
-  background-color: $border-color;
+.tabWrapper {
+  background-color: $background-light;
+}
 
-  &::after {
-    content: '\00a0';
+.tab > div[role='tablist'] {
+  background-color: $white-color;
+}
+
+.tabMore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 46px;
+  margin: -8px -16px;
+  cursor: pointer;
+}
+
+.header {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid $border-color;
+}
+
+.title {
+  color: $primary-color !important;
+  margin-bottom: 0 !important;
+}
+
+.icon {
+  color: $primary-color;
+}
+
+.imgAboutUsContainer {
+  width: 100%;
+  padding-top: 66.66%;
+  position: relative;
+
+  @media (max-width: 767px) {
+    margin-bottom: 1.5rem;
   }
+}
+
+.dwrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
