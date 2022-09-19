@@ -11,7 +11,7 @@ export const EndPointUrlConst = {
   MEMBERS: {
     PROFILE: '/members/profile',
     ADDRESSES: '/members/addresses',
-    EMAIL: '/members/edit-email',
+    EMAIL_UPDATE: '/members/edit-email',
     MOBILES: '/members/mobiles',
     MOBILES_ADD: '/members/mobiles/add',
     MOBILES_DELETE: '/members/mobiles/delete',

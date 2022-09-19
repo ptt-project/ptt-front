@@ -23,7 +23,6 @@ interface IMemberMobileProps {
   mobile: IMemberMobile
 }
 const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
-  console.log(props.mobile)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -60,6 +59,8 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
   }
 
   async function onSubmit(otpData: IOtp): Promise<void> {
+    setIsLoading(true)
+    let isSuccess: boolean = true
     if (!otpData) {
       toggle()
     }
@@ -70,25 +71,43 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
         refCode: otpData.refCode
       }
       await MemberService.setMainMobile(payload)
-      setIsOpen(false)
-      router.push('/settings/account/info/phone')
+      isSuccess = true
     } catch (error) {
       console.log(error)
     }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+      setIsOpen(false)
+      router.push('/settings/account/info/phone')
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
   async function onRemove(otpData: IOtp): Promise<void> {
+    setIsLoading(true)
+    let isSuccess: boolean = true
     try {
       const payload: IMemberMobilePayload = {
         mobile: dataMobile,
         otpCode: otpData.otpCode,
         refCode: otpData.refCode
       }
-      console.log(payload)
       await MemberService.deleteMobile(payload)
+      isSuccess = true
+      setIsOpenDelete(!isOpenDelete)
     } catch (error) {
       console.log(error)
     }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+      setIsOpen(false)
+      router.push('/settings/account/info/phone')
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+    setIsLoading(false)
   }
 
   function getMobileMain(mobileList: IMemberMobile): void {
@@ -97,7 +116,6 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
         return item.mobile
       }
     })
-    console.log(mainMobile)
     setDataMainMobile(mainMobile[0].mobile)
   }
 
@@ -110,7 +128,6 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
   }
   useEffect(() => {
     getMobileMain(props.mobile)
-    console.log('dataMainMobile=', dataMainMobile)
     fetchData()
   }, [])
   return (
