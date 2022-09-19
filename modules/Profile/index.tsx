@@ -36,26 +36,25 @@ interface IProfile {
   profile: IMemberProfile
 }
 const Profile: FC<IProfile> = (props: IProfile) => {
-  console.log(props)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   const [valueGender, setValueGender] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const month = {
-    '01': 'January',
-    '02': 'February',
-    '03': 'March',
-    '04': 'April',
-    '05': 'May',
-    '06': 'June',
-    '07': 'July',
-    '08': 'August',
-    '09': 'September',
-    '10': 'October',
-    '11': 'November',
-    '12': 'December'
-  }
+  const monthList = [
+    { id: '01', name: 'January' },
+    { id: '02', name: 'February' },
+    { id: '03', name: 'March' },
+    { id: '04', name: 'April' },
+    { id: '05', name: 'May' },
+    { id: '06', name: 'June' },
+    { id: '07', name: 'July' },
+    { id: '08', name: 'August' },
+    { id: '09', name: 'September' },
+    { id: '10', name: 'October' },
+    { id: '11', name: 'November' },
+    { id: '12', name: 'December' }
+  ]
 
   function onChange(e: RadioChangeEvent): void {
     setValueGender(e.target.value)
@@ -196,9 +195,9 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                         <Form.Item label={t('account-info:form.birthday')} name="day">
                           <Select defaultValue="">
                             <Option value="">{t('account-info:form.date')}</Option>
-                            {_.range(1, 31 + 1).map((value: number) => (
+                            {_.range(1, 31 + 1).map((value) => (
                               <Option key={value} value={value}>
-                                {value}
+                                {value.length}
                               </Option>
                             ))}
                           </Select>
@@ -208,6 +207,9 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                         <Form.Item label="&nbsp;" name="month">
                           <Select defaultValue="">
                             <Option value="">{t('account-info:form.month')}</Option>
+                            {monthList?.map((item) => (
+                              <Option value={item.id}>{item.name}</Option>
+                            ))}
                           </Select>
                         </Form.Item>
                       </Col>
