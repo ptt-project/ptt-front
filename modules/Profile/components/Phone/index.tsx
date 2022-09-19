@@ -70,6 +70,8 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
         refCode: otpData.refCode
       }
       await MemberService.setMainMobile(payload)
+      setIsOpen(false)
+      router.push('/settings/account/info/phone')
     } catch (error) {
       console.log(error)
     }
@@ -122,7 +124,7 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
         onSubmit={onSubmit}
       />
       <OtpModal
-        mobile="0647012777"
+        mobile={dataMainMobile}
         action={OtpTypeEnum.REGISTER}
         isOpen={isOpenDelete}
         toggle={toggleDelete}
