@@ -41,14 +41,12 @@ interface IMonthList {
   name: string
 }
 const Profile: FC<IProfile> = (props: IProfile) => {
-  console.log('props--', props)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   const [valueGender, setValueGender] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [dataDays, setDataDays] = useState<string[]>([])
-
   const monthList: IMonthList[] = [
     { id: '01', name: 'January' },
     { id: '02', name: 'February' },
@@ -63,6 +61,13 @@ const Profile: FC<IProfile> = (props: IProfile) => {
     { id: '11', name: 'November' },
     { id: '12', name: 'December' }
   ]
+  const formatDate: Date = new Date(props.profile.birthday)
+  const valueDay = (): string => formatDate.getDate().toString()
+  const valueMonth = (): string => {
+    const month: string = (formatDate.getMonth() + 1).toString()
+    return month.length === 1 ? `0${month}` : month
+  }
+  const valueYear = (): string => formatDate.getFullYear().toString()
 
   function onChange(e: RadioChangeEvent): void {
     setValueGender(e.target.value)
@@ -75,10 +80,12 @@ const Profile: FC<IProfile> = (props: IProfile) => {
       const payload: IMemberProfileUpdate = {
         firstName: values.firstName,
         lastName: values.lastName,
-        birthday: `${values.year}-${values.month}-${values.day}`,
+        birthday: `${values.year ? values.year : valueYear}-${
+          values.month ? values.month : valueMonth
+        }-${values.day ? values.day : valueDay}`,
         gender: valueGender
       }
-      console.log('payload--', payload)
+      console.log('payload++', payload)
       await MemberService.updateMemberProfile(payload)
       isSuccess = true
     } catch (error) {
@@ -111,6 +118,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
   useEffect(() => {
     fetchData()
     getDays()
+    setValueGender(props.profile.gender)
   }, [])
   return (
     <main className="main">
@@ -211,7 +219,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                     <Row gutter={8}>
                       <Col md={3} sm={4} xs={6}>
                         <Form.Item label={t('account-info:form.birthday')} name="day">
-                          <Select defaultValue="">
+                          <Select defaultValue={valueDay}>
                             <Option value="">{t('account-info:form.date')}</Option>
                             {dataDays?.map((item: string) => (
                               <Option value={item}>{item}</Option>
@@ -221,7 +229,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                       </Col>
                       <Col md={5} sm={6} xs={9}>
                         <Form.Item label="&nbsp;" name="month">
-                          <Select defaultValue="">
+                          <Select defaultValue={valueMonth}>
                             <Option value="">{t('account-info:form.month')}</Option>
                             {monthList?.map((item: IMonthList) => (
                               <Option value={item.id}>{item.name}</Option>
@@ -231,7 +239,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                       </Col>
                       <Col md={5} sm={6} xs={9}>
                         <Form.Item label="&nbsp;" name="year">
-                          <Select defaultValue="">
+                          <Select defaultValue={valueYear}>
                             <Option value="">{t('account-info:form.year')}</Option>
                             {_.range(1938, 2004 + 1).map((value: number) => (
                               <Option key={value} value={value}>
