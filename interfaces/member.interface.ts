@@ -25,6 +25,7 @@ export interface IMemberEmailUpdate {
 }
 
 export interface IMemberMobile {
+  [x: string]: any
   id: number
   mobile: string
   isPrimary: boolean

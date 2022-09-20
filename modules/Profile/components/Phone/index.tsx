@@ -111,12 +111,14 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
   }
 
   function getMobileMain(mobileList: IMemberMobile): void {
-    const mainMobile: string = mobileList.filter((item: IMemberMobile): string => {
+    const mainMobile: IMemberMobile = mobileList.filter((item: IMemberMobile): string => {
       if (item.isPrimary === true) {
         return item.mobile
       }
     })
-    setDataMainMobile(mainMobile[0].mobile)
+    if (mainMobile[0].mobile) {
+      setDataMainMobile(mainMobile[0].mobile)
+    }
   }
 
   async function fetchData(): Promise<void> {
