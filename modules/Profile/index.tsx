@@ -41,6 +41,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
   const [form] = Form.useForm()
   const [valueGender, setValueGender] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [dataDays, setDataDays] = useState<string[]>([])
   const monthList = [
     { id: '01', name: 'January' },
     { id: '02', name: 'February' },
@@ -83,6 +84,14 @@ const Profile: FC<IProfile> = (props: IProfile) => {
     setIsLoading(false)
   }
 
+  function getDays(): void {
+    const days: string[] = []
+    for (let i: number = 1; i <= 31; i++) {
+      days.push(String(i).padStart(2, '0'))
+    }
+    setDataDays(days)
+  }
+
   async function fetchData(): Promise<void> {
     try {
       await MemberService.getProfile()
@@ -93,6 +102,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
 
   useEffect(() => {
     fetchData()
+    getDays()
   }, [])
   return (
     <main className="main">
@@ -195,10 +205,8 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                         <Form.Item label={t('account-info:form.birthday')} name="day">
                           <Select defaultValue="">
                             <Option value="">{t('account-info:form.date')}</Option>
-                            {_.range(1, 31 + 1).map((value) => (
-                              <Option key={value} value={value}>
-                                {value.length}
-                              </Option>
+                            {dataDays?.map((item: string) => (
+                              <Option value={item}>{item}</Option>
                             ))}
                           </Select>
                         </Form.Item>
