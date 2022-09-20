@@ -13,8 +13,8 @@ export interface IMemberProfile {
 }
 
 export interface IMemberProfileUpdate {
-  firstname: string
-  lastname: string
+  firstName: string
+  lastName: string
   birthday: string
   gender: string
 }

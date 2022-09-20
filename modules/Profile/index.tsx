@@ -35,14 +35,21 @@ const { Option } = Select
 interface IProfile {
   profile: IMemberProfile
 }
+
+interface IMonthList {
+  id: string
+  name: string
+}
 const Profile: FC<IProfile> = (props: IProfile) => {
+  console.log('props--', props)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   const [valueGender, setValueGender] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [dataDays, setDataDays] = useState<string[]>([])
-  const monthList = [
+
+  const monthList: IMonthList[] = [
     { id: '01', name: 'January' },
     { id: '02', name: 'February' },
     { id: '03', name: 'March' },
@@ -66,11 +73,12 @@ const Profile: FC<IProfile> = (props: IProfile) => {
     let isSuccess: boolean = false
     try {
       const payload: IMemberProfileUpdate = {
-        firstname: values.firstName,
-        lastname: values.lastName,
+        firstName: values.firstName,
+        lastName: values.lastName,
         birthday: `${values.year}-${values.month}-${values.day}`,
         gender: valueGender
       }
+      console.log('payload--', payload)
       await MemberService.updateMemberProfile(payload)
       isSuccess = true
     } catch (error) {
@@ -215,7 +223,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                         <Form.Item label="&nbsp;" name="month">
                           <Select defaultValue="">
                             <Option value="">{t('account-info:form.month')}</Option>
-                            {monthList?.map((item) => (
+                            {monthList?.map((item: IMonthList) => (
                               <Option value={item.id}>{item.name}</Option>
                             ))}
                           </Select>
