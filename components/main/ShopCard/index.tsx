@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { NextRouter, useRouter } from 'next/router'
+import Link from 'next/link'
 import { Avatar, Col, Row, Space, Typography } from 'antd'
 import { useTranslation } from 'next-i18next'
 import { LocaleNamespaceConst } from '../../../constants'
@@ -10,7 +11,7 @@ interface IShopCardProps {
   showOptions?: boolean
 }
 
-const { Text, Title, Link } = Typography
+const { Text, Title, Link: AntdLink } = Typography
 
 const ShopCard: FC<IShopCardProps> = (props: IShopCardProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'shop'])
@@ -22,9 +23,17 @@ const ShopCard: FC<IShopCardProps> = (props: IShopCardProps) => {
         <Row className={styles.card} align="middle">
           <Col lg={10} md={24} xs={24}>
             <Space className={styles.boxHWrapper} size="large">
-              <Avatar className={styles.avatar} size={80} />
+              <Link href="/shop/1">
+                <a>
+                  <Avatar className={styles.avatar} size={80} />
+                </a>
+              </Link>
               <div className={styles.name}>
-                <Title level={5}>Fantasy Flight</Title>
+                <Title level={5}>
+                  <Link href="/shop/1">
+                    <a>Fantasy Flight</a>
+                  </Link>
+                </Title>
                 <div className={styles.boxH}>
                   <div>
                     <Text className={`${styles.text} mr-1`}>50</Text>
@@ -82,9 +91,12 @@ const ShopCard: FC<IShopCardProps> = (props: IShopCardProps) => {
               </div>
               {props.showOptions && (
                 <div className={styles.boxAction}>
-                  <Link className={styles.actionBtn} href={CustomUrlUtil('/shop', router.locale)}>
+                  <AntdLink
+                    className={styles.actionBtn}
+                    href={CustomUrlUtil('/shop/1', router.locale)}
+                  >
                     <i className="fas fa-eye" />
-                  </Link>
+                  </AntdLink>
                   <Text type="secondary" className={styles.actionBtn}>
                     <i className="fas fa-bookmark" />
                   </Text>

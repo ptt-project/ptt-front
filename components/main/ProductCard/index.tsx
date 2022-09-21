@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
 import numeral from 'numeral'
 import { Typography, Row, Col, Tag, Rate } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
@@ -17,31 +18,33 @@ const ProductCard: FC = () => {
     }
     const items: JSX.Element[] = images.map((src: string, index: number) => (
       <Col lg={6} md={8} xs={12} key={index}>
-        <div className={styles.box}>
-          <div className={styles.imgContainer}>
-            <div className={styles.imgWrapper}>
-              <img src={src} alt="product" />
+        <Link href="/product/1">
+          <a className={styles.box}>
+            <div className={styles.imgContainer}>
+              <div className={styles.imgWrapper}>
+                <img src={src} alt="product" />
+              </div>
+              <Tag color="#40a9ff" className={styles.tagRecommended}>
+                {t('product:card.recommended')}
+              </Tag>
+              <Tag color="red" className={styles.tagSell}>
+                <i className="fas fa-angle-double-down mr-2" />
+                XX%
+              </Tag>
             </div>
-            <Tag color="#40a9ff" className={styles.tagRecommended}>
-              {t('product:card.recommended')}
-            </Tag>
-            <Tag color="red" className={styles.tagSell}>
-              <i className="fas fa-angle-double-down mr-2" />
-              XX%
-            </Tag>
-          </div>
-          <div className={styles.detailContainer}>
-            <Text className={styles.dTitle}>Mock Up Title XXXXXXXXXXXXXXXXXXXX</Text>
-            <Text className={styles.dAmount}>฿{numeral(5555).format('0,0')}</Text>
-            <Text className={`${styles.dSold} hps-text-small`} type="secondary">
-              {t('common:sold')} {numeral(10).format('0,0')} ชิ้น
-            </Text>
-            <Rate className="hps-rating hps-text-small" disabled defaultValue={3} />
-          </div>
-          <div className={styles.favorite}>
-            <i className="far fa-heart" />
-          </div>
-        </div>
+            <div className={styles.detailContainer}>
+              <Text className={styles.dTitle}>Mock Up Title XXXXXXXXXXXXXXXXXXXX</Text>
+              <Text className={styles.dAmount}>฿{numeral(5555).format('0,0')}</Text>
+              <Text className={`${styles.dSold} hps-text-small`} type="secondary">
+                {t('common:sold')} {numeral(10).format('0,0')} ชิ้น
+              </Text>
+              <Rate className="hps-rating hps-text-small" disabled defaultValue={3} />
+            </div>
+            <div className={styles.favorite}>
+              <i className="far fa-heart" />
+            </div>
+          </a>
+        </Link>
       </Col>
     ))
     return items

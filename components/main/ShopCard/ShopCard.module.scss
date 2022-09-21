@@ -17,6 +17,10 @@
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+
+    a {
+      color: $text-black;
+    }
   }
 
   @media (max-width: 374px) {

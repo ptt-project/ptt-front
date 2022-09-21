@@ -10,6 +10,17 @@
   margin-top: 3px;
 }
 
-.button {
-  width: 180px;
+.btnGroup {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+
+  button {
+    width: 100%;
+
+    @media (min-width: 576px) {
+      width: 180px;
+    }
+  }
 }

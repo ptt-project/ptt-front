@@ -56,29 +56,25 @@ const Product: FC = () => {
                 <Text type="secondary">...do something</Text>
               </div>
               <Row className="mb-2">
-                <Col span={8}>
+                <Col span={6}>
                   <Text>{t('product:main.deliveryFrom')}:</Text>
                 </Col>
-                <Col span={16}>
+                <Col span={18}>
                   <Text>อำเภอเมืองสมุทรปราการ, จังหวัดสมุทรปราการ</Text>
                 </Col>
               </Row>
               <Row className="mb-2">
-                <Col span={8}>
+                <Col span={6}>
                   <Text>{t('product:main.quantity')}:</Text>
                 </Col>
-                <Col span={16} />
+                <Col span={18} />
               </Row>
               <Row>
                 <Col span={24}>
-                  <Space className="mt-2 mb-4" size="middle">
-                    <Button className={`${styles.button} hps-btn-secondary`}>
-                      {t('product:main.addToCart')}
-                    </Button>
-                    <Button className={styles.button} type="primary">
-                      {t('product:main.buy')}
-                    </Button>
-                  </Space>
+                  <div className={styles.btnGroup}>
+                    <Button className="hps-btn-secondary">{t('product:main.addToCart')}</Button>
+                    <Button type="primary">{t('product:main.buy')}</Button>
+                  </div>
                 </Col>
               </Row>
               <Row className="mb-2">
