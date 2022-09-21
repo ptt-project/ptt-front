@@ -25,7 +25,7 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrlUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
-import { IMemberProfile, IMemberProfileUpdate } from '~/interfaces'
+import { IMemberProfilePayload, IMemberProfileUpdatePayload } from '~/interfaces'
 import { MemberService } from '~/services'
 import styles from './Profile.module.scss'
 
@@ -33,7 +33,7 @@ const { Text, Title } = Typography
 const { Option } = Select
 
 interface IProfile {
-  profile: IMemberProfile
+  profile: IMemberProfilePayload
 }
 
 interface IMonthList {
@@ -73,11 +73,11 @@ const Profile: FC<IProfile> = (props: IProfile) => {
     setValueGender(e.target.value)
   }
 
-  async function onSubmit(values: IMemberProfile): Promise<void> {
+  async function onSubmit(values: IMemberProfilePayload): Promise<void> {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: IMemberProfileUpdate = {
+      const payload: IMemberProfileUpdatePayload = {
         firstName: values.firstName,
         lastName: values.lastName,
         birthday: `${values.year ? values.year : valueYear}-${

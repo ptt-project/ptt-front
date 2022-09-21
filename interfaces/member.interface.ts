@@ -1,4 +1,4 @@
-export interface IMemberProfile {
+export interface IMemberProfilePayload {
   username: string
   firstName: string
   lastName: string
@@ -12,14 +12,14 @@ export interface IMemberProfile {
   code?: string
 }
 
-export interface IMemberProfileUpdate {
+export interface IMemberProfileUpdatePayload {
   firstName: string
   lastName: string
   birthday: string
   gender: string
 }
 
-export interface IMemberEmailUpdate {
+export interface IMemberEmailUpdatePayload {
   newEmail: string
   password: string
 }
