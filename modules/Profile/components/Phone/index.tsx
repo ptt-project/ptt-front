@@ -202,7 +202,7 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
                     <Row className={styles.highlight}>
                       <Col md={{ span: 6, offset: 2 }}>
                         <Text className={`mr-2 ${styles.textPrimary}`}>
-                          {HelperMobileFormat(item.mobile)}
+                          {HelperMobileFormatUtil(item.mobile)}
                         </Text>
                         <Button>
                           <i className="fas fa-star mr-2" />
