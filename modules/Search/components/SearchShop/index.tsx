@@ -26,7 +26,7 @@ const SearchShop: FC = () => {
   }, [router.query])
 
   return (
-    <div className="main mt-lg-4 mb-4">
+    <div className="main mb-4">
       <Helmet>
         <title>
           {t('common:meta.title')} | {t('search:searchShop.title')}

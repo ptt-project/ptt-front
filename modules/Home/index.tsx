@@ -6,7 +6,7 @@ import MainSidebar from './components/MainSidebar'
 import Banner from './components/Banner'
 import Promotion from './components/Promotion'
 import Brand from './components/Brand'
-import Product from '../Product'
+import ProductCard from '../Product/components/ProductCard'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from './Home.module.scss'
 
@@ -16,7 +16,7 @@ const Home: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'home'])
 
   return (
-    <div className="main mt-lg-4 mb-4">
+    <div className="main mb-4">
       <Helmet>
         <title>{t('home:title')}</title>
       </Helmet>
@@ -52,7 +52,7 @@ const Home: FC = () => {
                     </Link>
                   </Col>
                 </Row>
-                <Product />
+                <ProductCard />
               </div>
             </Col>
           </Row>

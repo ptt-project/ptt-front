@@ -1,57 +1,42 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'next-i18next'
-import numeral from 'numeral'
-import { Typography, Row, Col, Tag, Rate } from 'antd'
-import { LocaleNamespaceConst } from '~/constants'
-import styles from './Product.module.scss'
+import Helmet from 'react-helmet'
+import { Col, Row, Typography } from 'antd'
+import Breadcrumbs from '../../components/main/Breadcrumbs'
+import { LocaleNamespaceConst } from '../../constants'
 
-const { Text } = Typography
+const { Title } = Typography
 
 const Product: FC = () => {
-  const { t } = useTranslation([...LocaleNamespaceConst, 'product'])
+  const { t } = useTranslation([...LocaleNamespaceConst, 'search', 'product', 'shop'])
 
-  function renderProducts(): JSX.Element[] {
-    const images: string[] = []
-    for (let i: number = 0; i < 8; i++) {
-      images.push('https://dummyimage.com/800x800?text=800 x 800')
-    }
-    const items: JSX.Element[] = images.map((src: string, index: number) => (
-      <Col lg={6} md={8} xs={12} key={index}>
-        <div className={styles.box}>
-          <div className={styles.imgContainer}>
-            <div className={styles.imgWrapper}>
-              <img src={src} alt="product" />
-            </div>
-            <Tag color="#40a9ff" className={styles.tagRecommended}>
-              {t('product:recommended')}
-            </Tag>
-            <Tag color="red" className={styles.tagSell}>
-              <i className="fas fa-angle-double-down mr-2" />
-              XX%
-            </Tag>
-          </div>
-          <div className={styles.detailContainer}>
-            <Text className={styles.dTitle}>Mock Up Title XXXXXXXXXXXXXXXXXXXX</Text>
-            <Text className={styles.dAmount}>฿{numeral(5555).format('0,0')}</Text>
-            <Text className={`${styles.dSold} hps-text-small`} type="secondary">
-              {t('common:sold')} {numeral(10).format('0,0')} ชิ้น
-            </Text>
-            <Rate className="hps-rating hps-text-small" disabled defaultValue={3} />
-          </div>
-          <div className={styles.favorite}>
-            <i className="far fa-heart" />
-          </div>
+  return (
+    <div className="main mt-6">
+      <Helmet>
+        <title>
+          {t('common:meta.title')} | {t('product:main.title')}
+        </title>
+      </Helmet>
+      <Breadcrumbs items={[]} />
+      <Title className="d-none" level={1}>
+        Arkham Horror: The Card Game Revised Core Set
+      </Title>
+      <div className="page-content">
+        <div className="container">
+          <Row gutter={24}>
+            <Col md={12} xs={24} />
+            <Col md={12} xs={24} />
+          </Row>
+          <Row gutter={24}>
+            <Col span={24} />
+          </Row>
+          <Row gutter={24}>
+            <Col span={24} />
+          </Row>
         </div>
-      </Col>
-    ))
-    return items
-  }
-
-  return <Row gutter={[24, 24]}>{renderProducts()}</Row>
-}
-
-Product.defaultProps = {
-  page: ''
+      </div>
+    </div>
+  )
 }
 
 export default Product

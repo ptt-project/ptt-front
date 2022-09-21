@@ -1,4 +1,29 @@
 {
-  "title": "สินค้า",
-  "recommended": "ร้านแนะนำ"
+  "main": {
+    "title": "รายละเอียดสินค้า",
+    "deliveryFrom": "จัดส่งจาก",
+    "quantity": "จำนวน",
+    "addToCart": "ใส่รถเข็น",
+    "buy": "ซื้อสินค้า",
+    "information": {
+      "title": "ข้อมูลจำเพาะของสินค้า",
+      "category": "หมวดหมู่",
+      "size": "ขนาด",
+      "quantity": "จำนวนสินค้า"
+    },
+    "rating": {
+      "title": "คะแนนสินค้า",
+      "all": "ทั้งหมด",
+      "five": "5 ดาว",
+      "four": "4 ดาว",
+      "three": "3 ดาว",
+      "two": "2 ดาว",
+      "one": "1 ดาว"
+    }
+  },
+  "card": {
+    "title": "สินค้า",
+    "recommended": "ร้านแนะนำ",
+    "deliveryFrom": "ส่งจาก"
+  }
 }
