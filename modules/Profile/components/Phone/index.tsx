@@ -9,7 +9,7 @@ import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import { IOtp, IMemberMobile, IMemberMobilePayload } from '~/interfaces'
-import { CustomUrlUtil, HelperMobileFormat } from '~/utils/main'
+import { CustomUrlUtil, HelperMobileFormatUtil } from '~/utils/main'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
@@ -214,7 +214,7 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
                     <Row className={styles.phoneListWrapper}>
                       <Col sm={{ span: 12, offset: 2 }} xs={12}>
                         <Text className={`${styles.textPrimary}`}>
-                          {HelperMobileFormat(item.mobile)}
+                          {HelperMobileFormatUtil(item.mobile)}
                         </Text>
                       </Col>
                       <Col sm={8} xs={12} className="text-right">
