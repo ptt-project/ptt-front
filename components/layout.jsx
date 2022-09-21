@@ -6,7 +6,6 @@ import ALink from '~/components/features/custom-link'
 import Header from '~/components/main/Header'
 import Footer from '~/components/main/Footer'
 import MobileMainMenu from '~/components/main/Header/components/MobileMainMenu'
-// import StickyFooter from '~/components/common/sticky-footer'
 import Quickview from '~/components/features/product/common/quickview-modal'
 import VideoModal from '~/components/features/modals/video-modal'
 import { modalActions } from '~/store/modal'
@@ -62,8 +61,6 @@ function Layout({ children, closeQuickview }) {
         <Header />
         {children}
         <Footer />
-        {/* init comment */}
-        {/* <StickyFooter /> */}
       </div>
       <ALink
         id="scroll-top"

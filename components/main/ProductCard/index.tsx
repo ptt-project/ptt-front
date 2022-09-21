@@ -23,7 +23,7 @@ const ProductCard: FC = () => {
               <img src={src} alt="product" />
             </div>
             <Tag color="#40a9ff" className={styles.tagRecommended}>
-              {t('product:recommended')}
+              {t('product:card.recommended')}
             </Tag>
             <Tag color="red" className={styles.tagSell}>
               <i className="fas fa-angle-double-down mr-2" />

@@ -9,7 +9,8 @@
       "title": "ข้อมูลจำเพาะของสินค้า",
       "category": "หมวดหมู่",
       "size": "ขนาด",
-      "quantity": "จำนวนสินค้า"
+      "quantity": "จำนวนสินค้า",
+      "deliveryFrom": "ส่งจาก"
     },
     "rating": {
       "title": "คะแนนสินค้า",
@@ -23,7 +24,6 @@
   },
   "card": {
     "title": "สินค้า",
-    "recommended": "ร้านแนะนำ",
-    "deliveryFrom": "ส่งจาก"
+    "recommended": "ร้านแนะนำ"
   }
 }

@@ -7,8 +7,8 @@ import { Col, Row, Typography, Select, Space } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 import SearchSidebar from './components/SearchSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import ProductCard from '../Product/components/ProductCard'
-import ShopCard from '../Shop/components/ShopCard'
+import ProductCard from '~/components/main/ProductCard'
+import ShopCard from '~/components/main/ShopCard'
 import styles from './Search.module.scss'
 
 const { Title, Text } = Typography
