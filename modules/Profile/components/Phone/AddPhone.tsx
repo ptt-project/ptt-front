@@ -5,7 +5,7 @@ import { Typography, Button, Row, Col, Form, Input, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { IMemberMobile, IOtpRequestPayload, IOtp, IApiResponse } from '~/interfaces'
+import { IMemberMobilePayload, IOtpRequestPayload, IOtp, IApiResponse } from '~/interfaces'
 import Loading from '~/components/main/Loading'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { MemberService, OtpService } from '~/services'
@@ -32,7 +32,7 @@ const AddPhone: FC = () => {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: IMemberMobile = {
+      const payload: IMemberMobilePayload = {
         mobile: dataMobile,
         otpCode: otpInput,
         refCode: otpData.refCode

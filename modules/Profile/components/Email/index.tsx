@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Form, Input, message } from 'antd'
-import { IMemberProfile, IMemberEmailUpdate } from '~/interfaces'
+import { IMemberProfilePayload, IMemberEmailUpdatePayload } from '~/interfaces'
 import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
@@ -13,7 +13,7 @@ import styles from './ProfileEmail.module.scss'
 const { Text, Title } = Typography
 
 interface IEmailProps {
-  profile: IMemberProfile
+  profile: IMemberProfilePayload
 }
 
 const Email: FC<IEmailProps> = (props: IEmailProps) => {
@@ -21,11 +21,11 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  async function onSubmit(values: IMemberEmailUpdate): Promise<void> {
+  async function onSubmit(values: IMemberEmailUpdatePayload): Promise<void> {
     setIsLoading(true)
     let isSuccess: boolean = true
     try {
-      const payload: IMemberEmailUpdate = {
+      const payload: IMemberEmailUpdatePayload = {
         newEmail: values.newEmail,
         password: values.password
       }

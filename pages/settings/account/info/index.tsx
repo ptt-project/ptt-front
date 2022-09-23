@@ -4,17 +4,17 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AxiosRequestConfig } from 'axios'
 import Profile from '~/modules/Profile'
 import { LocaleNamespaceConst } from '~/constants'
-import { IMemberProfile, IApiResponse } from '~/interfaces'
+import { IMemberProfilePayload, IApiResponse } from '~/interfaces'
 import { MemberService } from '~/services'
 
 interface IProfilePageProps {
-  profile: IMemberProfile
+  profile: IMemberProfilePayload
 }
 
 export async function getServerSideProps(
   context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<any>> {
-  let profile: IMemberProfile
+  let profile: IMemberProfilePayload
   const { req } = context
 
   if (req) {

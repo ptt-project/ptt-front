@@ -14,3 +14,6 @@ export const HelperDecimalFormatUtil = (
     maximumFractionDigits: digit,
     minimumFractionDigits: digit
   })
+
+export const HelperMobileFormatUtil = (mobile: string): string =>
+  `${mobile.slice(0, 3)}-${mobile.slice(3, 6)}-${mobile.slice(6, 10)}`

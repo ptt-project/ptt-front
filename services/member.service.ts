@@ -4,8 +4,10 @@ import {
   IApiResponse,
   ICreateAddress,
   IUpdateAddress,
-  IMemberMobile,
-  IMemberChangePassword
+  IMemberMobilePayload,
+  IMemberChangePassword,
+  IMemberEmailUpdatePayload,
+  IMemberProfileUpdatePayload
 } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
 
@@ -33,17 +35,20 @@ export const setMainAddress = (addressId: string): Promise<IApiResponse> =>
 export const changePassword = (payload: IMemberChangePassword): Promise<IApiResponse> =>
   AxiosService.patch(EndPointUrlConst.MEMBERS.CHANGE_PASSWORD, payload)
 
-export const updateMemberProfile = (memberId: string): Promise<IApiResponse> =>
-  AxiosService.put(`${EndPointUrlConst.MEMBERS.PROFILE}/${memberId}`)
+export const updateMemberProfile = (payload: IMemberProfileUpdatePayload): Promise<IApiResponse> =>
+  AxiosService.put(`${EndPointUrlConst.MEMBERS.PROFILE}`, payload)
 
-export const updateEmail = (email: string): Promise<IApiResponse> =>
-  AxiosService.put(`${EndPointUrlConst.MEMBERS.EMAIL}/${email}`)
+export const updateEmail = (payload: IMemberEmailUpdatePayload): Promise<IApiResponse> =>
+  AxiosService.patch(EndPointUrlConst.MEMBERS.EMAIL_UPDATE, payload)
 
-export const createMobile = (payload: IMemberMobile): Promise<IApiResponse> =>
+export const createMobile = (payload: IMemberMobilePayload): Promise<IApiResponse> =>
   AxiosService.post(EndPointUrlConst.MEMBERS.MOBILES_ADD, payload)
 
-export const deleteMobile = (payload: IMemberMobile): Promise<IApiResponse> =>
+export const deleteMobile = (payload: IMemberMobilePayload): Promise<IApiResponse> =>
   AxiosService.patch(EndPointUrlConst.MEMBERS.MOBILES_DELETE, payload)
 
-export const setMainMobile = (payload: IMemberMobile): Promise<IApiResponse> =>
+export const setMainMobile = (payload: IMemberMobilePayload): Promise<IApiResponse> =>
   AxiosService.patch(EndPointUrlConst.MEMBERS.MOBILES_SET_MAIN, payload)
+
+export const getMobile = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
+  AxiosService.get(EndPointUrlConst.MEMBERS.MOBILES, option)
