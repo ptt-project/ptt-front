@@ -13,8 +13,6 @@ const images: string[] = [
   'https://d-themes.com/react_asset_api/riode/uploads/images/demo-3/products/product-2-2.jpg',
   'https://d-themes.com/react_asset_api/riode/uploads/images/demo-3/products/product-2-3.jpg',
   'https://d-themes.com/react_asset_api/riode/uploads/images/demo-3/products/product-2-4.jpg',
-  'https://d-themes.com/react_asset_api/riode/uploads/images/demo-3/products/product-2-5.jpg',
-  'https://d-themes.com/react_asset_api/riode/uploads/images/demo-3/products/product-2-5.jpg',
   'https://d-themes.com/react_asset_api/riode/uploads/images/demo-3/products/product-2-5.jpg'
 ]
 
@@ -58,17 +56,9 @@ const ProductGallery: FC = () => {
   }, [imageIndex])
 
   return (
-    <div className="product-gallery product-gallery-vertical product-gallery-sticky">
-      {/* <div className="product-label-group">
-        {product.stock === 0 ? <label className="product-label label-out">out</label> : ''}
-
-        {product.is_top ? <label className="product-label label-top">top</label> : ''}
-
-        {product.is_new ? <label className="product-label label-new">new</label> : ''}
-
-        {product.discount ? <label className="product-label label-sale">sale</label> : ''}
-      </div> */}
-
+    <div
+      className={`${styles.gallery} product-gallery product-gallery-vertical product-gallery-sticky`}
+    >
       <OwlCarousel
         className="product-single-carousel owl-theme owl-nav-inner"
         options={{
