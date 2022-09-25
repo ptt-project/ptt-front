@@ -81,7 +81,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
       if (values.image.file.originFileObj) {
         const formData: FormData = new FormData()
         formData.append('image', values.image.file.originFileObj)
-        const { imageData }: IApiResponse = await ImageService.upload(formData)
+        // const { imageData }: IApiResponse = await ImageService.upload(formData)
       }
       const payload: IMemberProfileUpdatePayload = {
         firstName: values.firstName,

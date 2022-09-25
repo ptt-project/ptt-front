@@ -10,7 +10,7 @@ export interface IMemberProfilePayload {
   gender?: string
   email: string
   code?: string
-  image?: string
+  image?: any
 }
 
 export interface IMemberProfileUpdatePayload {

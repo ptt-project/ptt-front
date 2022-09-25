@@ -7,7 +7,7 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import VoucherForm from '../VoucherForm'
-import { IVoucherFormData, IVoucherFormValues } from '~/interfaces'
+import { IVoucherFormData } from '~/interfaces'
 import styles from './AddVocher.module.scss'
 
 const { Text } = Typography
@@ -16,7 +16,7 @@ const AddVocher: React.FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.marketing'])
   const [form] = Form.useForm()
 
-  function onSubmit(values: IVoucherFormValues): void {
+  function onSubmit(values: IVoucherFormData): void {
     const newVoucherData: IVoucherFormData = { ...values }
     console.log(newVoucherData)
   }
