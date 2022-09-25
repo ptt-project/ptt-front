@@ -27,11 +27,11 @@ const Product: FC = () => {
       </Title>
       <div className="page-content">
         <div className="container">
-          <Row className="mb-4" gutter={24}>
-            <Col md={12} xs={24}>
+          <Row gutter={24}>
+            <Col lg={12} xs={24}>
               <ProductGallery />
             </Col>
-            <Col md={12} xs={24}>
+            <Col className="mb-4" lg={12} xs={24}>
               <Title className="mb-4" level={4}>
                 Arkham Horror: The Card Game Revised Core Set
               </Title>
