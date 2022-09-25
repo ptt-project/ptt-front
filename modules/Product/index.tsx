@@ -5,7 +5,7 @@ import { Button, Col, Row, Space, Tag, Typography } from 'antd'
 import Breadcrumbs from '../../components/main/Breadcrumbs'
 import ProductGallery from './components/ProductGallery'
 import ProductShop from './components/ProductShop'
-import ProductComment from './components/ProductComment'
+import ProductFeedback from './components/ProductFeedback'
 import { LocaleNamespaceConst } from '../../constants'
 import styles from './Product.module.scss'
 
@@ -126,7 +126,7 @@ const Product: FC = () => {
           </Row>
           <Row>
             <Col span={24}>
-              <ProductComment />
+              <ProductFeedback />
             </Col>
           </Row>
         </div>
