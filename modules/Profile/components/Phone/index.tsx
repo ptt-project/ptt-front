@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
@@ -8,8 +8,8 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
-import { IOtp, IMemberMobile } from '~/interfaces'
-import { CustomUrlUtil } from '~/utils/main'
+import { IOtp, IMemberMobile, IMemberMobilePayload } from '~/interfaces'
+import { CustomUrlUtil, HelperMobileFormatUtil } from '~/utils/main'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst } from '~/constants'
@@ -19,16 +19,30 @@ import styles from './ProfilePhone.module.scss'
 
 const { Text } = Typography
 
-const Phone: FC = () => {
+interface IMemberMobileProps {
+  mobile: IMemberMobile
+}
+const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isOpenDelPhoneModal, setIsOpenDelPhoneModal] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [dataMobile, setDataMobile] = useState<string>('')
+  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false)
+  const [dataMainMobile, setDataMainMobile] = useState<string>('')
 
   function toggle(): void {
     setIsOpen(!isOpen)
+  }
+
+  function toggleDelete(): void {
+    setIsOpenDelete(!isOpen)
+  }
+
+  function onConfirmDelete(): void {
+    setIsOpenDelPhoneModal(false)
+    setIsOpenDelete(true)
   }
 
   function toggleDelPhoneModal(): void {
@@ -45,19 +59,17 @@ const Phone: FC = () => {
   }
 
   async function onSubmit(otpData: IOtp): Promise<void> {
+    setIsLoading(true)
+    let isSuccess: boolean = true
     if (!otpData) {
       toggle()
     }
-
-    setIsLoading(true)
-    let isSuccess: boolean = false
     try {
-      const payload: IMemberMobile = {
+      const payload: IMemberMobilePayload = {
         mobile: dataMobile,
         otpCode: otpData.otpCode,
         refCode: otpData.refCode
       }
-      console.log(payload)
       await MemberService.setMainMobile(payload)
       isSuccess = true
     } catch (error) {
@@ -65,6 +77,8 @@ const Phone: FC = () => {
     }
     if (isSuccess) {
       message.success(t('common:apiMessage.success'))
+      setIsOpen(false)
+      router.push('/settings/account/info/phone')
     } else {
       message.error(t('common:apiMessage.error'))
     }
@@ -72,31 +86,52 @@ const Phone: FC = () => {
   }
 
   async function onRemove(otpData: IOtp): Promise<void> {
-    if (!otpData) {
-      toggle()
-    }
     setIsLoading(true)
-    let isSuccess: boolean = false
+    let isSuccess: boolean = true
     try {
-      const payload: IMemberMobile = {
+      const payload: IMemberMobilePayload = {
         mobile: dataMobile,
         otpCode: otpData.otpCode,
         refCode: otpData.refCode
       }
-      console.log(payload)
       await MemberService.deleteMobile(payload)
       isSuccess = true
+      setIsOpenDelete(!isOpenDelete)
     } catch (error) {
       console.log(error)
     }
     if (isSuccess) {
       message.success(t('common:apiMessage.success'))
+      setIsOpen(false)
+      router.push('/settings/account/info/phone')
     } else {
       message.error(t('common:apiMessage.error'))
     }
     setIsLoading(false)
   }
 
+  function getMobileMain(mobileList: IMemberMobile): void {
+    const mainMobile: IMemberMobile = mobileList.filter((item: IMemberMobile): string => {
+      if (item.isPrimary === true) {
+        return item.mobile
+      }
+    })
+    if (mainMobile[0].mobile) {
+      setDataMainMobile(mainMobile[0].mobile)
+    }
+  }
+
+  async function fetchData(): Promise<void> {
+    try {
+      await MemberService.getMobile()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getMobileMain(props.mobile)
+    fetchData()
+  }, [])
   return (
     <>
       <Loading show={isLoading} />
@@ -107,6 +142,13 @@ const Phone: FC = () => {
         toggle={toggle}
         onSubmit={onSubmit}
       />
+      <OtpModal
+        mobile={dataMainMobile}
+        action={OtpTypeEnum.REGISTER}
+        isOpen={isOpenDelete}
+        toggle={toggleDelete}
+        onSubmit={onRemove}
+      />
       <ConfirmationModal
         isOpen={isOpenDelPhoneModal}
         toggle={toggleDelPhoneModal}
@@ -114,7 +156,7 @@ const Phone: FC = () => {
         title={t('account-info:phone.deletePhone')}
         content={`${t('account-info:phone.confirmDelete')}${dataMobile}`}
         contentWarning={t('account-info:phone.msgConfirmDelete')}
-        onSubmit={onRemove}
+        onSubmit={onConfirmDelete}
       />
       <main className="main">
         <Helmet>
@@ -155,33 +197,45 @@ const Phone: FC = () => {
                     </Link>
                   </Col>
                 </Row>
-                <Row className={styles.highlight}>
-                  <Col md={{ span: 6, offset: 2 }}>
-                    <Text className={`mr-2 ${styles.textPrimary}`}>081-111-1111</Text>
-                    <Button>
-                      <i className="fas fa-star mr-2" />
-                      {t('account-info:button.mainNumber')}
-                    </Button>
-                  </Col>
-                </Row>
-                <Row className={styles.phoneListWrapper}>
-                  <Col sm={{ span: 12, offset: 2 }} xs={12}>
-                    <Text className={`${styles.textPrimary}`}>081-111-2222</Text>
-                  </Col>
-                  <Col sm={8} xs={12} className="text-right">
-                    <Space size="middle">
-                      <a onClick={(): void => onSetMobile('0647012666', 'main')} aria-hidden="true">
-                        <i className="fas fa-star" />
-                      </a>
-                      <a
-                        onClick={(): void => onSetMobile('0647012666', 'delete')}
-                        aria-hidden="true"
-                      >
-                        <i className="fas fa-trash-alt" />
-                      </a>
-                    </Space>
-                  </Col>
-                </Row>
+                {props.mobile?.map((item: IMemberMobile) =>
+                  item.isPrimary ? (
+                    <Row className={styles.highlight}>
+                      <Col md={{ span: 6, offset: 2 }}>
+                        <Text className={`mr-2 ${styles.textPrimary}`}>
+                          {HelperMobileFormatUtil(item.mobile)}
+                        </Text>
+                        <Button>
+                          <i className="fas fa-star mr-2" />
+                          {t('account-info:button.mainNumber')}
+                        </Button>
+                      </Col>
+                    </Row>
+                  ) : (
+                    <Row className={styles.phoneListWrapper}>
+                      <Col sm={{ span: 12, offset: 2 }} xs={12}>
+                        <Text className={`${styles.textPrimary}`}>
+                          {HelperMobileFormatUtil(item.mobile)}
+                        </Text>
+                      </Col>
+                      <Col sm={8} xs={12} className="text-right">
+                        <Space size="middle">
+                          <a
+                            onClick={(): void => onSetMobile(`${item.mobile}`, 'main')}
+                            aria-hidden="true"
+                          >
+                            <i className="fas fa-star" />
+                          </a>
+                          <a
+                            onClick={(): void => onSetMobile(`${item.mobile}`, 'delete')}
+                            aria-hidden="true"
+                          >
+                            <i className="fas fa-trash-alt" />
+                          </a>
+                        </Space>
+                      </Col>
+                    </Row>
+                  )
+                )}
               </Col>
             </Row>
           </div>

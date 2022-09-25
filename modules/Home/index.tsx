@@ -6,16 +6,17 @@ import MainSidebar from './components/MainSidebar'
 import Banner from './components/Banner'
 import Promotion from './components/Promotion'
 import Brand from './components/Brand'
-import Product from '../Product'
+import ProductCard from '~/components/main/ProductCard'
 import { LocaleNamespaceConst } from '~/constants'
+import styles from './Home.module.scss'
 
-const { Title } = Typography
+const { Title, Link } = Typography
 
 const Home: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'home'])
 
   return (
-    <div className="main mt-lg-4 mb-4">
+    <div className="main mt-4 mb-4">
       <Helmet>
         <title>{t('home:title')}</title>
       </Helmet>
@@ -39,7 +40,19 @@ const Home: FC = () => {
                 <Brand />
               </div>
               <div className="mb-8">
-                <Product page="Home" />
+                <Row className={styles.header} align="middle">
+                  <Col span={16}>
+                    <Title className={styles.title} level={3}>
+                      {t('product:card.title')}
+                    </Title>
+                  </Col>
+                  <Col className="text-right" span={8}>
+                    <Link href="#">
+                      <a className="hps-link">{t('common:viewAll')}</a>
+                    </Link>
+                  </Col>
+                </Row>
+                <ProductCard />
               </div>
             </Col>
           </Row>

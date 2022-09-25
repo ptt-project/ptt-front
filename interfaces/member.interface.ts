@@ -1,4 +1,4 @@
-export interface IMemberProfile {
+export interface IMemberProfilePayload {
   username: string
   firstName: string
   lastName: string
@@ -12,22 +12,30 @@ export interface IMemberProfile {
   code?: string
 }
 
-export interface IMemberProfileUpdate {
-  firstname: string
-  lastname: string
+export interface IMemberProfileUpdatePayload {
+  firstName: string
+  lastName: string
   birthday: string
   gender: string
 }
 
-export interface IMemberEmailUpdate {
+export interface IMemberEmailUpdatePayload {
   newEmail: string
   password: string
 }
 
 export interface IMemberMobile {
+  [x: string]: any
+  id: number
   mobile: string
-  refCode: string
+  isPrimary: boolean
+  deletedAt: string
+}
+
+export interface IMemberMobilePayload {
+  mobile: string
   otpCode: string
+  refCode: string
 }
 
 export interface IMemberChangePassword {

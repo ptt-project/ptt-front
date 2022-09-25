@@ -79,7 +79,6 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
       console.log(error)
     }
     setTimer(1.5 * 60 * 1000)
-    console.log('++++', isSuccess)
     if (isSuccess) {
       message.success(t('common:apiMessage.success'))
     } else {

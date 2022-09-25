@@ -7,8 +7,8 @@ import { Col, Row, Typography, Select, Space } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 import SearchSidebar from './components/SearchSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import Product from '../Product'
-import Shop from '../Shop'
+import ProductCard from '~/components/main/ProductCard'
+import ShopCard from '~/components/main/ShopCard'
 import styles from './Search.module.scss'
 
 const { Title, Text } = Typography
@@ -29,7 +29,7 @@ const Search: FC = () => {
   }, [router.query])
 
   return (
-    <div className="main mt-lg-4 mb-4">
+    <div className="main mb-4">
       <Helmet>
         <title>
           {t('common:meta.title')} | {t('search:title')}
@@ -64,8 +64,8 @@ const Search: FC = () => {
                 </Col>
               </Row>
               <div className="mb-3">
-                <Shop />
-                <Shop />
+                <ShopCard />
+                <ShopCard />
               </div>
               <Row className={styles.header}>
                 <Col>
@@ -91,7 +91,7 @@ const Search: FC = () => {
                   </div>
                 </Col>
               </Row>
-              <Product />
+              <ProductCard />
             </Col>
           </Row>
         </div>
