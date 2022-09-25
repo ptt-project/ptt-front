@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import { Button, Col, Row, Space, Tag, Typography } from 'antd'
 import Breadcrumbs from '../../components/main/Breadcrumbs'
+import ProductGallery from './components/ProductGallery'
 import ProductShop from './components/ProductShop'
 import ProductComment from './components/ProductComment'
 import { LocaleNamespaceConst } from '../../constants'
@@ -27,7 +28,9 @@ const Product: FC = () => {
       <div className="page-content">
         <div className="container">
           <Row className="mb-4" gutter={24}>
-            <Col md={12} xs={24} />
+            <Col md={12} xs={24}>
+              <ProductGallery />
+            </Col>
             <Col md={12} xs={24}>
               <Title className="mb-4" level={4}>
                 Arkham Horror: The Card Game Revised Core Set
