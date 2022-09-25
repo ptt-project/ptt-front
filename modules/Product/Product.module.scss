@@ -1,89 +1,26 @@
 @import '../../public/sass/config/_variables.scss';
 
-.box {
-  display: flex !important;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+.amount {
+  margin-bottom: 0 !important;
+  color: $primary-color !important;
+}
 
-  .imgContainer {
-    position: relative;
+.discount {
+  display: block;
+  margin-top: 3px;
+}
 
-    .imgWrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-      background-color: $background-light;
+.btnGroup {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-    }
-
-    .tagRecommended {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      margin-right: 0;
-    }
-
-    .tagSell {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      margin-right: 0;
-    }
-  }
-
-  .detailContainer {
+  button {
     width: 100%;
-    padding: 0.5rem 1rem;
-    white-space: nowrap;
-    text-align: left;
 
-    .dTitle {
-      display: block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .dAmount {
-      display: block;
-      color: $primary-color !important;
-    }
-
-    .dSold {
-      display: block;
-    }
-  }
-
-  .favorite {
-    position: absolute;
-    bottom: 1rem;
-    right: 2rem;
-    color: $text-gray;
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-      color: $primary-color;
-    }
-  }
-
-  .favoriteSave {
-    position: absolute;
-    bottom: 1rem;
-    right: 2rem;
-    color: $primary-color;
-    cursor: pointer;
-
-    &:hover,
-    &:focus {
-      color: $text-gray;
+    @media (min-width: 576px) {
+      width: 180px;
     }
   }
 }
