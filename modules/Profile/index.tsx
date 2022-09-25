@@ -17,7 +17,8 @@ import {
   Image,
   Select,
   Radio,
-  message
+  message,
+  UploadFile
 } from 'antd'
 import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
@@ -25,8 +26,8 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrlUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
-import { IMemberProfilePayload, IMemberProfileUpdatePayload } from '~/interfaces'
-import { MemberService } from '~/services'
+import { IMemberProfilePayload, IMemberProfileUpdatePayload, IApiResponse } from '~/interfaces'
+import { ImageService, MemberService } from '~/services'
 import styles from './Profile.module.scss'
 
 const { Text, Title } = Typography
@@ -77,6 +78,11 @@ const Profile: FC<IProfile> = (props: IProfile) => {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
+      if (values.image.file.originFileObj) {
+        const formData: FormData = new FormData()
+        formData.append('image', values.image.file.originFileObj)
+        const { imageData }: IApiResponse = await ImageService.upload(formData)
+      }
       const payload: IMemberProfileUpdatePayload = {
         firstName: values.firstName,
         lastName: values.lastName,
@@ -85,7 +91,6 @@ const Profile: FC<IProfile> = (props: IProfile) => {
         }-${values.day ? values.day : valueDay}`,
         gender: valueGender
       }
-      console.log('payload++', payload)
       await MemberService.updateMemberProfile(payload)
       isSuccess = true
     } catch (error) {
@@ -166,11 +171,13 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                     />
                   </Col>
                   <Col sm={8} xs={12} className="text-center">
-                    <Upload accept={ImageAcceptConst.toString()}>
-                      <Button className="hps-btn-secondary">
-                        {t('account-info:button.chooseImage')}
-                      </Button>
-                    </Upload>
+                    <Form.Item name="image">
+                      <Upload accept={ImageAcceptConst.toString()} maxCount={1}>
+                        <Button className="hps-btn-secondary">
+                          {t('account-info:button.chooseImage')}
+                        </Button>
+                      </Upload>
+                    </Form.Item>
                     <Text type="secondary">{t('account-info:form.msgChooseImage')}</Text>
                   </Col>
                   <Col sm={12} xs={24}>
