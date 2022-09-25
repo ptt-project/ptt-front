@@ -3,8 +3,8 @@ import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { Col, Image, Row, Space, Typography } from 'antd'
-import Breadcrumbs from '../../../../components/main/Breadcrumbs'
-import ShopCard from '../../../Shop/components/ShopCard'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
+import ShopCard from '~/components/main/ShopCard'
 import { LocaleNamespaceConst } from '../../../../constants'
 import styles from './SearchShop.module.scss'
 
@@ -26,7 +26,7 @@ const SearchShop: FC = () => {
   }, [router.query])
 
   return (
-    <div className="main mt-lg-4 mb-4">
+    <div className="main mb-4">
       <Helmet>
         <title>
           {t('common:meta.title')} | {t('search:searchShop.title')}
