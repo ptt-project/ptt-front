@@ -82,18 +82,18 @@ const Profile: FC<IProfile> = (props: IProfile) => {
       if (values.image.file.originFileObj) {
         const formData: FormData = new FormData()
         formData.append('image', values.image.file.originFileObj)
-        const { imageData }: IApiResponse = await ImageService.upload(formData)
-        console.log(imageData)
+        //  const { imageData }: IApiResponse = await ImageService.upload(formData)
+        // console.log(imageData)
       }
-      const payload: IMemberProfileUpdatePayload = {
+      /* const payload: IMemberProfileUpdatePayload = {
         firstName: values.firstName,
         lastName: values.lastName,
         birthday: `${values.year ? values.year : valueYear}-${
           values.month ? values.month : valueMonth
         }-${values.day ? values.day : valueDay}`,
         gender: valueGender
-        // imageId:''
-      }
+         imageId:''
+      } */
       // await MemberService.updateMemberProfile(payload)
       isSuccess = true
     } catch (error) {
