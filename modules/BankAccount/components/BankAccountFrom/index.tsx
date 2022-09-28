@@ -4,31 +4,20 @@ import { Form, FormInstance, Col, Row, Select } from 'antd'
 import { DeepPartial } from 'redux'
 import { DefaultOptionType } from 'antd/lib/select'
 import { Rule } from 'antd/lib/form'
-import { keyBy } from 'lodash'
 import { useTranslation } from 'next-i18next'
+import { NumberFormatValues } from 'react-number-format'
 import styles from './BankAccountFrom.module.scss'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import { BankAccountNameEnum } from '~/enums'
 import { IBankOptionData, IBankAccountFromValues } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import CustomInput from '~/components/main/CustomInput'
+import InputNumberFormat from '~/components/main/InputNumberFormat'
+import { bankOptionsData } from '../../bank-account.helper'
 
-const bankOptionsData: IBankOptionData[] = [
-  {
-    bankFullName: 'กรุงศรี',
-    bankName: BankAccountNameEnum.BAY
-  },
-  {
-    bankFullName: 'กสิกรไทย',
-    bankName: BankAccountNameEnum.KBANK
-  }
-]
 const bankOptions: DefaultOptionType[] = bankOptionsData.map((d: IBankOptionData) => ({
-  label: `${d.bankFullName} (${d.bankName})`,
-  value: d.bankName
+  label: `${d.bankName} (${d.bankCode})`,
+  value: d.bankCode
 }))
-
-const bankOptionsHash: any = keyBy(bankOptionsData, (v: IBankOptionData) => v.bankName)
 
 interface IBankAccountFromProps {
   parentForm: FormInstance
@@ -49,11 +38,12 @@ const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFro
 
   function onFormFinish(values: IBankAccountFromValues): void {
     console.log({ formValues: values })
-    const bankSelected: IBankOptionData = bankOptionsHash[values.bankName]
-    onSubmit?.({ ...initialValues, ...values, bankFullName: bankSelected?.bankFullName })
+
+    onSubmit?.({ ...initialValues, ...values })
   }
 
   function onFormChange(values: IBankAccountFromValues): void {
+    console.log({ formValues: values })
     setFormValues(values)
   }
 
@@ -89,6 +79,7 @@ const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFro
               rules={[
                 ...baseRules,
                 {
+                  type: 'string',
                   min: 13,
                   message: [
                     t('common:form.invalid.head'),
@@ -99,7 +90,15 @@ const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFro
                 }
               ]}
             >
-              <CustomInput onlyNumber minLength={13} maxLength={13} />
+              <InputNumberFormat
+                format="#-####-#####-##-#"
+                mask="_"
+                isValueString
+                isAllowed={(values: NumberFormatValues): boolean => {
+                  if (values?.value) return values?.value.length <= 13
+                  return true
+                }}
+              />
             </Form.Item>
           </Col>
           <Col sm={24} xs={24}>
@@ -111,7 +110,7 @@ const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFro
           <Col sm={12} xs={24}>
             <Form.Item
               label={t('bank-account:form.bankName')}
-              name="bankName"
+              name="bankCode"
               rules={[...baseRules]}
             >
               <Select
@@ -135,7 +134,13 @@ const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFro
               name="bankAccountNo"
               rules={[...baseRules]}
             >
-              <CustomInput onlyNumber minLength={10} maxLength={18} />
+              <InputNumberFormat
+                isValueString
+                isAllowed={(values: NumberFormatValues): boolean => {
+                  if (values?.value) return values?.value.length <= 20
+                  return true
+                }}
+              />
             </Form.Item>
           </Col>
           <Col sm={12} xs={24}>

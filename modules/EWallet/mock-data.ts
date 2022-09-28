@@ -1,10 +1,10 @@
 import { sample, times } from 'lodash'
 import moment from 'moment'
 import { EWalletStatusEnum, EWalletTypeEnum } from '~/enums'
-import { IEWalletHistoryData } from '~/interfaces'
+import { IWalletTransaction } from '~/interfaces'
 
-export const eWalletHistory: IEWalletHistoryData[] = times(50).map(
-  (): IEWalletHistoryData => ({
+export const eWalletHistory: IWalletTransaction[] = times(50).map(
+  (v: any, id: number): IWalletTransaction => ({
     amount: Math.random() * 1000,
     createdAt: moment()
       .subtract(Math.random() * 1000 * 60, 'minute')
@@ -15,6 +15,11 @@ export const eWalletHistory: IEWalletHistoryData[] = times(50).map(
       EWalletStatusEnum.PENDING,
       EWalletStatusEnum.SUCCESS
     ]),
-    type: sample([EWalletTypeEnum.WITHDRAW, EWalletTypeEnum.TOP_UP])
+    id,
+    detail: '',
+    walletId: id,
+    updatedAt: moment().format(),
+
+    type: sample([EWalletTypeEnum.WITHDRAW, EWalletTypeEnum.DEPOSIT])
   })
 )

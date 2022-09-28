@@ -1,0 +1,56 @@
+@import '../../../public/sass/config/_variables.scss';
+
+.modalTitle {
+  column-gap: 16px;
+  align-items: center;
+}
+
+.iconInfo {
+  > span > svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.wrapBackground {
+  background-color: $background-light;
+  padding: 16px !important;
+
+  border-left: 4px solid $background-light;
+  border-radius: 4px;
+}
+
+.textStyle {
+  font-family: 'Kanit';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.voucherSelected {
+  color: $primary-color;
+}
+
+.voucherCheckboxLayoutSelected {
+  border-left: 4px solid $primary-color;
+  border-radius: 4px;
+}
+
+.voucherRadioGroup {
+  .voucherRadio {
+    > span + * {
+      width: 100% !important;
+    }
+  }
+  // *.ant-radio-wrapper.ant-radio-wrapper-in-form-item > span {
+  //   :nth-of-type(2) {
+  //     // background-color: yellow;
+  //     width: 100%;
+  //   }
+  // }
+  * > div:has(span.ant-radio-wrapper-checked) {
+    padding: 8px 8px 8px 12px;
+    gap: 16px;
+    background-color: $background-light;
+  }
+}

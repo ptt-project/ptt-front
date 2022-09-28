@@ -1,0 +1,46 @@
+@import '../../../../public/sass/config/_variables.scss';
+
+.layout {
+  column-gap: 16px;
+  .image {
+    margin-left: 8px;
+    min-width: 56px;
+    padding: 0 !important;
+  }
+
+  .detailWarpLayout {
+    gap: 8px;
+  }
+
+  .detailLayout {
+    grid-row-gap: 4px;
+
+    .name {
+      font-family: 'Kanit';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: $primary-color;
+    }
+
+    .voucherEndDate {
+      font-family: 'Kanit';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      color: $text-gray;
+      * {
+        color: $text-gray;
+      }
+    }
+
+    .willExpired {
+      color: $error-color !important;
+      * {
+        color: $error-color !important;
+      }
+    }
+  }
+}

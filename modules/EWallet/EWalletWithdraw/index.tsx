@@ -6,29 +6,38 @@ import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import { DefaultOptionType } from 'antd/lib/select'
 import { Rule } from 'antd/lib/form'
+import { map } from 'lodash'
+import { NumberFormatValues } from 'react-number-format'
 import styles from './EWalletWithdraw.module.scss'
 import { CustomUrlUtil, HelperDecimalFormatUtil, HelperCensorBankAccountNoUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
-import { bankMock } from '~/modules/BankAccount/mock-data'
-import { IBankAccountData } from '~/interfaces'
+import { IBankAccount, IOtp } from '~/interfaces'
 import CustomInput from '~/components/main/CustomInput'
 import OtpModal from '~/components/main/OtpModal'
 import { OtpTypeEnum } from '~/enums'
+import { BankAccountService, WalletService } from '~/services'
+import InputNumberFormat from '~/components/main/InputNumberFormat'
 
 const { Title, Text, Link } = Typography
 
 interface IEWalletWithdrawFormValues {
-  bankAccountNo: string
+  bankAccountId: number
   withdrawAmount: number
 }
 
 const EWalletWithdraw: React.FC = () => {
   const router: NextRouter = useRouter()
   const [form] = Form.useForm<IEWalletWithdrawFormValues>()
+  const bankAccountId: number = Form.useWatch('bankAccountId', form)
+  const withdrawAmount: number = Form.useWatch('withdrawAmount', form)
+
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const { t } = useTranslation([...LocaleNamespaceConst, 'e-wallet'])
+  const { data: bankAccounts } = BankAccountService.useGetBankAccounts()
+  const { data: wallet } = WalletService.useGetMyWallet()
+  const balance: number = useMemo(() => wallet?.balance || 0, [wallet?.balance])
 
   const baseRules: Rule[] = [
     { required: true, message: [t('common:form.required'), '${label}'].join(' ') }
@@ -38,10 +47,23 @@ const EWalletWithdraw: React.FC = () => {
     setIsOtpOpen(!isOtpOpen)
   }
 
-  function onOtpSuccess(): void {
-    setIsOtpOpen(false)
-    message.success(t('common:dataUpdated'))
-    router.replace('/settings/finance/e-wallet')
+  async function onOtpSuccess(otpData: IOtp): Promise<void> {
+    try {
+      await WalletService.postWalletWithdraw({
+        amount: withdrawAmount,
+        bankAccountId,
+        otpCode: otpData.otpCode,
+        refCode: otpData.refCode
+      })
+      setIsOtpOpen(false)
+
+      message.success(t('common:dataUpdated'))
+      router.replace('/settings/finance/e-wallet', '/settings/finance/e-wallet', {
+        locale: router.locale
+      })
+    } catch (error) {
+      message.error(t('Failed'))
+    }
   }
 
   function onSubmit(values: IEWalletWithdrawFormValues): void {
@@ -55,15 +77,16 @@ const EWalletWithdraw: React.FC = () => {
 
   const myBankAccountOptions: DefaultOptionType[] = useMemo(
     () =>
-      bankMock.map(
-        (d: IBankAccountData): DefaultOptionType => ({
-          label: `${d.bankFullName} ${HelperCensorBankAccountNoUtil(d.bankAccountNo)} ${
-            d.isDefault ? `[${t('common:mainBankAccount')}]` : ''
+      map(
+        bankAccounts || [],
+        (d: IBankAccount): DefaultOptionType => ({
+          label: `${d.bankCode} ${HelperCensorBankAccountNoUtil(d.accountNumber)} ${
+            d.isMain ? `[${t('common:mainBankAccount')}]` : ''
           }`,
-          value: d.bankAccountNo
+          value: d.id
         })
-      ),
-    [t]
+      ) || [],
+    [bankAccounts, t]
   )
 
   return (
@@ -94,12 +117,25 @@ const EWalletWithdraw: React.FC = () => {
               sm={24}
               xs={24}
             >
-              <Row className={styles.contentLayout} gutter={[24, 24]} justify="space-between">
-                <Col span={24}>
+              <Row className={styles.contentLayout} justify="space-between" wrap={false}>
+                <Col>
                   <Title className={styles.sectionTitle} level={4}>
                     {t('e-wallet:withdraw.title')}
                   </Title>
                 </Col>
+                <Row gutter={8} align="middle">
+                  <Col>
+                    <Text className={styles.balanceLabel}>{t('e-wallet:balance')}</Text>
+                  </Col>
+                  <Col>
+                    <Text className={styles.balanceValue}>
+                      {HelperDecimalFormatUtil(balance, 2, 'en-EN', {
+                        style: 'currency',
+                        currency: 'THB'
+                      })}
+                    </Text>
+                  </Col>
+                </Row>
                 {!myBankAccountOptions?.length && (
                   <Col span={24}>
                     <Alert
@@ -123,6 +159,8 @@ const EWalletWithdraw: React.FC = () => {
                     />
                   </Col>
                 )}
+              </Row>
+              <Row className={styles.contentLayout} gutter={[24, 24]} justify="space-between">
                 <Col span={24}>
                   <Form
                     layout="vertical"
@@ -135,7 +173,7 @@ const EWalletWithdraw: React.FC = () => {
                     <Row gutter={[20, 20]}>
                       <Col sm={12} xs={24}>
                         <Form.Item
-                          name="bankAccountNo"
+                          name="bankAccountId"
                           label={t('e-wallet:withdraw.selectBankAccount')}
                           rules={[...baseRules]}
                         >
@@ -157,13 +195,13 @@ const EWalletWithdraw: React.FC = () => {
                             ...baseRules,
                             {
                               validator(_: Rule, value: number): Promise<void> {
-                                const withdrawAmount: number = Number(value || 0)
-                                if (Number.isNaN(withdrawAmount) || !withdrawAmount) {
+                                const amount: number = Number(value || 0)
+                                if (Number.isNaN(amount) || !amount) {
                                   return Promise.reject(
                                     new Error([t('common:form.required'), '${label}'].join(' '))
                                   )
                                 }
-                                if (withdrawAmount < 100) {
+                                if (amount < 100) {
                                   return Promise.reject(
                                     new Error(t('e-wallet:withdraw.withdrawMinimumDescription'))
                                   )
@@ -173,7 +211,20 @@ const EWalletWithdraw: React.FC = () => {
                             }
                           ]}
                         >
-                          <CustomInput suffix={t('common:unit.baht')} maxLength={10} onlyNumber />
+                          <InputNumberFormat
+                            suffix={t('common:unit.baht')}
+                            allowNegative={false}
+                            isAllowed={(values: NumberFormatValues): boolean => {
+                              if (values?.floatValue) {
+                                if (values?.floatValue <= balance) {
+                                  return true
+                                }
+                                form.setFieldValue('withdrawAmount', balance)
+                                return false
+                              }
+                              return true
+                            }}
+                          />
                         </Form.Item>
                       </Col>
                     </Row>
@@ -191,8 +242,6 @@ const EWalletWithdraw: React.FC = () => {
                       >
                         <Form.Item shouldUpdate>
                           {(): ReactNode => {
-                            const values: IEWalletWithdrawFormValues = form.getFieldsValue()
-                            const { withdrawAmount } = values
                             const vatAmount: number = withdrawAmount * 0.07
                             const totalAmount: number = withdrawAmount - vatAmount
                             return (
@@ -239,7 +288,7 @@ const EWalletWithdraw: React.FC = () => {
                   {/* TODO: wait type otp verify */}
                   <OtpModal
                     action={OtpTypeEnum.REGISTER}
-                    mobile="0900000001"
+                    mobile="0901061303"
                     isOpen={isOtpOpen}
                     toggle={toggleOtpOpen}
                     onSubmit={onOtpSuccess}

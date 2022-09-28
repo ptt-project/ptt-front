@@ -6,7 +6,6 @@ import { useTranslation } from 'next-i18next'
 import BankAccountFrom from '../BankAccountFrom'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { bankMock } from '~/modules/BankAccount/mock-data'
 import ModalConfirmBankInfo from '../ModalConfirmBankInfo'
 import OtpModal from '~/components/main/OtpModal'
 import { CustomUrlUtil, CustomHookUseVisibleUtil } from '~/utils/main'
@@ -33,7 +32,7 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
   const [bankAccountData, setBankAccountData] = useState<IBankAccountData>()
   const confirmBankInfoVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
 
-  const bankAccounts: IBankAccountData[] = useMemo(() => bankMock || [], [])
+  const bankAccounts: IBankAccountData[] = useMemo(() => [], [])
 
   const bankAccount: IBankAccountFromValues = useMemo(
     (): IBankAccountFromValues =>
@@ -70,11 +69,7 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
 
   function onOtpSuccess(): void {
     setIsOtpOpen(false)
-    bankMock?.forEach((v: IBankAccountData, index: number) => {
-      if (v.id === bankAccountId) {
-        bankMock[index] = bankAccountData
-      }
-    })
+
     message.success(t('common:dataUpdated'))
     router.replace(`${rootMenu}/settings/finance/bank`)
   }

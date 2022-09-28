@@ -1,0 +1,19 @@
+@import '../../../public/sass/config/_variables.scss';
+
+.table {
+  .cartProductDetailMobile {
+    text-align: center;
+  }
+  .name {
+    padding: 8px;
+    box-sizing: border-box;
+  }
+
+  .action {
+    vertical-align: top;
+  }
+
+  .iconDelete {
+    cursor: pointer;
+  }
+}

@@ -80,8 +80,8 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
     const tambonData: IFindAddressResult[] = AddressFinder.queryTambon(province, district)
     return uniqBy(
       tambonData.map((d: IFindAddressResult) => ({
-        label: d[AddressFieldsEnum.TAMBON],
-        value: d[AddressFieldsEnum.TAMBON]
+        label: d[AddressFieldsEnum.SUB_DISTRICT],
+        value: d[AddressFieldsEnum.SUB_DISTRICT]
       })),
       'value'
     )
@@ -95,8 +95,8 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
     )
     return uniqBy(
       postalCodeData.map((d: any) => ({
-        label: d[AddressFieldsEnum.ZIPCODE],
-        value: `${d[AddressFieldsEnum.ZIPCODE]}`
+        label: d[AddressFieldsEnum.POSTCODE],
+        value: `${d[AddressFieldsEnum.POSTCODE]}`
       })),
       'value'
     )
