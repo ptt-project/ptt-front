@@ -17,7 +17,6 @@ import ModalConfirmBankInfo from '../ModalConfirmBankInfo'
 import OtpModal from '~/components/main/OtpModal'
 import { OtpTypeEnum } from '~/enums'
 import SettingSidebar from '~/components/main/SettingSidebar'
-import { bankMock } from '~/modules/BankAccount/mock-data'
 import { BankAccountService } from '~/services'
 
 const { Title } = Typography
@@ -39,10 +38,6 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
 
   function onSubmit(values: IBankAccountFromValues): void {
     const newBankAccountData: IBankAccountData = { ...values }
-    if (!bankMock.length) {
-      newBankAccountData.isDefault = true
-    }
-    newBankAccountData.id = `${(bankMock.length || 0) + 1}`
     setBankAccountData(newBankAccountData)
     confirmBankInfoVisible.show()
   }

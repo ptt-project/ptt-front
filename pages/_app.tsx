@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { AppProps } from 'next/app'
-import { appWithTranslation, useTranslation } from 'next-i18next'
+import { appWithTranslation, SSRConfig, useTranslation } from 'next-i18next'
 import { useStore, Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import Helmet from 'react-helmet'
@@ -14,7 +14,13 @@ import { LocaleNamespaceConst } from '../constants/locale.const'
 import '~/public/less/style.less'
 import '~/public/sass/style.scss'
 
-const App = ({ Component, pageProps }: AppProps): JSX.Element => {
+interface IAppProps extends AppProps {
+  pageProps: SSRConfig & {
+    dehydratedState: any
+  }
+}
+
+const App = ({ Component, pageProps }: IAppProps): JSX.Element => {
   const { t } = useTranslation(LocaleNamespaceConst)
   const store: any = useStore()
   const [queryClient] = useState<QueryClient>(() => new QueryClient())
@@ -52,4 +58,4 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   )
 }
 
-export default wrapper.withRedux(appWithTranslation(App))
+export default wrapper.withRedux(appWithTranslation<IAppProps>(App))

@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 import { DefaultOptionType } from 'antd/lib/select'
 import { DownloadOutlined } from '@ant-design/icons'
 import { first } from 'lodash'
-import useSWR, { useSWRConfig } from 'swr'
+import { useMutation } from '@tanstack/react-query'
 import styles from './EWalletTopUp.module.scss'
 import { CustomUrlUtil, HelperDecimalFormatUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
@@ -32,45 +32,29 @@ const EWalletTopUp: React.FC = () => {
   const topUpAmount: number = Form.useWatch('topUpAmount', form)
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'e-wallet'])
-  const params: IWalletDepositQrCodeParams = {
-    amount: topUpAmount
-  }
 
-  const { data: wallet, mutate: fetchWallet } = WalletService.useGetMyWallet()
+  const { data: wallet, refetch: fetchWallet } = WalletService.useGetMyWallet()
   // TODO: wait response qrCode base64
-  const { data: depositQrCode } = useSWR(
-    [EndPointUrlConst.WALLET.DEPOSIT_QR_CODE, params],
-    async () => {
-      console.log({ params })
+  const { data: depositQrCode, mutate: getDepositQrCode } = useMutation(
+    [EndPointUrlConst.WALLET.DEPOSIT_QR_CODE],
+    async (params: IWalletDepositQrCodeParams) => {
       const { data } = await WalletService.postWalletDepositQrCode(params)
       return data
     },
     {
-      isPaused: () => true,
       onSuccess: () => {
         fetchWallet()
       }
     }
   )
-  const { mutate: getDepositQrCode } = useSWRConfig()
   const balance: number = useMemo(() => wallet?.balance || 0, [wallet?.balance])
 
   function onSubmit(values: IEWalletTopUpFormValues): void {
     console.debug(values)
     message.success(t('e-wallet:topUp.downloadSuccess'))
-    getDepositQrCode(
-      [
-        EndPointUrlConst.WALLET.DEPOSIT_QR_CODE,
-        {
-          amount: values.topUpAmount
-        }
-      ],
-      async () => {
-        console.log({ params })
-        const { data } = await WalletService.postWalletDepositQrCode(params)
-        return data
-      }
-    )
+    getDepositQrCode({
+      amount: values.topUpAmount
+    })
   }
 
   useEffect(() => {

@@ -20,17 +20,19 @@ type IInputNumberFormatProps = Omit<
     | {
         value?: number
         onChange?: (value: number) => void
+        onBlur?: () => void
         isValueString?: false
       }
     | {
         value?: string
         onChange?: (value: string) => void
+        onBlur?: () => void
         isValueString?: true
       }
   )
 
 const InputNumberFormat: React.FC<IInputNumberFormatProps> = (props: IInputNumberFormatProps) => {
-  const { value, onChange, isValueString, suffix, ...restProps } = props
+  const { value, onChange, onBlur, isValueString, suffix, ...restProps } = props
 
   const handleChange = useCallback(
     (values: NumberFormatValues): void => {
@@ -55,7 +57,7 @@ const InputNumberFormat: React.FC<IInputNumberFormatProps> = (props: IInputNumbe
       {...restProps}
       value={value}
       customInput={renderCustomInput}
-      // customInput={Input}
+      onBlur={onBlur}
       onValueChange={handleChange}
     />
   )

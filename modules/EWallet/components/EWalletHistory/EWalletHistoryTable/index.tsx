@@ -26,7 +26,7 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
   const [page, setPage] = useState<number>(1)
   const [limit, setLimit] = useState<number>(5)
 
-  const { data: walletHistoryResponse, isValidating } = useGetWalletHistory({
+  const { data: walletHistoryResponse, isFetching } = useGetWalletHistory({
     page,
     limit,
     type,
@@ -163,7 +163,7 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
       columns={columns}
       dataSource={walletHistoryResponse?.items || []}
       onChange={onChange}
-      loading={isValidating}
+      loading={isFetching}
       pagination={{
         total: walletHistoryResponse?.meta?.totalItems || 0,
         showTotal: (total: number, range: [number, number]): string =>

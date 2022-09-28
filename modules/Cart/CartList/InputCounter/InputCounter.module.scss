@@ -1,0 +1,18 @@
+@import '../../../../public/sass/config/_variables.scss';
+
+.layout {
+  border: 1px solid $background-dark;
+  border-radius: 2px;
+  max-width: 115px;
+  .increaseLayout {
+    // color: red;
+  }
+  .decreaseLayout {
+  }
+  input {
+    border-radius: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    text-align: center;
+  }
+}

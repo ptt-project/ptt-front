@@ -1,3 +1,4 @@
+import { ISellerInfoRes } from '.'
 import { ProductConditionEnum, ProductStatusEnum } from '../enums'
 
 export interface IProductDetailOption {
@@ -47,6 +48,14 @@ export interface IProduct {
   option2?: string
   price: string
   stock: number
+
+  // relation
+  shop?: IShop
+  productProfile?: IProductProfile // relation
+}
+
+export interface IShop extends ISellerInfoRes {
+  products?: IProduct[]
 }
 
 export interface IProductProfile {
