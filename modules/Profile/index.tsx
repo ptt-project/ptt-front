@@ -42,6 +42,7 @@ interface IMonthList {
   name: string
 }
 const Profile: FC<IProfile> = (props: IProfile) => {
+  console.log('props--', props)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
@@ -81,7 +82,8 @@ const Profile: FC<IProfile> = (props: IProfile) => {
       if (values.image.file.originFileObj) {
         const formData: FormData = new FormData()
         formData.append('image', values.image.file.originFileObj)
-        // const { imageData }: IApiResponse = await ImageService.upload(formData)
+        const { imageData }: IApiResponse = await ImageService.upload(formData)
+        console.log(imageData)
       }
       const payload: IMemberProfileUpdatePayload = {
         firstName: values.firstName,
@@ -90,8 +92,9 @@ const Profile: FC<IProfile> = (props: IProfile) => {
           values.month ? values.month : valueMonth
         }-${values.day ? values.day : valueDay}`,
         gender: valueGender
+        // imageId:''
       }
-      await MemberService.updateMemberProfile(payload)
+      // await MemberService.updateMemberProfile(payload)
       isSuccess = true
     } catch (error) {
       console.log(error)

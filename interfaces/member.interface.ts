@@ -18,6 +18,7 @@ export interface IMemberProfileUpdatePayload {
   lastName: string
   birthday: string
   gender: string
+  imageId: string
 }
 
 export interface IMemberEmailUpdatePayload {
