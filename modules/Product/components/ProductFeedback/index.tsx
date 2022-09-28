@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Button, Col, Rate, Row, Space, Typography } from 'antd'
-import styles from './ProductComment.module.scss'
+import styles from './ProductFeedback.module.scss'
 
 const { Title, Text } = Typography
 
-const ProductComment: FC = () => {
+const ProductFeedback: FC = () => {
   const { t } = useTranslation()
 
   function renderFeedback(): JSX.Element[] {
@@ -68,7 +68,7 @@ const ProductComment: FC = () => {
             </Space>
           </div>
         </Space>
-        <Space>
+        <Space wrap>
           <Button>{t('product:main.rating.all')} (0)</Button>
           <Button>{t('product:main.rating.five')} (0)</Button>
           <Button>{t('product:main.rating.four')} (0)</Button>
@@ -82,4 +82,4 @@ const ProductComment: FC = () => {
   )
 }
 
-export default ProductComment
+export default ProductFeedback

@@ -9,11 +9,11 @@ import styles from './ProductGallery.module.scss'
 const { Text } = Typography
 
 const images: string[] = [
-  'https://d-themes.com/react_asset_api/riode/uploads/images/demo-3/products/product-2-1.jpg',
-  'https://d-themes.com/react_asset_api/riode/uploads/images/demo-3/products/product-2-2.jpg',
-  'https://d-themes.com/react_asset_api/riode/uploads/images/demo-3/products/product-2-3.jpg',
-  'https://d-themes.com/react_asset_api/riode/uploads/images/demo-3/products/product-2-4.jpg',
-  'https://d-themes.com/react_asset_api/riode/uploads/images/demo-3/products/product-2-5.jpg'
+  'https://dummyimage.com/800x800?text=Product 1 800 x 800',
+  'https://dummyimage.com/800x800?text=Product 2 800 x 800',
+  'https://dummyimage.com/800x800?text=Product 3 800 x 800',
+  'https://dummyimage.com/800x800?text=Product 4 800 x 800',
+  'https://dummyimage.com/800x800?text=Product 5 800 x 800'
 ]
 
 const ProductGallery: FC = () => {
