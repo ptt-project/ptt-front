@@ -19,10 +19,10 @@ const EditVocher: React.FC = () => {
   const router: NextRouter = useRouter()
   const { voucherId } = router.query
   const voucherData: IVoucherFormData[] = useMemo(() => voucherMock || [], [])
-  const voucherList: IVoucherFormData = useMemo(
+  /* const voucherList: IVoucherFormData = useMemo(
     (): IVoucherFormData => voucherData.find((v: IVoucherFormData) => v.id === voucherId),
     [voucherId, voucherList]
-  )
+  ) */
 
   return (
     <main className="main">
@@ -57,7 +57,6 @@ const EditVocher: React.FC = () => {
                 </h4>
               </Text>
               <HighlightLabel title={t('seller.marketing:voucher.form.general')} />
-              <VoucherForm initialValues={voucherList} />
             </Col>
           </Row>
         </div>
