@@ -17,7 +17,8 @@ import {
   Image,
   Select,
   Radio,
-  message
+  message,
+  UploadFile
 } from 'antd'
 import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
@@ -25,8 +26,8 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrlUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
-import { IMemberProfilePayload, IMemberProfileUpdatePayload } from '~/interfaces'
-import { MemberService } from '~/services'
+import { IMemberProfilePayload, IMemberProfileUpdatePayload, IApiResponse } from '~/interfaces'
+import { ImageService, MemberService } from '~/services'
 import styles from './Profile.module.scss'
 
 const { Text, Title } = Typography
@@ -41,6 +42,7 @@ interface IMonthList {
   name: string
 }
 const Profile: FC<IProfile> = (props: IProfile) => {
+  console.log('props--', props)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
@@ -77,16 +79,22 @@ const Profile: FC<IProfile> = (props: IProfile) => {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: IMemberProfileUpdatePayload = {
+      if (values.image.file.originFileObj) {
+        const formData: FormData = new FormData()
+        formData.append('image', values.image.file.originFileObj)
+        //  const { imageData }: IApiResponse = await ImageService.upload(formData)
+        // console.log(imageData)
+      }
+      /* const payload: IMemberProfileUpdatePayload = {
         firstName: values.firstName,
         lastName: values.lastName,
         birthday: `${values.year ? values.year : valueYear}-${
           values.month ? values.month : valueMonth
         }-${values.day ? values.day : valueDay}`,
         gender: valueGender
-      }
-      console.log('payload++', payload)
-      await MemberService.updateMemberProfile(payload)
+         imageId:''
+      } */
+      // await MemberService.updateMemberProfile(payload)
       isSuccess = true
     } catch (error) {
       console.log(error)
@@ -166,11 +174,13 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                     />
                   </Col>
                   <Col sm={8} xs={12} className="text-center">
-                    <Upload accept={ImageAcceptConst.toString()}>
-                      <Button className="hps-btn-secondary">
-                        {t('account-info:button.chooseImage')}
-                      </Button>
-                    </Upload>
+                    <Form.Item name="image">
+                      <Upload accept={ImageAcceptConst.toString()} maxCount={1}>
+                        <Button className="hps-btn-secondary">
+                          {t('account-info:button.chooseImage')}
+                        </Button>
+                      </Upload>
+                    </Form.Item>
                     <Text type="secondary">{t('account-info:form.msgChooseImage')}</Text>
                   </Col>
                   <Col sm={12} xs={24}>
