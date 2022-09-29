@@ -17,9 +17,9 @@ import {
   Image,
   Select,
   Radio,
-  message,
-  UploadFile
+  message
 } from 'antd'
+import { sleep } from '@tanstack/query-core/build/lib/utils'
 import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
@@ -29,6 +29,7 @@ import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import { IMemberProfilePayload, IMemberProfileUpdatePayload, IApiResponse } from '~/interfaces'
 import { ImageService, MemberService } from '~/services'
 import styles from './Profile.module.scss'
+import { SizeImagesEnum } from '~/enums'
 
 const { Text, Title } = Typography
 const { Option } = Select
@@ -49,6 +50,8 @@ const Profile: FC<IProfile> = (props: IProfile) => {
   const [valueGender, setValueGender] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [dataDays, setDataDays] = useState<string[]>([])
+  const [valueImage, setImage] = useState<string>('')
+  const [imagePayload, setImagePayload] = useState<string>('')
   const monthList: IMonthList[] = [
     { id: '01', name: 'January' },
     { id: '02', name: 'February' },
@@ -63,13 +66,37 @@ const Profile: FC<IProfile> = (props: IProfile) => {
     { id: '11', name: 'November' },
     { id: '12', name: 'December' }
   ]
-  const formatDate: Date = new Date(props.profile.birthday)
-  const valueDay = (): string => formatDate.getDate().toString()
+  const formatDate: Date = props.profile.birthday === null ? null : new Date(props.profile.birthday)
+  const valueDay = (): string => {
+    if (formatDate === null) {
+      return ''
+    }
+    return formatDate.getDate().toString()
+  }
   const valueMonth = (): string => {
+    if (formatDate === null) {
+      return ''
+    }
     const month: string = (formatDate.getMonth() + 1).toString()
     return month.length === 1 ? `0${month}` : month
   }
-  const valueYear = (): string => formatDate.getFullYear().toString()
+  const valueYear = (): string => {
+    if (formatDate === null) {
+      return ''
+    }
+    return formatDate.getFullYear().toString()
+  }
+
+  async function getImage(imageId: string): Promise<void> {
+    if (imageId === '') {
+      setImage(
+        'https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp'
+      )
+    }
+    const imageValue: IApiResponse = await ImageService.get(imageId, SizeImagesEnum.SMALL)
+    console.log('imageValue++', imageValue)
+    setImage(imageValue.data)
+  }
 
   function onChange(e: RadioChangeEvent): void {
     setValueGender(e.target.value)
@@ -82,19 +109,22 @@ const Profile: FC<IProfile> = (props: IProfile) => {
       if (values.image.file.originFileObj) {
         const formData: FormData = new FormData()
         formData.append('image', values.image.file.originFileObj)
-        //  const { imageData }: IApiResponse = await ImageService.upload(formData)
-        // console.log(imageData)
+        const imageData: IApiResponse = await ImageService.upload(formData)
+        console.log('imageData--', imageData.data.id)
+        setImagePayload(imageData.data.id)
       }
-      /* const payload: IMemberProfileUpdatePayload = {
+      const payload: IMemberProfileUpdatePayload = {
         firstName: values.firstName,
         lastName: values.lastName,
-        birthday: `${values.year ? values.year : valueYear}-${
-          values.month ? values.month : valueMonth
-        }-${values.day ? values.day : valueDay}`,
-        gender: valueGender
-         imageId:''
-      } */
-      // await MemberService.updateMemberProfile(payload)
+        birthday: `${values.year ? values.year : valueYear()}-${
+          values.month ? values.month : valueMonth()
+        }-${values.day ? values.day : valueDay()}`,
+        gender: valueGender,
+        // imageId: 'd8c86308-0d94-4aed-88d2-95a4952436ef'
+        imageId: imagePayload
+      }
+      console.log('payload--', payload)
+      await MemberService.updateMemberProfile(payload)
       isSuccess = true
     } catch (error) {
       console.log(error)
@@ -127,6 +157,8 @@ const Profile: FC<IProfile> = (props: IProfile) => {
     fetchData()
     getDays()
     setValueGender(props.profile.gender)
+    getImage(props.profile.imageId)
+    console.log(valueImage)
   }, [])
   return (
     <main className="main">
@@ -163,15 +195,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
               >
                 <Row className={styles.highlight} gutter={[16, 16]} align="middle">
                   <Col sm={4} xs={12}>
-                    <Avatar
-                      src={
-                        <Image
-                          src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
-                          preview={false}
-                        />
-                      }
-                      size={80}
-                    />
+                    <Avatar src={<Image src={valueImage} preview={false} />} size={80} />
                   </Col>
                   <Col sm={8} xs={12} className="text-center">
                     <Form.Item name="image">
