@@ -43,7 +43,6 @@ interface IMonthList {
   name: string
 }
 const Profile: FC<IProfile> = (props: IProfile) => {
-  console.log('props--', props)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
@@ -51,7 +50,6 @@ const Profile: FC<IProfile> = (props: IProfile) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [dataDays, setDataDays] = useState<string[]>([])
   const [valueImage, setImage] = useState<string>('')
-  const [imagePayload, setImagePayload] = useState<string>('')
   const monthList: IMonthList[] = [
     { id: '01', name: 'January' },
     { id: '02', name: 'February' },
@@ -93,9 +91,12 @@ const Profile: FC<IProfile> = (props: IProfile) => {
         'https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp'
       )
     }
-    const imageValue: IApiResponse = await ImageService.get(imageId, SizeImagesEnum.SMALL)
-    console.log('imageValue++', imageValue)
-    setImage(imageValue.data)
+    try {
+      const imageValue: IApiResponse = await ImageService.get(imageId, SizeImagesEnum.SMALL)
+      setImage(imageValue.data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   function onChange(e: RadioChangeEvent): void {
@@ -106,13 +107,6 @@ const Profile: FC<IProfile> = (props: IProfile) => {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      if (values.image.file.originFileObj) {
-        const formData: FormData = new FormData()
-        formData.append('image', values.image.file.originFileObj)
-        const imageData: IApiResponse = await ImageService.upload(formData)
-        console.log('imageData--', imageData.data.id)
-        setImagePayload(imageData.data.id)
-      }
       const payload: IMemberProfileUpdatePayload = {
         firstName: values.firstName,
         lastName: values.lastName,
@@ -120,10 +114,14 @@ const Profile: FC<IProfile> = (props: IProfile) => {
           values.month ? values.month : valueMonth()
         }-${values.day ? values.day : valueDay()}`,
         gender: valueGender,
-        // imageId: 'd8c86308-0d94-4aed-88d2-95a4952436ef'
-        imageId: imagePayload
+        imageId: ''
       }
-      console.log('payload--', payload)
+      if (values.image.file.originFileObj) {
+        const formData: FormData = new FormData()
+        formData.append('image', values.image.file.originFileObj)
+        const imageData: IApiResponse = await ImageService.upload(formData)
+        payload.imageId = imageData.data.id
+      }
       await MemberService.updateMemberProfile(payload)
       isSuccess = true
     } catch (error) {

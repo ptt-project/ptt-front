@@ -10,4 +10,4 @@ export const upload = (formData: FormData): Promise<IApiResponse> =>
   })
 
 export const get = (imageId: string, size: SizeImagesEnum): Promise<IApiResponse> =>
-  AxiosService.get(`${EndPointUrlConst.IMAGES.UPLOAD}/${imageId}/${size}`)
+  AxiosService.get(`${EndPointUrlConst.IMAGES.GET}/${imageId}/${size}`)
