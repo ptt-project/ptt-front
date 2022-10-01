@@ -10,10 +10,10 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import Loading from '../../components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import { IAuthForgotPasswordForm, IOtp } from '~/interfaces'
+import { IAuthForgotPasswordForm, IAuthResetPasswordPayload, IOtp } from '~/interfaces'
 import { OtpReferenceTypeEnum, OtpTypeEnum } from '~/enums'
 import { AuthDestroyUtil } from '~/utils/main'
-// import { MemberService } from '../../services'
+import { AuthService } from '../../services'
 
 const ForgotPassword: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.forgot-password'])
@@ -22,11 +22,7 @@ const ForgotPassword: FC = () => {
   const [step, setStep] = useState<number>(0) // 0=FORGOT_PASSWORD_FORM, 1=FORGOT_PASSWORD_EMAIL_REQUEST, 2=FORGOT_PASSWORD_CONFIRM, 3=FORGOT_PASSWORD_SUCCESS
   const [reference, setReference] = useState<string>('')
   const [referenceType, setReferenceType] = useState<OtpReferenceTypeEnum>()
-  const [otpData, setOtpData] = useState<IOtp>({
-    otpCode: '',
-    refCode: '',
-    reference: ''
-  })
+  const [password, setPassword] = useState<string>('')
 
   function toggle(): void {
     setIsOpen(!isOpen)
@@ -40,41 +36,46 @@ const ForgotPassword: FC = () => {
         setStep(1)
       } else if (values.reference.replace(RegExpConst.ALLOW_NUMBER, '').length === 10) {
         setReferenceType(OtpReferenceTypeEnum.MOBILE)
-        setIsOpen(true)
+        setStep(2)
       }
     } catch (error) {
       console.log(error)
     }
   }
 
-  function onSubmitOtp(values: IOtp): void {
-    try {
-      setOtpData(values)
-      setStep(2)
-      toggle()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async function onSubmitNewPassword(values: { password: string }): Promise<void> {
-    console.log(otpData)
+  async function onSubmitOtp(values: IOtp): Promise<void> {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      // const { data } = await MemberService.forgotPassword({ password })
+      const payload: IAuthResetPasswordPayload = {
+        username: reference,
+        password,
+        otpCode: values.otpCode,
+        refCode: values.refCode
+      }
+      await AuthService.resetPassword(payload)
       isSuccess = true
-      setStep(3)
+      toggle()
       AuthDestroyUtil()
     } catch (error) {
       console.log(error)
     }
     if (isSuccess) {
       message.success(t('common:apiMessage.success'))
+      setStep(3)
     } else {
       message.error(t('common:apiMessage.error'))
     }
     setIsLoading(false)
+  }
+
+  function onSubmitNewPassword(values: { password: string }): void {
+    toggle()
+    setPassword(values.password)
+  }
+
+  function resetStep(): void {
+    setStep(0)
   }
 
   function renderStep(): JSX.Element {
@@ -84,7 +85,13 @@ const ForgotPassword: FC = () => {
       case 1: // FORGOT_PASSWORD_EMAIL_REQUEST
         return <ForgotPasswordEmailRequest email={reference} />
       case 2: // FORGOT_PASSWORD_CONFIRM
-        return <ForgotPasswordConfirm reference={reference} onSubmit={onSubmitNewPassword} />
+        return (
+          <ForgotPasswordConfirm
+            reference={reference}
+            onSubmit={onSubmitNewPassword}
+            resetStep={resetStep}
+          />
+        )
       case 3: // FORGOT_PASSWORD_SUCCESS
         return <ForgotPasswordSuccess reference={reference} referenceType={referenceType} />
       default:

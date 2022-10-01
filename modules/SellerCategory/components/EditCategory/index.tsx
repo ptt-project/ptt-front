@@ -98,7 +98,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       width: 100,
       render: (text: string, record: IProductData, index: number): JSX.Element => (
         <Text className={styles.action} onClick={(): void => toggleRemove(record)}>
-          <i className="fa fa-trash-alt" />
+          <i className="fas fa-trash-alt" />
         </Text>
       )
     }
@@ -281,7 +281,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                       {currentCategoryName}
                     </Title>
                     <Text className={styles.edit} onClick={toggleEdit}>
-                      <i className="fa fa-pen" />
+                      <i className="fas fa-pen" />
                     </Text>
                   </Space>
                   <div className="d-block">

@@ -10,6 +10,7 @@ const { Title, Text } = Typography
 interface IForgotPasswordConfirmProps {
   reference: string
   onSubmit: (values: { password: string }) => void
+  resetStep: () => void
 }
 
 const ForgotPasswordConfirm: FC<IForgotPasswordConfirmProps> = (
@@ -49,8 +50,11 @@ const ForgotPasswordConfirm: FC<IForgotPasswordConfirmProps> = (
                 <Space size="large">
                   <Text>{t('auth.forgot-password:confirm.reference')}:</Text>
                   <Text className={styles.reference}>
-                    <i className="fa fa-phone-alt mr-2" />
+                    <i className="fas fa-phone-alt mr-2" />
                     {props.reference}
+                  </Text>
+                  <Text className={styles.edit} onClick={(): void => props.resetStep()}>
+                    <i className="fas fa-pen" />
                   </Text>
                 </Space>
               </Col>

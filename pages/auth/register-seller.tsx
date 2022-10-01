@@ -10,12 +10,12 @@ import { SellerApprovalStatusEnum } from '~/enums'
 import { withSellerAuth } from '../../hocs/with-seller'
 
 interface IRegisterSellerPageProps {
-  shopInfo?: ISellerInfoRes
+  shopInfo: ISellerInfoRes
 }
 
 export const getServerSideProps: any = withSellerAuth(
   async (context: GetServerSidePropsContext) => {
-    let shopInfo: ISellerInfoRes
+    let shopInfo: ISellerInfoRes = null
     const { req } = context
 
     if (req) {
@@ -35,12 +35,12 @@ export const getServerSideProps: any = withSellerAuth(
           }
         }
       } catch (error) {
-        console.log(error)
-
-        return {
-          redirect: {
-            destination: '/error',
-            permanent: true
+        if (!error.data || error.data.code !== 106004) {
+          return {
+            redirect: {
+              destination: '/error',
+              permanent: true
+            }
           }
         }
       }
@@ -61,9 +61,5 @@ export const getServerSideProps: any = withSellerAuth(
 const RegisterSellerPage: FC<IRegisterSellerPageProps> = (props: IRegisterSellerPageProps) => (
   <RegisterSeller shopInfo={props.shopInfo} />
 )
-
-RegisterSellerPage.defaultProps = {
-  shopInfo: null
-}
 
 export default RegisterSellerPage
