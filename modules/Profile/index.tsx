@@ -19,17 +19,16 @@ import {
   Radio,
   message
 } from 'antd'
-import { sleep } from '@tanstack/query-core/build/lib/utils'
 import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { CustomUrlUtil } from '~/utils/main'
+import { CustomUrlUtil, HelperGetImageUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import { IMemberProfilePayload, IMemberProfileUpdatePayload, IApiResponse } from '~/interfaces'
 import { ImageService, MemberService } from '~/services'
-import styles from './Profile.module.scss'
 import { SizeImagesEnum } from '~/enums'
+import styles from './Profile.module.scss'
 
 const { Text, Title } = Typography
 const { Option } = Select
@@ -90,12 +89,8 @@ const Profile: FC<IProfile> = (props: IProfile) => {
       setImage(
         'https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp'
       )
-    }
-    try {
-      const imageValue: IApiResponse = await ImageService.get(imageId, SizeImagesEnum.SMALL)
-      setImage(imageValue.data)
-    } catch (error) {
-      console.log(error)
+    } else {
+      setImage(HelperGetImageUtil(imageId, SizeImagesEnum.SMALL))
     }
   }
 
@@ -156,7 +151,6 @@ const Profile: FC<IProfile> = (props: IProfile) => {
     getDays()
     setValueGender(props.profile.gender)
     getImage(props.profile.imageId)
-    console.log(valueImage)
   }, [])
   return (
     <main className="main">

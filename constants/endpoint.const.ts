@@ -36,7 +36,6 @@ export const EndPointUrlConst = {
     BANK_ACCOUNTS: '/bank-accounts'
   },
   IMAGES: {
-    UPLOAD: '/images/upload-image',
-    GET: '/images'
+    UPLOAD: '/images/upload-image'
   }
 }
