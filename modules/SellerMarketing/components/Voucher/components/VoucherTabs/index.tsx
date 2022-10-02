@@ -14,13 +14,13 @@ const VoucherTabs: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.marketing'])
   return (
     <Tabs className={`${styles.tabs} hps-scroll`} defaultActiveKey="1" onChange={onChange}>
-      <TabPane tab={t('seller.marketing:voucher.tabs.all')} key="1">
+      <TabPane tab={t('seller.marketing:tabs.all')} key="1">
         <VoucherList />
       </TabPane>
-      <TabPane tab={t('seller.marketing:voucher.tabs.inProgress')} key="2">
+      <TabPane tab={t('seller.marketing:tabs.inProgress')} key="2">
         <VoucherList />
       </TabPane>
-      <TabPane tab={t('seller.marketing:voucher.tabs.expired')} key="3">
+      <TabPane tab={t('seller.marketing:tabs.expired')} key="3">
         <VoucherList />
       </TabPane>
     </Tabs>

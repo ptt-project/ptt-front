@@ -54,17 +54,21 @@ const Landing: FC = () => {
                     </Link>
                   </Col>
                   <Col md={12} xs={24}>
-                    <div className={styles.iconWrapper}>
-                      <i className={`fas fa-tag ${styles.icon}`} />
-                      <div className={styles.headerContent}>
-                        <Text className={styles.title}>
-                          {t('seller.marketing:landing.discountPromotion')}
-                        </Text>
-                        <Text className={styles.msgDetail} type="secondary">
-                          {t('seller.marketing:landing.msgDiscountPromotion')}
-                        </Text>
+                    <Link
+                      href={CustomUrlUtil('/seller/settings/marketing/promotion', router.locale)}
+                    >
+                      <div className={styles.iconWrapper}>
+                        <i className={`fas fa-tag ${styles.icon}`} />
+                        <div className={styles.headerContent}>
+                          <Text className={styles.title}>
+                            {t('seller.marketing:landing.discountPromotion')}
+                          </Text>
+                          <Text className={styles.msgDetail} type="secondary">
+                            {t('seller.marketing:landing.msgDiscountPromotion')}
+                          </Text>
+                        </div>
                       </div>
-                    </div>
+                    </Link>
                   </Col>
                   <Col md={12} xs={24}>
                     <div className={styles.iconWrapper}>
