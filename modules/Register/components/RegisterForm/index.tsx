@@ -90,7 +90,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
         email: values.email,
         username: values.username
       }
-      AuthService.registerValidate(payload)
+      await AuthService.registerValidate(payload)
       isSuccess = true
       props.setForm(values)
       props.setStep(1)

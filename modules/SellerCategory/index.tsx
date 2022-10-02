@@ -68,14 +68,14 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
         return (
           <Space size="middle">
             <Text className={styles.action} onClick={(): Promise<boolean> => router.push(pathname)}>
-              <i className="fa fa-pen" />
+              <i className="fas fa-pen" />
             </Text>
             <Text
               className={styles.action}
               onClick={(): void => onRemove(record, disabled)}
               disabled={disabled}
             >
-              <i className="fa fa-trash-alt" />
+              <i className="fas fa-trash-alt" />
             </Text>
           </Space>
         )

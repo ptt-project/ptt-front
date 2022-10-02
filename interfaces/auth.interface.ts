@@ -58,3 +58,10 @@ export interface IAuthToken {
   accessToken: string
   refreshToken: string
 }
+
+export interface IAuthResetPasswordPayload {
+  username: string
+  password: string
+  otpCode: string
+  refCode: string
+}
