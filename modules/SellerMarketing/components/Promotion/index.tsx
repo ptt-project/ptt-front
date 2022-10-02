@@ -8,6 +8,7 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
+import PromotionTabs from './components/PromotionTabs'
 import styles from './Promotion.module.scss'
 
 const { Title } = Typography
@@ -57,6 +58,7 @@ const Promotion: FC = () => {
                   </div>
                 </Col>
               </Row>
+              <PromotionTabs />
             </Col>
           </Row>
         </div>
