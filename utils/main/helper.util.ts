@@ -1,4 +1,5 @@
 import { takeRight } from 'lodash'
+import { SizeImagesEnum } from '~/enums'
 
 export const HelperCensorBankAccountNoUtil = (bankAccountNo: string): string =>
   `*${takeRight(bankAccountNo, 4).join('')}`
@@ -17,3 +18,6 @@ export const HelperDecimalFormatUtil = (
 
 export const HelperMobileFormatUtil = (mobile: string): string =>
   `${mobile.slice(0, 3)}-${mobile.slice(3, 6)}-${mobile.slice(6, 10)}`
+
+export const HelperGetImageUtil = (imageId: string, size: SizeImagesEnum): string =>
+  `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_VERSION}/images/${imageId}/${size}`
