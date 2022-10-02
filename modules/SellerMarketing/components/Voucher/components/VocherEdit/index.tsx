@@ -14,7 +14,7 @@ import styles from './EditVocher.module.scss'
 
 const { Text } = Typography
 
-const EditVocher: React.FC = () => {
+const VocherEdit: React.FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.marketing'])
   const router: NextRouter = useRouter()
   const { voucherId } = router.query
@@ -65,4 +65,4 @@ const EditVocher: React.FC = () => {
   )
 }
 
-export default EditVocher
+export default VocherEdit

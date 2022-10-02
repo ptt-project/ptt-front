@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import AddVocher from '~/modules/SellerMarketing/components/Voucher/components/AddVocher'
+import VocherAdd from '~/modules/SellerMarketing/components/Voucher/components/VocherAdd'
 import { LocaleNamespaceConst } from '~/constants'
 
 export async function getServerSideProps(
@@ -16,6 +16,6 @@ export async function getServerSideProps(
     }
   }
 }
-const AddVoucherPage: FC = () => <AddVocher />
+const AddVoucherPage: FC = () => <VocherAdd />
 
 export default AddVoucherPage
