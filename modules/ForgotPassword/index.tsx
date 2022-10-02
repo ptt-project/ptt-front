@@ -15,13 +15,19 @@ import { OtpReferenceTypeEnum, OtpTypeEnum } from '~/enums'
 import { AuthDestroyUtil } from '~/utils/main'
 import { AuthService } from '../../services'
 
-const ForgotPassword: FC = () => {
+interface IForgotPasswordProps {
+  step?: number
+  reference?: string
+  referenceType?: OtpReferenceTypeEnum
+}
+
+const ForgotPassword: FC<IForgotPasswordProps> = (props: IForgotPasswordProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.forgot-password'])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [step, setStep] = useState<number>(0) // 0=FORGOT_PASSWORD_FORM, 1=FORGOT_PASSWORD_EMAIL_REQUEST, 2=FORGOT_PASSWORD_CONFIRM, 3=FORGOT_PASSWORD_SUCCESS
-  const [reference, setReference] = useState<string>('')
-  const [referenceType, setReferenceType] = useState<OtpReferenceTypeEnum>()
+  const [step, setStep] = useState<number>(props.step) // 0=FORGOT_PASSWORD_FORM, 1=FORGOT_PASSWORD_EMAIL_REQUEST, 2=FORGOT_PASSWORD_CONFIRM, 3=FORGOT_PASSWORD_SUCCESS
+  const [reference, setReference] = useState<string>(props.reference)
+  const [referenceType, setReferenceType] = useState<OtpReferenceTypeEnum>(props.referenceType)
   const [password, setPassword] = useState<string>('')
 
   function toggle(): void {
@@ -88,6 +94,7 @@ const ForgotPassword: FC = () => {
         return (
           <ForgotPasswordConfirm
             reference={reference}
+            referenceType={referenceType}
             onSubmit={onSubmitNewPassword}
             resetStep={resetStep}
           />
@@ -118,6 +125,12 @@ const ForgotPassword: FC = () => {
       {renderStep()}
     </main>
   )
+}
+
+ForgotPassword.defaultProps = {
+  step: 0,
+  reference: '',
+  referenceType: null
 }
 
 export default ForgotPassword

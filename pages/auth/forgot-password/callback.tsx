@@ -1,12 +1,13 @@
 import React, { FC } from 'react'
-import { GetStaticPropsContext, GetStaticPropsResult } from 'next'
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-// import ForgotPassword from '~/modules/ForgotPassword'
+import ForgotPassword from '~/modules/ForgotPassword'
 import { LocaleNamespaceConst } from '~/constants'
+import { OtpReferenceTypeEnum } from '~/enums'
 
-export async function getStaticProps(
-  context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<any>> {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<any>> {
   return {
     props: {
       ...(await serverSideTranslations(context.locale, [
@@ -17,6 +18,12 @@ export async function getStaticProps(
   }
 }
 
-const ForgotPasswordPage: FC = () => <div>callback</div>
+const ForgotPasswordCallbackPage: FC = () => (
+  <ForgotPassword
+    step={2}
+    reference="einost_fi@hotmail.com"
+    referenceType={OtpReferenceTypeEnum.EMAIL}
+  />
+)
 
-export default ForgotPasswordPage
+export default ForgotPasswordCallbackPage

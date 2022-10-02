@@ -17,6 +17,6 @@ export async function getServerSideProps(
   }
 }
 
-const ForgotPasswordCallbackPage: FC = () => <ForgotPassword />
+const ForgotPasswordPage: FC = () => <ForgotPassword />
 
-export default ForgotPasswordCallbackPage
+export default ForgotPasswordPage
