@@ -76,7 +76,9 @@ const ForgotPassword: FC<IForgotPasswordProps> = (props: IForgotPasswordProps) =
   }
 
   function onSubmitNewPassword(values: { password: string }): void {
-    toggle()
+    if (referenceType === OtpReferenceTypeEnum.MOBILE) {
+      toggle()
+    }
     setPassword(values.password)
   }
 
