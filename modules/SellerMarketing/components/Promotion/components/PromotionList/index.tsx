@@ -10,11 +10,8 @@ const { Text } = Typography
 
 interface IMockData {
   id: string
-  code: string
-  type: string
-  value: string
-  available: string
-  used: string
+  name: string
+  list: string
   status: string
   colorStatus: string
   periodGetCode: string
@@ -23,22 +20,16 @@ interface IMockData {
 const data: IMockData[] = [
   {
     id: '1',
-    code: '00111',
-    type: 'โดย %',
-    value: '10 %',
-    available: '100',
-    used: '0',
+    name: 'Glove Discount',
+    list: 'Everlast Weight Lifting Gloves',
     status: 'เร็วๆนี้',
     colorStatus: 'gold',
     periodGetCode: '01/07/2022 00:00 - 31/08/2022 23:59'
   },
   {
     id: '2',
-    code: '00112',
-    type: 'โดย %',
-    value: '10 %',
-    available: '100',
-    used: '0',
+    name: 'Mid year sale 2021',
+    list: 'EVERLAST WEIGHTED เสื้อถ่วงน้ำหนัก',
     status: 'หมดอายุ',
     colorStatus: 'red',
     periodGetCode: '01/07/2022 00:00 - 31/08/2022 23:59'
@@ -78,48 +69,30 @@ const PromotionList: FC = () => {
         onSubmit={onRemove}
       />
       <Row className={`${styles.hrTitleCol} text-center mb-3`}>
-        <Col lg={3} xs={4}>
-          <Text type="danger">{t('seller.marketing:voucher.col.voucher')}</Text>
+        <Col lg={5}>
+          <Text type="danger">{t('seller.marketing:promotion.col.promotionName')}</Text>
         </Col>
-        <Col lg={3} xs={4}>
-          <Text type="danger">{t('seller.marketing:voucher.col.type')}</Text>
+        <Col lg={6}>
+          <Text type="danger">{t('seller.marketing:promotion.col.list')}</Text>
         </Col>
-        <Col lg={2} xs={2}>
-          <Text type="danger">{t('seller.marketing:voucher.col.value')}</Text>
+        <Col lg={3}>
+          <Text type="danger">{t('seller.marketing:promotion.col.status')}</Text>
         </Col>
-        <Col lg={2} xs={2}>
-          <Text type="danger">{t('seller.marketing:voucher.col.available')}</Text>
+        <Col lg={5}>
+          <Text type="danger">{t('seller.marketing:promotion.col.period')}</Text>
         </Col>
-        <Col lg={2} xs={2}>
-          <Text type="danger">{t('seller.marketing:voucher.col.used')}</Text>
-        </Col>
-        <Col lg={3} xs={3}>
-          <Text type="danger">{t('seller.marketing:voucher.col.status')}</Text>
-        </Col>
-        <Col lg={5} xs={4}>
-          <Text type="danger">{t('seller.marketing:voucher.col.periodGetCode')}</Text>
-        </Col>
-        <Col lg={4} xs={3}>
-          <Text type="danger">{t('seller.marketing:voucher.col.operation')}</Text>
+        <Col lg={4}>
+          <Text type="danger">{t('seller.marketing:promotion.col.operation')}</Text>
         </Col>
       </Row>
       {data?.map((item: IMockData) => (
         <div key={item.id} className={`${styles.tr} mb-3`}>
           <Row className="text-center">
-            <Col lg={3}>
-              <Text>{item.code}</Text>
+            <Col lg={5}>
+              <Text>{item.name}</Text>
             </Col>
-            <Col lg={3}>
-              <Text>{item.type}</Text>
-            </Col>
-            <Col lg={2}>
-              <Text>{item.value}</Text>
-            </Col>
-            <Col lg={2}>
-              <Text>{item.available}</Text>
-            </Col>
-            <Col lg={2}>
-              <Text>{item.used}</Text>
+            <Col lg={6}>
+              <Text>{item.list}</Text>
             </Col>
             <Col lg={3}>
               <Tag color={`${item.colorStatus}`}>{item.status}</Tag>
