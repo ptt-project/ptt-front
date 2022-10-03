@@ -29,17 +29,14 @@ const PromotionFormSearch: FC = () => {
       <Row gutter={16}>
         <Col md={12} xs={24}>
           <Form.Item
-            label={t('seller.marketing:promotion.formSearch.promotionName')}
+            label={t('seller.marketing:promotion.form.promotionName')}
             name="productNameChoice"
           >
             <Input />
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
-          <Form.Item
-            label={t('seller.marketing:promotion.formSearch.period')}
-            name="productNameChoice"
-          >
+          <Form.Item label={t('seller.marketing:promotion.form.period')} name="productNameChoice">
             <DatePicker className="w-100" format="DD/MM/yyyy" />
           </Form.Item>
         </Col>

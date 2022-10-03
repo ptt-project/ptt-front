@@ -1,8 +1,8 @@
+import React, { FC } from 'react'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import React, { FC } from 'react'
+import PromotionAdd from '~/modules/SellerMarketing/components/Promotion/components/PromotionAdd'
 import { LocaleNamespaceConst } from '~/constants'
-import VocherEdit from '~/modules/SellerMarketing/components/Voucher/components/VocherEdit'
 
 export async function getServerSideProps(
   context: GetServerSidePropsContext
@@ -16,7 +16,6 @@ export async function getServerSideProps(
     }
   }
 }
+const AddPromotionPage: FC = () => <PromotionAdd />
 
-const VocherEditPage: FC = () => <VocherEdit />
-
-export default VocherEditPage
+export default AddPromotionPage

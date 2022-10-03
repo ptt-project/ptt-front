@@ -48,7 +48,10 @@ const Promotion: FC = () => {
                 <Col xs={4}>
                   <div className={styles.addNewProduct}>
                     <Link
-                      href={CustomUrlUtil('/seller/settings/marketing/voucher/add', router.locale)}
+                      href={CustomUrlUtil(
+                        '/seller/settings/marketing/promotion/add',
+                        router.locale
+                      )}
                     >
                       <Button type="primary">
                         <i className="fas fa-plus mr-1" />

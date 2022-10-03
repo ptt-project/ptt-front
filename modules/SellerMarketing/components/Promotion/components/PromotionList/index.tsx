@@ -64,8 +64,8 @@ const PromotionList: FC = () => {
         isOpen={isOpenDelModal}
         toggle={toggleDelModal}
         type="error"
-        title={t('seller.marketing:voucher.col.deleteHeader')}
-        content={t('seller.marketing:voucher.col.deleteMsg')}
+        title={t('seller.marketing:promotion.col.deleteHeader')}
+        content={t('seller.marketing:promotion.col.deleteMsg')}
         onSubmit={onRemove}
       />
       <Row className={`${styles.hrTitleCol} text-center mb-3`}>
@@ -73,7 +73,7 @@ const PromotionList: FC = () => {
           <Text type="danger">{t('seller.marketing:promotion.col.promotionName')}</Text>
         </Col>
         <Col lg={6}>
-          <Text type="danger">{t('seller.marketing:promotion.col.list')}</Text>
+          <Text type="danger">{t('seller.marketing:promotion.col.productlist')}</Text>
         </Col>
         <Col lg={3}>
           <Text type="danger">{t('seller.marketing:promotion.col.status')}</Text>

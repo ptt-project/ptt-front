@@ -52,16 +52,27 @@
   "promotion": {
     "title": "รายการโปรโมชั่น",
     "buttonCreate": "สร้างโปรโมชั่น",
-    "formSearch": {
+    "form": {
+      "title": "สร้างโปรโมชั่น",
+      "general": "ข้อมูลทั่วไป",
       "promotionName": "ชื่อโปรโมชั่น",
-      "period": "ระยะเวลาของโปรโมชั่น"
+      "msgPromotionName": "ชื่อโปรโมชั่นจะไม่แสดงให้ผู้ซื้อเห็น",
+      "period": "ระยะเวลาของโปรโมชั่น",
+      "productAdd": "เพิ่มสินค้า",
+      "productSearch": "ค้นหาสินค้า"
     },
     "col": {
       "promotionName": "ชื่อโปรโมชั่น",
-      "list": "รายการสินค้า",
+      "productlist": "รายการสินค้า",
       "status": "สถานะ",
       "period": "ระยะเวลาโปรโมชั่น",
-      "operation": "ดำเนินการ"
+      "operation": "ดำเนินการ",
+      "deleteHeader": "ลบโปรโมชั่น",
+      "deleteMsg": "ยืนยันการลบโปรโมชั่นหรือไม่",
+      "productName": "ชื่อสินค้า/ราคา",
+      "discount": "ส่วนลด",
+      "promotionWarehouse": "คลังโปรโมชั่น/ทั้งหมด",
+      "purchaseLimit": "จำกัดการซื้อ"
     }
   }
 }

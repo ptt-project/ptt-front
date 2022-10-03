@@ -16,6 +16,6 @@ export async function getServerSideProps(
     }
   }
 }
-const AddVoucherPage: FC = () => <VocherAdd />
+const VocherAddPage: FC = () => <VocherAdd />
 
-export default AddVoucherPage
+export default VocherAddPage
