@@ -49,19 +49,36 @@ const PromotionForm: FC<IPromotionFormProps> = (props: IPromotionFormProps) => {
             <DatePicker className="w-100" format="DD/MM/yyyy" />
           </Form.Item>
         </Col>
-        <Col xs={20} className={styles.highlight}>
-          <Title className={`${styles.h4} ${styles.textSecondary}`} level={5}>
-            {t('seller.marketing:promotion.title')}
-          </Title>
+        <Col className={styles.highlight} span={24}>
+          <Row gutter={[8, 16]}>
+            <Col xs={20}>
+              <Title className={`${styles.h4} ${styles.textSecondary}`} level={5}>
+                {t('seller.marketing:promotion.title')}
+              </Title>
+            </Col>
+            <Col xs={4}>
+              <div className={styles.addNewProduct}>
+                <Button type="primary">
+                  <i className="fas fa-plus mr-1" />
+                  {t('seller.marketing:promotion.buttonCreate')}
+                </Button>
+              </div>
+            </Col>
+            <Col xs={10}>
+              <Form.Item name="productSearch">
+                <Input
+                  placeholder={t('seller.marketing:promotion.form.productSearch')}
+                  suffix={
+                    <Text type="secondary">
+                      <i className="d-icon-search" />
+                    </Text>
+                  }
+                />
+              </Form.Item>
+            </Col>
+          </Row>
         </Col>
-        <Col xs={4} className={styles.highlight}>
-          <div className={styles.addNewProduct}>
-            <Button type="primary">
-              <i className="fas fa-plus mr-1" />
-              {t('seller.marketing:promotion.buttonCreate')}
-            </Button>
-          </div>
-        </Col>
+
         <Col md={12}>
           <Button type="text" block>
             {t('common:cancel')}
