@@ -62,8 +62,8 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       align: 'right',
       width: 100,
       sorter: (a: IProductData, b: IProductData) => a.amount - b.amount,
-      render: (text: string, recode: IProductData, index: number): string =>
-        numeral(recode.amount).format('0,0.00')
+      render: (text: string, record: IProductData, index: number): string =>
+        numeral(record.amount).format('0,0.00')
     },
     {
       title: t('seller.category:edit.table.header.c'),
@@ -78,8 +78,8 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       key: 'status',
       width: 100,
       sorter: (a: IProductData, b: IProductData) => a.status - b.status,
-      render: (text: string, recode: IProductData, index: number): string => {
-        switch (recode.status) {
+      render: (text: string, record: IProductData, index: number): string => {
+        switch (record.status) {
           case 0:
             return 'รอ Approve'
           case 1:

@@ -1,7 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import Link from 'next/link'
 import Helmet from 'react-helmet'
 import { Typography, Button, Row, Col, Space, message } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
@@ -111,13 +110,11 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
   }
 
   function getMobileMain(mobileList: IMemberMobile): void {
-    const mainMobile: IMemberMobile = mobileList.filter((item: IMemberMobile): string => {
-      if (item.isPrimary === true) {
-        return item.mobile
-      }
-    })
-    if (mainMobile[0].mobile) {
-      setDataMainMobile(mainMobile[0].mobile)
+    const mainMobile: IMemberMobile = mobileList.find(
+      (item: IMemberMobile) => item.isPrimary === true
+    )
+    if (mainMobile) {
+      setDataMainMobile(mainMobile.mobile)
     }
   }
 
@@ -128,10 +125,12 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
       console.log(error)
     }
   }
+
   useEffect(() => {
     getMobileMain(props.mobile)
     fetchData()
   }, [])
+
   return (
     <>
       <Loading show={isLoading} />
@@ -189,12 +188,13 @@ const Phone: FC<IMemberMobileProps> = (props: IMemberMobileProps) => {
                     <HighlightLabel title={t('account-info:phone.phoneList')} />
                   </Col>
                   <Col md={12} xs={18} className="text-right">
-                    <Link href={CustomUrlUtil('/settings/account/info/add-phone', router.locale)}>
-                      <Button className="hps-btn-secondary mt-3">
-                        <i className="fas fa-plus mr-2" />
-                        {t('account-info:button.addPhone')}
-                      </Button>
-                    </Link>
+                    <Button
+                      className="hps-btn-secondary mt-3"
+                      href={CustomUrlUtil('/settings/account/info/add-phone', router.locale)}
+                    >
+                      <i className="fas fa-plus mr-2" />
+                      {t('account-info:button.addPhone')}
+                    </Button>
                   </Col>
                 </Row>
                 {props.mobile?.map((item: IMemberMobile) =>

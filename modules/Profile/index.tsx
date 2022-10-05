@@ -1,6 +1,5 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
-import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
 import type { RadioChangeEvent } from 'antd'
@@ -17,17 +16,15 @@ import {
   Image,
   Select,
   Radio,
-  message,
-  UploadFile
+  message
 } from 'antd'
 import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { CustomUrlUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
-import { IMemberProfilePayload, IMemberProfileUpdatePayload, IApiResponse } from '~/interfaces'
-import { ImageService, MemberService } from '~/services'
+import { IMemberProfilePayload } from '~/interfaces'
+import { MemberService } from '~/services'
 import styles from './Profile.module.scss'
 
 const { Text, Title } = Typography
@@ -42,9 +39,7 @@ interface IMonthList {
   name: string
 }
 const Profile: FC<IProfile> = (props: IProfile) => {
-  console.log('props--', props)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
-  const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   const [valueGender, setValueGender] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -285,7 +280,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                         <Text type="danger">{props.profile.email}</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
-                        <Link href={CustomUrlUtil('/settings/account/info/email', router.locale)}>
+                        <Link href="/settings/account/info/email">
                           <a className={styles.textSecondary}>
                             <i className="fas fa-pen mr-1" />
                             {t('account-info:button.edit')}
@@ -299,7 +294,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                         <Text type="danger">{props.profile.mobile}</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
-                        <Link href={CustomUrlUtil('/settings/account/info/phone', router.locale)}>
+                        <Link href="/settings/account/info/phone">
                           <a className={styles.textSecondary}>
                             <i className="fas fa-pen mr-1" />
                             {t('account-info:button.edit')}

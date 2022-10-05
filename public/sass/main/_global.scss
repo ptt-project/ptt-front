@@ -29,6 +29,7 @@
       li {
         color: $text-gray;
 
+        &.ant-menu-item:not(.ant-menu-item-only-child),
         div {
           &:hover,
           &:focus {
@@ -54,12 +55,23 @@
           }
         }
 
-        &.ant-menu-item-selected {
-          color: $primary-color;
+        &.ant-menu-item-selected:not(.ant-menu-item-only-child) {
+          color: $primary-color-dark;
           background-color: $white-color !important;
 
           &::after {
             display: none;
+          }
+        }
+
+        &.ant-menu-item-selected {
+          &.ant-menu-item-only-child {
+            color: $primary-color;
+            background-color: $white-color !important;
+
+            &::after {
+              display: none;
+            }
           }
         }
       }
