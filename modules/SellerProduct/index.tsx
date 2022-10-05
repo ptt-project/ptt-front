@@ -1,22 +1,21 @@
 import React, { FC } from 'react'
-import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import { Typography, Row, Col, Button, Progress } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import ProductFilters from './components/ProductFilters'
 import ProductTabs from './components/ProductTabs'
-import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
+import { CustomUrlUtil } from '../../utils/main'
 import styles from './SellerProduct.module.scss'
 
 const { Text, Title } = Typography
 
 const SellerMyProduct: FC = () => {
-  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const router: NextRouter = useRouter()
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
 
   return (
     <main className="main">
@@ -52,12 +51,13 @@ const SellerMyProduct: FC = () => {
                 </Col>
                 <Col xs={4}>
                   <div className={styles.addNewProduct}>
-                    <Link href={CustomUrlUtil('/seller/settings/product/add', router.locale)}>
-                      <Button type="primary">
-                        <i className="fas fa-plus mr-1" />
-                        {t('seller.product:list.addNewProduct')}
-                      </Button>
-                    </Link>
+                    <Button
+                      type="primary"
+                      href={CustomUrlUtil('/seller/settings/product/add', router.locale)}
+                    >
+                      <i className="fas fa-plus mr-1" />
+                      {t('seller.product:list.addNewProduct')}
+                    </Button>
                   </div>
                 </Col>
               </Row>

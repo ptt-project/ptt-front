@@ -49,12 +49,12 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
       key: 'status',
       align: 'center',
       sorter: (a: ICategory, b: ICategory) => a.status.localeCompare(b.status),
-      render: (text: string, recode: ICategory, index: number): JSX.Element => (
+      render: (text: string, record: ICategory, index: number): JSX.Element => (
         <Switch
           className="hps-switch"
           key={index}
-          defaultChecked={recode.status === CategoryStatusEnum.ACTIVE}
-          onChange={(checked: boolean): Promise<void> => onChangeSwitch(checked, recode)}
+          defaultChecked={record.status === CategoryStatusEnum.ACTIVE}
+          onChange={(checked: boolean): Promise<void> => onChangeSwitch(checked, record)}
         />
       )
     },

@@ -133,8 +133,8 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
       align: 'right',
       width: 100,
       sorter: (a: IProductData, b: IProductData) => a.amount - b.amount,
-      render: (text: string, recode: IProductData, index: number): string =>
-        numeral(recode.amount).format('0,0.00')
+      render: (text: string, record: IProductData, index: number): string =>
+        numeral(record.amount).format('0,0.00')
     },
     {
       title: t('seller.category:add.table.header.e'),

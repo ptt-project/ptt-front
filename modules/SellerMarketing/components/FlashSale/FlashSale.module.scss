@@ -1,0 +1,17 @@
+@import '../../../../public/sass/config/variables';
+
+.header {
+  display: flex;
+  align-items: center;
+
+  .title {
+    flex: 1;
+    margin-bottom: 0;
+    color: $secondary-color;
+  }
+
+  .button {
+    display: flex;
+    align-items: center;
+  }
+}

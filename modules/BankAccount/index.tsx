@@ -173,10 +173,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                             {t('bank-account:emptyBankAccount')}
                             <Link
                               className="ml-1"
-                              href={CustomUrlUtil(
-                                `${rootMenu}/settings/finance/bank/add`,
-                                router.locale
-                              )}
+                              href={`${rootMenu}/settings/finance/bank/add`}
                               underline
                             >
                               {t('bank-account:addBankAccountTitle')}

@@ -2,11 +2,12 @@ import React, { FC } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Button, Col, Rate, Row, Space, Typography } from 'antd'
 import styles from './ProductFeedback.module.scss'
+import { LocaleNamespaceConst } from '../../../../constants'
 
 const { Title, Text } = Typography
 
 const ProductFeedback: FC = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation([...LocaleNamespaceConst, 'product'])
 
   function renderFeedback(): JSX.Element[] {
     const items: JSX.Element[] = []

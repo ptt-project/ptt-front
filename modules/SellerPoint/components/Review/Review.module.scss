@@ -9,13 +9,13 @@
 }
 
 .highlight {
-  padding: 1.5rem;
+  padding: 16px;
   margin-bottom: 1.5rem;
   background-color: $background-light;
   border-radius: $border-radius;
 
   @media (min-width: 768px) {
-    padding: 1.5rem 0;
+    padding: 16px 0;
   }
 }
 
