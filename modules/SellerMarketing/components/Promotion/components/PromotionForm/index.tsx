@@ -1,9 +1,19 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Typography, Button, Row, Col, Form, Input, DatePicker, FormInstance } from 'antd'
+import {
+  Typography,
+  Button,
+  Row,
+  Col,
+  Form,
+  Input,
+  DatePicker,
+  FormInstance,
+  Checkbox,
+  Image
+} from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 import { IPromotionFormData } from '~/interfaces'
-import HighlightLabel from '~/components/main/HighlightLabel'
 import styles from './PromotionForm.module.scss'
 
 const { Text, Title } = Typography
@@ -20,6 +30,7 @@ const PromotionForm: FC<IPromotionFormProps> = (props: IPromotionFormProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.marketing'])
   const [form] = Form.useForm(parentForm)
 
+  function onChange() {}
   return (
     <Form layout="vertical" form={form} initialValues={props.initialValues}>
       <Row gutter={[16, 8]} className="mt-3">
@@ -78,7 +89,31 @@ const PromotionForm: FC<IPromotionFormProps> = (props: IPromotionFormProps) => {
             </Col>
           </Row>
         </Col>
-
+        <Col md={24}>
+          <Row className={`${styles.hrTitleCol} text-center mb-3`}>
+            <Col lg={2}>
+              <Checkbox onChange={onChange} />
+            </Col>
+            <Col lg={5}>
+              <Text type="danger">{t('seller.marketing:promotion.col.productName')}</Text>
+            </Col>
+            <Col lg={3}>
+              <Text type="danger">{t('seller.marketing:promotion.col.discount')}</Text>
+            </Col>
+            <Col lg={6}>
+              <Text type="danger">{t('seller.marketing:promotion.col.promotionWarehouse')}</Text>
+            </Col>
+            <Col lg={3}>
+              <Text type="danger">{t('seller.marketing:promotion.col.purchaseLimit')}</Text>
+            </Col>
+            <Col lg={4}>
+              <Text type="danger">{t('seller.marketing:promotion.col.operation')}</Text>
+            </Col>
+          </Row>
+          <div className="text-center">
+            <Image preview={false} width="80%" src="./images/main/seller/promotion-add.svg" />
+          </div>
+        </Col>
         <Col md={12}>
           <Button type="text" block>
             {t('common:cancel')}
