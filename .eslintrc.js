@@ -4,8 +4,8 @@ module.exports = {
     es2021: true
   },
   extends: [
+    'next',
     'plugin:react/recommended',
-    'airbnb',
     'prettier',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended'
@@ -28,10 +28,7 @@ module.exports = {
         ignore: ['^[~]', '\\.module.scss$']
       }
     ],
-    'import/extensions': 'off',
-    'import/no-import-module-exports': 'off',
-    'import/prefer-default-export': 'off',
-    'import/no-extraneous-dependencies': 'off',
+    '@next/next/no-img-element': 'off',
     'react/function-component-definition': [
       2,
       {
