@@ -1,0 +1,21 @@
+@import '../../../../../../public/sass/config/variables';
+
+.filter {
+  padding: 16px;
+  background-color: $background-light;
+
+  .label {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .picker {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .btnGroup {
+    display: flex;
+    gap: 1rem;
+  }
+}

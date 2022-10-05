@@ -129,12 +129,14 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
   function initCurrentSelected(): void {
     const selected: string[] = []
     items.forEach((item: IMenuItem) => {
-      if (item.children && item.children.length) {
+      if (item.children?.length) {
         item.children.forEach((i: IMenuItem) => {
           if (router.pathname.includes(i.key)) {
             selected.push(i.key)
           }
         })
+      } else if (router.pathname.includes(item.key)) {
+        selected.push(item.key)
       }
     })
     setCurrentSelected(selected)
@@ -168,7 +170,7 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
 
   function onClick(e: MenuInfo): void {
     let pathname: string = ''
-    if (e.keyPath && e.keyPath.length > 1) {
+    if (e.keyPath?.length) {
       pathname += props.sidebarType === 'seller' ? '/seller/settings' : '/settings'
       e.keyPath.reverse().forEach((key: string) => {
         pathname += `/${key}`

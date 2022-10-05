@@ -1,6 +1,5 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
-import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
 import type { RadioChangeEvent } from 'antd'
@@ -22,7 +21,7 @@ import {
 import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { CustomUrlUtil, HelperGetImageUtil } from '~/utils/main'
+import { HelperGetImageUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import { IMemberProfilePayload, IMemberProfileUpdatePayload, IApiResponse } from '~/interfaces'
@@ -43,7 +42,6 @@ interface IMonthList {
 }
 const Profile: FC<IProfile> = (props: IProfile) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
-  const router: NextRouter = useRouter()
   const [form] = Form.useForm()
   const [valueGender, setValueGender] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -247,8 +245,10 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                         <Form.Item label={t('account-info:form.birthday')} name="day">
                           <Select defaultValue={valueDay}>
                             <Option value="">{t('account-info:form.date')}</Option>
-                            {dataDays?.map((item: string) => (
-                              <Option value={item}>{item}</Option>
+                            {dataDays?.map((item: string, index: number) => (
+                              <Option key={index} value={item}>
+                                {item}
+                              </Option>
                             ))}
                           </Select>
                         </Form.Item>
@@ -257,8 +257,10 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                         <Form.Item label="&nbsp;" name="month">
                           <Select defaultValue={valueMonth}>
                             <Option value="">{t('account-info:form.month')}</Option>
-                            {monthList?.map((item: IMonthList) => (
-                              <Option value={item.id}>{item.name}</Option>
+                            {monthList?.map((item: IMonthList, index: number) => (
+                              <Option key={index} value={item.id}>
+                                {item.name}
+                              </Option>
                             ))}
                           </Select>
                         </Form.Item>
@@ -301,7 +303,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                         <Text type="danger">{props.profile.email}</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
-                        <Link href={CustomUrlUtil('/settings/account/info/email', router.locale)}>
+                        <Link href="/settings/account/info/email">
                           <a className={styles.textSecondary}>
                             <i className="fas fa-pen mr-1" />
                             {t('account-info:button.edit')}
@@ -315,7 +317,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                         <Text type="danger">{props.profile.mobile}</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
-                        <Link href={CustomUrlUtil('/settings/account/info/phone', router.locale)}>
+                        <Link href="/settings/account/info/phone">
                           <a className={styles.textSecondary}>
                             <i className="fas fa-pen mr-1" />
                             {t('account-info:button.edit')}

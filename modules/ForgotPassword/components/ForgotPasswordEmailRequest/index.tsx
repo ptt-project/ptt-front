@@ -34,7 +34,7 @@ const ForgotPasswordEmailRequest: FC<IForgotPasswordEmailRequestProps> = (
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
             <Title className="hps-title" level={4}>
-              {t('auth.forgot-password:emailReqequest.title')}
+              {t('auth.forgot-password:emailRequest.title')}
             </Title>
             <Row>
               <Col xl={{ span: 12, offset: 6 }} xs={24}>
