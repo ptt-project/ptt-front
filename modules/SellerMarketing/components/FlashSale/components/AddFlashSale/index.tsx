@@ -105,12 +105,13 @@ const AddFlashSale: FC = () => {
               />
               <Form layout="vertical" initialValues={{ timeCycle: '' }}>
                 <Row gutter={[16, 16]}>
-                  <Col span={12}>
+                  <Col sm={12} xs={24}>
                     <Form.Item
                       label={t('seller.marketing:flashSale.add.filters.activeDate')}
                       name="activeDate"
                     >
                       <DatePicker.RangePicker
+                        style={{ width: '100%' }}
                         showTime={{ format: 'HH:mm' }}
                         format="YYYY-MM-DD HH:mm"
                         onChange={onChange}
@@ -118,7 +119,7 @@ const AddFlashSale: FC = () => {
                       />
                     </Form.Item>
                   </Col>
-                  <Col span={12}>
+                  <Col sm={12} xs={24}>
                     <Form.Item
                       label={t('seller.marketing:flashSale.add.filters.timeCycle')}
                       name="timeCycle"
@@ -142,7 +143,7 @@ const AddFlashSale: FC = () => {
                     </Button>
                   </div>
                 </Col>
-                <Col span={12}>
+                <Col sm={12} xs={24}>
                   <Input.Search
                     placeholder={t('seller.marketing:flashSale.add.filters.placeholder')}
                     allowClear
