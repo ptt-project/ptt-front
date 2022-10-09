@@ -1,19 +1,18 @@
 import React, { FC } from 'react'
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AxiosRequestConfig } from 'axios'
 import Email from '~/modules/Profile/components/Email'
 import { LocaleNamespaceConst } from '~/constants'
 import { IMemberProfilePayload, IApiResponse } from '~/interfaces'
 import { MemberService } from '~/services'
+import { withAuth } from '../../../../hocs/with-user'
 
 interface IProfilePageProps {
   profile: IMemberProfilePayload
 }
 
-export async function getServerSideProps(
-  context: GetServerSidePropsContext
-): Promise<GetServerSidePropsResult<any>> {
+export const getServerSideProps: any = withAuth(async (context: GetServerSidePropsContext) => {
   let profile: IMemberProfilePayload[] = []
   const { req } = context
   if (req) {
@@ -41,7 +40,8 @@ export async function getServerSideProps(
       profile
     }
   }
-}
+})
+
 const EmailPage: FC<IProfilePageProps> = (props: IProfilePageProps) => (
   <Email profile={props.profile} />
 )

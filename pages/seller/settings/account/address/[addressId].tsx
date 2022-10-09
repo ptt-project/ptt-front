@@ -6,11 +6,11 @@ import { LocaleNamespaceConst } from '~/constants'
 import { IAddress, IApiResponse } from '~/interfaces'
 import EditAddress, { IEditAddressProps } from '~/modules/Address/components/EditAddress'
 import { MemberService } from '~/services'
-import { withAuth } from '../../../../../hocs/with-user'
+import { withSellerAuth } from '../../../../../hocs/with-seller'
 
 type IEditAddressPageProps = Pick<IEditAddressProps, 'address' | 'googleMapsApiKey'>
 
-export const getServerSideProps: any = withAuth(
+export const getServerSideProps: any = withSellerAuth(
   async (
     context: GetServerSidePropsContext
   ): Promise<GetServerSidePropsResult<IEditAddressPageProps>> => {
