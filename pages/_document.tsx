@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-css-tags */
 import React from 'react'
 import Document, {
   NextScript,
@@ -7,6 +8,7 @@ import Document, {
   DocumentInitialProps,
   DocumentContext
 } from 'next/document'
+import Script from 'next/script'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
@@ -32,7 +34,7 @@ export default class MyDocument extends Document {
         </Head>
         <body>
           <Main />
-          <script src="./js/jquery.min.js" />
+          <Script src="./js/jquery.min.js" strategy="beforeInteractive" async={false} />
           <NextScript />
         </body>
       </Html>

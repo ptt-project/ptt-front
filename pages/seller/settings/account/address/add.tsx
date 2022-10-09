@@ -3,9 +3,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import AddAddress from '~/modules/Address/components/AddAddress'
-import { withAuth } from '../../../../../hocs/with-user'
+import { withSellerAuth } from '../../../../../hocs/with-seller'
 
-export const getServerSideProps: any = withAuth(
+export const getServerSideProps: any = withSellerAuth(
   async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<any>> => ({
     props: {
       ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'address']))

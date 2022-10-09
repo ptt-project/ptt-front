@@ -50,12 +50,13 @@ const ProductList: FC = () => {
     {
       title: t('seller.product:list.productName'),
       dataIndex: 'productName',
+      key: 'productName',
       render: (text: string, item: IDataType) => (
         <>
           <div>{item.productName}</div>
           <div className={styles.row}>
             <div className={styles.column}>
-              <Image preview={false} width={48} src={item.img} />
+              <Image preview={false} width={48} src={item.img} alt={item.productName} />
             </div>
             <div className={`mt-1 ${styles.column} ${styles.textGrey}`}>
               <div>
@@ -77,15 +78,18 @@ const ProductList: FC = () => {
     },
     {
       title: t('seller.product:list.SKU'),
-      dataIndex: 'sku'
+      dataIndex: 'sku',
+      key: 'sku'
     },
     {
       title: t('seller.product:list.productSelection'),
-      dataIndex: 'productSelection'
+      dataIndex: 'productSelection',
+      key: 'productSelection'
     },
     {
       title: t('seller.product:list.price'),
       dataIndex: 'price',
+      key: 'price',
       defaultSortOrder: 'descend',
       align: 'right'
       // sorter: (a: IDataType, b: IDataType) => a.price - b.price // build error
@@ -93,12 +97,14 @@ const ProductList: FC = () => {
     {
       title: t('seller.product:list.warehouse'),
       dataIndex: 'warehouse',
+      key: 'warehouse',
       defaultSortOrder: 'descend'
       // sorter: (a: IDataType, b: IDataType) => a.warehouse - b.warehouse // build error
     },
     {
       title: t('seller.product:list.sales'),
       dataIndex: 'sales',
+      key: 'sales',
       defaultSortOrder: 'descend',
       align: 'right'
       // sorter: (a: IDataType, b: IDataType) => a.sales - b.sales // build error

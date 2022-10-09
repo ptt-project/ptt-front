@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import FlashSale from '~/modules/SellerMarketing/components/FlashSale'
+import AddFlashSale from '~/modules/SellerMarketing/components/FlashSale/components/AddFlashSale'
 import { LocaleNamespaceConst } from '~/constants'
 import { withSellerAuth } from '../../../../../hocs/with-seller'
 
@@ -18,6 +18,6 @@ export const getServerSideProps: any = withSellerAuth(
   }
 )
 
-const FlashSalePage: FC = () => <FlashSale />
+const AddFlashSalePage: FC = () => <AddFlashSale />
 
-export default FlashSalePage
+export default AddFlashSalePage

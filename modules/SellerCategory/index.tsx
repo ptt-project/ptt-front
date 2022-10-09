@@ -1,19 +1,19 @@
 import React, { useState, FC, ChangeEvent } from 'react'
-import { useTranslation } from 'next-i18next'
-import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
-import { Typography, Row, Col, Button, Table, Switch, Space, Modal, Input, message } from 'antd'
-import { ColumnsType } from 'antd/lib/table'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
-import EmptyTableData from './components/EmptyTableData'
+import EmptySellerTable from '../../components/main/EmptySellerTable'
+import styles from './SellerCategory.module.scss'
+import { useTranslation } from 'next-i18next'
+import { NextRouter, useRouter } from 'next/router'
+import { Typography, Row, Col, Button, Table, Switch, Space, Modal, Input, message } from 'antd'
+import { ColumnsType } from 'antd/lib/table'
 import { IApiResponse, ICreateCategoryPayload, ICategory } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { ShopService } from '~/services'
 import { CategoryStatusEnum } from '~/enums'
-import styles from './SellerCategory.module.scss'
 
 const { Text, Title } = Typography
 
@@ -46,6 +46,7 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
     },
     {
       title: t('seller.category:table.header.d'),
+      dataIndex: 'status',
       key: 'status',
       align: 'center',
       sorter: (a: ICategory, b: ICategory) => a.status.localeCompare(b.status),
@@ -256,7 +257,7 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
                     columns={columns}
                     dataSource={category}
                     pagination={{ position: ['none', 'none'] as any }}
-                    locale={{ emptyText: <EmptyTableData /> }}
+                    locale={{ emptyText: <EmptySellerTable /> }}
                   />
                 </Col>
               </Row>

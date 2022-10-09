@@ -1,11 +1,11 @@
-import { Space, Switch, Tag, Typography } from 'antd'
-import Table, { ColumnsType } from 'antd/lib/table'
-import moment from 'moment'
-import { useTranslation } from 'next-i18next'
 import React, { FC } from 'react'
-import { LocaleNamespaceConst } from '../../../../../../constants'
-import EmptyTableData from '../../../../../SellerCategory/components/EmptyTableData'
+import moment from 'moment'
+import Table, { ColumnsType } from 'antd/lib/table'
+import EmptySellerTable from '../../../../../../components/main/EmptySellerTable'
 import styles from './FlashSaleTable.module.scss'
+import { Space, Switch, Tag, Typography } from 'antd'
+import { useTranslation } from 'next-i18next'
+import { LocaleNamespaceConst } from '../../../../../../constants'
 
 const { Text } = Typography
 
@@ -48,8 +48,7 @@ const FlashSaleTable: FC = () => {
   const columns: ColumnsType<IFlashSaleData> = [
     {
       title: t('seller.marketing:flashSale.table.a'),
-      dataIndex: 'cycleDate',
-      key: 'cycleDate',
+      key: 'timeCycle',
       width: 100,
       sorter: (a: IFlashSaleData, b: IFlashSaleData) =>
         moment(a.startDate).unix() - moment(b.startDate).unix(),
@@ -92,6 +91,7 @@ const FlashSaleTable: FC = () => {
     },
     {
       title: t('seller.marketing:flashSale.table.d'),
+      dataIndex: 'status',
       key: 'status',
       width: 100,
       sorter: (a: IFlashSaleData, b: IFlashSaleData) => a.status - b.status,
@@ -157,7 +157,7 @@ const FlashSaleTable: FC = () => {
       columns={columns}
       dataSource={dataSource}
       pagination={{ position: ['none', 'none'] as any }}
-      locale={{ emptyText: <EmptyTableData /> }}
+      locale={{ emptyText: <EmptySellerTable /> }}
     />
   )
 }
