@@ -1,12 +1,12 @@
 import React, { useState, FC, ChangeEvent, Key } from 'react'
-import { useTranslation } from 'next-i18next'
 import numeral from 'numeral'
+import EmptySellerTable from '../../../../components/main/EmptySellerTable'
+import styles from './AddCategoryModal.module.scss'
+import { useTranslation } from 'next-i18next'
 import { Modal, Row, Col, Typography, Input, Button, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
-import EmptyTableData from '../EmptyTableData'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { IProductData } from '~/interfaces'
-import styles from './AddCategoryModal.module.scss'
 
 const { Title, Text } = Typography
 
@@ -236,7 +236,7 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
             columns={columns}
             dataSource={dataSource}
             pagination={{ position: ['none', 'none'] as any }}
-            locale={{ emptyText: <EmptyTableData /> }}
+            locale={{ emptyText: <EmptySellerTable /> }}
           />
         </Col>
       </Row>

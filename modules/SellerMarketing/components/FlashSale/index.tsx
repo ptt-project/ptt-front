@@ -1,13 +1,14 @@
 import React, { FC } from 'react'
+import Link from 'next/link'
 import Helmet from 'react-helmet'
-import { useTranslation } from 'next-i18next'
-import { Button, Col, Row, Tabs, Typography } from 'antd'
 import Breadcrumbs from '../../../../components/main/Breadcrumbs'
 import SettingSidebar from '../../../../components/main/SettingSidebar'
-import { LocaleNamespaceConst } from '../../../../constants'
 import FlashSaleFilter from './components/FlashSaleFilter'
 import FlashSaleTable from './components/FlashSaleTable'
 import styles from './FlashSale.module.scss'
+import { useTranslation } from 'next-i18next'
+import { Button, Col, Row, Tabs, Typography } from 'antd'
+import { LocaleNamespaceConst } from '../../../../constants'
 
 const { Title } = Typography
 
@@ -40,10 +41,12 @@ const FlashSale: FC = () => {
                     <Title className={styles.title} level={4}>
                       {t('seller.marketing:flashSale.title')}
                     </Title>
-                    <Button className={styles.button} type="primary">
-                      <i className="fas fa-plus mr-2" />
-                      {t('seller.marketing:flashSale.button')}
-                    </Button>
+                    <Link href="/seller/settings/marketing/flash-sale/add" passHref>
+                      <Button type="primary">
+                        <i className="fas fa-plus mr-2" />
+                        {t('seller.marketing:flashSale.button')}
+                      </Button>
+                    </Link>
                   </div>
                 </Col>
               </Row>

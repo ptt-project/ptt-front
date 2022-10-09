@@ -83,7 +83,7 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
       <i className="fas fa-file-invoice-dollar" />
     ),
     getItem(t('setting-sidebar:seller.product.title'), 'product', <i className="fas fa-box" />, [
-      getItem(t('setting-sidebar:seller.product.list'), 'list'),
+      getItem(t('setting-sidebar:seller.product.list'), 'index'),
       getItem(t('setting-sidebar:seller.product.add'), 'add')
     ]),
     getItem(t('setting-sidebar:seller.marketing.title'), 'marketing', <i className="fas fa-tag" />),
@@ -173,7 +173,9 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
     if (e.keyPath?.length) {
       pathname += props.sidebarType === 'seller' ? '/seller/settings' : '/settings'
       e.keyPath.reverse().forEach((key: string) => {
-        pathname += `/${key}`
+        if (key !== 'index') {
+          pathname += `/${key}`
+        }
       })
     }
     if (pathname) {
