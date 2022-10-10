@@ -8,11 +8,11 @@ import { LocaleNamespaceConst } from '~/constants'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import VoucherForm from '../VoucherForm'
 import { IVoucherFormData } from '~/interfaces'
-import styles from './VocherAdd.module.scss'
+import styles from './AddVocher.module.scss'
 
 const { Text } = Typography
 
-const VocherAdd: React.FC = () => {
+const AddVocher: React.FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.marketing'])
   const [form] = Form.useForm()
 
@@ -62,4 +62,4 @@ const VocherAdd: React.FC = () => {
   )
 }
 
-export default VocherAdd
+export default AddVocher

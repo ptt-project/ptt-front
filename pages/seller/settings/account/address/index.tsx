@@ -6,11 +6,11 @@ import { LocaleNamespaceConst } from '~/constants'
 import { IAddress, IApiResponse } from '~/interfaces'
 import Address, { IAddressProps } from '~/modules/Address'
 import { MemberService } from '~/services'
-import { withAuth } from '../../../../../hocs/with-user'
+import { withSellerAuth } from '../../../../../hocs/with-seller'
 
 type IAddressPageProps = Pick<IAddressProps, 'addresses'>
 
-export const getServerSideProps: any = withAuth(
+export const getServerSideProps: any = withSellerAuth(
   async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<any>> => {
     let addresses: IAddress[] = []
     const { req } = context

@@ -1,21 +1,21 @@
 import React, { useState, FC, ChangeEvent, Key } from 'react'
-import { useTranslation } from 'next-i18next'
-import Helmet from 'react-helmet'
-import { isEmpty } from 'lodash'
 import numeral from 'numeral'
-import { Typography, Row, Col, Button, Table, Switch, Space, Input, Modal, message } from 'antd'
-import { ColumnsType } from 'antd/lib/table'
+import Helmet from 'react-helmet'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Loading from '~/components/main/Loading'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
+import AddCategoryModal from '../AddCategoryModal'
+import EmptySellerTable from '../../../../components/main/EmptySellerTable'
+import styles from './EditCategory.module.scss'
+import { useTranslation } from 'next-i18next'
+import { isEmpty } from 'lodash'
+import { Typography, Row, Col, Button, Table, Switch, Space, Input, Modal, message } from 'antd'
+import { ColumnsType } from 'antd/lib/table'
 import { ICategory, IProductData, IUpdateCategoryPayload } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { CategoryStatusEnum } from '~/enums'
 import { ShopService } from '~/services'
-import EmptyTableData from '../EmptyTableData'
-import AddCategoryModal from '../AddCategoryModal'
-import styles from './EditCategory.module.scss'
 
 const { Text, Title } = Typography
 
@@ -75,6 +75,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
     },
     {
       title: t('seller.category:edit.table.header.d'),
+      dataIndex: 'status',
       key: 'status',
       width: 100,
       sorter: (a: IProductData, b: IProductData) => a.status - b.status,
@@ -355,7 +356,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                     columns={columns}
                     dataSource={dataSource}
                     pagination={{ position: ['none', 'none'] as any }}
-                    locale={{ emptyText: <EmptyTableData /> }}
+                    locale={{ emptyText: <EmptySellerTable /> }}
                   />
                 </Col>
               </Row>

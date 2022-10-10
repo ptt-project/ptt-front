@@ -1,21 +1,23 @@
 import React, { FC } from 'react'
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import VocherAdd from '~/modules/SellerMarketing/components/Voucher/components/VocherAdd'
+import AddVocher from '~/modules/SellerMarketing/components/Voucher/components/AddVocher'
 import { LocaleNamespaceConst } from '~/constants'
+import { withSellerAuth } from '../../../../../hocs/with-seller'
 
-export async function getServerSideProps(
-  context: GetServerSidePropsContext
-): Promise<GetServerSidePropsResult<any>> {
-  return {
-    props: {
-      ...(await serverSideTranslations(context.locale, [
-        ...LocaleNamespaceConst,
-        'seller.marketing'
-      ]))
+export const getServerSideProps: any = withSellerAuth(
+  async (context: GetServerSidePropsContext) => {
+    return {
+      props: {
+        ...(await serverSideTranslations(context.locale, [
+          ...LocaleNamespaceConst,
+          'seller.marketing'
+        ]))
+      }
     }
   }
-}
-const VocherAddPage: FC = () => <VocherAdd />
+)
 
-export default VocherAddPage
+const AddVoucherPage: FC = () => <AddVocher />
+
+export default AddVoucherPage

@@ -1,22 +1,23 @@
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React, { FC } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
-import VocherEdit from '~/modules/SellerMarketing/components/Voucher/components/VocherEdit'
+import EditVocher from '~/modules/SellerMarketing/components/Voucher/components/EditVocher'
+import { withSellerAuth } from '../../../../../hocs/with-seller'
 
-export async function getServerSideProps(
-  context: GetServerSidePropsContext
-): Promise<GetServerSidePropsResult<any>> {
-  return {
-    props: {
-      ...(await serverSideTranslations(context.locale, [
-        ...LocaleNamespaceConst,
-        'seller.marketing'
-      ]))
+export const getServerSideProps: any = withSellerAuth(
+  async (context: GetServerSidePropsContext) => {
+    return {
+      props: {
+        ...(await serverSideTranslations(context.locale, [
+          ...LocaleNamespaceConst,
+          'seller.marketing'
+        ]))
+      }
     }
   }
-}
+)
 
-const VocherEditPage: FC = () => <VocherEdit />
+const VocherEditPage: FC = () => <EditVocher />
 
 export default VocherEditPage
