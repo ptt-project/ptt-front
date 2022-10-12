@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import Helmet from 'react-helmet'
 import Breadcrumbs from '../../../../../../components/main/Breadcrumbs'
 import SettingSidebar from '../../../../../../components/main/SettingSidebar'
@@ -10,6 +10,8 @@ import { Button, Col, DatePicker, Form, Input, Row, Select, Table, Typography } 
 import { ColumnsType } from 'antd/lib/table'
 import { LocaleNamespaceConst } from '../../../../../../constants'
 import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker'
+import AddFlashSaleModal from '../AddFlashSaleModal'
+import { IProductData } from '../../../../../../interfaces'
 
 const { Title } = Typography
 
@@ -26,7 +28,6 @@ const dataSource: IAddFlashSaleData[] = []
 
 const AddFlashSale: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.marketing'])
-
   const columns: ColumnsType<IAddFlashSaleData> = [
     {
       title: t('seller.marketing:flashSale.add.table.a'),
@@ -54,6 +55,16 @@ const AddFlashSale: FC = () => {
       dataIndex: 'action'
     }
   ]
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  function toggle(): void {
+    setIsOpen(!isOpen)
+  }
+
+  function onSubmitModal(products: IProductData[]): void {
+    console.log(products)
+    toggle()
+  }
 
   function onChange(
     value: DatePickerProps['value'] | RangePickerProps['value'],
@@ -88,6 +99,7 @@ const AddFlashSale: FC = () => {
           { title: t('seller.marketing:flashSale.add.title') }
         ]}
       />
+      <AddFlashSaleModal isOpen={isOpen} toggle={toggle} onSubmit={onSubmitModal} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
@@ -137,7 +149,7 @@ const AddFlashSale: FC = () => {
                     <h6 className={styles.label}>
                       {t('seller.marketing:flashSale.add.filters.label')}
                     </h6>
-                    <Button type="primary">
+                    <Button type="primary" onClick={toggle}>
                       <i className="fa fa-plus mr-2" />
                       {t('seller.marketing:flashSale.add.filters.button')}
                     </Button>
