@@ -52,6 +52,7 @@
   "promotion": {
     "title": "รายการโปรโมชั่น",
     "buttonCreate": "สร้างโปรโมชั่น",
+    "titleSelectProduct": "เลือกสินค้า",
     "form": {
       "title": "สร้างโปรโมชั่น",
       "general": "ข้อมูลทั่วไป",
@@ -59,7 +60,9 @@
       "msgPromotionName": "ชื่อโปรโมชั่นจะไม่แสดงให้ผู้ซื้อเห็น",
       "period": "ระยะเวลาของโปรโมชั่น",
       "productAdd": "เพิ่มสินค้า",
-      "productSearch": "ค้นหาสินค้า"
+      "productSearch": "ค้นหาสินค้า",
+      "categoryProduct": "หมวดหมู่สินค้า",
+      "productName": "ชื่อสินค้า"
     },
     "col": {
       "promotionName": "ชื่อโปรโมชั่น",
@@ -72,7 +75,10 @@
       "productName": "ชื่อสินค้า/ราคา",
       "discount": "ส่วนลด",
       "promotionWarehouse": "คลังโปรโมชั่น/ทั้งหมด",
-      "purchaseLimit": "จำกัดการซื้อ"
+      "purchaseLimit": "จำกัดการซื้อ",
+      "sale": "ยอดขาย",
+      "price": "ราคา",
+      "warehouse": "คลัง"
     }
   },
   "flashSale": {
