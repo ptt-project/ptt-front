@@ -1,11 +1,12 @@
-import React, { FC } from 'react'
+import React, { FC, Key, useState } from 'react'
 import moment from 'moment'
 import Table, { ColumnsType } from 'antd/lib/table'
-import EmptySellerTable from '../../../../../../components/main/EmptySellerTable'
+import EmptySellerTable from '~/components/main/EmptySellerTable'
+import ConfirmationModal from '~/components/main/ConfirmationModal'
 import styles from './FlashSaleTable.module.scss'
 import { Space, Switch, Tag, Typography } from 'antd'
 import { useTranslation } from 'next-i18next'
-import { LocaleNamespaceConst } from '../../../../../../constants'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Text } = Typography
 
@@ -138,27 +139,54 @@ const FlashSaleTable: FC = () => {
           <Text className={styles.action}>
             <i className="fas fa-pen" />
           </Text>
-          <Text className={styles.action}>
+          <Text className={styles.action} onClick={toggle}>
             <i className="fas fa-trash-alt" />
           </Text>
         </Space>
       )
     }
   ]
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  function toggle(): void {
+    setIsOpen(!isOpen)
+  }
 
   function onChangeSwitch(checked: boolean): void {
     console.log(checked)
   }
 
+  function onChangeSelectRow(selectedRowKeys: Key[], selectedRows: IFlashSaleData[]): void {
+    console.log(selectedRows)
+  }
+
+  function onSubmitRemove(): void {
+    toggle()
+  }
+
   return (
-    <Table
-      className={`${styles.table} hps-table hps-scroll`}
-      size="middle"
-      columns={columns}
-      dataSource={dataSource}
-      pagination={{ position: ['none', 'none'] as any }}
-      locale={{ emptyText: <EmptySellerTable /> }}
-    />
+    <>
+      <ConfirmationModal
+        type="error"
+        title={t('seller.marketing:flashSale.table.removeModal.title')}
+        content={t('seller.marketing:flashSale.table.removeModal.detail')}
+        isOpen={isOpen}
+        toggle={toggle}
+        onSubmit={onSubmitRemove}
+      />
+      <Table
+        className={`${styles.table} hps-table hps-scroll`}
+        size="middle"
+        rowSelection={{
+          type: 'checkbox',
+          onChange: onChangeSelectRow
+        }}
+        columns={columns}
+        dataSource={dataSource}
+        pagination={{ position: ['none', 'none'] as any }}
+        locale={{ emptyText: <EmptySellerTable /> }}
+      />
+    </>
   )
 }
 
