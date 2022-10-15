@@ -38,5 +38,8 @@ export const EndPointUrlConst = {
   },
   IMAGES: {
     UPLOAD: '/images/upload-image'
+  },
+  PROMOTION: {
+    PROMOTIONS: '/shops/promotions'
   }
 }
