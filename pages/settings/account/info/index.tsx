@@ -23,6 +23,7 @@ export const getServerSideProps: any = withAuth(async (context: GetServerSidePro
       }
       const { data }: IApiResponse = await MemberService.getProfile(option)
       profile = data
+      console.log('profile', profile)
     } catch (error) {
       console.error(error)
 
