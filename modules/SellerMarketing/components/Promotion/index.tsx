@@ -9,11 +9,14 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
 import PromotionTabs from './components/PromotionTabs'
+import { IPromotionPayload } from '~/interfaces'
 import styles from './Promotion.module.scss'
 
 const { Title } = Typography
-
-const Promotion: FC = () => {
+interface IPromotion {
+  promotion: IPromotionPayload
+}
+const Promotion: FC<IPromotion> = (props: IPromotion) => {
   const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.marketing'])
 

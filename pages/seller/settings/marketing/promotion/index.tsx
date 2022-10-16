@@ -4,45 +4,48 @@ import { AxiosRequestConfig } from 'axios'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Promotion from '~/modules/SellerMarketing/components/Promotion'
 import { LocaleNamespaceConst } from '~/constants'
-import { IApiResponse, IPromotion } from '../../../../../interfaces'
-import { withSellerAuth } from '../../../../../hocs/with-seller'
+import { IApiResponse, IPromotionPayload } from '../../../../../interfaces'
 import { PromotionService } from '../../../../../services'
+import { withAuth } from '../../../../../hocs/with-user'
+interface IPromotionPageProps {
+  promotion: IPromotionPayload
+}
+export const getServerSideProps: any = withAuth(async (context: GetServerSidePropsContext) => {
+  let promotion: IPromotionPayload
+  const { req } = context
 
-export const getServerSideProps: any = withSellerAuth(
-  async (context: GetServerSidePropsContext) => {
-    let promotions: IPromotion[] = []
-    const { req } = context
+  if (req) {
+    try {
+      const option: AxiosRequestConfig = {
+        headers: { Cookie: req.headers.cookie }
+      }
+      const { data }: IApiResponse = await PromotionService.getPromotions(option)
+      promotion = data
+    } catch (error) {
+      console.error(error)
 
-    if (req) {
-      try {
-        const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
-        const { data }: IApiResponse = await PromotionService.getPromotions(option)
-        console.log(data)
-        promotions = data
-      } catch (error) {
-        console.log(error)
-
-        return {
-          redirect: {
-            destination: '/error',
-            permanent: true
-          }
+      return {
+        redirect: {
+          destination: '/error',
+          permanent: true
         }
       }
     }
+  }
 
-    return {
-      props: {
-        ...(await serverSideTranslations(context.locale, [
-          ...LocaleNamespaceConst,
-          'seller.marketing'
-        ])),
-        promotions
-      }
+  return {
+    props: {
+      ...(await serverSideTranslations(context.locale, [
+        ...LocaleNamespaceConst,
+        'seller.marketing'
+      ])),
+      promotion
     }
   }
-)
+})
 
-const PromotionPage: FC = () => <Promotion />
+const PromotionPage: FC<IPromotionPageProps> = (props: IPromotionPageProps) => (
+  <Promotion promotion={props.promotion} />
+)
 
 export default PromotionPage

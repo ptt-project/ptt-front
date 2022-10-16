@@ -25,7 +25,8 @@ export const EndPointUrlConst = {
   },
   SHOPS: {
     CATEGORIES: '/shops/categories',
-    PRODUCTS: '/shops/products'
+    PRODUCTS: '/shops/products',
+    PROMOTIONS: '/shops/promotions'
   },
   WALLET: {
     WALLETS: '/wallets',
@@ -38,8 +39,5 @@ export const EndPointUrlConst = {
   },
   IMAGES: {
     UPLOAD: '/images/upload-image'
-  },
-  PROMOTION: {
-    PROMOTIONS: '/shops/promotions'
   }
 }

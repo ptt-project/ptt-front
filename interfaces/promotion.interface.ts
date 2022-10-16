@@ -8,3 +8,11 @@ export interface IPromotion {
   endDate: Date
   deletedAt?: Date
 }
+export interface IPromotionPayload {
+  name?: string
+  startDate?: Date
+  endDate?: Date
+  status?: string
+  page?: number
+  limit?: number
+}
