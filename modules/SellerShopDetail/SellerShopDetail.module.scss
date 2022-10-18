@@ -1,0 +1,28 @@
+@import '../../public/sass/config/variables';
+
+.textSecondary {
+  color: $secondary-color !important;
+}
+.h1 {
+  line-height: 1 !important;
+  margin-bottom: 0 !important;
+}
+
+.h4 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.space {
+  margin: 0 0.5rem;
+}
+
+.list {
+  background: #fff1f0;
+  padding: 0.5rem;
+  border-bottom: 0.1rem solid #e0e0e0;
+}
+.icon {
+  color: #a7171f;
+  padding: 0.5rem;
+}
