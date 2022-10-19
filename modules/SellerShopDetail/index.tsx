@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
-import { Typography, Row, Col, Button, Form, Upload, Input } from 'antd'
+import { Typography, Row, Col, Button, Form, Upload, Input, Image, Avatar } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
@@ -35,6 +35,22 @@ const SellerShopDetail: FC = () => {
               <Title className="hps-title" level={4}>
                 {t('seller.shop-detail:title')}
               </Title>
+              <Row className="mb-5">
+                <Image
+                  width={870}
+                  height={200}
+                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                />
+                <Avatar
+                  src={
+                    <Image
+                      src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
+                      preview={false}
+                    />
+                  }
+                  size={100}
+                />
+              </Row>
               <Row>
                 <Col md={4} xs={24}>
                   <Form.Item name="image">
@@ -63,10 +79,9 @@ const SellerShopDetail: FC = () => {
                   <i className={`fas fa-box ${styles.icon}`} />
                   <Text>{t('seller.shop-detail:productList')}</Text>
                 </Col>
-                <Col xs={4}>
-                  <Text>
-                    5 <i className="fas fa-angle-right" />
-                  </Text>
+                <Col xs={4} className="text-right">
+                  <Text className={` ${styles.valueList}`}>5</Text>
+                  <i className={`fas fa-angle-right ${styles.iconArrow}`} />
                 </Col>
               </Row>
               <Row className={` ${styles.list}`} align="middle">
@@ -74,10 +89,8 @@ const SellerShopDetail: FC = () => {
                   <i className={`fas fa-comment-dots ${styles.icon}`} />
                   <Text>{t('seller.shop-detail:responseRate')}</Text>
                 </Col>
-                <Col xs={4}>
-                  <Text>
-                    5 <i className="fas fa-angle-right" />
-                  </Text>
+                <Col xs={4} className="text-right">
+                  <Text className={`${styles.valueList} ${styles.responseRate}`}>57%</Text>
                 </Col>
               </Row>
               <Row className={` ${styles.list}`} align="middle">
@@ -85,19 +98,19 @@ const SellerShopDetail: FC = () => {
                   <i className={`fas fa-star ${styles.icon}`} />
                   <Text>{t('seller.shop-detail:rating')}</Text>
                 </Col>
-                <Col xs={4}>
-                  <Text>5</Text>
+                <Col xs={4} className="text-right">
+                  <Text className={` ${styles.valueList}`}>0.0(1)</Text>
+                  <i className={`fas fa-angle-right ${styles.iconArrow}`} />
                 </Col>
               </Row>
-              <Row className={` ${styles.list}`} align="middle">
+              <Row className={`${styles.list}`} align="middle">
                 <Col xs={20}>
                   <i className={`fas fa-file-invoice-dollar ${styles.icon}`} />
                   <Text>{t('seller.shop-detail:orderFailed')}</Text>
                 </Col>
-                <Col xs={4}>
-                  <Text>
-                    5 <i className="fas fa-angle-right" />
-                  </Text>
+                <Col xs={4} className="text-right">
+                  <Text className={` ${styles.valueList}`}>0.00%</Text>
+                  <i className={`fas fa-angle-right ${styles.iconArrow}`} />
                 </Col>
               </Row>
               <HighlightLabel title={t('seller.shop-detail:shopInfo')} />

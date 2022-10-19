@@ -24,5 +24,20 @@
 }
 .icon {
   color: #a7171f;
-  padding: 0.5rem;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+}
+.iconArrow {
+  color: #239cd7;
+  padding-right: 3rem;
+  padding-left: 3rem;
+  font-size: 1.73rem;
+}
+.valueList {
+  color: #a7171f;
+  font-weight: 600;
+  font-size: 1.73rem;
+  &.responseRate {
+    padding-right: 6rem;
+  }
 }
