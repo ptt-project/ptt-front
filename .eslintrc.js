@@ -4,8 +4,8 @@ module.exports = {
     es2021: true
   },
   extends: [
+    'next',
     'plugin:react/recommended',
-    'airbnb',
     'prettier',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended'
@@ -28,10 +28,7 @@ module.exports = {
         ignore: ['^[~]', '\\.module.scss$']
       }
     ],
-    'import/extensions': 'off',
-    'import/no-import-module-exports': 'off',
-    'import/prefer-default-export': 'off',
-    'import/no-extraneous-dependencies': 'off',
+    '@next/next/no-img-element': 'off',
     'react/function-component-definition': [
       2,
       {
@@ -46,6 +43,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/no-array-index-key': 'off',
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
+    'react-hooks/exhaustive-deps': 'off',
     'require-explicit-generics/require-explicit-generics': [
       'error',
       // List your functions here

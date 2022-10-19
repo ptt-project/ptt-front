@@ -1,21 +1,21 @@
 import React, { useState, FC, ChangeEvent, Key } from 'react'
-import { useTranslation } from 'next-i18next'
-import Helmet from 'react-helmet'
-import { isEmpty } from 'lodash'
 import numeral from 'numeral'
-import { Typography, Row, Col, Button, Table, Switch, Space, Input, Modal, message } from 'antd'
-import { ColumnsType } from 'antd/lib/table'
+import Helmet from 'react-helmet'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Loading from '~/components/main/Loading'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
-import EmptyTableData from '../EmptyTableData'
 import AddCategoryModal from '../AddCategoryModal'
+import EmptySellerTable from '../../../../components/main/EmptySellerTable'
+import styles from './EditCategory.module.scss'
+import { useTranslation } from 'next-i18next'
+import { isEmpty } from 'lodash'
+import { Typography, Row, Col, Button, Table, Switch, Space, Input, Modal, message } from 'antd'
+import { ColumnsType } from 'antd/lib/table'
 import { ICategory, IProductData, IUpdateCategoryPayload } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { CategoryStatusEnum } from '~/enums'
 import { ShopService } from '~/services'
-import styles from './EditCategory.module.scss'
 
 const { Text, Title } = Typography
 
@@ -62,8 +62,8 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       align: 'right',
       width: 100,
       sorter: (a: IProductData, b: IProductData) => a.amount - b.amount,
-      render: (text: string, recode: IProductData, index: number): string =>
-        numeral(recode.amount).format('0,0.00')
+      render: (text: string, record: IProductData, index: number): string =>
+        numeral(record.amount).format('0,0.00')
     },
     {
       title: t('seller.category:edit.table.header.c'),
@@ -75,11 +75,12 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
     },
     {
       title: t('seller.category:edit.table.header.d'),
+      dataIndex: 'status',
       key: 'status',
       width: 100,
       sorter: (a: IProductData, b: IProductData) => a.status - b.status,
-      render: (text: string, recode: IProductData, index: number): string => {
-        switch (recode.status) {
+      render: (text: string, record: IProductData, index: number): string => {
+        switch (record.status) {
           case 0:
             return 'รอ Approve'
           case 1:
@@ -98,7 +99,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
       width: 100,
       render: (text: string, record: IProductData, index: number): JSX.Element => (
         <Text className={styles.action} onClick={(): void => toggleRemove(record)}>
-          <i className="fa fa-trash-alt" />
+          <i className="fas fa-trash-alt" />
         </Text>
       )
     }
@@ -281,7 +282,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                       {currentCategoryName}
                     </Title>
                     <Text className={styles.edit} onClick={toggleEdit}>
-                      <i className="fa fa-pen" />
+                      <i className="fas fa-pen" />
                     </Text>
                   </Space>
                   <div className="d-block">
@@ -355,7 +356,7 @@ const EditCategory: FC<IEditCategoryProps> = (props: IEditCategoryProps) => {
                     columns={columns}
                     dataSource={dataSource}
                     pagination={{ position: ['none', 'none'] as any }}
-                    locale={{ emptyText: <EmptyTableData /> }}
+                    locale={{ emptyText: <EmptySellerTable /> }}
                   />
                 </Col>
               </Row>

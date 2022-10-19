@@ -75,7 +75,7 @@ const Header: FC = () => {
                 href={CustomUrlUtil('/settings/account/info', router.locale)}
                 className={styles.name}
               >
-                <Avatar className={styles.avatar} icon={<i className="fa fa-user" />} size={24}>
+                <Avatar className={styles.avatar} icon={<i className="fas fa-user" />} size={24}>
                   {userInfo.firstName}
                 </Avatar>
                 <Text type="secondary" className="mr-1">

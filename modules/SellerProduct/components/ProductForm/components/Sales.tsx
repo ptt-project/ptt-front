@@ -80,7 +80,7 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
       title: t('seller.product:form.sales.priceBaht'),
       dataIndex: 'price',
       key: 'price',
-      render: (text: string, recode: ITempProductDetail, index: number): JSX.Element => {
+      render: (text: string, record: ITempProductDetail, index: number): JSX.Element => {
         const name: string = `price_${index + 1}`
         return (
           <Form.Item
@@ -102,7 +102,7 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
       title: t('seller.product:form.sales.sku'),
       dataIndex: 'sku',
       key: 'sku',
-      render: (text: string, recode: ITempProductDetail, index: number): JSX.Element => {
+      render: (text: string, record: ITempProductDetail, index: number): JSX.Element => {
         const name: string = `sku_${index + 1}`
         return (
           <Form.Item key={name} name={name}>
@@ -115,7 +115,7 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
       title: t('seller.product:form.sales.warehouse'),
       dataIndex: 'stock',
       key: 'stock',
-      render: (text: string, recode: ITempProductDetail, index: number): JSX.Element => {
+      render: (text: string, record: ITempProductDetail, index: number): JSX.Element => {
         const name: string = `stock_${index + 1}`
         return (
           <Form.Item

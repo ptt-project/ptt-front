@@ -3,7 +3,8 @@ export const EndPointUrlConst = {
   AUTH: {
     REGISTER_VALIDATE: '/auth/register/validate',
     REGISTER: '/auth/register',
-    LOGIN: '/auth/login'
+    LOGIN: '/auth/login',
+    RESET_PASSWORD: '/auth/reset-password'
   },
   OTP: {
     REQUEST: '/otp/request'

@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
-import { GetStaticPropsContext, GetStaticPropsResult } from 'next'
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import ForgotPassword from '~/modules/ForgotPassword'
 import { LocaleNamespaceConst } from '~/constants'
 
-export async function getStaticProps(
-  context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<any>> {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<any>> {
   return {
     props: {
       ...(await serverSideTranslations(context.locale, [

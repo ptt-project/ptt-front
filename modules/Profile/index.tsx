@@ -1,6 +1,5 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
-import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
 import type { RadioChangeEvent } from 'antd'
@@ -17,17 +16,18 @@ import {
   Image,
   Select,
   Radio,
-  message,
-  UploadFile
+  message
 } from 'antd'
 import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { CustomUrlUtil } from '~/utils/main'
+import { HelperGetImageUtil } from '~/utils/main'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import { IMemberProfilePayload, IMemberProfileUpdatePayload, IApiResponse } from '~/interfaces'
 import { ImageService, MemberService } from '~/services'
+import { SizeImagesEnum } from '~/enums'
+import { NextRouter, useRouter } from 'next/router'
 import styles from './Profile.module.scss'
 
 const { Text, Title } = Typography
@@ -44,11 +44,13 @@ interface IMonthList {
 const Profile: FC<IProfile> = (props: IProfile) => {
   console.log('props--', props)
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
-  const router: NextRouter = useRouter()
   const [form] = Form.useForm()
+
   const [valueGender, setValueGender] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [dataDays, setDataDays] = useState<string[]>([])
+  const [valueImage, setImage] = useState<string>('')
+  const router: NextRouter = useRouter()
   const monthList: IMonthList[] = [
     { id: '01', name: 'January' },
     { id: '02', name: 'February' },
@@ -63,13 +65,36 @@ const Profile: FC<IProfile> = (props: IProfile) => {
     { id: '11', name: 'November' },
     { id: '12', name: 'December' }
   ]
-  const formatDate: Date = new Date(props.profile.birthday)
-  const valueDay = (): string => formatDate.getDate().toString()
+  const formatDate: Date = props.profile.birthday === null ? null : new Date(props.profile.birthday)
+  const valueDay = (): string => {
+    if (formatDate === null) {
+      return ''
+    }
+    return formatDate.getDate().toString()
+  }
   const valueMonth = (): string => {
+    if (formatDate === null) {
+      return ''
+    }
     const month: string = (formatDate.getMonth() + 1).toString()
     return month.length === 1 ? `0${month}` : month
   }
-  const valueYear = (): string => formatDate.getFullYear().toString()
+  const valueYear = (): string => {
+    if (formatDate === null) {
+      return ''
+    }
+    return formatDate.getFullYear().toString()
+  }
+
+  async function getImage(imageId: string): Promise<void> {
+    if (imageId === null || imageId === '') {
+      setImage(
+        'https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp'
+      )
+    } else {
+      setImage(HelperGetImageUtil(imageId, SizeImagesEnum.SMALL))
+    }
+  }
 
   function onChange(e: RadioChangeEvent): void {
     setValueGender(e.target.value)
@@ -79,22 +104,25 @@ const Profile: FC<IProfile> = (props: IProfile) => {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      if (values.image.file.originFileObj) {
+      const payload: IMemberProfileUpdatePayload = {
+        firstName: values.firstName ? values.firstName : props.profile.firstName,
+        lastName: values.lastName ? values.lastName : props.profile.lastName,
+        birthday: `${values.year ? values.year : valueYear()}-${
+          values.month ? values.month : valueMonth()
+        }-${values.day ? values.day : valueDay()}`,
+        gender: valueGender,
+        imageId: ''
+      }
+      if (values.image) {
         const formData: FormData = new FormData()
         formData.append('image', values.image.file.originFileObj)
-        //  const { imageData }: IApiResponse = await ImageService.upload(formData)
-        // console.log(imageData)
+        const imageData: IApiResponse = await ImageService.upload(formData)
+        payload.imageId = imageData.data.id
+      } else {
+        payload.imageId = props.profile.imageId
       }
-      /* const payload: IMemberProfileUpdatePayload = {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        birthday: `${values.year ? values.year : valueYear}-${
-          values.month ? values.month : valueMonth
-        }-${values.day ? values.day : valueDay}`,
-        gender: valueGender
-         imageId:''
-      } */
-      // await MemberService.updateMemberProfile(payload)
+      await MemberService.updateMemberProfile(payload)
+
       isSuccess = true
     } catch (error) {
       console.log(error)
@@ -115,18 +143,10 @@ const Profile: FC<IProfile> = (props: IProfile) => {
     setDataDays(days)
   }
 
-  async function fetchData(): Promise<void> {
-    try {
-      await MemberService.getProfile()
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   useEffect(() => {
-    fetchData()
     getDays()
     setValueGender(props.profile.gender)
+    getImage(props.profile.imageId)
   }, [])
   return (
     <main className="main">
@@ -163,15 +183,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
               >
                 <Row className={styles.highlight} gutter={[16, 16]} align="middle">
                   <Col sm={4} xs={12}>
-                    <Avatar
-                      src={
-                        <Image
-                          src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
-                          preview={false}
-                        />
-                      }
-                      size={80}
-                    />
+                    <Avatar src={<Image src={valueImage} preview={false} />} size={80} />
                   </Col>
                   <Col sm={8} xs={12} className="text-center">
                     <Form.Item name="image">
@@ -231,8 +243,10 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                         <Form.Item label={t('account-info:form.birthday')} name="day">
                           <Select defaultValue={valueDay}>
                             <Option value="">{t('account-info:form.date')}</Option>
-                            {dataDays?.map((item: string) => (
-                              <Option value={item}>{item}</Option>
+                            {dataDays?.map((item: string, index: number) => (
+                              <Option key={index} value={item}>
+                                {item}
+                              </Option>
                             ))}
                           </Select>
                         </Form.Item>
@@ -241,8 +255,10 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                         <Form.Item label="&nbsp;" name="month">
                           <Select defaultValue={valueMonth}>
                             <Option value="">{t('account-info:form.month')}</Option>
-                            {monthList?.map((item: IMonthList) => (
-                              <Option value={item.id}>{item.name}</Option>
+                            {monthList?.map((item: IMonthList, index: number) => (
+                              <Option key={index} value={item.id}>
+                                {item.name}
+                              </Option>
                             ))}
                           </Select>
                         </Form.Item>
@@ -285,7 +301,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                         <Text type="danger">{props.profile.email}</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
-                        <Link href={CustomUrlUtil('/settings/account/info/email', router.locale)}>
+                        <Link href="/settings/account/info/email">
                           <a className={styles.textSecondary}>
                             <i className="fas fa-pen mr-1" />
                             {t('account-info:button.edit')}
@@ -299,7 +315,7 @@ const Profile: FC<IProfile> = (props: IProfile) => {
                         <Text type="danger">{props.profile.mobile}</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
-                        <Link href={CustomUrlUtil('/settings/account/info/phone', router.locale)}>
+                        <Link href="/settings/account/info/phone">
                           <a className={styles.textSecondary}>
                             <i className="fas fa-pen mr-1" />
                             {t('account-info:button.edit')}

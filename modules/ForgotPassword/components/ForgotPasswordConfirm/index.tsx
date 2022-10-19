@@ -3,13 +3,16 @@ import { useTranslation } from 'next-i18next'
 import { Typography, Row, Col, Image, Form, Input, Button, Space } from 'antd'
 import { Rule } from 'antd/lib/form'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
+import { OtpReferenceTypeEnum } from '../../../../enums'
 import styles from './ForgotPasswordConfirm.module.scss'
 
 const { Title, Text } = Typography
 
 interface IForgotPasswordConfirmProps {
   reference: string
+  referenceType: OtpReferenceTypeEnum
   onSubmit: (values: { password: string }) => void
+  resetStep: () => void
 }
 
 const ForgotPasswordConfirm: FC<IForgotPasswordConfirmProps> = (
@@ -49,9 +52,18 @@ const ForgotPasswordConfirm: FC<IForgotPasswordConfirmProps> = (
                 <Space size="large">
                   <Text>{t('auth.forgot-password:confirm.reference')}:</Text>
                   <Text className={styles.reference}>
-                    <i className="fa fa-phone-alt mr-2" />
+                    {props.referenceType === OtpReferenceTypeEnum.EMAIL ? (
+                      <i className="fas fa-envelope mr-2" />
+                    ) : (
+                      <i className="fas fa-phone-alt mr-2" />
+                    )}
                     {props.reference}
                   </Text>
+                  {props.referenceType === OtpReferenceTypeEnum.MOBILE ? (
+                    <Text className={styles.edit} onClick={(): void => props.resetStep()}>
+                      <i className="fas fa-pen" />
+                    </Text>
+                  ) : null}
                 </Space>
               </Col>
             </Row>

@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import Product from '../../modules/Product'
 import { LocaleNamespaceConst } from '~/constants'
+import Product from '../../modules/Product'
 
 export async function getServerSideProps(
   context: GetServerSidePropsContext

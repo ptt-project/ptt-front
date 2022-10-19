@@ -1,19 +1,18 @@
 import React, { FC } from 'react'
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AxiosRequestConfig } from 'axios'
 import Profile from '~/modules/Profile'
 import { LocaleNamespaceConst } from '~/constants'
 import { IMemberProfilePayload, IApiResponse } from '~/interfaces'
 import { MemberService } from '~/services'
+import { withAuth } from '../../../../hocs/with-user'
 
 interface IProfilePageProps {
   profile: IMemberProfilePayload
 }
 
-export async function getServerSideProps(
-  context: GetServerSidePropsContext
-): Promise<GetServerSidePropsResult<any>> {
+export const getServerSideProps: any = withAuth(async (context: GetServerSidePropsContext) => {
   let profile: IMemberProfilePayload
   const { req } = context
 
@@ -24,6 +23,7 @@ export async function getServerSideProps(
       }
       const { data }: IApiResponse = await MemberService.getProfile(option)
       profile = data
+      console.log('profile', profile)
     } catch (error) {
       console.error(error)
 
@@ -42,7 +42,7 @@ export async function getServerSideProps(
       profile
     }
   }
-}
+})
 
 const ProfilePage: FC<IProfilePageProps> = (props: IProfilePageProps) => (
   <Profile profile={props.profile} />

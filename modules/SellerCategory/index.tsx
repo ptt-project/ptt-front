@@ -1,19 +1,19 @@
 import React, { useState, FC, ChangeEvent } from 'react'
-import { useTranslation } from 'next-i18next'
-import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
-import { Typography, Row, Col, Button, Table, Switch, Space, Modal, Input, message } from 'antd'
-import { ColumnsType } from 'antd/lib/table'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
-import EmptyTableData from './components/EmptyTableData'
+import EmptySellerTable from '../../components/main/EmptySellerTable'
+import styles from './SellerCategory.module.scss'
+import { useTranslation } from 'next-i18next'
+import { NextRouter, useRouter } from 'next/router'
+import { Typography, Row, Col, Button, Table, Switch, Space, Modal, Input, message } from 'antd'
+import { ColumnsType } from 'antd/lib/table'
 import { IApiResponse, ICreateCategoryPayload, ICategory } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { ShopService } from '~/services'
 import { CategoryStatusEnum } from '~/enums'
-import styles from './SellerCategory.module.scss'
 
 const { Text, Title } = Typography
 
@@ -46,15 +46,16 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
     },
     {
       title: t('seller.category:table.header.d'),
+      dataIndex: 'status',
       key: 'status',
       align: 'center',
       sorter: (a: ICategory, b: ICategory) => a.status.localeCompare(b.status),
-      render: (text: string, recode: ICategory, index: number): JSX.Element => (
+      render: (text: string, record: ICategory, index: number): JSX.Element => (
         <Switch
           className="hps-switch"
           key={index}
-          defaultChecked={recode.status === CategoryStatusEnum.ACTIVE}
-          onChange={(checked: boolean): Promise<void> => onChangeSwitch(checked, recode)}
+          defaultChecked={record.status === CategoryStatusEnum.ACTIVE}
+          onChange={(checked: boolean): Promise<void> => onChangeSwitch(checked, record)}
         />
       )
     },
@@ -68,14 +69,14 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
         return (
           <Space size="middle">
             <Text className={styles.action} onClick={(): Promise<boolean> => router.push(pathname)}>
-              <i className="fa fa-pen" />
+              <i className="fas fa-pen" />
             </Text>
             <Text
               className={styles.action}
               onClick={(): void => onRemove(record, disabled)}
               disabled={disabled}
             >
-              <i className="fa fa-trash-alt" />
+              <i className="fas fa-trash-alt" />
             </Text>
           </Space>
         )
@@ -256,7 +257,7 @@ const SellerCategory: FC<ISellerCategoryProps> = (props: ISellerCategoryProps) =
                     columns={columns}
                     dataSource={category}
                     pagination={{ position: ['none', 'none'] as any }}
-                    locale={{ emptyText: <EmptyTableData /> }}
+                    locale={{ emptyText: <EmptySellerTable /> }}
                   />
                 </Col>
               </Row>
