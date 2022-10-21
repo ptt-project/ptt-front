@@ -1,29 +1,42 @@
 import React, { FC } from 'react'
+import AccountAddMobile from '~/modules/Account/components/AccountAddMobile'
 import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AxiosRequestConfig } from 'axios'
-import Phone from '~/modules/Profile/components/Phone'
-import { IMemberMobile, IApiResponse } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
+import { IApiResponse, IMemberMobile } from '~/interfaces'
 import { MemberService } from '~/services'
 import { withAuth } from '../../../../hocs/with-user'
 
-interface IMemberMobilePageProps {
+interface IAccountAddMobilePageProps {
   mobile: IMemberMobile
 }
 
 export const getServerSideProps: any = withAuth(async (context: GetServerSidePropsContext) => {
   let mobile: IMemberMobile
   const { req } = context
+
   if (req) {
     try {
       const option: AxiosRequestConfig = {
         headers: { Cookie: req.headers.cookie }
       }
-      const { data }: IApiResponse = await MemberService.getMobile(option)
-      mobile = data
+      const res: IApiResponse<IMemberMobile[]> = await MemberService.getMobiles(option)
+
+      if (res.data) {
+        mobile = res.data.find((item: IMemberMobile) => item.isPrimary === true)
+      }
+
+      if (!mobile) {
+        return {
+          redirect: {
+            destination: '/error',
+            permanent: true
+          }
+        }
+      }
     } catch (error) {
-      console.error('error', error)
+      console.error(error)
 
       return {
         redirect: {
@@ -33,6 +46,7 @@ export const getServerSideProps: any = withAuth(async (context: GetServerSidePro
       }
     }
   }
+
   return {
     props: {
       ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'account-info'])),
@@ -41,8 +55,8 @@ export const getServerSideProps: any = withAuth(async (context: GetServerSidePro
   }
 })
 
-const PhonePage: FC<IMemberMobilePageProps> = (props: IMemberMobilePageProps) => (
-  <Phone mobile={props.mobile} />
-)
+const AccountAddMobilePage: FC<IAccountAddMobilePageProps> = (
+  props: IAccountAddMobilePageProps
+) => <AccountAddMobile mobile={props.mobile} />
 
-export default PhonePage
+export default AccountAddMobilePage

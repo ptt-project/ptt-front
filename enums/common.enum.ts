@@ -12,7 +12,7 @@ export enum FormModeEnum {
   VIEW = 'view'
 }
 
-export enum SizeImagesEnum {
+export enum ImageSizeEnum {
   LARGE = 'large',
   MEDIUM = 'medium',
   SMALL = 'small',

@@ -8,22 +8,6 @@
   color: $secondary-color !important;
 }
 
-.highlight {
-  padding: 16px;
-  margin-bottom: 1.5rem;
-  background-color: $background-light;
-  border-radius: $border-radius;
-
-  @media (min-width: 768px) {
-    padding: 1.5rem 0;
-  }
-}
-
-.phoneListWrapper {
-  @media (max-width: 575px) {
-    padding: 0 1.5rem;
-  }
-}
 .label {
   display: flex;
   padding-bottom: 8px;

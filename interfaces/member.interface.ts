@@ -1,47 +1,47 @@
-export interface IMemberProfilePayload {
+import { AccountGenderEnum } from '../enums'
+
+export interface IMemberInfo {
+  id: string
   username: string
   firstName: string
   lastName: string
   mobile: string
   birthday?: string
-  day?: string
-  month?: string
-  year?: string
-  gender?: string
+  gender?: AccountGenderEnum
   email: string
-  code?: string
   imageId?: string
-  image?: any
 }
 
-export interface IMemberProfileUpdatePayload {
+export interface IMemberMobile {
+  id: number
+  memberId: number
+  mobile: string
+  isPrimary: boolean
+  createdAt: string
+  updatedAt: string
+  deletedAt?: string
+}
+
+export interface IUpdateMemberProfilePayload {
   firstName: string
   lastName: string
   birthday: string
   gender: string
-  imageId: string
+  imageId?: string
 }
 
-export interface IMemberEmailUpdatePayload {
+export interface IUpdateMemberEmailPayload {
   newEmail: string
   password: string
 }
 
-export interface IMemberMobile {
-  [x: string]: any
-  id: number
-  mobile: string
-  isPrimary: boolean
-  deletedAt: string
-}
-
-export interface IMemberMobilePayload {
+export interface IUpdateMemberMobilePayload {
   mobile: string
   otpCode: string
   refCode: string
 }
 
-export interface IMemberChangePassword {
+export interface IMemberChangePasswordPayload {
   oldPassword: string
   newPassword: string
 }
