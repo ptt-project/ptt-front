@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 import styles from './ModalConfirmBankInfo.module.scss'
 import { IBankAccountData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
+import { getBankName } from '../../bank-account.helper'
 
 const { Text, Title } = Typography
 
@@ -61,7 +62,7 @@ const ModalConfirmBankInfo: FC<IModalConfirmBankInfoProps> = (
           <Text className={styles.dataLabel}>{t('bank-account:form.bankName')}</Text>
         </Col>
         <Col span={12}>
-          <Text>{`${data?.bankFullName} (${data?.bankName})`}</Text>
+          <Text>{`${getBankName(data.bankCode)} (${data?.bankCode})`}</Text>
         </Col>
         <Col span={12}>
           <Text className={styles.dataLabel}>{t('bank-account:form.bankName')}</Text>

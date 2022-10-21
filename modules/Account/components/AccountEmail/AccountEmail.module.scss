@@ -1,0 +1,12 @@
+@import '../../../../public/sass/config/variables';
+
+.colorPrimaryDark {
+  color: $primary-color-dark;
+}
+
+.highlight {
+  padding: 16px;
+  margin-bottom: 1.5rem;
+  background-color: $background-light;
+  border-radius: $border-radius;
+}

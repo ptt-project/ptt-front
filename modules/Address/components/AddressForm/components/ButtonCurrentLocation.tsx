@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import styles from '../AddressForm.module.scss'
 import { useGoogleMap } from '@react-google-maps/api'
 import { Button } from 'antd'
 import { useTranslation } from 'next-i18next'
-import styles from '../AddressForm.module.scss'
 import { LocaleNamespaceConst } from '~/constants'
 
 const ButtonCurrentLocation: React.FC = () => {

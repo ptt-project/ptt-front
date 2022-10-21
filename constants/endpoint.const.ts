@@ -3,7 +3,8 @@ export const EndPointUrlConst = {
   AUTH: {
     REGISTER_VALIDATE: '/auth/register/validate',
     REGISTER: '/auth/register',
-    LOGIN: '/auth/login'
+    LOGIN: '/auth/login',
+    RESET_PASSWORD_BY_MOBILE: '/auth/reset-password/mobile'
   },
   OTP: {
     REQUEST: '/otp/request'
@@ -11,7 +12,8 @@ export const EndPointUrlConst = {
   MEMBERS: {
     PROFILE: '/members/profile',
     ADDRESSES: '/members/addresses',
-    EMAIL: '/members/edit-email',
+    EMAIL_UPDATE: '/members/edit-email',
+    MOBILES: '/members/mobiles',
     MOBILES_ADD: '/members/mobiles/add',
     MOBILES_DELETE: '/members/mobiles/delete',
     MOBILES_SET_MAIN: '/members/mobiles/set-main',
@@ -24,6 +26,15 @@ export const EndPointUrlConst = {
   SHOPS: {
     CATEGORIES: '/shops/categories',
     PRODUCTS: '/shops/products'
+  },
+  WALLET: {
+    WALLETS: '/wallets',
+    HISTORY: '/wallets/history',
+    DEPOSIT_QR_CODE: '/wallets/deposit/qrcode',
+    WITHDRAW: '/wallets/withdraw'
+  },
+  BANK_ACCOUNT: {
+    BANK_ACCOUNTS: '/bank-accounts'
   },
   IMAGES: {
     UPLOAD: '/images/upload-image'

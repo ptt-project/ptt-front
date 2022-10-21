@@ -49,15 +49,15 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
   // ===========================
   const buyerItems: MenuProps['items'] = [
     getItem(t('setting-sidebar:buyer.account.title'), 'account', <i className="fas fa-user" />, [
-      getItem(t('setting-sidebar:buyer.account.info'), 'info'),
-      getItem(t('setting-sidebar:buyer.account.address'), 'address'),
-      getItem(t('setting-sidebar:buyer.account.password'), 'password'),
-      getItem(t('setting-sidebar:buyer.account.relation'), 'relation')
+      getItem(t('setting-sidebar:buyer.account.info'), 'account:info'),
+      getItem(t('setting-sidebar:buyer.account.address'), 'account:address'),
+      getItem(t('setting-sidebar:buyer.account.password'), 'account:password'),
+      getItem(t('setting-sidebar:buyer.account.relation'), 'account:relation')
     ]),
     getItem(t('setting-sidebar:buyer.wallet.title'), 'finance', <i className="fas fa-wallet" />, [
-      getItem(t('setting-sidebar:buyer.wallet.eWallet'), 'e-wallet'),
-      getItem(t('setting-sidebar:buyer.wallet.bank'), 'bank'),
-      getItem(t('setting-sidebar:buyer.wallet.point'), 'happy-point')
+      getItem(t('setting-sidebar:buyer.wallet.eWallet'), 'finance:e-wallet'),
+      getItem(t('setting-sidebar:buyer.wallet.bank'), 'finance:bank'),
+      getItem(t('setting-sidebar:buyer.wallet.point'), 'finance:happy-point')
     ]),
     getItem(t('setting-sidebar:buyer.coupon.title'), 'coupon', <i className="fas fa-ticket-alt" />),
     getItem(
@@ -83,8 +83,8 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
       <i className="fas fa-file-invoice-dollar" />
     ),
     getItem(t('setting-sidebar:seller.product.title'), 'product', <i className="fas fa-box" />, [
-      getItem(t('setting-sidebar:seller.product.list'), 'list'),
-      getItem(t('setting-sidebar:seller.product.add'), 'add')
+      getItem(t('setting-sidebar:seller.product.list'), 'product:index'),
+      getItem(t('setting-sidebar:seller.product.add'), 'product:add')
     ]),
     getItem(t('setting-sidebar:seller.marketing.title'), 'marketing', <i className="fas fa-tag" />),
     getItem(t('setting-sidebar:seller.payment.title'), 'payment', <i className="fas fa-wallet" />),
@@ -94,18 +94,18 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
       <i className="fas fa-chart-line" />
     ),
     getItem(t('setting-sidebar:seller.shop.title'), 'shop', <i className="fas fa-store" />, [
-      getItem(t('setting-sidebar:seller.shop.point'), 'point'),
-      getItem(t('setting-sidebar:seller.shop.detail'), 'detail'),
-      getItem(t('setting-sidebar:seller.shop.category'), 'category'),
-      getItem(t('setting-sidebar:seller.shop.recommended'), 'recommended')
+      getItem(t('setting-sidebar:seller.shop.point'), 'shop:point'),
+      getItem(t('setting-sidebar:seller.shop.detail'), 'shop:detail'),
+      getItem(t('setting-sidebar:seller.shop.category'), 'shop:category'),
+      getItem(t('setting-sidebar:seller.shop.recommended'), 'shop:recommended')
     ]),
     getItem(
       t('setting-sidebar:seller.management.title'),
       'management',
       <i className="fas fa-cog" />,
       [
-        getItem(t('setting-sidebar:seller.management.address'), 'address'),
-        getItem(t('setting-sidebar:seller.management.account'), 'account')
+        getItem(t('setting-sidebar:seller.management.address'), 'management:address'),
+        getItem(t('setting-sidebar:seller.management.account'), 'management:account')
       ]
     ),
     getItem(
@@ -128,13 +128,23 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
 
   function initCurrentSelected(): void {
     const selected: string[] = []
+    const prefixPath: string = props.sidebarType === 'seller' ? '/seller/settings' : '/settings'
     items.forEach((item: IMenuItem) => {
-      if (item.children && item.children.length) {
+      if (item.children?.length) {
         item.children.forEach((i: IMenuItem) => {
-          if (router.pathname.includes(i.key)) {
+          const key: string = i.key.replace(/:/g, '/').replace('index', '')
+          if (
+            router.pathname.replace(prefixPath, '').includes(`/${key}`) ||
+            router.pathname.replace(prefixPath, '') === `/${key}`
+          ) {
             selected.push(i.key)
           }
         })
+      } else {
+        const key: string = item.key.replace(/:/g, '/').replace('index', '')
+        if (router.pathname.replace(prefixPath, '') === `/${key}`) {
+          selected.push(item.key)
+        }
       }
     })
     setCurrentSelected(selected)
@@ -168,10 +178,20 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
 
   function onClick(e: MenuInfo): void {
     let pathname: string = ''
-    if (e.keyPath && e.keyPath.length > 1) {
+    if (e.keyPath?.length) {
       pathname += props.sidebarType === 'seller' ? '/seller/settings' : '/settings'
-      e.keyPath.reverse().forEach((key: string) => {
-        pathname += `/${key}`
+      e.keyPath.reverse().forEach((key: string, i: number) => {
+        let currentKey: string = key
+        if (i === e.keyPath.length - 1) {
+          const tempKey: string[] = key.split(':')
+          if (tempKey.length > 1) {
+            tempKey.shift()
+            currentKey = tempKey[0]
+          }
+        }
+        if (currentKey !== 'index') {
+          pathname += `/${currentKey}`
+        }
       })
     }
     if (pathname) {

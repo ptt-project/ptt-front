@@ -11,3 +11,10 @@ export enum FormModeEnum {
   EDIT = 'edit',
   VIEW = 'view'
 }
+
+export enum ImageSizeEnum {
+  LARGE = 'large',
+  MEDIUM = 'medium',
+  SMALL = 'small',
+  THUMBNAIL = 'thumbnail'
+}

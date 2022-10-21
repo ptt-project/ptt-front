@@ -21,12 +21,14 @@ const { Text } = Typography
 const { RangePicker } = DatePicker
 
 interface IVoucherFormProps {
-  initialValues: IVoucherFormData
+  parentForm: FormInstance
+  initialValues?: Partial<IVoucherFormData>
+  onSubmit: (values: IVoucherFormData) => void
 }
 const VoucherForm: FC<IVoucherFormProps> = (props: IVoucherFormProps) => {
-  console.log('initialValues', props.initialValues)
+  const { parentForm, initialValues, onSubmit } = props
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.marketing'])
-  const [form] = Form.useForm()
+  const [form] = Form.useForm(parentForm)
 
   return (
     <Form layout="vertical" form={form} initialValues={props.initialValues}>

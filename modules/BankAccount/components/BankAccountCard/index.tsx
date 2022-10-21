@@ -7,6 +7,7 @@ import { HelperCensorBankAccountNoUtil } from '~/utils/main'
 import { BankAccountStatusEnum } from '~/enums'
 import { IBankAccountData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
+import { getBankName } from '../../bank-account.helper'
 
 const { Text } = Typography
 
@@ -50,11 +51,11 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
       <Col sm={18} xs={24}>
         <Row gutter={[16, 16]}>
           <Col className={styles.bankLogo} xs={4}>
-            <BankLogo bank={data.bankName} />
+            <BankLogo bankShortName={data.bankCode} />
           </Col>
           <Col className={styles.bankInfoLayout}>
             <div className={styles.bankName}>
-              <Text>{`${data.bankFullName} (${data.bankName})`}</Text>
+              <Text>{`${getBankName(data.bankCode)} (${data.bankCode})`}</Text>
             </div>
             <div className={styles.bankStatus}>
               <Text>{getStatusLabel()}</Text>
@@ -80,6 +81,7 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
           className={[styles.clickable, styles.actionIcon].join(' ')}
           preview={false}
           src="./images/main/buyer/icon-edit.svg"
+          alt=""
           onClick={onEditClick}
         />
         <Image
@@ -90,6 +92,7 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
           ].join(' ')}
           preview={false}
           src={`./images/main/buyer/icon-favorite${data.isDefault ? '-disabled' : ''}.svg`}
+          alt=""
           onClick={handleFavoriteClick}
         />
         <Image
@@ -100,6 +103,7 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
           ].join(' ')}
           preview={false}
           src={`./images/main/buyer/icon-delete${data.isDefault ? '-disabled' : ''}.svg`}
+          alt=""
           onClick={handleDeleteClick}
         />
       </Col>

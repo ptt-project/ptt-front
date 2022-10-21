@@ -1,0 +1,12 @@
+@import '../../../../../../public/sass/config/variables';
+
+.table {
+  td {
+    vertical-align: top;
+  }
+}
+
+.action {
+  color: $info-color;
+  cursor: pointer;
+}

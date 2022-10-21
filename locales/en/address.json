@@ -4,7 +4,6 @@
   "listAddressTitle": "บัญชีผู้ใช้",
   "addAddressTitle": "เพิ่มที่อยู่",
   "editAddressTitle": "แก้ไขที่อยู่",
-  "addAddress": "+ เพิ่มที่อยู่",
   "deleteAddress": "ลบที่อยู่",
   "confirmDeleteAddress": "ยืนยันการลบที่อยู่",
   "warningMsgDeleteAddress": "ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้",

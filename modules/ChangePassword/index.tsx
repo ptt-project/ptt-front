@@ -43,7 +43,6 @@ const ChangePassword: React.FC = () => {
 
   async function onSubmitOtp(otpData: IOtp): Promise<void> {
     try {
-      console.log({ otpData, formValues })
       const { password, newPassword } = formValues
       await MemberService.changePassword({
         oldPassword: password,

@@ -1,0 +1,15 @@
+@import '../../../../../../public/sass/config/_variables.scss';
+
+.cInfo {
+  color: $info-color;
+}
+
+.searchWrapper {
+  padding: 16px;
+  background-color: $background-light;
+
+  .label {
+    display: block;
+    padding-bottom: 8px;
+  }
+}

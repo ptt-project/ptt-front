@@ -1,27 +1,41 @@
+/* eslint-disable @typescript-eslint/typedef */
 import { Col, Image, Row, Space, Table, Tag, TagProps, Typography } from 'antd'
 import { ColumnsType, TablePaginationConfig } from 'antd/lib/table'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/lib/table/interface'
 import moment from 'moment'
 import { useTranslation } from 'next-i18next'
-import React, { FC, useMemo } from 'react'
+import React, { FC, useMemo, useState } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import { EWalletStatusEnum, EWalletTypeEnum } from '~/enums'
-import { IEWalletHistoryData } from '~/interfaces'
+import { IWalletTransaction } from '~/interfaces'
+import { useGetWalletHistory } from '~/services/wallet.service'
 import { HelperDecimalFormatUtil } from '~/utils/main'
 import styles from './EWalletHistoryTable.module.scss'
 
 const { Text } = Typography
 
 interface IEWalletHistoryTableProps {
-  data: IEWalletHistoryData[]
+  type?: EWalletTypeEnum
+  startDate?: moment.Moment
+  endDate?: moment.Moment
 }
 const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHistoryTableProps) => {
-  const { data } = props
+  const { type, startDate, endDate } = props
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'e-wallet'])
+  const [page, setPage] = useState<number>(1)
+  const [limit, setLimit] = useState<number>(5)
 
-  const columns: ColumnsType<IEWalletHistoryData> = useMemo(
-    (): ColumnsType<IEWalletHistoryData> => [
+  const { data: walletHistoryResponse, isFetching } = useGetWalletHistory({
+    page,
+    limit,
+    type,
+    startDate: startDate?.toDate(),
+    endDate: endDate?.toDate()
+  })
+
+  const columns: ColumnsType<IWalletTransaction> = useMemo(
+    (): ColumnsType<IWalletTransaction> => [
       {
         title: t('e-wallet:history.createdAt'),
         dataIndex: 'createdAt',
@@ -50,12 +64,14 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
                   className={styles.typeIcon}
                   preview={false}
                   src="./images/main/buyer/icon-withdraw.svg"
+                  alt=""
                 />
               ) : (
                 <Image
                   className={styles.typeIcon}
                   preview={false}
                   src="./images/main/buyer/icon-top-up-red.svg"
+                  alt=""
                 />
               )}
             </Col>
@@ -71,12 +87,12 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
       },
       {
         title: t('e-wallet:history.description'),
-        dataIndex: 'description',
-        key: 'description',
+        dataIndex: 'detail',
+        key: 'detail',
         sorter: false,
         align: 'left',
         showSorterTooltip: false,
-        render: (value: string) => <Text>{value}</Text>
+        render: (value: string) => <Text ellipsis>{value}</Text>
       },
       {
         title: t('e-wallet:history.amount'),
@@ -85,10 +101,10 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
         sorter: false,
         align: 'right',
         showSorterTooltip: false,
-        render: (value: number, record: IEWalletHistoryData) => (
+        render: (value: number, record: IWalletTransaction) => (
           <Row justify="end" wrap={false}>
             <Col>
-              <Text>{record.type === EWalletTypeEnum.WITHDRAW ? '-' : '+'}</Text>
+              <Text>{record.type === EWalletTypeEnum.WITHDRAW ? '' : '+'}</Text>
             </Col>
             <Col>
               <Text>{HelperDecimalFormatUtil(value)}</Text>
@@ -136,8 +152,8 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
   function onChange(
     pagination: TablePaginationConfig,
     filters: Record<string, FilterValue | null>,
-    sorter: SorterResult<IEWalletHistoryData>,
-    extra: TableCurrentDataSource<IEWalletHistoryData>
+    sorter: SorterResult<IWalletTransaction>,
+    extra: TableCurrentDataSource<IWalletTransaction>
   ): void {
     // TODO: handle sort column here
     console.log('params', pagination, filters, sorter, extra)
@@ -147,10 +163,11 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
     <Table
       className={`${styles.layout} hps-table hps-scroll`}
       columns={columns}
-      dataSource={data}
+      dataSource={walletHistoryResponse?.items || []}
       onChange={onChange}
+      loading={isFetching}
       pagination={{
-        total: data.length,
+        total: walletHistoryResponse?.meta?.totalItems || 0,
         showTotal: (total: number, range: [number, number]): string =>
           t('e-wallet:history.paginateLabel', {
             from: range[0],
@@ -158,12 +175,23 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
             total
           }),
         showSizeChanger: true,
-        defaultPageSize: 10,
-        defaultCurrent: 1
+        defaultPageSize: limit,
+        pageSizeOptions: [5, 10, 20, 50],
+        defaultCurrent: page,
+        onChange: (newPage: number, newLimit: number): void => {
+          setPage(newPage)
+          setLimit(newLimit)
+        }
       }}
       scroll={{ x: true }}
     />
   )
+}
+
+EWalletHistoryTable.defaultProps = {
+  type: undefined,
+  startDate: undefined,
+  endDate: undefined
 }
 
 export default EWalletHistoryTable

@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import { Avatar, Button, Carousel, Col, Image, Row, Space, Tabs, Typography } from 'antd'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import Product from '../Product'
+import ProductCard from '~/components/main/ProductCard'
 import { LocaleNamespaceConst } from '../../constants'
 import styles from './Shop.module.scss'
 
@@ -59,7 +59,7 @@ const Shop: FC = () => {
   }
 
   return (
-    <div className="main mt-lg-4 mb-4">
+    <div className="main mb-4">
       <Helmet>
         <title>
           {t('common:meta.title')} | {t('search:searchShop.title')}
@@ -106,11 +106,11 @@ const Shop: FC = () => {
                       <div className={styles.btnGroup}>
                         <Button className="hps-btn-secondary">
                           <i className="fas fa-bookmark mr-1" />
-                          {t('shop:info.follow')}
+                          {t('shop:main.follow')}
                         </Button>
                         <Button className="hps-btn-secondary">
                           <i className="fas fa-comment-dots mr-1" />
-                          {t('shop:info.chat')}
+                          {t('shop:main.chat')}
                         </Button>
                       </div>
                     </div>
@@ -119,7 +119,7 @@ const Shop: FC = () => {
                 <Col md={12} xs={24}>
                   <div className={styles.infoRight}>
                     <div className={styles.infoBox}>
-                      <Text className={styles.dwrap}>{t('shop:info.numOfProduct')}</Text>
+                      <Text className={styles.dwrap}>{t('shop:main.numOfProduct')}</Text>
                       <div className={styles.dwrap}>
                         <Text className={styles.text}>
                           <i className="fas fa-box mr-1" />
@@ -128,7 +128,7 @@ const Shop: FC = () => {
                       </div>
                     </div>
                     <div className={styles.infoBox}>
-                      <Text className={styles.dwrap}>{t('shop:info.follower')}</Text>
+                      <Text className={styles.dwrap}>{t('shop:main.follower')}</Text>
                       <div className={styles.dwrap}>
                         <Text className={styles.text}>
                           <i className="fas fa-bookmark mr-1" />
@@ -137,7 +137,7 @@ const Shop: FC = () => {
                       </div>
                     </div>
                     <div className={styles.infoBox}>
-                      <Text className={styles.dwrap}>{t('shop:info.following')}</Text>
+                      <Text className={styles.dwrap}>{t('shop:main.following')}</Text>
                       <div className={styles.dwrap}>
                         <Text className={styles.text}>
                           <i className="fas fa-heart mr-1" />
@@ -146,7 +146,7 @@ const Shop: FC = () => {
                       </div>
                     </div>
                     <div className={styles.infoBox}>
-                      <Text className={styles.dwrap}>{t('shop:info.rating')}</Text>
+                      <Text className={styles.dwrap}>{t('shop:main.rating')}</Text>
                       <div className={styles.dwrap}>
                         <Text className={styles.text}>
                           <i className="fas fa-star mr-1" />
@@ -155,7 +155,7 @@ const Shop: FC = () => {
                       </div>
                     </div>
                     <div className={styles.infoBox}>
-                      <Text className={styles.dwrap}>{t('shop:info.joinAt')}</Text>
+                      <Text className={styles.dwrap}>{t('shop:main.joinAt')}</Text>
                       <div className={styles.dwrap}>
                         <Text className={styles.text}>
                           <i className="fas fa-calendar mr-1" />
@@ -178,7 +178,7 @@ const Shop: FC = () => {
                     }))}
                     moreIcon={
                       <Text className={styles.tabMore}>
-                        {t('shop:info.tabMore')}
+                        {t('shop:main.tabMore')}
                         <i className="fas fa-chevron-down ml-1" />
                       </Text>
                     }
@@ -188,7 +188,7 @@ const Shop: FC = () => {
               <Row gutter={24} className="mb-8">
                 <Col span={24}>
                   <Title className="mb-3" level={4}>
-                    <Text>{t('shop:info.aboutUs')}</Text>
+                    <Text>{t('shop:main.aboutUs')}</Text>
                   </Title>
                 </Col>
                 <Col md={12} xs={24}>
@@ -209,7 +209,7 @@ const Shop: FC = () => {
                           <Text className={styles.icon}>
                             <i className="fas fa-heart" />
                           </Text>
-                          <Text>{t('shop:info.recommended')}</Text>
+                          <Text>{t('shop:main.recommended')}</Text>
                         </Space>
                       </Title>
                     </Col>
@@ -219,7 +219,7 @@ const Shop: FC = () => {
                       </Link>
                     </Col>
                   </Row>
-                  <Product />
+                  <ProductCard />
                 </Col>
               </Row>
               <Row>
@@ -231,7 +231,7 @@ const Shop: FC = () => {
                           <Text className={styles.icon}>
                             <i className="fas fa-heart" />
                           </Text>
-                          <Text>{t('shop:info.bestSeller')}</Text>
+                          <Text>{t('shop:main.bestSeller')}</Text>
                         </Space>
                       </Title>
                     </Col>
@@ -241,7 +241,7 @@ const Shop: FC = () => {
                       </Link>
                     </Col>
                   </Row>
-                  <Product />
+                  <ProductCard />
                 </Col>
               </Row>
             </Col>

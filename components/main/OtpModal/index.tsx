@@ -37,7 +37,12 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
       props.mobile &&
       props.mobile.replace(RegExpConst.ALLOW_NUMBER, '').length === 10
     ) {
-      onRequestOtp()
+      if (otpData.otpCode) {
+        setTimer(1.5 * 60 * 1000)
+        clearOtpData()
+      } else {
+        onRequestOtp()
+      }
     }
   }, [props.isOpen, props.mobile])
 
@@ -79,7 +84,6 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
       console.log(error)
     }
     setTimer(1.5 * 60 * 1000)
-    console.log('++++', isSuccess)
     if (isSuccess) {
       message.success(t('common:apiMessage.success'))
     } else {
@@ -94,6 +98,15 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  function clearOtpData(): void {
+    setOtpInput('')
+    setOtpData({
+      otpCode: '',
+      refCode: '',
+      reference: ''
+    })
   }
 
   function renderTimer(): string {

@@ -1,0 +1,24 @@
+@import '../../../../public/sass/config/variables';
+
+.colorPrimaryDark {
+  color: $primary-color-dark;
+}
+
+.textSecondary {
+  color: $secondary-color !important;
+}
+
+.highlight {
+  padding: 16px 0;
+  margin-bottom: 1.5rem;
+  background-color: $background-light;
+  border-radius: $border-radius;
+}
+
+.mobileRow {
+  display: flex;
+
+  .mobileNo {
+    flex: 1;
+  }
+}

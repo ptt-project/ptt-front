@@ -1,0 +1,45 @@
+@import '../../../../public/sass/config/variables';
+
+.colorPrimaryDark {
+  color: $primary-color-dark !important;
+}
+
+.textSecondary {
+  color: $secondary-color !important;
+}
+
+.highlight {
+  padding: 16px;
+  margin-bottom: 1.5rem;
+  background-color: $background-light;
+  border-radius: $border-radius;
+}
+
+.avatar {
+  background-color: $primary-color;
+}
+
+.label {
+  display: inline-block;
+  width: 120px;
+
+  @media (min-width: 768px) {
+    width: 100px;
+  }
+}
+
+.radioFlex {
+  display: flex;
+
+  label {
+    margin-right: 1.5rem;
+  }
+
+  @media (min-width: 576px) {
+    justify-content: space-between;
+
+    label {
+      margin-right: 0;
+    }
+  }
+}

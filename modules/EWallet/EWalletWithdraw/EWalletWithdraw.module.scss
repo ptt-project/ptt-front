@@ -3,8 +3,22 @@
 @import '../../../public/sass/mixins/breakpoints';
 
 .contentLayout {
+  margin-bottom: 1.5rem;
+
+  .balanceLabel {
+    font-size: 12px;
+    font-weight: 400;
+    color: $text-black;
+  }
+
+  .balanceValue {
+    font-size: 16px;
+    font-weight: 600;
+    color: $text-black;
+  }
+
   .sectionTitle {
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 0 !important;
     color: #239cd7 !important;
     text-align: left;
   }

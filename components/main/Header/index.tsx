@@ -1,14 +1,14 @@
 import React, { useEffect, FC } from 'react'
+import numeral from 'numeral'
+import MainMenu from './components/MainMenu'
+import styles from './Header.module.scss'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import numeral from 'numeral'
 import { Typography, Input, Space, Badge, Avatar } from 'antd'
-import MainMenu from './components/MainMenu'
 import { HiddenHeaderConst, LocaleNamespaceConst } from '~/constants'
 import { headerBorderRemoveList } from '~/utils/data/menu'
 import { AuthGetUserInfoUtil, CustomUrlUtil } from '~/utils/main'
 import { IAuthUserInfo } from '~/interfaces'
-import styles from './Header.module.scss'
 
 const { Text, Link, Title } = Typography
 
@@ -75,7 +75,7 @@ const Header: FC = () => {
                 href={CustomUrlUtil('/settings/account/info', router.locale)}
                 className={styles.name}
               >
-                <Avatar className={styles.avatar} icon={<i className="fa fa-user" />} size={24}>
+                <Avatar className={styles.avatar} icon={<i className="fas fa-user" />} size={24}>
                   {userInfo.firstName}
                 </Avatar>
                 <Text type="secondary" className="mr-1">

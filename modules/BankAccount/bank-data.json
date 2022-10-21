@@ -1,0 +1,339 @@
+[
+  {
+    "symbol": {
+      "url": "89200f6068409f5cb766e87b07a23213",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAYJJREFUSInN1K1Pw0AYBvCnyZJOIVCEZJmBoEtAgCIIBAnB8Fd0CoNg2ZYByQK+57GEICBBIChmCpLN8iEIM1NzCz11CCi7Xu+r7UJ4Xdf2fn3ee28l/GGV/i/m+k+p3yhZmR7m+szyfg+ULOfHTFCyPLg+AyVOdkwBra/NoxvW4ZRr6vcUoBzTJOqGdQAAi4LMYBrTQCwKAABOuQYWBZlB62nkIR7MUknMMBBiio/BKFM6q2SqBNXFhrmdXBkxsX1ixe1sN7fQOrorhpmqWpkBADQPd4thcapG61LZqvfXjvWwWCU7OQ1x3N5LgSKwuVHB/cOgGAZM9mY0PMPs3IF0L3WQERPbwx9mHrI9b0mMEg+u31OBfAoRkk4rJZ4aA/qyLxITxWU6FuJ66TZK0vGgNSSkkmNAXwfubC/g+mpf/4/xDaW6pBoQJXhz+5YL0mE8+Gh47gcZXwDnHRVkwmJw9fdKkpTbm08Az7rFbA715EspWZLcf7FYwxrLtfA0sEL1Bf8Bx6es2m5eAAAAAElFTkSuQmCC",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27011",
+    "nameTh": "ธนาคารกรุงเทพ",
+    "bankCode": "BBL",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "8917fd9166d78fb10334a7072831b05c",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAeJJREFUSInNlTtIw1AUhn9NHcRF6uTiIuggdhAHKzo4FKMiLg5ScRCdXAvxgYvgFO3i0NXFB4KDixgJgpNW0CLVdhBBEFIFH0gdRDTVxaT33tzbxFakZ7q555z/O//Ny4d/DF/5wlTt1LGnyO1/B1O1HICKAvmvn9UGFHm0eFheiIr5tgYsJm7Z7TBULQxFFg4mhnFAZiRkrxd6mgEAUlR39gmAfJjA0XbqDsMt9XyIB6ATRoAsJy9vH6iLHQpBpGM7xwEKj5EUqK2uoq7NSAhTe0mcZLI4m+hy9Ilc0zDB8fEi1hdwL2LccZ2RLooJkbvy/IJIUb1kx64w8jhmD9LYvXlCcrKbW+M2TEHYtJ62RUa2E1DPDQpgifulSjybOVf3XJjVtJw0HJNLUR3yepwSXRsMoH/nnOr/tTPeEACg379SLkgQFQ/GphimyEGo2jHbY0ZC2EplENZS9jWbtwahXC1NrIhhQJx1YUVYS9mi7AOxcWk4oPh8N0g9HkzojjeAFWP7aWd+bmiYrePdszgLlKI6rsY70eiv8TaAIgfBuBLBuMCm1SNBqTdQIVgeCEB0rBwIRCA3mNXYQQjlwTkzi5mBXqL2EcB1ITEv7xk5aSsUmf23XHjQ8AwrSvgvYCXFN9FU1/DkhKmBAAAAAElFTkSuQmCC",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27012",
+    "nameTh": "ธนาคารกรุงไทย",
+    "bankCode": "KTB",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "d7b33f7c3e861fa72c852b2ef547c1ae",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAhtJREFUSInNls9rE0EUxz+PtO7WEoK5eLBgjgWLVJDWQg/ecpLQy0Ix+HeIt+JBxP9C1EDipd5yqgfRVDy1COstHjx4SQnFmK2G8ZDMOvtjJjEW8XvafTP7/cybefPYBf6hFv5bmFLqQzomIjfPDaaU+gkUHONq8jgSEaefc9AwotdejePelXtEX57G7+VqCFBQSikRkT+GaZAJ0Vpee5CA6TnlaogLmAtzgVzqtVedwAxsXtAswNzMTNDFa4+Iug1G346sgMLyGl6lzuDj/QQwrQTMLAgtf2UHf2XHmWlp+yVADDP9zOyy23jWt5pCXHmUq6FzAeqsj1woJWIZ2MnBZsYYYPFyjR9f9wEYdp/jV+5O4ncS8/UCTg42M1tpLf3ixoux8ecG/tVdiuuP6bXHsMGnhzGsuP4EgO/dZyxV6hQ3Gpy+3831zIWZKxqEewzCPcrVMLNS/a6zWarUWbx0w7rFGZhpOO89S/tYYdNAOm4rb1vcCpv3Qk8DJmAisqWUepeepD/svw0S8f6bgNJ203pGIrJlhQEdbW42V63RabKLmF3F8k3HBYuzS2+D6wzziiKdVS4M6ARBUGs2m/u57jMoCIIaqaxsMFqt1qvk+WVaZkoKGLfASUYZkBU2Uec3UKzlbMoFmgbTwFuAeJ7nDYfD1+kJvu/fjqIoYpzeoctslr+rQ4AoihCR6znjxzN4zAyby/g8YH+lX2GOAAHW9evHAAAAAElFTkSuQmCC",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27013",
+    "nameTh": "ธนาคารกรุงศรีอยุธยา",
+    "bankCode": "BAY",
+
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "89548751b4c9fa2266beb2e8cb4af210",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAqZJREFUSInNlF1Ik1EYx3/uVdMwFMq5zayhYZGVQkEipRAMVoJfWNYu7IuEuqkrwxyTojXwtouogVGRphfpdiGD1xsTDEpIKCEqy4sotSsvpCxO62J7xzbfj7kk+t+88D7n+f+e55zznEz+oTL/W1gIppL/OeHAusFCEE4xPuuEHWnD4kEOIVTXrMwv8KzYBlAWgrATMtYEG4VCEyzqQRRtsBThEILl97NM7ipHD6gKSxUUr96VF1wXAlmSNIGrYMrWKSCpvwHhCuqCLr+6T0FWDkqeFjABJoNJANaOSwlmekCpvwEA975TugWtggkQAHvu3FY1fVrXTWPxQQB+hQU5A82qplrdGV79pROD5A+1AdAy7qWqqIKNGVlMzk8nrDu0ZbeR1WpY8qXIy8zlXcM9yoMdAEwvzKgWdHHqLg5LZeyf+eRpFp880IepqSzPgnAFY+ejaK6pD/vIOfKH2nCVHkmIVT7uQ04HpigemAx/VH3FMD/thzi5y2R9C8nGMFmS1jTMWiMxXe80hq1FRsOuC/sOC7lQlEri4OFrmrH54UgRTmjRhDWDNQS/47fS7/Ows2o/ZttWJkYDiK4gPW8GaC2pxu/zYNteSlnFXiZGA1zougHA69bYsA9rwoDwQ+huB68sSczd7Aag9mgjAJ/ezuD3eTjuOIbf5wGg3nUGgLxN+fh9Huxur9JVU3LHq86sH261gxfA7vbypTdSbTgssJbY+fzxA5vNFgBMJikSE4KCQnMM9BOWgIAhLFpVTgh+ANg6PcidHhxCUFVTy8vxMazb7ACcv9oDwFh2diz3Kzw/CzVqvlq3cSX6gDaGYAQiIwFgB2S3N/ZNKrJJrSMjmKKAsvcKVE3RNcvAmJ5ZKnMWiBpmAHUq8fEUPFKGpWW8HrC/0h8eT+KbwicMLgAAAABJRU5ErkJggg==",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27014",
+    "nameTh": "ธนาคารกสิกรไทย",
+    "bankCode": "KBANK",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "1c27f8e8bf3e180429cd3a79b12b12f2",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAfBJREFUSIntlT1rFFEUhp+5dzUqUSwc2WKzsJDCj0rWwmarFC5+IJggJFHESlGCWqyNSxazhWAl+gtEU4igiLFRUqVwC8FCEZQBYVkwOGERwS/kzFjIDnNn7mwEgwjuW9157znnuWcOcyfHX1RuABvA1gQmIuccx7molBqNeSvApNb66ZrBRCQECMMwWsf0RETQWjt/DOsVf9dZoVTYZuyFgBOLWw1owCynjlQ5cwOAzsJc5I0cmjW8eL5SSjmOY9SLYCLS6neqF3cu4W4dNrw4OKkgCILk6413lgOYr4ylEqeXFtlz/FoKUIh1lsybXlpM1UnNrBc0XxmzJnz7/oMNQ+sikC33a/djlB8EwVGl1H0D5vv+K9d1y6kKMV2fOcLoeDPqrrMwZ4V+Xl6O1s1m802qs3w+XxORk/1gE/vLXLj5MHPfNoJ6vX6r0WjsNWCAr7XeLiIf+gEBazdgzskGTs7MXw3U09t7l1Peg2OTAHx5bz9v5kddPn/WeL56+gDwa063H7XYtHHI8Hvx64e34O7eyeaRAgBa61OZsHa7/bhYLB7cMTFu+CcO7+u7TsYD1Gq1KeBlJqxUKk0Bu0TkGYDneXc9z3tdrVavpKplqNvtPndddwYwLgrba/wEtCz3XPZ18Zv6N/9nA9j/CfsJtoe3qCSdV5MAAAAASUVORK5CYII=",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27015",
+    "nameTh": "ธนาคารทหารไทย",
+    "bankCode": "TMB",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "816b0cbfebf82809abdcebd6822394e6",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAYNJREFUSInN1LFKw0AYB/B/MYODW19ByKSTg30CXyBSaYY4FKVLHyFIJueAFKWDQaMWquBT2MFNHA66OggWSukgtCYOeuF6zV2+JEX8b3e5fr/7crka+MMY/xY7NL1nee6SuTsrwxzTiwBUACBOf86nbwLm2oUxoRAlDcf0GgFzK7kxHdTuh/Ct9CYc04tVYCqWBRUFlzAK5Fs22v0wN0j+GkWICspZwFRdyRBPFih3l9mZCuLpNOtodXukDkv/g8zG9BKklRfHdf2CGL/XvgTGX+HnSL8nf//n7KqbU4yGG8WwvLFPH7XnRsLWq3Ntd63rB9JmSNjReW9hzD/5rEy/3m+VWMDcmmN6T3zcaR6g1b2j7CfZhJj74ZmvxAAMxMFsvJYU0HWSdk5zzN/kekuvUe5OVTDrAofMs+S5tDMbqEBqAubWIHWlwkqBKkiHJSAAUFC+VgVlYfyHu0KhBI6MaHL1erInrP0AMNQVo9wzcadbAXO3pecvhBpkrFDhVWCl8g0XhbjSbQvAfQAAAABJRU5ErkJggg==",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27017",
+    "nameTh": "ธนาคารไทยพาณิชย์",
+    "bankCode": "SCB",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "9e4a4aa65db91d89fb216d37a9129c99",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAldJREFUSInNlk1oE0EYhp9kkm09eCkIHoqorYJ4jNTYgwY9eGorNARMFMQcRATBCi2lmpCieKsIHq0UwRJCEyx4kYKkFxutiwcPBbGxoAVFqHhqjZ1dD3HWbc3P7lKL72W/3Z2ZZ75v35nZANuowH8PMwyjYJrmHiHEkX8Kk1Kapmlasd/vb/P5fN+2FCalNFU8misCkIpFMAxjBfBtCUxK+RFo3wwC+LkuCQaE0/k2htXKxi4FsrcTQtTN0lEZM1PFv+p09KCVLEtfP7B31z4FXhVC7HAFU7MNZcYB6DvUYb1LxSJWPFXKAfB6cZ5oOAbQWm9MxwaZXlgEQE8nq5CXOTAb9XAHM6nhMpXpqxsX+fx9mbl3LwDQgkHvMCFEVEqZ19NJC2BX162HALS1tjAzdM7er981DCio4NGl4xzefaAmdGXtB6HMOKWRCwQDAillvp4jmxqk616Uy6FeFpbeMHx6J9FwjNL7T1x5/GxD+/DtCet7esmsCjXWuT9fYPhYHIC1yirhznb0dJLRXNEyjhM5duOduUkAnpZLTMTHrEWuloQTaFM3ntgfYrasWw/ffikTunsGAP3aEws6O3TeO0y5cazvJoAFsMsOtfVz70YpZV7FD2Z04h2DXO/tbgr15EYl+wY8miuS6BxkoKc2tJlcH54DPd3An9K5gTYqY0UIoaVikQ2H5Wa5gdaFaZp2Vn03OySRSFzNZrPL6r5SqUwKIVoU1PN21aCjtZVpmhYHlDH6gWkvMPugJ39fn9dp4xdCnKK6NqVXmFItiF2Ggzbb+5P6Cykn9EgEvzg5AAAAAElFTkSuQmCC",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27018",
+    "nameTh": "ธนาคารสแตนดาร์ดชาร์เตอร์ด (ไทย)",
+    "bankCode": "SCBT",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "efd8ee9ef5dfe6be36f4d7303d70a486",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAc5JREFUSInN1s1LwmAcB/CvL71hHjpYFMGErC7iCLt1KW9dFforjAjcqYuHOk3ykH9A4CWKBnYLert4K23mJUtwFJQlUURkKdqlDdyeuU1H9L2MZ8/z/D7PnmeM2fGHsf9bjPew5/J79C0zaxrGU2xTatTa9idogVnuGGuBtBPmKTZMC4zFEHbpiQUsteaxAUgKT7FNNZCIdQppgQrM4NYZAluwjD/uQqVuhkVMC2ar1J98pQjyMwl4s2HF4MZnDdaBHnxc3KMY2tEsLn864pmRIAD4vntF/5QLDv+4JkSKAsu5Y4YK+EoR3XMVmDj5anITzVpDagsrB3hLFeArRZBzx6Qrab5avwIrBJOoZsoQz+4mmMTnbzuXIq9cLK6VFsx7vQprn01akXh2WtujB1Jg+ek4fKWINFlcsbyYVnG1fs0XpNu2KlZ8L59OOEcWVEcbDC0wIVUs+BJb5J1s1SwMAKeKAfiiBWaJp9jdbhX5U5EwANgzCeLk94mfK1pghs9Go+mhXsekWZAqBuB5/iE6BSDIU+y+GVA7TAwn7n2a2tgaRO+YfMD249F6/OswC6AIgG9XTM/fFQcAc8IaByBA6D/RUUM31lFhM7Cu8gOBD8JMZjr3CAAAAABJRU5ErkJggg==",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27020",
+    "nameTh": "ธนาคารออมสิน",
+    "bankCode": "GSB",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "01e42135193183e584b0a54085bca874",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAZZJREFUSInN079LAmEYB/DvqcgVBhG1NHRkgqFDDbVE0NQWQXP9CVfS0NjY4OavpaGx1X/AScglajDoyAjDHCQqcZA0S23xlePeH3evP6Lv9h73PJ/30ec8+MN4/jVmHAVuQomntbFihq59AfCi8w1D17oAEEqVlJFjpDnrucutLizHC+WhMRYSjBdRiPj75067+WLomqMpmRgLmT+IYWp9tw9+PudRju1RNSKUwnjTWDO5uEJNSeq7rlY4nKgYthgPIU1ntg8xt3NMvWNGlY73nvXTcjG36qNuDQDVTBLVTJKaNhgvopa9xGv6lHt5LtZu1pnPzZNYwemt/cEwXrqtBhTvBPN/tIs09ngSBsBempFjJIWIHx7fLJbOrsePAcBP/Z25RNKYW/UhEL0TFstAQmwckcZkpxkKs9tC0WWEH7W50Mmq203teDIW/JaOopo9d9qCxkKp0qb5bOjalQjmxdqHiQHI8YpYMEmt0brduKhEeH14GBcnMEEtt/8A8CBqJLuNuR6y2jvnZYoH/ailkGGxgfILGjGlN8N1Uf0AAAAASUVORK5CYII=",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27021",
+    "nameTh": "ธนาคารอาคารสงเคราะห์",
+    "bankCode": "GHB",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "10538efe97112743a964a585b4951448",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAM5JREFUSIljYaAjYBkZlgWbW/2npuHMP9kMV104cAGrZdQGf9l/nWdgYGCki2XoYHBYturYYaINCbOypcyyMCtboi1cdewwURZSLRjdAv0Zdq3fSL5lpPgupbSEMstItZBQcBIVjNSycHAkfXRw2sqBPpaVMjATbWA3w1/yLSPFokV4LCLKMlLASwLyeC2jVvARtIzaFuG1jFgDSAGDM59R3bK1J48FBJtbbaCW4WtPHgvAaRkDA8PGtSePOVDLMgYGhoP4LMNQQE1A1zgDANoJPqp4KYjwAAAAAElFTkSuQmCC",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27023",
+    "nameTh": "ธนาคารซีไอเอ็มบี ไทย",
+    "bankCode": "CIMBT",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "47a8a1bf2f417ab6de36258dc1c6b362",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAfxJREFUSInNlk8oREEcx7/rT3YoSu3JFi2lsBw4OPhXwslZuThwtItkE07KHkih3Di4rDhwkLu/5WDL39iUqHXQnhDzpO05MM/OM/Nm34Z8T2/m9+czv9+b92Yy8IfK+DcwSrVDuwkJcdbYglGq6QDgKRi0yzJiCXE6lDBKNV0EicbmpAC3y288s1hKNd0M5GAvL9pWKtWI5CkYBKWvO4RkNQhhDgcaVUkSq7Cq9kN6feKIg/l6l4RJEgEyiWKWQ/vcHAfbXD9RJrWj0aE1OUykh4dnAB8rFbWNVR2P60hP/7YB1bCT41tUVhUCAPLychCNzcHt8n9rJxur350FjIHcLj+WQj1obqk0gGYxUHXZGO5jj5ZgZRu7OheMpGYgS5zMBlLCRKucmu3AUN8KziJBS7+kYcmstKJ0JCmAEvZbsoRN9G8J5zd2y9Fefy60jc40pQazUnCxDiPde7ZiOFhtYxEOtm+M8fGVm3NOSwO8xVFuzuyTqIFAKwLD82JYKOTjzrDVzRIu2NzW4GIdnp/kzfH1tSEw/DXmPHVdfwOQKY22qc98Ylh2NvFSql3+xJl2fTcNQpxeKQxAhBBnDaXaoccTAF7jnNFqpzHl5ufg6HSc3UUiVjAACLNLS6oXHkImASBstsnebvgzsMwuDMCFzKD6zqSBqehPf1fvQo+uoeHe1+0AAAAASUVORK5CYII=",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27024",
+    "nameTh": "ธนาคารเพื่อการเกษตรและสหกรณ์การเกษตร",
+    "bankCode": "BAAC",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "8fbf79dc8e5044ae73fd0948fcd7e454",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAYxJREFUSIntlDFLw1AUhU96M7YiHaToUMTloUMtFRGhWhAFB8HBydXBpU7FQn+DOPkHXHQQl+CmCC3ZpKWtg1SC4OLiIA7Z9L64NDVpk2psVbAeyHDOgfflwb1PxQ9K/Yd9K4yZLb8uFAoNSymfHdEjgBHbEJESCAYAbJq43c5i8ugQAFCdTSN5pcMGVVNpJCs6bFB9aRmJywsw8wMRjQWCXS+uttHfAWat7qqqqbTTjga+Wb81QDDLslQAYSllTwdblqUqivLqC2Nmq1eILSnlCzO71qAFY+Yy0DFV8MqcvluXrOhg5jIRzbhgP6EWjIhyzFxsLqnrL+3M6c1aHcZW1rNziohyHTAAJSJabzQauUgkEo3FYlO93MIwDF0IsQ+g5AUDAE0IoQHd38bPSAix0J4N0FL/Giy6sYan0zNXZk9beDrhyicO9nC3s/t1WLyQR7yQ7wAVi8XjTCaz6Rzzofm5Vk9EnpPsCyOicQAJn1oDcOLw5wBWHP4mEAzAffPzk/aBDwTru/4u7A21U5IabYOaBwAAAABJRU5ErkJggg==",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27025",
+    "nameTh": "ธนาคารยูโอบี",
+    "bankCode": "UOBT",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "fe6c7785bde9e0893925f78fb1387287",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAMNJREFUSIljYaAjYBm1bNSyEW7Z379/zzAwMBjTwI6zzMzMJiiW0QOgWHZN3RanQq2bh+HyuroBDAwMDAx/1xQzMIf04tTzd00xbsu0bh7Gqumaui1ehxgriDGc6ollYA7pZWgNs2SoCLPC6giCPkN3gNbNwwwMeHyDDwxcnOEKRmRwTd2WgQEaZxRZRmwCIReQ5DOY/F8kMeQUh4uNYRkzM3MxAwODAElOJQ58wLCMgYHhIA0sQgEjoCAetWzUsgG3DAA7EjQfETr1PwAAAABJRU5ErkJggg==",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27027",
+    "nameTh": "ธนาคารเพื่อการส่งออกและนำเข้าแห่งประเทศไทย",
+    "bankCode": "EXIM",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "9ad882d4c5767bf35b6593c38d9519d8",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAWRJREFUSInt0yFPw0AUwPE/ubnpBTM7CXKuqsEghiHMofolloUgMCMIPsIsmWQkJCSVKGhIUBDUBLZiDvEy1Mj1em+9dWSC8Fz77t7vvbtcgy1G4x/bGiYiB8DDusWNMTvBmIgs1gXc/TaoYj7o/fqUr/wzCNq/SEv/vJgNvZ7FQcWrIC+2KbR3fq/mCpiI3NSFfNMYY45UDOiv2lwjCvdewIwxPRG51XYaYxCRn+9ut0uWZYV/AOPx+DJJkkdgqmLAiwuMRiOGwyFAqWiWZd4mfFAJE5FddxIrh5bzRAkqYcBzYLFa4X1nLlQ11WAwqI9pUKvVIs/zQn4+n9NsNu1GerWxVcfpTtxut/so96ViyyI+yAWsptSJvJj7zrTCKyB1qhIGTKsetoJ8AG9V633HOLWPJE3TkyiKjmez2VOn07nyrQ9pTMOWBQxwGMfxBJhYuQVwFwqEYADCGl1viv16/F3sG/o3jeHjtx41AAAAAElFTkSuQmCC",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27028",
+    "nameTh": "ธนาคารธนชาต",
+    "bankCode": "TBANK",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "8e84135346199a02b0731fd6797ee8fa",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAYlJREFUSInN1DFLw0AUB/D/g3bRQVcVp+4uTh2EFKQWB8eKkyCKix/AQR38Ai6CBEXcxFVQTEHazdjV0bHg7CKUFvpccuGS3CV3lyK+KXm9e7+85PUq+MOo/GuMmc8BbAJ4JqKzqWPMzIr0KjOfihsiolKYBsldm4dqMRsovU8HKjFXqAjMYMz8UwaS6xDRbC4GYGYamKpOAmPmqkmVp48AfnibyD0ePGTWMXOViMZKDMCoCNq63s4gLT9Ayw/i3Mvhhlwv/nalTpDRZC+BpKBMWGFyV2u1E7x+fhkhTpgI8epsIGfMBdJivUYTAOB1O3FuOB66PJceI6I6M7953Q56jWYCbd/tAki+wqKuiKiuxQC8iwu5K3kwTKF0PRXGojuR2L8/wlX7Aktzi2j5AbzaAo7XVwqVqKvEGav6ZhP55mbnMr62GYZ0HR3WT3dnG1FXfRMMAEJXMIJC1W95/7NQTJMJKk2eEirC4o3pEc5bmxemJ4hcaBnAPIBvAAPD/VaYHANbpAzmHL+kAZ2ktPLYsgAAAABJRU5ErkJggg==",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27029",
+    "nameTh": "ธนาคารพัฒนาวิสาหกิจขนาดกลางและขนาดย่อมแห่งประเทศไทย",
+    "bankCode": "SME",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "7653d573629f4b410178460673d07a40",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAWBJREFUSInN1D9Lw0AYBvCnfwbBQD5E7SAHgqBIdMqHyNRVR6UfpXRyENE5HyKDFCsqDnpT4+wmBFIVJI1DY8Plcsl7ZxTfpUmP9/3xHHfp4g+r+38xj91J//l8pznMY+8A1irW0+xpDp9b5lg+iFLr8FgKn7f0MT1I7FOA5RgV6gDBsY2Lq2R2eR/360AZ00mULH8EqAI0PvonB9ZsPIn77igi94gYMVUwtOGOIjlNsQrptJNlkG6bPhYMbSNEG/uG3NO3BYD2r2FCoo9PI4iMpcCiZZhGG2sCImNNlYj53IHHrhub7nNHjQHTuv7DPev57CbuETlhnryNNekGTqc3cPLTqbzghVTlGDAtgu4oki505VdkCUm7pDogpSCpFFAVloNAGx6bEJB9AKkKqsOQNe6u9n8Dm9hm56vVh5cjhK9P2VsC4LZqGOWe5QNCzBHyrcL6I2EGGTMa3AT2o/oChAx9fSecB70AAAAASUVORK5CYII=",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27030",
+    "nameTh": "ธนาคารอิสลามแห่งประเทศไทย",
+    "bankCode": "ISBT",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "6ed673cdfdc18b6cd99da42ffafdc5e8",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAActJREFUSInN1L1LAmEcB/Cv/IReoL+gXAQ3uRAbTYqWljYbWmrQOTUQwqWtxYh0CxzaGorGMEQqJSFIriJcJBoy/4CImn7a4p135z3n+RZ9p3vuuXs+z8vvzok/jPPfYsz8YLxHRAsjw5i5ZbM/QUQHA2O9IENSzJwiIkdfWKvVmmk2m59KOy+/YvfkWqhU0hHdBEWgKaaF/NGsKXD0cg4ASM6vq88oqAjswrRbZwYpiJL9pzMAQMwbgj+atQSFZ2YGpasXCBRyavu7/oHKVlidRMwbwunNMzaWJNMxdVivggjkL3Xt6blZLBZyKK2sdkBAxZj5h4imLFcmOidRtKAhk9rGWP4g2rMbOybKSLGYNzQ6TLQ9dqC+MQUEOh/wzvEVbqvvumdEEzLFKulIz4q0U7GNRqMoxIgoyMxFDJH7w7B67XK5kkIMQEm5sLM6szg7fygGcGeF6VbXDzhBDpQ1qyKi5a6JmLxXMoKA9RkZC4KIgtDskhUGAGXj+YkqzBgRZIUx2iuUZTkiSdKmTQQiyApTUvL5fACQBYBarZZwu91rSmcmk9mOx+OP7eYbgLrVYHY+anWmHo/nC8CeoV+2MYZtbKCBR4ENlV900sEwfibpZwAAAABJRU5ErkJggg==",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27031",
+    "nameTh": "ธนาคารทิสโก้",
+    "bankCode": "TISCO",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "6f5a5400161920448f286234c3559650",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAd1JREFUSInN1jtIw0AABuC/IFas4mIHQTfdFScjRahipQ7iIIU6OoimcVIRQYsIujg1jQ+UgoNCJ3HQQTRFxLja3b2Lm4jWB3EwV5Nr7i61Iv2H0rtL7ss9cm0d/jF1NY1JCXUNpm8UPvPMSCvJP8ckWTVLBdP6MNEryeoqqTY0xVcV5kA8PhAPZWKVQPR9LNAVo6Gb1CwAIDS3XXZtZnECXe1BRxsLLMNCCXX600YRiA5dTz9QKKFO36SVPS72aWKXfD9cigkROvOxAWxlr0k/fMyeQIPfM+Q2xXQc2G82BQ+h1447sqbGeiHC2zx0KjpBXorvGF7YBwDMjPUhPthTamsO+PH0XPw7jEAAsHN658DON6eEoxNsEPY0AoB+/4Bwd2epfLwyifj6kWfsw173/PrGBZOZC4RTP1hHsIW+5IOJGZoSkWT1ipRHFg+YEAlv6gxNiTAxALq9IHqBPeCO/srWzNCUQTK69MktEuP9FYOkH7rObYPkABQB+LO5PLK5vOcR2kZVtPoRYqahKVH72nl5Ye0xNCUK62dWhAGAbk2DT5LVywqQIQvR3dp575kOIPyNtrVK8nKWjWzEgMKj7T7XiE4Q68ZC2G3B3a9lx+txJezIS2r7f2M1+QKuaLJhiDmzmgAAAABJRU5ErkJggg==",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27032",
+    "nameTh": "ธนาคารเกียรตินาคิน",
+    "bankCode": "KK",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "818f2f9aa0952fad904c4f93b620dd2b",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAbNJREFUSInN1EFLwmAYB/B/PBIldOgDeLG8Gou8Ch2CgrqFWQeR0IuQILSCDvUB7OQ5QjqUeO0LRGKHCAw6egipBpGERBGBj+uQW7btnXNK9T/tfZ/t/e3Z3s2DX4zn32LMfGWcI6KZgWHMrDqsy0S07xrrBhmSZeYsEQ31hKmqOtZqtV56gPQwsyoCLTENikSiyOcP4fV6TedEIlEAQLFYAACkUhuo159QLBaEoAnr8dEJYwX+3dZ301WtVgMANJtNU42Z34lo1BJzE1netiuPdA76xowbxC7/63cVj6//GGudDBwLhcS/PWNNkqbQaDTcY7K86biWTCZsoa5Yv1EU5VyIEVGYmfUTjo5X8Ti8jBulifHTMgBgYe4DubsJAEBi+gwA8PC2iMnny6/6bl5fz+fz7QgxAKV+OjGEAZTtMFN3bkNEs8Y5q3dW0sDY2sn3bHpFP5zXj7Y6Lkt1QmFYPCXRBrlw26EIssMY7Q4rlUoiGAzGHCIQQXaYlpIkSQBwAADValX2+/1LWjGXy6Uzmcx1e3gL4N5uMSffmX6ngUDgFcCeoV5xsIZjzNXCg8D6yidO66KiG03phwAAAABJRU5ErkJggg==",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27033",
+    "nameTh": "ธนาคารแลนด์แอนด์เฮ้าส์",
+    "bankCode": "LHBANK",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "a57c7aca1551a15ec8e5a7413bd1c9b2",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAYFJREFUSInNlDFLw0AUx3+SfgVXv4BQHRxbJ0GLg1BFaSWTH0AQCg6BIsTJyUFwL1IdWhA6KFRwMJuLQ6H4ERzESVGpdfHC5XKXXmOw/qe89y7/3713l+T4Q+X+LcyDezXnw0JmMA+GlvVrH1ZSw2TQTLHEzm0ntqbuOOJx2YOhD1NjwwTIBBE6GAwi0CSgFiZAwshGMtQEjMFUkDSmiLEuL9d0wMld/aTxqTk1ljs1dWfdmc5sXE32D1I6Po3E8rhMlyU17PPtNRKPGpc63rFg3f09irXd5C2mlPWZJd3GfueK5tpqdrAsFIH5UPDgru44Vt+RSaLmQ8EIAwL1RdOhm/JPvb7RLzbGpO5sdJKfDX3Umu7MgiNYqkG37jiUG03mqpsjIYfONB88y6DYlLQX5B1uRIdtt0LbrbDeuCBf3YitPStv83h5HsYmkBH2o0AAAVruFi03YTV8+bBoAo2ChUARCLAsqf4C9JLMbL6zcKc+zGvqDxYe1rBUxlnAfqVvcwGYHvbjwiYAAAAASUVORK5CYII=",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27034",
+    "nameTh": "ธนาคารไอซีบีซี (ไทย)",
+    "bankCode": "ICBCT",
+    "description": ""
+  },
+  {
+    "symbol": {
+      "url": "8f825ed400c35c4cc0b2e39dc37992bf",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAllJREFUSInNlk9oE0EUxr+sT91SPBS8in9Qac1JkKQgFKngwVsxIAShClKRHkSkKNGDYCwVrBBBBEVQDwGxIHhVPIgHs/QiVgkKeljBiyD+KRF5u+tB3jozO5MssYjvNMzMfr/55s17CeEfBv23MGZezAgQ7VoxGDMnMt5QPdF1nYgKfcGY+TGAvS6IeYDg2kUBJ0Tk5YbJaW2QhXOvAACVelGbL02fBQCEzUaBmRObywyMmTu9QDI2gfJd2GzABrQ58z99X7ZMA99+eFjnxz2BE7PX8aB2PDOvweT6dk7VtE2Xpt7g9I3tOHJ5RHN37/mQFbi41E71VHc9X6OIi2ilXsRM9R381TEOjn52OuQ4Bnn6O0lhSZJ4URRpuVozEGubRbS8pYNKvdg1h5sPnZTczRJRTYNFURSYrn52PFTmdmDhzGun0xyPZh8AHeYMLmRE1cgJRD6YQ1QVN/e5IhdMLWTThRrV+ZGuOimMiCaZeQm0CuDIKmjLk4Tz6ogmMzAAXwAgvHvF2QtF0ATO3NqU2Rs2GzJMN6qwD8zcIaIBE6AmXSBP24MYG17Gi3At3n8ctB7ODC1nvu/vYeZW2Gxo7tIr8tJfE4wN/25pF+5sdboiorITBiAgojIzt97ense2w6f01Vhv5LY8HZ3Yr4K02rW+RgGaDgXgqqVnV89j4/ohENEogNhct8ECAKVeQDMsV5f9C2FzpgIBgJlbsnA/eImbDx/hwPhuHBv/kxIF8hVA2ybarajlvktmogHgyRww7f7GGnk6iCpgq1x70+wT1pfwSsD+Kn4B5AkkrxkFlSUAAAAASUVORK5CYII=",
+      "contentType": "image/png",
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+    },
+    "value": "27037",
+    "nameTh": "ธนาคารไทยเครดิตเพื่อรายย่อย",
+    "bankCode": "TCR",
+    "description": ""
+  }
+]

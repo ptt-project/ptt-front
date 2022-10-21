@@ -1,7 +1,7 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Typography, Button, Row, Col, Space, Modal, message, Image } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
-import { orderBy, pullAt } from 'lodash'
+import { orderBy } from 'lodash'
 import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import styles from './BankAccount.module.scss'
@@ -13,10 +13,17 @@ import {
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
-import { bankMock } from '~/modules/BankAccount/mock-data'
 import BankAccountCard from './components/BankAccountCard'
-import { IBankAccountData, IBankAccountFromValues, ICustomHookUseVisibleUtil } from '~/interfaces'
+import {
+  IBankAccount,
+  IBankAccountData,
+  IBankAccountFromValues,
+  ICustomHookUseVisibleUtil
+} from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
+import { BankAccountService } from '~/services'
+import { BankAccountStatusEnum } from '~/enums'
+import { getBankName } from './bank-account.helper'
 
 const { Text, Title, Link } = Typography
 
@@ -32,7 +39,32 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
 
   const rootMenu: string = props.isSeller ? '/seller' : ''
 
-  const bankAccounts: IBankAccountData[] = useMemo(() => bankMock || [], [])
+  const [bankAccounts, setBankAccounts] = useState<IBankAccountData[]>([])
+
+  async function fetchBankAccounts(): Promise<void> {
+    try {
+      const { data } = await BankAccountService.getBankAccounts()
+      setBankAccounts(
+        data.map(
+          (d: IBankAccount): IBankAccountData => ({
+            bankAccountName: d.accountHolder,
+            bankAccountNo: d.accountNumber,
+            bankCode: d.bankCode,
+            fullName: d.fullName,
+            citizenNo: d.thaiId,
+            isDefault: d.isMain,
+            status: BankAccountStatusEnum.APPROVED
+          })
+        )
+      )
+    } catch (error) {
+      //
+    }
+  }
+
+  useEffect(() => {
+    fetchBankAccounts()
+  }, [])
 
   function onAddBankAccountClick(): void {
     router.push(`${rootMenu}/settings/finance/bank/add`)
@@ -43,15 +75,6 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
   }
 
   function onFavoriteBankAccountClick(bankAccountId: string): void {
-    const favoriteBankAccountIndex: number = bankMock?.findIndex(
-      (v: IBankAccountData) => v.id === bankAccountId
-    )
-    if (favoriteBankAccountIndex >= 0) {
-      bankMock?.forEach((v: IBankAccountData, index: number) => {
-        bankMock[index].isDefault = index === favoriteBankAccountIndex
-      })
-    }
-
     message.success(t('common:dataUpdated'))
   }
 
@@ -67,11 +90,6 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
   )
 
   async function onConfirmDeleteAddressClick(): Promise<void> {
-    if (deleteBankAccount) {
-      const deleteBankAccountIndex: number = bankMock.indexOf(deleteBankAccount)
-      pullAt(bankMock, deleteBankAccountIndex)
-    }
-
     setDeleteBankAccountId('')
     message.success(t('common:dataUpdated'))
     deleteBankAccountVisible.hide()
@@ -119,6 +137,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                     />
                     <Col>
                       <Button className="hps-btn-secondary" onClick={onAddBankAccountClick}>
+                        <i className="fa fa-plus mr-2" />
                         {t('bank-account:addBankAccount')}
                       </Button>
                     </Col>
@@ -147,6 +166,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                               preview={false}
                               width="100%"
                               src="./images/main/buyer/address-empty-list.svg"
+                              alt=""
                             />
                           </div>
                         </div>
@@ -155,10 +175,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                             {t('bank-account:emptyBankAccount')}
                             <Link
                               className="ml-1"
-                              href={CustomUrlUtil(
-                                `${rootMenu}/settings/finance/bank/add`,
-                                router.locale
-                              )}
+                              href={`${rootMenu}/settings/finance/bank/add`}
                               underline
                             >
                               {t('bank-account:addBankAccountTitle')}
@@ -180,7 +197,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                       </Title>
                     </Col>
                   }
-                  footer={[
+                  footer={
                     <Col span={24}>
                       <Space>
                         <Button type="text" onClick={deleteBankAccountVisible.hide}>
@@ -191,13 +208,13 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                         </Button>
                       </Space>
                     </Col>
-                  ]}
+                  }
                 >
                   <Space size={4} direction="vertical">
                     <Space className={styles.contentLayout} size={4} direction="vertical">
                       <Text>
                         {t('bank-account:confirmDeleteAccountMsg1')}
-                        {deleteBankAccount?.bankFullName}{' '}
+                        {getBankName(deleteBankAccount?.bankCode)}{' '}
                         {HelperCensorBankAccountNoUtil(deleteBankAccount?.bankAccountNo)}
                       </Text>
                     </Space>
