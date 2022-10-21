@@ -1,13 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Col, Typography, Form, Button, Row, message } from 'antd'
-import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
-import { useTranslation } from 'next-i18next'
 import AddressForm from '../AddressForm'
-import { IAddress, IAddressFormValues, IApiResponse, IUpdateAddress } from '~/interfaces'
-import { CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import { Col, Typography, Form, Button, Row, message } from 'antd'
+import { NextRouter, useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { IAddress, IAddressFormValues, IApiResponse, IUpdateAddress } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { MemberService } from '~/services'
 
@@ -18,16 +17,18 @@ export interface IEditAddressProps {
   address?: IAddress | null
   googleMapsApiKey: string
 }
+
 const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
   const { address: addressFromServerSide, googleMapsApiKey, isSeller } = props
   const [form] = Form.useForm()
   const router: NextRouter = useRouter()
-  const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
+  const { t } = useTranslation([...LocaleNamespaceConst, 'address', 'setting-sidebar'])
   const [address, setAddress] = useState<IAddress>(addressFromServerSide)
 
   const { addressId } = router.query
 
   const rootMenu: string = isSeller ? '/seller' : ''
+  const prefixMenu: string = isSeller ? 'management' : 'account'
 
   useEffect(() => {
     const fetchAddresses = async (): Promise<void> => {
@@ -53,7 +54,7 @@ const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
         }
         await MemberService.updateAddress(addressId, payload)
         message.success(t('common:dataUpdated'))
-        router.replace(`${rootMenu}/settings/account/address`)
+        router.replace(`${rootMenu}/settings/${prefixMenu}/address`)
       }
     } catch (error) {
       message.error(t('Fail'))
@@ -84,14 +85,26 @@ const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
         </title>
       </Helmet>
       <Breadcrumbs
-        items={[
-          { title: t('address:breadcrumbs.setting') },
-          { title: t('address:breadcrumbs.account') },
-          {
-            title: t('address:breadcrumbs.editAddress'),
-            href: CustomUrlUtil(`${rootMenu}/settings/account/address`, router.locale)
-          }
-        ]}
+        items={
+          props.isSeller
+            ? [
+                { title: t('setting-sidebar:seller.management.title') },
+                {
+                  title: t('setting-sidebar:seller.management.address'),
+                  href: `${rootMenu}/settings/${prefixMenu}/address`
+                },
+                { title: t('address:breadcrumbs.editAddress') }
+              ]
+            : [
+                { title: t('address:breadcrumbs.setting') },
+                { title: t('address:breadcrumbs.account') },
+                {
+                  title: t('address:breadcrumbs.address'),
+                  href: `${rootMenu}/settings/${prefixMenu}/address`
+                },
+                { title: t('address:breadcrumbs.editAddress') }
+              ]
+        }
       />
       <div className="page-content mb-9">
         <div className="container">

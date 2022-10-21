@@ -43,7 +43,11 @@ export const getServerSideProps: any = withSellerAuth(
     const googleMapsApiKey: string = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_TOKEN
     return {
       props: {
-        ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'address'])),
+        ...(await serverSideTranslations(context.locale, [
+          ...LocaleNamespaceConst,
+          'address',
+          'setting-sidebar'
+        ])),
         address,
         googleMapsApiKey
       }

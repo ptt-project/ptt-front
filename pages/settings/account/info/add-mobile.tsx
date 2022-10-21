@@ -49,7 +49,11 @@ export const getServerSideProps: any = withAuth(async (context: GetServerSidePro
 
   return {
     props: {
-      ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'account-info'])),
+      ...(await serverSideTranslations(context.locale, [
+        ...LocaleNamespaceConst,
+        'account-info',
+        'setting-sidebar'
+      ])),
       mobile
     }
   }

@@ -137,6 +137,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                     />
                     <Col>
                       <Button className="hps-btn-secondary" onClick={onAddBankAccountClick}>
+                        <i className="fa fa-plus mr-2" />
                         {t('bank-account:addBankAccount')}
                       </Button>
                     </Col>
@@ -165,6 +166,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                               preview={false}
                               width="100%"
                               src="./images/main/buyer/address-empty-list.svg"
+                              alt=""
                             />
                           </div>
                         </div>
@@ -195,7 +197,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                       </Title>
                     </Col>
                   }
-                  footer={[
+                  footer={
                     <Col span={24}>
                       <Space>
                         <Button type="text" onClick={deleteBankAccountVisible.hide}>
@@ -206,7 +208,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                         </Button>
                       </Space>
                     </Col>
-                  ]}
+                  }
                 >
                   <Space size={4} direction="vertical">
                     <Space className={styles.contentLayout} size={4} direction="vertical">

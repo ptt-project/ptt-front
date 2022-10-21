@@ -44,12 +44,15 @@ interface IAccountInfoForm {
 }
 
 interface IAccountInfoProps {
+  isSeller?: boolean
   info: IMemberInfo
 }
 
 const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
   const router: NextRouter = useRouter()
-  const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
+  const rootMenu: string = props.isSeller ? '/seller' : ''
+  const prefixMenu: string = props.isSeller ? 'management/account' : 'account/info'
+  const { t } = useTranslation([...LocaleNamespaceConst, 'account-info', 'setting-sidebar'])
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [info, setInfo] = useState<IMemberInfo>(props.info)
@@ -294,18 +297,25 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
         </title>
       </Helmet>
       <Breadcrumbs
-        items={[
-          { title: t('account-info:setting') },
-          { title: t('account-info:title') },
-          { title: t('account-info:personalInfo') }
-        ]}
+        items={
+          props.isSeller
+            ? [
+                { title: t('setting-sidebar:seller.management.title') },
+                { title: t('setting-sidebar:seller.management.account') }
+              ]
+            : [
+                { title: t('account-info:setting') },
+                { title: t('account-info:title') },
+                { title: t('account-info:personalInfo') }
+              ]
+        }
       />
       <Loading show={isLoading} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
             <Col xl={6}>
-              <SettingSidebar sidebarType="buyer" />
+              <SettingSidebar sidebarType={props.isSeller ? 'seller' : 'buyer'} />
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 2 }} md={24}>
               <Title className="hps-title" level={4}>
@@ -508,7 +518,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                         <Text className={styles.colorPrimaryDark}>{getEmail()}</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
-                        <Link href="/settings/account/info/email">
+                        <Link href={`${rootMenu}/settings/${prefixMenu}/email`}>
                           <a className={styles.textSecondary}>
                             <i className="fas fa-pen mr-1" />
                             {t('account-info:button.edit')}
@@ -522,7 +532,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                         <Text className={styles.colorPrimaryDark}>{getMobileNo()}</Text>
                       </Col>
                       <Col sm={4} xs={5} className="text-right">
-                        <Link href="/settings/account/info/mobile">
+                        <Link href={`${rootMenu}/settings/${prefixMenu}/mobile`}>
                           <a className={styles.textSecondary}>
                             <i className="fas fa-pen mr-1" />
                             {t('account-info:button.edit')}

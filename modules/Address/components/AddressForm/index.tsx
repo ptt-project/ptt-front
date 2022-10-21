@@ -324,13 +324,13 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
             </Title>
           </Col>
         }
-        footer={[
+        footer={
           <Col span={24}>
             <Button type="primary" onClick={hintModalVisible.hide}>
               {t('common:confirm')}
             </Button>
           </Col>
-        ]}
+        }
       >
         <Text type="secondary"> {hintModalData?.description}</Text>
       </Modal>

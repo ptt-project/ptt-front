@@ -19,6 +19,7 @@ import { MemberService } from '~/services'
 const { Text } = Typography
 
 interface IAccountMobileProps {
+  isSeller?: boolean
   mobiles: IMemberMobile[]
 }
 
@@ -29,7 +30,9 @@ enum SelectedType {
 
 const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
   const router: NextRouter = useRouter()
-  const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
+  const rootMenu: string = props.isSeller ? '/seller' : ''
+  const prefixMenu: string = props.isSeller ? 'management/account' : 'account/info'
+  const { t } = useTranslation([...LocaleNamespaceConst, 'account-info', 'setting-sidebar'])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isOpenOtp, setIsOpenOtp] = useState<boolean>(false)
   const [isOpenRemove, setIsOpenRemove] = useState<boolean>(false)
@@ -231,18 +234,32 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
           </title>
         </Helmet>
         <Breadcrumbs
-          items={[
-            { title: t('account-info:setting') },
-            { title: t('account-info:title') },
-            { title: t('account-info:personalInfo'), href: '/settings/account/info' },
-            { title: t('account-info:mobile.titleEdit') }
-          ]}
+          items={
+            props.isSeller
+              ? [
+                  { title: t('setting-sidebar:seller.management.title') },
+                  {
+                    title: t('setting-sidebar:seller.management.account'),
+                    href: `${rootMenu}/settings/${prefixMenu}`
+                  },
+                  { title: t('account-info:mobile.titleEdit') }
+                ]
+              : [
+                  { title: t('account-info:setting') },
+                  { title: t('account-info:title') },
+                  {
+                    title: t('account-info:personalInfo'),
+                    href: `${rootMenu}/settings/${prefixMenu}`
+                  },
+                  { title: t('account-info:mobile.titleEdit') }
+                ]
+          }
         />
         <div className="page-content mb-9">
           <div className="container">
             <Row gutter={48}>
               <Col xl={6}>
-                <SettingSidebar sidebarType="buyer" />
+                <SettingSidebar sidebarType={props.isSeller ? 'seller' : 'buyer'} />
               </Col>
               <Col xs={24} xl={18} lg={24}>
                 <Text>
@@ -257,7 +274,10 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
                   <Col md={12} xs={18} className="text-right">
                     <Button
                       className="hps-btn-secondary mt-3"
-                      href={CustomUrlUtil('/settings/account/info/add-mobile', router.locale)}
+                      href={CustomUrlUtil(
+                        `${rootMenu}/settings/${prefixMenu}/add-mobile`,
+                        router.locale
+                      )}
                     >
                       <i className="fas fa-plus mr-2" />
                       {t('account-info:button.addPhone')}

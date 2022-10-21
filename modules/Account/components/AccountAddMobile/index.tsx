@@ -21,6 +21,7 @@ import { OtpTypeEnum } from '~/enums'
 const { Text, Title } = Typography
 
 interface IAccountAddMobileProps {
+  isSeller?: boolean
   mobile: IMemberMobile
 }
 
@@ -31,7 +32,9 @@ interface IAccountAddMobileForm {
 
 const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobileProps) => {
   const router: NextRouter = useRouter()
-  const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
+  const rootMenu: string = props.isSeller ? '/seller' : ''
+  const prefixMenu: string = props.isSeller ? 'management/account' : 'account/info'
+  const { t } = useTranslation([...LocaleNamespaceConst, 'account-info', 'setting-sidebar'])
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [currentMobileNo, setCurrentMobileNo] = useState<string>('')
@@ -113,7 +116,7 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
     if (isSuccess) {
       message.success(t('common:apiMessage.success'))
 
-      router.push('/settings/account/info/mobile')
+      router.push(`${rootMenu}/settings/${prefixMenu}/mobile`)
     } else {
       message.error(t('common:apiMessage.error'))
     }
@@ -155,20 +158,41 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
         </title>
       </Helmet>
       <Breadcrumbs
-        items={[
-          { title: t('account-info:setting') },
-          { title: t('account-info:title') },
-          { title: t('account-info:personalInfo'), href: '/settings/account/info' },
-          { title: t('account-info:mobile.titleEdit'), href: '/settings/account/info/mobile' },
-          { title: t('account-info:mobile.titleAdd') }
-        ]}
+        items={
+          props.isSeller
+            ? [
+                { title: t('setting-sidebar:seller.management.title') },
+                {
+                  title: t('setting-sidebar:seller.management.account'),
+                  href: `${rootMenu}/settings/${prefixMenu}`
+                },
+                {
+                  title: t('account-info:mobile.titleEdit'),
+                  href: `${rootMenu}/settings/${prefixMenu}/mobile`
+                },
+                { title: t('account-info:mobile.titleAdd') }
+              ]
+            : [
+                { title: t('account-info:setting') },
+                { title: t('account-info:title') },
+                {
+                  title: t('account-info:personalInfo'),
+                  href: `${rootMenu}/settings/${prefixMenu}`
+                },
+                {
+                  title: t('account-info:mobile.titleEdit'),
+                  href: `${rootMenu}/settings/${prefixMenu}/mobile`
+                },
+                { title: t('account-info:mobile.titleAdd') }
+              ]
+        }
       />
       <Loading show={isLoading} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
             <Col xl={6}>
-              <SettingSidebar sidebarType="buyer" />
+              <SettingSidebar sidebarType={props.isSeller ? 'seller' : 'buyer'} />
             </Col>
             <Col xl={18} lg={24}>
               <Title className="hps-title" level={4}>

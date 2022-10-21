@@ -34,7 +34,11 @@ export const getServerSideProps: any = withAuth(
 
     return {
       props: {
-        ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'address'])),
+        ...(await serverSideTranslations(context.locale, [
+          ...LocaleNamespaceConst,
+          'address',
+          'setting-sidebar'
+        ])),
         addresses
       }
     }

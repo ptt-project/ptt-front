@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/typedef */
 import JQL from 'jqljs'
-import { map, uniq } from 'lodash'
 import RawAddressData from './address-data.json'
+import { map, uniq } from 'lodash'
 
 export enum AddressFieldsEnum {
   SUB_DISTRICT = 'subDistrict', // ตำบล
