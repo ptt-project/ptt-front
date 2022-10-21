@@ -66,7 +66,12 @@ const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
           return (
             <Row gutter={[4, 0]} wrap={false}>
               <Col>
-                <Image className={styles.typeIcon} preview={false} src={happyPointTypeIcon} />
+                <Image
+                  className={styles.typeIcon}
+                  preview={false}
+                  src={happyPointTypeIcon}
+                  alt=""
+                />
               </Col>
               <Col>
                 <Text>{happyPointTypeLabel}</Text>

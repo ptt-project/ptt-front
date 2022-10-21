@@ -79,7 +79,7 @@ const VoucherCard: FC<IVoucherCardProps> = (props: IVoucherCardProps) => {
   return (
     <Row className={styles.layout} justify="space-between" align="middle" wrap={false}>
       <Col className={styles.image}>
-        <Image preview={false} src="./images/main/buyer/icon-happy-voucher.svg" />
+        <Image preview={false} src="./images/main/buyer/icon-happy-voucher.svg" alt="" />
       </Col>
       <Col flex={1}>
         <Row align="middle" justify="space-between" className={styles.detailWarpLayout}>
