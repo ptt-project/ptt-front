@@ -1,4 +1,3 @@
-export * from './account.interface'
 export * from './address.interface'
 export * from './auth.interface'
 export * from './common.interface'
