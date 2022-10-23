@@ -74,45 +74,47 @@ const SellerShopDetail: FC = () => {
                   <Text type="secondary">{t('seller.shop-detail:msg')}</Text>
                 </Col>
               </Row>
-              <Row className={` ${styles.list}`} align="middle">
-                <Col xs={20}>
-                  <i className={`fas fa-box ${styles.icon}`} />
-                  <Text>{t('seller.shop-detail:productList')}</Text>
-                </Col>
-                <Col xs={4} className="text-right">
-                  <Text className={` ${styles.valueList}`}>5</Text>
-                  <i className={`fas fa-angle-right ${styles.iconArrow}`} />
-                </Col>
-              </Row>
-              <Row className={` ${styles.list}`} align="middle">
-                <Col xs={20}>
-                  <i className={`fas fa-comment-dots ${styles.icon}`} />
-                  <Text>{t('seller.shop-detail:responseRate')}</Text>
-                </Col>
-                <Col xs={4} className="text-right">
-                  <Text className={`${styles.valueList} ${styles.responseRate}`}>57%</Text>
-                </Col>
-              </Row>
-              <Row className={` ${styles.list}`} align="middle">
-                <Col xs={20}>
-                  <i className={`fas fa-star ${styles.icon}`} />
-                  <Text>{t('seller.shop-detail:rating')}</Text>
-                </Col>
-                <Col xs={4} className="text-right">
-                  <Text className={` ${styles.valueList}`}>0.0(1)</Text>
-                  <i className={`fas fa-angle-right ${styles.iconArrow}`} />
-                </Col>
-              </Row>
-              <Row className={`${styles.list}`} align="middle">
-                <Col xs={20}>
-                  <i className={`fas fa-file-invoice-dollar ${styles.icon}`} />
-                  <Text>{t('seller.shop-detail:orderFailed')}</Text>
-                </Col>
-                <Col xs={4} className="text-right">
-                  <Text className={` ${styles.valueList}`}>0.00%</Text>
-                  <i className={`fas fa-angle-right ${styles.iconArrow}`} />
-                </Col>
-              </Row>
+              <div className={`${styles.borderList}`}>
+                <Row className={` ${styles.list}`} align="middle">
+                  <Col xs={20}>
+                    <i className={`fas fa-box ${styles.icon}`} />
+                    <Text>{t('seller.shop-detail:productList')}</Text>
+                  </Col>
+                  <Col xs={4} className="text-right">
+                    <Text className={` ${styles.valueList}`}>5</Text>
+                    <i className={`fas fa-angle-right ${styles.iconArrow}`} />
+                  </Col>
+                </Row>
+                <Row className={` ${styles.list}`} align="middle">
+                  <Col xs={20}>
+                    <i className={`fas fa-comment-dots ${styles.icon}`} />
+                    <Text>{t('seller.shop-detail:responseRate')}</Text>
+                  </Col>
+                  <Col xs={4} className="text-right">
+                    <Text className={`${styles.valueList} ${styles.responseRate}`}>57%</Text>
+                  </Col>
+                </Row>
+                <Row className={` ${styles.list}`} align="middle">
+                  <Col xs={20}>
+                    <i className={`fas fa-star ${styles.icon}`} />
+                    <Text>{t('seller.shop-detail:rating')}</Text>
+                  </Col>
+                  <Col xs={4} className="text-right">
+                    <Text className={` ${styles.valueList}`}>0.0(1)</Text>
+                    <i className={`fas fa-angle-right ${styles.iconArrow}`} />
+                  </Col>
+                </Row>
+                <Row className={`${styles.list}`} align="middle">
+                  <Col xs={20}>
+                    <i className={`fas fa-file-invoice-dollar ${styles.icon}`} />
+                    <Text>{t('seller.shop-detail:orderFailed')}</Text>
+                  </Col>
+                  <Col xs={4} className="text-right">
+                    <Text className={` ${styles.valueList}`}>0.00%</Text>
+                    <i className={`fas fa-angle-right ${styles.iconArrow}`} />
+                  </Col>
+                </Row>
+              </div>
               <HighlightLabel title={t('seller.shop-detail:shopInfo')} />
               <Form layout="vertical">
                 <Col span={24}>
