@@ -1,16 +1,16 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react'
-import { Typography, Button, Row, Col, Space, Modal, Image, message } from 'antd'
-import { NextRouter, useRouter } from 'next/router'
-import { compact, orderBy } from 'lodash'
 import Helmet from 'react-helmet'
-import { useTranslation } from 'next-i18next'
-import styles from './Address.module.scss'
 import AddressCard from './components/AddressCard'
-import { IAddress, IAddressFormValues, IApiResponse, ICustomHookUseVisibleUtil } from '~/interfaces'
-import { CustomHookUseVisibleUtil, CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
+import styles from './Address.module.scss'
+import { Typography, Button, Row, Col, Space, Modal, Image, message } from 'antd'
+import { NextRouter, useRouter } from 'next/router'
+import { compact, orderBy } from 'lodash'
+import { useTranslation } from 'next-i18next'
+import { IAddress, IAddressFormValues, IApiResponse, ICustomHookUseVisibleUtil } from '~/interfaces'
+import { CustomHookUseVisibleUtil, CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
 import { MemberService } from '~/services'
 
@@ -25,11 +25,12 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
 
   const router: NextRouter = useRouter()
 
-  const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
+  const { t } = useTranslation([...LocaleNamespaceConst, 'address', 'setting-sidebar'])
   const [addresses, setAddresses] = useState<IAddress[]>(addressesFromServerSide || [])
   const deleteAddressVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
 
   const rootMenu: string = props.isSeller ? '/seller' : ''
+  const prefixMenu: string = props.isSeller ? 'management' : 'account'
 
   const [deleteAddressId, setDeleteAddressId] = useState<string>()
 
@@ -49,11 +50,11 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
   }, [addressesFromServerSide, fetchAddresses])
 
   function onAddAddressClick(): void {
-    router.push(`${rootMenu}/settings/account/address/add`)
+    router.push(`${rootMenu}/settings/${prefixMenu}/address/add`)
   }
 
   function onEditAddressClick(addressId: string): void {
-    router.push(`${rootMenu}/settings/account/address/${addressId}`)
+    router.push(`${rootMenu}/settings/${prefixMenu}/address/${addressId}`)
   }
 
   async function onSetMainAddressClick(addressId: string): Promise<void> {
@@ -94,14 +95,18 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
         {t('common:meta.title')} | {t('address:title')}
       </Helmet>
       <Breadcrumbs
-        items={[
-          { title: t('address:breadcrumbs.setting') },
-          { title: t('address:breadcrumbs.account') },
-          {
-            title: t('address:breadcrumbs.address'),
-            href: CustomUrlUtil(`${rootMenu}/settings/account/address`, router.locale)
-          }
-        ]}
+        items={
+          props.isSeller
+            ? [
+                { title: t('setting-sidebar:seller.management.title') },
+                { title: t('setting-sidebar:seller.management.address') }
+              ]
+            : [
+                { title: t('address:breadcrumbs.setting') },
+                { title: t('address:breadcrumbs.account') },
+                { title: t('address:breadcrumbs.address') }
+              ]
+        }
       />
       <div className="page-content mb-9">
         <div className="container">
@@ -119,7 +124,9 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
               <Row>
                 <Col span={24}>
                   <Title className="hps-title" level={4}>
-                    {t('address:listAddressTitle')}
+                    {props.isSeller
+                      ? t('setting-sidebar:seller.management.address')
+                      : t('address:listAddressTitle')}
                   </Title>
                 </Col>
                 <Col span={24}>
@@ -130,7 +137,8 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
                     />
                     <Col>
                       <Button className="hps-btn-secondary" onClick={onAddAddressClick}>
-                        {t('address:addAddress')}
+                        <i className="fa fa-plus mr-2" />
+                        {t('address:addAddressTitle')}
                       </Button>
                     </Col>
                   </Row>
@@ -158,6 +166,7 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
                               preview={false}
                               width="100%"
                               src="./images/main/buyer/address-empty-list.svg"
+                              alt="empty"
                             />
                           </div>
                         </div>
@@ -167,7 +176,7 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
                             <Link
                               className="ml-1"
                               href={CustomUrlUtil(
-                                `${rootMenu}/settings/account/address/add`,
+                                `${rootMenu}/settings/${prefixMenu}/address/add`,
                                 router.locale
                               )}
                               underline
@@ -192,7 +201,7 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
                       </Title>
                     </Col>
                   }
-                  footer={[
+                  footer={
                     <Col span={24}>
                       <Space>
                         <Button type="text" onClick={deleteAddressVisible.hide}>
@@ -203,7 +212,7 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
                         </Button>
                       </Space>
                     </Col>
-                  ]}
+                  }
                 >
                   <Space size={4} direction="vertical">
                     <Space className={styles.contentLayout} size={4} direction="vertical">

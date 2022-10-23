@@ -8,7 +8,11 @@ import { withAuth } from '../../../../hocs/with-user'
 export const getServerSideProps: any = withAuth(
   async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<any>> => ({
     props: {
-      ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'address']))
+      ...(await serverSideTranslations(context.locale, [
+        ...LocaleNamespaceConst,
+        'address',
+        'setting-sidebar'
+      ]))
     }
   })
 )

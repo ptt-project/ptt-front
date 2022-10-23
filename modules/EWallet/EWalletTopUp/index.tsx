@@ -143,7 +143,11 @@ const EWalletTopUp: React.FC = () => {
                     </Form.Item>
                     <Row justify="center">
                       <Space direction="vertical" size={8}>
-                        <Image preview={false} src="./images/main/buyer/example-qr-code.svg" />
+                        <Image
+                          preview={false}
+                          src="./images/main/buyer/example-qr-code.svg"
+                          alt=""
+                        />
                         <Form.Item shouldUpdate>
                           {(): JSX.Element => (
                             <Row justify="center">

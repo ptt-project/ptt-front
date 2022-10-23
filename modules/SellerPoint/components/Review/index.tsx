@@ -112,7 +112,12 @@ const Review: FC = () => {
             <Row>
               <Col className={styles.avatarCol} span={6}>
                 <div className={styles.avatarWrapper}>
-                  <Image preview={false} width={48} src="https://joeschmoe.io/api/v1/random" />
+                  <Image
+                    preview={false}
+                    width={48}
+                    src="https://joeschmoe.io/api/v1/random"
+                    alt=""
+                  />
                   <Text className={styles.avatarName}>{item.productName}</Text>
                 </div>
               </Col>

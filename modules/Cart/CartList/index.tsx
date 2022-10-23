@@ -302,6 +302,7 @@ const CartList: FC<ICartListProps> = (props: ICartListProps) => {
                     className={styles.iconDelete}
                     preview={false}
                     src="./images/main/buyer/icon-delete-blue.svg"
+                    alt=""
                     onClick={onDeleteClick.bind(null, record)}
                   />
                 )}

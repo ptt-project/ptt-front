@@ -133,7 +133,10 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
       if (item.children?.length) {
         item.children.forEach((i: IMenuItem) => {
           const key: string = i.key.replace(/:/g, '/').replace('index', '')
-          if (router.pathname.replace(prefixPath, '') === `/${key}`) {
+          if (
+            router.pathname.replace(prefixPath, '').includes(`/${key}`) ||
+            router.pathname.replace(prefixPath, '') === `/${key}`
+          ) {
             selected.push(i.key)
           }
         })
@@ -144,7 +147,6 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
         }
       }
     })
-    console.log(selected)
     setCurrentSelected(selected)
   }
 

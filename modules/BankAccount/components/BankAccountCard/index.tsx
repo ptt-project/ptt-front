@@ -81,6 +81,7 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
           className={[styles.clickable, styles.actionIcon].join(' ')}
           preview={false}
           src="./images/main/buyer/icon-edit.svg"
+          alt=""
           onClick={onEditClick}
         />
         <Image
@@ -91,6 +92,7 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
           ].join(' ')}
           preview={false}
           src={`./images/main/buyer/icon-favorite${data.isDefault ? '-disabled' : ''}.svg`}
+          alt=""
           onClick={handleFavoriteClick}
         />
         <Image
@@ -101,6 +103,7 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
           ].join(' ')}
           preview={false}
           src={`./images/main/buyer/icon-delete${data.isDefault ? '-disabled' : ''}.svg`}
+          alt=""
           onClick={handleDeleteClick}
         />
       </Col>

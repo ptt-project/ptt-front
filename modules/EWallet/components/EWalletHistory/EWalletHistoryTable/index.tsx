@@ -64,12 +64,14 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
                   className={styles.typeIcon}
                   preview={false}
                   src="./images/main/buyer/icon-withdraw.svg"
+                  alt=""
                 />
               ) : (
                 <Image
                   className={styles.typeIcon}
                   preview={false}
                   src="./images/main/buyer/icon-top-up-red.svg"
+                  alt=""
                 />
               )}
             </Col>

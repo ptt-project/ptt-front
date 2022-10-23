@@ -4,7 +4,7 @@ export const EndPointUrlConst = {
     REGISTER_VALIDATE: '/auth/register/validate',
     REGISTER: '/auth/register',
     LOGIN: '/auth/login',
-    RESET_PASSWORD: '/auth/reset-password'
+    RESET_PASSWORD_BY_MOBILE: '/auth/reset-password/mobile'
   },
   OTP: {
     REQUEST: '/otp/request'

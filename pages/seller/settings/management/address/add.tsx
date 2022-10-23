@@ -8,7 +8,11 @@ import { withSellerAuth } from '../../../../../hocs/with-seller'
 export const getServerSideProps: any = withSellerAuth(
   async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<any>> => ({
     props: {
-      ...(await serverSideTranslations(context.locale, [...LocaleNamespaceConst, 'address']))
+      ...(await serverSideTranslations(context.locale, [
+        ...LocaleNamespaceConst,
+        'address',
+        'setting-sidebar'
+      ]))
     }
   })
 )

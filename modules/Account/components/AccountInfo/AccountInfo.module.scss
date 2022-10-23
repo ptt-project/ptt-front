@@ -1,7 +1,7 @@
-@import '../../public/sass/config/variables';
+@import '../../../../public/sass/config/variables';
 
-.textPrimary {
-  color: $primary-color;
+.colorPrimaryDark {
+  color: $primary-color-dark !important;
 }
 
 .textSecondary {
@@ -13,6 +13,10 @@
   margin-bottom: 1.5rem;
   background-color: $background-light;
   border-radius: $border-radius;
+}
+
+.avatar {
+  background-color: $primary-color;
 }
 
 .label {
