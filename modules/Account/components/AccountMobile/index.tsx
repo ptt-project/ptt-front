@@ -54,6 +54,22 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
     })
   }
 
+  function getOtpMobileNo(): string {
+    const mobile: IMemberMobile | undefined = props.mobiles.find(
+      (item: IMemberMobile) => item.isPrimary === true
+    )
+
+    if (selected?.type === SelectedType.MAIN) {
+      return selected?.mobileNo
+    }
+
+    if (selected?.type === SelectedType.REMOVE) {
+      return mobile?.mobile
+    }
+
+    return ''
+  }
+
   async function fetchData(): Promise<void> {
     try {
       const res: IApiResponse = await MemberService.getMobiles()
@@ -112,7 +128,7 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
 
     try {
       const payload: IUpdateMemberMobilePayload = {
-        mobile: selected?.mobileNo,
+        mobile: selected.mobileNo,
         otpCode: otp.otpCode,
         refCode: otp.refCode
       }
@@ -209,7 +225,7 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
     <>
       <Loading show={isLoading} />
       <OtpModal
-        mobile={selected?.mobileNo}
+        mobile={getOtpMobileNo()}
         action={OtpTypeEnum.REGISTER}
         isOpen={isOpenOtp}
         toggle={toggleOtp}
