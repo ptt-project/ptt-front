@@ -41,3 +41,16 @@
     padding-right: 6rem;
   }
 }
+.groupImg {
+  .imgProfile {
+    border-radius: 100%;
+    position: relative;
+    width: 10rem;
+    height: 10rem;
+    left: 50%;
+    top: 20%;
+  }
+  .cover {
+    position: absolute;
+  }
+}

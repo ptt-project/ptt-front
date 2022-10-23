@@ -35,21 +35,21 @@ const SellerShopDetail: FC = () => {
               <Title className="hps-title" level={4}>
                 {t('seller.shop-detail:title')}
               </Title>
-              <Row className="mb-5">
-                <Image
-                  width={870}
-                  height={200}
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                />
-                <Avatar
-                  src={
-                    <Image
-                      src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
-                      preview={false}
-                    />
-                  }
-                  size={100}
-                />
+              <Row className={`mb-5 ${styles.groupImg}`}>
+                <Col md={4} xs={24}>
+                  <Image
+                    width={870}
+                    height={200}
+                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                    preview={false}
+                    className={` ${styles.cover}`}
+                  />
+                  <Image
+                    src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
+                    preview={false}
+                    className={` ${styles.imgProfile}`}
+                  />
+                </Col>
               </Row>
               <Row>
                 <Col md={4} xs={24}>
