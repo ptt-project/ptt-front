@@ -4,14 +4,27 @@ import Helmet from 'react-helmet'
 import { Typography, Row, Col, Button, Form, Upload, Input, Image, Avatar } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import { ISellerInfoRes } from '~/interfaces'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import HighlightLabel from '~/components/main/HighlightLabel'
+import { UploadChangeParam } from 'antd/lib/upload'
 import styles from './SellerShopDetail.module.scss'
 
 const { Text, Title } = Typography
-
-const SellerShopDetail: FC = () => {
+interface ISellerInfoForm {
+  firstName: string
+  lastName: string
+  day: string
+  month: string
+  year: string
+}
+interface ISellerInfoProps {
+  shopInfo?: ISellerInfoRes
+}
+const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
+  console.log('++', props)
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.shop-detail'])
+  const [form] = Form.useForm()
   return (
     <main className="main">
       <Helmet>
@@ -35,23 +48,24 @@ const SellerShopDetail: FC = () => {
               <Title className="hps-title" level={4}>
                 {t('seller.shop-detail:title')}
               </Title>
-              <Row className={`mb-5 ${styles.groupImg}`}>
-                <Col md={4} xs={24}>
+              <div className={styles.imgGroup}>
+                <div className={styles.imgContainer}>
                   <Image
-                    width={870}
-                    height={200}
+                    rootClassName={styles.imgWrapper}
+                    preview={false}
                     src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                    preview={false}
-                    className={` ${styles.cover}`}
+                    alt="register-form"
                   />
-                  <Image
-                    src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
-                    preview={false}
-                    className={` ${styles.imgProfile}`}
-                  />
-                </Col>
-              </Row>
-              <Row>
+                </div>
+                <Avatar
+                  src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
+                  alt="avatar"
+                  size={120}
+                  style={{ position: 'absolute', left: 40, top: 54 }}
+                />
+              </div>
+
+              <Row className="mt-5">
                 <Col md={4} xs={24}>
                   <Form.Item name="image">
                     <Upload accept={ImageAcceptConst.toString()} maxCount={1}>
@@ -117,39 +131,41 @@ const SellerShopDetail: FC = () => {
               </div>
               <HighlightLabel title={t('seller.shop-detail:shopInfo')} />
               <Form layout="vertical">
-                <Col span={24}>
-                  <Form.Item
-                    label={t('seller.shop-detail:shopName')}
-                    name="detail"
-                    rules={[
-                      {
-                        required: true
-                      }
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-                </Col>
-                <Col span={24}>
-                  <Form.Item
-                    label={t('seller.shop-detail:shopDetail')}
-                    name="detail"
-                    rules={[
-                      {
-                        required: true
-                      }
-                    ]}
-                  >
-                    <Input.TextArea rows={3} showCount maxLength={500} />
-                  </Form.Item>
-                </Col>
-                <Col sm={{ span: 12, offset: 6 }} xs={24}>
-                  <Form.Item>
-                    <Button htmlType="submit" type="primary" block>
-                      {t('common:save')}
-                    </Button>
-                  </Form.Item>
-                </Col>
+                <Row gutter={16}>
+                  <Col span={24}>
+                    <Form.Item
+                      label={t('seller.shop-detail:shopName')}
+                      name="detail"
+                      rules={[
+                        {
+                          required: true
+                        }
+                      ]}
+                    >
+                      <Input />
+                    </Form.Item>
+                  </Col>
+                  <Col span={24}>
+                    <Form.Item
+                      label={t('seller.shop-detail:shopDetail')}
+                      name="shopDescription"
+                      rules={[
+                        {
+                          required: true
+                        }
+                      ]}
+                    >
+                      <Input.TextArea rows={3} showCount maxLength={500} />
+                    </Form.Item>
+                  </Col>
+                  <Col sm={{ span: 12, offset: 6 }} xs={24}>
+                    <Form.Item>
+                      <Button htmlType="submit" type="primary" block>
+                        {t('common:save')}
+                      </Button>
+                    </Form.Item>
+                  </Col>
+                </Row>
               </Form>
             </Col>
           </Row>
