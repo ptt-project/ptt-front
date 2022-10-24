@@ -158,6 +158,7 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
                               preview={false}
                               width="100%"
                               src="./images/main/buyer/address-empty-list.svg"
+                              alt="address-empty-list"
                             />
                           </div>
                         </div>
@@ -192,7 +193,7 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
                       </Title>
                     </Col>
                   }
-                  footer={[
+                  footer={
                     <Col span={24}>
                       <Space>
                         <Button type="text" onClick={deleteAddressVisible.hide}>
@@ -203,7 +204,7 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
                         </Button>
                       </Space>
                     </Col>
-                  ]}
+                  }
                 >
                   <Space size={4} direction="vertical">
                     <Space className={styles.contentLayout} size={4} direction="vertical">

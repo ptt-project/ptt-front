@@ -130,7 +130,9 @@ const EWalletWithdraw: React.FC = () => {
                     </Text>
                   </Col>
                 </Row>
-                {!myBankAccountOptions?.length && (
+              </Row>
+              {!myBankAccountOptions?.length && (
+                <Row className="mb-6">
                   <Col span={24}>
                     <Alert
                       message={t('e-wallet:withdraw.noBankAccountTitle')}
@@ -152,8 +154,8 @@ const EWalletWithdraw: React.FC = () => {
                       closable
                     />
                   </Col>
-                )}
-              </Row>
+                </Row>
+              )}
               <Row className={styles.contentLayout} gutter={[24, 24]} justify="space-between">
                 <Col span={24}>
                   <Form

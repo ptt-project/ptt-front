@@ -39,5 +39,8 @@ export const EndPointUrlConst = {
   },
   IMAGES: {
     UPLOAD: '/images/upload-image'
+  },
+  CONFIG: {
+    OPTIONS: '/configs/options'
   }
 }

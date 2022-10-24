@@ -35,6 +35,10 @@ interface IBankAccountProps {
 }
 const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
   const { isSeller } = props
+
+  const mobileNo: string = '0901061303'
+  const rootMenu: string = isSeller ? '/seller' : ''
+
   const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
 
@@ -42,18 +46,38 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
   const [deleteBankAccountId, setDeleteBankAccountId] = useState<number>()
   const [isOtpViewBankAccountsOpen, setIsOtpViewBankAccountsOpen] = useState<boolean>(false)
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
-  const [isOtpVerify, setIsOtpVerify] = useState<boolean>(false)
+  const [otpViewVerifyMeta, setOtpViewVerifyMeta] = useState<IOtp>()
 
-  const mobileNo: string = '0901061303'
-  const rootMenu: string = isSeller ? '/seller' : ''
+  const { data: bankAccountRes, isStale } = BankAccountService.useGetBankAccounts({
+    otpCode: otpViewVerifyMeta?.otpCode || '',
+    refCode: otpViewVerifyMeta?.refCode || ''
+  })
 
   const [bankAccounts, setBankAccounts] = useState<IBankAccountData[]>([])
   const [editBankAccount, setEditBankAccount] = useState<IBankAccountData>()
 
-  async function fetchBankAccounts(otpData: IOtp): Promise<void> {
+  const isVerify: boolean = useMemo(() => {
+    return !!otpViewVerifyMeta?.otpCode && !!otpViewVerifyMeta?.refCode
+  }, [otpViewVerifyMeta])
+
+  async function onSubmitOtpViewBankAccount(otpData: IOtp): Promise<void> {
     try {
-      const { data } = await BankAccountService.getBankAccounts(otpData)
-      const tempData: IBankAccountData[] = data.map(
+      setOtpViewVerifyMeta(otpData)
+      setIsOtpViewBankAccountsOpen(false)
+    } catch (error) {
+      //
+    }
+  }
+
+  useEffect(() => {
+    if (isStale) {
+      setIsOtpViewBankAccountsOpen(true)
+    }
+  }, [isStale])
+
+  useEffect(() => {
+    if (bankAccountRes) {
+      const tempData: IBankAccountData[] = bankAccountRes.map(
         (d: IBankAccount): IBankAccountData => ({
           id: d.id,
           bankAccountName: d.accountHolder,
@@ -66,19 +90,21 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
         })
       )
       setBankAccounts(orderBy(tempData, (v: IBankAccountData) => (v.isDefault ? 1 : 0), ['desc']))
-      setIsOtpVerify(true)
-      setIsOtpViewBankAccountsOpen(false)
-    } catch (error) {
-      //
+    } else {
+      setIsOtpViewBankAccountsOpen(true)
     }
-  }
-
-  useEffect(() => {
-    setIsOtpViewBankAccountsOpen(true)
-  }, [])
+  }, [bankAccountRes])
 
   function toggleViewBankAccountOtpOpen(): void {
-    setIsOtpViewBankAccountsOpen((prev: boolean): boolean => !prev)
+    setIsOtpViewBankAccountsOpen((prev: boolean): boolean => {
+      const newVisible: boolean = !prev
+      if (!newVisible) {
+        setOtpViewVerifyMeta(undefined)
+        setEditBankAccount(undefined)
+        setBankAccounts([])
+      }
+      return newVisible
+    })
   }
 
   function onAddBankAccountClick(): void {
@@ -177,6 +203,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
       bankAccount={editBankAccount}
       isSeller={isSeller}
       onSubmitted={onEditBankAccountSubmitted}
+      onCancel={setEditBankAccount.bind(null, undefined)}
     />
   ) : (
     <main className="main">
@@ -222,58 +249,78 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                       <Button
                         className="hps-btn-secondary"
                         onClick={onAddBankAccountClick}
-                        disabled={!isOtpVerify}
+                        disabled={isStale}
                       >
                         {t('bank-account:addBankAccount')}
                       </Button>
                     </Col>
                   </Row>
-
-                  <Row className="mt-4" gutter={[0, 16]}>
-                    {bankAccounts.length ? (
-                      orderBy(bankAccounts, (v: IBankAccountData) => (v.isDefault ? 1 : 0), [
-                        'desc'
-                      ]).map((bankAccount: IBankAccountData) => (
-                        <Col key={`${bankAccount.id}`} span={24}>
-                          <BankAccountCard
-                            data={bankAccount}
-                            onEditClick={onEditBankAccountClick.bind(null, bankAccount.id)}
-                            onFavoriteClick={onFavoriteBankAccountClick.bind(null, bankAccount.id)}
-                            onDeleteClick={onDeleteBankAccountClick.bind(null, bankAccount.id)}
-                          />
-                        </Col>
-                      ))
-                    ) : (
-                      <Col className="w-100">
-                        <div className={`mx-auto ${styles.wrapImageEmptyAddress}`}>
-                          <div className={styles.imgContainer}>
-                            <Image
-                              rootClassName={styles.imgWrapper}
-                              preview={false}
-                              width="100%"
-                              src="./images/main/buyer/address-empty-list.svg"
-                            />
-                          </div>
-                        </div>
-                        <div className="mt-4 text-center">
-                          <Text>
-                            {t('bank-account:emptyBankAccount')}
-                            <Link
-                              className="ml-1"
-                              href={CustomUrlUtil(
-                                `${rootMenu}/settings/finance/bank/add`,
-                                router.locale
+                  {isVerify ? (
+                    <Row className="mt-4" gutter={[0, 16]}>
+                      {bankAccounts.length ? (
+                        orderBy(bankAccounts, (v: IBankAccountData) => (v.isDefault ? 1 : 0), [
+                          'desc'
+                        ]).map((bankAccount: IBankAccountData) => (
+                          <Col key={`${bankAccount.id}`} span={24}>
+                            <BankAccountCard
+                              data={bankAccount}
+                              onEditClick={onEditBankAccountClick.bind(null, bankAccount.id)}
+                              onFavoriteClick={onFavoriteBankAccountClick.bind(
+                                null,
+                                bankAccount.id
                               )}
-                              disabled={!isOtpVerify}
-                              underline
-                            >
-                              {t('bank-account:addBankAccountTitle')}
-                            </Link>
-                          </Text>
+                              onDeleteClick={onDeleteBankAccountClick.bind(null, bankAccount.id)}
+                            />
+                          </Col>
+                        ))
+                      ) : (
+                        <Col className="w-100">
+                          <div className={`mx-auto ${styles.wrapImageEmptyAddress}`}>
+                            <div className={styles.imgContainer}>
+                              <Image
+                                rootClassName={styles.imgWrapper}
+                                preview={false}
+                                width="100%"
+                                src="./images/main/buyer/address-empty-list.svg"
+                                alt="address-empty"
+                              />
+                            </div>
+                          </div>
+                          <div className="mt-4 text-center">
+                            <Text>
+                              {t('bank-account:emptyBankAccount')}
+                              <Link
+                                className="ml-1"
+                                href={CustomUrlUtil(
+                                  `${rootMenu}/settings/finance/bank/add`,
+                                  router.locale
+                                )}
+                                disabled={isStale}
+                                underline
+                              >
+                                {t('bank-account:addBankAccountTitle')}
+                              </Link>
+                            </Text>
+                          </div>
+                        </Col>
+                      )}
+                    </Row>
+                  ) : (
+                    <Row gutter={[8, 8]}>
+                      <Col className="w-100">
+                        <div className="mt-4 text-center">
+                          <Text>{t('กรุณายืนยัน OTP เพื่อทำรายการ')}</Text>
                         </div>
                       </Col>
-                    )}
-                  </Row>
+                      <Col className="w-100">
+                        <Row justify="center">
+                          <Button onClick={setIsOtpViewBankAccountsOpen.bind(null, true)}>
+                            {t('ยืนยัน OTP')}
+                          </Button>
+                        </Row>
+                      </Col>
+                    </Row>
+                  )}
                 </Col>
                 <Modal
                   visible={deleteBankAccountVisible.visible}
@@ -286,7 +333,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                       </Title>
                     </Col>
                   }
-                  footer={[
+                  footer={
                     <Col span={24}>
                       <Space>
                         <Button type="text" onClick={deleteBankAccountVisible.hide}>
@@ -297,7 +344,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                         </Button>
                       </Space>
                     </Col>
-                  ]}
+                  }
                 >
                   <Space size={4} direction="vertical">
                     <Space className={styles.contentLayout} size={4} direction="vertical">
@@ -325,7 +372,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
               action={OtpTypeEnum.VIEW_BANK_ACCOUNTS}
               isOpen={isOtpViewBankAccountsOpen}
               toggle={toggleViewBankAccountOtpOpen}
-              onSubmit={fetchBankAccounts}
+              onSubmit={onSubmitOtpViewBankAccount}
             />
           </Row>
         </div>

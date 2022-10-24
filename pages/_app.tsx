@@ -5,6 +5,7 @@ import { useStore, Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import Helmet from 'react-helmet'
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Layout from '~/components/layout'
 import Loading from '~/components/main/Loading'
 import { wrapper } from '../store/index'
@@ -50,6 +51,9 @@ const App = ({ Component, pageProps }: IAppProps): JSX.Element => {
             </Helmet>
             <Layout>
               <Component {...pageProps} />
+              {process.env.REACT_QUERY_DEBUG === 'true' && (
+                <ReactQueryDevtools initialIsOpen={false} />
+              )}
             </Layout>
           </Hydrate>
         </QueryClientProvider>

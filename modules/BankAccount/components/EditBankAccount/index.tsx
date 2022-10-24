@@ -25,10 +25,11 @@ const { Title } = Typography
 interface IEditBankAccountProps {
   isSeller?: boolean
   bankAccount: IBankAccountData
+  onCancel: () => void
   onSubmitted?: (bankAccount: IBankAccount) => void
 }
 const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccountProps) => {
-  const { bankAccount, isSeller, onSubmitted } = props
+  const { bankAccount, isSeller, onSubmitted, onCancel } = props
   const [form] = Form.useForm()
   const router: NextRouter = useRouter()
   const bankAccountId: number = bankAccount.id
@@ -51,7 +52,7 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
   }
 
   function onCancelClick(): void {
-    router.back()
+    onCancel()
   }
 
   function onConfirmBankInfoClick(): void {
@@ -84,7 +85,6 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
       message.success(t('common:dataUpdated'))
       onSubmitted?.(data)
     } catch (error) {
-      console.log({ error })
       message.error(error.data.message)
     }
   }

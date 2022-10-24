@@ -37,7 +37,6 @@ export const postWalletWithdraw = (
 
 export const useGetWalletHistory = (params: IGetWalletHistoryParams, option?: AxiosRequestConfig) =>
   useQuery([EndPointUrlConst.WALLET.HISTORY, params], async () => {
-    console.log({ params })
     const response = await getWalletHistory(params, option)
     return response.data
   })

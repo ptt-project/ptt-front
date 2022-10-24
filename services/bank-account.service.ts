@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/typedef */
 import { AxiosRequestConfig } from 'axios'
-import { useQuery } from '@tanstack/react-query'
 import { AxiosService } from './axios.service'
 import {
   IAddBankAccountParams,
@@ -15,6 +14,7 @@ import {
   IGetBankAccountsResponse
 } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
+import { useQuery } from '@tanstack/react-query'
 
 export const getBankAccounts = (
   payload: IGetBankAccountsParams,
@@ -64,8 +64,17 @@ export const setMainBankAccount = (
 ): Promise<IApiResponse<IAddBankAccountResponse>> =>
   AxiosService.patch(`${EndPointUrlConst.BANK_ACCOUNT.BANK_ACCOUNTS}/${bankAccountId}/set-main`)
 
-export const useGetBankAccounts = (option?: AxiosRequestConfig) =>
-  useQuery([EndPointUrlConst.BANK_ACCOUNT.BANK_ACCOUNTS], async () => {
-    const response = await getBankAccounts({ otpCode: '', refCode: '' }, option)
-    return response.data
-  })
+export const useGetBankAccounts = (payload: IGetBankAccountsParams) => {
+  return useQuery(
+    [EndPointUrlConst.BANK_ACCOUNT.BANK_ACCOUNTS],
+    async () => {
+      const { data } = await getBankAccounts(payload)
+      return data
+    },
+    {
+      enabled: !!payload.otpCode && !!payload.refCode,
+      cacheTime: 5 * 60 * 1000,
+      staleTime: 1 * 60 * 1000
+    }
+  )
+}
