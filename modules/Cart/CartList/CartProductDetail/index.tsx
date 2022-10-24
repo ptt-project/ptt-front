@@ -18,7 +18,11 @@ const CartProductDetail: FC<ICartProductDetailProps> = (props: ICartProductDetai
   return (
     <Row wrap={false} className={styles.layout} gutter={8} justify="start" align="top">
       <Col className={styles.image}>
-        <Image preview={false} src="./images/main/buyer/mock-cart-product.svg" alt="" />
+        <Image
+          preview={false}
+          src="./images/main/buyer/mock-cart-product.svg"
+          alt="mock-cart-product"
+        />
       </Col>
       <Col className={styles.name}>
         <Typography.Paragraph

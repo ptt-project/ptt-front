@@ -28,17 +28,25 @@ const AddressCard: React.FC<IAddressCard> = (props: IAddressCard) => {
         <Space size={8} direction="vertical">
           <Space size={4} direction="horizontal">
             {data.isHome && (
-              <Image preview={false} src="./images/main/buyer/address-tag-home-active.svg" alt="" />
+              <Image
+                preview={false}
+                src="./images/main/buyer/address-tag-home-active.svg"
+                alt="address-tag-home"
+              />
             )}
             {data.isWork && (
               <Image
                 preview={false}
                 src="./images/main/buyer/address-tag-office-active.svg"
-                alt=""
+                alt="address-tag-office"
               />
             )}
             {data.isMain && (
-              <Image preview={false} src="./images/main/buyer/address-tag-default.svg" alt="" />
+              <Image
+                preview={false}
+                src="./images/main/buyer/address-tag-default.svg"
+                alt="address-tag-default"
+              />
             )}
           </Space>
           <Space className={styles.contentLayout} size={4} direction="vertical">

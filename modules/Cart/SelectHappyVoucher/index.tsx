@@ -105,7 +105,11 @@ const SelectHappyVoucher: FC<ISelectHappyVoucherProps> = (props: ISelectHappyVou
         <Row align="middle" gutter={4}>
           <Col>
             <div style={{}}>
-              <Image preview={false} src="./images/main/buyer/icon-voucher.svg" alt="" />
+              <Image
+                preview={false}
+                src="./images/main/buyer/icon-voucher.svg"
+                alt="icon-voucher"
+              />
             </div>
           </Col>
           <Col>
