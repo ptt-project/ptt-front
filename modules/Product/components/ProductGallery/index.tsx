@@ -96,7 +96,7 @@ const ProductGallery: FC = () => {
           preview={{ visible, onVisibleChange: (vis: boolean) => setVisible(vis) }}
         >
           {images.map((src: string, index: number) => (
-            <Image key={index} src={src} />
+            <Image key={index} src={src} alt="" />
           ))}
         </Image.PreviewGroup>
       </div>

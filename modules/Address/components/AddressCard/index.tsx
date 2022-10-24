@@ -1,8 +1,8 @@
+import React from 'react'
+import styles from './AddressCard.module.scss'
 import { Col, Image, Row, Space, Typography } from 'antd'
 import { compact } from 'lodash'
-import React from 'react'
 import { IAddress } from '~/interfaces'
-import styles from './AddressCard.module.scss'
 
 const { Text } = Typography
 
@@ -28,13 +28,17 @@ const AddressCard: React.FC<IAddressCard> = (props: IAddressCard) => {
         <Space size={8} direction="vertical">
           <Space size={4} direction="horizontal">
             {data.isHome && (
-              <Image preview={false} src="./images/main/buyer/address-tag-home-active.svg" />
+              <Image preview={false} src="./images/main/buyer/address-tag-home-active.svg" alt="" />
             )}
             {data.isWork && (
-              <Image preview={false} src="./images/main/buyer/address-tag-office-active.svg" />
+              <Image
+                preview={false}
+                src="./images/main/buyer/address-tag-office-active.svg"
+                alt=""
+              />
             )}
             {data.isMain && (
-              <Image preview={false} src="./images/main/buyer/address-tag-default.svg" />
+              <Image preview={false} src="./images/main/buyer/address-tag-default.svg" alt="" />
             )}
           </Space>
           <Space className={styles.contentLayout} size={4} direction="vertical">
@@ -50,7 +54,7 @@ const AddressCard: React.FC<IAddressCard> = (props: IAddressCard) => {
             </Text>
           </Space>
           <Space size={4} direction="horizontal" align="end">
-            <Image preview={false} src="./images/main/buyer/icon-phone.svg" />
+            <Image preview={false} src="./images/main/buyer/icon-phone.svg" alt="" />
             <Text>{data.mobile}</Text>
           </Space>
         </Space>
@@ -60,6 +64,7 @@ const AddressCard: React.FC<IAddressCard> = (props: IAddressCard) => {
           className={[styles.clickable, styles.actionIcon].join(' ')}
           preview={false}
           src="./images/main/buyer/icon-edit.svg"
+          alt=""
           onClick={onEditClick}
         />
         {!data.isMain && (
@@ -67,6 +72,7 @@ const AddressCard: React.FC<IAddressCard> = (props: IAddressCard) => {
             className={[styles.clickable, styles.actionIcon].join(' ')}
             preview={false}
             src="./images/main/buyer/icon-favorite.svg"
+            alt=""
             onClick={onSetMainClick}
           />
         )}
@@ -75,6 +81,7 @@ const AddressCard: React.FC<IAddressCard> = (props: IAddressCard) => {
             className={[styles.clickable, styles.actionIcon].join(' ')}
             preview={false}
             src="./images/main/buyer/icon-delete.svg"
+            alt=""
             onClick={onDeleteClick}
           />
         )}

@@ -1,13 +1,12 @@
 import React from 'react'
-import { Col, Typography, Form, Button, Row, message } from 'antd'
-import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
-import { useTranslation } from 'next-i18next'
 import AddressForm from '../AddressForm'
-import { IAddressFormValues, ICreateAddress } from '~/interfaces'
-import { CustomUrlUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import { Col, Typography, Form, Button, Row, message } from 'antd'
+import { NextRouter, useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { IAddressFormValues, ICreateAddress } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { MemberService } from '~/services'
 
@@ -20,10 +19,11 @@ interface IAddAddressProps {
 const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
   const { googleMapsApiKey, isSeller } = props
   const router: NextRouter = useRouter()
-  const { t } = useTranslation([...LocaleNamespaceConst, 'address'])
+  const { t } = useTranslation([...LocaleNamespaceConst, 'address', 'setting-sidebar'])
 
   const [form] = Form.useForm()
   const rootMenu: string = isSeller ? '/seller' : ''
+  const prefixMenu: string = isSeller ? 'management' : 'account'
 
   async function onSubmit(values: IAddressFormValues): Promise<void> {
     const payload: ICreateAddress = {
@@ -35,7 +35,7 @@ const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
       await MemberService.createAddress(payload)
 
       message.success(t('common:dataUpdated'))
-      router.replace(`${rootMenu}/settings/account/address`)
+      router.replace(`${rootMenu}/settings/${prefixMenu}/address`)
     } catch (error) {
       message.error(t('Fail'))
     }
@@ -57,14 +57,26 @@ const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
         </title>
       </Helmet>
       <Breadcrumbs
-        items={[
-          { title: t('address:breadcrumbs.setting') },
-          { title: t('address:breadcrumbs.account') },
-          {
-            title: t('address:breadcrumbs.addAddress'),
-            href: CustomUrlUtil(`${rootMenu}/settings/account/address`, router.locale)
-          }
-        ]}
+        items={
+          props.isSeller
+            ? [
+                { title: t('setting-sidebar:seller.management.title') },
+                {
+                  title: t('setting-sidebar:seller.management.address'),
+                  href: `${rootMenu}/settings/${prefixMenu}/address`
+                },
+                { title: t('address:breadcrumbs.addAddress') }
+              ]
+            : [
+                { title: t('address:breadcrumbs.setting') },
+                { title: t('address:breadcrumbs.account') },
+                {
+                  title: t('address:breadcrumbs.address'),
+                  href: `${rootMenu}/settings/${prefixMenu}/address`
+                },
+                { title: t('address:breadcrumbs.addAddress') }
+              ]
+        }
       />
       <div className="page-content mb-9">
         <div className="container">

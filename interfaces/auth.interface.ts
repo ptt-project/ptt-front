@@ -59,7 +59,7 @@ export interface IAuthToken {
   refreshToken: string
 }
 
-export interface IAuthResetPasswordPayload {
+export interface IAuthResetPasswordByMobilePayload {
   username: string
   password: string
   otpCode: string

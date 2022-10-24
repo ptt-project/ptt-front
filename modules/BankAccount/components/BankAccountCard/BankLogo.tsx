@@ -14,6 +14,7 @@ const BankLogo: FC<IBankLogoProps> = (props: IBankLogoProps) => {
     <Image
       preview={false}
       src={`./images/main/buyer/bank-logo/${bankLogoPath}`}
+      alt=""
       onError={(): void => {
         setIsImageError(true)
       }}

@@ -10,7 +10,7 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import Loading from '../../components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import { IAuthForgotPasswordForm, IAuthResetPasswordPayload, IOtp } from '~/interfaces'
+import { IAuthForgotPasswordForm, IAuthResetPasswordByMobilePayload, IOtp } from '~/interfaces'
 import { OtpReferenceTypeEnum, OtpTypeEnum } from '~/enums'
 import { AuthDestroyUtil } from '~/utils/main'
 import { AuthService } from '../../services'
@@ -53,13 +53,13 @@ const ForgotPassword: FC<IForgotPasswordProps> = (props: IForgotPasswordProps) =
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: IAuthResetPasswordPayload = {
+      const payload: IAuthResetPasswordByMobilePayload = {
         username: reference,
         password,
         otpCode: values.otpCode,
         refCode: values.refCode
       }
-      await AuthService.resetPassword(payload)
+      await AuthService.resetPasswordByMobile(payload)
       isSuccess = true
       toggle()
       AuthDestroyUtil()

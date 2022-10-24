@@ -4,7 +4,7 @@ import {
   IAuthLoginPayload,
   IAuthRegisterPayload,
   IAuthRegisterValidatePayload,
-  IAuthResetPasswordPayload
+  IAuthResetPasswordByMobilePayload
 } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
 
@@ -17,5 +17,7 @@ export const register = (payload: IAuthRegisterPayload): Promise<IApiResponse> =
 export const login = (payload: IAuthLoginPayload): Promise<IApiResponse> =>
   AxiosService.post(EndPointUrlConst.AUTH.LOGIN, payload)
 
-export const resetPassword = (payload: IAuthResetPasswordPayload): Promise<IApiResponse> =>
-  AxiosService.post(EndPointUrlConst.AUTH.RESET_PASSWORD, payload)
+export const resetPasswordByMobile = (
+  payload: IAuthResetPasswordByMobilePayload
+): Promise<IApiResponse> =>
+  AxiosService.post(EndPointUrlConst.AUTH.RESET_PASSWORD_BY_MOBILE, payload)

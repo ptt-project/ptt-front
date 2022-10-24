@@ -1,6 +1,6 @@
-import { Button, Checkbox, Image, Space } from 'antd'
 import React from 'react'
 import styles from '../AddressForm.module.scss'
+import { Button, Checkbox, Image, Space } from 'antd'
 
 interface IAddressCheckboxFieldProps {
   label: string
@@ -9,6 +9,7 @@ interface IAddressCheckboxFieldProps {
   onHintClick?: () => void
   disabled?: boolean
 }
+
 const AddressCheckboxField: React.FC<IAddressCheckboxFieldProps> = (
   props: IAddressCheckboxFieldProps
 ) => {
@@ -30,7 +31,7 @@ const AddressCheckboxField: React.FC<IAddressCheckboxFieldProps> = (
       </Checkbox>
       {onHintClick && (
         <Button className={styles.hint} type="link" onClick={onHintClick}>
-          <Image preview={false} src="./images/main/buyer/icon-hint.svg" />
+          <Image preview={false} src="./images/main/buyer/icon-hint.svg" alt="" />
         </Button>
       )}
     </Space>

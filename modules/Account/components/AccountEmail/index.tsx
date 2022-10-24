@@ -1,44 +1,81 @@
 import React, { FC, useState } from 'react'
-import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
-import { Typography, Button, Row, Col, Form, Input, message } from 'antd'
-import { IMemberProfilePayload, IMemberEmailUpdatePayload } from '~/interfaces'
 import Loading from '~/components/main/Loading'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import styles from './AccountEmail.module.scss'
+import { useTranslation } from 'next-i18next'
+import { Typography, Button, Row, Col, Form, Input, message } from 'antd'
+import { IMemberInfo, IUpdateMemberEmailPayload } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { MemberService } from '~/services'
-import styles from './ProfileEmail.module.scss'
+import { NextRouter, useRouter } from 'next/router'
 
 const { Text, Title } = Typography
 
-interface IEmailProps {
-  profile: IMemberProfilePayload
+interface IAccountEmailForm {
+  email: string
+  password: string
 }
 
-const Email: FC<IEmailProps> = (props: IEmailProps) => {
-  const { t } = useTranslation([...LocaleNamespaceConst, 'account-info'])
+interface IAccountEmailProps {
+  isSeller?: boolean
+  info: IMemberInfo
+}
+
+const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
+  const router: NextRouter = useRouter()
+  const rootMenu: string = props.isSeller ? '/seller' : ''
+  const prefixMenu: string = props.isSeller ? 'management/account' : 'account/info'
+  const { t } = useTranslation([...LocaleNamespaceConst, 'account-info', 'setting-sidebar'])
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [info] = useState<IMemberInfo>(props.info)
 
-  async function onSubmit(values: IMemberEmailUpdatePayload): Promise<void> {
+  function getEmail(): string {
+    if (info.email) {
+      let num: number = 6
+      let star: string = ''
+
+      while (num > 0) {
+        star += '*'
+        num--
+      }
+
+      const provider: string = info.email.split('@')[info.email.split('@').length - 1]
+
+      return `${info.email.slice(0, 2)}${star}@${provider}`
+    }
+
+    return ''
+  }
+
+  async function onSubmit(values: IAccountEmailForm): Promise<void> {
     setIsLoading(true)
-    let isSuccess: boolean = true
+
+    let isSuccess: boolean = false
+
     try {
-      const payload: IMemberEmailUpdatePayload = {
-        newEmail: values.newEmail,
+      const payload: IUpdateMemberEmailPayload = {
+        newEmail: values.email,
         password: values.password
       }
+
       await MemberService.updateEmail(payload)
+
       isSuccess = true
     } catch (error) {
       console.log(error)
     }
+
     if (isSuccess) {
       message.success(t('common:apiMessage.success'))
+
+      router.push(`${rootMenu}/settings/${prefixMenu}`)
     } else {
       message.error(t('common:apiMessage.error'))
     }
+
     setIsLoading(false)
   }
 
@@ -50,19 +87,33 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
         </title>
       </Helmet>
       <Breadcrumbs
-        items={[
-          { title: t('account-info:setting') },
-          { title: t('account-info:title') },
-          { title: t('account-info:personalInfo'), href: '/settings/account/info' },
-          { title: t('account-info:email.title'), href: '/settings/account/info/email' }
-        ]}
+        items={
+          props.isSeller
+            ? [
+                { title: t('setting-sidebar:seller.management.title') },
+                {
+                  title: t('setting-sidebar:seller.management.account'),
+                  href: `${rootMenu}/settings/${prefixMenu}`
+                },
+                { title: t('account-info:email.title') }
+              ]
+            : [
+                { title: t('account-info:setting') },
+                { title: t('account-info:title') },
+                {
+                  title: t('account-info:personalInfo'),
+                  href: `${rootMenu}/settings/${prefixMenu}`
+                },
+                { title: t('account-info:email.title') }
+              ]
+        }
       />
       <Loading show={isLoading} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
             <Col xl={6}>
-              <SettingSidebar sidebarType="buyer" />
+              <SettingSidebar sidebarType={props.isSeller ? 'seller' : 'buyer'} />
             </Col>
             <Col xl={18} lg={24}>
               <Title className="hps-title" level={4}>
@@ -73,35 +124,28 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
                   <Text>{t('account-info:email.currentEmail')} :</Text>
                 </Col>
                 <Col md={12} xs={16}>
-                  <Text className={styles.textPrimary}>{props.profile.email}</Text>
+                  <Text className={styles.colorPrimaryDark}>{getEmail()}</Text>
                 </Col>
               </Row>
               <Row>
                 <Col xl={{ span: 12, offset: 6 }} md={{ span: 12, offset: 6 }}>
-                  <Form
-                    layout="vertical"
-                    form={form}
-                    onFinish={onSubmit}
-                    initialValues={{
-                      email: props.profile.email
-                    }}
-                  >
+                  <Form layout="vertical" form={form} name="accountEmailForm" onFinish={onSubmit}>
                     <Row>
                       <Col span={24}>
                         <Form.Item
-                          label={t('account-info:email.currentEmail')}
-                          name="newEmail"
+                          label={t('account-info:email.newEmail')}
+                          name="email"
                           rules={[
                             {
                               required: true,
                               message: `${t('common:form.required')} ${t(
-                                'account-info:form.email'
+                                'account-info:email.newEmail'
                               )}`
                             },
                             {
                               type: 'email',
                               message: `${t('common:form.invalid.head')} ${t(
-                                'account-info:form.email'
+                                'account-info:email.newEmail'
                               )} ${t('common:form.invalid.tail')}`
                             }
                           ]}
@@ -117,7 +161,7 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
                             {
                               required: true,
                               message: `${t('common:form.required')} ${t(
-                                'account-info:form.email'
+                                'account-info:email.password'
                               )}`
                             }
                           ]}
@@ -147,4 +191,4 @@ const Email: FC<IEmailProps> = (props: IEmailProps) => {
   )
 }
 
-export default Email
+export default AccountEmail

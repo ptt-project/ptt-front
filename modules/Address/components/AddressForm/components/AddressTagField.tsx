@@ -1,6 +1,6 @@
-import { Image, Radio, RadioChangeEvent } from 'antd'
 import React from 'react'
 import styles from '../AddressForm.module.scss'
+import { Image, Radio, RadioChangeEvent } from 'antd'
 
 interface IAddressTagFieldProps {
   value?: string
@@ -13,16 +13,16 @@ const AddressTagField: React.FC<IAddressTagFieldProps> = (props: IAddressTagFiel
     <Radio.Group className={styles.addressTagRadioButtonGroup} value={value} onChange={onChange}>
       <Radio.Button className={styles.addressTagRadioButton} value="home">
         {value === 'home' ? (
-          <Image preview={false} src="./images/main/buyer/address-tag-home-active.svg" />
+          <Image preview={false} src="./images/main/buyer/address-tag-home-active.svg" alt="" />
         ) : (
-          <Image preview={false} src="./images/main/buyer/address-tag-home-inactive.svg" />
+          <Image preview={false} src="./images/main/buyer/address-tag-home-inactive.svg" alt="" />
         )}
       </Radio.Button>
       <Radio.Button className={styles.addressTagRadioButton} value="work">
         {value === 'work' ? (
-          <Image preview={false} src="./images/main/buyer/address-tag-office-active.svg" />
+          <Image preview={false} src="./images/main/buyer/address-tag-office-active.svg" alt="" />
         ) : (
-          <Image preview={false} src="./images/main/buyer/address-tag-office-inactive.svg" />
+          <Image preview={false} src="./images/main/buyer/address-tag-office-inactive.svg" alt="" />
         )}
       </Radio.Button>
     </Radio.Group>
