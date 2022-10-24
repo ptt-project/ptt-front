@@ -1,6 +1,4 @@
 import Helmet from 'react-helmet'
-import Layout from '~/components/layout'
-import Loading from '~/components/main/Loading'
 import React, { useEffect, useState } from 'react'
 import { AppProps } from 'next/app'
 import { appWithTranslation, SSRConfig, useTranslation } from 'next-i18next'
