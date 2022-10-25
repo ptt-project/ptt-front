@@ -166,7 +166,7 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
                               preview={false}
                               width="100%"
                               src="./images/main/buyer/address-empty-list.svg"
-                              alt="empty"
+                              alt="address-empty-list"
                             />
                           </div>
                         </div>

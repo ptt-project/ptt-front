@@ -1,19 +1,18 @@
 /* eslint-disable no-template-curly-in-string */
-import React, { ReactNode, useMemo, useState } from 'react'
+import React, { useEffect, ReactNode, useMemo, useState } from 'react'
 import { Typography, Row, Col, Select, Form, Button, Space, Alert, Divider, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
 import { DefaultOptionType } from 'antd/lib/select'
 import { Rule } from 'antd/lib/form'
-import { map } from 'lodash'
 import { NumberFormatValues } from 'react-number-format'
 import styles from './EWalletWithdraw.module.scss'
-import { CustomUrlUtil, HelperDecimalFormatUtil, HelperCensorBankAccountNoUtil } from '~/utils/main'
+import { CustomUrlUtil, HelperDecimalFormatUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
-import { IBankAccount, IOtp } from '~/interfaces'
+import { IOtp } from '~/interfaces'
 import OtpModal from '~/components/main/OtpModal'
 import { OtpTypeEnum } from '~/enums'
 import { BankAccountService, WalletService } from '~/services'
@@ -33,14 +32,24 @@ const EWalletWithdraw: React.FC = () => {
   const withdrawAmount: number = Form.useWatch('withdrawAmount', form)
 
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
+  const [myBankAccountOptions, setMyBankAccountOptions] = useState<DefaultOptionType[]>([])
   const { t } = useTranslation([...LocaleNamespaceConst, 'e-wallet'])
-  const { data: bankAccounts } = BankAccountService.useGetBankAccounts()
+
   const { data: wallet } = WalletService.useGetMyWallet()
   const balance: number = useMemo(() => wallet?.balance || 0, [wallet?.balance])
 
   const baseRules: Rule[] = [
     { required: true, message: [t('common:form.required'), '${label}'].join(' ') }
   ]
+
+  async function fetchBankAccountOptions(): Promise<void> {
+    const { data } = await BankAccountService.getBankAccountOptions()
+    setMyBankAccountOptions(data)
+  }
+
+  useEffect(() => {
+    fetchBankAccountOptions()
+  }, [])
 
   function toggleOtpOpen(): void {
     setIsOtpOpen(!isOtpOpen)
@@ -73,20 +82,6 @@ const EWalletWithdraw: React.FC = () => {
   function onCancelClick(): void {
     router.back()
   }
-
-  const myBankAccountOptions: DefaultOptionType[] = useMemo(
-    () =>
-      map(
-        bankAccounts || [],
-        (d: IBankAccount): DefaultOptionType => ({
-          label: `${d.bankCode} ${HelperCensorBankAccountNoUtil(d.accountNumber)} ${
-            d.isMain ? `[${t('common:mainBankAccount')}]` : ''
-          }`,
-          value: d.id
-        })
-      ) || [],
-    [bankAccounts, t]
-  )
 
   return (
     <main className="main">
@@ -135,7 +130,9 @@ const EWalletWithdraw: React.FC = () => {
                     </Text>
                   </Col>
                 </Row>
-                {!myBankAccountOptions?.length && (
+              </Row>
+              {!myBankAccountOptions?.length && (
+                <Row className="mb-6">
                   <Col span={24}>
                     <Alert
                       message={t('e-wallet:withdraw.noBankAccountTitle')}
@@ -157,8 +154,8 @@ const EWalletWithdraw: React.FC = () => {
                       closable
                     />
                   </Col>
-                )}
-              </Row>
+                </Row>
+              )}
               <Row className={styles.contentLayout} gutter={[24, 24]} justify="space-between">
                 <Col span={24}>
                   <Form

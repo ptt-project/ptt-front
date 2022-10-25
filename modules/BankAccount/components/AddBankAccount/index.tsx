@@ -75,7 +75,6 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
     } catch (error) {
       //
     }
-    // bankMock.push(bankAccountData)
   }
 
   function onSaveClick(): void {

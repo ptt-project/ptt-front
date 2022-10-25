@@ -39,7 +39,13 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
           <Col>
             <Button
               className={`${styles.button} hps-btn-secondary`}
-              icon={<Image preview={false} src="./images/main/buyer/happy-point-buy.svg" alt="" />}
+              icon={
+                <Image
+                  preview={false}
+                  src="./images/main/buyer/happy-point-buy.svg"
+                  alt="happy-point-buy"
+                />
+              }
               onClick={onBuyClick}
             >
               {t('happy-point:buy.title')}
@@ -48,7 +54,13 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
           <Col>
             <Button
               className={`${styles.button} hps-btn-secondary`}
-              icon={<Image preview={false} src="./images/main/buyer/happy-point-sell.svg" alt="" />}
+              icon={
+                <Image
+                  preview={false}
+                  src="./images/main/buyer/happy-point-sell.svg"
+                  alt="happy-point-sell"
+                />
+              }
               onClick={onSellClick}
             >
               {t('happy-point:sell.title')}
@@ -58,7 +70,11 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
             <Button
               className={`${styles.button} hps-btn-secondary`}
               icon={
-                <Image preview={false} src="./images/main/buyer/happy-point-transfer.svg" alt="" />
+                <Image
+                  preview={false}
+                  src="./images/main/buyer/happy-point-transfer.svg"
+                  alt="happy-point-transfer"
+                />
               }
               onClick={onTransferClick}
             >

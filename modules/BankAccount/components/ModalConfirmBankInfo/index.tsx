@@ -62,7 +62,7 @@ const ModalConfirmBankInfo: FC<IModalConfirmBankInfoProps> = (
           <Text className={styles.dataLabel}>{t('bank-account:form.bankName')}</Text>
         </Col>
         <Col span={12}>
-          <Text>{`${getBankName(data.bankCode)} (${data?.bankCode})`}</Text>
+          <Text>{`${getBankName(data?.bankCode || '')} (${data?.bankCode})`}</Text>
         </Col>
         <Col span={12}>
           <Text className={styles.dataLabel}>{t('bank-account:form.bankName')}</Text>
