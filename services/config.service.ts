@@ -15,8 +15,13 @@ export const useGetConfigOptions = () => {
       return data
     },
     {
-      cacheTime: 1 * 24 * 60 * 60 * 1000,
-      staleTime: 5 * 60 * 1000
+      cacheTime: Infinity,
+      staleTime: 5 * 60 * 1000,
+      meta: {
+        persist: true
+      },
+      suspense: true,
+      useErrorBoundary: false
     }
   )
 }

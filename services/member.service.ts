@@ -7,11 +7,13 @@ import {
   IUpdateMemberProfilePayload,
   IUpdateMemberEmailPayload,
   IUpdateMemberMobilePayload,
-  IMemberChangePasswordPayload
+  IMemberChangePasswordPayload,
+  IMemberInfo
 } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
+import { useQuery, UseQueryResult } from '@tanstack/react-query'
 
-export const getProfile = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
+export const getProfile = (option?: AxiosRequestConfig): Promise<IApiResponse<IMemberInfo>> =>
   AxiosService.get(EndPointUrlConst.MEMBERS.PROFILE, option)
 
 export const updateProfile = (payload: IUpdateMemberProfilePayload): Promise<IApiResponse> =>
@@ -52,3 +54,20 @@ export const setMainAddress = (addressId: string): Promise<IApiResponse> =>
 
 export const changePassword = (payload: IMemberChangePasswordPayload): Promise<IApiResponse> =>
   AxiosService.patch(EndPointUrlConst.MEMBERS.CHANGE_PASSWORD, payload)
+
+export const useGetProfile = (option?: AxiosRequestConfig): UseQueryResult<IMemberInfo> => {
+  return useQuery(
+    [EndPointUrlConst.MEMBERS.PROFILE],
+    async () => {
+      const { data } = await getProfile(option)
+      return data
+    },
+    {
+      cacheTime: Infinity,
+      staleTime: 10 * 60 * 100,
+      meta: {
+        persist: true
+      }
+    }
+  )
+}

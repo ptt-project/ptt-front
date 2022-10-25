@@ -15,7 +15,7 @@ import { LocaleNamespaceConst } from '~/constants'
 import { IOtp } from '~/interfaces'
 import OtpModal from '~/components/main/OtpModal'
 import { OtpTypeEnum } from '~/enums'
-import { BankAccountService, WalletService } from '~/services'
+import { BankAccountService, MemberService, WalletService } from '~/services'
 import InputNumberFormat from '~/components/main/InputNumberFormat'
 
 const { Title, Text, Link } = Typography
@@ -27,6 +27,8 @@ interface IEWalletWithdrawFormValues {
 
 const EWalletWithdraw: React.FC = () => {
   const router: NextRouter = useRouter()
+  const { data: user } = MemberService.useGetProfile()
+
   const [form] = Form.useForm<IEWalletWithdrawFormValues>()
   const bankAccountId: number = Form.useWatch('bankAccountId', form)
   const withdrawAmount: number = Form.useWatch('withdrawAmount', form)
@@ -284,7 +286,7 @@ const EWalletWithdraw: React.FC = () => {
                   {/* TODO: wait type otp verify */}
                   <OtpModal
                     action={OtpTypeEnum.REGISTER}
-                    mobile="0901061303"
+                    mobile={user?.mobile}
                     isOpen={isOtpOpen}
                     toggle={toggleOtpOpen}
                     onSubmit={onOtpSuccess}

@@ -61,7 +61,6 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
       ),
     []
   )
-  console.log({ provinceOptions })
 
   const districtOptions: DefaultOptionType[] = useMemo(() => {
     const districtData: IOptionAddress[] = addressFinder.queryDistrict(province)
