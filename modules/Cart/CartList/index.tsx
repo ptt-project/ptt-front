@@ -101,7 +101,7 @@ const CartList: FC<ICartListProps> = (props: ICartListProps) => {
         centered: true,
         okText: t('ลบ'),
         onOk: () => {
-          const newProducts = pickBy(products, (e, key) => Number(key) !== productId)
+          const newProducts = pickBy(products, (e, key) => key !== productId)
           form.setFieldsValue({ products: newProducts })
           form.setFieldValue(['products', productId], null)
           message.success(t('Success'))
@@ -316,7 +316,7 @@ const CartList: FC<ICartListProps> = (props: ICartListProps) => {
   )
 
   const onSelected = useCallback((selectedRows: ICartProductItem[]) => {
-    const newSelectedRowKeys: number[] = []
+    const newSelectedRowKeys: string[] = []
     const productsSelected = transform(
       selectedRows || [],
       (acc, cur) => {

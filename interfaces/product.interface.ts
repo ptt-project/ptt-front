@@ -1,4 +1,4 @@
-import { ISellerInfoRes } from '.'
+import { ISellerInfo } from '.'
 import { ProductConditionEnum, ProductStatusEnum } from '../enums'
 
 export interface IProductDetailOption {
@@ -17,7 +17,7 @@ export interface IProductDetail {
 export interface ICreateProductPayload {
   name: string
   detail: string
-  platformCategoryId: number
+  platformCategoryId: string
   brandId?: number
   weight: number
   exp?: number
@@ -38,12 +38,12 @@ export interface ICreateProductPayload {
 }
 
 export interface IProduct {
-  id: number
+  id: string
   createdAt: Date
   updatedAt: Date
   deletedAt?: Date
   sku?: string
-  productProfileId: number
+  productProfileId: string
   option1?: string
   option2?: string
   price: string
@@ -54,19 +54,19 @@ export interface IProduct {
   productProfile?: IProductProfile // relation
 }
 
-export interface IShop extends ISellerInfoRes {
+export interface IShop extends ISellerInfo {
   products?: IProduct[]
 }
 
 export interface IProductProfile {
-  id: number
+  id: string
   createdAt: Date
   updatedAt: Date
   deletedAt?: Date
   name: string
   detail: string
-  shopId: number
-  platformCategoryId: number
+  shopId: string
+  platformCategoryId: string
   brandId?: number
   status: ProductStatusEnum
   approval: boolean
@@ -85,12 +85,12 @@ export interface IProductProfile {
 }
 
 export interface IProductOption {
-  id: number
+  id: string
   createdAt: Date
   updatedAt: Date
   deletedAt?: Date
   name: string
-  productProfileId: number
+  productProfileId: string
   options?: string[]
 }
 

@@ -18,8 +18,8 @@ export interface ISellerRegisterPayload {
   note?: string
 }
 
-export interface ISellerInfoRes {
-  id: number
+export interface ISellerInfo {
+  id: string
   createdAt: Date
   updatedAt: Date
   deletedAt?: Date
@@ -48,5 +48,5 @@ export interface ISellerInfoRes {
   note?: string
   profileImagePath?: string
   coverImagePath?: string
-  memberId: number
+  memberId: string
 }

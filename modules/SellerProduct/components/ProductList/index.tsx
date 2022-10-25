@@ -5,8 +5,13 @@ import type { ColumnsType } from 'antd/es/table'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from './ProductList.module.scss'
+import { IListItems, IProduct } from '../../../../interfaces'
 
 const { Text } = Typography
+
+interface IProductListProps {
+  products: IListItems<IProduct>
+}
 
 interface IDataType {
   key: React.Key
@@ -41,7 +46,7 @@ for (let i: number = 0; i < 100; i++) {
   console.log('params', pagination, filters, sorter, extra)
 } */
 
-const ProductList: FC = () => {
+const ProductList: FC<IProductListProps> = (props: IProductListProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [isOpenDelModal, setIsOpenDelModal] = useState<boolean>(false)
   const [isContentImg, setIsContentImg] = useState<string>()

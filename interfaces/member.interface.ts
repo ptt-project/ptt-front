@@ -13,8 +13,8 @@ export interface IMemberInfo {
 }
 
 export interface IMemberMobile {
-  id: number
-  memberId: number
+  id: string
+  memberId: string
   mobile: string
   isPrimary: boolean
   createdAt: string

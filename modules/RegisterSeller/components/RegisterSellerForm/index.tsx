@@ -18,7 +18,7 @@ import HighlightLabel from '~/components/main/HighlightLabel'
 import Loading from '~/components/main/Loading'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import styles from './RegisterSellerForm.module.scss'
-import { ISellerInfoRes, ISellerRegisterPayload } from '~/interfaces'
+import { ISellerInfo, ISellerRegisterPayload } from '~/interfaces'
 import { FormModeEnum, SellerApprovalStatusEnum, SellerShopTypeEnum } from '~/enums'
 import { SellerService } from '~/services'
 
@@ -26,7 +26,7 @@ const { Text, Title } = Typography
 const { TextArea } = Input
 
 interface IRegisterSellerFormProps {
-  shopInfo?: ISellerInfoRes
+  shopInfo?: ISellerInfo
   setStep: (step: number) => void
 }
 

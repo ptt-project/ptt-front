@@ -5,10 +5,10 @@ import RegisterSellerForm from './components/RegisterSellerForm'
 import RegisterSellerSuccess from './components/RegisterSellerSuccess'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
-import { ISellerInfoRes } from '~/interfaces'
+import { ISellerInfo } from '~/interfaces'
 
 interface IRegisterSellerProps {
-  shopInfo?: ISellerInfoRes
+  shopInfo?: ISellerInfo
 }
 
 const RegisterSeller: FC<IRegisterSellerProps> = (props: IRegisterSellerProps) => {

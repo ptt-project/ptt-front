@@ -10,7 +10,7 @@ import styles from './SelectHappyVoucher.module.scss'
 import VoucherDetailModal from './VoucherDetailModal'
 
 interface ISelectHappyVoucherFromValues {
-  voucherId: number
+  voucherId: string
 }
 
 interface ISelectHappyVoucherProps {
@@ -37,28 +37,28 @@ const SelectHappyVoucher: FC<ISelectHappyVoucherProps> = (props: ISelectHappyVou
   const [voucherDetail, setVoucherDetail] = useState<IVoucher>()
   const [vouchers /* setVouchers */] = useState<IVoucher[]>([
     {
-      id: 1,
+      id: '1',
       name: 'โค้ดส่งฟรีเฉพาะร้านค้า',
       condition: 'ขั้นต่ำ ฿99',
       endDate: moment().add(1, 'hour').format(),
       description: ''
     },
     {
-      id: 2,
+      id: '2',
       name: 'ส่วนลด 12%',
       condition: 'ขั้นต่ำ ฿1,500 สูงสุด ฿500',
       endDate: moment().add(4, 'hour').format(),
       description: ''
     },
     {
-      id: 3,
+      id: '3',
       name: 'โค้ดส่งฟรี',
       condition: 'เมื่อชำระด้วยบัตรเครดิต',
       endDate: moment().add(4, 'day').format(),
       description: ''
     },
     {
-      id: 4,
+      id: '4',
       name: 'ส่วนลด ฿100',
       condition: 'ขั้นต่ำ ฿899',
       endDate: moment().add(9, 'day').format(),

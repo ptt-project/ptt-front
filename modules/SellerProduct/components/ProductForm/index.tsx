@@ -25,8 +25,8 @@ interface IFormData {
   videoLink?: string
   name: string
   detail: string
-  platformCategoryId: number
-  brandId?: number
+  platformCategoryId: string
+  brandId?: string
   exp?: string // convert to number
   condition: ProductConditionEnum
   price?: string // convert to number

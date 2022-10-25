@@ -10,7 +10,7 @@ export interface IAddress {
   deletedAt?: string
   name: string
   mobile: string
-  memberId: number
+  memberId: string
   province: string
   tambon: string
   district: string

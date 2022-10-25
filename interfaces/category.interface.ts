@@ -10,11 +10,11 @@ export interface IUpdateCategoryPayload {
 }
 
 export interface ICategory {
-  id: number
+  id: string
   createdAt: Date
   updatedAt: Date
   deletedAt?: Date
-  shopId: number
+  shopId: string
   name: string
   createdBy: string
   status: CategoryStatusEnum
