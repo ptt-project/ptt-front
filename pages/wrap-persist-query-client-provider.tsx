@@ -1,5 +1,5 @@
 import { Query, QueryClient } from '@tanstack/react-query'
-import React, { FC, ReactNode, Suspense, useState } from 'react'
+import React, { FC, ReactNode, useState } from 'react'
 import { createIDBPersister } from '~/utils/main'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { Persister } from '@tanstack/query-persist-client-core'
