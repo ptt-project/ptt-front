@@ -37,13 +37,10 @@ const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFro
   ]
 
   function onFormFinish(values: IBankAccountFromValues): void {
-    console.log({ formValues: values })
-
     onSubmit?.({ ...initialValues, ...values })
   }
 
   function onFormChange(values: IBankAccountFromValues): void {
-    console.log({ formValues: values })
     setFormValues(values)
   }
 

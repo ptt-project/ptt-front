@@ -1,5 +1,7 @@
 import { takeRight } from 'lodash'
 import { ImageSizeEnum } from '~/enums'
+import { get, set, del } from 'idb-keyval'
+import { PersistedClient, Persister } from '@tanstack/react-query-persist-client'
 
 export const HelperCensorBankAccountNoUtil = (bankAccountNo: string): string =>
   `*${takeRight(bankAccountNo, 4).join('')}`
@@ -21,3 +23,21 @@ export const HelperMobileFormatUtil = (mobile: string): string =>
 
 export const HelperGetImageUtil = (imageId: string, size: ImageSizeEnum): string =>
   `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_VERSION}/images/${imageId}/${size}`
+
+/**
+ * Creates an Indexed DB persister
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
+ */
+export function createIDBPersister(idbValidKey: IDBValidKey = 'reactQuery'): Persister {
+  return {
+    persistClient: async (client: PersistedClient) => {
+      set(idbValidKey, client)
+    },
+    restoreClient: async () => {
+      return await get<PersistedClient>(idbValidKey)
+    },
+    removeClient: async () => {
+      await del(idbValidKey)
+    }
+  } as Persister
+}

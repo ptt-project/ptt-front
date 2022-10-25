@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { Suspense, useEffect, useMemo, useState } from 'react'
 import Helmet from 'react-helmet'
 import AddressForm from '../AddressForm'
 import SettingSidebar from '~/components/main/SettingSidebar'
@@ -123,15 +123,17 @@ const EditAddress: React.FC<IEditAddressProps> = (props: IEditAddressProps) => {
                   {t('address:editAddressTitle')}
                 </Title>
               </Col>
-              {address && (
-                <AddressForm
-                  parentForm={form}
-                  initialValues={initialValues}
-                  onSubmit={onSubmit}
-                  isSeller={isSeller}
-                  googleMapsApiKey={googleMapsApiKey}
-                />
-              )}
+              <Suspense fallback={<div>Loading...</div>}>
+                {address && (
+                  <AddressForm
+                    parentForm={form}
+                    initialValues={initialValues}
+                    onSubmit={onSubmit}
+                    isSeller={isSeller}
+                    googleMapsApiKey={googleMapsApiKey}
+                  />
+                )}
+              </Suspense>
               <Row className="flex-1 mt-5" gutter={[24, 0]}>
                 <Col span={12}>
                   <Button type="text" onClick={onCancelClick} block>
