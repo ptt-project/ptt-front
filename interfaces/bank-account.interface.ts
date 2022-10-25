@@ -1,9 +1,9 @@
 import { BankAccountStatusEnum } from '~/enums'
-import { IBaseEntity } from './common.interface'
+import { IBaseEntity, IOption } from './common.interface'
 import { IWalletTransaction } from './e-wallet.interface'
 
 export interface IBankAccountData {
-  id?: string
+  id?: number
   fullName: string
   citizenNo: string
   status: BankAccountStatusEnum
@@ -35,6 +35,11 @@ export interface IBankOptionData {
 
 export type IBankAccountFromValues = IBankAccountData
 
+export interface IGetBankAccountsParams {
+  otpCode: string
+  refCode: string
+}
+
 export type IGetBankAccountsResponse = IBankAccount[]
 
 export interface IAddBankAccountParams {
@@ -47,7 +52,9 @@ export interface IAddBankAccountParams {
   accountHolder: string
 }
 
-export interface IAddBankAccountResponse {
+export type IAddBankAccountResponse = IBankAccount
+
+export interface IEditBankAccountParams {
   otpCode: string
   refCode: string
   fullName: string
@@ -56,3 +63,10 @@ export interface IAddBankAccountResponse {
   accountNumber: string
   accountHolder: string
 }
+
+export interface IDeleteBankAccountParams {
+  otpCode: string
+  refCode: string
+}
+
+export type IGetBankAccountOptionsResponse = IOption[]

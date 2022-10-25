@@ -34,7 +34,13 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
           <Col>
             <Button
               className={`${styles.button} hps-btn-secondary`}
-              icon={<Image preview={false} src="./images/main/buyer/icon-withdraw.svg" alt="" />}
+              icon={
+                <Image
+                  preview={false}
+                  src="./images/main/buyer/icon-withdraw.svg"
+                  alt="icon-withdraw"
+                />
+              }
               onClick={onWithdrawClick}
             >
               {t('e-wallet:withdraw.title')}
@@ -43,7 +49,13 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
           <Col>
             <Button
               className={`${styles.button} ${styles.topUpButton}`}
-              icon={<Image preview={false} src="./images/main/buyer/icon-top-up.svg" alt="" />}
+              icon={
+                <Image
+                  preview={false}
+                  src="./images/main/buyer/icon-top-up.svg"
+                  alt="icon-top-up"
+                />
+              }
               onClick={onTopUpClick}
             >
               {t('e-wallet:topUp.title')}

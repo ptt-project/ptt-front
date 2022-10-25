@@ -34,9 +34,13 @@ export const EndPointUrlConst = {
     WITHDRAW: '/wallets/withdraw'
   },
   BANK_ACCOUNT: {
-    BANK_ACCOUNTS: '/bank-accounts'
+    BANK_ACCOUNTS: '/bank-accounts',
+    BANK_ACCOUNT_OPTIONS: '/bank-accounts/options'
   },
   IMAGES: {
     UPLOAD: '/images/upload-image'
+  },
+  CONFIG: {
+    OPTIONS: '/configs/options'
   }
 }

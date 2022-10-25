@@ -8,13 +8,12 @@ interface IBankLogoProps {
 const BankLogo: FC<IBankLogoProps> = (props: IBankLogoProps) => {
   const { bankShortName: bank } = props
   const [isImageError, setIsImageError] = useState<boolean>(false)
-  // return <Image preview={false} src={getBankImageBase64(bank)} />
   const bankLogoPath: string = useMemo(() => `${bank.toLowerCase()}.svg`, [bank])
   return !isImageError ? (
     <Image
       preview={false}
       src={`./images/main/buyer/bank-logo/${bankLogoPath}`}
-      alt=""
+      alt={bankLogoPath}
       onError={(): void => {
         setIsImageError(true)
       }}

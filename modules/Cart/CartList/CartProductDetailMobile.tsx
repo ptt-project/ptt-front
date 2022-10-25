@@ -36,7 +36,11 @@ const CartProductDetailMobile: FC<ICartProductDetailMobileProps> = (
         align="center"
       >
         <Row justify="center" align="middle">
-          <Image preview={false} src="./images/main/buyer/mock-cart-product.svg" alt="" />
+          <Image
+            preview={false}
+            src="./images/main/buyer/mock-cart-product.svg"
+            alt="mock-cart-product"
+          />
         </Row>
         <Row justify="center" align="middle">
           <Typography.Text ellipsis>{name}</Typography.Text>

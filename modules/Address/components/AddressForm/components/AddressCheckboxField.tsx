@@ -31,7 +31,7 @@ const AddressCheckboxField: React.FC<IAddressCheckboxFieldProps> = (
       </Checkbox>
       {onHintClick && (
         <Button className={styles.hint} type="link" onClick={onHintClick}>
-          <Image preview={false} src="./images/main/buyer/icon-hint.svg" alt="" />
+          <Image preview={false} src="./images/main/buyer/icon-hint.svg" alt="icon-hint" />
         </Button>
       )}
     </Space>

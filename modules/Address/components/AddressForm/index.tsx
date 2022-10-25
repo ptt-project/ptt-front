@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Input, Form, FormInstance, Col, Row, Select, Modal, Typography, Button } from 'antd'
 import { DeepPartial } from 'redux'
 import { DefaultOptionType } from 'antd/lib/select'
@@ -10,15 +10,11 @@ import PickLocationField from './components/PickLocationField'
 import styles from './AddressForm.module.scss'
 import AddressTagField from './components/AddressTagField'
 import AddressCheckboxField from './components/AddressCheckboxField'
-import { IAddressFormValues, ICustomHookUseVisibleUtil } from '~/interfaces'
+import { IAddressFormValues, ICustomHookUseVisibleUtil, IOptionAddress } from '~/interfaces'
 import { CustomHookUseVisibleUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
-import {
-  AddressFieldsEnum,
-  IFindAddressResult,
-  provinceData,
-  AddressFinder
-} from './data/address-finder'
+import { useAddressFinder } from './data/address-finder'
+import { AddressFieldsEnum } from '~/enums'
 
 const { Text, Title } = Typography
 
@@ -44,6 +40,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
   const tambon: string = Form.useWatch('tambon', form)
 
   const hintModalVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
+  const { addressFinder } = useAddressFinder()
 
   const [hintModalData, setHintModalData] = useState<any>({})
 
@@ -56,7 +53,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
   const provinceOptions: DefaultOptionType[] = useMemo(
     () =>
       uniqBy(
-        provinceData.map((d: string) => ({
+        addressFinder.provinceData.map((d: string) => ({
           label: d,
           value: d
         })),
@@ -64,11 +61,12 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
       ),
     []
   )
+  console.log({ provinceOptions })
 
   const districtOptions: DefaultOptionType[] = useMemo(() => {
-    const districtData: IFindAddressResult[] = AddressFinder.queryDistrict(province)
+    const districtData: IOptionAddress[] = addressFinder.queryDistrict(province)
     return uniqBy(
-      districtData.map((d: IFindAddressResult) => ({
+      districtData.map((d: IOptionAddress) => ({
         label: d[AddressFieldsEnum.DISTRICT],
         value: d[AddressFieldsEnum.DISTRICT]
       })),
@@ -77,9 +75,9 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
   }, [province])
 
   const tambonOptions: DefaultOptionType[] = useMemo(() => {
-    const tambonData: IFindAddressResult[] = AddressFinder.queryTambon(province, district)
+    const tambonData: IOptionAddress[] = addressFinder.querySubDistrict(province, district)
     return uniqBy(
-      tambonData.map((d: IFindAddressResult) => ({
+      tambonData.map((d: IOptionAddress) => ({
         label: d[AddressFieldsEnum.SUB_DISTRICT],
         value: d[AddressFieldsEnum.SUB_DISTRICT]
       })),
@@ -88,11 +86,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
   }, [province, district])
 
   const postalCodeOptions: DefaultOptionType[] = useMemo(() => {
-    const postalCodeData: IFindAddressResult[] = AddressFinder.queryZipcode(
-      province,
-      district,
-      tambon
-    )
+    const postalCodeData: IOptionAddress[] = addressFinder.queryPostcode(province, district, tambon)
     return uniqBy(
       postalCodeData.map((d: any) => ({
         label: d[AddressFieldsEnum.POSTCODE],
@@ -101,11 +95,6 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
       'value'
     )
   }, [district, province, tambon])
-
-  useEffect(() => {
-    console.log({ province, district, tambon })
-    console.log({ provinceOptions, districtOptions, tambonOptions })
-  }, [district, districtOptions, province, provinceOptions, tambon, tambonOptions])
 
   function onHintClick(hintType: string): void {
     switch (hintType) {
@@ -129,7 +118,6 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
   }
 
   function onFormFinish(values: IAddressFormValues): void {
-    console.log({ formValues: values })
     onSubmit?.({ ...initialValues, ...values })
   }
 
