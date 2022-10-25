@@ -20,7 +20,7 @@ module.exports = {
       }
     }
   },
-  ignorePatterns: ['**/*.js', '**/*.jsx'],
+  ignorePatterns: ['**/*.js', '**/*.jsx', 'tsconfig.json'],
   rules: {
     'import/no-unresolved': [
       'error',

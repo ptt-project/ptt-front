@@ -18,7 +18,7 @@ import {
 } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { OtpTypeEnum } from '~/enums'
-import { BankAccountService } from '~/services'
+import { BankAccountService, MemberService } from '~/services'
 
 const { Title } = Typography
 
@@ -35,9 +35,9 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
   const bankAccountId: number = bankAccount.id
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
+  const { data: user } = MemberService.useGetProfile()
 
   const rootMenu: string = isSeller ? '/seller' : ''
-  const mobileNo: string = '0901061303'
 
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const [bankAccountData, setBankAccountData] = useState<IBankAccountData>()
@@ -150,7 +150,7 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
           />
           {/* TODO: wait type otp verify */}
           <OtpModal
-            mobile={mobileNo}
+            mobile={user.mobile}
             action={OtpTypeEnum.EDIT_BANK_ACCOUNT}
             isOpen={isOtpOpen}
             toggle={toggleOtpOpen}

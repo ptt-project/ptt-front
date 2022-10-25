@@ -1,6 +1,6 @@
 import { Query, QueryClient } from '@tanstack/react-query'
 import React, { FC, ReactNode, useState } from 'react'
-import { createIDBPersister } from '~/utils/main'
+import { HelperCreateIDBPersister } from '~/utils/main'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { Persister } from '@tanstack/query-persist-client-core'
 
@@ -19,7 +19,7 @@ const WrapPersistQueryClientProvider: FC<IDehydrateStateProps> = (props: IDehydr
         }
       })
   )
-  const persister: Persister = createIDBPersister()
+  const persister: Persister = HelperCreateIDBPersister()
 
   return (
     <PersistQueryClientProvider
