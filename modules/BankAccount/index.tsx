@@ -22,7 +22,7 @@ import {
   IOtp
 } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
-import { BankAccountService } from '~/services'
+import { BankAccountService, MemberService } from '~/services'
 import { BankAccountStatusEnum, OtpTypeEnum } from '~/enums'
 import { getBankName } from './bank-account.helper'
 import OtpModal from '~/components/main/OtpModal'
@@ -36,11 +36,11 @@ interface IBankAccountProps {
 const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
   const { isSeller } = props
 
-  const mobileNo: string = '0901061303'
   const rootMenu: string = isSeller ? '/seller' : ''
 
   const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
+  const { data: user } = MemberService.useGetProfile()
 
   const deleteBankAccountVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
   const [deleteBankAccountId, setDeleteBankAccountId] = useState<number>()
@@ -56,9 +56,9 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
   const [bankAccounts, setBankAccounts] = useState<IBankAccountData[]>([])
   const [editBankAccount, setEditBankAccount] = useState<IBankAccountData>()
 
-  const isVerify: boolean = useMemo(() => {
-    return !!otpViewVerifyMeta?.otpCode && !!otpViewVerifyMeta?.refCode
-  }, [otpViewVerifyMeta])
+  // const isVerify: boolean = useMemo(() => {
+  //   return !!otpViewVerifyMeta?.otpCode && !!otpViewVerifyMeta?.refCode
+  // }, [otpViewVerifyMeta])
 
   async function onSubmitOtpViewBankAccount(otpData: IOtp): Promise<void> {
     try {
@@ -255,72 +255,52 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                       </Button>
                     </Col>
                   </Row>
-                  {isVerify ? (
-                    <Row className="mt-4" gutter={[0, 16]}>
-                      {bankAccounts.length ? (
-                        orderBy(bankAccounts, (v: IBankAccountData) => (v.isDefault ? 1 : 0), [
-                          'desc'
-                        ]).map((bankAccount: IBankAccountData) => (
-                          <Col key={`${bankAccount.id}`} span={24}>
-                            <BankAccountCard
-                              data={bankAccount}
-                              onEditClick={onEditBankAccountClick.bind(null, bankAccount.id)}
-                              onFavoriteClick={onFavoriteBankAccountClick.bind(
-                                null,
-                                bankAccount.id
-                              )}
-                              onDeleteClick={onDeleteBankAccountClick.bind(null, bankAccount.id)}
-                            />
-                          </Col>
-                        ))
-                      ) : (
-                        <Col className="w-100">
-                          <div className={`mx-auto ${styles.wrapImageEmptyAddress}`}>
-                            <div className={styles.imgContainer}>
-                              <Image
-                                rootClassName={styles.imgWrapper}
-                                preview={false}
-                                width="100%"
-                                src="./images/main/buyer/address-empty-list.svg"
-                                alt="address-empty"
-                              />
-                            </div>
-                          </div>
-                          <div className="mt-4 text-center">
-                            <Text>
-                              {t('bank-account:emptyBankAccount')}
-                              <Link
-                                className="ml-1"
-                                href={CustomUrlUtil(
-                                  `${rootMenu}/settings/finance/bank/add`,
-                                  router.locale
-                                )}
-                                disabled={isStale}
-                                underline
-                              >
-                                {t('bank-account:addBankAccountTitle')}
-                              </Link>
-                            </Text>
-                          </div>
+                  <Row className="mt-4" gutter={[0, 16]}>
+                    {bankAccounts.length ? (
+                      orderBy(bankAccounts, (v: IBankAccountData) => (v.isDefault ? 1 : 0), [
+                        'desc'
+                      ]).map((bankAccount: IBankAccountData) => (
+                        <Col key={`${bankAccount.id}`} span={24}>
+                          <BankAccountCard
+                            data={bankAccount}
+                            onEditClick={onEditBankAccountClick.bind(null, bankAccount.id)}
+                            onFavoriteClick={onFavoriteBankAccountClick.bind(null, bankAccount.id)}
+                            onDeleteClick={onDeleteBankAccountClick.bind(null, bankAccount.id)}
+                          />
                         </Col>
-                      )}
-                    </Row>
-                  ) : (
-                    <Row gutter={[8, 8]}>
+                      ))
+                    ) : (
                       <Col className="w-100">
+                        <div className={`mx-auto ${styles.wrapImageEmptyAddress}`}>
+                          <div className={styles.imgContainer}>
+                            <Image
+                              rootClassName={styles.imgWrapper}
+                              preview={false}
+                              width="100%"
+                              src="./images/main/buyer/address-empty-list.svg"
+                              alt="address-empty"
+                            />
+                          </div>
+                        </div>
                         <div className="mt-4 text-center">
-                          <Text>{t('กรุณายืนยัน OTP เพื่อทำรายการ')}</Text>
+                          <Text>
+                            {t('bank-account:emptyBankAccount')}
+                            <Link
+                              className="ml-1"
+                              href={CustomUrlUtil(
+                                `${rootMenu}/settings/finance/bank/add`,
+                                router.locale
+                              )}
+                              disabled={isStale}
+                              underline
+                            >
+                              {t('bank-account:addBankAccountTitle')}
+                            </Link>
+                          </Text>
                         </div>
                       </Col>
-                      <Col className="w-100">
-                        <Row justify="center">
-                          <Button onClick={setIsOtpViewBankAccountsOpen.bind(null, true)}>
-                            {t('ยืนยัน OTP')}
-                          </Button>
-                        </Row>
-                      </Col>
-                    </Row>
-                  )}
+                    )}
+                  </Row>
                 </Col>
                 <Modal
                   visible={deleteBankAccountVisible.visible}
@@ -361,14 +341,14 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
               </Row>
             </Col>
             <OtpModal
-              mobile={mobileNo}
+              mobile={user?.mobile}
               action={OtpTypeEnum.DELETE_BANK_ACCOUNT}
               isOpen={isOtpOpen}
               toggle={toggleOtpOpen}
               onSubmit={onOtpDeleteBankAccountSuccess}
             />
             <OtpModal
-              mobile={mobileNo}
+              mobile={user?.mobile}
               action={OtpTypeEnum.VIEW_BANK_ACCOUNTS}
               isOpen={isOtpViewBankAccountsOpen}
               toggle={toggleViewBankAccountOtpOpen}

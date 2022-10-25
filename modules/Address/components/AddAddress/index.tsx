@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Helmet from 'react-helmet'
 import AddressForm from '../AddressForm'
 import SettingSidebar from '~/components/main/SettingSidebar'
@@ -95,12 +95,14 @@ const AddAddress: React.FC<IAddAddressProps> = (props: IAddAddressProps) => {
                   {t('address:addAddressTitle')}
                 </Title>
               </Col>
-              <AddressForm
-                parentForm={form}
-                onSubmit={onSubmit}
-                isSeller={isSeller}
-                googleMapsApiKey={googleMapsApiKey}
-              />
+              <Suspense fallback={<div>Loading...</div>}>
+                <AddressForm
+                  parentForm={form}
+                  onSubmit={onSubmit}
+                  isSeller={isSeller}
+                  googleMapsApiKey={googleMapsApiKey}
+                />
+              </Suspense>
               <Row className="flex-1 mt-5" gutter={[24, 0]}>
                 <Col span={12}>
                   <Button type="text" onClick={onCancelClick} block>
