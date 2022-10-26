@@ -1,7 +1,7 @@
 import { Persister } from '@tanstack/query-persist-client-core'
 import { Query, QueryClient } from '@tanstack/react-query'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
-import React, { FC, ReactNode, Suspense, useMemo, useState } from 'react'
+import React, { FC, ReactNode, useMemo, useState } from 'react'
 import { ConfigService, MemberService } from '~/services'
 import { HelperCreateIDBPersister } from '~/utils/main'
 
@@ -32,15 +32,13 @@ const WrapPersistQueryClientProvider: FC<IDehydrateStateProps> = (props: IDehydr
           shouldDehydrateQuery: (query: Query): boolean => {
             const { meta, state } = query
             const { persist } = meta || {}
-            return state.status === 'success' && !!persist
+            return !state.error && !!persist
           }
         }
       }}
     >
-      <Suspense fallback={<div>loading...</div>}>
-        <PrefetchQuery />
-        {props.children}
-      </Suspense>
+      <PrefetchQuery />
+      {props.children}
     </PersistQueryClientProvider>
   )
 }
