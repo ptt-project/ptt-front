@@ -15,6 +15,7 @@ import CustomInput from '~/components/main/CustomInput'
 import { HappyPointTypeEnum } from '~/enums'
 import { CustomUrlUtil, HelperDecimalFormatUtil } from '~/utils/main'
 import InputNumberFormat from '~/components/main/InputNumberFormat'
+import { getSummarySellHappyPoint, getSummaryTransferHappyPoint } from './happy-point.helper'
 
 const { Text, Link } = Typography
 
@@ -48,9 +49,8 @@ const HappyPointForm: React.FC<IHappyPointFormProps> = (props: IHappyPointFormPr
     { required: true, message: [t('common:form.required'), '${label}'].join(' ') }
   ]
 
-  function onFormFinish(values: IHappyPointFormValues): void {
-    console.log({ formValues: values })
-    onSubmit?.({ ...initialValues, ...values })
+  async function onFormFinish(values: IHappyPointFormValues): Promise<void> {
+    await onSubmit?.({ ...initialValues, ...values })
   }
 
   function onFormChange(values: IHappyPointFormValues): void {
@@ -260,9 +260,11 @@ const HappyPointForm: React.FC<IHappyPointFormProps> = (props: IHappyPointFormPr
                 {(): ReactNode => {
                   const values: IHappyPointFormValues = form.getFieldsValue()
                   const { happyPointAmount } = values
-                  const bahtAmount: number = happyPointAmount * rateBahtPerHappyPoint
-                  const vatAmount: number = bahtAmount * 0.07
-                  const totalAmount: number = bahtAmount - vatAmount
+                  const { bahtAmount, vatAmount, totalAmount } = getSummarySellHappyPoint(
+                    happyPointAmount,
+                    rateBahtPerHappyPoint
+                  )
+
                   return (
                     <Space className="w-100" size={8} direction="vertical">
                       <Row justify="space-between">
@@ -293,8 +295,8 @@ const HappyPointForm: React.FC<IHappyPointFormProps> = (props: IHappyPointFormPr
                 {(): ReactNode => {
                   const values: IHappyPointFormValues = form.getFieldsValue()
                   const { happyPointAmount } = values
-                  const vatAmount: number = happyPointAmount * 0.07
-                  const totalAmount: number = happyPointAmount - vatAmount
+                  const { feePoint, totalPoint } = getSummaryTransferHappyPoint(happyPointAmount)
+
                   return (
                     <Space className="w-100" size={8} direction="vertical">
                       <Row justify="space-between">
@@ -303,11 +305,11 @@ const HappyPointForm: React.FC<IHappyPointFormProps> = (props: IHappyPointFormPr
                       </Row>
                       <Row justify="space-between">
                         <Text>{t('happy-point:form.vatAmount')}</Text>
-                        <Text>{`${HelperDecimalFormatUtil(vatAmount)}`}</Text>
+                        <Text>{`${HelperDecimalFormatUtil(feePoint)}`}</Text>
                       </Row>
                       <Row justify="space-between">
                         <Text>{t('happy-point:form.totalAmount')}</Text>
-                        <Text>{`${HelperDecimalFormatUtil(totalAmount)}`}</Text>
+                        <Text>{`${HelperDecimalFormatUtil(totalPoint)}`}</Text>
                       </Row>
                     </Space>
                   )

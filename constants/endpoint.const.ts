@@ -35,12 +35,19 @@ export const EndPointUrlConst = {
   },
   BANK_ACCOUNT: {
     BANK_ACCOUNTS: '/bank-accounts',
-    BANK_ACCOUNT_OPTIONS: '/bank-accounts/options'
+    OPTIONS: '/bank-accounts/options'
   },
   IMAGES: {
     UPLOAD: '/images/upload-image'
   },
   CONFIG: {
     OPTIONS: '/configs/options'
+  },
+  HAPPY_POINT: {
+    LOOKUP: 'happy-points/lookup',
+    BUY: 'happy-points/buy',
+    TRANSFER: 'happy-points/transfer',
+    SELL: 'happy-points/sell',
+    HISTORY: 'happy-points/history'
   }
 }
