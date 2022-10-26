@@ -1,8 +1,9 @@
-import { Query, QueryClient } from '@tanstack/react-query'
-import React, { FC, ReactNode, useState } from 'react'
-import { HelperCreateIDBPersister } from '~/utils/main'
-import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { Persister } from '@tanstack/query-persist-client-core'
+import { Query, QueryClient } from '@tanstack/react-query'
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
+import React, { FC, ReactNode, Suspense, useMemo, useState } from 'react'
+import { ConfigService, MemberService } from '~/services'
+import { HelperCreateIDBPersister } from '~/utils/main'
 
 interface IDehydrateStateProps {
   children: ReactNode
@@ -19,7 +20,7 @@ const WrapPersistQueryClientProvider: FC<IDehydrateStateProps> = (props: IDehydr
         }
       })
   )
-  const persister: Persister = HelperCreateIDBPersister()
+  const persister: Persister = useMemo(() => HelperCreateIDBPersister(), [])
 
   return (
     <PersistQueryClientProvider
@@ -36,9 +37,18 @@ const WrapPersistQueryClientProvider: FC<IDehydrateStateProps> = (props: IDehydr
         }
       }}
     >
-      {props.children}
+      <Suspense fallback={<div>loading...</div>}>
+        <PrefetchQuery />
+        {props.children}
+      </Suspense>
     </PersistQueryClientProvider>
   )
+}
+
+const PrefetchQuery: FC = () => {
+  ConfigService.useGetConfigOptions()
+  MemberService.useGetProfile()
+  return <></>
 }
 
 export default WrapPersistQueryClientProvider
