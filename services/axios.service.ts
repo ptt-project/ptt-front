@@ -1,3 +1,4 @@
+import https from 'https'
 import axios, { Axios, AxiosError, AxiosInstance, AxiosResponse } from 'axios'
 import { ApiCodeEnum } from '~/enums'
 import { IApiResponse } from '~/interfaces'
@@ -6,7 +7,10 @@ const createAxios = (): AxiosInstance => {
   const ax: AxiosInstance = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_VERSION}`,
     timeout: 30 * 1000, // 30s
-    withCredentials: true
+    withCredentials: true,
+    httpsAgent: new https.Agent({
+      rejectUnauthorized: false
+    })
   })
 
   ax.interceptors.response.use(

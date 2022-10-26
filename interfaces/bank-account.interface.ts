@@ -3,7 +3,7 @@ import { IBaseEntity, IOption } from './common.interface'
 import { IWalletTransaction } from './e-wallet.interface'
 
 export interface IBankAccountData {
-  id?: number
+  id?: string
   fullName: string
   citizenNo: string
   status: BankAccountStatusEnum
@@ -15,7 +15,7 @@ export interface IBankAccountData {
 
 // ยังไม่ final
 export interface IBankAccount extends IBaseEntity {
-  memberId: number
+  memberId: string
   fullName: string
   thaiId: string
   bankCode: string

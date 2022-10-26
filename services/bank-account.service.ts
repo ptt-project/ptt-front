@@ -32,7 +32,7 @@ export const getBankAccount = (
   AxiosService.get<IGetBankAccountsResponse>(
     `${EndPointUrlConst.BANK_ACCOUNT.BANK_ACCOUNTS}`,
     option
-  ).then((response) => response.data.find((e) => e.id === Number(bankAccountId)))
+  ).then((response) => response.data.find((e) => e.id === bankAccountId))
 
 export const getBankAccountOptions = (
   option?: AxiosRequestConfig
@@ -45,13 +45,13 @@ export const addBankAccount = (
   AxiosService.post(EndPointUrlConst.BANK_ACCOUNT.BANK_ACCOUNTS, payload)
 
 export const editBankAccount = (
-  bankAccountId: number,
+  bankAccountId: string,
   payload: IEditBankAccountParams
 ): Promise<IApiResponse<IAddBankAccountResponse>> =>
   AxiosService.put(`${EndPointUrlConst.BANK_ACCOUNT.BANK_ACCOUNTS}/${bankAccountId}`, payload)
 
 export const deleteBankAccount = (
-  bankAccountId: number,
+  bankAccountId: string,
   payload: IDeleteBankAccountParams
 ): Promise<IApiResponse<IAddBankAccountResponse>> =>
   AxiosService.patch(
@@ -60,7 +60,7 @@ export const deleteBankAccount = (
   )
 
 export const setMainBankAccount = (
-  bankAccountId: number
+  bankAccountId: string
 ): Promise<IApiResponse<IAddBankAccountResponse>> =>
   AxiosService.patch(`${EndPointUrlConst.BANK_ACCOUNT.BANK_ACCOUNTS}/${bankAccountId}/set-main`)
 
