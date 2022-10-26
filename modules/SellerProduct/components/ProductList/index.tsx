@@ -1,11 +1,11 @@
 import React, { FC, useState } from 'react'
+import ConfirmationModal from '~/components/main/ConfirmationModal'
+import styles from './ProductList.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Table, Space, Image } from 'antd'
-import type { ColumnsType } from 'antd/es/table'
-import ConfirmationModal from '~/components/main/ConfirmationModal'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './ProductList.module.scss'
 import { IListItems, IProduct } from '../../../../interfaces'
+import type { ColumnsType } from 'antd/es/table'
 
 const { Text } = Typography
 

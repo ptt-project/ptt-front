@@ -6,11 +6,11 @@ import { LocaleNamespaceConst } from '~/constants'
 import { withSellerAuth } from '../../../../hocs/with-seller'
 import { AxiosRequestConfig } from 'axios'
 import { ShopService } from '../../../../services'
-import { IApiResponse, ICategory, IListItems, IProduct } from '../../../../interfaces'
+import { IApiResponse, ICategoryPlatform, IListItems, IProduct } from '../../../../interfaces'
 
-interface ISellerProductPageProps {
+interface ISellerProductListPageProps {
   products: IListItems<IProduct>
-  categories: ICategory[]
+  categoriesPlatform: ICategoryPlatform[]
   query: {
     keyword: string
     categoryId: string
@@ -33,7 +33,7 @@ export const getServerSideProps: any = withSellerAuth(
       page = pageQuery
     }
 
-    const query: ISellerProductPageProps['query'] = {
+    const query: ISellerProductListPageProps['query'] = {
       keyword: (context.query?.keyword as string) || '',
       categoryId: (context.query?.categoryId as string) || '',
       groupSearch: (context.query?.groupSearch as string) || '',
@@ -54,24 +54,25 @@ export const getServerSideProps: any = withSellerAuth(
       }
     }
 
-    // categories
-    let categories: ICategory[] = []
+    // categories platform
+    let categoriesPlatform: ICategoryPlatform[] = []
 
     if (req) {
       try {
         const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
         const productsRes: Promise<IApiResponse> = ShopService.getProducts(option)
-        const categoriesRes: Promise<IApiResponse> = ShopService.getCategories(option)
+        const categoriesPlatformRes: Promise<IApiResponse> =
+          ShopService.getCategoriesPlatform(option)
 
         // result
-        const result: IApiResponse[] = await Promise.all([productsRes, categoriesRes])
+        const result: IApiResponse[] = await Promise.all([productsRes, categoriesPlatformRes])
 
         if (result[0].data) {
           products = result[0].data
         }
 
         if (result[1].data) {
-          categories = result[1].data
+          categoriesPlatform = result[1].data
         }
       } catch (error) {
         console.log(error)
@@ -92,15 +93,21 @@ export const getServerSideProps: any = withSellerAuth(
           'seller.product'
         ])),
         products,
-        categories,
+        categoriesPlatform,
         query
       }
     }
   }
 )
 
-const SellerProductPage: FC<ISellerProductPageProps> = (props: ISellerProductPageProps) => (
-  <SellerProduct products={props.products} categories={props.categories} query={props.query} />
+const SellerProductListPage: FC<ISellerProductListPageProps> = (
+  props: ISellerProductListPageProps
+) => (
+  <SellerProduct
+    products={props.products}
+    categoriesPlatform={props.categoriesPlatform}
+    query={props.query}
+  />
 )
 
-export default SellerProductPage
+export default SellerProductListPage

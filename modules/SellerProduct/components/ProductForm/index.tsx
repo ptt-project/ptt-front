@@ -1,8 +1,4 @@
 import React, { FC, useState } from 'react'
-import { NextRouter, useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { isEmpty } from 'lodash'
-import { Typography, Button, Row, Col, Form, message, UploadFile } from 'antd'
 import Helmet from 'react-helmet'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
@@ -12,13 +8,21 @@ import Features from './components/Features'
 import Sales from './components/Sales'
 import Other from './components/Other'
 import Delivery from './components/Delivery'
+import styles from './ProductForm.module.scss'
+import { NextRouter, useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { isEmpty } from 'lodash'
+import { Typography, Button, Row, Col, Form, message, UploadFile } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import { IApiResponse, ICreateProductPayload } from '../../../../interfaces'
+import { IApiResponse, ICategoryPlatform, ICreateProductPayload } from '../../../../interfaces'
 import { ImageService, ShopService } from '../../../../services'
 import { ProductConditionEnum } from '../../../../enums'
-import styles from './ProductForm.module.scss'
 
 const { Text } = Typography
+
+interface IProductFormProps {
+  categoriesPlatform: ICategoryPlatform[]
+}
 
 interface IFormData {
   images: UploadFile[]
@@ -41,7 +45,7 @@ interface IFormData {
   [key: string]: any
 }
 
-const ProductForm: FC = () => {
+const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const router: NextRouter = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -174,7 +178,7 @@ const ProductForm: FC = () => {
                 name="productForm"
                 onFinish={onSubmit}
               >
-                <Info form={form} />
+                <Info form={form} categoriesPlatform={props.categoriesPlatform} />
                 <Features form={form} />
                 <Sales
                   form={form}

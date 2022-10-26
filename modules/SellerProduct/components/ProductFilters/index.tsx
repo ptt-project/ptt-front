@@ -3,7 +3,7 @@ import styles from './ProductFilters.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Button, Row, Col, Form, Input, Select } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import { ICategory } from '../../../../interfaces'
+import { ICategoryPlatform } from '../../../../interfaces'
 import { NextRouter, useRouter } from 'next/router'
 
 interface IProductFiltersForm {
@@ -13,7 +13,7 @@ interface IProductFiltersForm {
 }
 
 interface IProductFiltersProps {
-  categories: ICategory[]
+  categoriesPlatform: ICategoryPlatform[]
   query: {
     keyword: string
     categoryId: string
@@ -43,13 +43,13 @@ const ProductFilters: FC<IProductFiltersProps> = (props: IProductFiltersProps) =
     }
 
     router.push({
-      pathname: '/seller/settings/product',
+      pathname: '/seller/settings/product/list',
       query
     })
   }
 
   function onResetFilters(): void {
-    router.push('/seller/settings/product')
+    router.push('/seller/settings/product/list')
   }
 
   useEffect(() => {
@@ -89,7 +89,7 @@ const ProductFilters: FC<IProductFiltersProps> = (props: IProductFiltersProps) =
           <Form.Item label={t('seller.product:list.filters.category')} name="categoryId">
             <Select defaultValue="">
               <Select.Option value="">{t('common:form.option')}</Select.Option>
-              {props.categories.map((category: ICategory) => (
+              {props.categoriesPlatform.map((category: ICategoryPlatform) => (
                 <Select.Option key={category.id} value={category.id}>
                   {category.name}
                 </Select.Option>

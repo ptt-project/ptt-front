@@ -1,20 +1,22 @@
+import React, { FC, useState } from 'react'
+import HighlightLabel from '~/components/main/HighlightLabel'
+import styles from '../ProductForm.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Upload, Col, Form, Input, Row, Select, Typography, FormInstance } from 'antd'
 import { RcFile } from 'antd/es/upload'
 import { UploadFile } from 'antd/es/upload/interface'
 import { UploadChangeParam } from 'antd/lib/upload'
-import React, { FC, useState } from 'react'
-import HighlightLabel from '~/components/main/HighlightLabel'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
-import styles from '../ProductForm.module.scss'
+import { ICategoryPlatform } from '../../../../../interfaces'
 
 const { Text } = Typography
 
 interface IInfoProps {
   form: FormInstance
+  categoriesPlatform: ICategoryPlatform[]
 }
 
-const Info: FC<IInfoProps> = () => {
+const Info: FC<IInfoProps> = (props: IInfoProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [fileList, setFileList] = useState<UploadFile[]>([])
 
@@ -131,7 +133,11 @@ const Info: FC<IInfoProps> = () => {
           >
             <Select>
               <Select.Option value="">{t('common:form.option')}</Select.Option>
-              <Select.Option value={1}>เสื้อกีฬา</Select.Option>
+              {props.categoriesPlatform.map((category: ICategoryPlatform) => (
+                <Select.Option key={category.id} value={category.id}>
+                  {category.name}
+                </Select.Option>
+              ))}
             </Select>
           </Form.Item>
         </Col>

@@ -1,4 +1,4 @@
-import { CategoryStatusEnum } from '../enums'
+import { CategoryPlatformStatusEnum, CategoryStatusEnum } from '../enums'
 
 export interface ICreateCategoryPayload {
   name: string
@@ -20,4 +20,14 @@ export interface ICategory {
   status: CategoryStatusEnum
   productCount: number
   priority: number
+}
+
+export interface ICategoryPlatform {
+  id: string
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date
+  name: string
+  status: CategoryPlatformStatusEnum
+  productCount: number
 }

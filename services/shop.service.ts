@@ -9,6 +9,9 @@ import {
 import { EndPointUrlConst } from '../constants'
 import { CategoryStatusEnum } from '~/enums'
 
+export const getCategoriesPlatform = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
+  AxiosService.get(`${EndPointUrlConst.SHOPS.CATEGORIES}/platform-categories`, option)
+
 export const getCategories = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
   AxiosService.get(EndPointUrlConst.SHOPS.CATEGORIES, option)
 
