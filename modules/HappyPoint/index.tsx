@@ -10,13 +10,14 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
 import BalanceCard from './components/BalanceCard'
 import EWalletHistory from './components/HappyPointHistory'
+import { HappyPointService } from '~/services'
 
 const { Title } = Typography
 
 const HappyPoint: React.FC = () => {
   const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'happy-point'])
-  const balance: number = 3999
+  const { data: happyPoint } = HappyPointService.useGetHappyPointBalance()
 
   function onBuyClick(): void {
     router.push('/settings/finance/happy-point/buy')
@@ -64,7 +65,7 @@ const HappyPoint: React.FC = () => {
                     {t('happy-point:title')}
                   </Title>
                   <BalanceCard
-                    balance={balance}
+                    balance={happyPoint?.balance}
                     onBuyClick={onBuyClick}
                     onSellClick={onSellClick}
                     onTransferClick={onTransferClick}

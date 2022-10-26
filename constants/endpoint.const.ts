@@ -44,10 +44,11 @@ export const EndPointUrlConst = {
     OPTIONS: '/configs/options'
   },
   HAPPY_POINT: {
-    LOOKUP: 'happy-points/lookup',
-    BUY: 'happy-points/buy',
-    TRANSFER: 'happy-points/transfer',
-    SELL: 'happy-points/sell',
-    HISTORY: 'happy-points/history'
+    BALANCE: '/happy-points/balance',
+    LOOKUP: '/happy-points/lookup',
+    BUY: '/happy-points/buy',
+    TRANSFER: '/happy-points/transfer',
+    SELL: '/happy-points/sell',
+    HISTORY: '/happy-points/history'
   }
 }
