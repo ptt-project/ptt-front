@@ -21,7 +21,7 @@ import InputNumberFormat from '~/components/main/InputNumberFormat'
 const { Title, Text, Link } = Typography
 
 interface IEWalletWithdrawFormValues {
-  bankAccountId: number
+  bankAccountId: string
   withdrawAmount: number
 }
 
@@ -30,7 +30,7 @@ const EWalletWithdraw: React.FC = () => {
   const { data: user } = MemberService.useGetProfile()
 
   const [form] = Form.useForm<IEWalletWithdrawFormValues>()
-  const bankAccountId: number = Form.useWatch('bankAccountId', form)
+  const bankAccountId: string = Form.useWatch('bankAccountId', form)
   const withdrawAmount: number = Form.useWatch('withdrawAmount', form)
 
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
