@@ -135,7 +135,7 @@ export const useAddressFinder = () => {
       tempAddressFinder.initialData(configOptions?.address)
     }
     return tempAddressFinder
-  }, [])
+  }, [configOptions])
 
   return { addressFinder }
 }
