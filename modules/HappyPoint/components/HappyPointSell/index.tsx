@@ -66,7 +66,7 @@ const HappyPointSell: React.FC = () => {
       message.success(t('common:dataUpdated'))
       router.replace('/settings/finance/happy-point')
     } catch (error) {
-      message.error(t('common:apiMessage.error'))
+      message.error(error?.data?.message || t('common:apiMessage.error'))
     }
   }
 

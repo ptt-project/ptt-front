@@ -49,9 +49,8 @@ const HappyPointForm: React.FC<IHappyPointFormProps> = (props: IHappyPointFormPr
     { required: true, message: [t('common:form.required'), '${label}'].join(' ') }
   ]
 
-  function onFormFinish(values: IHappyPointFormValues): void {
-    console.log({ formValues: values })
-    onSubmit?.({ ...initialValues, ...values })
+  async function onFormFinish(values: IHappyPointFormValues): Promise<void> {
+    await onSubmit?.({ ...initialValues, ...values })
   }
 
   function onFormChange(values: IHappyPointFormValues): void {
