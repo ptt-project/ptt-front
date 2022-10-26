@@ -26,13 +26,13 @@ const HappyPointBuy: React.FC = () => {
   const [formValues, setFormValues] = useState<IHappyPointFormValues>()
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
 
+  const { data: happyPoint } = HappyPointService.useGetHappyPointBalance()
   const { data: user } = MemberService.useGetProfile()
   const { data: configLookup } = HappyPointService.useGetHappyPointRateLookup()
   const { data: wallet } = WalletService.useGetMyWallet()
   const { mutateAsync: buyHappyPoint } = HappyPointService.useBuyHappyPoint()
 
-  // TODO: เหลือ plug happy point balance
-  const happyPointBalance: number = 3999
+  const happyPointBalance: number = happyPoint?.balance
 
   function onCancelClick(): void {
     router.back()
@@ -130,6 +130,7 @@ const HappyPointBuy: React.FC = () => {
                     eWalletBalance={wallet?.balance}
                     happyPointBalance={happyPointBalance}
                     rateBahtPerHappyPoint={configLookup?.exchangeRate}
+                    feePercent={configLookup?.happyPointFeePercent}
                   />
                 </Col>
                 <Col xs={24}>

@@ -51,6 +51,14 @@ export interface ITransferHappyPointParams {
 }
 
 export interface IInquiryHappyPointLookupResponse {
-  exchangeRate: number
   refId: string
+  exchangeRate: number
+  happyPointBuyRate: number
+  happyPointSellRate: number
+  happyPointFeePercent: number
+  happyPointTransferRate: number
+}
+
+export interface IGetHappyPointBalanceResponse {
+  balance: number
 }

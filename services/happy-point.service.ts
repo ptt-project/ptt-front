@@ -4,6 +4,7 @@ import {
   IApiResponse,
   IBuyHappyPointParams,
   IConfigOptionsResponse,
+  IGetHappyPointBalanceResponse,
   IHappyPoint,
   IInquiryHappyPointLookupResponse,
   ISellHappyPointParams,
@@ -11,6 +12,9 @@ import {
 } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
 import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+
+export const getHappyPointBalance = (): Promise<IApiResponse<IGetHappyPointBalanceResponse>> =>
+  AxiosService.get(EndPointUrlConst.HAPPY_POINT.BALANCE)
 
 export const postInquiryHappyPointRateLookup = (): Promise<
   IApiResponse<IInquiryHappyPointLookupResponse>
@@ -33,6 +37,23 @@ export const postTransferHappyPoint = (
   payload: ITransferHappyPointParams
 ): Promise<IApiResponse<IHappyPoint>> =>
   AxiosService.post(EndPointUrlConst.HAPPY_POINT.TRANSFER, payload)
+
+export const useGetHappyPointBalance = () => {
+  return useQuery(
+    [EndPointUrlConst.HAPPY_POINT.BALANCE],
+    async () => {
+      const { data } = await getHappyPointBalance()
+      return data
+    },
+    {
+      placeholderData: {
+        balance: 0
+      },
+      cacheTime: 10 * 60 * 1000,
+      staleTime: 1 * 60 * 1000
+    }
+  )
+}
 
 export const useGetHappyPointRateLookup = () => {
   return useQuery(
@@ -72,6 +93,7 @@ export const useBuyHappyPoint = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries([EndPointUrlConst.HAPPY_POINT.HISTORY])
+        queryClient.invalidateQueries([EndPointUrlConst.HAPPY_POINT.BALANCE])
         queryClient.invalidateQueries([EndPointUrlConst.WALLET.WALLETS])
       }
     }
@@ -88,6 +110,7 @@ export const useSellHappyPoint = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries([EndPointUrlConst.HAPPY_POINT.HISTORY])
+        queryClient.invalidateQueries([EndPointUrlConst.HAPPY_POINT.BALANCE])
         queryClient.invalidateQueries([EndPointUrlConst.WALLET.WALLETS])
       }
     }
@@ -104,6 +127,7 @@ export const useTransferHappyPoint = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries([EndPointUrlConst.HAPPY_POINT.HISTORY])
+        queryClient.invalidateQueries([EndPointUrlConst.HAPPY_POINT.BALANCE])
         queryClient.invalidateQueries([EndPointUrlConst.WALLET.WALLETS])
       }
     }

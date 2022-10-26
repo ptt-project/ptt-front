@@ -26,12 +26,13 @@ const HappyPointTransfer: React.FC = () => {
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const [formValues, setFormValues] = useState<IHappyPointFormValues>()
 
+  const { data: happyPoint } = HappyPointService.useGetHappyPointBalance()
   const { data: user } = MemberService.useGetProfile()
   const { data: configLookup } = HappyPointService.useGetHappyPointRateLookup()
   const { data: wallet } = WalletService.useGetMyWallet()
   const { mutateAsync: transferHappyPoint } = HappyPointService.useTransferHappyPoint()
 
-  const happyPointBalance: number = 3999
+  const happyPointBalance: number = happyPoint?.balance
 
   function onCancelClick(): void {
     router.back()
@@ -49,7 +50,10 @@ const HappyPointTransfer: React.FC = () => {
   async function onOtpSuccess(otp: IOtp): Promise<void> {
     setIsOtpOpen(false)
     try {
-      const { feePoint, totalPoint } = getSummaryTransferHappyPoint(formValues?.happyPointAmount)
+      const { feePoint, totalPoint } = getSummaryTransferHappyPoint(
+        formValues?.happyPointAmount,
+        configLookup?.happyPointFeePercent
+      )
       await transferHappyPoint({
         totalPoint: formValues?.happyPointAmount,
         feePoint: feePoint,
@@ -131,7 +135,8 @@ const HappyPointTransfer: React.FC = () => {
                     formType={HappyPointTypeEnum.TRANSFER}
                     eWalletBalance={wallet?.balance}
                     happyPointBalance={happyPointBalance}
-                    rateBahtPerHappyPoint={configLookup?.exchangeRate}
+                    rateBahtPerHappyPoint={configLookup?.happyPointTransferRate}
+                    feePercent={configLookup?.happyPointFeePercent}
                   />
                 </Col>
                 <Col xs={24}>

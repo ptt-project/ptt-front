@@ -26,6 +26,7 @@ interface IHappyPointFormProps {
   happyPointBalance: number
   eWalletBalance: number
   rateBahtPerHappyPoint: number
+  feePercent: number
   onSubmit: (values: IHappyPointFormValues) => void
 }
 
@@ -37,6 +38,7 @@ const HappyPointForm: React.FC<IHappyPointFormProps> = (props: IHappyPointFormPr
     happyPointBalance,
     eWalletBalance,
     rateBahtPerHappyPoint,
+    feePercent,
     onSubmit
   } = props
 
@@ -262,7 +264,8 @@ const HappyPointForm: React.FC<IHappyPointFormProps> = (props: IHappyPointFormPr
                   const { happyPointAmount } = values
                   const { bahtAmount, vatAmount, totalAmount } = getSummarySellHappyPoint(
                     happyPointAmount,
-                    rateBahtPerHappyPoint
+                    rateBahtPerHappyPoint,
+                    feePercent
                   )
 
                   return (
@@ -295,7 +298,10 @@ const HappyPointForm: React.FC<IHappyPointFormProps> = (props: IHappyPointFormPr
                 {(): ReactNode => {
                   const values: IHappyPointFormValues = form.getFieldsValue()
                   const { happyPointAmount } = values
-                  const { feePoint, totalPoint } = getSummaryTransferHappyPoint(happyPointAmount)
+                  const { feePoint, totalPoint } = getSummaryTransferHappyPoint(
+                    happyPointAmount,
+                    feePercent
+                  )
 
                   return (
                     <Space className="w-100" size={8} direction="vertical">

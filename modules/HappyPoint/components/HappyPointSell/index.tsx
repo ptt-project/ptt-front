@@ -26,12 +26,13 @@ const HappyPointSell: React.FC = () => {
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const [formValues, setFormValues] = useState<IHappyPointFormValues>()
 
+  const { data: happyPoint } = HappyPointService.useGetHappyPointBalance()
   const { data: user } = MemberService.useGetProfile()
   const { data: configLookup } = HappyPointService.useGetHappyPointRateLookup()
   const { data: wallet } = WalletService.useGetMyWallet()
   const { mutateAsync: sellHappyPoint } = HappyPointService.useSellHappyPoint()
 
-  const happyPointBalance: number = 3999
+  const happyPointBalance: number = happyPoint?.balance
 
   function onCancelClick(): void {
     router.back()
@@ -51,7 +52,8 @@ const HappyPointSell: React.FC = () => {
     try {
       const { bahtAmount, vatAmount, totalAmount } = getSummarySellHappyPoint(
         formValues?.happyPointAmount,
-        configLookup?.exchangeRate
+        configLookup?.happyPointSellRate,
+        configLookup?.happyPointFeePercent
       )
       await sellHappyPoint({
         amount: totalAmount,
@@ -134,7 +136,8 @@ const HappyPointSell: React.FC = () => {
                     formType={HappyPointTypeEnum.SELL}
                     eWalletBalance={wallet?.balance}
                     happyPointBalance={happyPointBalance}
-                    rateBahtPerHappyPoint={configLookup?.exchangeRate}
+                    rateBahtPerHappyPoint={configLookup?.happyPointSellRate}
+                    feePercent={configLookup?.happyPointFeePercent}
                   />
                 </Col>
                 <Col xs={24}>
