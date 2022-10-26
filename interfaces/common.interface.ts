@@ -29,7 +29,7 @@ export interface ICustomHookUseVisibleUtil {
 }
 
 export interface IBaseEntity {
-  id: number
+  id: string
   createdAt: string
   updatedAt: string
   deletedAt?: string | null
