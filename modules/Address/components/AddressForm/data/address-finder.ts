@@ -64,7 +64,6 @@ export class AddressFinder {
 
   initialData(data: IOptionAddress[]): void {
     const provinceData = uniq(map(data || [], (d) => d[AddressFieldsEnum.PROVINCE]))
-    console.log({ initialData: data, provinceData })
     this.provinceData = provinceData
     AddressFinder.DB = new JQL(data)
   }
@@ -136,7 +135,7 @@ export const useAddressFinder = () => {
       tempAddressFinder.initialData(configOptions?.address)
     }
     return tempAddressFinder
-  }, [])
+  }, [configOptions])
 
   return { addressFinder }
 }

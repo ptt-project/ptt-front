@@ -4,18 +4,18 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AxiosRequestConfig } from 'axios'
 import RegisterSeller from '~/modules/RegisterSeller'
 import { LocaleNamespaceConst } from '~/constants'
-import { IApiResponse, ISellerInfoRes } from '~/interfaces'
+import { IApiResponse, ISellerInfo } from '~/interfaces'
 import { SellerService } from '~/services'
 import { SellerApprovalStatusEnum } from '~/enums'
 import { withSellerAuth } from '../../hocs/with-seller'
 
 interface IRegisterSellerPageProps {
-  shopInfo: ISellerInfoRes
+  shopInfo: ISellerInfo
 }
 
 export const getServerSideProps: any = withSellerAuth(
   async (context: GetServerSidePropsContext) => {
-    let shopInfo: ISellerInfoRes = null
+    let shopInfo: ISellerInfo = null
     const { req } = context
 
     if (req) {

@@ -59,9 +59,8 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
         })),
         'value'
       ),
-    []
+    [addressFinder]
   )
-  console.log({ provinceOptions })
 
   const districtOptions: DefaultOptionType[] = useMemo(() => {
     const districtData: IOptionAddress[] = addressFinder.queryDistrict(province)
@@ -72,7 +71,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
       })),
       'value'
     )
-  }, [province])
+  }, [addressFinder, province])
 
   const tambonOptions: DefaultOptionType[] = useMemo(() => {
     const tambonData: IOptionAddress[] = addressFinder.querySubDistrict(province, district)
@@ -83,7 +82,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
       })),
       'value'
     )
-  }, [province, district])
+  }, [addressFinder, province, district])
 
   const postalCodeOptions: DefaultOptionType[] = useMemo(() => {
     const postalCodeData: IOptionAddress[] = addressFinder.queryPostcode(province, district, tambon)
@@ -94,7 +93,7 @@ const AddressForm: React.FC<IAddressFormProps> = (props: IAddressFormProps) => {
       })),
       'value'
     )
-  }, [district, province, tambon])
+  }, [addressFinder, district, province, tambon])
 
   function onHintClick(hintType: string): void {
     switch (hintType) {

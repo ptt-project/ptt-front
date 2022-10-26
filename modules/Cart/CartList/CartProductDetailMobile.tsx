@@ -12,7 +12,7 @@ import styles from './CartList.module.scss'
 import CartProductTotalPrice from './CartProductTotalPrice'
 
 interface ICartProductDetailMobileProps {
-  productId: number
+  productId: string
   product: ICartProduct
   onAmountBlur: (amount: number) => void
   onDeleteClick: () => void

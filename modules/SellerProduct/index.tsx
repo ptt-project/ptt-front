@@ -10,10 +10,24 @@ import ProductTabs from './components/ProductTabs'
 import { LocaleNamespaceConst } from '~/constants'
 import { CustomUrlUtil } from '../../utils/main'
 import styles from './SellerProduct.module.scss'
+import { ICategory, IListItems, IProduct } from '../../interfaces'
 
 const { Text, Title } = Typography
 
-const SellerMyProduct: FC = () => {
+interface ISellerProductProps {
+  products: IListItems<IProduct>
+  categories: ICategory[]
+  query: {
+    keyword: string
+    categoryId: string
+    groupSearch: string
+    approval: boolean
+    status?: string
+    page: number
+  }
+}
+
+const SellerProduct: FC<ISellerProductProps> = (props: ISellerProductProps) => {
   const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
 
@@ -40,13 +54,15 @@ const SellerMyProduct: FC = () => {
               <Row className="mb-3" align="middle">
                 <Col xs={20}>
                   <Title className={`${styles.h4} ${styles.textSecondary}`} level={4}>
-                    {t('seller.product:list.product')} 5 {t('seller.product:list.list')}
+                    {t('seller.product:list.product')} {props.products.meta.totalItems}{' '}
+                    {t('seller.product:list.list')}
                   </Title>
                   <div className={styles.progress}>
                     <Progress percent={10} showInfo={false} size="small" />
                   </div>
                   <Text type="secondary">
-                    {t('seller.product:list.uploadProduct')} 999 {t('seller.product:list.items')}
+                    {t('seller.product:list.uploadProduct')} {1000 - props.products.meta.totalItems}{' '}
+                    {t('seller.product:list.items')}
                   </Text>
                 </Col>
                 <Col xs={4}>
@@ -61,8 +77,8 @@ const SellerMyProduct: FC = () => {
                   </div>
                 </Col>
               </Row>
-              <ProductFilters />
-              <ProductTabs />
+              <ProductFilters categories={props.categories} query={props.query} />
+              <ProductTabs products={props.products} query={props.query} />
             </Col>
           </Row>
         </div>
@@ -71,4 +87,4 @@ const SellerMyProduct: FC = () => {
   )
 }
 
-export default SellerMyProduct
+export default SellerProduct

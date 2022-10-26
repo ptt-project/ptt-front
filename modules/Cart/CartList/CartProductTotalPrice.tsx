@@ -3,7 +3,7 @@ import React, { FC, useMemo, useEffect } from 'react'
 import InputNumberFormat from '~/components/main/InputNumberFormat'
 
 interface ITotalPriceProps {
-  productId: number
+  productId: string
   isMobile?: boolean
 }
 const CartProductTotalPrice: FC<ITotalPriceProps> = (props: ITotalPriceProps) => {

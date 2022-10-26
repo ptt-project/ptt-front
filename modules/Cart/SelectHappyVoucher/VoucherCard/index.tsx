@@ -7,8 +7,7 @@ import { LocaleNamespaceConst } from '~/constants'
 import styles from './VoucherCard.module.scss'
 
 export interface IVoucher {
-  id: number
-
+  id: string
   name: string
   code?: string
   description: string

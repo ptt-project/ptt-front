@@ -17,7 +17,7 @@ import ModalConfirmBankInfo from '../ModalConfirmBankInfo'
 import OtpModal from '~/components/main/OtpModal'
 import { OtpTypeEnum } from '~/enums'
 import SettingSidebar from '~/components/main/SettingSidebar'
-import { BankAccountService } from '~/services'
+import { BankAccountService, MemberService } from '~/services'
 
 const { Title } = Typography
 
@@ -29,8 +29,8 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
   const [form] = Form.useForm<IBankAccountFromValues>()
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
+  const { data: user } = MemberService.useGetProfile()
 
-  const mobileNo: string = '0901061303'
   const rootMenu: string = props.isSeller ? '/seller' : ''
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const [bankAccountData, setBankAccountData] = useState<IBankAccountData>()
@@ -142,7 +142,7 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
           />
           {/* TODO: wait type otp verify */}
           <OtpModal
-            mobile={mobileNo}
+            mobile={user?.mobile}
             action={OtpTypeEnum.REGISTER}
             isOpen={isOtpOpen}
             toggle={toggleOtpOpen}

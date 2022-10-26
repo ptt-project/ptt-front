@@ -8,6 +8,7 @@
   "deleteBankAccount": "ลบบัญชีธนาคาร",
   "confirmDeleteAccountMsg1": "ยืนยันการลบบัญชี",
   "confirmDeleteAccountMsg2": "ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้",
+  "addBankAccount": "เพิ่มบัญชีธนาคาร",
   "form": {
     "userInfo": "ข้อมูลส่วนตัว",
     "fullName": "ชื่อ-นามสกุล",

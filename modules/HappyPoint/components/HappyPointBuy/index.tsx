@@ -13,6 +13,7 @@ import { IHappyPointFormValues } from '~/interfaces'
 import HappyPointForm from '../HappyPointForm'
 import { HappyPointTypeEnum, OtpTypeEnum } from '~/enums'
 import OtpModal from '~/components/main/OtpModal'
+import { MemberService } from '~/services'
 
 const { Title, Text } = Typography
 
@@ -21,6 +22,8 @@ const HappyPointBuy: React.FC = () => {
   const [form] = Form.useForm()
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'happy-point'])
+  const { data: user } = MemberService.useGetProfile()
+
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
 
   const happyPointBalance: number = 3999
@@ -133,7 +136,7 @@ const HappyPointBuy: React.FC = () => {
           {/* TODO: wait type otp verify */}
           <OtpModal
             action={OtpTypeEnum.REGISTER}
-            mobile="0900000001"
+            mobile={user?.mobile}
             isOpen={isOtpOpen}
             toggle={toggleOtpOpen}
             onSubmit={onOtpSuccess}

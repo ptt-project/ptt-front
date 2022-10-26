@@ -8,7 +8,6 @@
     "addNewProduct": "เพิ่มสินค้าใหม่",
     "filters": {
       "group": "กลุ่มการค้นหา",
-      "orderId": "รหัสคําสั่งซื้อ",
       "keyword": "Keyword ที่ใช้ในการค้นหา",
       "category": "หมวดหมู่"
     },
