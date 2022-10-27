@@ -1,9 +1,10 @@
 import React, { FC, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
-import { Typography, Row, Col, Button, Form, Upload, Input, Image, Avatar } from 'antd'
+import { Typography, Row, Col, Button, Form, Upload, Input, Image, Avatar, message } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import Loading from '~/components/main/Loading'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import { ISellerInfo, ISellerInfoPayload, IApiResponse } from '~/interfaces'
 import HighlightLabel from '~/components/main/HighlightLabel'
@@ -19,15 +20,14 @@ const { Text, Title } = Typography
 interface ISellerInfoForm {
   shopName: string
   shopDescription: string
-  profileImage: string
-  coverImage: string
+  profileImage?: UploadChangeParam
+  coverImage?: UploadChangeParam
 }
 
 interface ISellerInfoProps {
   shopInfo?: ISellerInfo
 }
 const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
-  console.log('ISellerInfoProps---', props)
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.shop-detail'])
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -37,7 +37,7 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
 
   function getImage(type: string): string {
     if (info !== null) {
-      const imagePath = type === 'profile' ? info.profileImagePath : info.coverImagePath
+      const imagePath: string = type === 'profile' ? info.profileImagePath : info.coverImagePath
       if (imagePath) {
         return `${HelperGetImageUtil(imagePath, ImageSizeEnum.SMALL)}`
       }
@@ -115,9 +115,7 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
   async function onSubmit(values: ISellerInfoForm): Promise<void> {
     setIsLoading(true)
     let isSuccess: boolean = false
-    console.log('values--', values)
     try {
-      isSuccess = true
       const payload: ISellerInfoPayload = {
         shopName: values.shopName,
         shopDescription: values.shopDescription
@@ -125,7 +123,6 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
       if (values.profileImage) {
         const formData: FormData = new FormData()
         formData.append('image', values.profileImage.file.originFileObj)
-        console.log('formData--', formData)
         const imageRes: IApiResponse = await ImageService.upload(formData)
         if (imageRes.data.id) {
           payload.profileImagePath = imageRes.data.id
@@ -139,9 +136,7 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
           payload.coverImagePath = imageCover.data.id
         }
       }
-      console.log('payload--', payload)
       const infoRes: IApiResponse = await SellerService.updateShopInfo(payload)
-
       if (infoRes.data) {
         setInfo(infoRes.data)
       }
@@ -149,6 +144,13 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
     } catch (error) {
       console.log(error)
     }
+    if (isSuccess) {
+      message.success(t('common:apiMessage.success'))
+    } else {
+      message.error(t('common:apiMessage.error'))
+    }
+
+    setIsLoading(false)
   }
   return (
     <main className="main">
@@ -163,6 +165,7 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
           { title: t('seller.shop-detail:title'), href: '/seller/settings/shop/detail' }
         ]}
       />
+      <Loading show={isLoading} />
       <div className="page-content mb-9">
         <div className="container">
           <Row gutter={48}>
@@ -183,8 +186,8 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
                 name="shopInfoForm"
                 onFinish={onSubmit}
                 initialValues={{
-                  shopName: '',
-                  shopDescription: ''
+                  shopName: info.shopName,
+                  shopDescription: info.shopDescription
                 }}
               >
                 <Row className="mt-5">
@@ -225,7 +228,7 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
                       <Text>{t('seller.shop-detail:productList')}</Text>
                     </Col>
                     <Col xs={4} className="text-right">
-                      <Text className={` ${styles.valueList}`}>5</Text>
+                      <Text className={` ${styles.valueList}`}>{info.productCount}</Text>
                       <i className={`fas fa-angle-right ${styles.iconArrow}`} />
                     </Col>
                   </Row>
@@ -235,7 +238,9 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
                       <Text>{t('seller.shop-detail:responseRate')}</Text>
                     </Col>
                     <Col xs={4} className="text-right">
-                      <Text className={`${styles.valueList} ${styles.responseRate}`}>57%</Text>
+                      <Text className={`${styles.valueList} ${styles.responseRate}`}>
+                        {info.replyRate}%
+                      </Text>
                     </Col>
                   </Row>
                   <Row className={` ${styles.list}`} align="middle">
@@ -244,7 +249,7 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
                       <Text>{t('seller.shop-detail:rating')}</Text>
                     </Col>
                     <Col xs={4} className="text-right">
-                      <Text className={` ${styles.valueList}`}>0.0(1)</Text>
+                      <Text className={` ${styles.valueList}`}>{info.shopScore}</Text>
                       <i className={`fas fa-angle-right ${styles.iconArrow}`} />
                     </Col>
                   </Row>
@@ -254,7 +259,7 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
                       <Text>{t('seller.shop-detail:orderFailed')}</Text>
                     </Col>
                     <Col xs={4} className="text-right">
-                      <Text className={` ${styles.valueList}`}>0.00%</Text>
+                      <Text className={` ${styles.valueList}`}>{info.cancelRate}%</Text>
                       <i className={`fas fa-angle-right ${styles.iconArrow}`} />
                     </Col>
                   </Row>
