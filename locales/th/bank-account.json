@@ -3,7 +3,7 @@
   "listBankAccountTitle": "รายการบัญชี",
   "addBankAccountTitle": "เพิ่มบัญชีธนาคาร",
   "editBankAccountTitle": "แก้ไขบัญชีธนาคาร",
-  "emptyBankAccount": "ยังไม่มีข้อมูลที่อยู่กรุณา",
+  "emptyBankAccount": "ยังไม่มีข้อมูลบัญชีธนาคารกรุณา",
   "confirmBankInfo": "ยืนยันข้อมูล",
   "deleteBankAccount": "ลบบัญชีธนาคาร",
   "confirmDeleteAccountMsg1": "ยืนยันการลบบัญชี",

@@ -37,7 +37,7 @@ export const getBankAccount = (
 export const getBankAccountOptions = (
   option?: AxiosRequestConfig
 ): Promise<IApiResponse<IGetBankAccountOptionsResponse>> =>
-  AxiosService.get(`${EndPointUrlConst.BANK_ACCOUNT.BANK_ACCOUNT_OPTIONS}`, option)
+  AxiosService.get(`${EndPointUrlConst.BANK_ACCOUNT.OPTIONS}`, option)
 
 export const addBankAccount = (
   payload: IAddBankAccountParams
