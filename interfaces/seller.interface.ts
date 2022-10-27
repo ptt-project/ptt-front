@@ -50,6 +50,7 @@ export interface ISellerInfo {
   coverImagePath?: string
   memberId: string
 }
+
 export interface ISellerInfoPayload {
   shopName?: string
   shopDescription?: string

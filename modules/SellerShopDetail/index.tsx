@@ -5,7 +5,7 @@ import { Typography, Row, Col, Button, Form, Upload, Input, Image, Avatar } from
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
-import { ISellerInfoRes, ISellerInfoPayload, IApiResponse } from '~/interfaces'
+import { ISellerInfo, ISellerInfoPayload, IApiResponse } from '~/interfaces'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { HelperGetImageUtil } from '~/utils/main'
@@ -15,22 +15,26 @@ import { RcFile } from 'antd/es/upload'
 import styles from './SellerShopDetail.module.scss'
 
 const { Text, Title } = Typography
+
 interface ISellerInfoForm {
   shopName: string
   shopDescription: string
   profileImage: string
   coverImage: string
 }
+
 interface ISellerInfoProps {
-  shopInfo?: ISellerInfoRes
+  shopInfo?: ISellerInfo
 }
 const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
+  console.log('ISellerInfoProps---', props)
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.shop-detail'])
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [info, setInfo] = useState<ISellerInfoRes>(props.shopInfo)
+  const [info, setInfo] = useState<ISellerInfo>(props.shopInfo)
   const [currentProfileImage, setCurrentProfileImage] = useState<string>(getImage('profile'))
   const [currentCoverImage, setCurrentCoverImage] = useState<string>(getImage('cover'))
+
   function getImage(type: string): string {
     if (info !== null) {
       const imagePath = type === 'profile' ? info.profileImagePath : info.coverImagePath
@@ -40,6 +44,7 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
     }
     return ''
   }
+
   function renderAvatar(): JSX.Element {
     if (currentProfileImage) {
       return (
@@ -62,11 +67,13 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
       </Avatar>
     )
   }
+
   function renderCover(): JSX.Element {
     if (currentCoverImage) {
       return <Image rootClassName={styles.imgWrapper} preview={false} src={currentCoverImage} />
     }
   }
+
   function getFullName(): string {
     let fullName: string = ''
     if (info !== null) {
@@ -76,6 +83,7 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
     }
     return fullName
   }
+
   async function onChangeProfileImage({ file }: UploadChangeParam): Promise<void> {
     let src: string = file.url
 
@@ -89,6 +97,7 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
 
     setCurrentProfileImage(src)
   }
+
   async function onChangeCoverImage({ file }: UploadChangeParam): Promise<void> {
     let src: string = file.url
 
@@ -102,6 +111,7 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
 
     setCurrentCoverImage(src)
   }
+
   async function onSubmit(values: ISellerInfoForm): Promise<void> {
     setIsLoading(true)
     let isSuccess: boolean = false

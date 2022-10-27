@@ -8,5 +8,6 @@ export const register = (payload: ISellerRegisterPayload): Promise<IApiResponse>
 
 export const shopInfo = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
   AxiosService.get(EndPointUrlConst.SELLERS.SHOP_INFO, option)
+
 export const updateShopInfo = (payload: ISellerInfoPayload): Promise<IApiResponse> =>
-  AxiosService.put(EndPointUrlConst.SELLERS.SHOP_INFO, payload)
+  AxiosService.patch(EndPointUrlConst.SELLERS.SHOP_INFO, payload)
