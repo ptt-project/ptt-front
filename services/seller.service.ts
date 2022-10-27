@@ -11,3 +11,6 @@ export const shopInfo = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
 
 export const updateShopInfo = (payload: ISellerInfoPayload): Promise<IApiResponse> =>
   AxiosService.patch(EndPointUrlConst.SELLERS.SHOP_INFO, payload)
+
+export const shopRecommended = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
+  AxiosService.get(EndPointUrlConst.SHOPS.RECOMMENDED, option)

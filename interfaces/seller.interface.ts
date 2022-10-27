@@ -57,3 +57,23 @@ export interface ISellerInfoPayload {
   profileImagePath?: string
   coverImagePath?: string
 }
+
+export interface ISellerShopRecommended {
+  id: number
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date
+  shopId: number
+  countPerson: number
+  countPersonStatus: boolean
+  countOrder: number
+  countOrderStatus: boolean
+  totalSale: number
+  totalSaleStatus: boolean
+  scoreRate: number
+  scoreRateStatus: boolean
+  failedOrderRate: number
+  failedOrderRateStatus: boolean
+  delayedDeliveryRate: number
+  delayedDeliveryRateStatus: boolean
+}

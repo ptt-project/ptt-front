@@ -156,7 +156,7 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
     <main className="main">
       <Helmet>
         <title>
-          {t('common:meta.title')} | {t('seller.point:title')}
+          {t('common:meta.title')} | {t('seller.shop-detail:title')}
         </title>
       </Helmet>
       <Breadcrumbs

@@ -1,0 +1,23 @@
+@import '../../public/sass/config/variables';
+
+.textSecondary {
+  color: $secondary-color !important;
+}
+.h1 {
+  line-height: 1 !important;
+  margin-bottom: 0 !important;
+}
+
+.h4 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.hrTitleCol {
+  border-bottom: 1px solid red;
+}
+
+.checked {
+  background-color: #fa8072 !important;
+  border-color: red !important;
+}
