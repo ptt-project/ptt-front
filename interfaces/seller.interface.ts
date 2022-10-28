@@ -51,7 +51,7 @@ export interface ISellerInfo {
   memberId: string
 }
 
-export interface ISellerInfoPayload {
+export interface ISellerUpdateInfoPayload {
   shopName?: string
   shopDescription?: string
   profileImagePath?: string

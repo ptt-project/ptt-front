@@ -1,33 +1,33 @@
 import React, { FC, useState } from 'react'
-import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
-import { Typography, Row, Col, Button, Form, Upload, Input, Image, Avatar, message } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import Loading from '~/components/main/Loading'
-import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
-import { ISellerInfo, ISellerInfoPayload, IApiResponse } from '~/interfaces'
 import HighlightLabel from '~/components/main/HighlightLabel'
+import styles from './SellerShopDetail.module.scss'
+import { useTranslation } from 'next-i18next'
+import { Typography, Row, Col, Button, Form, Upload, Input, Image, Avatar, message } from 'antd'
+import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
+import { ISellerInfo, ISellerUpdateInfoPayload, IApiResponse } from '~/interfaces'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { HelperGetImageUtil } from '~/utils/main'
 import { ImageSizeEnum } from '~/enums'
 import { ImageService, SellerService } from '~/services'
 import { RcFile } from 'antd/es/upload'
-import styles from './SellerShopDetail.module.scss'
 
 const { Text, Title } = Typography
 
-interface ISellerInfoForm {
+interface ISellerShopDetailForm {
   shopName: string
   shopDescription: string
   profileImage?: UploadChangeParam
   coverImage?: UploadChangeParam
 }
 
-interface ISellerInfoProps {
+interface ISellerShopDetailProps {
   shopInfo?: ISellerInfo
 }
-const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
+const SellerShopDetail: FC<ISellerShopDetailProps> = (props: ISellerShopDetailProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.shop-detail'])
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -112,11 +112,11 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
     setCurrentCoverImage(src)
   }
 
-  async function onSubmit(values: ISellerInfoForm): Promise<void> {
+  async function onSubmit(values: ISellerShopDetailForm): Promise<void> {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: ISellerInfoPayload = {
+      const payload: ISellerUpdateInfoPayload = {
         shopName: values.shopName,
         shopDescription: values.shopDescription
       }
@@ -156,7 +156,7 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
     <main className="main">
       <Helmet>
         <title>
-          {t('common:meta.title')} | {t('seller.point:title')}
+          {t('common:meta.title')} | {t('seller.shop-detail:title')}
         </title>
       </Helmet>
       <Breadcrumbs
@@ -273,7 +273,8 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
                       name="shopName"
                       rules={[
                         {
-                          required: true
+                          required: true,
+                          message: `${t('seller.shop-detail:msgShopName')}`
                         }
                       ]}
                     >
@@ -286,7 +287,8 @@ const SellerShopDetail: FC<ISellerInfoProps> = (props: ISellerInfoProps) => {
                       name="shopDescription"
                       rules={[
                         {
-                          required: true
+                          required: true,
+                          message: `${t('seller.shop-detail:msgShopDetail')}`
                         }
                       ]}
                     >
