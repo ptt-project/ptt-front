@@ -15,9 +15,8 @@ interface ISellerRecommendedPageProps {
 export const getServerSideProps: any = withSellerAuth(
   async (context: GetServerSidePropsContext) => {
     const shopRecommended: ISellerShopRecommended = null
-    const { req } = context
-
-    /*if (req) {
+    /* const { req } = context
+    if (req) {
       try {
         const option: AxiosRequestConfig = {
           headers: { Cookie: req.headers.cookie }

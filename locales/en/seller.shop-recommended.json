@@ -4,5 +4,17 @@
   "indicators": "ตัวชี้วัด",
   "myShop": "ร้านของฉัน",
   "target": "เป้าหมายสำหรับการ เป็นร้านค้าแนะนำ",
-  "status": "สถานะ"
+  "status": "สถานะ",
+  "countPerson": "จำนวนผู้ซื้อ",
+  "countOrder": "จำนวนคำสั่งซื้อ (หรือผ่านเกณฑ์ยอดขาย)",
+  "totalSale": "ยอดขาย (หรือผ่านเกณฑ์จำนวนคำสั่งซื้อ)",
+  "scoreRate": "คะแนนร้านค้า",
+  "failedOrderRate": "อัตราคำสั่งซื้อที่ไม่สำเร็จ",
+  "delayedDeliveryRate": "อัตราการจัดส่งช้า",
+  "countPersonTarget": "ตั้งแต่ 15",
+  "countOrderTarget": "ตั้งแต่ 100",
+  "totalSaleTarget": "ตั้งแต่ ฿ 30,000",
+  "scoreRateTarget": "ตั้งแต่ 4.50",
+  "failedOrderRateTarget": "น้อยกว่า 10.00%",
+  "delayedDeliveryRateTarget": "น้อยกว่า 10.00%"
 }
