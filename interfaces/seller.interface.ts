@@ -50,3 +50,10 @@ export interface ISellerInfo {
   coverImagePath?: string
   memberId: string
 }
+
+export interface ISellerUpdateInfoPayload {
+  shopName?: string
+  shopDescription?: string
+  profileImagePath?: string
+  coverImagePath?: string
+}
