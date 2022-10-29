@@ -32,7 +32,7 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
   const { bankAccount, isSeller, onSubmitted, onCancel } = props
   const [form] = Form.useForm()
   const router: NextRouter = useRouter()
-  const bankAccountId: number = bankAccount.id
+  const bankAccountId: string = bankAccount.id
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
   const { data: user } = MemberService.useGetProfile()

@@ -43,12 +43,16 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
   const { data: user } = MemberService.useGetProfile()
 
   const deleteBankAccountVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
-  const [deleteBankAccountId, setDeleteBankAccountId] = useState<number>()
+  const [deleteBankAccountId, setDeleteBankAccountId] = useState<string>()
   const [isOtpViewBankAccountsOpen, setIsOtpViewBankAccountsOpen] = useState<boolean>(false)
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const [otpViewVerifyMeta, setOtpViewVerifyMeta] = useState<IOtp>()
 
-  const { data: bankAccountRes, isStale } = BankAccountService.useGetBankAccounts({
+  const {
+    data: bankAccountRes,
+    isStale,
+    remove: removeGetBankAccounts
+  } = BankAccountService.useGetBankAccounts({
     otpCode: otpViewVerifyMeta?.otpCode || '',
     refCode: otpViewVerifyMeta?.refCode || ''
   })
@@ -102,6 +106,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
         setOtpViewVerifyMeta(undefined)
         setEditBankAccount(undefined)
         setBankAccounts([])
+        removeGetBankAccounts()
       }
       return newVisible
     })
@@ -111,7 +116,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
     router.push(`${rootMenu}/settings/finance/bank/add`)
   }
 
-  function onEditBankAccountClick(bankAccountId: number): void {
+  function onEditBankAccountClick(bankAccountId: string): void {
     setEditBankAccount(bankAccounts.find((e: IBankAccountData): boolean => e.id === bankAccountId))
   }
 
@@ -139,7 +144,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
     })
   }
 
-  async function onFavoriteBankAccountClick(bankAccountId: number): Promise<void> {
+  async function onFavoriteBankAccountClick(bankAccountId: string): Promise<void> {
     try {
       await BankAccountService.setMainBankAccount(bankAccountId)
       setBankAccounts((prev: IBankAccountData[]) => {
@@ -158,7 +163,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
     }
   }
 
-  function onDeleteBankAccountClick(bankAccountId: number): void {
+  function onDeleteBankAccountClick(bankAccountId: string): void {
     setDeleteBankAccountId(bankAccountId)
     deleteBankAccountVisible.show()
   }

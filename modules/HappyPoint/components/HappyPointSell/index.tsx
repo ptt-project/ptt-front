@@ -9,32 +9,37 @@ import { CustomUrlUtil, HelperDecimalFormatUtil } from '~/utils/main'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { LocaleNamespaceConst } from '~/constants'
-import { IHappyPointFormValues } from '~/interfaces'
+import { IHappyPointFormValues, IOtp } from '~/interfaces'
 import HappyPointForm from '../HappyPointForm'
 import { HappyPointTypeEnum, OtpTypeEnum } from '~/enums'
 import OtpModal from '~/components/main/OtpModal'
-import { MemberService } from '~/services'
+import { HappyPointService, MemberService, WalletService } from '~/services'
+import { getSummarySellHappyPoint } from '../HappyPointForm/happy-point.helper'
 
 const { Title, Text } = Typography
 
 const HappyPointSell: React.FC = () => {
   const router: NextRouter = useRouter()
   const [form] = Form.useForm()
-  const { data: user } = MemberService.useGetProfile()
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'happy-point'])
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
+  const [formValues, setFormValues] = useState<IHappyPointFormValues>()
 
-  const happyPointBalance: number = 3999
-  const eWalletBalance: number = 299
-  const rateBahtPerHappyPoint: number = 100
+  const { data: happyPoint } = HappyPointService.useGetHappyPointBalance()
+  const { data: user } = MemberService.useGetProfile()
+  const { data: configLookup } = HappyPointService.useGetHappyPointRateLookup()
+  const { data: wallet } = WalletService.useGetMyWallet()
+  const { mutateAsync: sellHappyPoint } = HappyPointService.useSellHappyPoint()
+
+  const happyPointBalance: number = happyPoint?.balance
 
   function onCancelClick(): void {
     router.back()
   }
 
   function onSubmit(values: IHappyPointFormValues): void {
-    console.debug(values)
+    setFormValues(values)
     setIsOtpOpen(true)
   }
 
@@ -42,10 +47,29 @@ const HappyPointSell: React.FC = () => {
     setIsOtpOpen(!isOtpOpen)
   }
 
-  function onOtpSuccess(): void {
+  async function onOtpSuccess(otp: IOtp): Promise<void> {
     setIsOtpOpen(false)
-    message.success(t('common:dataUpdated'))
-    router.replace('/settings/finance/happy-point')
+    try {
+      const { bahtAmount, vatAmount, totalAmount } = getSummarySellHappyPoint(
+        formValues?.happyPointAmount,
+        configLookup?.happyPointSellRate,
+        configLookup?.happyPointFeePercent
+      )
+      await sellHappyPoint({
+        amount: totalAmount,
+        feeAmount: vatAmount,
+        totalAmount: bahtAmount,
+        point: formValues?.happyPointAmount,
+        refId: configLookup?.refId,
+        otpCode: otp.otpCode,
+        refCode: otp.refCode
+      })
+      setFormValues(undefined)
+      message.success(t('common:dataUpdated'))
+      router.replace('/settings/finance/happy-point')
+    } catch (error) {
+      message.error(error?.data?.message || t('common:apiMessage.error'))
+    }
   }
 
   return (
@@ -110,9 +134,10 @@ const HappyPointSell: React.FC = () => {
                     parentForm={form}
                     onSubmit={onSubmit}
                     formType={HappyPointTypeEnum.SELL}
-                    eWalletBalance={eWalletBalance}
+                    eWalletBalance={wallet?.balance}
                     happyPointBalance={happyPointBalance}
-                    rateBahtPerHappyPoint={rateBahtPerHappyPoint}
+                    rateBahtPerHappyPoint={configLookup?.happyPointSellRate}
+                    feePercent={configLookup?.happyPointFeePercent}
                   />
                 </Col>
                 <Col xs={24}>

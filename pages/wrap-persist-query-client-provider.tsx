@@ -1,8 +1,9 @@
-import { Query, QueryClient } from '@tanstack/react-query'
-import React, { FC, ReactNode, useState } from 'react'
-import { HelperCreateIDBPersister } from '~/utils/main'
-import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { Persister } from '@tanstack/query-persist-client-core'
+import { Query, QueryClient } from '@tanstack/react-query'
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
+import React, { FC, ReactNode, useMemo, useState } from 'react'
+import { ConfigService, MemberService } from '~/services'
+import { HelperCreateIDBPersister } from '~/utils/main'
 
 interface IDehydrateStateProps {
   children: ReactNode
@@ -19,7 +20,7 @@ const WrapPersistQueryClientProvider: FC<IDehydrateStateProps> = (props: IDehydr
         }
       })
   )
-  const persister: Persister = HelperCreateIDBPersister()
+  const persister: Persister = useMemo(() => HelperCreateIDBPersister(), [])
 
   return (
     <PersistQueryClientProvider
@@ -29,16 +30,23 @@ const WrapPersistQueryClientProvider: FC<IDehydrateStateProps> = (props: IDehydr
         dehydrateOptions: {
           dehydrateMutations: false,
           shouldDehydrateQuery: (query: Query): boolean => {
-            const { meta } = query
+            const { meta, state } = query
             const { persist } = meta || {}
-            return !!persist
+            return !state.error && !!persist
           }
         }
       }}
     >
+      <PrefetchQuery />
       {props.children}
     </PersistQueryClientProvider>
   )
+}
+
+const PrefetchQuery: FC = () => {
+  ConfigService.useGetConfigOptions()
+  MemberService.useGetProfile()
+  return <></>
 }
 
 export default WrapPersistQueryClientProvider

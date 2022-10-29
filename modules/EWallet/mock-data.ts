@@ -15,9 +15,9 @@ export const eWalletHistory: IWalletTransaction[] = times(50).map(
       EWalletStatusEnum.PENDING,
       EWalletStatusEnum.SUCCESS
     ]),
-    id,
+    id: id.toString(),
     detail: '',
-    walletId: id,
+    walletId: id.toString(),
     updatedAt: moment().format(),
 
     type: sample([EWalletTypeEnum.WITHDRAW, EWalletTypeEnum.DEPOSIT])
