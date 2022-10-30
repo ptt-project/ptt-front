@@ -1,4 +1,7 @@
 import React, { useState, FC, ChangeEvent } from 'react'
+import HighlightLabel from '~/components/main/HighlightLabel'
+import Loading from '~/components/main/Loading'
+import styles from './RegisterSellerForm.module.scss'
 import { useTranslation } from 'next-i18next'
 import {
   Typography,
@@ -14,13 +17,10 @@ import {
   message,
   Alert
 } from 'antd'
-import HighlightLabel from '~/components/main/HighlightLabel'
-import Loading from '~/components/main/Loading'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import styles from './RegisterSellerForm.module.scss'
-import { ISellerInfo, ISellerRegisterPayload } from '~/interfaces'
+import { IConfigOptionPlatformCategory, ISellerInfo, ISellerRegisterPayload } from '~/interfaces'
 import { FormModeEnum, SellerApprovalStatusEnum, SellerShopTypeEnum } from '~/enums'
-import { SellerService } from '~/services'
+import { ConfigService, SellerService } from '~/services'
 
 const { Text, Title } = Typography
 const { TextArea } = Input
@@ -32,6 +32,7 @@ interface IRegisterSellerFormProps {
 
 const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSellerFormProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register-seller'])
+  const { data: configOptions } = ConfigService.useGetConfigOptions()
 
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -311,7 +312,13 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                     >
                       <Select>
                         <Select.Option value="">{t('common:form.option')}</Select.Option>
-                        <Select.Option value="เสื้อผ้า">เสื้อผ้า</Select.Option>
+                        {configOptions?.platformCategory.map(
+                          (category: IConfigOptionPlatformCategory) => (
+                            <Select.Option key={category.id} value={category.id}>
+                              {category.name}
+                            </Select.Option>
+                          )
+                        )}
                       </Select>
                     </Form.Item>
                   </Col>

@@ -7,17 +7,18 @@ import { RcFile } from 'antd/es/upload'
 import { UploadFile } from 'antd/es/upload/interface'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
-import { ICategoryPlatform } from '../../../../../interfaces'
+import { ConfigService } from '../../../../../services'
+import { IConfigOptionPlatformCategory } from '../../../../../interfaces'
 
 const { Text } = Typography
 
 interface IInfoProps {
   form: FormInstance
-  categoriesPlatform: ICategoryPlatform[]
 }
 
 const Info: FC<IInfoProps> = (props: IInfoProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
+  const { data: configOptions } = ConfigService.useGetConfigOptions()
   const [fileList, setFileList] = useState<UploadFile[]>([])
 
   function normFile(e: any): any {
@@ -133,7 +134,7 @@ const Info: FC<IInfoProps> = (props: IInfoProps) => {
           >
             <Select>
               <Select.Option value="">{t('common:form.option')}</Select.Option>
-              {props.categoriesPlatform.map((category: ICategoryPlatform) => (
+              {configOptions?.platformCategory.map((category: IConfigOptionPlatformCategory) => (
                 <Select.Option key={category.id} value={category.id}>
                   {category.name}
                 </Select.Option>

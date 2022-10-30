@@ -12,6 +12,7 @@ export const useGetConfigOptions = () => {
     [EndPointUrlConst.CONFIG.OPTIONS],
     async () => {
       const { data } = await getConfigOptions()
+
       return data
     },
     {

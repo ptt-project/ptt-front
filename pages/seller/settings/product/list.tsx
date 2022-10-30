@@ -6,11 +6,10 @@ import { LocaleNamespaceConst } from '~/constants'
 import { withSellerAuth } from '../../../../hocs/with-seller'
 import { AxiosRequestConfig } from 'axios'
 import { ShopService } from '../../../../services'
-import { IApiResponse, ICategoryPlatform, IListItems, IProduct } from '../../../../interfaces'
+import { IApiResponse, IListItems, IProduct } from '../../../../interfaces'
 
 interface ISellerProductListPageProps {
   products: IListItems<IProduct>
-  categoriesPlatform: ICategoryPlatform[]
   query: {
     keyword: string
     categoryId: string
@@ -54,25 +53,13 @@ export const getServerSideProps: any = withSellerAuth(
       }
     }
 
-    // categories platform
-    let categoriesPlatform: ICategoryPlatform[] = []
-
     if (req) {
       try {
         const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
-        const productsRes: Promise<IApiResponse> = ShopService.getProducts(option)
-        const categoriesPlatformRes: Promise<IApiResponse> =
-          ShopService.getCategoriesPlatform(option)
+        const productsRes: IApiResponse = await ShopService.getProducts(option)
 
-        // result
-        const result: IApiResponse[] = await Promise.all([productsRes, categoriesPlatformRes])
-
-        if (result[0].data) {
-          products = result[0].data
-        }
-
-        if (result[1].data) {
-          categoriesPlatform = result[1].data
+        if (productsRes.data) {
+          products = productsRes.data
         }
       } catch (error) {
         console.log(error)
@@ -93,7 +80,6 @@ export const getServerSideProps: any = withSellerAuth(
           'seller.product'
         ])),
         products,
-        categoriesPlatform,
         query
       }
     }
@@ -102,12 +88,6 @@ export const getServerSideProps: any = withSellerAuth(
 
 const SellerProductListPage: FC<ISellerProductListPageProps> = (
   props: ISellerProductListPageProps
-) => (
-  <SellerProduct
-    products={props.products}
-    categoriesPlatform={props.categoriesPlatform}
-    query={props.query}
-  />
-)
+) => <SellerProduct products={props.products} query={props.query} />
 
 export default SellerProductListPage

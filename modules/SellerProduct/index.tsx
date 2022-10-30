@@ -10,13 +10,12 @@ import { useTranslation } from 'next-i18next'
 import { Typography, Row, Col, Button, Progress } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 import { CustomUrlUtil } from '../../utils/main'
-import { ICategoryPlatform, IListItems, IProduct } from '../../interfaces'
+import { IListItems, IProduct } from '../../interfaces'
 
 const { Text, Title } = Typography
 
 interface ISellerProductProps {
   products: IListItems<IProduct>
-  categoriesPlatform: ICategoryPlatform[]
   query: {
     keyword: string
     categoryId: string
@@ -77,7 +76,7 @@ const SellerProduct: FC<ISellerProductProps> = (props: ISellerProductProps) => {
                   </div>
                 </Col>
               </Row>
-              <ProductFilters categoriesPlatform={props.categoriesPlatform} query={props.query} />
+              <ProductFilters query={props.query} />
               <ProductTabs products={props.products} query={props.query} />
             </Col>
           </Row>

@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
+import styles from './RegisterSellerSuccess.module.scss'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { Typography, Button, Row, Col, Image } from 'antd'
 import { CustomUrlUtil } from '~/utils/main'
-import styles from './RegisterSellerSuccess.module.scss'
 import { LocaleNamespaceConst } from '~/constants'
 
 const { Text, Title } = Typography

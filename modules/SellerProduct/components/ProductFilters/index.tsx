@@ -3,8 +3,9 @@ import styles from './ProductFilters.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Button, Row, Col, Form, Input, Select } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import { ICategoryPlatform } from '../../../../interfaces'
 import { NextRouter, useRouter } from 'next/router'
+import { ConfigService } from '../../../../services'
+import { IConfigOptionPlatformCategory } from '../../../../interfaces'
 
 interface IProductFiltersForm {
   keyword: string
@@ -13,7 +14,6 @@ interface IProductFiltersForm {
 }
 
 interface IProductFiltersProps {
-  categoriesPlatform: ICategoryPlatform[]
   query: {
     keyword: string
     categoryId: string
@@ -27,6 +27,7 @@ interface IProductFiltersProps {
 const ProductFilters: FC<IProductFiltersProps> = (props: IProductFiltersProps) => {
   const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
+  const { data: configOptions } = ConfigService.useGetConfigOptions()
   const [form] = Form.useForm()
 
   function onSubmit(values: IProductFiltersForm): void {
@@ -89,7 +90,7 @@ const ProductFilters: FC<IProductFiltersProps> = (props: IProductFiltersProps) =
           <Form.Item label={t('seller.product:list.filters.category')} name="categoryId">
             <Select defaultValue="">
               <Select.Option value="">{t('common:form.option')}</Select.Option>
-              {props.categoriesPlatform.map((category: ICategoryPlatform) => (
+              {configOptions?.platformCategory.map((category: IConfigOptionPlatformCategory) => (
                 <Select.Option key={category.id} value={category.id}>
                   {category.name}
                 </Select.Option>

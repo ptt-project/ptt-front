@@ -14,15 +14,11 @@ import { useTranslation } from 'next-i18next'
 import { isEmpty } from 'lodash'
 import { Typography, Button, Row, Col, Form, message, UploadFile } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import { IApiResponse, ICategoryPlatform, ICreateProductPayload } from '../../../../interfaces'
+import { IApiResponse, ICreateProductPayload } from '../../../../interfaces'
 import { ImageService, ShopService } from '../../../../services'
 import { ProductConditionEnum } from '../../../../enums'
 
 const { Text } = Typography
-
-interface IProductFormProps {
-  categoriesPlatform: ICategoryPlatform[]
-}
 
 interface IFormData {
   images: UploadFile[]
@@ -45,7 +41,7 @@ interface IFormData {
   [key: string]: any
 }
 
-const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
+const ProductForm: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const router: NextRouter = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -178,7 +174,7 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
                 name="productForm"
                 onFinish={onSubmit}
               >
-                <Info form={form} categoriesPlatform={props.categoriesPlatform} />
+                <Info form={form} />
                 <Features form={form} />
                 <Sales
                   form={form}
