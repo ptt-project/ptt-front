@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/typedef */
 import React, { SyntheticEvent, useCallback } from 'react'
 import Tree from 'react-d3-tree'
+import styles from './RelationTree.module.scss'
 import { CustomNodeElementProps, RawNodeDatum, TreeLinkDatum } from 'react-d3-tree/lib/types/common'
 import { useCenteredTree } from './helper'
-import styles from './RelationTree.module.scss'
 
 interface IRelationTreeProps {
   data: RawNodeDatum

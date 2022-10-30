@@ -1,10 +1,10 @@
 /* eslint-disable no-unexpected-multiline */
 import React, { FC, MutableRefObject, useEffect, useState } from 'react'
-import { Magnifier } from 'react-image-magnifiers'
-import { Image, Typography } from 'antd'
 import OwlCarousel from '~/components/main/OwlCarousel'
 import ProductThumb from '../ProductThumb'
 import styles from './ProductGallery.module.scss'
+import { Magnifier } from 'react-image-magnifiers'
+import { Image, Typography } from 'antd'
 
 const { Text } = Typography
 

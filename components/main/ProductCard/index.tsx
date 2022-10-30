@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
-import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import numeral from 'numeral'
+import styles from './ProductCard.module.scss'
+import { useTranslation } from 'next-i18next'
 import { Typography, Row, Col, Tag, Rate } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './ProductCard.module.scss'
 
 const { Text } = Typography
 

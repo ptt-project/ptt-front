@@ -1,15 +1,15 @@
 import React, { useState, useEffect, FC } from 'react'
-import { useTranslation } from 'next-i18next'
-import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
-import { Col, Row, Typography, Select, Space } from 'antd'
-import { LocaleNamespaceConst } from '~/constants'
 import SearchSidebar from './components/SearchSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import ProductCard from '~/components/main/ProductCard'
 import ShopCard from '~/components/main/ShopCard'
 import styles from './Search.module.scss'
+import { useTranslation } from 'next-i18next'
+import { NextRouter, useRouter } from 'next/router'
+import { Col, Row, Typography, Select, Space } from 'antd'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Title, Text } = Typography
 

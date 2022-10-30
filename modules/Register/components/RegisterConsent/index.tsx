@@ -1,15 +1,15 @@
 import React, { useState, FC } from 'react'
+import Loading from '~/components/main/Loading'
+import OtpModal from '~/components/main/OtpModal'
+import styles from './RegisterConsent.module.scss'
 import { useTranslation } from 'next-i18next'
 import { isEmpty } from 'lodash'
 import { Typography, Space, Button, Image, Row, Col, Form, Checkbox, message } from 'antd'
-import type { CheckboxChangeEvent } from 'antd/es/checkbox'
-import Loading from '~/components/main/Loading'
-import OtpModal from '~/components/main/OtpModal'
 import { IAuthRegisterForm, IAuthRegisterPayload, IOtp } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
 import { OtpTypeEnum } from '~/enums'
-import styles from './RegisterConsent.module.scss'
+import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 
 const { Text, Title } = Typography
 

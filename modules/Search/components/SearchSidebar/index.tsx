@@ -1,12 +1,11 @@
 import React, { FC } from 'react'
+import SidebarContainer from '~/components/main/SidebarContainer'
+import styles from './SearchSidebar.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Button, Select, Checkbox, Input, Radio, Rate } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import SidebarContainer from '~/components/main/SidebarContainer'
 import { IOption } from '~/interfaces'
 import { SellerShopTypeEnum } from '~/enums'
-
-import styles from './SearchSidebar.module.scss'
 
 const { Text, Title } = Typography
 

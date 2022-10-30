@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
+import styles from './EmptyTableData.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Image } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './EmptyTableData.module.scss'
 
 const { Text } = Typography
 

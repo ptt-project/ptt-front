@@ -1,7 +1,7 @@
 import React from 'react'
+import styles from './RelationCount.module.scss'
 import { Col, Row, Typography } from 'antd'
 import { useTranslation } from 'next-i18next'
-import styles from './RelationCount.module.scss'
 import { LocaleNamespaceConst } from '~/constants'
 import { HelperDecimalFormatUtil } from '~/utils/main'
 

@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
+import styles from './ProductFeedback.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Button, Col, Rate, Row, Space, Typography } from 'antd'
-import styles from './ProductFeedback.module.scss'
 import { LocaleNamespaceConst } from '../../../../constants'
 
 const { Title, Text } = Typography

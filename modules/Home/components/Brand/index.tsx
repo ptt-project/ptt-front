@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
-import { useTranslation } from 'next-i18next'
 import numeral from 'numeral'
+import styles from './Brand.module.scss'
+import { useTranslation } from 'next-i18next'
 import { Typography, Row, Col, Image, Button } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './Brand.module.scss'
 
 const { Text, Title, Link } = Typography
 

@@ -1,4 +1,6 @@
 import React, { useState, FC, ChangeEvent } from 'react'
+import Loading from '~/components/main/Loading'
+import styles from './RegisterForm.module.scss'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { isEmpty } from 'lodash'
@@ -16,12 +18,10 @@ import {
   message
 } from 'antd'
 import { Rule } from 'antd/lib/form'
-import Loading from '~/components/main/Loading'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { IAuthRegisterForm, IAuthRegisterValidatePayload } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import { AuthService } from '~/services'
-import styles from './RegisterForm.module.scss'
 
 const { Text, Title, Link } = Typography
 

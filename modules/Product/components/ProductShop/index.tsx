@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
+import styles from './ProductShop.module.scss'
 import { Avatar, Button, Col, Row, Typography } from 'antd'
 import { useTranslation } from 'next-i18next'
-import styles from './ProductShop.module.scss'
 import { LocaleNamespaceConst } from '../../../../constants'
 
 const { Title, Text } = Typography

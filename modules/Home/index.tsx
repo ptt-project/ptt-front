@@ -1,14 +1,14 @@
 import React, { FC } from 'react'
-import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
-import { Typography, Row, Col } from 'antd'
 import MainSidebar from './components/MainSidebar'
 import Banner from './components/Banner'
 import Promotion from './components/Promotion'
 import Brand from './components/Brand'
 import ProductCard from '~/components/main/ProductCard'
-import { LocaleNamespaceConst } from '~/constants'
 import styles from './Home.module.scss'
+import { useTranslation } from 'next-i18next'
+import { Typography, Row, Col } from 'antd'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Title, Link } = Typography
 

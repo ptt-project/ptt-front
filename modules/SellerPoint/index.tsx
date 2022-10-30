@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
-import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
-import { Typography, Row, Col } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import SellerPointFilters from './components/SellerPointFilters'
 import SellerPointTabs from './components/SellerPointTabs'
-import { LocaleNamespaceConst } from '~/constants'
 import styles from './SellerPoint.module.scss'
+import { useTranslation } from 'next-i18next'
+import { Typography, Row, Col } from 'antd'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Text, Title } = Typography
 
