@@ -135,8 +135,8 @@ const Info: FC<IInfoProps> = (props: IInfoProps) => {
             <Select>
               <Select.Option value="">{t('common:form.option')}</Select.Option>
               {configOptions?.platformCategory.map((category: IConfigOptionPlatformCategory) => (
-                <Select.Option key={category.id} value={category.id}>
-                  {category.name}
+                <Select.Option key={category.value} value={category.value}>
+                  {category.label}
                 </Select.Option>
               ))}
             </Select>
