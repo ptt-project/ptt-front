@@ -32,7 +32,9 @@ const WrapPersistQueryClientProvider: FC<IDehydrateStateProps> = (props: IDehydr
           shouldDehydrateQuery: (query: Query): boolean => {
             const { meta, state } = query
             const { persist } = meta || {}
-            return !state.error && !!persist
+            const isPersist: boolean = !state.error && state.status === 'success' && !!persist
+            // isPersist && console.log({ query, isPersist })
+            return isPersist
           }
         }
       }}
