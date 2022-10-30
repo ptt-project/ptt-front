@@ -1,9 +1,9 @@
 import React, { useState, FC } from 'react'
-import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import RegisterSellerForm from './components/RegisterSellerForm'
 import RegisterSellerSuccess from './components/RegisterSellerSuccess'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import { useTranslation } from 'next-i18next'
 import { LocaleNamespaceConst } from '~/constants'
 import { ISellerInfo } from '~/interfaces'
 

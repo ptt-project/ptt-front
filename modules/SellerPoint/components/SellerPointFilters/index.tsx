@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
+import styles from './SellerPointFilters.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Button, Row, Col, Form, Input, DatePicker } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './SellerPointFilters.module.scss'
 
 const { RangePicker } = DatePicker
 

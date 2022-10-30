@@ -1,12 +1,12 @@
 import React, { FC, useState, useEffect } from 'react'
-import { NextRouter, useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
-import { Avatar, Button, Carousel, Col, Image, Row, Space, Tabs, Typography } from 'antd'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import ProductCard from '~/components/main/ProductCard'
-import { LocaleNamespaceConst } from '../../constants'
 import styles from './Shop.module.scss'
+import { NextRouter, useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { Avatar, Button, Carousel, Col, Image, Row, Space, Tabs, Typography } from 'antd'
+import { LocaleNamespaceConst } from '../../constants'
 
 const { Text, Title, Link } = Typography
 

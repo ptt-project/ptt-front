@@ -1,7 +1,7 @@
+import React, { FC, ReactNode, useMemo, useState } from 'react'
 import { Persister } from '@tanstack/query-persist-client-core'
 import { Query, QueryClient } from '@tanstack/react-query'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
-import React, { FC, ReactNode, useMemo, useState } from 'react'
 import { ConfigService, MemberService } from '~/services'
 import { HelperCreateIDBPersister } from '~/utils/main'
 

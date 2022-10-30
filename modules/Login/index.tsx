@@ -1,15 +1,15 @@
 import React, { useState, FC } from 'react'
-import { useTranslation } from 'next-i18next'
-import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
-import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, message } from 'antd'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import Loading from '~/components/main/Loading'
+import styles from './Login.module.scss'
+import { useTranslation } from 'next-i18next'
+import { NextRouter, useRouter } from 'next/router'
+import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, message } from 'antd'
 import { AuthInitUtil, CustomUrlUtil } from '~/utils/main'
 import { IApiResponse, IAuthLoginPayload, IFieldData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
-import styles from './Login.module.scss'
 
 const { Title, Link } = Typography
 

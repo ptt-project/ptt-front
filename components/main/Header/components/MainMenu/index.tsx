@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
+import ALink from '~/components/features/custom-link'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import ALink from '~/components/features/custom-link'
 import { mainMenu } from '~/utils/data/menu'
 import { LocaleNamespaceConst } from '~/constants'
 

@@ -30,7 +30,7 @@ const ProductTabs: FC<IProductTabsProps> = (props: IProductTabsProps) => {
     switch (key) {
       case '1':
         router.push({
-          pathname: '/seller/settings/product',
+          pathname: '/seller/settings/product/list',
           query: {
             keyword: props.query.keyword,
             categoryId: props.query.categoryId,
@@ -41,7 +41,7 @@ const ProductTabs: FC<IProductTabsProps> = (props: IProductTabsProps) => {
         break
       case '2':
         router.push({
-          pathname: '/seller/settings/product',
+          pathname: '/seller/settings/product/list',
           query: {
             keyword: props.query.keyword,
             categoryId: props.query.categoryId,
@@ -53,7 +53,7 @@ const ProductTabs: FC<IProductTabsProps> = (props: IProductTabsProps) => {
         break
       case '3':
         router.push({
-          pathname: '/seller/settings/product',
+          pathname: '/seller/settings/product/list',
           query: {
             keyword: props.query.keyword,
             categoryId: props.query.categoryId,
@@ -65,7 +65,7 @@ const ProductTabs: FC<IProductTabsProps> = (props: IProductTabsProps) => {
         break
       case '4':
         router.push({
-          pathname: '/seller/settings/product',
+          pathname: '/seller/settings/product/list',
           query: {
             keyword: props.query.keyword,
             categoryId: props.query.categoryId,
@@ -77,7 +77,7 @@ const ProductTabs: FC<IProductTabsProps> = (props: IProductTabsProps) => {
         break
       case '5':
         router.push({
-          pathname: '/seller/settings/product',
+          pathname: '/seller/settings/product/list',
           query: {
             keyword: props.query.keyword,
             categoryId: props.query.categoryId,

@@ -1,22 +1,21 @@
 import React, { FC } from 'react'
-import { NextRouter, useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
-import { Typography, Row, Col, Button, Progress } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import ProductFilters from './components/ProductFilters'
 import ProductTabs from './components/ProductTabs'
+import styles from './SellerProduct.module.scss'
+import { NextRouter, useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { Typography, Row, Col, Button, Progress } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 import { CustomUrlUtil } from '../../utils/main'
-import styles from './SellerProduct.module.scss'
-import { ICategory, IListItems, IProduct } from '../../interfaces'
+import { IListItems, IProduct } from '../../interfaces'
 
 const { Text, Title } = Typography
 
 interface ISellerProductProps {
   products: IListItems<IProduct>
-  categories: ICategory[]
   query: {
     keyword: string
     categoryId: string
@@ -41,7 +40,7 @@ const SellerProduct: FC<ISellerProductProps> = (props: ISellerProductProps) => {
       <Breadcrumbs
         items={[
           { title: t('seller.product:list.product') },
-          { title: t('seller.product:list.myProduct'), href: '/seller/settings/product/list' }
+          { title: t('seller.product:list.myProduct') }
         ]}
       />
       <div className="page-content mb-9">
@@ -77,7 +76,7 @@ const SellerProduct: FC<ISellerProductProps> = (props: ISellerProductProps) => {
                   </div>
                 </Col>
               </Row>
-              <ProductFilters categories={props.categories} query={props.query} />
+              <ProductFilters query={props.query} />
               <ProductTabs products={props.products} query={props.query} />
             </Col>
           </Row>

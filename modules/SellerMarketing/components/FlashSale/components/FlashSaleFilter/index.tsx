@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
+import styles from './FlashSaleFilter.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Button, Col, DatePicker, Row, Typography } from 'antd'
-import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker'
 import { LocaleNamespaceConst } from '../../../../../../constants'
-import styles from './FlashSaleFilter.module.scss'
+import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker'
 
 const { Text } = Typography
 

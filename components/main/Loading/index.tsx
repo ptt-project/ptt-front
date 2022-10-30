@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import { Spin } from 'antd'
 import styles from './Loading.module.scss'
+import { Spin } from 'antd'
 
 interface ILoadingProps {
   show?: boolean

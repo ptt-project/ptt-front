@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
+import Review from '../Review'
+import styles from './SellerPointTabs.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Tabs } from 'antd'
-import Review from '../Review'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './SellerPointTabs.module.scss'
 
 const { TabPane } = Tabs
 

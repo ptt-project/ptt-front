@@ -1,12 +1,12 @@
 import React, { useState, useEffect, FC, ChangeEvent } from 'react'
+import Loading from '../Loading'
+import styles from './OtpModal.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Button, Row, Col, Input, Modal, message } from 'antd'
-import Loading from '../Loading'
 import { IOtpRequestPayload, IOtp, IApiResponse } from '~/interfaces'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { OtpService } from '~/services'
 import { OtpTypeEnum } from '~/enums'
-import styles from './OtpModal.module.scss'
 
 const { Text, Title } = Typography
 

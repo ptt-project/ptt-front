@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
+import RegisterSeller from '~/modules/RegisterSeller'
 import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AxiosRequestConfig } from 'axios'
-import RegisterSeller from '~/modules/RegisterSeller'
 import { LocaleNamespaceConst } from '~/constants'
 import { IApiResponse, ISellerInfo } from '~/interfaces'
 import { SellerService } from '~/services'
@@ -16,6 +16,7 @@ interface IRegisterSellerPageProps {
 export const getServerSideProps: any = withSellerAuth(
   async (context: GetServerSidePropsContext) => {
     let shopInfo: ISellerInfo = null
+
     const { req } = context
 
     if (req) {
@@ -23,8 +24,9 @@ export const getServerSideProps: any = withSellerAuth(
         const option: AxiosRequestConfig = {
           headers: { Cookie: req.headers.cookie }
         }
-        const { data }: IApiResponse = await SellerService.shopInfo(option)
-        shopInfo = data
+        const shopInfoRes: IApiResponse = await SellerService.shopInfo(option)
+
+        shopInfo = shopInfoRes.data
 
         if (shopInfo.approvalStatus === SellerApprovalStatusEnum.APPROVED) {
           return {
@@ -35,6 +37,8 @@ export const getServerSideProps: any = withSellerAuth(
           }
         }
       } catch (error) {
+        console.log(error)
+
         if (!error.data || error.data.code !== 106004) {
           return {
             redirect: {

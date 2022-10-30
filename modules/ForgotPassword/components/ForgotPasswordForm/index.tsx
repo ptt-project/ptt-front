@@ -1,10 +1,10 @@
 import React, { useState, FC } from 'react'
+import styles from './ForgotPasswordForm.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Button, Row, Col, Image, Form, Input } from 'antd'
 import { Rule } from 'antd/lib/form'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { IAuthForgotPasswordForm, IFieldData } from '~/interfaces'
-import styles from './ForgotPasswordForm.module.scss'
 
 const { Title } = Typography
 

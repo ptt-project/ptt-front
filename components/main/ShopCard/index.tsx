@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
-import { NextRouter, useRouter } from 'next/router'
 import Link from 'next/link'
+import styles from './ShopCard.module.scss'
+import { NextRouter, useRouter } from 'next/router'
 import { Avatar, Col, Row, Space, Typography } from 'antd'
 import { useTranslation } from 'next-i18next'
 import { LocaleNamespaceConst } from '../../../constants'
 import { CustomUrlUtil } from '../../../utils/main'
-import styles from './ShopCard.module.scss'
 
 interface IShopCardProps {
   showOptions?: boolean

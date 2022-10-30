@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
+import styles from './ConfirmationModal.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Button, Row, Col, Modal, Image } from 'antd'
-import styles from './ConfirmationModal.module.scss'
 import { LocaleNamespaceConst } from '~/constants'
 
 const { Text, Title } = Typography

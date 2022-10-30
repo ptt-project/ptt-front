@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react'
+import ReplyModal from '../ReplyModal'
+import styles from './Review.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Button, Row, Col, Typography, Avatar, Image, Rate, Pagination } from 'antd'
-import ReplyModal from '../ReplyModal'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './Review.module.scss'
 
 const { Text } = Typography
 

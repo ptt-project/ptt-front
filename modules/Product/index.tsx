@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
-import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
-import { Button, Col, Row, Space, Tag, Typography } from 'antd'
 import Breadcrumbs from '../../components/main/Breadcrumbs'
 import ProductGallery from './components/ProductGallery'
 import ProductShop from './components/ProductShop'
 import ProductFeedback from './components/ProductFeedback'
-import { LocaleNamespaceConst } from '../../constants'
 import styles from './Product.module.scss'
+import { useTranslation } from 'next-i18next'
+import { Button, Col, Row, Space, Tag, Typography } from 'antd'
+import { LocaleNamespaceConst } from '../../constants'
 
 const { Title, Text } = Typography
 

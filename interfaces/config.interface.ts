@@ -1,14 +1,20 @@
-import { AddressFieldsEnum } from '~/enums'
+import { AddressFieldsEnum, ConfigOptionPlatformCategoryStatusEnum } from '~/enums'
 
-export interface IOptionBrand {
+export interface IConfigOptionBrand {
   id: string
 }
 
-export interface IOptionPlatformCategory {
+export interface IConfigOptionPlatformCategory {
   id: string
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date
+  name: string
+  status: ConfigOptionPlatformCategoryStatusEnum
+  productCount: number
 }
 
-export interface IOptionBank {
+export interface IConfigOptionBank {
   id: string
 }
 
@@ -20,8 +26,8 @@ export interface IOptionAddress {
 }
 
 export interface IConfigOptionsResponse {
-  brand: IOptionBrand[]
-  platformCategory: IOptionPlatformCategory[]
-  bank: IOptionBank[]
+  brand: IConfigOptionBrand[]
+  platformCategory: IConfigOptionPlatformCategory[]
+  bank: IConfigOptionBank[]
   address: IOptionAddress[]
 }

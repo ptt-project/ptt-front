@@ -1,10 +1,10 @@
 import React, { useState, FC } from 'react'
-import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
 import RegisterForm from './components/RegisterForm'
 import RegisterConsent from './components/RegisterConsent'
 import RegisterSuccess from './components/RegisterSuccess'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
+import { useTranslation } from 'next-i18next'
 import { LocaleNamespaceConst } from '~/constants'
 import { IAuthRegisterForm } from '~/interfaces'
 
