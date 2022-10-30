@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
 import moment from 'moment'
-import 'moment/locale/th'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
 import Loading from '~/components/main/Loading'
@@ -30,6 +29,7 @@ import { AccountGenderEnum, ImageSizeEnum } from '~/enums'
 import { NextRouter, useRouter } from 'next/router'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { RcFile } from 'antd/es/upload'
+import 'moment/locale/th'
 
 const { Text, Title } = Typography
 

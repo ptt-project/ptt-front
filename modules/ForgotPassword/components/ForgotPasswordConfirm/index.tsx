@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
+import styles from './ForgotPasswordConfirm.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Row, Col, Image, Form, Input, Button, Space } from 'antd'
 import { Rule } from 'antd/lib/form'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { OtpReferenceTypeEnum } from '../../../../enums'
-import styles from './ForgotPasswordConfirm.module.scss'
 
 const { Title, Text } = Typography
 

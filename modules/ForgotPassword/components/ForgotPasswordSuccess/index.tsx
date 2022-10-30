@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
+import styles from './ForgotPasswordSuccess.module.scss'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { Typography, Space, Button, Image, Row, Col } from 'antd'
 import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
 import { OtpReferenceTypeEnum } from '~/enums'
-import styles from './ForgotPasswordSuccess.module.scss'
 
 const { Text, Title } = Typography
 
