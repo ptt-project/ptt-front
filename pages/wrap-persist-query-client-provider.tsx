@@ -12,6 +12,7 @@ import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client
 import { ConfigService, MemberService } from '~/services'
 import { HelperCreateIDBPersister } from '~/utils/main'
 import { EndPointUrlConst } from '~/constants'
+import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 
 interface IDehydrateStateProps {
   children: ReactNode
@@ -46,7 +47,9 @@ const WrapPersistQueryClientProvider: FC<IDehydrateStateProps> = (props: IDehydr
         }
       }}
     >
-      <PrefetchQuery />
+      <ErrorBoundary>
+        <PrefetchQuery />
+      </ErrorBoundary>
       {props.children}
     </PersistQueryClientProvider>
   )
@@ -103,7 +106,7 @@ const PrefetchQuery: FC = () => {
     }
   }, [isPersistRestoring])
 
-  return <></>
+  return <div></div>
 }
 
 export default WrapPersistQueryClientProvider
