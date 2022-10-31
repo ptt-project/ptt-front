@@ -29,7 +29,7 @@ export function CustomUrlUtil(pathname: string, locale: string): string {
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function CustomPagingUtil(options?: { defaultLimit?: number; defaultPage?: number }) {
-  const { defaultLimit = 10, defaultPage = 1 } = options || {}
+  const { defaultLimit = 5, defaultPage = 1 } = options || {}
   const [limit, setLimit] = useState<number>(defaultLimit)
   const [page, setPage] = useState<number>(defaultPage)
 

@@ -21,7 +21,7 @@ const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
 ) => {
   const { filter } = props
   const { page, limit, onPageChange, onLimitChange } = CustomPagingUtil()
-  const { data: happyPointHistory } = HappyPointService.useGetHappyPointHistory({
+  const { data: happyPointHistory, isLoading } = HappyPointService.useGetHappyPointHistory({
     filter,
     page,
     limit
@@ -182,8 +182,10 @@ const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
           }),
         showSizeChanger: true,
         defaultPageSize: limit,
-        defaultCurrent: page
+        defaultCurrent: page,
+        pageSizeOptions: [5, 10, 20, 50]
       }}
+      loading={isLoading}
       scroll={{ x: true }}
     />
   )
