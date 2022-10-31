@@ -159,7 +159,7 @@ const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
     extra: TableCurrentDataSource<IHappyPointHistoryData>
   ): void {
     // TODO: handle sort column here
-    console.log('params', pagination, filters, sorter, extra)
+    // console.log('params', pagination, filters, sorter, extra)
   }
 
   return (
