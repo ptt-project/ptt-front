@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/typedef */
 import React, { FC, ReactNode, useEffect, useMemo, useState } from 'react'
 import { Persister } from '@tanstack/query-persist-client-core'
-import { Query, QueryCache, QueryClient, useQueryClient } from '@tanstack/react-query'
+import {
+  Query,
+  QueryCache,
+  QueryClient,
+  useIsRestoring,
+  useQueryClient
+} from '@tanstack/react-query'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { ConfigService, MemberService } from '~/services'
 import { HelperCreateIDBPersister } from '~/utils/main'
@@ -23,7 +29,6 @@ const WrapPersistQueryClientProvider: FC<IDehydrateStateProps> = (props: IDehydr
       })
   )
   const persister: Persister = useMemo(() => HelperCreateIDBPersister(), [])
-
   return (
     <PersistQueryClientProvider
       client={queryClient}
@@ -48,47 +53,55 @@ const WrapPersistQueryClientProvider: FC<IDehydrateStateProps> = (props: IDehydr
 }
 
 const PrefetchQuery: FC = () => {
+  const isPersistRestoring: boolean = useIsRestoring()
   const queryClient: QueryClient = useQueryClient()
-  // ConfigService.useGetConfigOptions()
-  // MemberService.useGetProfile()
+
   useEffect(() => {
-    const queryCache: QueryCache = queryClient.getQueryCache()
-    const configCache = queryCache.find([EndPointUrlConst.CONFIG.OPTIONS])
-    const profileCache = queryCache.find([EndPointUrlConst.MEMBERS.PROFILE])
-    console.log({ configCache, profileCache })
-    if (!configCache) {
-      queryClient.prefetchQuery(
-        [EndPointUrlConst.CONFIG.OPTIONS],
-        async () => {
-          const { data } = await ConfigService.getConfigOptions()
-          return data
-        },
-        {
-          cacheTime: Infinity,
-          staleTime: 5 * 60 * 1000,
-          meta: {
-            persist: true
+    // console.log({
+    //   configData,
+    //   profileData,
+    //   configCache,
+    //   profileCache,
+    //   isPersistRestoring
+    // })
+    if (!isPersistRestoring) {
+      const queryCache: QueryCache = queryClient.getQueryCache()
+      const configCache = queryCache.find([EndPointUrlConst.CONFIG.OPTIONS])
+      const profileCache = queryCache.find([EndPointUrlConst.MEMBERS.PROFILE])
+      if (!configCache) {
+        queryClient.prefetchQuery(
+          [EndPointUrlConst.CONFIG.OPTIONS],
+          async () => {
+            const { data } = await ConfigService.getConfigOptions()
+            return data
+          },
+          {
+            cacheTime: Infinity,
+            staleTime: 5 * 60 * 1000,
+            meta: {
+              persist: true
+            }
           }
-        }
-      )
-    }
-    if (!profileCache) {
-      queryClient.prefetchQuery(
-        [EndPointUrlConst.MEMBERS.PROFILE],
-        async () => {
-          const { data } = await MemberService.getProfile()
-          return data
-        },
-        {
-          cacheTime: Infinity,
-          staleTime: 10 * 60 * 100,
-          meta: {
-            persist: true
+        )
+      }
+      if (!profileCache) {
+        queryClient.prefetchQuery(
+          [EndPointUrlConst.MEMBERS.PROFILE],
+          async () => {
+            const { data } = await MemberService.getProfile()
+            return data
+          },
+          {
+            cacheTime: Infinity,
+            staleTime: 10 * 60 * 100,
+            meta: {
+              persist: true
+            }
           }
-        }
-      )
+        )
+      }
     }
-  }, [])
+  }, [isPersistRestoring])
 
   return <></>
 }
