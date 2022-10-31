@@ -19,7 +19,7 @@ export const getImage = (
   })
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const useGetImage = (imageId: string, imageSize: EnumImageSize = EnumImageSize.MEDIUM) => {
+export const useGetImage = (imageId: string, imageSize: EnumImageSize = EnumImageSize.SMALL) => {
   return useQuery(
     [EndPointUrlConst.IMAGES.IMAGE, imageId, imageSize],
     async () => {

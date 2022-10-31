@@ -1,50 +1,26 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/typedef */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { IBankOptionData } from '~/interfaces'
-import bankOptionsDataJson from './bank-data.json'
+import { keyBy } from 'lodash'
+import { useCallback, useMemo } from 'react'
+import { ConfigService } from '~/services'
 
-interface IBankDataJson {
-  symbol: {
-    url: string
-    imageData: string
-    contentType: string
-    width: number
-    height: number
-    angle: number
-    xoffset: number
-    yoffset: number
-  }
-  value: string
-  nameTh: string
-  bankCode: string
-  description: string
-}
+export const useGetBankMeta = (bankCode?: string) => {
+  const { data: configOptions } = ConfigService.useGetConfigOptions()
 
-export const bankOptionsData = bankOptionsDataJson.map(
-  (d): IBankOptionData => ({
-    bankName: d.nameTh,
-    bankCode: d.bankCode
-  })
-)
+  const bankMasterHash = useMemo(() => {
+    return keyBy(configOptions?.bank || [], (d) => d.value)
+  }, [configOptions])
 
-const bankOptionsHashByBankCode = bankOptionsDataJson.reduce(
-  (acc: Record<string, IBankDataJson>, cur) => {
-    acc[cur.bankCode] = cur
-    return acc
-  },
-  {}
-)
+  const getBankMeta = useCallback(
+    (code: string) => {
+      return bankMasterHash[code]
+    },
+    [bankMasterHash]
+  )
 
-export const getBankImageBase64 = (bankCode: string): string => {
-  const { symbol: bankImage } = bankOptionsHashByBankCode[bankCode] || {}
-  if (bankImage) {
-    const { contentType, imageData } = bankImage
-    return `data:${contentType};base64, ${imageData}`
-  }
-  return ''
-}
-
-export const getBankName = (bankCode: string): string => {
-  const { nameTh } = bankOptionsHashByBankCode[bankCode] || {}
-  return nameTh || ''
+  const bankMeta = useMemo(() => {
+    return bankMasterHash[bankCode]
+  }, [bankMasterHash])
+  return { bankMeta, getBankMeta }
 }

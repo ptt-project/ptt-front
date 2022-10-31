@@ -6,8 +6,6 @@ import { RangePickerProps } from 'antd/es/date-picker'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from './HappyPointHistory.module.scss'
 import HappyPointHistoryTable from './HappyPointHistoryTable'
-import { happyPointHistory } from '../../mock-data'
-import { IHappyPointHistoryData } from '~/interfaces'
 import { HappyPointTypeEnum } from '~/enums'
 
 const { Text } = Typography
@@ -53,31 +51,19 @@ const EWalletHistory: FC = () => {
       <Col xs={24}>
         <Tabs defaultActiveKey={tabActive} onChange={onTabChange}>
           <Tabs.TabPane tab={t('happy-point:history.all')} key={HappyPointHistoryTabsEnum.ALL}>
-            <HappyPointHistoryTable data={happyPointHistory} />
+            <HappyPointHistoryTable />
           </Tabs.TabPane>
           <Tabs.TabPane tab={t('happy-point:history.buy')} key={HappyPointHistoryTabsEnum.BUY}>
-            <HappyPointHistoryTable
-              data={happyPointHistory.filter(
-                (e: IHappyPointHistoryData) => e.type === HappyPointTypeEnum.BUY
-              )}
-            />
+            <HappyPointHistoryTable filter={HappyPointTypeEnum.BUY} />
           </Tabs.TabPane>
           <Tabs.TabPane tab={t('happy-point:history.sell')} key={HappyPointHistoryTabsEnum.SELL}>
-            <HappyPointHistoryTable
-              data={happyPointHistory.filter(
-                (e: IHappyPointHistoryData) => e.type === HappyPointTypeEnum.SELL
-              )}
-            />
+            <HappyPointHistoryTable filter={HappyPointTypeEnum.SELL} />
           </Tabs.TabPane>
           <Tabs.TabPane
             tab={t('happy-point:history.transfer')}
             key={HappyPointHistoryTabsEnum.TRANSFER}
           >
-            <HappyPointHistoryTable
-              data={happyPointHistory.filter(
-                (e: IHappyPointHistoryData) => e.type === HappyPointTypeEnum.TRANSFER
-              )}
-            />
+            <HappyPointHistoryTable filter={HappyPointTypeEnum.TRANSFER} />
           </Tabs.TabPane>
         </Tabs>
       </Col>

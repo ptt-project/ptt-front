@@ -24,7 +24,8 @@ const WrapPersistQueryClientProvider: FC<IDehydrateStateProps> = (props: IDehydr
       new QueryClient({
         defaultOptions: {
           queries: {
-            retry: 2
+            retry: 2,
+            refetchOnWindowFocus: false
           }
         }
       })
@@ -80,7 +81,8 @@ const PrefetchQuery: FC = () => {
           },
           {
             cacheTime: Infinity,
-            staleTime: 5 * 60 * 1000,
+            // staleTime: 5 * 60 * 1000,
+            staleTime: 10 * 1000,
             meta: {
               persist: true
             }
@@ -96,7 +98,8 @@ const PrefetchQuery: FC = () => {
           },
           {
             cacheTime: Infinity,
-            staleTime: 10 * 60 * 100,
+            // staleTime: 10 * 60 * 100,
+            staleTime: 10 * 1000,
             meta: {
               persist: true
             }

@@ -1,5 +1,5 @@
 import { HappyPointStatusEnum, HappyPointTypeEnum } from '~/enums'
-import { IBaseEntity } from './common.interface'
+import { IBaseEntity, IPaginationResponse } from './common.interface'
 
 export interface IHappyPoint extends IBaseEntity {
   balance: number
@@ -7,14 +7,33 @@ export interface IHappyPoint extends IBaseEntity {
   memberId: string
 }
 
-export interface IHappyPointHistoryData {
-  id?: string
+export interface IGetHappyPointHistoryParams {
+  filter?: HappyPointTypeEnum
+  limit?: number
+  page?: number
+}
+
+export interface IHappyPointHistoryData extends IBaseEntity {
   description?: string
   amount: number
   createdAt: string
   status: HappyPointStatusEnum
   type: HappyPointTypeEnum
+
+  refId: string
+  fromHappyPointId: string
+  note: string
+  toHappyPointId?: string
+  point: number
+  totalAmount: number
+  exchangeRate: number
+  fee: number
+  totalPoint: number
+  feePoint: number
+  memberRemark?: string
 }
+
+export type IHappyPointHistoryResponse = IPaginationResponse<IHappyPointHistoryData>
 
 export interface IHappyPointFormValues {
   date: moment.Moment

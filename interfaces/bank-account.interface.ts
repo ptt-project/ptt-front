@@ -2,18 +2,6 @@ import { BankAccountStatusEnum } from '~/enums'
 import { IBaseEntity, IOption } from './common.interface'
 import { IWalletTransaction } from './e-wallet.interface'
 
-export interface IBankAccountData {
-  id?: string
-  fullName: string
-  citizenNo: string
-  status: BankAccountStatusEnum
-  bankCode: string
-  bankAccountName: string
-  bankAccountNo: string
-  isDefault: boolean
-}
-
-// ยังไม่ final
 export interface IBankAccount extends IBaseEntity {
   memberId: string
   fullName: string
@@ -26,7 +14,13 @@ export interface IBankAccount extends IBaseEntity {
   // relation
   // member: Member
   transactions?: IWalletTransaction[]
+
+  status?: BankAccountStatusEnum // fake
 }
+
+export type IBankAccountData = Omit<IBankAccount, 'memberId' | Exclude<keyof IBaseEntity, 'id'>>
+
+// ยังไม่ final
 
 export interface IBankOptionData {
   bankName: string

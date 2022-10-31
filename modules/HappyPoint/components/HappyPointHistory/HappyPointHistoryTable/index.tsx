@@ -7,18 +7,26 @@ import React, { FC, ReactNode, useMemo } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import { HappyPointStatusEnum, HappyPointTypeEnum } from '~/enums'
 import { IHappyPointHistoryData } from '~/interfaces'
-import { HelperDecimalFormatUtil } from '~/utils/main'
+import { HappyPointService } from '~/services'
+import { CustomPagingUtil, HelperDecimalFormatUtil } from '~/utils/main'
 import styles from './HappyPointHistoryTable.module.scss'
 
 const { Text } = Typography
 
 interface IHappyPointHistoryTableProps {
-  data: IHappyPointHistoryData[]
+  filter?: HappyPointTypeEnum
 }
 const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
   props: IHappyPointHistoryTableProps
 ) => {
-  const { data } = props
+  const { filter } = props
+  const { page, limit, onPageChange, onLimitChange } = CustomPagingUtil()
+  const { data: happyPointHistory, isLoading } = HappyPointService.useGetHappyPointHistory({
+    filter,
+    page,
+    limit
+  })
+  const { items = [], meta } = happyPointHistory || {}
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'happy-point'])
 
@@ -82,8 +90,8 @@ const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
       },
       {
         title: t('happy-point:history.description'),
-        dataIndex: 'description',
-        key: 'description',
+        dataIndex: 'memberRemark',
+        key: 'memberRemark',
         sorter: false,
         align: 'left',
         showSorterTooltip: false,
@@ -151,17 +159,21 @@ const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
     extra: TableCurrentDataSource<IHappyPointHistoryData>
   ): void {
     // TODO: handle sort column here
-    console.log('params', pagination, filters, sorter, extra)
+    // console.log('params', pagination, filters, sorter, extra)
   }
 
   return (
     <Table
       className={`${styles.layout} hps-table hps-scroll`}
       columns={columns}
-      dataSource={data}
+      dataSource={items || []}
       onChange={onChange}
       pagination={{
-        total: data.length,
+        onChange: (newPage: number, newLimit: number): void => {
+          onPageChange(newPage)
+          onLimitChange(newLimit)
+        },
+        total: meta?.totalItems || 0,
         showTotal: (total: number, range: [number, number]): string =>
           t('happy-point:history.paginateLabel', {
             from: range[0],
@@ -169,9 +181,11 @@ const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
             total
           }),
         showSizeChanger: true,
-        defaultPageSize: 10,
-        defaultCurrent: 1
+        defaultPageSize: limit,
+        defaultCurrent: page,
+        pageSizeOptions: [5, 10, 20, 50]
       }}
+      loading={isLoading}
       scroll={{ x: true }}
     />
   )
