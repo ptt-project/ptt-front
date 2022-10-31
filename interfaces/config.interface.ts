@@ -1,21 +1,20 @@
-import { AddressFieldsEnum, ConfigOptionPlatformCategoryStatusEnum } from '~/enums'
+import { AddressFieldsEnum } from '~/enums'
 
 export interface IConfigOptionBrand {
-  id: string
+  value: string
+  label: string
 }
 
 export interface IConfigOptionPlatformCategory {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-  deletedAt?: Date
-  name: string
-  status: ConfigOptionPlatformCategoryStatusEnum
-  productCount: number
+  value: string
+  label: string
 }
 
 export interface IConfigOptionBank {
-  id: string
+  value: string
+  labelTh: string
+  labelEn: string
+  icon: string
 }
 
 export interface IOptionAddress {

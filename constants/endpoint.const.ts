@@ -40,7 +40,8 @@ export const EndPointUrlConst = {
     OPTIONS: '/bank-accounts/options'
   },
   IMAGES: {
-    UPLOAD: '/images/upload-image'
+    UPLOAD: '/images/upload-image',
+    IMAGE: '/images'
   },
   CONFIG: {
     OPTIONS: '/configs/options'
