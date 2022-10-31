@@ -73,11 +73,11 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
     const formValues: IBankAccountFromValues = form.getFieldsValue()
     try {
       const { data } = await BankAccountService.editBankAccount(bankAccountId, {
-        accountHolder: formValues.bankAccountName,
-        accountNumber: formValues.bankAccountNo,
+        accountHolder: formValues.accountHolder,
+        accountNumber: formValues.accountNumber,
         bankCode: formValues.bankCode,
         fullName: formValues.fullName,
-        thaiId: formValues.citizenNo,
+        thaiId: formValues.thaiId,
         otpCode: otpData.otpCode,
         refCode: otpData.refCode
       })

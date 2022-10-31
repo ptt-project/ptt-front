@@ -41,3 +41,10 @@ export function HelperCreateIDBPersister(idbValidKey: IDBValidKey = 'reactQuery'
     }
   } as Persister
 }
+
+export const blobToFile = async (blobData: Blob, filename: string): Promise<File> => {
+  return new File([blobData], `${filename}`, {
+    type: blobData.type,
+    lastModified: new Date().getTime()
+  })
+}

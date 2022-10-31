@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/typedef */
 import { Col, Image, Row, Typography } from 'antd'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'next-i18next'
@@ -7,7 +8,7 @@ import { HelperCensorBankAccountNoUtil } from '~/utils/main'
 import { BankAccountStatusEnum } from '~/enums'
 import { IBankAccountData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
-import { getBankName } from '../../bank-account.helper'
+import { useGetBankMeta } from '../../bank-account.helper'
 
 const { Text } = Typography
 
@@ -21,6 +22,7 @@ interface IBankAccountCardProps {
 const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCardProps) => {
   const { data, onEditClick, onFavoriteClick, onDeleteClick } = props
   const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
+  const { bankMeta } = useGetBankMeta(data?.bankCode)
 
   function getStatusLabel(): string {
     switch (data.status) {
@@ -35,37 +37,41 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
   }
 
   const handleFavoriteClick: VoidFunction = useCallback((): void => {
-    if (!data.isDefault) {
+    if (!data.isMain) {
       onFavoriteClick()
     }
-  }, [data.isDefault, onFavoriteClick])
+  }, [data.isMain, onFavoriteClick])
 
   const handleDeleteClick: VoidFunction = useCallback((): void => {
-    if (!data.isDefault) {
+    if (!data.isMain) {
       onDeleteClick()
     }
-  }, [data.isDefault, onDeleteClick])
+  }, [data.isMain, onDeleteClick])
 
   return (
     <Row className={styles.layout} gutter={[8, 8]}>
       <Col sm={18} xs={24}>
         <Row gutter={[16, 16]}>
           <Col className={styles.bankLogo} xs={4}>
-            <BankLogo bankShortName={data.bankCode} />
+            <BankLogo bankIconImageId={bankMeta?.icon} />
           </Col>
           <Col className={styles.bankInfoLayout}>
             <div className={styles.bankName}>
-              <Text>{`${getBankName(data.bankCode)} (${data.bankCode})`}</Text>
+              <Text>{`${bankMeta?.labelTh} (${data.bankCode})`}</Text>
             </div>
             <div className={styles.bankStatus}>
               <Text>{getStatusLabel()}</Text>
             </div>
             <div className={styles.bankAccountName}>
-              <Text>{data.bankAccountName}</Text>
+              <Text>{data.accountHolder}</Text>
             </div>
             <div className={styles.bankTagDefault}>
-              {data.isDefault && (
-                <Image preview={false} src="./images/main/buyer/bank-account-tag-default.svg" />
+              {data.isMain && (
+                <Image
+                  preview={false}
+                  src="./images/main/buyer/bank-account-tag-default.svg"
+                  alt="bank-account-tag-default"
+                />
               )}
             </div>
           </Col>
@@ -73,7 +79,7 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
       </Col>
       <Col className={styles.bankAccountNo}>
         <div>
-          <Text>{HelperCensorBankAccountNoUtil(data.bankAccountNo)}</Text>
+          <Text>{HelperCensorBankAccountNoUtil(data.accountNumber)}</Text>
         </div>
       </Col>
       <Col className={styles.actionLayout} md={4} sm={2}>
@@ -85,24 +91,20 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
           onClick={onEditClick}
         />
         <Image
-          className={[
-            styles.clickable,
-            styles.actionIcon,
-            data.isDefault ? styles.disabled : ''
-          ].join(' ')}
+          className={[styles.clickable, styles.actionIcon, data.isMain ? styles.disabled : ''].join(
+            ' '
+          )}
           preview={false}
-          src={`./images/main/buyer/icon-favorite${data.isDefault ? '-disabled' : ''}.svg`}
+          src={`./images/main/buyer/icon-favorite${data.isMain ? '-disabled' : ''}.svg`}
           alt=""
           onClick={handleFavoriteClick}
         />
         <Image
-          className={[
-            styles.clickable,
-            styles.actionIcon,
-            data.isDefault ? styles.disabled : ''
-          ].join(' ')}
+          className={[styles.clickable, styles.actionIcon, data.isMain ? styles.disabled : ''].join(
+            ' '
+          )}
           preview={false}
-          src={`./images/main/buyer/icon-delete${data.isDefault ? '-disabled' : ''}.svg`}
+          src={`./images/main/buyer/icon-delete${data.isMain ? '-disabled' : ''}.svg`}
           alt=""
           onClick={handleDeleteClick}
         />
