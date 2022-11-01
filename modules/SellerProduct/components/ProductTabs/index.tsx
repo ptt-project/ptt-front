@@ -20,6 +20,7 @@ interface IProductTabsProps {
     status?: string
     page: number
   }
+  fetch: () => Promise<void>
 }
 
 const ProductTabs: FC<IProductTabsProps> = (props: IProductTabsProps) => {
@@ -95,19 +96,19 @@ const ProductTabs: FC<IProductTabsProps> = (props: IProductTabsProps) => {
   return (
     <Tabs className={`${styles.tabs} hps-scroll`} defaultActiveKey="1" onChange={onChange}>
       <TabPane tab={t('seller.product:list.all')} key="1">
-        <ProductList products={props.products} />
+        <ProductList products={props.products} fetch={props.fetch} />
       </TabPane>
       <TabPane tab={t('seller.product:list.waitingForApprove')} key="2">
-        <ProductList products={props.products} />
+        <ProductList products={props.products} fetch={props.fetch} />
       </TabPane>
       <TabPane tab={t('seller.product:list.selling')} key="3">
-        <ProductList products={props.products} />
+        <ProductList products={props.products} fetch={props.fetch} />
       </TabPane>
       <TabPane tab={t('seller.product:list.soldOut')} key="4">
-        <ProductList products={props.products} />
+        <ProductList products={props.products} fetch={props.fetch} />
       </TabPane>
       <TabPane tab={t('seller.product:list.notPublished')} key="5">
-        <ProductList products={props.products} />
+        <ProductList products={props.products} fetch={props.fetch} />
       </TabPane>
     </Tabs>
   )

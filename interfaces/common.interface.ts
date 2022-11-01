@@ -30,9 +30,9 @@ export interface ICustomHookUseVisibleUtil {
 
 export interface IBaseEntity {
   id: string
-  createdAt: string
-  updatedAt: string
-  deletedAt?: string | null
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date
 }
 
 export interface IPaginationMeta {

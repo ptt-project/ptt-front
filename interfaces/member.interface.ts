@@ -17,9 +17,9 @@ export interface IMemberMobile {
   memberId: string
   mobile: string
   isPrimary: boolean
-  createdAt: string
-  updatedAt: string
-  deletedAt?: string
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date
 }
 
 export interface IUpdateMemberProfilePayload {

@@ -39,5 +39,14 @@ export const changeCategoryStatus = (
 export const getProducts = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
   AxiosService.get(EndPointUrlConst.SHOPS.PRODUCTS, option)
 
+export const getProduct = (productId: string, option?: AxiosRequestConfig): Promise<IApiResponse> =>
+  AxiosService.get(`${EndPointUrlConst.SHOPS.PRODUCTS_PROFILE}/${productId}`, option)
+
 export const createProduct = (payload: ICreateProductPayload): Promise<IApiResponse> =>
   AxiosService.post(EndPointUrlConst.SHOPS.PRODUCTS, payload)
+
+export const deleteProduct = (
+  productId: string,
+  option?: AxiosRequestConfig
+): Promise<IApiResponse> =>
+  AxiosService.delete(`${EndPointUrlConst.SHOPS.PRODUCTS_PROFILE}/${productId}`, option)

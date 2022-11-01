@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Helmet from 'react-helmet'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
@@ -14,11 +14,15 @@ import { useTranslation } from 'next-i18next'
 import { isEmpty } from 'lodash'
 import { Typography, Button, Row, Col, Form, message, UploadFile } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import { IApiResponse, ICreateProductPayload } from '../../../../interfaces'
+import { IApiResponse, ICreateProductPayload, IProduct } from '../../../../interfaces'
 import { ImageService, ShopService } from '../../../../services'
 import { ProductConditionEnum } from '../../../../enums'
 
 const { Text } = Typography
+
+interface IProductFormProps {
+  product?: IProduct
+}
 
 interface IFormData {
   images: UploadFile[]
@@ -41,7 +45,7 @@ interface IFormData {
   [key: string]: any
 }
 
-const ProductForm: FC = () => {
+const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const router: NextRouter = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -134,6 +138,10 @@ const ProductForm: FC = () => {
     }
     setIsLoading(false)
   }
+
+  useEffect(() => {
+    console.log(props.product)
+  }, [])
 
   return (
     <main className="main">

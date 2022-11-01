@@ -16,7 +16,7 @@ export interface IGetHappyPointHistoryParams {
 export interface IHappyPointHistoryData extends IBaseEntity {
   description?: string
   amount: number
-  createdAt: string
+  createdAt: Date
   status: HappyPointStatusEnum
   type: HappyPointTypeEnum
 
