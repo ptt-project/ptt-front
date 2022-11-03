@@ -24,9 +24,9 @@ import {
 import { LocaleNamespaceConst } from '~/constants'
 import { BankAccountService, MemberService } from '~/services'
 import { BankAccountStatusEnum, OtpTypeEnum } from '~/enums'
-import { getBankName } from './bank-account.helper'
 import OtpModal from '~/components/main/OtpModal'
 import EditBankAccount from './components/EditBankAccount'
+import { useGetBankMeta } from './bank-account.helper'
 
 const { Text, Title, Link } = Typography
 
@@ -47,6 +47,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
   const [isOtpViewBankAccountsOpen, setIsOtpViewBankAccountsOpen] = useState<boolean>(false)
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const [otpViewVerifyMeta, setOtpViewVerifyMeta] = useState<IOtp>()
+  const { getBankMeta } = useGetBankMeta()
 
   const {
     data: bankAccountRes,
@@ -84,16 +85,16 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
       const tempData: IBankAccountData[] = bankAccountRes.map(
         (d: IBankAccount): IBankAccountData => ({
           id: d.id,
-          bankAccountName: d.accountHolder,
-          bankAccountNo: d.accountNumber,
+          accountHolder: d.accountHolder,
+          accountNumber: d.accountNumber,
           bankCode: d.bankCode,
           fullName: d.fullName,
-          citizenNo: d.thaiId,
-          isDefault: d.isMain,
+          thaiId: d.thaiId,
+          isMain: d.isMain,
           status: BankAccountStatusEnum.APPROVED
         })
       )
-      setBankAccounts(orderBy(tempData, (v: IBankAccountData) => (v.isDefault ? 1 : 0), ['desc']))
+      setBankAccounts(orderBy(tempData, (v: IBankAccountData) => (v.isMain ? 1 : 0), ['desc']))
     } else {
       setIsOtpViewBankAccountsOpen(true)
     }
@@ -128,12 +129,12 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
           if (bankAccount.id === bankAccountEdited.id) {
             return {
               id: bankAccountEdited.id,
-              bankAccountName: bankAccountEdited.accountHolder,
-              bankAccountNo: bankAccountEdited.accountNumber,
+              accountHolder: bankAccountEdited.accountHolder,
+              accountNumber: bankAccountEdited.accountNumber,
               bankCode: bankAccountEdited.bankCode,
               fullName: bankAccountEdited.fullName,
-              citizenNo: bankAccountEdited.thaiId,
-              isDefault: bankAccountEdited.isMain,
+              thaiId: bankAccountEdited.thaiId,
+              isMain: bankAccountEdited.isMain,
               status: BankAccountStatusEnum.APPROVED
             }
           }
@@ -151,11 +152,11 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
         const newBankAccounts: IBankAccountData[] = prev.map(
           (bankAccount: IBankAccountData): IBankAccountData => ({
             ...bankAccount,
-            isDefault: bankAccount.id === bankAccountId
+            isMain: bankAccount.id === bankAccountId
           })
         )
 
-        return orderBy(newBankAccounts, (v: IBankAccountData) => (v.isDefault ? 1 : 0), ['desc'])
+        return orderBy(newBankAccounts, (v: IBankAccountData) => (v.isMain ? 1 : 0), ['desc'])
       })
       message.success(t('common:dataUpdated'))
     } catch (error) {
@@ -262,7 +263,7 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                   </Row>
                   <Row className="mt-4" gutter={[0, 16]}>
                     {bankAccounts.length ? (
-                      orderBy(bankAccounts, (v: IBankAccountData) => (v.isDefault ? 1 : 0), [
+                      orderBy(bankAccounts, (v: IBankAccountData) => (v.isMain ? 1 : 0), [
                         'desc'
                       ]).map((bankAccount: IBankAccountData) => (
                         <Col key={`${bankAccount.id}`} span={24}>
@@ -335,11 +336,11 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                     <Space className={styles.contentLayout} size={4} direction="vertical">
                       <Text>
                         {t('bank-account:confirmDeleteAccountMsg1')}
-                        {getBankName(deleteBankAccount?.bankCode)}
-                        {HelperCensorBankAccountNoUtil(deleteBankAccount?.bankAccountNo)}
+                        {getBankMeta(deleteBankAccount?.bankCode)?.labelTh}
+                        {HelperCensorBankAccountNoUtil(deleteBankAccount?.accountNumber)}
                       </Text>
                     </Space>
-                    <Text>{deleteBankAccount?.bankAccountName}</Text>
+                    <Text>{deleteBankAccount?.accountHolder}</Text>
                     <Text type="danger">{t('bank-account:confirmDeleteAccountMsg2')}</Text>
                   </Space>
                 </Modal>

@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import styles from './ModalConfirmBankInfo.module.scss'
 import { IBankAccountData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
-import { getBankName } from '../../bank-account.helper'
+import { useGetBankMeta } from '../../bank-account.helper'
 
 const { Text, Title } = Typography
 
@@ -19,6 +19,7 @@ const ModalConfirmBankInfo: FC<IModalConfirmBankInfoProps> = (
 ) => {
   const { data, visible, onCancelClick, onConfirmClick } = props
   const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
+  const { bankMeta } = useGetBankMeta(data?.bankCode)
 
   return (
     <Modal
@@ -32,7 +33,7 @@ const ModalConfirmBankInfo: FC<IModalConfirmBankInfoProps> = (
           </Title>
         </Col>
       }
-      footer={[
+      footer={
         <Col span={24}>
           <Space>
             <Button type="text" onClick={onCancelClick}>
@@ -43,7 +44,7 @@ const ModalConfirmBankInfo: FC<IModalConfirmBankInfoProps> = (
             </Button>
           </Space>
         </Col>
-      ]}
+      }
     >
       <Row className={styles.modalContent} gutter={[4, 16]}>
         <Col span={12}>
@@ -56,25 +57,25 @@ const ModalConfirmBankInfo: FC<IModalConfirmBankInfoProps> = (
           <Text className={styles.dataLabel}>{t('bank-account:form.citizenNo')}</Text>
         </Col>
         <Col span={12}>
-          <Text>{data?.citizenNo}</Text>
+          <Text>{data?.thaiId}</Text>
         </Col>
         <Col span={12}>
           <Text className={styles.dataLabel}>{t('bank-account:form.bankName')}</Text>
         </Col>
         <Col span={12}>
-          <Text>{`${getBankName(data?.bankCode || '')} (${data?.bankCode})`}</Text>
+          <Text>{`${bankMeta?.labelTh} (${data?.bankCode})`}</Text>
         </Col>
         <Col span={12}>
           <Text className={styles.dataLabel}>{t('bank-account:form.bankName')}</Text>
         </Col>
         <Col span={12}>
-          <Text>{data?.bankAccountNo}</Text>
+          <Text>{data?.accountNumber}</Text>
         </Col>
         <Col span={12}>
           <Text className={styles.dataLabel}>{t('bank-account:form.bankAccountName')}</Text>
         </Col>
         <Col span={12}>
-          <Text>{data?.bankAccountName}</Text>
+          <Text>{data?.accountHolder}</Text>
         </Col>
       </Row>
     </Modal>

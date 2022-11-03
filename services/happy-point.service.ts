@@ -3,9 +3,10 @@ import { AxiosService } from './axios.service'
 import {
   IApiResponse,
   IBuyHappyPointParams,
-  IConfigOptionsResponse,
   IGetHappyPointBalanceResponse,
+  IGetHappyPointHistoryParams,
   IHappyPoint,
+  IHappyPointHistoryResponse,
   IInquiryHappyPointLookupResponse,
   ISellHappyPointParams,
   ITransferHappyPointParams
@@ -20,8 +21,12 @@ export const postInquiryHappyPointRateLookup = (): Promise<
   IApiResponse<IInquiryHappyPointLookupResponse>
 > => AxiosService.post(EndPointUrlConst.HAPPY_POINT.LOOKUP)
 
-export const postInquiryHappyPointHistory = (): Promise<IApiResponse<IConfigOptionsResponse>> =>
-  AxiosService.post(EndPointUrlConst.HAPPY_POINT.HISTORY)
+export const getHappyPointHistory = (
+  params: IGetHappyPointHistoryParams
+): Promise<IApiResponse<IHappyPointHistoryResponse>> =>
+  AxiosService.get(EndPointUrlConst.HAPPY_POINT.HISTORY, {
+    params
+  })
 
 export const postBuyHappyPoint = (
   payload: IBuyHappyPointParams
@@ -69,11 +74,11 @@ export const useGetHappyPointRateLookup = () => {
   )
 }
 
-export const useGetHappyPointHistory = () => {
+export const useGetHappyPointHistory = (params: IGetHappyPointHistoryParams) => {
   return useQuery(
-    [EndPointUrlConst.HAPPY_POINT.HISTORY],
+    [EndPointUrlConst.HAPPY_POINT.HISTORY, params],
     async () => {
-      const { data } = await postInquiryHappyPointHistory()
+      const { data } = await getHappyPointHistory(params)
       return data
     },
     {

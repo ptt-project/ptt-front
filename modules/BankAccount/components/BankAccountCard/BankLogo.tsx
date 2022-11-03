@@ -1,25 +1,50 @@
+/* eslint-disable @typescript-eslint/typedef */
 import { Image } from 'antd'
-import React, { FC, useMemo, useState } from 'react'
-// import { getBankImageBase64 } from '../BankAccountFrom/helper'
+import React, { FC, useEffect, useState } from 'react'
+import { useGetImage } from '~/services/image.service'
+import { blobToFile } from '~/utils/main'
 
 interface IBankLogoProps {
-  bankShortName: string
+  bankIconImageId: string
 }
 const BankLogo: FC<IBankLogoProps> = (props: IBankLogoProps) => {
-  const { bankShortName: bank } = props
+  const { bankIconImageId: bankImageId } = props
   const [isImageError, setIsImageError] = useState<boolean>(false)
-  const bankLogoPath: string = useMemo(() => `${bank.toLowerCase()}.svg`, [bank])
-  return !isImageError ? (
+  const [image, setImage] = useState<string>()
+
+  const { data: imageBlob } = useGetImage(bankImageId)
+
+  useEffect(() => {
+    const parseBlobToFile = async (): Promise<void> => {
+      try {
+        if (imageBlob) {
+          const file = await blobToFile(imageBlob, `${bankImageId}.${imageBlob.type}`)
+          const tempCreateObjectURL = URL.createObjectURL(file)
+          setImage(tempCreateObjectURL)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    parseBlobToFile()
+  }, [imageBlob])
+
+  return !isImageError && image ? (
     <Image
       preview={false}
-      src={`./images/main/buyer/bank-logo/${bankLogoPath}`}
-      alt={bankLogoPath}
+      src={image}
+      alt={'bank-logo'}
       onError={(): void => {
         setIsImageError(true)
       }}
     />
   ) : (
-    <div />
+    <Image
+      preview={false}
+      src="./images/main/buyer/bank-logo/default-bank-logo.png"
+      alt="default-bank-logo"
+    />
   )
 }
 

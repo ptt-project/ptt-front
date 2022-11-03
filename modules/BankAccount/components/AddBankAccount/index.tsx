@@ -60,11 +60,11 @@ const AddBankAccount: React.FC<IAddBankAccountProps> = (props: IAddBankAccountPr
     const formValues: IBankAccountFromValues = form.getFieldsValue()
     try {
       await BankAccountService.addBankAccount({
-        accountHolder: formValues.bankAccountName,
-        accountNumber: formValues.bankAccountNo,
+        accountHolder: formValues.accountHolder,
+        accountNumber: formValues.accountNumber,
         bankCode: formValues.bankCode,
         fullName: formValues.fullName,
-        thaiId: formValues.citizenNo,
+        thaiId: formValues.thaiId,
         otpCode: otpData.otpCode,
         refCode: otpData.refCode
       })
