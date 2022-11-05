@@ -9,7 +9,7 @@ import { LocaleNamespaceConst } from '~/constants'
 import { IListItems, IProduct, IProductItem } from '../../../../interfaces'
 import type { ColumnsType } from 'antd/es/table'
 import { HelperDecimalFormatUtil, HelperGetImageUtil } from '../../../../utils/main'
-import { ImageSizeEnum } from '../../../../enums'
+import { ImageSizeEnum, ProductStatusEnum } from '../../../../enums'
 import { ShopService } from '../../../../services'
 
 const { Text } = Typography
@@ -145,8 +145,12 @@ const ProductList: FC<IProductListProps> = (props: IProductListProps) => {
       key: 'action',
       render: (text: string, record: IProduct) => (
         <Space size="middle" className={styles.textSecondary}>
-          <Text className={styles.link}>
-            <i className="far fa-eye-slash" />
+          <Text className={styles.link} onClick={(): Promise<void> => onChangeStatus(record)}>
+            {record.status !== ProductStatusEnum.HIDDEN ? (
+              <i className="far fa-eye-slash" />
+            ) : (
+              <i className="far fa-eye" />
+            )}
           </Text>
           <Link href={`/seller/settings/product/${record.id}`}>
             <a className={styles.link}>
@@ -165,8 +169,23 @@ const ProductList: FC<IProductListProps> = (props: IProductListProps) => {
     setIsOpen(!isOpen)
   }
 
-  function onRemove(item: IProduct): void {
-    setProductSelected(item)
+  async function onChangeStatus(product: IProduct): Promise<void> {
+    try {
+      setIsLoading(true)
+
+      await ShopService.toggleProductStatus(product.id)
+      props.fetch()
+
+      message.success(t('common:apiMessage.success'))
+    } catch (error) {
+      message.error(t('common:apiMessage.error'))
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  function onRemove(product: IProduct): void {
+    setProductSelected(product)
     setIsOpen(true)
   }
 
@@ -175,7 +194,6 @@ const ProductList: FC<IProductListProps> = (props: IProductListProps) => {
       setIsLoading(true)
 
       await ShopService.deleteProduct(productSelected.id)
-
       props.fetch()
 
       message.success(t('common:apiMessage.success'))

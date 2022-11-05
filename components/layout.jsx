@@ -58,7 +58,7 @@ function Layout({ children, closeQuickview }) {
   return (
     <Fragment>
       <div className="page-wrapper">
-        <Header />
+        {/* <Header /> */}
         {children}
         <Footer />
       </div>
@@ -72,7 +72,7 @@ function Layout({ children, closeQuickview }) {
       >
         <i className="d-icon-arrow-up"></i>
       </ALink>
-      <MobileMainMenu />
+      {/* <MobileMainMenu /> */}
       <ToastContainer
         autoClose={3000}
         duration={300}

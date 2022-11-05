@@ -4,7 +4,8 @@ import {
   IApiResponse,
   ICreateCategoryPayload,
   ICreateProductPayload,
-  IUpdateCategoryPayload
+  IUpdateCategoryPayload,
+  IUpdateProductPayload
 } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
 import { CategoryStatusEnum } from '~/enums'
@@ -45,8 +46,17 @@ export const getProduct = (productId: string, option?: AxiosRequestConfig): Prom
 export const createProduct = (payload: ICreateProductPayload): Promise<IApiResponse> =>
   AxiosService.post(EndPointUrlConst.SHOPS.PRODUCTS, payload)
 
+export const updateProduct = (
+  productId: string,
+  payload: IUpdateProductPayload
+): Promise<IApiResponse> =>
+  AxiosService.put(`${EndPointUrlConst.SHOPS.PRODUCTS_PROFILE}/${productId}`, payload)
+
 export const deleteProduct = (
   productId: string,
   option?: AxiosRequestConfig
 ): Promise<IApiResponse> =>
   AxiosService.delete(`${EndPointUrlConst.SHOPS.PRODUCTS_PROFILE}/${productId}`, option)
+
+export const toggleProductStatus = (productId: string): Promise<IApiResponse> =>
+  AxiosService.patch(`${EndPointUrlConst.SHOPS.PRODUCTS_PROFILE}/${productId}/hidden/toggle`)

@@ -1,17 +1,19 @@
 import React, { FC, Fragment, useState, useEffect, ChangeEvent } from 'react'
+import HighlightLabel from '~/components/main/HighlightLabel'
+import styles from '../ProductForm.module.scss'
 import { isEmpty } from 'lodash'
 import { useTranslation } from 'next-i18next'
 import { Typography, Switch, Col, Form, Input, Row, Button, Table, Space } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { FormInstance } from 'antd/es/form/Form'
-import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import styles from '../ProductForm.module.scss'
+import { IProductInfo } from '../../../../../interfaces'
 
 const { Text } = Typography
 
 interface ISalesProps {
   form: FormInstance
+  productInfo?: IProductInfo
   productOptionLabelOne: string
   productOptionLabelTwo: string
   productOptionValueOne: string[]
@@ -47,19 +49,14 @@ enum EOptionValue {
 
 const Sales: FC<ISalesProps> = (props: ISalesProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
-  const [isCheckedOption, setIsCheckedOption] = useState<boolean>(false)
-  const [isActiveOptionTwo, setIsActiveOptionTwo] = useState<boolean>(false)
-  const [countProductListOne, setCountProductListOne] = useState<number>(1)
-  const [countProductListTwo, setCountProductListTwo] = useState<number>(1)
-  const [productListOne, setProductListOne] = useState<string[]>([`${EOptionValue.ONE}_1`])
-  const [productListTwo, setProductListTwo] = useState<string[]>([`${EOptionValue.TWO}_1`])
-  const [canAddOptionOne, setCanAddOptionOne] = useState<boolean>(true)
-  const [canAddOptionTwo, setCanAddOptionTwo] = useState<boolean>(true)
-  const [calcProductOptionOne, setCalcProductOptionOne] = useState<number>(0)
-  const [calcProductOptionTwo, setCalcProductOptionTwo] = useState<number>(0)
+  const [isOpenOptions, setIsOpenOptions] = useState<boolean>(getDefaultOpenOptions(1))
+  const [isOpenOptionTwo, setIsOpenOptionTwo] = useState<boolean>(getDefaultOpenOptions(2))
+  const [productListOne, setProductListOne] = useState<string[]>(getDefaultProductList(1))
+  const [productListTwo, setProductListTwo] = useState<string[]>(getDefaultProductList(2))
   const [dataSource, setDataSource] = useState<ITempProductDetail[]>([])
-  // const [productOptionElementNameOne, setProductOptionElementNameOne] = useState<string[]>([])
-  const [productOptionElementNameTwo, setProductOptionElementNameTwo] = useState<string[]>([])
+  const [productOptionElementNameTwo, setProductOptionElementNameTwo] = useState<string[]>(
+    getDefaultProductList(2)
+  )
 
   const columns: ColumnsType<ITempProductDetail> = [
     {
@@ -135,30 +132,61 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
     }
   ]
 
-  useEffect(() => {
-    initTableDataSource()
-  }, [
-    props.productOptionLabelOne,
-    props.productOptionLabelTwo,
-    props.productOptionValueOne,
-    props.productOptionValueTwo
-  ])
+  function getDefaultOpenOptions(mode: 1 | 2): boolean {
+    if (mode === 1) {
+      return props.productInfo?.productOptions.length > 0
+    }
 
-  function toggleCheckOption(checked: boolean): void {
-    setIsCheckedOption(checked)
+    return props.productInfo?.productOptions.length > 1
   }
 
-  function toggleActiveOptionTwo(): void {
-    setIsActiveOptionTwo(!isActiveOptionTwo)
+  function getDefaultProductList(mode: 1 | 2): string[] {
+    const optionValues: string[] = []
 
-    if (!isActiveOptionTwo === true) {
+    let prefix: string = ''
+    let index: number
+
+    if (mode === 1) {
+      prefix = EOptionValue.ONE
+
+      if (props.productInfo?.productOptions[0]) {
+        index = 0
+      }
+    } else {
+      prefix = EOptionValue.TWO
+
+      if (props.productInfo?.productOptions[1]) {
+        index = 1
+      }
+    }
+
+    if (index >= 0) {
+      props.productInfo.productOptions[index].options.forEach((o: string, i: number) => {
+        optionValues.push(`${prefix}_${i + 1}`)
+      })
+    } else {
+      optionValues.push(`${prefix}_1`)
+    }
+
+    return optionValues
+  }
+
+  function toggleOptions(checked: boolean): void {
+    setIsOpenOptions(checked)
+  }
+
+  function toggleOptionTwo(): void {
+    setIsOpenOptionTwo(!isOpenOptionTwo)
+
+    if (!isOpenOptionTwo === true) {
       setProductListTwo([`${EOptionValue.TWO}_1`])
-      setCountProductListTwo(1)
     } else {
       props.form.setFieldValue(EOptionLabel.TWO, '')
+
       productOptionElementNameTwo.forEach((i: string) => {
         props.form.setFieldValue(i, '')
       })
+
       props.setProductOptionLabelTwo('')
       props.setProductOptionValueTwo([])
     }
@@ -167,33 +195,14 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
   function handleProductAdd(type: string): void {
     if (type === EChoice.ONE) {
       const tmpList: string[] = [...productListOne]
+
       tmpList.push(`optionValueOne_${productListOne.length + 1}`)
       setProductListOne(tmpList)
-      const countAddButton: number = countProductListOne + 1
-      setCountProductListOne(countAddButton)
-      const calcLimitProductTwo: number = Math.floor(50 / countAddButton)
-      setCalcProductOptionTwo(calcLimitProductTwo)
-
-      if (
-        (countAddButton === 50 && countProductListTwo === 1) ||
-        countAddButton === calcProductOptionOne
-      ) {
-        setCanAddOptionOne(false)
-        setCanAddOptionTwo(false)
-      }
     } else {
       const tmpList: string[] = [...productListTwo]
+
       tmpList.push(`optionValueTwo_${productListTwo.length + 1}`)
       setProductListTwo(tmpList)
-      const countAddButtonTwo: number = countProductListTwo + 1
-      setCountProductListTwo(countAddButtonTwo)
-      const calLimitProduct: number = Math.floor(50 / countAddButtonTwo)
-      setCalcProductOptionOne(calLimitProduct)
-
-      if (countAddButtonTwo === calcProductOptionTwo) {
-        setCanAddOptionTwo(false)
-        setCanAddOptionOne(false)
-      }
     }
   }
 
@@ -212,53 +221,9 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
 
     if (type === EChoice.ONE) {
       setProductListOne(tmpList)
-      const countAddButton: number = countProductListOne - 1
-      setCountProductListOne(countAddButton)
-
-      const calcLimitProductTwo: number = Math.floor(50 / countAddButton)
-      setCalcProductOptionTwo(calcLimitProductTwo)
-
-      if (calcProductOptionOne >= countAddButton) {
-        setCanAddOptionOne(true)
-      }
-      if (calcLimitProductTwo > countProductListTwo) {
-        setCanAddOptionTwo(true)
-      }
     } else {
       setProductListTwo(tmpList)
-      const countAddButtonTwo: number = countProductListTwo - 1
-      setCountProductListTwo(countAddButtonTwo)
-      const calcLimitProduct: number = Math.floor(50 / countAddButtonTwo)
-      setCalcProductOptionOne(calcLimitProduct)
-
-      if (calcProductOptionTwo >= countAddButtonTwo) {
-        setCanAddOptionTwo(true)
-      }
-      if (calcLimitProduct > countProductListOne) {
-        setCanAddOptionOne(true)
-      }
     }
-  }
-
-  function initTableDataSource(): void {
-    const data: ITempProductDetail[] = []
-    if (props.productOptionLabelOne && props.productOptionValueOne.length) {
-      props.productOptionValueOne.forEach((i: string) => {
-        if (props.productOptionLabelTwo && props.productOptionValueTwo.length) {
-          props.productOptionValueTwo.forEach((j: string) => {
-            data.push({
-              option1: i,
-              option2: j
-            })
-          })
-        } else {
-          data.push({
-            option1: i
-          })
-        }
-      })
-    }
-    setDataSource(data)
   }
 
   function onChangeProductDetailOptionLabel(e: ChangeEvent<HTMLInputElement>, mode: 1 | 2): void {
@@ -277,12 +242,6 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
       option = [...props.productOptionValueOne]
       option[index] = value
       props.setProductOptionValueOne(option.filter((i: string) => !isEmpty(i)))
-
-      // optionElementName = [...productOptionElementNameOne]
-      // optionElementName.push(`${EOptionValue.ONE}_${index + 1}`)
-      // setProductOptionElementNameOne(
-      //   optionElementName.filter((item: string, i: number) => optionElementName.indexOf(item) === i)
-      // )
     } else {
       option = [...props.productOptionValueTwo]
       option[index] = value
@@ -304,26 +263,56 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
     }
   }
 
+  function initTableDataSource(): void {
+    const data: ITempProductDetail[] = []
+
+    if (props.productOptionLabelOne && props.productOptionValueOne.length) {
+      props.productOptionValueOne.forEach((i: string) => {
+        if (props.productOptionLabelTwo && props.productOptionValueTwo.length) {
+          props.productOptionValueTwo.forEach((j: string) => {
+            data.push({
+              option1: i,
+              option2: j
+            })
+          })
+        } else {
+          data.push({
+            option1: i
+          })
+        }
+      })
+    }
+
+    setDataSource(data)
+  }
+
+  useEffect(() => {
+    initTableDataSource()
+  }, [
+    props.productOptionLabelOne,
+    props.productOptionLabelTwo,
+    props.productOptionValueOne,
+    props.productOptionValueTwo
+  ])
+
   function rederFormProductOptions(mode: 1 | 2): JSX.Element {
-    if (mode === 2 && !isActiveOptionTwo) {
+    if (mode === 2 && !isOpenOptionTwo) {
       return null
     }
 
     let items: string[]
     let optionLabelName: EOptionLabel
     let choiceName: EChoice
-    let canAddOption: boolean
+    const canAddOption: boolean = productListOne.length + productListTwo.length < 50
 
     if (mode === 1) {
       items = productListOne
       optionLabelName = EOptionLabel.ONE
       choiceName = EChoice.ONE
-      canAddOption = canAddOptionOne
     } else {
       items = productListTwo
       optionLabelName = EOptionLabel.TWO
       choiceName = EChoice.TWO
-      canAddOption = canAddOptionTwo
     }
 
     return (
@@ -338,7 +327,7 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
               <Text strong className={styles.optionLabel}>
                 {t('seller.product:form.sales.optionsForm.productOptions')} 2
               </Text>
-              <Text className={styles.optionBin} onClick={toggleActiveOptionTwo}>
+              <Text className={styles.optionBin} onClick={toggleOptionTwo}>
                 <i className="fas fa-trash-alt" />
               </Text>
             </div>
@@ -372,7 +361,7 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
 
           if (index === 0) {
             return (
-              <Col span={24} key={index}>
+              <Col span={24} key={`form-${mode}-${index}`}>
                 <Form.Item
                   label={t('seller.product:form.sales.optionsForm.choice')}
                   name={item}
@@ -397,7 +386,7 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
             )
           }
           return (
-            <Fragment key={index}>
+            <Fragment key={`form-${mode}-${index}`}>
               <Col span={22}>
                 <Form.Item label={t('seller.product:form.sales.optionsForm.choice')} name={item}>
                   <Input
@@ -446,11 +435,15 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
       <Row gutter={[16, 8]}>
         <Col span={24}>
           <Space className="mt-1 mb-3" align="center">
-            <Switch className="hps-switch" onChange={toggleCheckOption} />
+            <Switch
+              className="hps-switch"
+              defaultChecked={isOpenOptions}
+              onChange={toggleOptions}
+            />
             <Text>{t('seller.product:form.sales.useOptions')}</Text>
           </Space>
         </Col>
-        {!isCheckedOption ? (
+        {!isOpenOptions ? (
           <>
             <Col md={12} xs={24}>
               <Form.Item
@@ -501,13 +494,13 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
             </Col>
           </>
         ) : null}
-        {isCheckedOption && (
+        {isOpenOptions && (
           <>
             <Col span={24}>{rederFormProductOptions(1)}</Col>
             <Col span={24}>{rederFormProductOptions(2)}</Col>
-            {!isActiveOptionTwo && (
+            {!isOpenOptionTwo && (
               <Col span={24}>
-                <Button className="hps-btn-secondary mb-3" onClick={toggleActiveOptionTwo} block>
+                <Button className="hps-btn-secondary mb-3" onClick={toggleOptionTwo} block>
                   <i className="fas fa-plus mr-2" />
                   {t('seller.product:form.sales.optionsForm.addOptionChoice')}
                 </Button>
@@ -519,7 +512,7 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
           </>
         )}
       </Row>
-      {isCheckedOption && (
+      {isOpenOptions && (
         <Table
           columns={columns}
           dataSource={dataSource}

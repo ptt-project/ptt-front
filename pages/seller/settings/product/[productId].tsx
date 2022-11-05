@@ -4,19 +4,19 @@ import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { LocaleNamespaceConst } from '~/constants'
 import { withSellerAuth } from '../../../../hocs/with-seller'
-import { IProduct } from '../../../../interfaces'
+import { IProductInfo } from '../../../../interfaces'
 import { AxiosRequestConfig } from 'axios'
 import { ShopService } from '../../../../services'
 
 interface ISellerEditProductPageProps {
-  product: IProduct
+  productInfo: IProductInfo
 }
 
 export const getServerSideProps: any = withSellerAuth(
   async (context: GetServerSidePropsContext) => {
     const { req, params } = context
 
-    let product: IProduct | null = null
+    let productInfo: IProductInfo | null = null
 
     if (req) {
       try {
@@ -26,7 +26,9 @@ export const getServerSideProps: any = withSellerAuth(
 
         const { data } = await ShopService.getProduct(params.productId as string, option)
 
-        product = data
+        productInfo = data
+
+        console.log(productInfo)
       } catch (error) {
         console.log(error)
 
@@ -40,13 +42,13 @@ export const getServerSideProps: any = withSellerAuth(
     }
 
     return {
-      notFound: !product,
+      notFound: !productInfo,
       props: {
         ...(await serverSideTranslations(context.locale, [
           ...LocaleNamespaceConst,
           'seller.product'
         ])),
-        product
+        productInfo
       }
     }
   }
@@ -54,6 +56,6 @@ export const getServerSideProps: any = withSellerAuth(
 
 const SellerEditProductPage: FC<ISellerEditProductPageProps> = (
   props: ISellerEditProductPageProps
-) => <SellerProductForm product={props.product} />
+) => <SellerProductForm productInfo={props.productInfo} />
 
 export default SellerEditProductPage

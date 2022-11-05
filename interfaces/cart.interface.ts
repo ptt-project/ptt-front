@@ -1,4 +1,4 @@
-import { IProduct, IProductProfile, IShop } from '.'
+import { IProduct, IShop } from '.'
 
 export interface ICartProduct extends IProduct {
   index: number
@@ -12,7 +12,7 @@ export interface ICartProduct extends IProduct {
   option1?: string
   option2?: string
   shop?: IShop
-  productProfile?: IProductProfile
+  productProfile?: IProduct
   createdAt: Date
   updatedAt: Date
 }

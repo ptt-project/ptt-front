@@ -21,7 +21,7 @@ export interface ICreateProductPayload {
   brandId?: number
   weight?: number
   exp?: number
-  condition?: ProductConditionEnum
+  condition: ProductConditionEnum
   isSendLated?: boolean
   extraDay?: number
   videoLink?: string
@@ -35,6 +35,18 @@ export interface ICreateProductPayload {
   sku?: string
   productOptions?: IProductDetailOption[]
   products?: IProductDetail[]
+}
+
+export type IUpdateProductPayload = ICreateProductPayload
+
+export interface IProductOption {
+  id: string
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date
+  name: string
+  productProfileId: string
+  options?: string[]
 }
 
 export interface IProductItem {
@@ -66,7 +78,7 @@ export interface IProduct {
   length?: number
   height?: number
   exp?: number
-  condition?: ProductConditionEnum
+  condition: ProductConditionEnum
   isSendLated?: boolean
   extraDay?: number
   videoLink?: string
@@ -79,42 +91,12 @@ export interface IProduct {
   products: IProductItem[]
 }
 
+export interface IProductInfo {
+  productOptions: IProductOption[]
+  productProfile: Omit<IProduct, 'products'>
+  products: IProduct['products']
+}
+
 export interface IShop extends ISellerInfo {
   products?: IProduct[]
-}
-
-export interface IProductProfile {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-  deletedAt?: Date
-  name: string
-  detail: string
-  shopId: string
-  platformCategoryId: string
-  brandId?: number
-  status: ProductStatusEnum
-  approval: boolean
-  weight: string
-  width: number
-  length: number
-  height: number
-  exp?: number
-  condition?: ProductConditionEnum
-  isSendLated?: boolean
-  extraDay?: number
-  videoLink?: string
-  imageIds?: string[]
-  watched: number
-  like: number
-}
-
-export interface IProductOption {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-  deletedAt?: Date
-  name: string
-  productProfileId: string
-  options?: string[]
 }

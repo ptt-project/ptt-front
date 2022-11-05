@@ -14,14 +14,20 @@ import { useTranslation } from 'next-i18next'
 import { isEmpty } from 'lodash'
 import { Typography, Button, Row, Col, Form, message, UploadFile } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import { IApiResponse, ICreateProductPayload, IProduct } from '../../../../interfaces'
+import {
+  IApiResponse,
+  ICreateProductPayload,
+  IProductInfo,
+  IProductItem,
+  IProductOption
+} from '../../../../interfaces'
 import { ImageService, ShopService } from '../../../../services'
 import { ProductConditionEnum } from '../../../../enums'
 
 const { Text } = Typography
 
 interface IProductFormProps {
-  product?: IProduct
+  productInfo?: IProductInfo
 }
 
 interface IFormData {
@@ -45,11 +51,27 @@ interface IFormData {
   [key: string]: any
 }
 
+enum FormMode {
+  CREATE = 'create',
+  UPDATE = 'update'
+}
+
+enum EOptionLabel {
+  ONE = 'optionLabelOne',
+  TWO = 'optionLabelTwo'
+}
+
+enum EOptionValue {
+  ONE = 'optionValueOne',
+  TWO = 'optionValueTwo'
+}
+
 const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const router: NextRouter = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [form] = Form.useForm()
+  const [formMode] = useState<FormMode>(props.productInfo ? FormMode.UPDATE : FormMode.CREATE)
+  const [form] = Form.useForm<IFormData>()
   const [productOptionLabelOne, setProductOptionLabelOne] = useState<string>('')
   const [productOptionLabelTwo, setProductOptionLabelTwo] = useState<string>('')
   const [productOptionValueOne, setProductOptionValueOne] = useState<string[]>([])
@@ -67,10 +89,10 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
         detail: values.detail,
         platformCategoryId: values.platformCategoryId,
         condition: values.condition,
-        weight: parseInt(values.weight),
-        width: parseInt(values.width),
-        length: parseInt(values.length),
-        height: parseInt(values.height),
+        weight: parseFloat(values.weight),
+        width: parseFloat(values.width),
+        length: parseFloat(values.length),
+        height: parseFloat(values.height),
         isSendLated: values.isSendLated === 1,
         isMultipleOptions,
         productOptions: [],
@@ -79,7 +101,7 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
 
       if (!isMultipleOptions) {
         payload.exp = values.exp ? parseInt(values.exp) : undefined
-        payload.price = values.price ? parseInt(values.price) : undefined
+        payload.price = values.price ? parseFloat(values.price) : undefined
         payload.stock = values.stock ? parseInt(values.stock) : undefined
         payload.sku = values.sku
         payload.extraDay = values.extraDay ? parseInt(values.extraDay) : undefined
@@ -93,7 +115,7 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
             const priceKey: string = `price_${j + 1}`
             const skuKey: string = `sku_${j + 1}`
             const stockKey: string = `stock_${j + 1}`
-            const price: number = parseInt(values[priceKey]) || 0
+            const price: number = parseFloat(values[priceKey]) || 0
             const sku: string = values[skuKey] || ''
             const stock: number = parseInt(values[stockKey]) || 0
             payload.products.push({ option1: valueOne, option2: valueTwo, price, sku, stock })
@@ -105,7 +127,7 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
           const priceKey: string = `price_${index + 1}`
           const skuKey: string = `sku_${index + 1}`
           const stockKey: string = `stock_${index + 1}`
-          const price: number = parseInt(values[priceKey]) || 0
+          const price: number = parseFloat(values[priceKey]) || 0
           const sku: string = values[skuKey] || ''
           const stock: number = parseInt(values[stockKey]) || 0
           payload.products.push({ option1: value, option2: '', price, sku, stock })
@@ -124,7 +146,11 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
       uploadImages.forEach((data: { id: string }) => imageIds.push(data.id))
       payload.imageIds = imageIds
 
-      await ShopService.createProduct(payload)
+      if (formMode === FormMode.CREATE) {
+        await ShopService.createProduct(payload)
+      } else {
+        await ShopService.updateProduct(props.productInfo.productProfile.id, payload)
+      }
 
       isSuccess = true
     } catch (error) {
@@ -140,8 +166,83 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
   }
 
   useEffect(() => {
-    console.log(props.product)
-  }, [])
+    if (formMode === FormMode.UPDATE) {
+      const { productProfile, productOptions } = props.productInfo
+
+      let prefixLabel: string = ''
+      let prefixValue: string = ''
+
+      const options: { [key: string]: string } = {}
+
+      props.productInfo?.productOptions.forEach((o: IProductOption, i: number) => {
+        if (i === 0) {
+          prefixLabel = EOptionLabel.ONE
+          prefixValue = EOptionValue.ONE
+        } else {
+          prefixLabel = EOptionLabel.TWO
+          prefixValue = EOptionValue.TWO
+        }
+
+        options[prefixLabel] = o.name
+
+        o.options.forEach((name: string, j: number) => {
+          options[`${prefixValue}_${j + 1}`] = name
+        })
+      })
+
+      props.productInfo?.products.forEach((p: IProductItem, i: number) => {
+        options[`price_${i + 1}`] = p.price.toString()
+        options[`sku_${i + 1}`] = p.sku
+        options[`stock_${i + 1}`] = p.stock.toString()
+      })
+
+      form.setFieldsValue({
+        videoLink: productProfile.videoLink || '',
+        name: productProfile.name,
+        detail: productProfile.detail,
+        platformCategoryId: productProfile.platformCategoryId,
+        brandId: productProfile.brandId || '',
+        weight: productProfile.weight || '',
+        width: productProfile.width?.toString() || '',
+        length: productProfile.length?.toString() || '',
+        height: productProfile.height?.toString() || '',
+        exp: productProfile.exp?.toString() || '',
+        condition: productProfile.condition,
+        isSendLated: productProfile.isSendLated ? 1 : 0,
+        extraDay: productProfile.extraDay?.toString() || '',
+        ...options
+      })
+
+      let labelOne: string = ''
+      let labelTwo: string = ''
+      const valueOne: string[] = []
+      const valueTwo: string[] = []
+
+      productOptions.forEach((option: IProductOption, i: number) => {
+        if (i === 0) {
+          labelOne = option.name
+          valueOne.push(...option.options)
+        } else {
+          labelTwo = option.name
+          valueTwo.push(...option.options)
+        }
+      })
+
+      setProductOptionLabelOne(labelOne)
+      setProductOptionLabelTwo(labelTwo)
+      setProductOptionValueOne(valueOne)
+      setProductOptionValueTwo(valueTwo)
+
+      // set product list values inside sale component
+    } else {
+      form.setFieldsValue({
+        platformCategoryId: '',
+        brandId: '',
+        condition: ProductConditionEnum.NEW,
+        isSendLated: 0
+      })
+    }
+  }, [formMode])
 
   return (
     <main className="main">
@@ -170,22 +271,12 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
                   {t('seller.product:form.addTitle')}
                 </h4>
               </Text>
-              <Form
-                layout="vertical"
-                initialValues={{
-                  platformCategoryId: '',
-                  brandId: '',
-                  condition: ProductConditionEnum.NEW,
-                  isSendLated: 0
-                }}
-                form={form}
-                name="productForm"
-                onFinish={onSubmit}
-              >
+              <Form layout="vertical" form={form} name="productForm" onFinish={onSubmit}>
                 <Info form={form} />
                 <Features form={form} />
                 <Sales
                   form={form}
+                  productInfo={props.productInfo}
                   productOptionLabelOne={productOptionLabelOne}
                   productOptionLabelTwo={productOptionLabelTwo}
                   productOptionValueOne={productOptionValueOne}

@@ -50,12 +50,12 @@ const Features: FC<IFeaturesProps> = (props: IFeaturesProps) => {
           <Form.Item
             label={t('seller.product:form.features.weight')}
             name="weight"
-            rules={[
-              {
-                required: true,
-                message: `${t('common:form.required')} ${t('seller.product:form.features.weight')}`
-              }
-            ]}
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: `${t('common:form.required')} ${t('seller.product:form.features.weight')}`
+            //   }
+            // ]}
           >
             <Input
               suffix={<Text type="secondary">{t('seller.product:form.features.kg')}</Text>}
