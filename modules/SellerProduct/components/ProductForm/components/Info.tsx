@@ -8,18 +8,38 @@ import { UploadFile } from 'antd/es/upload/interface'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import { ConfigService } from '../../../../../services'
-import { IConfigOptionPlatformCategory } from '../../../../../interfaces'
+import { IConfigOptionPlatformCategory, IProductInfo } from '../../../../../interfaces'
+import { HelperGetImageUtil } from '../../../../../utils/main'
+import { ImageSizeEnum } from '../../../../../enums'
 
 const { Text } = Typography
 
 interface IInfoProps {
   form: FormInstance
+  productInfo?: IProductInfo
 }
 
 const Info: FC<IInfoProps> = (props: IInfoProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const { data: configOptions } = ConfigService.useGetConfigOptions()
-  const [fileList, setFileList] = useState<UploadFile[]>([])
+  const [fileList, setFileList] = useState<UploadFile[]>(getDefaultImages)
+
+  function getDefaultImages(): UploadFile[] {
+    const files: UploadFile[] = []
+
+    if (props.productInfo?.productProfile) {
+      props.productInfo.productProfile.imageIds.forEach((id: string) => {
+        files.push({
+          uid: id,
+          name: id,
+          status: 'done',
+          url: HelperGetImageUtil(id, ImageSizeEnum.THUMBNAIL)
+        })
+      })
+    }
+
+    return files
+  }
 
   function normFile(e: any): any {
     if (Array.isArray(e)) {

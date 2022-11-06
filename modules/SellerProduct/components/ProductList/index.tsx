@@ -7,10 +7,10 @@ import { useTranslation } from 'next-i18next'
 import { Typography, Table, Space, Image, message } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 import { IListItems, IProduct, IProductItem } from '../../../../interfaces'
-import type { ColumnsType } from 'antd/es/table'
 import { HelperDecimalFormatUtil, HelperGetImageUtil } from '../../../../utils/main'
 import { ImageSizeEnum, ProductStatusEnum } from '../../../../enums'
 import { ShopService } from '../../../../services'
+import type { ColumnsType } from 'antd/es/table'
 
 const { Text } = Typography
 
@@ -33,12 +33,16 @@ const ProductList: FC<IProductListProps> = (props: IProductListProps) => {
         <div>
           <Text className={`${styles.tableText} mb-2`}>{record.name}</Text>
           <div className={styles.tableImage}>
-            <Image
-              preview={false}
-              width={56}
-              src={HelperGetImageUtil(record.imageIds[0], ImageSizeEnum.THUMBNAIL)}
-              alt={record.name}
-            />
+            <Link href={`/settings/seller/product/${record.id}`}>
+              <a>
+                <Image
+                  preview={false}
+                  width={56}
+                  src={HelperGetImageUtil(record.imageIds[0], ImageSizeEnum.THUMBNAIL)}
+                  alt={record.name}
+                />
+              </a>
+            </Link>
             <div>
               <div>
                 <Text type="secondary">

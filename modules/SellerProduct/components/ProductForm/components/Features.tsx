@@ -42,7 +42,6 @@ const Features: FC<IFeaturesProps> = (props: IFeaturesProps) => {
           <Form.Item label={t('seller.product:form.features.brand')} name="brandId">
             <Select>
               <Select.Option value="">{t('common:form.option')}</Select.Option>
-              <Select.Option value={1}>Adidas</Select.Option>
             </Select>
           </Form.Item>
         </Col>

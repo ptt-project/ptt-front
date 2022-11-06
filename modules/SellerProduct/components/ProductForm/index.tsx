@@ -15,14 +15,14 @@ import { isEmpty } from 'lodash'
 import { Typography, Button, Row, Col, Form, message, UploadFile } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 import {
-  IApiResponse,
   ICreateProductPayload,
   IProductInfo,
   IProductItem,
   IProductOption
 } from '../../../../interfaces'
 import { ImageService, ShopService } from '../../../../services'
-import { ProductConditionEnum } from '../../../../enums'
+import { ImageSizeEnum, ProductConditionEnum } from '../../../../enums'
+import { HelperGetImageUtil } from '../../../../utils/main'
 
 const { Text } = Typography
 
@@ -67,8 +67,8 @@ enum EOptionValue {
 }
 
 const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
-  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const router: NextRouter = useRouter()
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [formMode] = useState<FormMode>(props.productInfo ? FormMode.UPDATE : FormMode.CREATE)
   const [form] = Form.useForm<IFormData>()
@@ -78,10 +78,11 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
   const [productOptionValueTwo, setProductOptionValueTwo] = useState<string[]>([])
 
   async function onSubmit(values: IFormData): Promise<void> {
-    setIsLoading(true)
-    let isSuccess: boolean = false
     try {
+      setIsLoading(true)
+
       const isMultipleOptions: boolean = !isEmpty(values.optionLabelOne)
+
       const payload: ICreateProductPayload = {
         imageIds: [],
         videoLink: values.videoLink,
@@ -110,19 +111,26 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
           { name: productOptionLabelOne, options: productOptionValueOne },
           { name: productOptionLabelTwo, options: productOptionValueTwo }
         ]
+
+        let i: number = 0
+
         productOptionValueOne.forEach((valueOne: string) => {
-          productOptionValueTwo.forEach((valueTwo: string, j: number) => {
-            const priceKey: string = `price_${j + 1}`
-            const skuKey: string = `sku_${j + 1}`
-            const stockKey: string = `stock_${j + 1}`
+          productOptionValueTwo.forEach((valueTwo: string) => {
+            const priceKey: string = `price_${i + 1}`
+            const skuKey: string = `sku_${i + 1}`
+            const stockKey: string = `stock_${i + 1}`
             const price: number = parseFloat(values[priceKey]) || 0
             const sku: string = values[skuKey] || ''
             const stock: number = parseInt(values[stockKey]) || 0
+
             payload.products.push({ option1: valueOne, option2: valueTwo, price, sku, stock })
+
+            i++
           })
         })
       } else {
         payload.productOptions = [{ name: productOptionLabelOne, options: productOptionValueOne }]
+
         productOptionValueOne.forEach((value: string, index: number) => {
           const priceKey: string = `price_${index + 1}`
           const skuKey: string = `sku_${index + 1}`
@@ -130,15 +138,23 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
           const price: number = parseFloat(values[priceKey]) || 0
           const sku: string = values[skuKey] || ''
           const stock: number = parseInt(values[stockKey]) || 0
+
           payload.products.push({ option1: value, option2: '', price, sku, stock })
         })
       }
 
       const uploadImages: { id: string }[] = await Promise.all(
         values.images.map(async (img: UploadFile) => {
+          if (props.productInfo) {
+            if (props.productInfo.productProfile.imageIds.includes(img.uid)) {
+              return { id: img.uid }
+            }
+          }
+
           const formData: FormData = new FormData()
           formData.append('image', img.originFileObj)
-          const { data }: IApiResponse = await ImageService.upload(formData)
+          const { data } = await ImageService.upload(formData)
+
           return data
         })
       )
@@ -152,29 +168,26 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
         await ShopService.updateProduct(props.productInfo.productProfile.id, payload)
       }
 
-      isSuccess = true
-    } catch (error) {
-      console.log(error)
-    }
-    if (isSuccess) {
       message.success(t('common:apiMessage.success'))
+
       router.push('/seller/settings/product/list')
-    } else {
+    } catch (error) {
       message.error(t('common:apiMessage.error'))
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   useEffect(() => {
     if (formMode === FormMode.UPDATE) {
-      const { productProfile, productOptions } = props.productInfo
+      const { productProfile, productOptions, products } = props.productInfo
 
       let prefixLabel: string = ''
       let prefixValue: string = ''
 
       const options: { [key: string]: string } = {}
 
-      props.productInfo?.productOptions.forEach((o: IProductOption, i: number) => {
+      productOptions.forEach((o: IProductOption, i: number) => {
         if (i === 0) {
           prefixLabel = EOptionLabel.ONE
           prefixValue = EOptionValue.ONE
@@ -190,7 +203,7 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
         })
       })
 
-      props.productInfo?.products.forEach((p: IProductItem, i: number) => {
+      products.forEach((p: IProductItem, i: number) => {
         options[`price_${i + 1}`] = p.price.toString()
         options[`sku_${i + 1}`] = p.sku
         options[`stock_${i + 1}`] = p.stock.toString()
@@ -210,6 +223,12 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
         condition: productProfile.condition,
         isSendLated: productProfile.isSendLated ? 1 : 0,
         extraDay: productProfile.extraDay?.toString() || '',
+        images: productProfile.imageIds.map((id: string) => ({
+          uid: id,
+          name: id,
+          status: 'done',
+          url: HelperGetImageUtil(id, ImageSizeEnum.THUMBNAIL)
+        })),
         ...options
       })
 
@@ -272,7 +291,7 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
                 </h4>
               </Text>
               <Form layout="vertical" form={form} name="productForm" onFinish={onSubmit}>
-                <Info form={form} />
+                <Info form={form} productInfo={props.productInfo} />
                 <Features form={form} />
                 <Sales
                   form={form}
