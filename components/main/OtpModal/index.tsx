@@ -94,7 +94,10 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
 
   function onSubmit(): void {
     try {
-      props.onSubmit(otpData)
+      props.onSubmit({
+        ...otpData,
+        otpCode: otpInput
+      })
     } catch (error) {
       console.log(error)
     }
