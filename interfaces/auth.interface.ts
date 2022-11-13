@@ -60,7 +60,7 @@ export interface IAuthToken {
 }
 
 export interface IAuthResetPasswordByMobilePayload {
-  username: string
+  mobile: string
   password: string
   otpCode: string
   refCode: string

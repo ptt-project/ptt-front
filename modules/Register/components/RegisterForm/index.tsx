@@ -101,7 +101,6 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
 
       props.setForm(values)
       props.setStep(1)
-
       message.success(t('common:apiMessage.success'))
     } catch (e) {
       if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {

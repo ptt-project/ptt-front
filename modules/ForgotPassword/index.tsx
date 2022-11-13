@@ -14,6 +14,7 @@ import { IAuthForgotPasswordForm, IAuthResetPasswordByMobilePayload, IOtp } from
 import { OtpReferenceTypeEnum, OtpTypeEnum } from '~/enums'
 import { AuthDestroyUtil } from '~/utils/main'
 import { AuthService } from '../../services'
+import { AxiosError } from 'axios'
 
 interface IForgotPasswordProps {
   step?: number
@@ -37,7 +38,10 @@ const ForgotPassword: FC<IForgotPasswordProps> = (props: IForgotPasswordProps) =
   function onSubmit(values: IAuthForgotPasswordForm): void {
     try {
       setReference(values.reference)
-      if (RegExpConst.CHECK_EMAIL.test(values.reference)) {
+      if (
+        RegExpConst.CHECK_EMAIL.test(values.reference) &&
+        !values.reference.match(RegExpConst.MATCH_THAI_LETTER)
+      ) {
         setReferenceType(OtpReferenceTypeEnum.EMAIL)
         setStep(1)
       } else if (values.reference.replace(RegExpConst.ALLOW_NUMBER, '').length === 10) {
@@ -50,29 +54,36 @@ const ForgotPassword: FC<IForgotPasswordProps> = (props: IForgotPasswordProps) =
   }
 
   async function onSubmitOtp(values: IOtp): Promise<void> {
-    setIsLoading(true)
-    let isSuccess: boolean = false
     try {
+      setIsLoading(true)
+
       const payload: IAuthResetPasswordByMobilePayload = {
-        username: reference,
+        mobile: reference,
         password,
         otpCode: values.otpCode,
         refCode: values.refCode
       }
+
       await AuthService.resetPasswordByMobile(payload)
-      isSuccess = true
+
       toggle()
       AuthDestroyUtil()
-    } catch (error) {
-      console.log(error)
-    }
-    if (isSuccess) {
       message.success(t('common:apiMessage.success'))
       setStep(3)
-    } else {
-      message.error(t('common:apiMessage.error'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          case 102001:
+            message.error(t('message:buyer.auth.forgotPassword.invalidOtp'))
+            break
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   function onSubmitNewPassword(values: { password: string }): void {

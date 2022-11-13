@@ -7,9 +7,10 @@ import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, message } from 'antd'
 import { AuthInitUtil, CustomUrlUtil } from '~/utils/main'
-import { IApiResponse, IAuthLoginPayload, IFieldData } from '~/interfaces'
+import { IAuthLoginPayload, IFieldData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
+import { AxiosError } from 'axios'
 
 const { Title, Link } = Typography
 
@@ -28,32 +29,43 @@ const Login: FC = () => {
     if (_.length) {
       const tempFormData: IAuthLoginPayload = { ...formData }
       tempFormData[_[0].name[0]] = _[0].value
+
       setFormData(tempFormData)
     }
   }
 
   async function onSubmit(values: IAuthLoginPayload): Promise<void> {
-    setIsLoading(true)
-    let isSuccess: boolean = false
     try {
+      setIsLoading(true)
+
       const payload: IAuthLoginPayload = { ...values }
-      const { data }: IApiResponse = await AuthService.login(payload)
-      isSuccess = true
+      const { data } = await AuthService.login(payload)
+
       AuthInitUtil(data)
-    } catch (error) {
-      console.log(error)
-    }
-    if (isSuccess) {
       message.success(t('common:apiMessage.success'))
+
       if (router.query.redirect) {
         router.replace(router.query.redirect.toString())
       } else {
         router.replace('/')
       }
-    } else {
-      message.error(t('common:apiMessage.error'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          case 101004:
+            message.error(t('message:buyer.auth.login.invalidUsername'))
+            break
+          case 101005:
+            message.error(t('message:buyer.auth.login.invalidPassword'))
+            break
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   return (

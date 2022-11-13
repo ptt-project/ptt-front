@@ -166,7 +166,7 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
                             }
                           ]}
                         >
-                          <Input.Password />
+                          <Input.Password maxLength={20} />
                         </Form.Item>
                       </Col>
                       <Col span={24} className="text-center mb-5">
