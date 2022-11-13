@@ -398,26 +398,28 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                   </Col>
                   <Col span={24}>
                     <Row gutter={8}>
-                      <Col md={3} sm={4} xs={6}>
+                      <Col md={5} sm={6} xs={9}>
                         <Form.Item
                           label={t('account-info:form.birthday')}
-                          name="day"
+                          name="year"
                           rules={[
                             {
                               required: true,
-                              message: `${t('common:form.required')} ${t('account-info:form.day')}`
+                              message: `${t('common:form.required')} ${t('account-info:form.year')}`
                             }
                           ]}
                         >
                           <Select
-                            defaultValue={currentDay}
+                            defaultValue={currentYear}
                             onChange={(value: string): void => {
-                              form.setFieldValue('day', value)
-                              setCurrentDay(value)
+                              form.setFieldValue('day', '')
+                              form.setFieldValue('month', '')
+                              form.setFieldValue('year', value)
+                              setCurrentYear(value)
                             }}
                           >
-                            <Select.Option value="">{t('account-info:form.day')}</Select.Option>
-                            {renderDayOptions()}
+                            <Select.Option value="">{t('account-info:form.year')}</Select.Option>
+                            {renderYearOptions()}
                           </Select>
                         </Form.Item>
                       </Col>
@@ -450,14 +452,14 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                           </Select>
                         </Form.Item>
                       </Col>
-                      <Col md={5} sm={6} xs={9}>
+                      <Col md={3} sm={4} xs={6}>
                         <Form.Item
                           label={null}
-                          name="year"
+                          name="day"
                           rules={[
                             {
                               required: true,
-                              message: `${t('common:form.required')} ${t('account-info:form.year')}`
+                              message: `${t('common:form.required')} ${t('account-info:form.day')}`
                             }
                           ]}
                         >
@@ -465,16 +467,14 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                             <label>&nbsp;</label>
                           </div>
                           <Select
-                            defaultValue={currentYear}
+                            defaultValue={currentDay}
                             onChange={(value: string): void => {
-                              form.setFieldValue('day', '')
-                              form.setFieldValue('month', '')
-                              form.setFieldValue('year', value)
-                              setCurrentYear(value)
+                              form.setFieldValue('day', value)
+                              setCurrentDay(value)
                             }}
                           >
-                            <Select.Option value="">{t('account-info:form.year')}</Select.Option>
-                            {renderYearOptions()}
+                            <Select.Option value="">{t('account-info:form.day')}</Select.Option>
+                            {renderDayOptions()}
                           </Select>
                         </Form.Item>
                       </Col>
