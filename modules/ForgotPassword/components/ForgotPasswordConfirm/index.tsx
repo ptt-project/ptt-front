@@ -39,7 +39,7 @@ const ForgotPasswordConfirm: FC<IForgotPasswordConfirmProps> = (
               />
             </div>
           </Col>
-          <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
+          <Col xl={18} lg={24} xs={24}>
             <Row>
               <Col span={24}>
                 <Title className="hps-title" level={4}>

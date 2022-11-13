@@ -10,6 +10,7 @@
         "invalidPassword": "Username หรือ Password ไม่ถูกต้อง โปรดลองอีกครั้ง"
       },
       "forgotPassword": {
+        "invalidEmail": "Email นี้ไม่มีมีอยู่ในระบบ",
         "invalidOtp": "รหัส OTP ไม่ถูกต้อง"
       }
     }
