@@ -92,12 +92,12 @@ const Login: FC = () => {
                 <Row>
                   <Col md={{ span: 12, offset: 6 }} xs={24}>
                     <Form.Item label={t('auth.login:form.username')} name="username">
-                      <Input />
+                      <Input maxLength={20} />
                     </Form.Item>
                   </Col>
                   <Col md={{ span: 12, offset: 6 }} xs={24}>
                     <Form.Item label={t('auth.login:form.password')} name="password">
-                      <Input.Password />
+                      <Input.Password maxLength={20} />
                     </Form.Item>
                   </Col>
                   <Col className="mt-5" md={{ span: 12, offset: 6 }} xs={24}>
