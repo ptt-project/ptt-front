@@ -69,7 +69,9 @@ const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPassword
                       (): any => ({
                         validator(_: Rule, value: string): Promise<any> {
                           const isValidEmail: boolean =
-                            value && value.match(RegExpConst.CHECK_EMAIL) !== null
+                            value &&
+                            RegExpConst.CHECK_EMAIL.test(value) &&
+                            !RegExpConst.MATCH_THAI_LETTER.test(value)
                           const isValidMobile: boolean =
                             value &&
                             value.length === 10 &&

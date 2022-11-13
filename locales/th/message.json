@@ -1,0 +1,11 @@
+{
+  "buyer": {
+    "auth": {
+      "register": {
+        "alreadyUsername": "Username นี้มีอยู่ในระบบแล้ว",
+        "alreadyEmail": "Email นี้มีอยู่ในระบบแล้ว"
+      }
+    }
+  },
+  "seller": {}
+}

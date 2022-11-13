@@ -22,6 +22,7 @@ import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { IAuthRegisterForm, IAuthRegisterValidatePayload } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import { AuthService } from '~/services'
+import { AxiosError } from 'axios'
 
 const { Text, Title, Link } = Typography
 
@@ -31,9 +32,8 @@ interface IRegisterFormProps {
 }
 
 const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
-  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register'])
   const router: NextRouter = useRouter()
-
+  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register'])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState<string>('')
   const [form] = Form.useForm()
@@ -42,20 +42,25 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
     if (isOpen === 'TERM') {
       return t('auth.register:form.policyB')
     }
+
     if (isOpen === 'CONDITION') {
       return t('auth.register:form.policyC')
     }
+
     return ''
   }
 
   function getModalContent(): JSX.Element {
     let content: string = ''
+
     if (isOpen === 'TERM') {
       content = t('auth.register:form.policyBContent')
     }
+
     if (isOpen === 'CONDITION') {
       content = t('auth.register:form.policyCContent')
     }
+
     if (content) {
       return (
         <div className={styles.modalBodyWrapper}>
@@ -63,6 +68,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
         </div>
       )
     }
+
     return null
   }
 
@@ -83,26 +89,37 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
   }
 
   async function onSubmit(values: IAuthRegisterForm): Promise<void> {
-    setIsLoading(true)
-    let isSuccess: boolean = false
     try {
+      setIsLoading(true)
+
       const payload: IAuthRegisterValidatePayload = {
         email: values.email,
         username: values.username
       }
+
       await AuthService.registerValidate(payload)
-      isSuccess = true
+
       props.setForm(values)
       props.setStep(1)
-    } catch (error) {
-      console.log(error)
-    }
-    if (isSuccess) {
+
       message.success(t('common:apiMessage.success'))
-    } else {
-      message.error(t('common:apiMessage.error'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          case 101001:
+            message.error(t('message:buyer.auth.register.alreadyEmail'))
+            break
+          case 101002:
+            message.error(t('message:buyer.auth.register.alreadyUsername'))
+            break
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   return (
@@ -202,14 +219,30 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                       name="email"
                       rules={[
                         {
-                          type: 'email',
-                          message: `${t('common:form.invalid.head')} ${t(
-                            'auth.register:form.email'
-                          )} ${t('common:form.invalid.tail')}`
-                        }
+                          required: true,
+                          message: `${t('common:form.required')} ${t('auth.register:form.email')}`
+                        },
+                        (): any => ({
+                          validator(_: Rule, value: string): Promise<any> {
+                            if (
+                              !value ||
+                              (RegExpConst.CHECK_EMAIL.test(value) &&
+                                !RegExpConst.MATCH_THAI_LETTER.test(value))
+                            ) {
+                              return Promise.resolve()
+                            }
+                            return Promise.reject(
+                              new Error(
+                                `${t('common:form.invalid.head')} ${t(
+                                  'auth.register:form.email'
+                                )} ${t('common:form.invalid.tail')}`
+                              )
+                            )
+                          }
+                        })
                       ]}
                     >
-                      <Input type="email" maxLength={50} />
+                      <Input maxLength={50} />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
@@ -225,7 +258,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={20} />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
@@ -255,7 +288,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         })
                       ]}
                     >
-                      <Input.Password maxLength={50} />
+                      <Input.Password maxLength={20} />
                     </Form.Item>
                     <Text type="secondary" className="hps-text-small d-block">
                       {t('common:passwordHint.a')}
