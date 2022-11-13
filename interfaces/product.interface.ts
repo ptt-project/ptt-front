@@ -19,16 +19,16 @@ export interface ICreateProductPayload {
   detail: string
   platformCategoryId: string
   brandId?: number
-  weight: number
+  weight?: number
   exp?: number
-  condition?: ProductConditionEnum
+  condition: ProductConditionEnum
   isSendLated?: boolean
   extraDay?: number
   videoLink?: string
   imageIds?: string[]
-  width: number
-  length: number
-  height: number
+  width?: number
+  length?: number
+  height?: number
   isMultipleOptions: boolean
   price?: number
   stock?: number
@@ -37,52 +37,7 @@ export interface ICreateProductPayload {
   products?: IProductDetail[]
 }
 
-export interface IProduct {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-  deletedAt?: Date
-  sku?: string
-  productProfileId: string
-  option1?: string
-  option2?: string
-  price: string
-  stock: number
-
-  // relation
-  shop?: IShop
-  productProfile?: IProductProfile // relation
-}
-
-export interface IShop extends ISellerInfo {
-  products?: IProduct[]
-}
-
-export interface IProductProfile {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-  deletedAt?: Date
-  name: string
-  detail: string
-  shopId: string
-  platformCategoryId: string
-  brandId?: number
-  status: ProductStatusEnum
-  approval: boolean
-  weight: string
-  width: number
-  length: number
-  height: number
-  exp?: number
-  condition?: ProductConditionEnum
-  isSendLated?: boolean
-  extraDay?: number
-  videoLink?: string
-  imageIds?: string[]
-  watched: number
-  like: number
-}
+export type IUpdateProductPayload = ICreateProductPayload
 
 export interface IProductOption {
   id: string
@@ -94,12 +49,54 @@ export interface IProductOption {
   options?: string[]
 }
 
-export interface IProductData {
-  key: string
-  productName: string
-  brand: string
-  amount: number
-  quantity: number
+export interface IProductItem {
+  id: string
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date
+  sku: string
+  productProfileId: string
+  option1?: string
+  option2?: string
+  price: number
+  stock: number
   sold: number
-  status: number
+  amountSold: number
+}
+
+export interface IProduct {
+  id: string
+  name: string
+  detail: string
+  shopId: string
+  platformCategoryId: string
+  brandId?: string
+  status: ProductStatusEnum
+  approval: boolean
+  weight?: string
+  width?: number
+  length?: number
+  height?: number
+  exp?: number
+  condition: ProductConditionEnum
+  isSendLated?: boolean
+  extraDay?: number
+  videoLink?: string
+  imageIds: string[]
+  watched: number
+  like: number
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date
+  products: IProductItem[]
+}
+
+export interface IProductInfo {
+  productOptions: IProductOption[]
+  productProfile: Omit<IProduct, 'products'>
+  products: IProduct['products']
+}
+
+export interface IShop extends ISellerInfo {
+  products?: IProduct[]
 }

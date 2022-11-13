@@ -27,7 +27,8 @@ export const EndPointUrlConst = {
     CATEGORIES: '/shops/categories',
     PLATFORM_CATEGORIES: '/shops/categories/platform-categories',
     PRODUCTS: '/shops/products',
-    RECOMMENDED: '/shops/conditions'
+    RECOMMENDED: '/shops/conditions',
+    PRODUCTS_PROFILE: '/shops/products-profile'
   },
   WALLET: {
     WALLETS: '/wallets',

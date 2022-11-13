@@ -10,7 +10,7 @@ import {
 } from '@tanstack/react-query'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import { ConfigService, MemberService } from '~/services'
-import { HelperCreateIDBPersister } from '~/utils/main'
+import { HelperCreateIDBPersisterUtil } from '~/utils/main'
 import { EndPointUrlConst } from '~/constants'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 
@@ -30,7 +30,7 @@ const WrapPersistQueryClientProvider: FC<IDehydrateStateProps> = (props: IDehydr
         }
       })
   )
-  const persister: Persister = useMemo(() => HelperCreateIDBPersister(), [])
+  const persister: Persister = useMemo(() => HelperCreateIDBPersisterUtil(), [])
   return (
     <PersistQueryClientProvider
       client={queryClient}

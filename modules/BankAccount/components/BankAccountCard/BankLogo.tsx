@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/typedef */
-import { Image } from 'antd'
 import React, { FC, useEffect, useState } from 'react'
+import { Image } from 'antd'
 import { useGetImage } from '~/services/image.service'
-import { blobToFile } from '~/utils/main'
+import { HelperBlobToFileUtil } from '~/utils/main'
 
 interface IBankLogoProps {
   bankIconImageId: string
@@ -18,7 +18,7 @@ const BankLogo: FC<IBankLogoProps> = (props: IBankLogoProps) => {
     const parseBlobToFile = async (): Promise<void> => {
       try {
         if (imageBlob) {
-          const file = await blobToFile(imageBlob, `${bankImageId}.${imageBlob.type}`)
+          const file = await HelperBlobToFileUtil(imageBlob, `${bankImageId}.${imageBlob.type}`)
           const tempCreateObjectURL = URL.createObjectURL(file)
           setImage(tempCreateObjectURL)
         }

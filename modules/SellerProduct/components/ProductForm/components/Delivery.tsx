@@ -1,9 +1,10 @@
-import React, { ChangeEvent, FC } from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Typography, Col, Form, Input, Row, Switch, FormInstance } from 'antd'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import styles from '../ProductForm.module.scss'
+import { isEmpty } from 'lodash'
 
 const { Text } = Typography
 
@@ -13,6 +14,7 @@ interface IDeliveryProps {
 
 const Delivery: FC<IDeliveryProps> = (props: IDeliveryProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
+  const [currentWeight, setCurrentWeight] = useState<string>()
 
   function onChange(e: ChangeEvent<HTMLInputElement>, name: string): void {
     if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
@@ -20,6 +22,8 @@ const Delivery: FC<IDeliveryProps> = (props: IDeliveryProps) => {
     } else {
       props.form.setFieldValue(name, e.target.value.replace(RegExpConst.ALLOW_NUMBER_AND_DOT, ''))
     }
+
+    setCurrentWeight(props.form.getFieldValue('weight'))
   }
 
   return (
@@ -30,12 +34,12 @@ const Delivery: FC<IDeliveryProps> = (props: IDeliveryProps) => {
           <Form.Item
             label={t('seller.product:form.delivery.weight')}
             name="weight"
-            rules={[
-              {
-                required: true,
-                message: `${t('common:form.required')} ${t('seller.product:form.features.weight')}`
-              }
-            ]}
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: `${t('common:form.required')} ${t('seller.product:form.features.weight')}`
+            //   }
+            // ]}
           >
             <Input
               suffix={<Text type="secondary">{t('seller.product:form.delivery.kg')}</Text>}
@@ -49,7 +53,7 @@ const Delivery: FC<IDeliveryProps> = (props: IDeliveryProps) => {
             name="width"
             rules={[
               {
-                required: true,
+                required: !isEmpty(currentWeight),
                 message: `${t('common:form.required')} ${t('seller.product:form.delivery.width')}`
               }
             ]}
@@ -66,7 +70,7 @@ const Delivery: FC<IDeliveryProps> = (props: IDeliveryProps) => {
             name="length"
             rules={[
               {
-                required: true,
+                required: !isEmpty(currentWeight),
                 message: `${t('common:form.required')} ${t('seller.product:form.delivery.length')}`
               }
             ]}
@@ -83,7 +87,7 @@ const Delivery: FC<IDeliveryProps> = (props: IDeliveryProps) => {
             name="height"
             rules={[
               {
-                required: true,
+                required: !isEmpty(currentWeight),
                 message: `${t('common:form.required')} ${t('seller.product:form.delivery.height')}`
               }
             ]}

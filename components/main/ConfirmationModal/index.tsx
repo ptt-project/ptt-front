@@ -78,8 +78,10 @@ const ConfirmationModal: FC<IConfirmationModalProps> = (props: IConfirmationModa
       )}
       {props.contentImg && (
         <Col>
-          <Image preview={false} width={48} src={props.contentImg} alt={props.title} />
-          <Text>{props.contentTextImg}</Text>
+          <div className="mt-2">
+            <Image preview={false} width={56} src={props.contentImg} alt={props.title} />
+            <Text className="ml-2">{props.contentTextImg}</Text>
+          </div>
         </Col>
       )}
     </Modal>

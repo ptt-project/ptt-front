@@ -6,7 +6,7 @@ import { LocaleNamespaceConst } from '~/constants'
 import { withSellerAuth } from '../../../../hocs/with-seller'
 import { AxiosRequestConfig } from 'axios'
 import { ShopService } from '../../../../services'
-import { IApiResponse, IListItems, IProduct } from '../../../../interfaces'
+import { IListItems, IProduct } from '../../../../interfaces'
 
 interface ISellerProductListPageProps {
   products: IListItems<IProduct>
@@ -55,11 +55,14 @@ export const getServerSideProps: any = withSellerAuth(
 
     if (req) {
       try {
-        const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
-        const productsRes: IApiResponse = await ShopService.getProducts(option)
+        const option: AxiosRequestConfig = {
+          headers: { Cookie: req.headers.cookie }
+          // params: { ...query }
+        }
+        const { data } = await ShopService.getProducts(option)
 
-        if (productsRes.data) {
-          products = productsRes.data
+        if (data) {
+          products = data
         }
       } catch (error) {
         console.log(error)

@@ -28,7 +28,7 @@ export const HelperGetImageUtil = (imageId: string, size: ImageSizeEnum): string
  * Creates an Indexed DB persister
  * @see https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
  */
-export function HelperCreateIDBPersister(idbValidKey: IDBValidKey = 'reactQuery'): Persister {
+export function HelperCreateIDBPersisterUtil(idbValidKey: IDBValidKey = 'reactQuery'): Persister {
   return {
     persistClient: async (client: PersistedClient) => {
       set(idbValidKey, client)
@@ -42,7 +42,7 @@ export function HelperCreateIDBPersister(idbValidKey: IDBValidKey = 'reactQuery'
   } as Persister
 }
 
-export const blobToFile = async (blobData: Blob, filename: string): Promise<File> => {
+export const HelperBlobToFileUtil = async (blobData: Blob, filename: string): Promise<File> => {
   return new File([blobData], `${filename}`, {
     type: blobData.type,
     lastModified: new Date().getTime()
