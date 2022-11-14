@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { Typography, Button, Select, Checkbox, Input, Radio, Rate } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 import { IOption } from '~/interfaces'
-import { SellerShopTypeEnum } from '~/enums'
+import { ShopTypeEnum } from '~/enums'
 
 const { Text, Title } = Typography
 
@@ -25,8 +25,8 @@ const SearchSidebar: FC = () => {
   ]
 
   const shopTypeOptions: IOption[] = [
-    { label: t('search:sidebar.shopType.mall'), value: SellerShopTypeEnum.NORMAL },
-    { label: t('search:sidebar.shopType.recommended'), value: SellerShopTypeEnum.MALL }
+    { label: t('search:sidebar.shopType.mall'), value: ShopTypeEnum.NORMAL },
+    { label: t('search:sidebar.shopType.recommended'), value: ShopTypeEnum.MALL }
   ]
 
   const serviceOptions: IOption[] = [

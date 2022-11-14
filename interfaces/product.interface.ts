@@ -1,4 +1,4 @@
-import { ISellerInfo } from '.'
+import { IShopInfo } from '.'
 import { ProductConditionEnum, ProductStatusEnum } from '../enums'
 
 export interface IProductDetailOption {
@@ -97,6 +97,6 @@ export interface IProductInfo {
   products: IProduct['products']
 }
 
-export interface IShop extends ISellerInfo {
+export interface IShop extends IShopInfo {
   products?: IProduct[]
 }

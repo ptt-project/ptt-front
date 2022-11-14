@@ -1,9 +1,9 @@
-export enum SellerShopTypeEnum {
+export enum ShopTypeEnum {
   NORMAL = 'Normal',
   MALL = 'Mall'
 }
 
-export enum SellerApprovalStatusEnum {
+export enum ShopApprovalStatusEnum {
   REQUESTED = 'requested',
   APPROVED = 'approved',
   REJECTED = 'rejected'

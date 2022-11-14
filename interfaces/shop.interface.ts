@@ -1,7 +1,7 @@
-import { SellerApprovalStatusEnum, SellerShopTypeEnum } from '~/enums'
+import { ShopApprovalStatusEnum, ShopTypeEnum } from '../enums/shop.enum'
 
-export interface ISellerRegisterPayload {
-  type: SellerShopTypeEnum
+export interface IShopRegisterPayload {
+  type: ShopTypeEnum
   fullName: string
   mobile: string
   email: string
@@ -18,12 +18,12 @@ export interface ISellerRegisterPayload {
   note?: string
 }
 
-export interface ISellerInfo {
+export interface IShopInfo {
   id: string
   createdAt: Date
   updatedAt: Date
   deletedAt?: Date
-  type: SellerShopTypeEnum
+  type: ShopTypeEnum
   fullName: string
   mobile: string
   email: string
@@ -35,7 +35,7 @@ export interface ISellerInfo {
   socialMedia?: string
   corperateName?: string
   corperateId?: string
-  approvalStatus: SellerApprovalStatusEnum
+  approvalStatus: ShopApprovalStatusEnum
   shopName?: string
   shopDescription?: string
   productCount: number
@@ -51,7 +51,7 @@ export interface ISellerInfo {
   memberId: string
 }
 
-export interface ISellerUpdateInfoPayload {
+export interface IShopUpdateInfoPayload {
   shopName?: string
   shopDescription?: string
   profileImagePath?: string

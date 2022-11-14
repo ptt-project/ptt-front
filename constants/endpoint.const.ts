@@ -26,6 +26,7 @@ export const EndPointUrlConst = {
     SHOP_INFO: '/sellers/shop-info'
   },
   SHOPS: {
+    INFO: '/shops/shop-info',
     CATEGORIES: '/shops/categories',
     PLATFORM_CATEGORIES: '/shops/categories/platform-categories',
     PRODUCTS: '/shops/products',

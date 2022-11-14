@@ -55,11 +55,24 @@ export const getServerSideProps: any = withSellerAuth(
 
     if (req) {
       try {
+        const params: { [key: string]: string | boolean | number } = {}
+
+        Object.keys(query).forEach((key: string) => {
+          if (query[key]) {
+            params[key] = query[key]
+          }
+        })
+
         const option: AxiosRequestConfig = {
-          headers: { Cookie: req.headers.cookie }
-          // params: { ...query }
+          headers: { Cookie: req.headers.cookie },
+          params: { ...params }
         }
+
+        console.log(params)
+
         const { data } = await ShopService.getProducts(option)
+
+        console.log(data)
 
         if (data) {
           products = data

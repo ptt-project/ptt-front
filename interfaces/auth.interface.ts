@@ -1,4 +1,4 @@
-import { SellerApprovalStatusEnum } from '~/enums'
+import { ShopApprovalStatusEnum } from '~/enums'
 
 export interface IAuthRegisterForm {
   firstName: string
@@ -51,7 +51,7 @@ export interface IAuthUserInfo {
   lastName: string
   mobile: string
   email: string
-  approvalStatus?: SellerApprovalStatusEnum
+  approvalStatus?: ShopApprovalStatusEnum
 }
 
 export interface IAuthToken {
