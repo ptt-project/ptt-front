@@ -33,7 +33,7 @@ const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPassword
     <div className="page-content mb-9">
       <div className="container">
         <Row gutter={48}>
-          <Col xl={6} lg={0}>
+          <Col xl={6} lg={0} xs={0}>
             <div className={styles.imgContainer}>
               <Image
                 rootClassName={styles.imgWrapper}

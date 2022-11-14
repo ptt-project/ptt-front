@@ -28,9 +28,9 @@ const ForgotPasswordConfirm: FC<IForgotPasswordConfirmProps> = (
   return (
     <div className="page-content mb-9">
       <div className="container">
-        <Row gutter={16}>
-          <Col xl={6} lg={0}>
-            <div className={styles.sideImgContainer}>
+        <Row gutter={48}>
+          <Col xl={6} lg={0} xs={0}>
+            <div className={styles.imgContainer}>
               <Image
                 rootClassName={styles.imgWrapper}
                 preview={false}
@@ -39,7 +39,7 @@ const ForgotPasswordConfirm: FC<IForgotPasswordConfirmProps> = (
               />
             </div>
           </Col>
-          <Col xl={18}>
+          <Col xl={18} lg={24} xs={24}>
             <Row>
               <Col span={24}>
                 <Title className="hps-title" level={4}>
@@ -98,7 +98,7 @@ const ForgotPasswordConfirm: FC<IForgotPasswordConfirmProps> = (
                           })
                         ]}
                       >
-                        <Input.Password maxLength={50} />
+                        <Input.Password maxLength={20} />
                       </Form.Item>
                       <Text type="secondary" className="hps-text-small d-block">
                         {t('common:passwordHint.a')}

@@ -11,7 +11,8 @@ export async function getServerSideProps(
     props: {
       ...(await serverSideTranslations(context.locale, [
         ...LocaleNamespaceConst,
-        'auth.forgot-password'
+        'auth.forgot-password',
+        'auth.login'
       ]))
     }
   }
