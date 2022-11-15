@@ -1,20 +1,20 @@
 import React, { FC } from 'react'
+import SellerShopDetail from '~/modules/SellerShopDetail'
 import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import SellerShopDetail from '~/modules/SellerShopDetail'
 import { LocaleNamespaceConst } from '~/constants'
-import { IApiResponse, ISellerInfo } from '~/interfaces'
+import { IApiResponse, IShopInfo } from '~/interfaces'
 import { AxiosRequestConfig } from 'axios'
-import { SellerService } from '~/services'
+import { ShopService } from '~/services'
 import { withSellerAuth } from '../../../../hocs/with-seller'
 
-interface ISellerInfoPageProps {
-  shopInfo: ISellerInfo
+interface IShopInfoPageProps {
+  shopInfo: IShopInfo
 }
 
 export const getServerSideProps: any = withSellerAuth(
   async (context: GetServerSidePropsContext) => {
-    let shopInfo: ISellerInfo = null
+    let shopInfo: IShopInfo = null
     const { req } = context
 
     if (req) {
@@ -22,7 +22,8 @@ export const getServerSideProps: any = withSellerAuth(
         const option: AxiosRequestConfig = {
           headers: { Cookie: req.headers.cookie }
         }
-        const { data }: IApiResponse = await SellerService.shopInfo(option)
+        const { data }: IApiResponse = await ShopService.getInfo(option)
+
         shopInfo = data
       } catch (error) {
         if (!error.data || error.data.code !== 106004) {
@@ -48,7 +49,7 @@ export const getServerSideProps: any = withSellerAuth(
   }
 )
 
-const DetailPage: FC<ISellerInfoPageProps> = (props: ISellerInfoPageProps) => (
+const DetailPage: FC<IShopInfoPageProps> = (props: IShopInfoPageProps) => (
   <SellerShopDetail shopInfo={props.shopInfo} />
 )
 

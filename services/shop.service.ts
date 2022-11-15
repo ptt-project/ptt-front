@@ -4,11 +4,22 @@ import {
   IApiResponse,
   ICreateCategoryPayload,
   ICreateProductPayload,
+  IShopRegisterPayload,
+  IShopUpdateInfoPayload,
   IUpdateCategoryPayload,
   IUpdateProductPayload
 } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
 import { CategoryStatusEnum } from '~/enums'
+
+export const register = (payload: IShopRegisterPayload): Promise<IApiResponse> =>
+  AxiosService.post(EndPointUrlConst.SELLERS.REGISTER, payload)
+
+export const getInfo = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
+  AxiosService.get(EndPointUrlConst.SHOPS.INFO, option)
+
+export const updateInfo = (payload: IShopUpdateInfoPayload): Promise<IApiResponse> =>
+  AxiosService.patch(EndPointUrlConst.SHOPS.INFO, payload)
 
 export const getCategories = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
   AxiosService.get(EndPointUrlConst.SHOPS.CATEGORIES, option)

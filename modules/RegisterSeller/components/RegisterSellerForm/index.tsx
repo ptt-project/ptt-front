@@ -18,15 +18,15 @@ import {
   Alert
 } from 'antd'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import { IConfigOptionPlatformCategory, ISellerInfo, ISellerRegisterPayload } from '~/interfaces'
-import { FormModeEnum, SellerApprovalStatusEnum, SellerShopTypeEnum } from '~/enums'
-import { ConfigService, SellerService } from '~/services'
+import { IConfigOptionPlatformCategory, IShopInfo, IShopRegisterPayload } from '~/interfaces'
+import { FormModeEnum, ShopApprovalStatusEnum, ShopTypeEnum } from '~/enums'
+import { ConfigService, ShopService } from '~/services'
 
 const { Text, Title } = Typography
 const { TextArea } = Input
 
 interface IRegisterSellerFormProps {
-  shopInfo?: ISellerInfo
+  shopInfo?: IShopInfo
   setStep: (step: number) => void
 }
 
@@ -36,7 +36,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
 
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [shopType, setShopType] = useState<SellerShopTypeEnum>(SellerShopTypeEnum.NORMAL)
+  const [shopType, setShopType] = useState<ShopTypeEnum>(ShopTypeEnum.NORMAL)
   const [formMode] = useState<FormModeEnum>(getFormMode())
 
   function getFormMode(): FormModeEnum {
@@ -47,8 +47,8 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
   }
 
   function initForm():
-    | ISellerRegisterPayload
-    | { type: SellerShopTypeEnum; category: string; mallApplicantRole: string } {
+    | IShopRegisterPayload
+    | { type: ShopTypeEnum; category: string; mallApplicantRole: string } {
     if (props.shopInfo) {
       return props.shopInfo
     }
@@ -80,12 +80,12 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
     }
   }
 
-  async function onSubmit(values: ISellerRegisterPayload): Promise<void> {
+  async function onSubmit(values: IShopRegisterPayload): Promise<void> {
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: ISellerRegisterPayload = { ...values }
-      await SellerService.register(payload)
+      const payload: IShopRegisterPayload = { ...values }
+      await ShopService.register(payload)
       isSuccess = true
       props.setStep(1)
     } catch (error) {
@@ -101,7 +101,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
 
   function renderStatus(): JSX.Element {
     switch (props.shopInfo?.approvalStatus) {
-      case SellerApprovalStatusEnum.REQUESTED:
+      case ShopApprovalStatusEnum.REQUESTED:
         return (
           <Alert
             className="mb-5"
@@ -111,7 +111,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
             showIcon
           />
         )
-      case SellerApprovalStatusEnum.REJECTED:
+      case ShopApprovalStatusEnum.REJECTED:
         return (
           <Alert
             className="mb-5"
@@ -164,10 +164,10 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                       <Col sm={16} xs={24}>
                         <Form.Item className="mb-0" name="type">
                           <Radio.Group className={styles.radio} onChange={onRadioChange}>
-                            <Radio value={SellerShopTypeEnum.NORMAL}>
+                            <Radio value={ShopTypeEnum.NORMAL}>
                               {t('auth.register-seller:form.shopType.normal')}
                             </Radio>
-                            <Radio value={SellerShopTypeEnum.MALL}>
+                            <Radio value={ShopTypeEnum.MALL}>
                               {t('auth.register-seller:form.shopType.mall')}
                             </Radio>
                           </Radio.Group>
@@ -239,7 +239,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                   <Col span={24}>
                     <HighlightLabel title={t('auth.register-seller:section.brand')} />
                   </Col>
-                  {shopType === SellerShopTypeEnum.MALL ? (
+                  {shopType === ShopTypeEnum.MALL ? (
                     <>
                       <Col md={12} xs={24}>
                         <Form.Item
@@ -342,7 +342,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                       <TextArea maxLength={200} showCount />
                     </Form.Item>
                   </Col>
-                  {shopType === SellerShopTypeEnum.MALL ? (
+                  {shopType === ShopTypeEnum.MALL ? (
                     <>
                       <Col span={24}>
                         <Form.Item

@@ -4,31 +4,29 @@ import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AxiosRequestConfig } from 'axios'
 import { LocaleNamespaceConst } from '~/constants'
-import { IApiResponse, ISellerInfo } from '~/interfaces'
-import { SellerService } from '~/services'
-import { SellerApprovalStatusEnum } from '~/enums'
+import { IApiResponse, IShopInfo } from '~/interfaces'
+import { ShopService } from '~/services'
+import { ShopApprovalStatusEnum } from '~/enums'
 import { withSellerAuth } from '../../hocs/with-seller'
 
 interface IRegisterSellerPageProps {
-  shopInfo: ISellerInfo
+  shopInfo?: IShopInfo
 }
 
 export const getServerSideProps: any = withSellerAuth(
   async (context: GetServerSidePropsContext) => {
-    let shopInfo: ISellerInfo = null
+    let shopInfo: IShopInfo
 
     const { req } = context
 
     if (req) {
       try {
-        const option: AxiosRequestConfig = {
-          headers: { Cookie: req.headers.cookie }
-        }
-        const shopInfoRes: IApiResponse = await SellerService.shopInfo(option)
+        const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
+        const shopInfoRes: IApiResponse = await ShopService.getInfo(option)
 
         shopInfo = shopInfoRes.data
 
-        if (shopInfo.approvalStatus === SellerApprovalStatusEnum.APPROVED) {
+        if (shopInfo?.approvalStatus === ShopApprovalStatusEnum.APPROVED) {
           return {
             redirect: {
               destination: '/seller/settings/product/list',
@@ -39,12 +37,10 @@ export const getServerSideProps: any = withSellerAuth(
       } catch (error) {
         console.log(error)
 
-        if (!error.data || error.data.code !== 106004) {
-          return {
-            redirect: {
-              destination: '/error',
-              permanent: true
-            }
+        return {
+          redirect: {
+            destination: '/error',
+            permanent: true
           }
         }
       }

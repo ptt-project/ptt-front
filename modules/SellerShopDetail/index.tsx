@@ -8,11 +8,11 @@ import styles from './SellerShopDetail.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Row, Col, Button, Form, Upload, Input, Image, Avatar, message } from 'antd'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
-import { ISellerInfo, ISellerUpdateInfoPayload, IApiResponse } from '~/interfaces'
+import { IShopInfo, IShopUpdateInfoPayload, IApiResponse } from '~/interfaces'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { HelperGetImageUtil } from '~/utils/main'
 import { ImageSizeEnum } from '~/enums'
-import { ImageService, SellerService } from '~/services'
+import { ImageService, ShopService } from '~/services'
 import { RcFile } from 'antd/es/upload'
 
 const { Text, Title } = Typography
@@ -25,13 +25,13 @@ interface ISellerShopDetailForm {
 }
 
 interface ISellerShopDetailProps {
-  shopInfo?: ISellerInfo
+  shopInfo?: IShopInfo
 }
 const SellerShopDetail: FC<ISellerShopDetailProps> = (props: ISellerShopDetailProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.shop-detail'])
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [info, setInfo] = useState<ISellerInfo>(props.shopInfo)
+  const [info, setInfo] = useState<IShopInfo>(props.shopInfo)
   const [currentProfileImage, setCurrentProfileImage] = useState<string>(getImage('profile'))
   const [currentCoverImage, setCurrentCoverImage] = useState<string>(getImage('cover'))
 
@@ -116,7 +116,7 @@ const SellerShopDetail: FC<ISellerShopDetailProps> = (props: ISellerShopDetailPr
     setIsLoading(true)
     let isSuccess: boolean = false
     try {
-      const payload: ISellerUpdateInfoPayload = {
+      const payload: IShopUpdateInfoPayload = {
         shopName: values.shopName,
         shopDescription: values.shopDescription
       }
@@ -136,7 +136,7 @@ const SellerShopDetail: FC<ISellerShopDetailProps> = (props: ISellerShopDetailPr
           payload.coverImagePath = imageCover.data.id
         }
       }
-      const infoRes: IApiResponse = await SellerService.updateShopInfo(payload)
+      const infoRes: IApiResponse = await ShopService.updateInfo(payload)
       if (infoRes.data) {
         setInfo(infoRes.data)
       }
