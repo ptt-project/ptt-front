@@ -21,8 +21,12 @@ export const HelperDecimalFormatUtil = (
 export const HelperMobileFormatUtil = (mobile: string): string =>
   `${mobile.slice(0, 3)}-${mobile.slice(3, 6)}-${mobile.slice(6, 10)}`
 
-export const HelperGetImageUtil = (imageId: string, size: ImageSizeEnum): string =>
-  `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_VERSION}/images/${imageId}/${size}`
+export const HelperGetImageUtil = (imageId: string, size: ImageSizeEnum): string => {
+  if (imageId) {
+    return `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_VERSION}/images/${imageId}/${size}`
+  }
+  return ''
+}
 
 /**
  * Creates an Indexed DB persister

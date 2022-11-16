@@ -29,37 +29,40 @@ const ProductList: FC<IProductListProps> = (props: IProductListProps) => {
     {
       title: t('seller.product:list.productName'),
       key: 'name',
-      render: (text: string, record: IProduct) => (
-        <div>
-          <Text className={`${styles.tableText} mb-2`}>{record.name}</Text>
-          <div className={styles.tableImage}>
-            <Link href={`/settings/seller/product/${record.id}`}>
-              <a>
-                <Image
-                  preview={false}
-                  width={56}
-                  src={HelperGetImageUtil(record.imageIds[0], ImageSizeEnum.THUMBNAIL)}
-                  alt={record.name}
-                />
-              </a>
-            </Link>
-            <div>
+      render: (text: string, record: IProduct) => {
+        const imageRecord: string = record.imageIds ? record.imageIds[0] : null
+        return (
+          <div>
+            <Text className={`${styles.tableText} mb-2`}>{record.name}</Text>
+            <div className={styles.tableImage}>
+              <Link href={`/settings/seller/product/${record.id}`}>
+                <a>
+                  <Image
+                    preview={false}
+                    width={56}
+                    src={HelperGetImageUtil(imageRecord, ImageSizeEnum.THUMBNAIL)}
+                    alt={record.name}
+                  />
+                </a>
+              </Link>
               <div>
-                <Text type="secondary">
-                  <i className="far fa-eye mr-2" />
-                  {record.watched}
-                </Text>
-              </div>
-              <div>
-                <Text type="secondary">
-                  <i className="fas fa-heart mr-2" />
-                  {record.like}
-                </Text>
+                <div>
+                  <Text type="secondary">
+                    <i className="far fa-eye mr-2" />
+                    {record.watched}
+                  </Text>
+                </div>
+                <div>
+                  <Text type="secondary">
+                    <i className="fas fa-heart mr-2" />
+                    {record.like}
+                  </Text>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )
+        )
+      }
     },
     {
       title: t('seller.product:list.SKU'),
@@ -208,7 +211,6 @@ const ProductList: FC<IProductListProps> = (props: IProductListProps) => {
       setIsOpen(false)
     }
   }
-
   return (
     <>
       <Loading show={isLoading} />

@@ -179,6 +179,16 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
     setCurrentImage(src)
   }
 
+  function checkValueBirthday(value: string, type: string): string {
+    if (type === 'year') {
+      return value ? value : getYear()
+    }
+    if (type === 'month') {
+      return value ? value : getMonth()
+    }
+    return value ? value : getDay()
+  }
+
   async function onSubmit(values: IAccountInfoForm): Promise<void> {
     setIsLoading(true)
     let isSuccess: boolean = false
@@ -187,7 +197,10 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
       const payload: IUpdateMemberProfilePayload = {
         firstName: values.firstName,
         lastName: values.lastName,
-        birthday: `${values.year}-${values.month}-${values.day}`,
+        birthday: `${checkValueBirthday(values.year, 'year')}-${checkValueBirthday(
+          values.month,
+          'month'
+        )}-${checkValueBirthday(values.day, 'day')}`,
         gender: values.gender
       }
 
@@ -399,16 +412,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                   <Col span={24}>
                     <Row gutter={8}>
                       <Col md={5} sm={6} xs={9}>
-                        <Form.Item
-                          label={t('account-info:form.birthday')}
-                          name="year"
-                          rules={[
-                            {
-                              required: true,
-                              message: `${t('common:form.required')} ${t('account-info:form.year')}`
-                            }
-                          ]}
-                        >
+                        <Form.Item label={t('account-info:form.birthday')} name="year">
                           <Select
                             defaultValue={currentYear}
                             onChange={(value: string): void => {
@@ -424,18 +428,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                         </Form.Item>
                       </Col>
                       <Col md={5} sm={6} xs={9}>
-                        <Form.Item
-                          label={null}
-                          name="month"
-                          rules={[
-                            {
-                              required: true,
-                              message: `${t('common:form.required')} ${t(
-                                'account-info:form.month'
-                              )}`
-                            }
-                          ]}
-                        >
+                        <Form.Item label={null} name="month">
                           <div className="ant-form-item-label">
                             <label>&nbsp;</label>
                           </div>
@@ -453,16 +446,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                         </Form.Item>
                       </Col>
                       <Col md={3} sm={4} xs={6}>
-                        <Form.Item
-                          label={null}
-                          name="day"
-                          rules={[
-                            {
-                              required: true,
-                              message: `${t('common:form.required')} ${t('account-info:form.day')}`
-                            }
-                          ]}
-                        >
+                        <Form.Item label={null} name="day">
                           <div className="ant-form-item-label">
                             <label>&nbsp;</label>
                           </div>
@@ -486,18 +470,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                         <Text>{t('account-info:form.gender')}</Text>
                       </Col>
                       <Col xs={16}>
-                        <Form.Item
-                          label={null}
-                          name="gender"
-                          rules={[
-                            {
-                              required: true,
-                              message: `${t('common:form.required')} ${t(
-                                'account-info:form.gender'
-                              )}`
-                            }
-                          ]}
-                        >
+                        <Form.Item label={null} name="gender">
                           <Radio.Group className={styles.radioFlex}>
                             <Radio value={AccountGenderEnum.MALE}>
                               {t('account-info:form.man')}

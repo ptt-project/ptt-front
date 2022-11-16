@@ -14,7 +14,7 @@ const ProductCard: FC = () => {
   async function fetchData(): Promise<void> {
     try {
       const res: IApiResponse = await ProductService.get()
-      console.log('res+++', res)
+      //console.log('res+++', res)
     } catch (error) {
       console.log(error)
     }
