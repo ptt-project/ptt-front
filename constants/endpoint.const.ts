@@ -56,5 +56,7 @@ export const EndPointUrlConst = {
     TRANSFER: '/happy-points/transfer',
     SELL: '/happy-points/sell',
     HISTORY: '/happy-points/history'
-  }
+  },
+
+  PRODUCTS: '/products'
 }
