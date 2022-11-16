@@ -29,7 +29,7 @@ const ProductList: FC<IProductListProps> = (props: IProductListProps) => {
     {
       title: t('seller.product:list.productName'),
       key: 'name',
-      render: (text: string, record: IProduct) => {
+      render: (text: string, record: IProduct): JSX.Element => {
         const imageRecord: string = record.imageIds ? record.imageIds[0] : null
         return (
           <div>

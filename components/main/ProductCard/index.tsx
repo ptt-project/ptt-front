@@ -5,15 +5,15 @@ import styles from './ProductCard.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Row, Col, Tag, Rate } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import { IApiResponse } from '~/interfaces'
-import { ProductService } from '~/services'
+//import { IApiResponse } from '~/interfaces'
+//import { ProductService } from '~/services'
 const { Text } = Typography
 const ProductCard: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'product'])
 
   async function fetchData(): Promise<void> {
     try {
-      const res: IApiResponse = await ProductService.get()
+      //const res: IApiResponse = await ProductService.get()
       //console.log('res+++', res)
     } catch (error) {
       console.log(error)
