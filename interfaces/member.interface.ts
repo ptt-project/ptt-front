@@ -25,8 +25,8 @@ export interface IMemberMobile {
 export interface IUpdateMemberProfilePayload {
   firstName: string
   lastName: string
-  birthday: string
-  gender: string
+  birthday?: string
+  gender?: string
   imageId?: string
 }
 
