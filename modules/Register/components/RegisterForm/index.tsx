@@ -94,7 +94,8 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
 
       const payload: IAuthRegisterValidatePayload = {
         email: values.email,
-        username: values.username
+        username: values.username,
+        mobile: values.mobile
       }
 
       await AuthService.registerValidate(payload)
@@ -110,6 +111,9 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
             break
           case 101002:
             message.error(t('message:buyer.auth.register.alreadyUsername'))
+            break
+          case 101003:
+            message.error(t('message:buyer.auth.register.alreadyMobile'))
             break
           default:
             message.error(t('common:apiMessage.error'))

@@ -3,7 +3,8 @@
     "auth": {
       "register": {
         "alreadyUsername": "Username นี้มีอยู่ในระบบแล้ว",
-        "alreadyEmail": "Email นี้มีอยู่ในระบบแล้ว"
+        "alreadyEmail": "Email นี้มีอยู่ในระบบแล้ว",
+        "alreadyMobile": "เบอร์นี้มีอยู่ในระบบแล้ว"
       },
       "login": {
         "invalidUsername": "Username หรือ Password ไม่ถูกต้อง โปรดลองอีกครั้ง",
