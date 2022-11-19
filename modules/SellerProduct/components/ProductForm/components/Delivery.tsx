@@ -1,9 +1,9 @@
 import React, { ChangeEvent, FC, useState } from 'react'
+import HighlightLabel from '~/components/main/HighlightLabel'
+import styles from '../ProductForm.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Col, Form, Input, Row, Switch, FormInstance } from 'antd'
-import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import styles from '../ProductForm.module.scss'
 import { isEmpty } from 'lodash'
 
 const { Text } = Typography

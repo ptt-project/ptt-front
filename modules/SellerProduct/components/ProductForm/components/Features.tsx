@@ -1,10 +1,14 @@
 import React, { ChangeEvent, FC } from 'react'
+import HighlightLabel from '~/components/main/HighlightLabel'
+import styles from '../ProductForm.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Radio, Col, Form, Input, Row, Select, FormInstance } from 'antd'
-import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { ProductConditionEnum } from '../../../../../enums'
-import styles from '../ProductForm.module.scss'
+import { ConfigService } from '../../../../../services'
+import { IConfigOptionBrand } from '../../../../../interfaces'
+import { NextRouter, useRouter } from 'next/router'
+import { OptionKeyLabelUtil } from '../../../../../utils/main'
 
 const { Text } = Typography
 
@@ -13,7 +17,9 @@ interface IFeaturesProps {
 }
 
 const Features: FC<IFeaturesProps> = (props: IFeaturesProps) => {
+  const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
+  const { data: configOptions } = ConfigService.useGetConfigOptions()
 
   function onChangeExp(e: ChangeEvent<HTMLInputElement>): void {
     if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
@@ -42,6 +48,11 @@ const Features: FC<IFeaturesProps> = (props: IFeaturesProps) => {
           <Form.Item label={t('seller.product:form.features.brand')} name="brandId">
             <Select>
               <Select.Option value="">{t('common:form.option')}</Select.Option>
+              {configOptions?.brand.map((category: IConfigOptionBrand) => (
+                <Select.Option key={category.value} value={category.value}>
+                  {category[OptionKeyLabelUtil(router)]}
+                </Select.Option>
+              ))}
             </Select>
           </Form.Item>
         </Col>

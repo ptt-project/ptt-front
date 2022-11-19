@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styles from './ProductFilters.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Button, Row, Col, Form, Input, Select } from 'antd'
@@ -30,6 +30,7 @@ const ProductFilters: FC<IProductFiltersProps> = (props: IProductFiltersProps) =
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const { data: configOptions } = ConfigService.useGetConfigOptions()
   const [form] = Form.useForm()
+  const [currentGroupSearch, setCurrentGroupSearch] = useState<string>()
 
   function onSubmit(values: IProductFiltersForm): void {
     const query: {
@@ -76,15 +77,17 @@ const ProductFilters: FC<IProductFiltersProps> = (props: IProductFiltersProps) =
       <Row gutter={16}>
         <Col md={12} xs={24}>
           <Form.Item label={t('seller.product:list.filters.group')} name="groupSearch">
-            <Select defaultValue="">
+            <Select
+              defaultValue=""
+              onChange={(value: string): void => setCurrentGroupSearch(value)}
+            >
               <Select.Option value="">{t('common:form.option')}</Select.Option>
-              <Select.Option value="jack">Jack</Select.Option>
             </Select>
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
           <Form.Item label={t('seller.product:list.filters.keyword')} name="keyword">
-            <Input />
+            <Input disabled={!currentGroupSearch} />
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
