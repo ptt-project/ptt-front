@@ -91,7 +91,7 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
   }
 
   async function onSubmit(values: IAccountAddMobileForm): Promise<void> {
-    if (!otpData.otpCode) {
+    if (!values.otp) {
       return
     }
 

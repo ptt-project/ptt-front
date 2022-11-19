@@ -112,7 +112,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
           case 101002:
             message.error(t('message:buyer.auth.register.alreadyUsername'))
             break
-          case 101003:
+          case 101009:
             message.error(t('message:buyer.auth.register.alreadyMobile'))
             break
           default:
@@ -179,7 +179,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
@@ -195,7 +195,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>

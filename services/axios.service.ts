@@ -16,12 +16,15 @@ const createAxios = (): AxiosInstance => {
   ax.interceptors.response.use(
     (response: AxiosResponse<IApiResponse>) => {
       const { data } = response || {}
+
       if (data.code === ApiCodeEnum.SUCCESS) {
         return response.data
       }
+
       if (data instanceof Blob) {
         return response
       }
+
       return Promise.reject(response)
     },
     (error: AxiosError) => {

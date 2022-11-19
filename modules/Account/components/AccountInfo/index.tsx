@@ -354,10 +354,11 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                     {renderAvatar()}
                   </Col>
                   <Col sm={8} xs={12} className="text-center">
-                    <Form.Item name="image">
+                    <Form.Item name="image" className="mb-1">
                       <Upload
                         accept={ImageAcceptConst.toString()}
                         maxCount={1}
+                        showUploadList={false}
                         onChange={onChangeImage}
                       >
                         <Button className="hps-btn-secondary">
@@ -392,7 +393,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount />
                     </Form.Item>
                   </Col>
                   <Col sm={12} xs={24}>
@@ -406,7 +407,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount />
                     </Form.Item>
                   </Col>
                   <Col span={24}>
