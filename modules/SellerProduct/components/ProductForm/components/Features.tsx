@@ -29,17 +29,6 @@ const Features: FC<IFeaturesProps> = (props: IFeaturesProps) => {
     }
   }
 
-  function onChangeWeight(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
-      props.form.setFieldValue('weight', e.target.value)
-    } else {
-      props.form.setFieldValue(
-        'weight',
-        e.target.value.replace(RegExpConst.ALLOW_NUMBER_AND_DOT, '')
-      )
-    }
-  }
-
   return (
     <>
       <HighlightLabel title={t('seller.product:form.features.title')} />
@@ -54,23 +43,6 @@ const Features: FC<IFeaturesProps> = (props: IFeaturesProps) => {
                 </Select.Option>
               ))}
             </Select>
-          </Form.Item>
-        </Col>
-        <Col md={12} xs={24}>
-          <Form.Item
-            label={t('seller.product:form.features.weight')}
-            name="weight"
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: `${t('common:form.required')} ${t('seller.product:form.features.weight')}`
-            //   }
-            // ]}
-          >
-            <Input
-              suffix={<Text type="secondary">{t('seller.product:form.features.kg')}</Text>}
-              onChange={onChangeWeight}
-            />
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
