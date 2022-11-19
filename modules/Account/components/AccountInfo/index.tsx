@@ -21,7 +21,6 @@ import {
   Radio,
   message
 } from 'antd'
-import { HelperGetImageUtil } from '~/utils/main'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import { IUpdateMemberProfilePayload, IApiResponse, IMemberInfo } from '~/interfaces'
 import { ImageService, MemberService } from '~/services'
@@ -29,8 +28,9 @@ import { AccountGenderEnum, ImageSizeEnum } from '~/enums'
 import { NextRouter, useRouter } from 'next/router'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { RcFile } from 'antd/es/upload'
-import 'moment/locale/th'
 import { AxiosError } from 'axios'
+import { ImageUrlUtil } from '../../../../utils/main'
+import 'moment/locale/th'
 
 const { Text, Title } = Typography
 
@@ -160,7 +160,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
 
   function getImage(): string {
     if (info.imageId) {
-      return `${HelperGetImageUtil(info.imageId, ImageSizeEnum.SMALL)}`
+      return `${ImageUrlUtil(info.imageId, ImageSizeEnum.SMALL)}`
     }
 
     return ''

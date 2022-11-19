@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next'
 import { Typography, Table, Space, Image, message } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 import { IListItems, IProduct, IProductItem } from '../../../../interfaces'
-import { HelperDecimalFormatUtil, HelperGetImageUtil } from '../../../../utils/main'
+import { HelperDecimalFormatUtil, ImageUrlUtil } from '../../../../utils/main'
 import { ImageSizeEnum, ProductStatusEnum } from '../../../../enums'
 import { ShopService } from '../../../../services'
 import type { ColumnsType } from 'antd/es/table'
@@ -40,7 +40,7 @@ const ProductList: FC<IProductListProps> = (props: IProductListProps) => {
                   <Image
                     preview={false}
                     width={56}
-                    src={HelperGetImageUtil(imageRecord, ImageSizeEnum.THUMBNAIL)}
+                    src={ImageUrlUtil(imageRecord, ImageSizeEnum.THUMBNAIL)}
                     alt={record.name}
                   />
                 </a>
@@ -221,7 +221,7 @@ const ProductList: FC<IProductListProps> = (props: IProductListProps) => {
         title={t('seller.product:delete.title')}
         content={t('seller.product:delete.msgQuestion')}
         contentWarning={t('seller.product:delete.msgWarning')}
-        contentImg={HelperGetImageUtil(productSelected?.imageIds[0], ImageSizeEnum.THUMBNAIL)}
+        contentImg={ImageUrlUtil(productSelected?.imageIds[0], ImageSizeEnum.THUMBNAIL)}
         contentTextImg={productSelected?.name}
         onSubmit={onConfirmRemove}
       />

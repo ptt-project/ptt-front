@@ -9,7 +9,7 @@ import { UploadChangeParam } from 'antd/lib/upload'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import { ConfigService } from '../../../../../services'
 import { IConfigOptionPlatformCategory, IProductInfo } from '../../../../../interfaces'
-import { HelperGetImageUtil, OptionKeyLabelUtil } from '../../../../../utils/main'
+import { ImageUrlUtil, OptionKeyLabelUtil } from '../../../../../utils/main'
 import { ImageSizeEnum } from '../../../../../enums'
 import { NextRouter, useRouter } from 'next/router'
 
@@ -35,7 +35,7 @@ const Info: FC<IInfoProps> = (props: IInfoProps) => {
           uid: id,
           name: id,
           status: 'done',
-          url: HelperGetImageUtil(id, ImageSizeEnum.THUMBNAIL)
+          url: ImageUrlUtil(id, ImageSizeEnum.THUMBNAIL)
         })
       })
     }

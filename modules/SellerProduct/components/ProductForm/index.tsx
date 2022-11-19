@@ -22,7 +22,7 @@ import {
 } from '../../../../interfaces'
 import { ImageService, ShopService } from '../../../../services'
 import { ImageSizeEnum, ProductConditionEnum } from '../../../../enums'
-import { HelperGetImageUtil } from '../../../../utils/main'
+import { ImageUrlUtil } from '../../../../utils/main'
 
 const { Text } = Typography
 
@@ -227,7 +227,7 @@ const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
           uid: id,
           name: id,
           status: 'done',
-          url: HelperGetImageUtil(id, ImageSizeEnum.THUMBNAIL)
+          url: ImageUrlUtil(id, ImageSizeEnum.THUMBNAIL)
         })),
         ...options
       })

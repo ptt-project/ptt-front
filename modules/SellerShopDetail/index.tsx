@@ -10,7 +10,7 @@ import { Typography, Row, Col, Button, Form, Upload, Input, Image, Avatar, messa
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import { IShopInfo, IShopUpdateInfoPayload, IApiResponse } from '~/interfaces'
 import { UploadChangeParam } from 'antd/lib/upload'
-import { HelperGetImageUtil } from '~/utils/main'
+import { ImageUrlUtil } from '~/utils/main'
 import { ImageSizeEnum } from '~/enums'
 import { ImageService, ShopService } from '~/services'
 import { RcFile } from 'antd/es/upload'
@@ -36,13 +36,13 @@ const SellerShopDetail: FC<ISellerShopDetailProps> = (props: ISellerShopDetailPr
   const [currentCoverImage, setCurrentCoverImage] = useState<string>(getImage('cover'))
 
   function getImage(type: string): string {
-    if (info !== null) {
-      const imagePath: string = type === 'profile' ? info.profileImagePath : info.coverImagePath
-      if (imagePath) {
-        return `${HelperGetImageUtil(imagePath, ImageSizeEnum.SMALL)}`
-      }
+    let imagePath: string = ''
+
+    if (info) {
+      imagePath = type === 'profile' ? info.profileImagePath : info.coverImagePath
     }
-    return ''
+
+    return ImageUrlUtil(imagePath, ImageSizeEnum.SMALL)
   }
 
   function renderAvatar(): JSX.Element {
@@ -70,7 +70,9 @@ const SellerShopDetail: FC<ISellerShopDetailProps> = (props: ISellerShopDetailPr
 
   function renderCover(): JSX.Element {
     if (currentCoverImage) {
-      return <Image rootClassName={styles.imgWrapper} preview={false} src={currentCoverImage} />
+      return (
+        <Image rootClassName={styles.imgWrapper} preview={false} src={currentCoverImage} alt="" />
+      )
     }
   }
 
