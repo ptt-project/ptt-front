@@ -77,10 +77,7 @@ const ProductFilters: FC<IProductFiltersProps> = (props: IProductFiltersProps) =
       <Row gutter={16}>
         <Col md={12} xs={24}>
           <Form.Item label={t('seller.product:list.filters.group')} name="groupSearch">
-            <Select
-              defaultValue=""
-              onChange={(value: string): void => setCurrentGroupSearch(value)}
-            >
+            <Select onChange={(value: string): void => setCurrentGroupSearch(value)}>
               <Select.Option value="">{t('common:form.option')}</Select.Option>
             </Select>
           </Form.Item>
@@ -92,7 +89,7 @@ const ProductFilters: FC<IProductFiltersProps> = (props: IProductFiltersProps) =
         </Col>
         <Col md={12} xs={24}>
           <Form.Item label={t('seller.product:list.filters.category')} name="categoryId">
-            <Select defaultValue="">
+            <Select>
               <Select.Option value="">{t('common:form.option')}</Select.Option>
               {configOptions?.platformCategory.map((category: IConfigOptionPlatformCategory) => (
                 <Select.Option key={category.value} value={category.value}>
