@@ -6,6 +6,7 @@ import { LocaleNamespaceConst } from '~/constants'
 import { NextRouter, useRouter } from 'next/router'
 import { ConfigService } from '../../../../services'
 import { IConfigOptionPlatformCategory } from '../../../../interfaces'
+import { OptionKeyLabelUtil } from '../../../../utils/main'
 
 interface IProductFiltersForm {
   keyword: string
@@ -92,7 +93,7 @@ const ProductFilters: FC<IProductFiltersProps> = (props: IProductFiltersProps) =
               <Select.Option value="">{t('common:form.option')}</Select.Option>
               {configOptions?.platformCategory.map((category: IConfigOptionPlatformCategory) => (
                 <Select.Option key={category.value} value={category.value}>
-                  {category.label}
+                  {category[OptionKeyLabelUtil(router)]}
                 </Select.Option>
               ))}
             </Select>

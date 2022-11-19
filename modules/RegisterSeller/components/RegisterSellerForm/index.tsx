@@ -21,6 +21,8 @@ import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { IConfigOptionPlatformCategory, IShopInfo, IShopRegisterPayload } from '~/interfaces'
 import { FormModeEnum, ShopApprovalStatusEnum, ShopTypeEnum } from '~/enums'
 import { ConfigService, ShopService } from '~/services'
+import { NextRouter, useRouter } from 'next/router'
+import { OptionKeyLabelUtil } from '../../../../utils/main'
 
 const { Text, Title } = Typography
 const { TextArea } = Input
@@ -31,9 +33,9 @@ interface IRegisterSellerFormProps {
 }
 
 const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSellerFormProps) => {
+  const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register-seller'])
   const { data: configOptions } = ConfigService.useGetConfigOptions()
-
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [shopType, setShopType] = useState<ShopTypeEnum>(ShopTypeEnum.NORMAL)
@@ -315,7 +317,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                         {configOptions?.platformCategory.map(
                           (category: IConfigOptionPlatformCategory) => (
                             <Select.Option key={category.value} value={category.value}>
-                              {category.label}
+                              {category[OptionKeyLabelUtil(router)]}
                             </Select.Option>
                           )
                         )}

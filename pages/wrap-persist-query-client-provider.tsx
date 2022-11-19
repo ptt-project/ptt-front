@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/typedef */
 import React, { FC, ReactNode, useEffect, useMemo, useState } from 'react'
+import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { Persister } from '@tanstack/query-persist-client-core'
 import {
   Query,
@@ -12,7 +13,6 @@ import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client
 import { ConfigService, MemberService } from '~/services'
 import { HelperCreateIDBPersisterUtil } from '~/utils/main'
 import { EndPointUrlConst } from '~/constants'
-import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 
 interface IDehydrateStateProps {
   children: ReactNode
