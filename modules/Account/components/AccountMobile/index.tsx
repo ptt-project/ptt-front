@@ -15,6 +15,7 @@ import { CustomUrlUtil, HelperMobileFormatUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
 import { OtpTypeEnum } from '~/enums'
 import { MemberService } from '~/services'
+import { AxiosError } from 'axios'
 
 const { Text } = Typography
 
@@ -92,41 +93,37 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
     }
   }
 
-  async function onSubmitMain(otpData: IOtp): Promise<void> {
-    setIsLoading(true)
-
-    let isSuccess: boolean = false
-
+  async function onSubmitMain(otp: IOtp): Promise<void> {
     try {
+      setIsLoading(true)
+
       const payload: IUpdateMemberMobilePayload = {
         mobile: selected?.mobileNo,
-        otpCode: otpData.otpCode,
-        refCode: otpData.refCode
+        otpCode: otp.otpCode,
+        refCode: otp.refCode
       }
 
       await MemberService.setMainMobile(payload)
-      isSuccess = true
-    } catch (error) {
-      console.log(error)
-    }
-    if (isSuccess) {
+
       message.success(t('common:apiMessage.success'))
-
-      await fetchData()
-    } else {
-      message.error(t('common:apiMessage.error'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      toggleOtp()
+      setIsLoading(false)
     }
-
-    toggleOtp()
-    setIsLoading(false)
   }
 
   async function onSubmitRemove(otp: IOtp): Promise<void> {
-    setIsLoading(true)
-
-    let isSuccess: boolean = false
-
     try {
+      setIsLoading(true)
+
       const payload: IUpdateMemberMobilePayload = {
         mobile: selected.mobileNo,
         otpCode: otp.otpCode,
@@ -134,22 +131,21 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
       }
 
       await MemberService.deleteMobile(payload)
-
-      isSuccess = true
-    } catch (error) {
-      console.log(error)
-    }
-
-    if (isSuccess) {
-      message.success(t('common:apiMessage.success'))
-
       await fetchData()
-    } else {
-      message.error(t('common:apiMessage.error'))
-    }
 
-    toggleOtp()
-    setIsLoading(false)
+      message.success(t('common:apiMessage.success'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      toggleOtp()
+      setIsLoading(false)
+    }
   }
 
   function renderMobiles(): JSX.Element {

@@ -30,6 +30,7 @@ import { NextRouter, useRouter } from 'next/router'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { RcFile } from 'antd/es/upload'
 import 'moment/locale/th'
+import { AxiosError } from 'axios'
 
 const { Text, Title } = Typography
 
@@ -190,10 +191,9 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
   }
 
   async function onSubmit(values: IAccountInfoForm): Promise<void> {
-    setIsLoading(true)
-    let isSuccess: boolean = false
-
     try {
+      setIsLoading(true)
+
       const payload: IUpdateMemberProfilePayload = {
         firstName: values.firstName,
         lastName: values.lastName,
@@ -207,6 +207,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
       if (values.image) {
         const formData: FormData = new FormData()
         formData.append('image', values.image.file.originFileObj)
+
         const imageRes: IApiResponse = await ImageService.upload(formData)
 
         if (imageRes.data.id) {
@@ -220,18 +221,18 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
         setInfo(infoRes.data)
       }
 
-      isSuccess = true
-    } catch (error) {
-      console.log(error)
-    }
-
-    if (isSuccess) {
       message.success(t('common:apiMessage.success'))
-    } else {
-      message.error(t('common:apiMessage.error'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   function renderAvatar(): JSX.Element {

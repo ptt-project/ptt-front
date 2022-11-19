@@ -14,7 +14,17 @@
         "invalidEmail": "Email นี้ไม่มีมีอยู่ในระบบ",
         "invalidOtp": "รหัส OTP ไม่ถูกต้อง"
       }
-    }
+    },
+    "account": {
+      "info": {},
+      "mobile": {},
+      "email": {
+        "alreadyEmail": "Email นี้มีอยู่ในระบบแล้ว"
+      }
+    },
+    "address": {},
+    "password": {},
+    "relation": {}
   },
   "seller": {}
 }
