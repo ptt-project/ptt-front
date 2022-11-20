@@ -196,14 +196,17 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
 
       const payload: IUpdateMemberProfilePayload = {
         firstName: values.firstName,
-        lastName: values.lastName,
-        birthday: `${checkValueBirthday(values.year, 'year')}-${checkValueBirthday(
+        lastName: values.lastName
+      }
+      if (values.year && values.month && values.day) {
+        payload.birthday = `${checkValueBirthday(values.year, 'year')}-${checkValueBirthday(
           values.month,
           'month'
-        )}-${checkValueBirthday(values.day, 'day')}`,
-        gender: values.gender
+        )}-${checkValueBirthday(values.day, 'day')}`
       }
-
+      if (values.gender) {
+        payload.gender = values.gender
+      }
       if (values.image) {
         const formData: FormData = new FormData()
         formData.append('image', values.image.file.originFileObj)
@@ -214,7 +217,6 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
           payload.imageId = imageRes.data.id
         }
       }
-
       const infoRes: IApiResponse = await MemberService.updateProfile(payload)
 
       if (infoRes.data) {

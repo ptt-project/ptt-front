@@ -80,6 +80,9 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
     } catch (e) {
       if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
         switch (e.response.data.code) {
+          case 102006:
+            message.error(t('common:apiMessage.error'))
+            break
           default:
             message.error(t('common:apiMessage.error'))
             break
@@ -205,7 +208,7 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
                           name="mobileNo"
                           rules={[
                             {
-                              required: true,
+                              required: false,
                               message: `${t('common:form.required')} ${t(
                                 'account-info:mobile.newPhone'
                               )}`
@@ -240,11 +243,15 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
                               )}${renderTimer()}`}
                         </Button>
                       </Col>
-                      <Col span={24} className="mb-2">
-                        <Text type="secondary" className="hps-text-small">
-                          {t('account-info:mobile.msgConfirm')} {props.mobile.mobile}
-                        </Text>
-                      </Col>
+                      {timer > 0 ? (
+                        <Col span={24} className="mb-2">
+                          <Text type="secondary" className="hps-text-small">
+                            {t('account-info:mobile.msgConfirm')} {props.mobile.mobile}
+                          </Text>
+                        </Col>
+                      ) : (
+                        ''
+                      )}
                       <Col span={24}>
                         <div className={styles.label}>
                           <div className={styles.left}>

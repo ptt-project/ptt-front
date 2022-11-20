@@ -71,6 +71,9 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
           case 103003:
             message.error(t('message:buyer.account.email.alreadyEmail'))
             break
+          case 101001:
+            message.error(t('message:buyer.account.email.alreadyEmail'))
+            break
           default:
             message.error(t('common:apiMessage.error'))
             break
