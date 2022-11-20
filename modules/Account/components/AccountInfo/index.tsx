@@ -21,7 +21,6 @@ import {
   Radio,
   message
 } from 'antd'
-import { HelperGetImageUtil } from '~/utils/main'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import { IUpdateMemberProfilePayload, IApiResponse, IMemberInfo } from '~/interfaces'
 import { ImageService, MemberService } from '~/services'
@@ -29,6 +28,8 @@ import { AccountGenderEnum, ImageSizeEnum } from '~/enums'
 import { NextRouter, useRouter } from 'next/router'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { RcFile } from 'antd/es/upload'
+import { AxiosError } from 'axios'
+import { ImageUrlUtil } from '../../../../utils/main'
 import 'moment/locale/th'
 
 const { Text, Title } = Typography
@@ -159,7 +160,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
 
   function getImage(): string {
     if (info.imageId) {
-      return `${HelperGetImageUtil(info.imageId, ImageSizeEnum.SMALL)}`
+      return `${ImageUrlUtil(info.imageId, ImageSizeEnum.SMALL)}`
     }
 
     return ''
@@ -190,10 +191,9 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
   }
 
   async function onSubmit(values: IAccountInfoForm): Promise<void> {
-    setIsLoading(true)
-    let isSuccess: boolean = false
-
     try {
+      setIsLoading(true)
+
       const payload: IUpdateMemberProfilePayload = {
         firstName: values.firstName,
         lastName: values.lastName
@@ -210,6 +210,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
       if (values.image) {
         const formData: FormData = new FormData()
         formData.append('image', values.image.file.originFileObj)
+
         const imageRes: IApiResponse = await ImageService.upload(formData)
 
         if (imageRes.data.id) {
@@ -222,18 +223,18 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
         setInfo(infoRes.data)
       }
 
-      isSuccess = true
-    } catch (error) {
-      console.log(error)
-    }
-
-    if (isSuccess) {
       message.success(t('common:apiMessage.success'))
-    } else {
-      message.error(t('common:apiMessage.error'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   function renderAvatar(): JSX.Element {
@@ -356,10 +357,11 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                     {renderAvatar()}
                   </Col>
                   <Col sm={8} xs={12} className="text-center">
-                    <Form.Item name="image">
+                    <Form.Item name="image" className="mb-1">
                       <Upload
                         accept={ImageAcceptConst.toString()}
                         maxCount={1}
+                        showUploadList={false}
                         onChange={onChangeImage}
                       >
                         <Button className="hps-btn-secondary">
@@ -394,7 +396,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount />
                     </Form.Item>
                   </Col>
                   <Col sm={12} xs={24}>
@@ -408,7 +410,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount />
                     </Form.Item>
                   </Col>
                   <Col span={24}>

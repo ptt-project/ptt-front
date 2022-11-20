@@ -9,8 +9,9 @@ import { UploadChangeParam } from 'antd/lib/upload'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import { ConfigService } from '../../../../../services'
 import { IConfigOptionPlatformCategory, IProductInfo } from '../../../../../interfaces'
-import { HelperGetImageUtil } from '../../../../../utils/main'
+import { ImageUrlUtil, OptionKeyLabelUtil } from '../../../../../utils/main'
 import { ImageSizeEnum } from '../../../../../enums'
+import { NextRouter, useRouter } from 'next/router'
 
 const { Text } = Typography
 
@@ -20,6 +21,7 @@ interface IInfoProps {
 }
 
 const Info: FC<IInfoProps> = (props: IInfoProps) => {
+  const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const { data: configOptions } = ConfigService.useGetConfigOptions()
   const [fileList, setFileList] = useState<UploadFile[]>(getDefaultImages)
@@ -33,7 +35,7 @@ const Info: FC<IInfoProps> = (props: IInfoProps) => {
           uid: id,
           name: id,
           status: 'done',
-          url: HelperGetImageUtil(id, ImageSizeEnum.THUMBNAIL)
+          url: ImageUrlUtil(id, ImageSizeEnum.THUMBNAIL)
         })
       })
     }
@@ -156,7 +158,7 @@ const Info: FC<IInfoProps> = (props: IInfoProps) => {
               <Select.Option value="">{t('common:form.option')}</Select.Option>
               {configOptions?.platformCategory.map((category: IConfigOptionPlatformCategory) => (
                 <Select.Option key={category.value} value={category.value}>
-                  {category.label}
+                  {category[OptionKeyLabelUtil(router)]}
                 </Select.Option>
               ))}
             </Select>

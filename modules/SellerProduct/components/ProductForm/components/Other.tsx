@@ -1,9 +1,9 @@
 import React, { ChangeEvent, FC } from 'react'
+import HighlightLabel from '~/components/main/HighlightLabel'
+import styles from '../ProductForm.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Radio, Col, Form, Input, Row, FormInstance } from 'antd'
-import HighlightLabel from '~/components/main/HighlightLabel'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import styles from '../ProductForm.module.scss'
 
 const { Text } = Typography
 

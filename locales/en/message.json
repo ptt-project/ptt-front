@@ -4,7 +4,7 @@
       "register": {
         "alreadyUsername": "Username นี้มีอยู่ในระบบแล้ว",
         "alreadyEmail": "Email นี้มีอยู่ในระบบแล้ว",
-        "alreadyMobile": "เบอร์นี้มีอยู่ในระบบแล้ว"
+        "alreadyMobile": "เบอร์โทร นี้มีอยู่ในระบบแล้ว"
       },
       "login": {
         "invalidUsername": "Username หรือ Password ไม่ถูกต้อง โปรดลองอีกครั้ง",
@@ -14,7 +14,17 @@
         "invalidEmail": "Email นี้ไม่มีมีอยู่ในระบบ",
         "invalidOtp": "รหัส OTP ไม่ถูกต้อง"
       }
-    }
+    },
+    "account": {
+      "info": {},
+      "mobile": {},
+      "email": {
+        "alreadyEmail": "Email นี้มีอยู่ในระบบแล้ว"
+      }
+    },
+    "address": {},
+    "password": {},
+    "relation": {}
   },
   "seller": {}
 }

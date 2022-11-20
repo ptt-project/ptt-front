@@ -18,6 +18,7 @@ interface ISellerProductListPageProps {
     status: string
     page: number
   }
+  param?: any // FIXME debug
 }
 
 export const getServerSideProps: any = withSellerAuth(
@@ -53,26 +54,26 @@ export const getServerSideProps: any = withSellerAuth(
       }
     }
 
+    let param: any = {}
+
     if (req) {
       try {
         const params: { [key: string]: string | boolean | number } = {}
 
         Object.keys(query).forEach((key: string) => {
-          if (query[key]) {
+          if (query[key] !== '' && typeof query[key] !== 'undefined') {
             params[key] = query[key]
           }
         })
+
+        param = params
 
         const option: AxiosRequestConfig = {
           headers: { Cookie: req.headers.cookie },
           params: { ...params }
         }
 
-        console.log(params)
-
         const { data } = await ShopService.getProducts(option)
-
-        console.log(data)
 
         if (data) {
           products = data
@@ -96,7 +97,8 @@ export const getServerSideProps: any = withSellerAuth(
           'seller.product'
         ])),
         products,
-        query
+        query,
+        param
       }
     }
   }
@@ -104,6 +106,6 @@ export const getServerSideProps: any = withSellerAuth(
 
 const SellerProductListPage: FC<ISellerProductListPageProps> = (
   props: ISellerProductListPageProps
-) => <SellerProduct products={props.products} query={props.query} />
+) => <SellerProduct products={props.products} query={props.query} param={props.param} />
 
 export default SellerProductListPage

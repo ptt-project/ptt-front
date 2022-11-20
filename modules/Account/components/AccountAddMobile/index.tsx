@@ -17,6 +17,7 @@ import {
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { MemberService, OtpService } from '~/services'
 import { OtpTypeEnum } from '~/enums'
+import { AxiosError } from 'axios'
 
 const { Text, Title } = Typography
 
@@ -62,10 +63,9 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
   }
 
   async function onRequestOtp(): Promise<void> {
-    setIsLoading(true)
-    let isSuccess: boolean = false
-
     try {
+      setIsLoading(true)
+
       const payload: IOtpRequestPayload = {
         reference: form.getFieldValue('mobileNo'),
         type: OtpTypeEnum.ADD_PHONE
@@ -76,30 +76,28 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
       setOtpData(data)
       setTimer(1.5 * 60 * 1000)
 
-      isSuccess = true
-    } catch (error) {
-      console.log(error)
-    }
-
-    if (isSuccess) {
       message.success(t('common:apiMessage.success'))
-    } else {
-      message.error(t('common:apiMessage.error'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   async function onSubmit(values: IAccountAddMobileForm): Promise<void> {
-    if (!otpData.otpCode) {
+    if (!values.otp) {
       return
     }
 
-    setIsLoading(true)
-
-    let isSuccess: boolean = false
-
     try {
+      setIsLoading(true)
+
       const payload: IUpdateMemberMobilePayload = {
         mobile: values.mobileNo,
         otpCode: values.otp,
@@ -108,20 +106,19 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
 
       await MemberService.createMobile(payload)
 
-      isSuccess = true
-    } catch (error) {
-      console.log(error)
-    }
-
-    if (isSuccess) {
       message.success(t('common:apiMessage.success'))
-
       router.push(`${rootMenu}/settings/${prefixMenu}/mobile`)
-    } else {
-      message.error(t('common:apiMessage.error'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   function renderTimer(): string {

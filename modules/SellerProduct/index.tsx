@@ -26,6 +26,7 @@ interface ISellerProductProps {
     status?: string
     page: number
   }
+  param?: any // FIXME debug
 }
 
 const SellerProduct: FC<ISellerProductProps> = (props: ISellerProductProps) => {
@@ -96,7 +97,12 @@ const SellerProduct: FC<ISellerProductProps> = (props: ISellerProductProps) => {
                 </Col>
               </Row>
               <ProductFilters query={props.query} />
-              <ProductTabs products={products} query={props.query} fetch={fetchData} />
+              <ProductTabs
+                products={products}
+                query={props.query}
+                param={props.param}
+                fetch={fetchData}
+              />
             </Col>
           </Row>
         </div>

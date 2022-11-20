@@ -2,12 +2,14 @@ import { AddressFieldsEnum } from '~/enums'
 
 export interface IConfigOptionBrand {
   value: string
-  label: string
+  labelTh: string
+  labelEn: string
 }
 
 export interface IConfigOptionPlatformCategory {
   value: string
-  label: string
+  labelTh: string
+  labelEn: string
 }
 
 export interface IConfigOptionBank {

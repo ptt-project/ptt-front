@@ -1,18 +1,20 @@
 /* eslint-disable no-template-curly-in-string */
 import React, { useMemo, useState } from 'react'
+import HighlightLabel from '~/components/main/HighlightLabel'
+import CustomInput from '~/components/main/CustomInput'
+import InputNumberFormat from '~/components/main/InputNumberFormat'
+import styles from './BankAccountFrom.module.scss'
 import { Form, FormInstance, Col, Row, Select } from 'antd'
 import { DeepPartial } from 'redux'
 import { DefaultOptionType } from 'antd/lib/select'
 import { Rule } from 'antd/lib/form'
 import { useTranslation } from 'next-i18next'
 import { NumberFormatValues } from 'react-number-format'
-import styles from './BankAccountFrom.module.scss'
-import HighlightLabel from '~/components/main/HighlightLabel'
 import { IBankAccountFromValues, IConfigOptionBank } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
-import CustomInput from '~/components/main/CustomInput'
-import InputNumberFormat from '~/components/main/InputNumberFormat'
 import { ConfigService } from '~/services'
+import { OptionKeyLabelUtil } from '../../../../utils/main'
+import { NextRouter, useRouter } from 'next/router'
 
 interface IBankAccountFromProps {
   parentForm: FormInstance
@@ -21,8 +23,8 @@ interface IBankAccountFromProps {
 }
 
 const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFromProps) => {
+  const router: NextRouter = useRouter()
   const { parentForm, initialValues, onSubmit } = props
-
   const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
   const [form] = Form.useForm(parentForm)
   const [, /* formValues */ setFormValues] = useState<DeepPartial<IBankAccountFromValues>>({})
@@ -37,7 +39,7 @@ const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFro
     if (configOptions?.bank?.length) {
       return configOptions?.bank.map((d: IConfigOptionBank): DefaultOptionType => {
         return {
-          label: d.labelTh,
+          label: d[OptionKeyLabelUtil(router)],
           value: d.value
         }
       })

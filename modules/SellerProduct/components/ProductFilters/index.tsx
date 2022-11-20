@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styles from './ProductFilters.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Button, Row, Col, Form, Input, Select } from 'antd'
@@ -6,6 +6,7 @@ import { LocaleNamespaceConst } from '~/constants'
 import { NextRouter, useRouter } from 'next/router'
 import { ConfigService } from '../../../../services'
 import { IConfigOptionPlatformCategory } from '../../../../interfaces'
+import { OptionKeyLabelUtil } from '../../../../utils/main'
 
 interface IProductFiltersForm {
   keyword: string
@@ -29,6 +30,7 @@ const ProductFilters: FC<IProductFiltersProps> = (props: IProductFiltersProps) =
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const { data: configOptions } = ConfigService.useGetConfigOptions()
   const [form] = Form.useForm()
+  const [currentGroupSearch, setCurrentGroupSearch] = useState<string>()
 
   function onSubmit(values: IProductFiltersForm): void {
     const query: {
@@ -75,24 +77,23 @@ const ProductFilters: FC<IProductFiltersProps> = (props: IProductFiltersProps) =
       <Row gutter={16}>
         <Col md={12} xs={24}>
           <Form.Item label={t('seller.product:list.filters.group')} name="groupSearch">
-            <Select defaultValue="">
+            <Select onChange={(value: string): void => setCurrentGroupSearch(value)}>
               <Select.Option value="">{t('common:form.option')}</Select.Option>
-              <Select.Option value="jack">Jack</Select.Option>
             </Select>
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
           <Form.Item label={t('seller.product:list.filters.keyword')} name="keyword">
-            <Input />
+            <Input disabled={!currentGroupSearch} />
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
           <Form.Item label={t('seller.product:list.filters.category')} name="categoryId">
-            <Select defaultValue="">
+            <Select>
               <Select.Option value="">{t('common:form.option')}</Select.Option>
               {configOptions?.platformCategory.map((category: IConfigOptionPlatformCategory) => (
                 <Select.Option key={category.value} value={category.value}>
-                  {category.label}
+                  {category[OptionKeyLabelUtil(router)]}
                 </Select.Option>
               ))}
             </Select>
