@@ -80,12 +80,13 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
     } catch (e) {
       if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
         switch (e.response.data.code) {
+          case 102006:
+            message.error(t('common:apiMessage.error'))
+            break
           default:
             message.error(t('common:apiMessage.error'))
             break
         }
-      } else if (e.data.code === 102006) {
-        message.error(t('common:apiMessage.error'))
       }
     } finally {
       setIsLoading(false)
