@@ -84,6 +84,8 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
             message.error(t('common:apiMessage.error'))
             break
         }
+      } else if (e.data.code === 102006) {
+        message.error(t('common:apiMessage.error'))
       }
     } finally {
       setIsLoading(false)
@@ -205,7 +207,7 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
                           name="mobileNo"
                           rules={[
                             {
-                              required: true,
+                              required: false,
                               message: `${t('common:form.required')} ${t(
                                 'account-info:mobile.newPhone'
                               )}`
@@ -240,11 +242,15 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
                               )}${renderTimer()}`}
                         </Button>
                       </Col>
-                      <Col span={24} className="mb-2">
-                        <Text type="secondary" className="hps-text-small">
-                          {t('account-info:mobile.msgConfirm')} {props.mobile.mobile}
-                        </Text>
-                      </Col>
+                      {timer > 0 ? (
+                        <Col span={24} className="mb-2">
+                          <Text type="secondary" className="hps-text-small">
+                            {t('account-info:mobile.msgConfirm')} {props.mobile.mobile}
+                          </Text>
+                        </Col>
+                      ) : (
+                        ''
+                      )}
                       <Col span={24}>
                         <div className={styles.label}>
                           <div className={styles.left}>
