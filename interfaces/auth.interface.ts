@@ -16,6 +16,7 @@ export interface IAuthForgotPasswordForm {
 export interface IAuthRegisterValidatePayload {
   email: string
   username: string
+  mobile: string
 }
 
 export interface IAuthRegisterPayload {
