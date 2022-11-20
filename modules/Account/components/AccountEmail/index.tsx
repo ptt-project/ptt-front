@@ -75,6 +75,8 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
             message.error(t('common:apiMessage.error'))
             break
         }
+      } else if (e.data.code === 101001) {
+        message.error(t('message:buyer.account.email.alreadyEmail'))
       }
     } finally {
       setIsLoading(false)
