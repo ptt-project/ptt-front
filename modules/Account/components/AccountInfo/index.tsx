@@ -216,7 +216,6 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
           payload.imageId = imageRes.data.id
         }
       }
-
       const infoRes: IApiResponse = await MemberService.updateProfile(payload)
 
       if (infoRes.data) {
