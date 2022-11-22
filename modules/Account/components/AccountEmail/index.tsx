@@ -32,6 +32,8 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'account-info', 'setting-sidebar'])
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isEmail, setIsEmail] = useState<boolean>(false)
+  const [isPassword, setIsPassword] = useState<boolean>(false)
   const [info] = useState<IMemberInfo>(props.info)
 
   function getEmail(): string {
@@ -154,8 +156,10 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
                                   (RegExpConst.CHECK_EMAIL.test(value) &&
                                     !RegExpConst.MATCH_THAI_LETTER.test(value))
                                 ) {
+                                  setIsEmail(false)
                                   return Promise.resolve()
                                 }
+                                setIsEmail(true)
                                 return Promise.reject(
                                   new Error(
                                     `${t('common:form.invalid.head')} ${t(
@@ -184,8 +188,10 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
                             (): any => ({
                               validator(_: Rule, value: string): Promise<any> {
                                 if (!value || RegExpConst.CHECK_PASSWORD.test(value)) {
+                                  setIsPassword(false)
                                   return Promise.resolve()
                                 }
+                                setIsPassword(true)
                                 return Promise.reject(
                                   new Error(
                                     `${t('common:form.invalid.head')} ${t(
@@ -205,7 +211,12 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
                       </Col>
                       <Col span={24}>
                         <Form.Item>
-                          <Button htmlType="submit" type="primary" block>
+                          <Button
+                            htmlType="submit"
+                            type="primary"
+                            block
+                            disabled={isPassword === true || isEmail === true}
+                          >
                             {t('account-info:button.confirm')}
                           </Button>
                         </Form.Item>
