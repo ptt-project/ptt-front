@@ -10,6 +10,7 @@ export interface IMemberInfo {
   gender?: AccountGenderEnum
   email: string
   imageId?: string
+  invitationToken: string
 }
 
 export interface IMemberMobile {
