@@ -142,7 +142,7 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
                           name="email"
                           rules={[
                             {
-                              required: true,
+                              required: false,
                               message: `${t('common:form.required')} ${t(
                                 'account-info:email.newEmail'
                               )}`
@@ -176,7 +176,7 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
                           name="password"
                           rules={[
                             {
-                              required: true,
+                              required: false,
                               message: `${t('common:form.required')} ${t(
                                 'account-info:email.password'
                               )}`
@@ -199,21 +199,6 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
                         >
                           <Input.Password maxLength={20} />
                         </Form.Item>
-                        <Text type="secondary" className="hps-text-small d-block">
-                          {t('common:passwordHint.a')}
-                        </Text>
-                        <Text type="secondary" className="hps-text-small d-block">
-                          {t('common:passwordHint.b')}
-                        </Text>
-                        <Text type="secondary" className="hps-text-small d-block">
-                          {t('common:passwordHint.c')}
-                        </Text>
-                        <Text type="secondary" className="hps-text-small d-block">
-                          {t('common:passwordHint.d')}
-                        </Text>
-                        <Text type="secondary" className="hps-text-small d-block">
-                          {t('common:passwordHint.e')}
-                        </Text>
                       </Col>
                       <Col span={24} className="text-center mb-5">
                         <Text type="secondary">{t('account-info:email.msgConfirm')}</Text>

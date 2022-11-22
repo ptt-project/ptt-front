@@ -70,7 +70,6 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
         reference: form.getFieldValue('mobileNo'),
         type: OtpTypeEnum.ADD_PHONE
       }
-      console.log('payload', payload)
       const { data }: IApiResponse = await OtpService.requestOtp(payload)
 
       setOtpData(data)
