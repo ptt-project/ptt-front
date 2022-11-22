@@ -70,7 +70,7 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
         reference: form.getFieldValue('mobileNo'),
         type: OtpTypeEnum.ADD_PHONE
       }
-
+      console.log('payload', payload)
       const { data }: IApiResponse = await OtpService.requestOtp(payload)
 
       setOtpData(data)
@@ -246,7 +246,7 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
                       {timer > 0 ? (
                         <Col span={24} className="mb-2">
                           <Text type="secondary" className="hps-text-small">
-                            {t('account-info:mobile.msgConfirm')} {props.mobile.mobile}
+                            {t('account-info:mobile.msgConfirm')} {currentMobileNo}
                           </Text>
                         </Col>
                       ) : (
