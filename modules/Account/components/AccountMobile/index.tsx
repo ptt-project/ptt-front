@@ -206,7 +206,6 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
   }
 
   useEffect(() => {
-    console.log('+++++', selected?.mobileNo)
     if (selected?.mobileNo) {
       if (selected?.type === SelectedType.MAIN) {
         toggleOtp()
