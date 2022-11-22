@@ -3,7 +3,7 @@ import { AxiosService } from './axios.service'
 import { IApiResponse } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
 import { EnumImageSize } from '~/enums/image.enum'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 
 export const upload = (formData: FormData): Promise<IApiResponse> =>
   AxiosService.post(EndPointUrlConst.IMAGES.UPLOAD, formData, {
@@ -19,7 +19,11 @@ export const getImage = (
   })
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const useGetImage = (imageId: string, imageSize: EnumImageSize = EnumImageSize.SMALL) => {
+export const useGetImage = (
+  imageId: string,
+  imageSize: EnumImageSize = EnumImageSize.SMALL,
+  options?: UseQueryOptions<Blob>
+) => {
   return useQuery(
     [EndPointUrlConst.IMAGES.IMAGE, imageId, imageSize],
     async () => {
@@ -29,7 +33,8 @@ export const useGetImage = (imageId: string, imageSize: EnumImageSize = EnumImag
     {
       enabled: !!imageId,
       cacheTime: Infinity,
-      staleTime: 60 * 60 * 1000
+      staleTime: 60 * 60 * 1000,
+      ...options
     }
   )
 }

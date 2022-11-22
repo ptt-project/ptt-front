@@ -46,3 +46,17 @@ export const useGetMyWallet = (option?: AxiosRequestConfig) =>
     const response = await getMyWallet(option)
     return response.data
   })
+
+export const useGetWalletDepositQrCode = (params: IWalletDepositQrCodeParams) => {
+  return useQuery(
+    [EndPointUrlConst.WALLET.DEPOSIT_QR_CODE, params],
+    async () => {
+      const { data } = await postWalletDepositQrCode(params)
+      return data
+    },
+    {
+      enabled: !!params.amount,
+      retry: 0
+    }
+  )
+}
