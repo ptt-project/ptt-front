@@ -39,22 +39,24 @@ const RelationTree: React.FC<IRelationTreeProps> = (props: IRelationTreeProps) =
 
   return (
     <div id="treeWrapper" ref={containerRef} className={styles.relationTreeLayout}>
-      <Tree
-        data={props.data}
-        orientation="vertical"
-        pathFunc="diagonal"
-        initialDepth={3}
-        depthFactor={0}
-        scaleExtent={{ max: 1.5, min: 0.8 }}
-        zoom={1}
-        rootNodeClassName={styles.root}
-        branchNodeClassName={styles.branch}
-        leafNodeClassName={styles.leaf}
-        translate={translate}
-        dimensions={dimensions}
-        pathClassFunc={getDynamicPathClass}
-        renderCustomNodeElement={renderNodeWithCustomEvents}
-      />
+      {props.data && (
+        <Tree
+          data={props.data}
+          orientation="vertical"
+          pathFunc="diagonal"
+          initialDepth={3}
+          depthFactor={0}
+          scaleExtent={{ max: 1.5, min: 0.8 }}
+          zoom={1}
+          rootNodeClassName={styles.root}
+          branchNodeClassName={styles.branch}
+          leafNodeClassName={styles.leaf}
+          translate={translate}
+          dimensions={dimensions}
+          pathClassFunc={getDynamicPathClass}
+          renderCustomNodeElement={renderNodeWithCustomEvents}
+        />
+      )}
     </div>
   )
 }

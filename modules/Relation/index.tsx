@@ -14,7 +14,7 @@ import { useTranslation } from 'next-i18next'
 import { CustomUrlUtil } from '~/utils/main'
 import { IRelationTableData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
-import { RelationLevelEnum } from '~/enums'
+import { MemberService } from '~/services'
 
 const { TabPane } = Tabs
 
@@ -30,40 +30,21 @@ const Relation: React.FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'relation'])
 
   const [tabActive, setTabActive] = useState<RelationTabs>(RelationTabs.RELATION_TREE)
+  const { data: user } = MemberService.useGetProfile()
+  const { data: relationsResponse } = MemberService.useGetRelations()
 
-  const inviteLink: string = 'inviteLink' // TODO: รอ inviteLink ของจริง
+  const inviteLink: string = useMemo(() => {
+    const { invitationToken } = user || {}
+    return `${process.env.NEXT_PUBLIC_CLIENT_URL}/auth/register?token=${invitationToken}`
+  }, [user])
 
   const relationTableData: IRelationTableData[] = useMemo(
-    () => [
-      {
-        username: 'zamzbugg3',
-        level: RelationLevelEnum.CHILD
-      },
-      {
-        username: 'zamzbugg4',
-        level: RelationLevelEnum.CHILD
-      }
-    ],
-    []
+    () => relationsResponse?.relationTable || [],
+    [relationsResponse?.relationTable]
   )
   const relationDataTree: RawNodeDatum = useMemo(
-    () => ({
-      name: 'testuser01',
-      children: [
-        {
-          name: 'zamzbugg3',
-          children: [],
-          level: 1
-        },
-        {
-          name: 'zamzbugg4',
-          children: [],
-          level: 1
-        }
-      ],
-      level: 0
-    }),
-    []
+    () => relationsResponse?.relationTree,
+    [relationsResponse?.relationTree]
   )
 
   function onTabChange(tabKey: RelationTabs): void {

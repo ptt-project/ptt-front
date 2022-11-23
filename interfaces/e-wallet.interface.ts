@@ -32,7 +32,7 @@ export interface IWalletDepositQrCodeParams {
   amount: number
 }
 
-export type IWalletDepositQrCodeResponse = string // น่าจะเป็น base64 string
+export type IWalletDepositQrCodeResponse = string // qr code image id ต้องไป get รูปมาอีกรอบ
 
 export interface IWalletWithdrawParams {
   otpCode: string

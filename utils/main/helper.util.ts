@@ -38,7 +38,7 @@ export function HelperCreateIDBPersisterUtil(idbValidKey: IDBValidKey = 'reactQu
   } as Persister
 }
 
-export const HelperBlobToFileUtil = async (blobData: Blob, filename: string): Promise<File> => {
+export const HelperBlobToFileUtil = (blobData: Blob, filename: string): File => {
   return new File([blobData], `${filename}`, {
     type: blobData.type,
     lastModified: new Date().getTime()

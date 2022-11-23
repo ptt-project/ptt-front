@@ -9,6 +9,8 @@ export interface IHappyPoint extends IBaseEntity {
 
 export interface IGetHappyPointHistoryParams {
   filter?: HappyPointTypeEnum
+  startDate?: Date
+  endDate?: Date
   limit?: number
   page?: number
 }

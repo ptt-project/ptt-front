@@ -15,14 +15,19 @@ const { Text } = Typography
 
 interface IHappyPointHistoryTableProps {
   filter?: HappyPointTypeEnum
+  startDate?: moment.Moment
+  endDate?: moment.Moment
 }
 const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
   props: IHappyPointHistoryTableProps
 ) => {
-  const { filter } = props
+  const { filter, startDate, endDate } = props
+
   const { page, limit, onPageChange, onLimitChange } = CustomPagingUtil()
   const { data: happyPointHistory, isLoading } = HappyPointService.useGetHappyPointHistory({
     filter,
+    startDate: startDate?.toDate(),
+    endDate: endDate?.toDate(),
     page,
     limit
   })

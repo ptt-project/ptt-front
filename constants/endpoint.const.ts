@@ -19,7 +19,8 @@ export const EndPointUrlConst = {
     MOBILES_ADD: '/members/mobiles/add',
     MOBILES_DELETE: '/members/mobiles/delete',
     MOBILES_SET_MAIN: '/members/mobiles/set-main',
-    CHANGE_PASSWORD: '/members/change-password'
+    CHANGE_PASSWORD: '/members/change-password',
+    RELATION: '/members/relations'
   },
   SELLERS: {
     REGISTER: '/sellers/register',

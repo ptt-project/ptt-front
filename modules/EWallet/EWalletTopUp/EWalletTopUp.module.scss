@@ -49,3 +49,8 @@
     width: 100%;
   }
 }
+
+.qrCodeImage {
+  max-width: 250px;
+  object-fit: scale-down;
+}
