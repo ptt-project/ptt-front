@@ -221,6 +221,7 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
     <>
       <Loading show={isLoading} />
       <OtpModal
+        title={`${t('account-info:mobile.titleOtp')} ${HelperMobileFormatUtil(getOtpMobileNo())}`}
         mobile={getOtpMobileNo()}
         action={OtpTypeEnum.REGISTER}
         isOpen={isOpenOtp}
@@ -232,7 +233,9 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
         toggle={toggleRemove}
         type="error"
         title={t('account-info:mobile.deletePhone')}
-        content={`${t('account-info:mobile.confirmDelete')} ${selected?.mobileNo}`}
+        content={`${t('account-info:mobile.confirmDelete')} ${
+          selected ? HelperMobileFormatUtil(selected.mobileNo) : ''
+        }`}
         contentWarning={t('account-info:mobile.msgConfirmDelete')}
         onSubmit={(): void => {
           toggleRemove()

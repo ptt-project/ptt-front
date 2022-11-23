@@ -37,7 +37,8 @@
     "confirmOTP": "ยืนยัน OTP ไปยังหมายเลขหลัก",
     "deletePhone": "ลบเบอร์โทร",
     "confirmDelete": "ยืนยันการลบเบอร์โทร",
-    "msgConfirmDelete": "ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้"
+    "msgConfirmDelete": "ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้",
+    "titleOtp": "ยืนยัน OTP ไปที่เบอร์"
   },
   "button": {
     "chooseImage": "เลือกรูป",
