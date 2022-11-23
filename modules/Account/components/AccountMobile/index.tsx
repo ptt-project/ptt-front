@@ -221,7 +221,7 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
     <>
       <Loading show={isLoading} />
       <OtpModal
-        title={`${t('account-info:mobile.titleOTP')} ${HelperMobileFormatUtil(getOtpMobileNo())}`}
+        title={`${t('account-info:mobile.titleOtp')} ${HelperMobileFormatUtil(getOtpMobileNo())}`}
         mobile={getOtpMobileNo()}
         action={OtpTypeEnum.REGISTER}
         isOpen={isOpenOtp}
