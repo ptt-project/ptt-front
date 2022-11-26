@@ -1,12 +1,13 @@
 import React, { FC, useState } from 'react'
 import Helmet from 'react-helmet'
+import Image from '../../components/main/Image'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import Loading from '~/components/main/Loading'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import styles from './SellerShopDetail.module.scss'
 import { useTranslation } from 'next-i18next'
-import { Typography, Row, Col, Button, Form, Upload, Input, Image, Avatar, message } from 'antd'
+import { Typography, Row, Col, Button, Form, Upload, Input, Avatar, message } from 'antd'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
 import { IShopInfo, IShopUpdateInfoPayload, IApiResponse } from '~/interfaces'
 import { UploadChangeParam } from 'antd/lib/upload'
@@ -70,9 +71,7 @@ const SellerShopDetail: FC<ISellerShopDetailProps> = (props: ISellerShopDetailPr
 
   function renderCover(): JSX.Element {
     if (currentCoverImage) {
-      return (
-        <Image rootClassName={styles.imgWrapper} preview={false} src={currentCoverImage} alt="" />
-      )
+      return <Image rootClassName={styles.imgWrapper} src={currentCoverImage} alt="" />
     }
   }
 

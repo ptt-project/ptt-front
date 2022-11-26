@@ -2,22 +2,23 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/typedef */
 import React, { FC, useMemo, ReactNode, useCallback } from 'react'
-import { useTranslation } from 'next-i18next'
-import { Col, Form, FormInstance, Grid, Image, message, Modal, Row, Typography } from 'antd'
 import Table, { ColumnsType } from 'antd/lib/table'
+import Image from '../../../components/main/Image'
+import InputNumberFormat from '~/components/main/InputNumberFormat'
+import InputCounter from './InputCounter'
+import CartProductDetail from './CartProductDetail'
+import CartProductDetailMobile from './CartProductDetailMobile'
+import CartProductTotalPrice from './CartProductTotalPrice'
+import styles from './CartList.module.scss'
+import { useTranslation } from 'next-i18next'
+import { Col, Form, FormInstance, Grid, message, Modal, Row, Typography } from 'antd'
 import { DeepPartial } from 'redux'
 import { map, orderBy, pickBy, random, transform } from 'lodash'
 import { TableRowSelection } from 'antd/lib/table/interface'
 import { CloseCircleOutlined } from '@ant-design/icons'
 import { ICartProduct, ICartProductItem, IShop } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './CartList.module.scss'
-import InputNumberFormat from '~/components/main/InputNumberFormat'
-import InputCounter from './InputCounter'
-import CartProductDetail from './CartProductDetail'
 import { HelperDecimalFormatUtil } from '~/utils/main'
-import CartProductDetailMobile from './CartProductDetailMobile'
-import CartProductTotalPrice from './CartProductTotalPrice'
 import { ICartFormValues } from '..'
 
 const { Text } = Typography
@@ -298,13 +299,13 @@ const CartList: FC<ICartListProps> = (props: ICartListProps) => {
               <Col span={24}>
                 <Form.Item name={['products', productId, 'id']} hidden />
                 {isProduct && (
-                  <Image
-                    className={styles.iconDelete}
-                    preview={false}
-                    src="./images/main/buyer/icon-delete-blue.svg"
-                    alt=""
-                    onClick={onDeleteClick.bind(null, record)}
-                  />
+                  <div onClick={onDeleteClick.bind(null, record)}>
+                    <Image
+                      className={styles.iconDelete}
+                      src="./images/main/buyer/icon-delete-blue.svg"
+                      alt=""
+                    />
+                  </div>
                 )}
               </Col>
             </Row>

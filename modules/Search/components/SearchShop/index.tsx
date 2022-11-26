@@ -1,11 +1,12 @@
 import React, { FC, useState, useEffect } from 'react'
 import Helmet from 'react-helmet'
+import Image from '../../../../components/main/Image'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import ShopCard from '~/components/main/ShopCard'
 import styles from './SearchShop.module.scss'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import { Col, Image, Row, Space, Typography } from 'antd'
+import { Col, Row, Space, Typography } from 'antd'
 import { LocaleNamespaceConst } from '../../../../constants'
 
 const { Title, Text } = Typography
@@ -45,14 +46,7 @@ const SearchShop: FC = () => {
         <div className="container">
           <Row gutter={24}>
             <Col xl={6}>
-              <div className={styles.imgContainer}>
-                <Image
-                  rootClassName={styles.imgWrapper}
-                  preview={false}
-                  src="./images/main/buyer/search-shop.png"
-                  alt="search shop"
-                />
-              </div>
+              <Image src="./images/main/buyer/search-shop.png" alt="search shop" ratio={2 / 3} />
             </Col>
             <Col xl={18} md={24}>
               <Title className={styles.title} level={4}>

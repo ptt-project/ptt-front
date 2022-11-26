@@ -1,9 +1,10 @@
-import { Button, Col, Image, Row, Space, Typography } from 'antd'
-import { useTranslation } from 'next-i18next'
 import React, { FC } from 'react'
+import Image from '../../../../components/main/Image'
+import styles from './BalanceCard.module.scss'
+import { Button, Col, Row, Space, Typography } from 'antd'
+import { useTranslation } from 'next-i18next'
 import { LocaleNamespaceConst } from '~/constants'
 import { HelperDecimalFormatUtil } from '~/utils/main'
-import styles from './BalanceCard.module.scss'
 
 const { Text } = Typography
 
@@ -24,7 +25,6 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
           <Text className={styles.balanceLabel}>{t('happy-point:common.balance')}</Text>
           <Space align="center" size={8} direction="horizontal">
             <Image
-              preview={false}
               className={styles.happyPointIcon}
               src="./images/main/buyer/happy-point-icon.svg"
               alt=""
@@ -41,7 +41,7 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
               className={`${styles.button} hps-btn-secondary`}
               icon={
                 <Image
-                  preview={false}
+                  className="mr-1"
                   src="./images/main/buyer/happy-point-buy.svg"
                   alt="happy-point-buy"
                 />
@@ -56,7 +56,7 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
               className={`${styles.button} hps-btn-secondary`}
               icon={
                 <Image
-                  preview={false}
+                  className="mr-1"
                   src="./images/main/buyer/happy-point-sell.svg"
                   alt="happy-point-sell"
                 />
@@ -71,7 +71,7 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
               className={`${styles.button} hps-btn-secondary`}
               icon={
                 <Image
-                  preview={false}
+                  className="mr-1"
                   src="./images/main/buyer/happy-point-transfer.svg"
                   alt="happy-point-transfer"
                 />

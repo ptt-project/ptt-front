@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
+import Image from '../Image'
 import styles from './Footer.module.scss'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import { Typography, Row, Col, Image } from 'antd'
+import { Typography, Row, Col } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 import { CustomUrlUtil } from '~/utils/main'
 
@@ -19,7 +20,7 @@ const Footer: FC = () => {
           <Row>
             <Col span={24}>
               <Link href={CustomUrlUtil('/', router.locale)}>
-                <Image width={100} preview={false} src="./images/main/logo-white.png" alt="logo" />
+                <Image className={styles.logo} src="./images/main/logo-white.png" alt="logo" />
               </Link>
             </Col>
           </Row>

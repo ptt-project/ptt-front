@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/typedef */
-import { Col, Image, Row, Typography } from 'antd'
 import React, { useCallback } from 'react'
-import { useTranslation } from 'next-i18next'
-import styles from './BankAccountCard.module.scss'
+import Image from '../../../../components/main/Image'
 import BankLogo from './BankLogo'
+import styles from './BankAccountCard.module.scss'
+import { Col, Row, Typography } from 'antd'
+import { useTranslation } from 'next-i18next'
 import { HelperCensorBankAccountNoUtil } from '~/utils/main'
 import { BankAccountStatusEnum } from '~/enums'
 import { IBankAccountData } from '~/interfaces'
@@ -68,7 +69,6 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
             <div className={styles.bankTagDefault}>
               {data.isMain && (
                 <Image
-                  preview={false}
                   src="./images/main/buyer/bank-account-tag-default.svg"
                   alt="bank-account-tag-default"
                 />
@@ -83,31 +83,35 @@ const BankAccountCard: React.FC<IBankAccountCardProps> = (props: IBankAccountCar
         </div>
       </Col>
       <Col className={styles.actionLayout} md={4} sm={2}>
-        <Image
-          className={[styles.clickable, styles.actionIcon].join(' ')}
-          preview={false}
-          src="./images/main/buyer/icon-edit.svg"
-          alt=""
-          onClick={onEditClick}
-        />
-        <Image
-          className={[styles.clickable, styles.actionIcon, data.isMain ? styles.disabled : ''].join(
-            ' '
-          )}
-          preview={false}
-          src={`./images/main/buyer/icon-favorite${data.isMain ? '-disabled' : ''}.svg`}
-          alt=""
-          onClick={handleFavoriteClick}
-        />
-        <Image
-          className={[styles.clickable, styles.actionIcon, data.isMain ? styles.disabled : ''].join(
-            ' '
-          )}
-          preview={false}
-          src={`./images/main/buyer/icon-delete${data.isMain ? '-disabled' : ''}.svg`}
-          alt=""
-          onClick={handleDeleteClick}
-        />
+        <div onClick={onEditClick}>
+          <Image
+            className={[styles.clickable, styles.actionIcon].join(' ')}
+            src="./images/main/buyer/icon-edit.svg"
+            alt=""
+          />
+        </div>
+        <div onClick={handleFavoriteClick}>
+          <Image
+            className={[
+              styles.clickable,
+              styles.actionIcon,
+              data.isMain ? styles.disabled : ''
+            ].join(' ')}
+            src={`./images/main/buyer/icon-favorite${data.isMain ? '-disabled' : ''}.svg`}
+            alt=""
+          />
+        </div>
+        <div onClick={handleDeleteClick}>
+          <Image
+            className={[
+              styles.clickable,
+              styles.actionIcon,
+              data.isMain ? styles.disabled : ''
+            ].join(' ')}
+            src={`./images/main/buyer/icon-delete${data.isMain ? '-disabled' : ''}.svg`}
+            alt=""
+          />
+        </div>
       </Col>
     </Row>
   )

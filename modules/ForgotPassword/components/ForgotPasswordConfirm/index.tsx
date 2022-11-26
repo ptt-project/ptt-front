@@ -1,7 +1,8 @@
 import React, { FC } from 'react'
+import Image from '../../../../components/main/Image'
 import styles from './ForgotPasswordConfirm.module.scss'
 import { useTranslation } from 'next-i18next'
-import { Typography, Row, Col, Image, Form, Input, Button, Space } from 'antd'
+import { Typography, Row, Col, Form, Input, Button, Space } from 'antd'
 import { Rule } from 'antd/lib/form'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { OtpReferenceTypeEnum } from '../../../../enums'
@@ -30,14 +31,11 @@ const ForgotPasswordConfirm: FC<IForgotPasswordConfirmProps> = (
       <div className="container">
         <Row gutter={48}>
           <Col xl={6} lg={0} xs={0}>
-            <div className={styles.imgContainer}>
-              <Image
-                rootClassName={styles.imgWrapper}
-                preview={false}
-                src="./images/main/buyer/forgot-password.png"
-                alt="forgot-password"
-              />
-            </div>
+            <Image
+              src="./images/main/buyer/forgot-password.png"
+              alt="forgot-password"
+              ratio={2 / 3}
+            />
           </Col>
           <Col xl={18} lg={24} xs={24}>
             <Row>

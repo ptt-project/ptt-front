@@ -1,15 +1,16 @@
-import { Col, Image, Row, Space, Table, Tag, TagProps, Typography } from 'antd'
+import React, { FC, ReactNode, useMemo } from 'react'
+import moment from 'moment'
+import Image from '../../../../../components/main/Image'
+import styles from './HappyPointHistoryTable.module.scss'
+import { Col, Row, Space, Table, Tag, TagProps, Typography } from 'antd'
 import { ColumnsType, TablePaginationConfig } from 'antd/lib/table'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/lib/table/interface'
-import moment from 'moment'
 import { useTranslation } from 'next-i18next'
-import React, { FC, ReactNode, useMemo } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import { HappyPointStatusEnum, HappyPointTypeEnum } from '~/enums'
 import { IHappyPointHistoryData } from '~/interfaces'
 import { HappyPointService } from '~/services'
 import { CustomPagingUtil, HelperDecimalFormatUtil } from '~/utils/main'
-import styles from './HappyPointHistoryTable.module.scss'
 
 const { Text } = Typography
 
@@ -79,12 +80,7 @@ const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
           return (
             <Row gutter={[4, 0]} wrap={false}>
               <Col>
-                <Image
-                  className={styles.typeIcon}
-                  preview={false}
-                  src={happyPointTypeIcon}
-                  alt=""
-                />
+                <Image className={styles.typeIcon} src={happyPointTypeIcon} alt="" />
               </Col>
               <Col>
                 <Text>{happyPointTypeLabel}</Text>

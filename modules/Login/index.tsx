@@ -1,11 +1,12 @@
 import React, { useState, FC } from 'react'
 import Helmet from 'react-helmet'
+import Image from '../../components/main/Image'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import Loading from '~/components/main/Loading'
 import styles from './Login.module.scss'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import { Typography, Space, Button, Row, Col, Form, Input, Divider, Image, message } from 'antd'
+import { Typography, Space, Button, Row, Col, Form, Input, Divider, message } from 'antd'
 import { AuthInitUtil, CustomUrlUtil } from '~/utils/main'
 import { IAuthLoginPayload, IFieldData } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
@@ -81,14 +82,7 @@ const Login: FC = () => {
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <div className={styles.imgContainer}>
-                <Image
-                  rootClassName={styles.imgWrapper}
-                  preview={false}
-                  src="./images/main/buyer/login.png"
-                  alt="login"
-                />
-              </div>
+              <Image src="./images/main/buyer/login.png" alt="login" ratio={2 / 3} />
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
               <Title className="hps-title" level={4}>

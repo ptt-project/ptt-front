@@ -1,7 +1,8 @@
 import React, { FC } from 'react'
+import Image from '../Image'
 import styles from './ConfirmationModal.module.scss'
 import { useTranslation } from 'next-i18next'
-import { Typography, Button, Row, Col, Modal, Image } from 'antd'
+import { Typography, Button, Row, Col, Modal } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 
 const { Text, Title } = Typography
@@ -79,7 +80,7 @@ const ConfirmationModal: FC<IConfirmationModalProps> = (props: IConfirmationModa
       {props.contentImg && (
         <Col>
           <div className="mt-2">
-            <Image preview={false} width={56} src={props.contentImg} alt={props.title} />
+            <Image size={56} src={props.contentImg} alt={props.title} />
             <Text className="ml-2">{props.contentTextImg}</Text>
           </div>
         </Col>

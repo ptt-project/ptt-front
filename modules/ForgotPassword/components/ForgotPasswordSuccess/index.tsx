@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
+import Image from '../../../../components/main/Image'
 import styles from './ForgotPasswordSuccess.module.scss'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import { Typography, Space, Button, Image, Row, Col } from 'antd'
+import { Typography, Space, Button, Row, Col } from 'antd'
 import { CustomUrlUtil, HelperMobileFormatUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
 import { OtpReferenceTypeEnum } from '~/enums'
@@ -25,14 +26,11 @@ const ForgotPasswordSuccess: FC<IForgotPasswordSuccessProps> = (
       <div className="container">
         <Row gutter={48}>
           <Col xl={6} lg={0}>
-            <div className={styles.sideImgContainer}>
-              <Image
-                rootClassName={styles.imgWrapper}
-                preview={false}
-                src="./images/main/buyer/forgot-password.png"
-                alt="forgot-password"
-              />
-            </div>
+            <Image
+              src="./images/main/buyer/forgot-password.png"
+              alt="forgot-password"
+              ratio={2 / 3}
+            />
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
             <Title className="hps-title" level={4}>
@@ -40,14 +38,11 @@ const ForgotPasswordSuccess: FC<IForgotPasswordSuccessProps> = (
             </Title>
             <Row>
               <Col xl={{ span: 12, offset: 6 }} xs={24}>
-                <div className={styles.imgContainer}>
-                  <Image
-                    rootClassName={styles.imgWrapper}
-                    preview={false}
-                    src="./images/main/buyer/forgot-password-success.png"
-                    alt="forgot-password-success"
-                  />
-                </div>
+                <Image
+                  src="./images/main/buyer/forgot-password-success.png"
+                  alt="forgot-password-success"
+                  ratio={3 / 2}
+                />
               </Col>
             </Row>
             <Row>

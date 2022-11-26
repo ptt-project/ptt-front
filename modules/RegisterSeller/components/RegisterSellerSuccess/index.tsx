@@ -1,7 +1,8 @@
 import React, { FC } from 'react'
+import Image from '../../../../components/main/Image'
 import styles from './RegisterSellerSuccess.module.scss'
 import { useTranslation } from 'next-i18next'
-import { Typography, Row, Col, Image } from 'antd'
+import { Typography, Row, Col } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 
 const { Text, Title } = Typography
@@ -14,14 +15,7 @@ const RegisterSellerSuccess: FC = () => {
       <div className="container">
         <Row gutter={48}>
           <Col xl={6} lg={0}>
-            <div className={styles.sideImgContainer}>
-              <Image
-                rootClassName={styles.imgWrapper}
-                preview={false}
-                src="./images/main/seller/login.png"
-                alt="login-seller"
-              />
-            </div>
+            <Image src="./images/main/seller/login.png" alt="login-seller" ratio={2 / 3} />
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
             <Title className="hps-title" level={4}>
@@ -29,14 +23,11 @@ const RegisterSellerSuccess: FC = () => {
             </Title>
             <Row>
               <Col xl={{ span: 12, offset: 6 }} xs={24}>
-                <div className={styles.imgContainer}>
-                  <Image
-                    rootClassName={styles.imgWrapper}
-                    preview={false}
-                    src="./images/main/seller/register-success.png"
-                    alt="register-seller-success"
-                  />
-                </div>
+                <Image
+                  src="./images/main/seller/register-success.png"
+                  alt="register-seller-success"
+                  ratio={3 / 2}
+                />
               </Col>
             </Row>
             <Row>

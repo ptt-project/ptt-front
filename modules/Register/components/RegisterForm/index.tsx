@@ -1,22 +1,11 @@
 import React, { useState, FC, ChangeEvent } from 'react'
+import Image from '../../../../components/main/Image'
 import Loading from '~/components/main/Loading'
 import styles from './RegisterForm.module.scss'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { isEmpty } from 'lodash'
-import {
-  Typography,
-  Space,
-  Button,
-  Row,
-  Col,
-  Form,
-  Input,
-  Divider,
-  Image,
-  Modal,
-  message
-} from 'antd'
+import { Typography, Space, Button, Row, Col, Form, Input, Divider, Modal, message } from 'antd'
 import { Rule } from 'antd/lib/form'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { IAuthRegisterForm, IAuthRegisterValidatePayload } from '~/interfaces'
@@ -153,14 +142,11 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <div className={styles.imgContainer}>
-                <Image
-                  rootClassName={styles.imgWrapper}
-                  preview={false}
-                  src="./images/main/buyer/register-form.png"
-                  alt="register-form"
-                />
-              </div>
+              <Image
+                src="./images/main/buyer/register-form.png"
+                alt="register-form"
+                ratio={2 / 3}
+              />
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
               <Title className="hps-title" level={4}>

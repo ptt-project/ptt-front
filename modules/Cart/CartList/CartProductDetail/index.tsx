@@ -1,10 +1,11 @@
-import React, { Col, Image, Row, Typography } from 'antd'
+import React, { FC } from 'react'
+import Image from '../../../../components/main/Image'
+import styles from './CartProductDetail.module.scss'
 import { compact } from 'lodash'
 import { useTranslation } from 'next-i18next'
-import { FC } from 'react'
+import { Col, Row, Typography } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 import { ICartProduct } from '~/interfaces'
-import styles from './CartProductDetail.module.scss'
 
 interface ICartProductDetailProps {
   product: ICartProduct
@@ -18,11 +19,7 @@ const CartProductDetail: FC<ICartProductDetailProps> = (props: ICartProductDetai
   return (
     <Row wrap={false} className={styles.layout} gutter={8} justify="start" align="top">
       <Col className={styles.image}>
-        <Image
-          preview={false}
-          src="./images/main/buyer/mock-cart-product.svg"
-          alt="mock-cart-product"
-        />
+        <Image src="./images/main/buyer/mock-cart-product.svg" alt="mock-cart-product" />
       </Col>
       <Col className={styles.name}>
         <Typography.Paragraph

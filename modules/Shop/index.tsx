@@ -1,11 +1,12 @@
 import React, { FC, useState, useEffect } from 'react'
 import Helmet from 'react-helmet'
+import Image from '../../components/main/Image'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import ProductCard from '~/components/main/ProductCard'
 import styles from './Shop.module.scss'
 import { NextRouter, useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Avatar, Button, Carousel, Col, Image, Row, Space, Tabs, Typography } from 'antd'
+import { Avatar, Button, Carousel, Col, Row, Space, Tabs, Typography } from 'antd'
 import { LocaleNamespaceConst } from '../../constants'
 
 const { Text, Title, Link } = Typography
@@ -51,8 +52,8 @@ const Shop: FC = () => {
 
   function renderImages(): JSX.Element[] {
     const items: JSX.Element[] = images.map((data: string, index: number) => (
-      <div className={styles.imgAboutUsContainer} key={index}>
-        <Image rootClassName={styles.imgWrapper} preview={false} src={data} alt="shop" />
+      <div key={index}>
+        <Image rootClassName={styles.img} src={data} alt="shop" ratio={3 / 2} />
       </div>
     ))
     return items
@@ -78,14 +79,7 @@ const Shop: FC = () => {
         <div className="container">
           <Row gutter={24}>
             <Col xl={6}>
-              <div className={styles.imgContainer}>
-                <Image
-                  rootClassName={styles.imgWrapper}
-                  preview={false}
-                  src="./images/main/buyer/shop.png"
-                  alt="shop"
-                />
-              </div>
+              <Image src="./images/main/buyer/shop.png" alt="shop" ratio={2 / 3} />
             </Col>
             <Col xl={18} md={24}>
               <Row gutter={24}>

@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/typedef */
 import React, { FC, useCallback, useState } from 'react'
-import { Button, Col, Form, Image, Input, Modal, Radio, Row, Space, Typography } from 'antd'
+import Image from '../../../components/main/Image'
+import moment from 'moment'
+import VoucherCard, { IVoucher } from './VoucherCard'
+import VoucherDetailModal from './VoucherDetailModal'
+import styles from './SelectHappyVoucher.module.scss'
+import { Button, Col, Form, Input, Modal, Radio, Row, Space, Typography } from 'antd'
 import { useTranslation } from 'next-i18next'
 import { InfoCircleFilled } from '@ant-design/icons'
-import moment from 'moment'
 import { LocaleNamespaceConst } from '~/constants'
-import VoucherCard, { IVoucher } from './VoucherCard'
-import styles from './SelectHappyVoucher.module.scss'
-import VoucherDetailModal from './VoucherDetailModal'
 
 interface ISelectHappyVoucherFromValues {
   voucherId: string
@@ -104,13 +105,7 @@ const SelectHappyVoucher: FC<ISelectHappyVoucherProps> = (props: ISelectHappyVou
       <Col>
         <Row align="middle" gutter={4}>
           <Col>
-            <div style={{}}>
-              <Image
-                preview={false}
-                src="./images/main/buyer/icon-voucher.svg"
-                alt="icon-voucher"
-              />
-            </div>
+            <Image src="./images/main/buyer/icon-voucher.svg" alt="icon-voucher" />
           </Col>
           <Col>
             <Typography.Text className={styles.textStyle}>

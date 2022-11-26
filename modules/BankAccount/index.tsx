@@ -1,19 +1,22 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Typography, Button, Row, Col, Space, Modal, message, Image } from 'antd'
+import Helmet from 'react-helmet'
+import Image from '../../components/main/Image'
+import SettingSidebar from '~/components/main/SettingSidebar'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
+import HighlightLabel from '~/components/main/HighlightLabel'
+import BankAccountCard from './components/BankAccountCard'
+import OtpModal from '~/components/main/OtpModal'
+import EditBankAccount from './components/EditBankAccount'
+import styles from './BankAccount.module.scss'
+import { Typography, Button, Row, Col, Space, Modal, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import { orderBy } from 'lodash'
-import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
-import styles from './BankAccount.module.scss'
 import {
   CustomUrlUtil,
   CustomHookUseVisibleUtil,
   HelperCensorBankAccountNoUtil
 } from '~/utils/main'
-import SettingSidebar from '~/components/main/SettingSidebar'
-import Breadcrumbs from '~/components/main/Breadcrumbs'
-import HighlightLabel from '~/components/main/HighlightLabel'
-import BankAccountCard from './components/BankAccountCard'
 import {
   IBankAccount,
   IBankAccountData,
@@ -24,8 +27,6 @@ import {
 import { LocaleNamespaceConst } from '~/constants'
 import { BankAccountService, MemberService } from '~/services'
 import { BankAccountStatusEnum, OtpTypeEnum } from '~/enums'
-import OtpModal from '~/components/main/OtpModal'
-import EditBankAccount from './components/EditBankAccount'
 import { useGetBankMeta } from './bank-account.helper'
 
 const { Text, Title, Link } = Typography
@@ -278,15 +279,11 @@ const BankAccount: React.FC<IBankAccountProps> = (props: IBankAccountProps) => {
                     ) : (
                       <Col className="w-100">
                         <div className={`mx-auto ${styles.wrapImageEmptyAddress}`}>
-                          <div className={styles.imgContainer}>
-                            <Image
-                              rootClassName={styles.imgWrapper}
-                              preview={false}
-                              width="100%"
-                              src="./images/main/buyer/address-empty-list.svg"
-                              alt="address-empty"
-                            />
-                          </div>
+                          <Image
+                            src="./images/main/buyer/address-empty-list.svg"
+                            alt="address-empty"
+                            ratio={5 / 4}
+                          />
                         </div>
                         <div className="mt-4 text-center">
                           <Text>

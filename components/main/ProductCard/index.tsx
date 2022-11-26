@@ -7,7 +7,9 @@ import { Typography, Row, Col, Tag, Rate } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 //import { IApiResponse } from '~/interfaces'
 //import { ProductService } from '~/services'
+
 const { Text } = Typography
+
 const ProductCard: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'product'])
 
@@ -58,9 +60,11 @@ const ProductCard: FC = () => {
     ))
     return items
   }
+
   useEffect(() => {
     fetchData()
   }, [])
+
   return <Row gutter={[24, 24]}>{renderProducts()}</Row>
 }
 

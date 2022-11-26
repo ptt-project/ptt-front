@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/typedef */
-import { Col, Image, Row, Space, Table, Tag, TagProps, Typography } from 'antd'
+import React, { FC, useMemo, useState } from 'react'
+import moment from 'moment'
+import Image from '../../../../../components/main/Image'
+import styles from './EWalletHistoryTable.module.scss'
+import { Col, Row, Space, Table, Tag, TagProps, Typography } from 'antd'
 import { ColumnsType, TablePaginationConfig } from 'antd/lib/table'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/lib/table/interface'
-import moment from 'moment'
 import { useTranslation } from 'next-i18next'
-import React, { FC, useMemo, useState } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import { EWalletStatusEnum, EWalletTypeEnum } from '~/enums'
 import { IWalletTransaction } from '~/interfaces'
 import { useGetWalletHistory } from '~/services/wallet.service'
 import { HelperDecimalFormatUtil } from '~/utils/main'
-import styles from './EWalletHistoryTable.module.scss'
 
 const { Text } = Typography
 
@@ -62,14 +63,12 @@ const EWalletHistoryTable: FC<IEWalletHistoryTableProps> = (props: IEWalletHisto
               {value === EWalletTypeEnum.WITHDRAW ? (
                 <Image
                   className={styles.typeIcon}
-                  preview={false}
                   src="./images/main/buyer/icon-withdraw.svg"
                   alt=""
                 />
               ) : (
                 <Image
                   className={styles.typeIcon}
-                  preview={false}
                   src="./images/main/buyer/icon-top-up-red.svg"
                   alt=""
                 />

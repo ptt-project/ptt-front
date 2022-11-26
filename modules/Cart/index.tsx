@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/typedef */
 import React, { useState, FC, useMemo, useEffect, useCallback } from 'react'
-import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
-import { Typography, Button, Row, Col, Form, Image, Checkbox } from 'antd'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
+import Loading from '~/components/main/Loading'
+import CartList from './CartList'
+import SelectHappyVoucher from './SelectHappyVoucher'
+import { useTranslation } from 'next-i18next'
+import { Typography, Button, Row, Col, Form, Checkbox } from 'antd'
 import {
   flatMap,
   identity,
@@ -17,14 +21,10 @@ import {
 } from 'lodash'
 import { DeepPartial } from 'redux'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
-import Breadcrumbs from '~/components/main/Breadcrumbs'
-import Loading from '~/components/main/Loading'
 import { HelperDecimalFormatUtil } from '~/utils/main'
 import { ICartProduct, IShop } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './Cart.module.scss'
-import CartList from './CartList'
-import SelectHappyVoucher from './SelectHappyVoucher'
+import Image from '../../components/main/Image'
 
 const { Title } = Typography
 
@@ -258,14 +258,7 @@ const Cart: FC = () => {
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <div className={styles.imgContainer}>
-                <Image
-                  rootClassName={styles.imgWrapper}
-                  preview={false}
-                  src="./images/main/buyer/login.png"
-                  alt="login"
-                />
-              </div>
+              <Image src="./images/main/buyer/login.png" alt="login" ratio={2 / 3} />
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
               <Title className="hps-title" level={4}>

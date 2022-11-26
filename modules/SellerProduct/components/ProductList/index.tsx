@@ -1,10 +1,11 @@
 import React, { FC, useState } from 'react'
 import Link from 'next/link'
+import Image from '../../../../components/main/Image'
 import ConfirmationModal from '~/components/main/ConfirmationModal'
 import Loading from '../../../../components/main/Loading'
 import styles from './ProductList.module.scss'
 import { useTranslation } from 'next-i18next'
-import { Typography, Table, Space, Image, message } from 'antd'
+import { Typography, Table, Space, message } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 import { IListItems, IProduct, IProductItem } from '../../../../interfaces'
 import { HelperDecimalFormatUtil, ImageUrlUtil } from '../../../../utils/main'
@@ -38,8 +39,7 @@ const ProductList: FC<IProductListProps> = (props: IProductListProps) => {
               <Link href={`/settings/seller/product/${record.id}`}>
                 <a>
                   <Image
-                    preview={false}
-                    width={56}
+                    size={56}
                     src={ImageUrlUtil(imageRecord, ImageSizeEnum.THUMBNAIL)}
                     alt={record.name}
                   />

@@ -6,7 +6,6 @@ import { useTranslation } from 'next-i18next'
 import {
   Typography,
   Button,
-  Image,
   Row,
   Col,
   Form,
@@ -24,6 +23,7 @@ import { ConfigService, ShopService } from '~/services'
 import { NextRouter, useRouter } from 'next/router'
 import { OptionKeyLabelUtil } from '../../../../utils/main'
 import { Rule } from 'antd/lib/form'
+import Image from '../../../../components/main/Image'
 
 const { Text, Title } = Typography
 const { TextArea } = Input
@@ -164,14 +164,11 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <div className={styles.imgContainer}>
-                <Image
-                  rootClassName={styles.imgWrapper}
-                  preview={false}
-                  src="./images/main/seller/register-form.jpg"
-                  alt="register-seller-form"
-                />
-              </div>
+              <Image
+                src="./images/main/seller/register-form.jpg"
+                alt="register-seller-form"
+                ratio={2 / 3}
+              />
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
               <Title className="hps-title" level={4}>
