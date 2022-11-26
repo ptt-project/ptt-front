@@ -81,11 +81,13 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
   }
 
   function onMobileChange(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
       form.setFieldsValue({ mobile: e.target.value })
     } else {
       form.setFieldsValue({ mobile: e.target.value.replace(RegExpConst.ALLOW_NUMBER, '') })
     }
+
+    form.validateFields(['mobile'])
   }
 
   async function onSubmit(values: IAuthRegisterForm): Promise<void> {
@@ -229,7 +231,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                           validator(_: Rule, value: string): Promise<any> {
                             if (
                               !value ||
-                              (RegExpConst.CHECK_EMAIL.test(value) &&
+                              (RegExpConst.MATCH_EMAIL.test(value) &&
                                 !RegExpConst.MATCH_THAI_LETTER.test(value))
                             ) {
                               return Promise.resolve()
@@ -277,7 +279,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         },
                         (): any => ({
                           validator(_: Rule, value: string): Promise<any> {
-                            if (!value || RegExpConst.CHECK_PASSWORD.test(value)) {
+                            if (!value || RegExpConst.MATCH_PASSWORD.test(value)) {
                               return Promise.resolve()
                             }
                             return Promise.reject(

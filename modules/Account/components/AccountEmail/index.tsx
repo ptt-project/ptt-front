@@ -151,7 +151,7 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
                               validator(_: Rule, value: string): Promise<any> {
                                 if (
                                   !value ||
-                                  (RegExpConst.CHECK_EMAIL.test(value) &&
+                                  (RegExpConst.MATCH_EMAIL.test(value) &&
                                     !RegExpConst.MATCH_THAI_LETTER.test(value))
                                 ) {
                                   return Promise.resolve()
@@ -183,7 +183,7 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
                             },
                             (): any => ({
                               validator(_: Rule, value: string): Promise<any> {
-                                if (!value || RegExpConst.CHECK_PASSWORD.test(value)) {
+                                if (!value || RegExpConst.MATCH_PASSWORD.test(value)) {
                                   return Promise.resolve()
                                 }
                                 return Promise.reject(

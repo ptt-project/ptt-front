@@ -84,7 +84,7 @@ const ForgotPasswordConfirm: FC<IForgotPasswordConfirmProps> = (
                           },
                           (): any => ({
                             validator(_: Rule, value: string): Promise<any> {
-                              if (!value || RegExpConst.CHECK_PASSWORD.test(value)) {
+                              if (!value || RegExpConst.MATCH_PASSWORD.test(value)) {
                                 return Promise.resolve()
                               }
                               return Promise.reject(

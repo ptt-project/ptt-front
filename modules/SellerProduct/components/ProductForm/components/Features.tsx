@@ -22,7 +22,7 @@ const Features: FC<IFeaturesProps> = (props: IFeaturesProps) => {
   const { data: configOptions } = ConfigService.useGetConfigOptions()
 
   function onChangeExp(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
       props.form.setFieldValue('exp', e.target.value)
     } else {
       props.form.setFieldValue('exp', e.target.value.replace(RegExpConst.ALLOW_NUMBER, ''))

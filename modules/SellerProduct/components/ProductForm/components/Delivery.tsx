@@ -17,7 +17,7 @@ const Delivery: FC<IDeliveryProps> = (props: IDeliveryProps) => {
   const [currentWeight, setCurrentWeight] = useState<string>()
 
   function onChange(e: ChangeEvent<HTMLInputElement>, name: string): void {
-    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
       props.form.setFieldValue(name, e.target.value)
     } else {
       props.form.setFieldValue(name, e.target.value.replace(RegExpConst.ALLOW_NUMBER_AND_DOT, ''))

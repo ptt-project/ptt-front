@@ -15,7 +15,7 @@ const Other: FC<IOtherProps> = (props: IOtherProps) => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
 
   function onChange(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
       props.form.setFieldValue('extraDay', e.target.value)
     } else {
       props.form.setFieldValue('extraDay', e.target.value.replace(RegExpConst.ALLOW_NUMBER, ''))

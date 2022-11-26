@@ -16,7 +16,9 @@
       }
     },
     "account": {
-      "info": {},
+      "info": {
+        "entityTooLarge": "รองรับไฟล์ JPEG, PNG ขนาดไฟล์ไม่เกิน 1 MB"
+      },
       "mobile": {},
       "email": {
         "alreadyEmail": "Email นี้มีอยู่ในระบบแล้ว"

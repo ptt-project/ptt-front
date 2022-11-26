@@ -65,7 +65,7 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
   }
 
   function onChangeOtp(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
       setOtpInput(e.target.value)
     } else {
       setOtpInput(e.target.value.replace(RegExpConst.ALLOW_NUMBER, ''))

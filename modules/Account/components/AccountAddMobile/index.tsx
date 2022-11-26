@@ -47,7 +47,7 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
   })
 
   function onChangeNumber(e: ChangeEvent<HTMLInputElement>, name: 'mobileNo' | 'otp'): void {
-    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
       form.setFieldValue(name, e.target.value)
 
       if (name === 'mobileNo') {

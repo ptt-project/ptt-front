@@ -23,6 +23,7 @@ import { FormModeEnum, ShopApprovalStatusEnum, ShopTypeEnum } from '~/enums'
 import { ConfigService, ShopService } from '~/services'
 import { NextRouter, useRouter } from 'next/router'
 import { OptionKeyLabelUtil } from '../../../../utils/main'
+import { Rule } from 'antd/lib/form'
 
 const { Text, Title } = Typography
 const { TextArea } = Input
@@ -62,12 +63,14 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
     }
   }
 
-  function onTelChange(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
-      form.setFieldsValue({ tel: e.target.value })
+  function onMobileChange(e: ChangeEvent<HTMLInputElement>): void {
+    if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
+      form.setFieldsValue({ mobile: e.target.value })
     } else {
-      form.setFieldsValue({ tel: e.target.value.replace(RegExpConst.ALLOW_NUMBER, '') })
+      form.setFieldsValue({ mobile: e.target.value.replace(RegExpConst.ALLOW_NUMBER, '') })
     }
+
+    form.validateFields(['mobile'])
   }
 
   function onRadioChange(e: RadioChangeEvent): void {
@@ -75,11 +78,37 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
   }
 
   function onIdCardChange(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
       form.setFieldsValue({ corporateNo: e.target.value })
     } else {
       form.setFieldsValue({ corporateNo: e.target.value.replace(RegExpConst.ALLOW_NUMBER, '') })
     }
+
+    form.validateFields(['corporateNo'])
+  }
+
+  function onCorporateNameChange(e: ChangeEvent<HTMLInputElement>): void {
+    if (!e.target.value || RegExpConst.MATCH_LETTER_FOR_CORPORATE_NAME.test(e.target.value)) {
+      form.setFieldsValue({ corporateName: e.target.value })
+    } else {
+      form.setFieldsValue({
+        corporateName: e.target.value.replace(RegExpConst.ALLOW_LETTER_FOR_CORPORATE_NAME, '')
+      })
+    }
+
+    form.validateFields(['corporateName'])
+  }
+
+  function onBrandNameChange(e: ChangeEvent<HTMLInputElement>): void {
+    if (!e.target.value || RegExpConst.MATCH_LETTER_FOR_BRAND_NAME.test(e.target.value)) {
+      form.setFieldsValue({ brandName: e.target.value })
+    } else {
+      form.setFieldsValue({
+        brandName: e.target.value.replace(RegExpConst.ALLOW_LETTER_FOR_BRAND_NAME, '')
+      })
+    }
+
+    form.validateFields(['brandName'])
   }
 
   async function onSubmit(values: IShopRegisterPayload): Promise<void> {
@@ -193,7 +222,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
@@ -208,12 +237,12 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                           )}`
                         },
                         {
-                          min: 9,
-                          message: `${t('common:form.min.head')} 9 ${t('common:form.min.tail')}`
+                          min: 10,
+                          message: `${t('common:form.min.head')} 10 ${t('common:form.min.tail')}`
                         }
                       ]}
                     >
-                      <Input maxLength={10} onChange={onTelChange} />
+                      <Input maxLength={10} onChange={onMobileChange} />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
@@ -227,15 +256,27 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                             'auth.register-seller:form.email'
                           )}`
                         },
-                        {
-                          type: 'email',
-                          message: `${t('common:form.invalid.head')} ${t(
-                            'auth.register-seller:form.email'
-                          )} ${t('common:form.invalid.tail')}`
-                        }
+                        (): any => ({
+                          validator(_: Rule, value: string): Promise<any> {
+                            if (
+                              !value ||
+                              (RegExpConst.MATCH_EMAIL.test(value) &&
+                                !RegExpConst.MATCH_THAI_LETTER.test(value))
+                            ) {
+                              return Promise.resolve()
+                            }
+                            return Promise.reject(
+                              new Error(
+                                `${t('common:form.invalid.head')} ${t(
+                                  'auth.register-seller:form.email'
+                                )} ${t('common:form.invalid.tail')}`
+                              )
+                            )
+                          }
+                        })
                       ]}
                     >
-                      <Input type="email" maxLength={50} />
+                      <Input maxLength={50} />
                     </Form.Item>
                   </Col>
                   <Col span={24}>
@@ -256,7 +297,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                             }
                           ]}
                         >
-                          <Input maxLength={50} />
+                          <Input maxLength={50} showCount onChange={onCorporateNameChange} />
                         </Form.Item>
                       </Col>
                       <Col md={12} xs={24}>
@@ -296,7 +337,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount onChange={onBrandNameChange} />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
@@ -326,17 +367,17 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
                   </Col>
                   <Col xs={24}>
                     <Form.Item label={t('auth.register-seller:form.website')} name="website">
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount />
                     </Form.Item>
                   </Col>
                   <Col xs={24}>
                     <Form.Item label={t('auth.register-seller:form.facebook')} name="facebookPage">
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount />
                     </Form.Item>
                   </Col>
                   <Col xs={24}>
                     <Form.Item label={t('auth.register-seller:form.instagram')} name="instagram">
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount />
                     </Form.Item>
                   </Col>
                   <Col xs={24}>

@@ -71,7 +71,7 @@ const ForgotPassword: FC<IForgotPasswordProps> = (props: IForgotPasswordProps) =
     setReference(values.reference)
 
     if (
-      RegExpConst.CHECK_EMAIL.test(values.reference) &&
+      RegExpConst.MATCH_EMAIL.test(values.reference) &&
       !values.reference.match(RegExpConst.MATCH_THAI_LETTER)
     ) {
       setReferenceType(OtpReferenceTypeEnum.EMAIL)

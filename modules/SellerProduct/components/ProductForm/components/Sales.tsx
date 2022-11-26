@@ -256,7 +256,7 @@ const Sales: FC<ISalesProps> = (props: ISalesProps) => {
   }
 
   function onChange(e: ChangeEvent<HTMLInputElement>, name: string): void {
-    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
       props.form.setFieldValue(name, e.target.value)
     } else {
       props.form.setFieldValue(name, e.target.value.replace(RegExpConst.ALLOW_NUMBER, ''))

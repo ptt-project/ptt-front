@@ -1,16 +1,13 @@
 import React, { FC } from 'react'
 import styles from './RegisterSellerSuccess.module.scss'
 import { useTranslation } from 'next-i18next'
-import { NextRouter, useRouter } from 'next/router'
-import { Typography, Button, Row, Col, Image } from 'antd'
-import { CustomUrlUtil } from '~/utils/main'
+import { Typography, Row, Col, Image } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
 
 const { Text, Title } = Typography
 
 const RegisterSellerSuccess: FC = () => {
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register-seller'])
-  const router: NextRouter = useRouter()
 
   return (
     <div className="page-content mb-9">
@@ -47,19 +44,6 @@ const RegisterSellerSuccess: FC = () => {
                 <div className={styles.message}>
                   <Text type="secondary">{t('auth.register-seller:success.message')}</Text>
                 </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={24}>
-                <Button
-                  className="mb-5"
-                  htmlType="submit"
-                  type="primary"
-                  block
-                  href={CustomUrlUtil('/seller/settings/product/list', router.locale)}
-                >
-                  {t('common:ok')}
-                </Button>
               </Col>
             </Row>
           </Col>

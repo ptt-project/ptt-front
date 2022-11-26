@@ -3,7 +3,7 @@ import styles from './ForgotPasswordSuccess.module.scss'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { Typography, Space, Button, Image, Row, Col } from 'antd'
-import { CustomUrlUtil } from '~/utils/main'
+import { CustomUrlUtil, HelperMobileFormatUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
 import { OtpReferenceTypeEnum } from '~/enums'
 
@@ -59,7 +59,11 @@ const ForgotPasswordSuccess: FC<IForgotPasswordSuccessProps> = (
                   {props.referenceType === OtpReferenceTypeEnum.EMAIL && (
                     <Text>{t('auth.forgot-password:success.email')}</Text>
                   )}
-                  <Text className={styles.cSecondary}>{props.reference}</Text>
+                  <Text className={styles.cPrimary}>
+                    {props.referenceType === OtpReferenceTypeEnum.MOBILE
+                      ? HelperMobileFormatUtil(props.reference)
+                      : props.reference}
+                  </Text>
                 </Space>
               </Col>
             </Row>

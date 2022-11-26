@@ -21,12 +21,12 @@ import {
   Radio,
   message
 } from 'antd'
-import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
+import { ImageAcceptConst, ImageMaxFileSizeConst, LocaleNamespaceConst } from '~/constants'
 import { IUpdateMemberProfilePayload, IApiResponse, IMemberInfo } from '~/interfaces'
 import { ImageService, MemberService } from '~/services'
 import { AccountGenderEnum, ImageSizeEnum } from '~/enums'
 import { NextRouter, useRouter } from 'next/router'
-import { UploadChangeParam } from 'antd/lib/upload'
+import { UploadChangeParam, UploadFile } from 'antd/lib/upload'
 import { RcFile } from 'antd/es/upload'
 import { AxiosError } from 'axios'
 import { ImageUrlUtil } from '../../../../utils/main'
@@ -166,18 +166,30 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
     return ''
   }
 
-  async function onChangeImage({ file }: UploadChangeParam): Promise<void> {
-    let src: string = file.url
+  function onBeforeChangeImage(file: UploadFile): boolean {
+    if (file.size >= ImageMaxFileSizeConst) {
+      message.error(t('message:buyer.account.info.entityTooLarge'))
 
-    if (!src) {
-      src = await new Promise((resolve: any) => {
-        const reader: FileReader = new FileReader()
-        reader.readAsDataURL(file.originFileObj as RcFile)
-        reader.onload = (): string => resolve(reader.result as string)
-      })
+      return false
     }
 
-    setCurrentImage(src)
+    return true
+  }
+
+  async function onChangeImage({ file }: UploadChangeParam): Promise<void> {
+    if (file.originFileObj) {
+      let src: string = file.url
+
+      if (!src) {
+        src = await new Promise((resolve: any) => {
+          const reader: FileReader = new FileReader()
+          reader.readAsDataURL(file.originFileObj as RcFile)
+          reader.onload = (): string => resolve(reader.result as string)
+        })
+      }
+
+      setCurrentImage(src)
+    }
   }
 
   function checkValueBirthday(value: string, type: string): string {
@@ -362,6 +374,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                         accept={ImageAcceptConst.toString()}
                         maxCount={1}
                         showUploadList={false}
+                        beforeUpload={onBeforeChangeImage}
                         onChange={onChangeImage}
                       >
                         <Button className="hps-btn-secondary">
