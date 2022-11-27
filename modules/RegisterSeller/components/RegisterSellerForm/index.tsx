@@ -79,12 +79,12 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
 
   function onIdCardChange(e: ChangeEvent<HTMLInputElement>): void {
     if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
-      form.setFieldsValue({ corporateNo: e.target.value })
+      form.setFieldsValue({ corporateId: e.target.value })
     } else {
-      form.setFieldsValue({ corporateNo: e.target.value.replace(RegExpConst.ALLOW_NUMBER, '') })
+      form.setFieldsValue({ corporateId: e.target.value.replace(RegExpConst.ALLOW_NUMBER, '') })
     }
 
-    form.validateFields(['corporateNo'])
+    form.validateFields(['corporateId'])
   }
 
   function onCorporateNameChange(e: ChangeEvent<HTMLInputElement>): void {
