@@ -15,6 +15,7 @@ import {
   IUpdateMemberMobilePayload
 } from '~/interfaces'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
+import { HelperMobileFormatUtil } from '~/utils/main'
 import { MemberService, OtpService } from '~/services'
 import { OtpTypeEnum } from '~/enums'
 import { AxiosError } from 'axios'
@@ -245,7 +246,8 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
                       {timer > 0 ? (
                         <Col span={24} className="mb-2">
                           <Text type="secondary" className="hps-text-small">
-                            {t('account-info:mobile.msgConfirm')} {currentMobileNo}
+                            {t('account-info:mobile.msgConfirm')}{' '}
+                            {HelperMobileFormatUtil(currentMobileNo)}
                           </Text>
                         </Col>
                       ) : (
