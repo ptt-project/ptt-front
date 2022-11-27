@@ -89,6 +89,10 @@ export interface IProduct {
   updatedAt: Date
   deletedAt?: Date
   products: IProductItem[]
+  amountSold: number
+  price: number
+  scoreCount: number
+  isRecommended: boolean
 }
 
 export interface IProductInfo {
