@@ -6,6 +6,9 @@
         "alreadyEmail": "Email นี้มีอยู่ในระบบแล้ว",
         "alreadyMobile": "เบอร์โทร นี้มีอยู่ในระบบแล้ว"
       },
+      "registerSeller": {
+        "alreadyEmailOrMobile": "Email หรือเบอร์โทร นี้มีอยู่ในระบบแล้ว"
+      },
       "login": {
         "invalidUsername": "Username หรือ Password ไม่ถูกต้อง โปรดลองอีกครั้ง",
         "invalidPassword": "Username หรือ Password ไม่ถูกต้อง โปรดลองอีกครั้ง"

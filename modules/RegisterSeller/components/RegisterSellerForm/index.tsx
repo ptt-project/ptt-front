@@ -1,4 +1,5 @@
 import React, { useState, FC, ChangeEvent } from 'react'
+import Image from '../../../../components/main/Image'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import Loading from '~/components/main/Loading'
 import styles from './RegisterSellerForm.module.scss'
@@ -23,7 +24,7 @@ import { ConfigService, ShopService } from '~/services'
 import { NextRouter, useRouter } from 'next/router'
 import { OptionKeyLabelUtil } from '../../../../utils/main'
 import { Rule } from 'antd/lib/form'
-import Image from '../../../../components/main/Image'
+import { AxiosError } from 'axios'
 
 const { Text, Title } = Typography
 const { TextArea } = Input
@@ -46,6 +47,7 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
     if (props.shopInfo) {
       return FormModeEnum.VIEW
     }
+
     return FormModeEnum.ADD
   }
 
@@ -79,12 +81,12 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
 
   function onIdCardChange(e: ChangeEvent<HTMLInputElement>): void {
     if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
-      form.setFieldsValue({ corporateNo: e.target.value })
+      form.setFieldsValue({ corporateId: e.target.value })
     } else {
-      form.setFieldsValue({ corporateNo: e.target.value.replace(RegExpConst.ALLOW_NUMBER, '') })
+      form.setFieldsValue({ corporateId: e.target.value.replace(RegExpConst.ALLOW_NUMBER, '') })
     }
 
-    form.validateFields(['corporateNo'])
+    form.validateFields(['corporateId'])
   }
 
   function onCorporateNameChange(e: ChangeEvent<HTMLInputElement>): void {
@@ -112,22 +114,28 @@ const RegisterSellerForm: FC<IRegisterSellerFormProps> = (props: IRegisterSeller
   }
 
   async function onSubmit(values: IShopRegisterPayload): Promise<void> {
-    setIsLoading(true)
-    let isSuccess: boolean = false
     try {
+      setIsLoading(true)
+
       const payload: IShopRegisterPayload = { ...values }
+
       await ShopService.register(payload)
-      isSuccess = true
       props.setStep(1)
-    } catch (error) {
-      console.log(error)
-    }
-    if (isSuccess) {
       message.success(t('common:apiMessage.success'))
-    } else {
-      message.error(t('common:apiMessage.error'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          case 106001:
+            message.error(t('message:buyer.auth.registerSeller.alreadyEmailOrMobile'))
+            break
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   function renderStatus(): JSX.Element {
