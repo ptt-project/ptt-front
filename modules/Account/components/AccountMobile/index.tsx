@@ -104,7 +104,7 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
       }
 
       await MemberService.setMainMobile(payload)
-
+      await fetchData()
       message.success(t('common:apiMessage.success'))
     } catch (e) {
       if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
@@ -222,7 +222,7 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
       <Loading show={isLoading} />
       <OtpModal
         title={`${t('account-info:mobile.titleOtp')} ${HelperMobileFormatUtil(getOtpMobileNo())}`}
-        mobile={getOtpMobileNo()}
+        mobile={HelperMobileFormatUtil(getOtpMobileNo())}
         action={OtpTypeEnum.REGISTER}
         isOpen={isOpenOtp}
         toggle={toggleOtp}
