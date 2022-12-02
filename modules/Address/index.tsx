@@ -5,7 +5,7 @@ import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
 import HighlightLabel from '~/components/main/HighlightLabel'
 import styles from './Address.module.scss'
-import { Typography, Button, Row, Col, Space, Modal, Image, message } from 'antd'
+import { Typography, Button, Row, Col, Space, Modal, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import { compact, orderBy } from 'lodash'
 import { useTranslation } from 'next-i18next'
@@ -13,6 +13,7 @@ import { IAddress, IAddressFormValues, IApiResponse, ICustomHookUseVisibleUtil }
 import { CustomHookUseVisibleUtil, CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
 import { MemberService } from '~/services'
+import Image from '../../components/main/Image'
 
 const { Text, Title, Link } = Typography
 
@@ -160,15 +161,11 @@ const Address: FC<IAddressProps> = (props: IAddressProps) => {
                     ) : (
                       <Col className="w-100">
                         <div className={`mx-auto ${styles.wrapImageEmptyAddress}`}>
-                          <div className={styles.imgContainer}>
-                            <Image
-                              rootClassName={styles.imgWrapper}
-                              preview={false}
-                              width="100%"
-                              src="./images/main/buyer/address-empty-list.svg"
-                              alt="empty"
-                            />
-                          </div>
+                          <Image
+                            src="./images/main/buyer/address-empty-list.svg"
+                            alt="address-empty-list"
+                            ratio={5 / 4}
+                          />
                         </div>
                         <div className="mt-4 text-center">
                           <Text>

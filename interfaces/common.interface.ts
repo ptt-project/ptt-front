@@ -29,10 +29,10 @@ export interface ICustomHookUseVisibleUtil {
 }
 
 export interface IBaseEntity {
-  id: number
-  createdAt: string
-  updatedAt: string
-  deletedAt?: string | null
+  id: string
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date
 }
 
 export interface IPaginationMeta {
@@ -70,3 +70,14 @@ export interface IApiResponse<T = any> {
 }
 
 export type IAxiosResponse<T = any> = AxiosResponse<IApiResponse<T>>
+
+export interface IListItems<T> {
+  items: T[]
+  meta: {
+    totalItems: number
+    itemCount: number
+    itemsPerPage: number
+    totalPages: number
+    currentPage: number
+  }
+}

@@ -1,10 +1,10 @@
 import React, { useState, FC } from 'react'
+import Image from '../../../components/main/Image'
 import { useTranslation } from 'next-i18next'
-import { Typography, Button, Row, Col, Image, Form, Input } from 'antd'
+import { Typography, Button, Row, Col, Form, Input } from 'antd'
 import { Rule } from 'antd/lib/form'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { IAuthForgotPasswordForm, IFieldData } from '~/interfaces'
-import styles from './ForgotPasswordForm.module.scss'
 
 const { Title } = Typography
 
@@ -33,15 +33,12 @@ const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPassword
     <div className="page-content mb-9">
       <div className="container">
         <Row gutter={48}>
-          <Col xl={6} lg={0}>
-            <div className={styles.imgContainer}>
-              <Image
-                rootClassName={styles.imgWrapper}
-                preview={false}
-                src="./images/main/buyer/forgot-password.png"
-                alt="forgot-password"
-              />
-            </div>
+          <Col xl={6} lg={0} xs={0}>
+            <Image
+              src="./images/main/buyer/forgot-password.png"
+              alt="forgot-password"
+              ratio={2 / 3}
+            />
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
             <Title className="hps-title" level={4}>
@@ -69,7 +66,9 @@ const ForgotPasswordForm: FC<IForgotPasswordFormProps> = (props: IForgotPassword
                       (): any => ({
                         validator(_: Rule, value: string): Promise<any> {
                           const isValidEmail: boolean =
-                            value && value.match(RegExpConst.CHECK_EMAIL) !== null
+                            value &&
+                            RegExpConst.MATCH_EMAIL.test(value) &&
+                            !RegExpConst.MATCH_THAI_LETTER.test(value)
                           const isValidMobile: boolean =
                             value &&
                             value.length === 10 &&

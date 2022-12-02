@@ -1,10 +1,11 @@
 import React, { FC } from 'react'
+import Image from '../../../../components/main/Image'
+import styles from './ForgotPasswordConfirm.module.scss'
 import { useTranslation } from 'next-i18next'
-import { Typography, Row, Col, Image, Form, Input, Button, Space } from 'antd'
+import { Typography, Row, Col, Form, Input, Button, Space } from 'antd'
 import { Rule } from 'antd/lib/form'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { OtpReferenceTypeEnum } from '../../../../enums'
-import styles from './ForgotPasswordConfirm.module.scss'
 
 const { Title, Text } = Typography
 
@@ -28,18 +29,15 @@ const ForgotPasswordConfirm: FC<IForgotPasswordConfirmProps> = (
   return (
     <div className="page-content mb-9">
       <div className="container">
-        <Row gutter={16}>
-          <Col xl={6} lg={0}>
-            <div className={styles.sideImgContainer}>
-              <Image
-                rootClassName={styles.imgWrapper}
-                preview={false}
-                src="./images/main/buyer/forgot-password.png"
-                alt="forgot-password"
-              />
-            </div>
+        <Row gutter={48}>
+          <Col xl={6} lg={0} xs={0}>
+            <Image
+              src="./images/main/buyer/forgot-password.png"
+              alt="forgot-password"
+              ratio={2 / 3}
+            />
           </Col>
-          <Col xl={18}>
+          <Col xl={18} lg={24} xs={24}>
             <Row>
               <Col span={24}>
                 <Title className="hps-title" level={4}>
@@ -84,7 +82,7 @@ const ForgotPasswordConfirm: FC<IForgotPasswordConfirmProps> = (
                           },
                           (): any => ({
                             validator(_: Rule, value: string): Promise<any> {
-                              if (!value || RegExpConst.CHECK_PASSWORD.test(value)) {
+                              if (!value || RegExpConst.MATCH_PASSWORD.test(value)) {
                                 return Promise.resolve()
                               }
                               return Promise.reject(
@@ -98,7 +96,7 @@ const ForgotPasswordConfirm: FC<IForgotPasswordConfirmProps> = (
                           })
                         ]}
                       >
-                        <Input.Password maxLength={50} />
+                        <Input.Password maxLength={20} />
                       </Form.Item>
                       <Text type="secondary" className="hps-text-small d-block">
                         {t('common:passwordHint.a')}

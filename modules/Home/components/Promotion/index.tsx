@@ -1,10 +1,10 @@
 import React, { useState, useEffect, FC } from 'react'
-import { useTranslation } from 'next-i18next'
 import moment from 'moment'
 import numeral from 'numeral'
+import styles from './Promotion.module.scss'
+import { useTranslation } from 'next-i18next'
 import { Typography, Row, Col, Space, Carousel, Tag } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './Promotion.module.scss'
 
 const { Text, Title, Link } = Typography
 

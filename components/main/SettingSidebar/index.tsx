@@ -83,7 +83,7 @@ const SettingSidebar: FC<ISettingSidebarProps> = (props: ISettingSidebarProps) =
       <i className="fas fa-file-invoice-dollar" />
     ),
     getItem(t('setting-sidebar:seller.product.title'), 'product', <i className="fas fa-box" />, [
-      getItem(t('setting-sidebar:seller.product.list'), 'product:index'),
+      getItem(t('setting-sidebar:seller.product.list'), 'product:list'),
       getItem(t('setting-sidebar:seller.product.add'), 'product:add')
     ]),
     getItem(t('setting-sidebar:seller.marketing.title'), 'marketing', <i className="fas fa-tag" />),

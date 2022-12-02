@@ -1,12 +1,12 @@
 export enum HappyPointStatusEnum {
-  PENDING,
-  FAILED,
-  CANCELED,
-  SUCCESS
+  PENDING = 'PENDING',
+  FAILED = 'FAILED',
+  CANCELED = 'CANCELED',
+  SUCCESS = 'SUCCESS'
 }
 
 export enum HappyPointTypeEnum {
-  BUY,
-  SELL,
-  TRANSFER
+  BUY = 'BUY',
+  SELL = 'SELL',
+  TRANSFER = 'TRANSFER'
 }

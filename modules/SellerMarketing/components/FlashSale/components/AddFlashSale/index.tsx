@@ -4,14 +4,14 @@ import Breadcrumbs from '../../../../../../components/main/Breadcrumbs'
 import SettingSidebar from '../../../../../../components/main/SettingSidebar'
 import HighlightLabel from '../../../../../../components/main/HighlightLabel'
 import EmptySellerTable from '../../../../../../components/main/EmptySellerTable'
+import AddFlashSaleModal from '../AddFlashSaleModal'
 import styles from './AddFlashSale.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Button, Col, DatePicker, Form, Input, Row, Select, Table, Typography } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import { LocaleNamespaceConst } from '../../../../../../constants'
-import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker'
-import AddFlashSaleModal from '../AddFlashSaleModal'
 import { IProductData } from '../../../../../../interfaces'
+import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker'
 
 const { Title } = Typography
 

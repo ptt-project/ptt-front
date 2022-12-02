@@ -1,48 +1,101 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
+import styles from './ProductFilters.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Button, Row, Col, Form, Input, Select } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './ProductFilters.module.scss'
+import { NextRouter, useRouter } from 'next/router'
+import { ConfigService } from '../../../../services'
+import { IConfigOptionPlatformCategory } from '../../../../interfaces'
+import { OptionKeyLabelUtil } from '../../../../utils/main'
 
-interface IFormData {
-  productName: string
-  productNameChoice: string
-  date: string
+interface IProductFiltersForm {
+  keyword: string
+  categoryId: string
+  groupSearch: string
 }
 
-const ProductFilters: FC = () => {
-  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
-  const [form] = Form.useForm()
-
-  function onSubmit(values: IFormData): void {
-    console.log(values)
+interface IProductFiltersProps {
+  query: {
+    keyword: string
+    categoryId: string
+    groupSearch: string
+    approval: boolean
+    status?: string
+    page: number
   }
+}
+
+const ProductFilters: FC<IProductFiltersProps> = (props: IProductFiltersProps) => {
+  const router: NextRouter = useRouter()
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
+  const { data: configOptions } = ConfigService.useGetConfigOptions()
+  const [form] = Form.useForm()
+  const [currentGroupSearch, setCurrentGroupSearch] = useState<string>()
+
+  function onSubmit(values: IProductFiltersForm): void {
+    const query: {
+      keyword: string
+      categoryId: string
+      groupSearch: string
+      page: number
+    } = {
+      keyword: values.keyword,
+      categoryId: values.categoryId,
+      groupSearch: values.groupSearch,
+      page: 1
+    }
+
+    router.push({
+      pathname: '/seller/settings/product/list',
+      query
+    })
+  }
+
+  function onResetFilters(): void {
+    router.push('/seller/settings/product/list')
+  }
+
+  useEffect(() => {
+    form.setFieldValue('keyword', props.query.keyword)
+    form.setFieldValue('categoryId', props.query.categoryId)
+    form.setFieldValue('groupSearch', props.query.groupSearch)
+  }, [props.query])
 
   return (
     <Form
-      layout="vertical"
-      form={form}
-      name="formSearch"
-      onFinish={onSubmit}
       className={styles.highlight}
+      layout="vertical"
+      name="productFiltersForm"
+      form={form}
+      initialValues={{
+        keyword: props.query.keyword,
+        groupSearch: props.query.groupSearch,
+        categoryId: props.query.categoryId
+      }}
+      onFinish={onSubmit}
     >
       <Row gutter={16}>
         <Col md={12} xs={24}>
-          <Form.Item label={t('seller.product:list.filters.group')} name="productName">
-            <Select defaultValue={t('seller.product:list.filters.orderId')}>
-              <Select.Option value="jack">Jack</Select.Option>
+          <Form.Item label={t('seller.product:list.filters.group')} name="groupSearch">
+            <Select onChange={(value: string): void => setCurrentGroupSearch(value)}>
+              <Select.Option value="">{t('common:form.option')}</Select.Option>
             </Select>
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
-          <Form.Item label={t('seller.product:list.filters.keyword')} name="productNameChoice">
-            <Input />
+          <Form.Item label={t('seller.product:list.filters.keyword')} name="keyword">
+            <Input disabled={!currentGroupSearch} />
           </Form.Item>
         </Col>
         <Col md={12} xs={24}>
-          <Form.Item label={t('seller.product:list.filters.category')} name="date">
-            <Select defaultValue="">
-              <Select.Option value="jack">Jack</Select.Option>
+          <Form.Item label={t('seller.product:list.filters.category')} name="categoryId">
+            <Select>
+              <Select.Option value="">{t('common:form.option')}</Select.Option>
+              {configOptions?.platformCategory.map((category: IConfigOptionPlatformCategory) => (
+                <Select.Option key={category.value} value={category.value}>
+                  {category[OptionKeyLabelUtil(router)]}
+                </Select.Option>
+              ))}
             </Select>
           </Form.Item>
         </Col>
@@ -54,7 +107,9 @@ const ProductFilters: FC = () => {
           </Button>
         </Form.Item>
         <Form.Item className="mb-0">
-          <Button htmlType="reset">{t('common:reset')}</Button>
+          <Button htmlType="reset" onClick={onResetFilters}>
+            {t('common:reset')}
+          </Button>
         </Form.Item>
       </Row>
     </Form>

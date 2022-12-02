@@ -15,8 +15,10 @@ import {
   IUpdateMemberMobilePayload
 } from '~/interfaces'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
+import { HelperMobileFormatUtil } from '~/utils/main'
 import { MemberService, OtpService } from '~/services'
 import { OtpTypeEnum } from '~/enums'
+import { AxiosError } from 'axios'
 
 const { Text, Title } = Typography
 
@@ -46,7 +48,7 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
   })
 
   function onChangeNumber(e: ChangeEvent<HTMLInputElement>, name: 'mobileNo' | 'otp'): void {
-    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
       form.setFieldValue(name, e.target.value)
 
       if (name === 'mobileNo') {
@@ -62,44 +64,43 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
   }
 
   async function onRequestOtp(): Promise<void> {
-    setIsLoading(true)
-    let isSuccess: boolean = false
-
     try {
+      setIsLoading(true)
+
       const payload: IOtpRequestPayload = {
         reference: form.getFieldValue('mobileNo'),
         type: OtpTypeEnum.ADD_PHONE
       }
-
       const { data }: IApiResponse = await OtpService.requestOtp(payload)
 
       setOtpData(data)
       setTimer(1.5 * 60 * 1000)
 
-      isSuccess = true
-    } catch (error) {
-      console.log(error)
-    }
-
-    if (isSuccess) {
       message.success(t('common:apiMessage.success'))
-    } else {
-      message.error(t('common:apiMessage.error'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          case 102006:
+            message.error(t('common:apiMessage.error'))
+            break
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   async function onSubmit(values: IAccountAddMobileForm): Promise<void> {
-    if (!otpData.otpCode) {
+    if (!values.otp) {
       return
     }
 
-    setIsLoading(true)
-
-    let isSuccess: boolean = false
-
     try {
+      setIsLoading(true)
+
       const payload: IUpdateMemberMobilePayload = {
         mobile: values.mobileNo,
         otpCode: values.otp,
@@ -108,20 +109,19 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
 
       await MemberService.createMobile(payload)
 
-      isSuccess = true
-    } catch (error) {
-      console.log(error)
-    }
-
-    if (isSuccess) {
       message.success(t('common:apiMessage.success'))
-
       router.push(`${rootMenu}/settings/${prefixMenu}/mobile`)
-    } else {
-      message.error(t('common:apiMessage.error'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   function renderTimer(): string {
@@ -208,7 +208,7 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
                           name="mobileNo"
                           rules={[
                             {
-                              required: true,
+                              required: false,
                               message: `${t('common:form.required')} ${t(
                                 'account-info:mobile.newPhone'
                               )}`
@@ -243,11 +243,16 @@ const AccountAddMobile: FC<IAccountAddMobileProps> = (props: IAccountAddMobilePr
                               )}${renderTimer()}`}
                         </Button>
                       </Col>
-                      <Col span={24} className="mb-2">
-                        <Text type="secondary" className="hps-text-small">
-                          {t('account-info:mobile.msgConfirm')} {props.mobile.mobile}
-                        </Text>
-                      </Col>
+                      {timer > 0 ? (
+                        <Col span={24} className="mb-2">
+                          <Text type="secondary" className="hps-text-small">
+                            {t('account-info:mobile.msgConfirm')}{' '}
+                            {HelperMobileFormatUtil(currentMobileNo)}
+                          </Text>
+                        </Col>
+                      ) : (
+                        ''
+                      )}
                       <Col span={24}>
                         <div className={styles.label}>
                           <div className={styles.left}>

@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
+import styles from './ReplyModal.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Button, Col, Modal, Row, Avatar, Rate, Input, Form } from 'antd'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './ReplyModal.module.scss'
 
 const { Text, Title } = Typography
 const { TextArea } = Input
@@ -35,12 +35,12 @@ const ReplyModal: FC<IPointReplyModalProps> = (props: IPointReplyModalProps) => 
 
   return (
     <Modal
-      title={[
+      title={
         <Title className="mb-0" level={4}>
           <i className={`fas fa-info-circle mr-2 ${styles.iconInfo}`} />
           {t('seller.point:reply')}
         </Title>
-      ]}
+      }
       visible={props.isOpen}
       onCancel={toggle}
       footer={null}

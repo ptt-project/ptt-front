@@ -1,32 +1,32 @@
 import React, { FC } from 'react'
+import RegisterSeller from '~/modules/RegisterSeller'
 import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AxiosRequestConfig } from 'axios'
-import RegisterSeller from '~/modules/RegisterSeller'
 import { LocaleNamespaceConst } from '~/constants'
-import { IApiResponse, ISellerInfoRes } from '~/interfaces'
-import { SellerService } from '~/services'
-import { SellerApprovalStatusEnum } from '~/enums'
+import { IApiResponse, IShopInfo } from '~/interfaces'
+import { ShopService } from '~/services'
+import { ShopApprovalStatusEnum } from '~/enums'
 import { withSellerAuth } from '../../hocs/with-seller'
 
 interface IRegisterSellerPageProps {
-  shopInfo: ISellerInfoRes
+  shopInfo?: IShopInfo
 }
 
 export const getServerSideProps: any = withSellerAuth(
   async (context: GetServerSidePropsContext) => {
-    let shopInfo: ISellerInfoRes = null
+    let shopInfo: IShopInfo
+
     const { req } = context
 
     if (req) {
       try {
-        const option: AxiosRequestConfig = {
-          headers: { Cookie: req.headers.cookie }
-        }
-        const { data }: IApiResponse = await SellerService.shopInfo(option)
-        shopInfo = data
+        const option: AxiosRequestConfig = { headers: { Cookie: req.headers.cookie } }
+        const shopInfoRes: IApiResponse = await ShopService.getInfo(option)
 
-        if (shopInfo.approvalStatus === SellerApprovalStatusEnum.APPROVED) {
+        shopInfo = shopInfoRes.data
+
+        if (shopInfo?.approvalStatus === ShopApprovalStatusEnum.APPROVED) {
           return {
             redirect: {
               destination: '/seller/settings/product/list',
@@ -35,12 +35,12 @@ export const getServerSideProps: any = withSellerAuth(
           }
         }
       } catch (error) {
-        if (!error.data || error.data.code !== 106004) {
-          return {
-            redirect: {
-              destination: '/error',
-              permanent: true
-            }
+        console.log(error)
+
+        return {
+          redirect: {
+            destination: '/error',
+            permanent: true
           }
         }
       }

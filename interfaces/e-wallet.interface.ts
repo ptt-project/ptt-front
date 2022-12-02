@@ -2,7 +2,7 @@ import { EWalletStatusEnum, EWalletTypeEnum } from '~/enums'
 import { IBaseEntity } from './common.interface'
 
 export interface IWallet extends IBaseEntity {
-  memberId: number
+  memberId: string
   balance: number
 
   // relation
@@ -10,7 +10,7 @@ export interface IWallet extends IBaseEntity {
 }
 
 export interface IWalletTransaction extends IBaseEntity {
-  walletId: number
+  walletId: string
   type: EWalletTypeEnum
   amount: number
   detail: string
@@ -32,12 +32,12 @@ export interface IWalletDepositQrCodeParams {
   amount: number
 }
 
-export type IWalletDepositQrCodeResponse = string // น่าจะเป็น base64 string
+export type IWalletDepositQrCodeResponse = string // qr code image id ต้องไป get รูปมาอีกรอบ
 
 export interface IWalletWithdrawParams {
   otpCode: string
   refCode: string
-  bankAccountId: number
+  bankAccountId: string
   amount: number
 }
 

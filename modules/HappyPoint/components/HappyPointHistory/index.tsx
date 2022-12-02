@@ -1,13 +1,11 @@
 import { Col, DatePicker, Row, Space, Tabs, Typography } from 'antd'
 import moment from 'moment'
 import { useTranslation } from 'next-i18next'
-import React, { FC, useState } from 'react'
+import React, { FC, useCallback, useState } from 'react'
 import { RangePickerProps } from 'antd/es/date-picker'
 import { LocaleNamespaceConst } from '~/constants'
 import styles from './HappyPointHistory.module.scss'
 import HappyPointHistoryTable from './HappyPointHistoryTable'
-import { happyPointHistory } from '../../mock-data'
-import { IHappyPointHistoryData } from '~/interfaces'
 import { HappyPointTypeEnum } from '~/enums'
 
 const { Text } = Typography
@@ -24,15 +22,23 @@ const EWalletHistory: FC = () => {
   const [tabActive, setTabActive] = useState<HappyPointHistoryTabsEnum>(
     HappyPointHistoryTabsEnum.ALL
   )
+  const [startDate, setStartDate] = useState<moment.Moment>()
+  const [endDate, setEndDate] = useState<moment.Moment>()
 
   function onTabChange(tabKey: HappyPointHistoryTabsEnum): void {
     setTabActive(tabKey)
   }
 
-  function onFilterChange<T extends Parameters<RangePickerProps['onChange']>>(...args: T): void {
-    const [values] = args
-    console.log({ values })
-  }
+  // eslint-disable-next-line @typescript-eslint/typedef
+  const onFilterChange = useCallback(
+    <T extends Parameters<RangePickerProps['onChange']>>(...args: T): void => {
+      const [values] = args
+      const [valueStartDate, valueEndDate] = values || []
+      setStartDate(valueStartDate)
+      setEndDate(valueEndDate)
+    },
+    []
+  )
 
   return (
     <Row className={styles.layout} justify="space-between" align="middle" gutter={[0, 16]}>
@@ -53,20 +59,20 @@ const EWalletHistory: FC = () => {
       <Col xs={24}>
         <Tabs defaultActiveKey={tabActive} onChange={onTabChange}>
           <Tabs.TabPane tab={t('happy-point:history.all')} key={HappyPointHistoryTabsEnum.ALL}>
-            <HappyPointHistoryTable data={happyPointHistory} />
+            <HappyPointHistoryTable startDate={startDate} endDate={endDate} />
           </Tabs.TabPane>
           <Tabs.TabPane tab={t('happy-point:history.buy')} key={HappyPointHistoryTabsEnum.BUY}>
             <HappyPointHistoryTable
-              data={happyPointHistory.filter(
-                (e: IHappyPointHistoryData) => e.type === HappyPointTypeEnum.BUY
-              )}
+              filter={HappyPointTypeEnum.BUY}
+              startDate={startDate}
+              endDate={endDate}
             />
           </Tabs.TabPane>
           <Tabs.TabPane tab={t('happy-point:history.sell')} key={HappyPointHistoryTabsEnum.SELL}>
             <HappyPointHistoryTable
-              data={happyPointHistory.filter(
-                (e: IHappyPointHistoryData) => e.type === HappyPointTypeEnum.SELL
-              )}
+              filter={HappyPointTypeEnum.SELL}
+              startDate={startDate}
+              endDate={endDate}
             />
           </Tabs.TabPane>
           <Tabs.TabPane
@@ -74,9 +80,9 @@ const EWalletHistory: FC = () => {
             key={HappyPointHistoryTabsEnum.TRANSFER}
           >
             <HappyPointHistoryTable
-              data={happyPointHistory.filter(
-                (e: IHappyPointHistoryData) => e.type === HappyPointTypeEnum.TRANSFER
-              )}
+              filter={HappyPointTypeEnum.TRANSFER}
+              startDate={startDate}
+              endDate={endDate}
             />
           </Tabs.TabPane>
         </Tabs>

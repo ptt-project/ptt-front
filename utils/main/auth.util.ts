@@ -20,19 +20,9 @@ export const AuthInitUtil = (data: IAuthLogin): void => {
 }
 
 export const AuthDestroyUtil = (): void => {
-  JsCookie.remove('AccessToken')
-  JsCookie.remove('RefreshToken')
+  // JsCookie.remove('AccessToken')
+  // JsCookie.remove('RefreshToken')
   JsCookie.remove('UserInfo')
-}
-
-export const AuthGetTokenUtil = (): IAuthToken => {
-  const accessToken: string = JsCookie.get('AccessToken') || ''
-  const refreshToken: string = JsCookie.get('RefreshToken') || ''
-
-  return {
-    accessToken,
-    refreshToken
-  }
 }
 
 export const AuthGetServerSideTokenUtil = (cookie: string | undefined): IAuthToken => {

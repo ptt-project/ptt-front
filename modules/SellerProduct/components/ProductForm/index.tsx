@@ -1,8 +1,4 @@
-import React, { FC, useState } from 'react'
-import { NextRouter, useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
-import { isEmpty } from 'lodash'
-import { Typography, Button, Row, Col, Form, message, UploadFile } from 'antd'
+import React, { FC, useEffect, useState } from 'react'
 import Helmet from 'react-helmet'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
@@ -12,21 +8,35 @@ import Features from './components/Features'
 import Sales from './components/Sales'
 import Other from './components/Other'
 import Delivery from './components/Delivery'
-import { LocaleNamespaceConst } from '~/constants'
-import { IApiResponse, ICreateProductPayload } from '../../../../interfaces'
-import { ImageService, ShopService } from '../../../../services'
-import { ProductConditionEnum } from '../../../../enums'
 import styles from './ProductForm.module.scss'
+import { NextRouter, useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { isEmpty } from 'lodash'
+import { Typography, Button, Row, Col, Form, message, UploadFile } from 'antd'
+import { LocaleNamespaceConst } from '~/constants'
+import {
+  ICreateProductPayload,
+  IProductInfo,
+  IProductItem,
+  IProductOption
+} from '../../../../interfaces'
+import { ImageService, ShopService } from '../../../../services'
+import { ImageSizeEnum, ProductConditionEnum } from '../../../../enums'
+import { ImageUrlUtil } from '../../../../utils/main'
 
 const { Text } = Typography
+
+interface IProductFormProps {
+  productInfo?: IProductInfo
+}
 
 interface IFormData {
   images: UploadFile[]
   videoLink?: string
   name: string
   detail: string
-  platformCategoryId: number
-  brandId?: number
+  platformCategoryId: string
+  brandId?: string
   exp?: string // convert to number
   condition: ProductConditionEnum
   price?: string // convert to number
@@ -41,21 +51,38 @@ interface IFormData {
   [key: string]: any
 }
 
-const ProductForm: FC = () => {
-  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
+enum FormMode {
+  CREATE = 'create',
+  UPDATE = 'update'
+}
+
+enum EOptionLabel {
+  ONE = 'optionLabelOne',
+  TWO = 'optionLabelTwo'
+}
+
+enum EOptionValue {
+  ONE = 'optionValueOne',
+  TWO = 'optionValueTwo'
+}
+
+const ProductForm: FC<IProductFormProps> = (props: IProductFormProps) => {
   const router: NextRouter = useRouter()
+  const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [form] = Form.useForm()
+  const [formMode] = useState<FormMode>(props.productInfo ? FormMode.UPDATE : FormMode.CREATE)
+  const [form] = Form.useForm<IFormData>()
   const [productOptionLabelOne, setProductOptionLabelOne] = useState<string>('')
   const [productOptionLabelTwo, setProductOptionLabelTwo] = useState<string>('')
   const [productOptionValueOne, setProductOptionValueOne] = useState<string[]>([])
   const [productOptionValueTwo, setProductOptionValueTwo] = useState<string[]>([])
 
   async function onSubmit(values: IFormData): Promise<void> {
-    setIsLoading(true)
-    let isSuccess: boolean = false
     try {
+      setIsLoading(true)
+
       const isMultipleOptions: boolean = !isEmpty(values.optionLabelOne)
+
       const payload: ICreateProductPayload = {
         imageIds: [],
         videoLink: values.videoLink,
@@ -63,10 +90,10 @@ const ProductForm: FC = () => {
         detail: values.detail,
         platformCategoryId: values.platformCategoryId,
         condition: values.condition,
-        weight: parseInt(values.weight),
-        width: parseInt(values.width),
-        length: parseInt(values.length),
-        height: parseInt(values.height),
+        weight: parseFloat(values.weight),
+        width: parseFloat(values.width),
+        length: parseFloat(values.length),
+        height: parseFloat(values.height),
         isSendLated: values.isSendLated === 1,
         isMultipleOptions,
         productOptions: [],
@@ -75,7 +102,7 @@ const ProductForm: FC = () => {
 
       if (!isMultipleOptions) {
         payload.exp = values.exp ? parseInt(values.exp) : undefined
-        payload.price = values.price ? parseInt(values.price) : undefined
+        payload.price = values.price ? parseFloat(values.price) : undefined
         payload.stock = values.stock ? parseInt(values.stock) : undefined
         payload.sku = values.sku
         payload.extraDay = values.extraDay ? parseInt(values.extraDay) : undefined
@@ -84,35 +111,50 @@ const ProductForm: FC = () => {
           { name: productOptionLabelOne, options: productOptionValueOne },
           { name: productOptionLabelTwo, options: productOptionValueTwo }
         ]
+
+        let i: number = 0
+
         productOptionValueOne.forEach((valueOne: string) => {
-          productOptionValueTwo.forEach((valueTwo: string, j: number) => {
-            const priceKey: string = `price_${j + 1}`
-            const skuKey: string = `sku_${j + 1}`
-            const stockKey: string = `stock_${j + 1}`
-            const price: number = parseInt(values[priceKey]) || 0
+          productOptionValueTwo.forEach((valueTwo: string) => {
+            const priceKey: string = `price_${i + 1}`
+            const skuKey: string = `sku_${i + 1}`
+            const stockKey: string = `stock_${i + 1}`
+            const price: number = parseFloat(values[priceKey]) || 0
             const sku: string = values[skuKey] || ''
             const stock: number = parseInt(values[stockKey]) || 0
+
             payload.products.push({ option1: valueOne, option2: valueTwo, price, sku, stock })
+
+            i++
           })
         })
       } else {
         payload.productOptions = [{ name: productOptionLabelOne, options: productOptionValueOne }]
+
         productOptionValueOne.forEach((value: string, index: number) => {
           const priceKey: string = `price_${index + 1}`
           const skuKey: string = `sku_${index + 1}`
           const stockKey: string = `stock_${index + 1}`
-          const price: number = parseInt(values[priceKey]) || 0
+          const price: number = parseFloat(values[priceKey]) || 0
           const sku: string = values[skuKey] || ''
           const stock: number = parseInt(values[stockKey]) || 0
+
           payload.products.push({ option1: value, option2: '', price, sku, stock })
         })
       }
 
       const uploadImages: { id: string }[] = await Promise.all(
         values.images.map(async (img: UploadFile) => {
+          if (props.productInfo) {
+            if (props.productInfo.productProfile.imageIds.includes(img.uid)) {
+              return { id: img.uid }
+            }
+          }
+
           const formData: FormData = new FormData()
           formData.append('image', img.originFileObj)
-          const { data }: IApiResponse = await ImageService.upload(formData)
+          const { data } = await ImageService.upload(formData)
+
           return data
         })
       )
@@ -120,20 +162,106 @@ const ProductForm: FC = () => {
       uploadImages.forEach((data: { id: string }) => imageIds.push(data.id))
       payload.imageIds = imageIds
 
-      await ShopService.createProduct(payload)
+      if (formMode === FormMode.CREATE) {
+        await ShopService.createProduct(payload)
+      } else {
+        await ShopService.updateProduct(props.productInfo.productProfile.id, payload)
+      }
 
-      isSuccess = true
-    } catch (error) {
-      console.log(error)
-    }
-    if (isSuccess) {
       message.success(t('common:apiMessage.success'))
+
       router.push('/seller/settings/product/list')
-    } else {
+    } catch (error) {
       message.error(t('common:apiMessage.error'))
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
+
+  useEffect(() => {
+    if (formMode === FormMode.UPDATE) {
+      const { productProfile, productOptions, products } = props.productInfo
+
+      let prefixLabel: string = ''
+      let prefixValue: string = ''
+
+      const options: { [key: string]: string } = {}
+
+      productOptions.forEach((o: IProductOption, i: number) => {
+        if (i === 0) {
+          prefixLabel = EOptionLabel.ONE
+          prefixValue = EOptionValue.ONE
+        } else {
+          prefixLabel = EOptionLabel.TWO
+          prefixValue = EOptionValue.TWO
+        }
+
+        options[prefixLabel] = o.name
+
+        o.options.forEach((name: string, j: number) => {
+          options[`${prefixValue}_${j + 1}`] = name
+        })
+      })
+
+      products.forEach((p: IProductItem, i: number) => {
+        options[`price_${i + 1}`] = p.price.toString()
+        options[`sku_${i + 1}`] = p.sku
+        options[`stock_${i + 1}`] = p.stock.toString()
+      })
+
+      form.setFieldsValue({
+        videoLink: productProfile.videoLink || '',
+        name: productProfile.name,
+        detail: productProfile.detail,
+        platformCategoryId: productProfile.platformCategoryId,
+        brandId: productProfile.brandId || '',
+        weight: productProfile.weight || '',
+        width: productProfile.width?.toString() || '',
+        length: productProfile.length?.toString() || '',
+        height: productProfile.height?.toString() || '',
+        exp: productProfile.exp?.toString() || '',
+        condition: productProfile.condition,
+        isSendLated: productProfile.isSendLated ? 1 : 0,
+        extraDay: productProfile.extraDay?.toString() || '',
+        images: productProfile.imageIds.map((id: string) => ({
+          uid: id,
+          name: id,
+          status: 'done',
+          url: ImageUrlUtil(id, ImageSizeEnum.THUMBNAIL)
+        })),
+        ...options
+      })
+
+      let labelOne: string = ''
+      let labelTwo: string = ''
+      const valueOne: string[] = []
+      const valueTwo: string[] = []
+
+      productOptions.forEach((option: IProductOption, i: number) => {
+        if (i === 0) {
+          labelOne = option.name
+          valueOne.push(...option.options)
+        } else {
+          labelTwo = option.name
+          valueTwo.push(...option.options)
+        }
+      })
+
+      setProductOptionLabelOne(labelOne)
+      setProductOptionLabelTwo(labelTwo)
+      setProductOptionValueOne(valueOne)
+      setProductOptionValueTwo(valueTwo)
+
+      // set product list values inside sale component
+    } else {
+      form.setFieldsValue({
+        platformCategoryId: '',
+        brandId: '',
+        condition: ProductConditionEnum.NEW,
+        isSendLated: 0
+      })
+    }
+  }, [formMode])
 
   return (
     <main className="main">
@@ -162,22 +290,12 @@ const ProductForm: FC = () => {
                   {t('seller.product:form.addTitle')}
                 </h4>
               </Text>
-              <Form
-                layout="vertical"
-                initialValues={{
-                  platformCategoryId: '',
-                  brandId: '',
-                  condition: ProductConditionEnum.NEW,
-                  isSendLated: 0
-                }}
-                form={form}
-                name="productForm"
-                onFinish={onSubmit}
-              >
-                <Info form={form} />
+              <Form layout="vertical" form={form} name="productForm" onFinish={onSubmit}>
+                <Info form={form} productInfo={props.productInfo} />
                 <Features form={form} />
                 <Sales
                   form={form}
+                  productInfo={props.productInfo}
                   productOptionLabelOne={productOptionLabelOne}
                   productOptionLabelTwo={productOptionLabelTwo}
                   productOptionValueOne={productOptionValueOne}

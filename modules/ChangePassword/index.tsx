@@ -1,22 +1,18 @@
 import React, { useState } from 'react'
+import Helmet from 'react-helmet'
+import OtpModal from '~/components/main/OtpModal'
+import SettingSidebar from '~/components/main/SettingSidebar'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { Button, Col, Form, Input, notification, Row, Space, Typography } from 'antd'
 import { FormInstance, Rule, RuleObject, RuleRender } from 'antd/lib/form'
 import { NextRouter, useRouter } from 'next/router'
-import Helmet from 'react-helmet'
 import { useTranslation } from 'next-i18next'
-import OtpModal from '~/components/main/OtpModal'
-import { IOtp } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
-import SettingSidebar from '~/components/main/SettingSidebar'
-import Breadcrumbs from '~/components/main/Breadcrumbs'
 import { OtpTypeEnum } from '~/enums'
 import { MemberService } from '~/services'
 
 const { Text, Title } = Typography
-const user: any = {
-  mobileNo: '0901234567'
-}
 
 interface IChangePasswordFormValues {
   password: string
@@ -27,6 +23,7 @@ interface IChangePasswordFormValues {
 const ChangePassword: React.FC = () => {
   const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register', 'change-password'])
+  const { data: user } = MemberService.useGetProfile()
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [form] = Form.useForm<IChangePasswordFormValues>()
@@ -41,7 +38,7 @@ const ChangePassword: React.FC = () => {
     setIsOpen(!isOpen)
   }
 
-  async function onSubmitOtp(otpData: IOtp): Promise<void> {
+  async function onSubmitOtp(): Promise<void> {
     try {
       const { password, newPassword } = formValues
       await MemberService.changePassword({
@@ -60,7 +57,7 @@ const ChangePassword: React.FC = () => {
   }
   const validatePasswordFormat: RuleRender = (): RuleObject => ({
     validator(_: Rule, value: string): Promise<void> {
-      if (!value || RegExpConst.CHECK_PASSWORD.test(value)) {
+      if (!value || RegExpConst.MATCH_PASSWORD.test(value)) {
         return Promise.resolve()
       }
       return Promise.reject(
@@ -111,7 +108,7 @@ const ChangePassword: React.FC = () => {
         ]}
       />
       <OtpModal
-        mobile={user.mobileNo}
+        mobile={user?.mobile}
         action={OtpTypeEnum.REGISTER}
         isOpen={isOpen}
         toggle={toggle}

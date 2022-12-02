@@ -1,0 +1,74 @@
+@import '../../public/sass/config/variables';
+
+.textSecondary {
+  color: $secondary-color !important;
+}
+.h1 {
+  line-height: 1 !important;
+  margin-bottom: 0 !important;
+}
+
+.h4 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.space {
+  margin: 0 0.5rem;
+}
+
+.list {
+  background: #fff1f0;
+  padding: 0.5rem;
+  border-bottom: 0.1rem solid #e0e0e0;
+}
+.borderList {
+  border-top: 0.1rem solid #e0e0e0;
+  border-left: 0.1rem solid #e0e0e0;
+  border-right: 0.1rem solid #e0e0e0;
+  border-radius: 0.3rem;
+}
+.icon {
+  color: #a7171f;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+}
+.iconArrow {
+  color: #239cd7;
+  padding-right: 3rem;
+  padding-left: 3rem;
+  font-size: 1.73rem;
+}
+.valueList {
+  color: #a7171f;
+  font-weight: 600;
+  font-size: 1.73rem;
+  &.responseRate {
+    padding-right: 6rem;
+  }
+}
+.imgGroup {
+  position: relative;
+  .imgContainer {
+    width: 100%;
+    padding-top: 25%;
+    position: relative;
+
+    .imgWrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+.avatar {
+  background-color: $primary-color;
+}

@@ -20,7 +20,7 @@ module.exports = {
       }
     }
   },
-  ignorePatterns: ['**/*.js', '**/*.jsx'],
+  ignorePatterns: ['**/*.js', '**/*.jsx', 'tsconfig.json'],
   rules: {
     'import/no-unresolved': [
       'error',
@@ -41,6 +41,7 @@ module.exports = {
     'react/jsx-no-bind': 'off',
     'react/jsx-pascal-case': ['error'],
     'react/jsx-props-no-spreading': 'off',
+    'react/react-in-jsx-scope': 'off',
     'react/no-array-index-key': 'off',
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'off',

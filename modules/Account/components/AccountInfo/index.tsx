@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
 import moment from 'moment'
-import 'moment/locale/th'
 import Link from 'next/link'
 import Helmet from 'react-helmet'
 import Loading from '~/components/main/Loading'
@@ -22,14 +21,16 @@ import {
   Radio,
   message
 } from 'antd'
-import { HelperGetImageUtil } from '~/utils/main'
-import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
+import { ImageAcceptConst, ImageMaxFileSizeConst, LocaleNamespaceConst } from '~/constants'
 import { IUpdateMemberProfilePayload, IApiResponse, IMemberInfo } from '~/interfaces'
 import { ImageService, MemberService } from '~/services'
 import { AccountGenderEnum, ImageSizeEnum } from '~/enums'
 import { NextRouter, useRouter } from 'next/router'
-import { UploadChangeParam } from 'antd/lib/upload'
+import { UploadChangeParam, UploadFile } from 'antd/lib/upload'
 import { RcFile } from 'antd/es/upload'
+import { AxiosError } from 'axios'
+import { ImageUrlUtil } from '../../../../utils/main'
+import 'moment/locale/th'
 
 const { Text, Title } = Typography
 
@@ -159,66 +160,93 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
 
   function getImage(): string {
     if (info.imageId) {
-      return `${HelperGetImageUtil(info.imageId, ImageSizeEnum.SMALL)}`
+      return `${ImageUrlUtil(info.imageId, ImageSizeEnum.SMALL)}`
     }
 
     return ''
   }
 
-  async function onChangeImage({ file }: UploadChangeParam): Promise<void> {
-    let src: string = file.url
+  function onBeforeChangeImage(file: UploadFile): boolean {
+    if (file.size >= ImageMaxFileSizeConst) {
+      message.error(t('message:buyer.account.info.entityTooLarge'))
 
-    if (!src) {
-      src = await new Promise((resolve: any) => {
-        const reader: FileReader = new FileReader()
-        reader.readAsDataURL(file.originFileObj as RcFile)
-        reader.onload = (): string => resolve(reader.result as string)
-      })
+      return false
     }
 
-    setCurrentImage(src)
+    return true
+  }
+
+  async function onChangeImage({ file }: UploadChangeParam): Promise<void> {
+    if (file.originFileObj) {
+      let src: string = file.url
+
+      if (!src) {
+        src = await new Promise((resolve: any) => {
+          const reader: FileReader = new FileReader()
+          reader.readAsDataURL(file.originFileObj as RcFile)
+          reader.onload = (): string => resolve(reader.result as string)
+        })
+      }
+
+      setCurrentImage(src)
+    }
+  }
+
+  function checkValueBirthday(value: string, type: string): string {
+    if (type === 'year') {
+      return value ? value : getYear()
+    }
+    if (type === 'month') {
+      return value ? value : getMonth()
+    }
+    return value ? value : getDay()
   }
 
   async function onSubmit(values: IAccountInfoForm): Promise<void> {
-    setIsLoading(true)
-    let isSuccess: boolean = false
-
     try {
+      setIsLoading(true)
+
       const payload: IUpdateMemberProfilePayload = {
         firstName: values.firstName,
-        lastName: values.lastName,
-        birthday: `${values.year}-${values.month}-${values.day}`,
-        gender: values.gender
+        lastName: values.lastName
       }
-
+      if (values.year && values.month && values.day) {
+        payload.birthday = `${checkValueBirthday(values.year, 'year')}-${checkValueBirthday(
+          values.month,
+          'month'
+        )}-${checkValueBirthday(values.day, 'day')}`
+      }
+      if (values.gender) {
+        payload.gender = values.gender
+      }
       if (values.image) {
         const formData: FormData = new FormData()
         formData.append('image', values.image.file.originFileObj)
+
         const imageRes: IApiResponse = await ImageService.upload(formData)
 
         if (imageRes.data.id) {
           payload.imageId = imageRes.data.id
         }
       }
-
       const infoRes: IApiResponse = await MemberService.updateProfile(payload)
 
       if (infoRes.data) {
         setInfo(infoRes.data)
       }
 
-      isSuccess = true
-    } catch (error) {
-      console.log(error)
-    }
-
-    if (isSuccess) {
       message.success(t('common:apiMessage.success'))
-    } else {
-      message.error(t('common:apiMessage.error'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   function renderAvatar(): JSX.Element {
@@ -341,10 +369,12 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                     {renderAvatar()}
                   </Col>
                   <Col sm={8} xs={12} className="text-center">
-                    <Form.Item name="image">
+                    <Form.Item name="image" className="mb-1">
                       <Upload
                         accept={ImageAcceptConst.toString()}
                         maxCount={1}
+                        showUploadList={false}
+                        beforeUpload={onBeforeChangeImage}
                         onChange={onChangeImage}
                       >
                         <Button className="hps-btn-secondary">
@@ -379,7 +409,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount />
                     </Form.Item>
                   </Col>
                   <Col sm={12} xs={24}>
@@ -393,47 +423,29 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount />
                     </Form.Item>
                   </Col>
                   <Col span={24}>
                     <Row gutter={8}>
-                      <Col md={3} sm={4} xs={6}>
-                        <Form.Item
-                          label={t('account-info:form.birthday')}
-                          name="day"
-                          rules={[
-                            {
-                              required: true,
-                              message: `${t('common:form.required')} ${t('account-info:form.day')}`
-                            }
-                          ]}
-                        >
+                      <Col md={5} sm={6} xs={9}>
+                        <Form.Item label={t('account-info:form.birthday')} name="year">
                           <Select
-                            defaultValue={currentDay}
+                            defaultValue={currentYear}
                             onChange={(value: string): void => {
-                              form.setFieldValue('day', value)
-                              setCurrentDay(value)
+                              form.setFieldValue('day', '')
+                              form.setFieldValue('month', '')
+                              form.setFieldValue('year', value)
+                              setCurrentYear(value)
                             }}
                           >
-                            <Select.Option value="">{t('account-info:form.day')}</Select.Option>
-                            {renderDayOptions()}
+                            <Select.Option value="">{t('account-info:form.year')}</Select.Option>
+                            {renderYearOptions()}
                           </Select>
                         </Form.Item>
                       </Col>
                       <Col md={5} sm={6} xs={9}>
-                        <Form.Item
-                          label={null}
-                          name="month"
-                          rules={[
-                            {
-                              required: true,
-                              message: `${t('common:form.required')} ${t(
-                                'account-info:form.month'
-                              )}`
-                            }
-                          ]}
-                        >
+                        <Form.Item label={null} name="month">
                           <div className="ant-form-item-label">
                             <label>&nbsp;</label>
                           </div>
@@ -450,31 +462,20 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                           </Select>
                         </Form.Item>
                       </Col>
-                      <Col md={5} sm={6} xs={9}>
-                        <Form.Item
-                          label={null}
-                          name="year"
-                          rules={[
-                            {
-                              required: true,
-                              message: `${t('common:form.required')} ${t('account-info:form.year')}`
-                            }
-                          ]}
-                        >
+                      <Col md={3} sm={4} xs={6}>
+                        <Form.Item label={null} name="day">
                           <div className="ant-form-item-label">
                             <label>&nbsp;</label>
                           </div>
                           <Select
-                            defaultValue={currentYear}
+                            defaultValue={currentDay}
                             onChange={(value: string): void => {
-                              form.setFieldValue('day', '')
-                              form.setFieldValue('month', '')
-                              form.setFieldValue('year', value)
-                              setCurrentYear(value)
+                              form.setFieldValue('day', value)
+                              setCurrentDay(value)
                             }}
                           >
-                            <Select.Option value="">{t('account-info:form.year')}</Select.Option>
-                            {renderYearOptions()}
+                            <Select.Option value="">{t('account-info:form.day')}</Select.Option>
+                            {renderDayOptions()}
                           </Select>
                         </Form.Item>
                       </Col>
@@ -486,18 +487,7 @@ const AccountInfo: FC<IAccountInfoProps> = (props: IAccountInfoProps) => {
                         <Text>{t('account-info:form.gender')}</Text>
                       </Col>
                       <Col xs={16}>
-                        <Form.Item
-                          label={null}
-                          name="gender"
-                          rules={[
-                            {
-                              required: true,
-                              message: `${t('common:form.required')} ${t(
-                                'account-info:form.gender'
-                              )}`
-                            }
-                          ]}
-                        >
+                        <Form.Item label={null} name="gender">
                           <Radio.Group className={styles.radioFlex}>
                             <Radio value={AccountGenderEnum.MALE}>
                               {t('account-info:form.man')}

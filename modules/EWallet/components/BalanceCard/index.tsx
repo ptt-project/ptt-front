@@ -1,9 +1,10 @@
-import { Button, Col, Image, Row, Space, Typography } from 'antd'
-import { useTranslation } from 'next-i18next'
 import React, { FC } from 'react'
+import Image from '../../../../components/main/Image'
+import styles from './BalanceCard.module.scss'
+import { Button, Col, Row, Space, Typography } from 'antd'
+import { useTranslation } from 'next-i18next'
 import { LocaleNamespaceConst } from '~/constants'
 import { HelperDecimalFormatUtil } from '~/utils/main'
-import styles from './BalanceCard.module.scss'
 
 const { Text } = Typography
 
@@ -34,7 +35,13 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
           <Col>
             <Button
               className={`${styles.button} hps-btn-secondary`}
-              icon={<Image preview={false} src="./images/main/buyer/icon-withdraw.svg" alt="" />}
+              icon={
+                <Image
+                  className="mr-1"
+                  src="./images/main/buyer/icon-withdraw.svg"
+                  alt="icon-withdraw"
+                />
+              }
               onClick={onWithdrawClick}
             >
               {t('e-wallet:withdraw.title')}
@@ -43,7 +50,13 @@ const BalanceCard: FC<IBalanceCardProps> = (props: IBalanceCardProps) => {
           <Col>
             <Button
               className={`${styles.button} ${styles.topUpButton}`}
-              icon={<Image preview={false} src="./images/main/buyer/icon-top-up.svg" alt="" />}
+              icon={
+                <Image
+                  className="mr-1"
+                  src="./images/main/buyer/icon-top-up.svg"
+                  alt="icon-top-up"
+                />
+              }
               onClick={onTopUpClick}
             >
               {t('e-wallet:topUp.title')}

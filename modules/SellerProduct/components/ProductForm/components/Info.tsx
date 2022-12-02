@@ -1,22 +1,47 @@
+import React, { FC, useState } from 'react'
+import HighlightLabel from '~/components/main/HighlightLabel'
+import styles from '../ProductForm.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Upload, Col, Form, Input, Row, Select, Typography, FormInstance } from 'antd'
 import { RcFile } from 'antd/es/upload'
 import { UploadFile } from 'antd/es/upload/interface'
 import { UploadChangeParam } from 'antd/lib/upload'
-import React, { FC, useState } from 'react'
-import HighlightLabel from '~/components/main/HighlightLabel'
 import { ImageAcceptConst, LocaleNamespaceConst } from '~/constants'
-import styles from '../ProductForm.module.scss'
+import { ConfigService } from '../../../../../services'
+import { IConfigOptionPlatformCategory, IProductInfo } from '../../../../../interfaces'
+import { ImageUrlUtil, OptionKeyLabelUtil } from '../../../../../utils/main'
+import { ImageSizeEnum } from '../../../../../enums'
+import { NextRouter, useRouter } from 'next/router'
 
 const { Text } = Typography
 
 interface IInfoProps {
   form: FormInstance
+  productInfo?: IProductInfo
 }
 
-const Info: FC<IInfoProps> = () => {
+const Info: FC<IInfoProps> = (props: IInfoProps) => {
+  const router: NextRouter = useRouter()
   const { t } = useTranslation([...LocaleNamespaceConst, 'seller.product'])
-  const [fileList, setFileList] = useState<UploadFile[]>([])
+  const { data: configOptions } = ConfigService.useGetConfigOptions()
+  const [fileList, setFileList] = useState<UploadFile[]>(getDefaultImages)
+
+  function getDefaultImages(): UploadFile[] {
+    const files: UploadFile[] = []
+
+    if (props.productInfo?.productProfile) {
+      props.productInfo.productProfile.imageIds.forEach((id: string) => {
+        files.push({
+          uid: id,
+          name: id,
+          status: 'done',
+          url: ImageUrlUtil(id, ImageSizeEnum.THUMBNAIL)
+        })
+      })
+    }
+
+    return files
+  }
 
   function normFile(e: any): any {
     if (Array.isArray(e)) {
@@ -131,7 +156,11 @@ const Info: FC<IInfoProps> = () => {
           >
             <Select>
               <Select.Option value="">{t('common:form.option')}</Select.Option>
-              <Select.Option value={1}>เสื้อกีฬา</Select.Option>
+              {configOptions?.platformCategory.map((category: IConfigOptionPlatformCategory) => (
+                <Select.Option key={category.value} value={category.value}>
+                  {category[OptionKeyLabelUtil(router)]}
+                </Select.Option>
+              ))}
             </Select>
           </Form.Item>
         </Col>

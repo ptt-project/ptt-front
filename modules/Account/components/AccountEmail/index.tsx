@@ -7,9 +7,11 @@ import styles from './AccountEmail.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Button, Row, Col, Form, Input, message } from 'antd'
 import { IMemberInfo, IUpdateMemberEmailPayload } from '~/interfaces'
-import { LocaleNamespaceConst } from '~/constants'
+import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { MemberService } from '~/services'
 import { NextRouter, useRouter } from 'next/router'
+import { Rule } from 'antd/lib/form'
+import { AxiosError } from 'axios'
 
 const { Text, Title } = Typography
 
@@ -51,11 +53,9 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
   }
 
   async function onSubmit(values: IAccountEmailForm): Promise<void> {
-    setIsLoading(true)
-
-    let isSuccess: boolean = false
-
     try {
+      setIsLoading(true)
+
       const payload: IUpdateMemberEmailPayload = {
         newEmail: values.email,
         password: values.password
@@ -63,20 +63,25 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
 
       await MemberService.updateEmail(payload)
 
-      isSuccess = true
-    } catch (error) {
-      console.log(error)
-    }
-
-    if (isSuccess) {
       message.success(t('common:apiMessage.success'))
-
       router.push(`${rootMenu}/settings/${prefixMenu}`)
-    } else {
-      message.error(t('common:apiMessage.error'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          case 103003:
+            message.error(t('message:buyer.account.email.alreadyEmail'))
+            break
+          case 101001:
+            message.error(t('message:buyer.account.email.alreadyEmail'))
+            break
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   return (
@@ -137,17 +142,29 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
                           name="email"
                           rules={[
                             {
-                              required: true,
+                              required: false,
                               message: `${t('common:form.required')} ${t(
                                 'account-info:email.newEmail'
                               )}`
                             },
-                            {
-                              type: 'email',
-                              message: `${t('common:form.invalid.head')} ${t(
-                                'account-info:email.newEmail'
-                              )} ${t('common:form.invalid.tail')}`
-                            }
+                            (): any => ({
+                              validator(_: Rule, value: string): Promise<any> {
+                                if (
+                                  !value ||
+                                  (RegExpConst.MATCH_EMAIL.test(value) &&
+                                    !RegExpConst.MATCH_THAI_LETTER.test(value))
+                                ) {
+                                  return Promise.resolve()
+                                }
+                                return Promise.reject(
+                                  new Error(
+                                    `${t('common:form.invalid.head')} ${t(
+                                      'account-info:email.newEmail'
+                                    )} ${t('common:form.invalid.tail')}`
+                                  )
+                                )
+                              }
+                            })
                           ]}
                         >
                           <Input maxLength={50} />
@@ -159,14 +176,28 @@ const AccountEmail: FC<IAccountEmailProps> = (props: IAccountEmailProps) => {
                           name="password"
                           rules={[
                             {
-                              required: true,
+                              required: false,
                               message: `${t('common:form.required')} ${t(
                                 'account-info:email.password'
                               )}`
-                            }
+                            },
+                            (): any => ({
+                              validator(_: Rule, value: string): Promise<any> {
+                                if (!value || RegExpConst.MATCH_PASSWORD.test(value)) {
+                                  return Promise.resolve()
+                                }
+                                return Promise.reject(
+                                  new Error(
+                                    `${t('common:form.invalid.head')} ${t(
+                                      'account-info:email.password'
+                                    )} ${t('common:form.invalid.tail')}`
+                                  )
+                                )
+                              }
+                            })
                           ]}
                         >
-                          <Input.Password />
+                          <Input.Password maxLength={20} />
                         </Form.Item>
                       </Col>
                       <Col span={24} className="text-center mb-5">

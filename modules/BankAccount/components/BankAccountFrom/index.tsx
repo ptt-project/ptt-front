@@ -1,23 +1,20 @@
 /* eslint-disable no-template-curly-in-string */
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
+import HighlightLabel from '~/components/main/HighlightLabel'
+import CustomInput from '~/components/main/CustomInput'
+import InputNumberFormat from '~/components/main/InputNumberFormat'
+import styles from './BankAccountFrom.module.scss'
 import { Form, FormInstance, Col, Row, Select } from 'antd'
 import { DeepPartial } from 'redux'
 import { DefaultOptionType } from 'antd/lib/select'
 import { Rule } from 'antd/lib/form'
 import { useTranslation } from 'next-i18next'
 import { NumberFormatValues } from 'react-number-format'
-import styles from './BankAccountFrom.module.scss'
-import HighlightLabel from '~/components/main/HighlightLabel'
-import { IBankOptionData, IBankAccountFromValues } from '~/interfaces'
+import { IBankAccountFromValues, IConfigOptionBank } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
-import CustomInput from '~/components/main/CustomInput'
-import InputNumberFormat from '~/components/main/InputNumberFormat'
-import { bankOptionsData } from '../../bank-account.helper'
-
-const bankOptions: DefaultOptionType[] = bankOptionsData.map((d: IBankOptionData) => ({
-  label: `${d.bankName} (${d.bankCode})`,
-  value: d.bankCode
-}))
+import { ConfigService } from '~/services'
+import { OptionKeyLabelUtil } from '../../../../utils/main'
+import { NextRouter, useRouter } from 'next/router'
 
 interface IBankAccountFromProps {
   parentForm: FormInstance
@@ -26,24 +23,35 @@ interface IBankAccountFromProps {
 }
 
 const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFromProps) => {
+  const router: NextRouter = useRouter()
   const { parentForm, initialValues, onSubmit } = props
-
   const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
   const [form] = Form.useForm(parentForm)
   const [, /* formValues */ setFormValues] = useState<DeepPartial<IBankAccountFromValues>>({})
+
+  const { data: configOptions } = ConfigService.useGetConfigOptions()
 
   const baseRules: Rule[] = [
     { required: true, message: [t('common:form.required'), '${label}'].join(' ') }
   ]
 
-  function onFormFinish(values: IBankAccountFromValues): void {
-    console.log({ formValues: values })
+  const bankOptions: DefaultOptionType[] = useMemo(() => {
+    if (configOptions?.bank?.length) {
+      return configOptions?.bank.map((d: IConfigOptionBank): DefaultOptionType => {
+        return {
+          label: d[OptionKeyLabelUtil(router)],
+          value: d.value
+        }
+      })
+    }
+    return []
+  }, [])
 
+  function onFormFinish(values: IBankAccountFromValues): void {
     onSubmit?.({ ...initialValues, ...values })
   }
 
   function onFormChange(values: IBankAccountFromValues): void {
-    console.log({ formValues: values })
     setFormValues(values)
   }
 
@@ -75,7 +83,7 @@ const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFro
           <Col sm={12} xs={24}>
             <Form.Item
               label={t('bank-account:form.citizenNo')}
-              name="citizenNo"
+              name="thaiId"
               rules={[
                 ...baseRules,
                 {
@@ -131,7 +139,7 @@ const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFro
           <Col sm={12} xs={24}>
             <Form.Item
               label={t('bank-account:form.bankAccountNo')}
-              name="bankAccountNo"
+              name="accountNumber"
               rules={[...baseRules]}
             >
               <InputNumberFormat
@@ -146,7 +154,7 @@ const BankAccountFrom: React.FC<IBankAccountFromProps> = (props: IBankAccountFro
           <Col sm={12} xs={24}>
             <Form.Item
               label={t('bank-account:form.bankAccountName')}
-              name="bankAccountName"
+              name="accountHolder"
               rules={[...baseRules]}
             >
               <CustomInput onlyLetter maxLength={250} />

@@ -156,7 +156,7 @@ const AddCategoryModal: FC<IAddCategoryModalProps> = (props: IAddCategoryModalPr
 
   function onChangeNumber(e: ChangeEvent<HTMLInputElement>): void {
     let value: string = ''
-    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
       value = e.target.value
     } else {
       value = e.target.value.replace(RegExpConst.ALLOW_NUMBER, '')

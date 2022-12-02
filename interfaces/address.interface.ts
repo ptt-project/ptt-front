@@ -5,12 +5,12 @@ export interface IAddressGeoName {
 
 export interface IAddress {
   id: string
-  createdAt: string
-  updatedAt: string
-  deletedAt?: string
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date
   name: string
   mobile: string
-  memberId: number
+  memberId: string
   province: string
   tambon: string
   district: string

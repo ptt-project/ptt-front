@@ -8,17 +8,17 @@ export const eWalletHistory: IWalletTransaction[] = times(50).map(
     amount: Math.random() * 1000,
     createdAt: moment()
       .subtract(Math.random() * 1000 * 60, 'minute')
-      .format(),
+      .toDate(),
     status: sample([
       EWalletStatusEnum.CANCELED,
       EWalletStatusEnum.FAILED,
       EWalletStatusEnum.PENDING,
       EWalletStatusEnum.SUCCESS
     ]),
-    id,
+    id: id.toString(),
     detail: '',
-    walletId: id,
-    updatedAt: moment().format(),
+    walletId: id.toString(),
+    updatedAt: moment().toDate(),
 
     type: sample([EWalletTypeEnum.WITHDRAW, EWalletTypeEnum.DEPOSIT])
   })

@@ -1,27 +1,17 @@
 import React, { useState, FC, ChangeEvent } from 'react'
+import Image from '../../../../components/main/Image'
+import Loading from '~/components/main/Loading'
+import styles from './RegisterForm.module.scss'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
 import { isEmpty } from 'lodash'
-import {
-  Typography,
-  Space,
-  Button,
-  Row,
-  Col,
-  Form,
-  Input,
-  Divider,
-  Image,
-  Modal,
-  message
-} from 'antd'
+import { Typography, Space, Button, Row, Col, Form, Input, Divider, Modal, message } from 'antd'
 import { Rule } from 'antd/lib/form'
-import Loading from '~/components/main/Loading'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { IAuthRegisterForm, IAuthRegisterValidatePayload } from '~/interfaces'
 import { CustomUrlUtil } from '~/utils/main'
 import { AuthService } from '~/services'
-import styles from './RegisterForm.module.scss'
+import { AxiosError } from 'axios'
 
 const { Text, Title, Link } = Typography
 
@@ -31,9 +21,8 @@ interface IRegisterFormProps {
 }
 
 const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
-  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register'])
   const router: NextRouter = useRouter()
-
+  const { t } = useTranslation([...LocaleNamespaceConst, 'auth.register'])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState<string>('')
   const [form] = Form.useForm()
@@ -42,20 +31,25 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
     if (isOpen === 'TERM') {
       return t('auth.register:form.policyB')
     }
+
     if (isOpen === 'CONDITION') {
       return t('auth.register:form.policyC')
     }
+
     return ''
   }
 
   function getModalContent(): JSX.Element {
     let content: string = ''
+
     if (isOpen === 'TERM') {
       content = t('auth.register:form.policyBContent')
     }
+
     if (isOpen === 'CONDITION') {
       content = t('auth.register:form.policyCContent')
     }
+
     if (content) {
       return (
         <div className={styles.modalBodyWrapper}>
@@ -63,6 +57,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
         </div>
       )
     }
+
     return null
   }
 
@@ -75,34 +70,50 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
   }
 
   function onMobileChange(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
       form.setFieldsValue({ mobile: e.target.value })
     } else {
       form.setFieldsValue({ mobile: e.target.value.replace(RegExpConst.ALLOW_NUMBER, '') })
     }
+
+    form.validateFields(['mobile'])
   }
 
   async function onSubmit(values: IAuthRegisterForm): Promise<void> {
-    setIsLoading(true)
-    let isSuccess: boolean = false
     try {
+      setIsLoading(true)
+
       const payload: IAuthRegisterValidatePayload = {
         email: values.email,
-        username: values.username
+        username: values.username,
+        mobile: values.mobile
       }
+
       await AuthService.registerValidate(payload)
-      isSuccess = true
+
       props.setForm(values)
       props.setStep(1)
-    } catch (error) {
-      console.log(error)
-    }
-    if (isSuccess) {
       message.success(t('common:apiMessage.success'))
-    } else {
-      message.error(t('common:apiMessage.error'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          case 101001:
+            message.error(t('message:buyer.auth.register.alreadyEmail'))
+            break
+          case 101002:
+            message.error(t('message:buyer.auth.register.alreadyUsername'))
+            break
+          case 101009:
+            message.error(t('message:buyer.auth.register.alreadyMobile'))
+            break
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   return (
@@ -131,14 +142,11 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <div className={styles.imgContainer}>
-                <Image
-                  rootClassName={styles.imgWrapper}
-                  preview={false}
-                  src="./images/main/buyer/register-form.png"
-                  alt="register-form"
-                />
-              </div>
+              <Image
+                src="./images/main/buyer/register-form.png"
+                alt="register-form"
+                ratio={2 / 3}
+              />
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
               <Title className="hps-title" level={4}>
@@ -159,7 +167,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
@@ -175,7 +183,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={50} showCount />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
@@ -202,14 +210,30 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                       name="email"
                       rules={[
                         {
-                          type: 'email',
-                          message: `${t('common:form.invalid.head')} ${t(
-                            'auth.register:form.email'
-                          )} ${t('common:form.invalid.tail')}`
-                        }
+                          required: true,
+                          message: `${t('common:form.required')} ${t('auth.register:form.email')}`
+                        },
+                        (): any => ({
+                          validator(_: Rule, value: string): Promise<any> {
+                            if (
+                              !value ||
+                              (RegExpConst.MATCH_EMAIL.test(value) &&
+                                !RegExpConst.MATCH_THAI_LETTER.test(value))
+                            ) {
+                              return Promise.resolve()
+                            }
+                            return Promise.reject(
+                              new Error(
+                                `${t('common:form.invalid.head')} ${t(
+                                  'auth.register:form.email'
+                                )} ${t('common:form.invalid.tail')}`
+                              )
+                            )
+                          }
+                        })
                       ]}
                     >
-                      <Input type="email" maxLength={50} />
+                      <Input maxLength={50} />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
@@ -225,7 +249,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         }
                       ]}
                     >
-                      <Input maxLength={50} />
+                      <Input maxLength={20} />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
@@ -241,7 +265,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         },
                         (): any => ({
                           validator(_: Rule, value: string): Promise<any> {
-                            if (!value || RegExpConst.CHECK_PASSWORD.test(value)) {
+                            if (!value || RegExpConst.MATCH_PASSWORD.test(value)) {
                               return Promise.resolve()
                             }
                             return Promise.reject(
@@ -255,7 +279,7 @@ const RegisterForm: FC<IRegisterFormProps> = (props: IRegisterFormProps) => {
                         })
                       ]}
                     >
-                      <Input.Password maxLength={50} />
+                      <Input.Password maxLength={20} />
                     </Form.Item>
                     <Text type="secondary" className="hps-text-small d-block">
                       {t('common:passwordHint.a')}

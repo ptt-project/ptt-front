@@ -1,11 +1,11 @@
 import React, { useEffect, FC } from 'react'
-import { useTranslation } from 'next-i18next'
-import { Input } from 'antd'
 import ALink from '~/components/features/custom-link'
 import Card from '~/components/features/accordion/card'
+import styles from './MobileMainMenu.module.scss'
+import { useTranslation } from 'next-i18next'
+import { Input } from 'antd'
 import { mainMenu } from '~/utils/data/menu'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './MobileMainMenu.module.scss'
 
 interface IMobileMainMenuItem {
   title: string

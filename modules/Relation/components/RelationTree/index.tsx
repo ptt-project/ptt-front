@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/typedef */
 import React, { SyntheticEvent, useCallback } from 'react'
 import Tree from 'react-d3-tree'
+import styles from './RelationTree.module.scss'
 import { CustomNodeElementProps, RawNodeDatum, TreeLinkDatum } from 'react-d3-tree/lib/types/common'
 import { useCenteredTree } from './helper'
-import styles from './RelationTree.module.scss'
 
 interface IRelationTreeProps {
   data: RawNodeDatum
@@ -39,22 +39,24 @@ const RelationTree: React.FC<IRelationTreeProps> = (props: IRelationTreeProps) =
 
   return (
     <div id="treeWrapper" ref={containerRef} className={styles.relationTreeLayout}>
-      <Tree
-        data={props.data}
-        orientation="vertical"
-        pathFunc="diagonal"
-        initialDepth={3}
-        depthFactor={0}
-        scaleExtent={{ max: 1.5, min: 0.8 }}
-        zoom={1}
-        rootNodeClassName={styles.root}
-        branchNodeClassName={styles.branch}
-        leafNodeClassName={styles.leaf}
-        translate={translate}
-        dimensions={dimensions}
-        pathClassFunc={getDynamicPathClass}
-        renderCustomNodeElement={renderNodeWithCustomEvents}
-      />
+      {props.data && (
+        <Tree
+          data={props.data}
+          orientation="vertical"
+          pathFunc="diagonal"
+          initialDepth={3}
+          depthFactor={0}
+          scaleExtent={{ max: 1.5, min: 0.8 }}
+          zoom={1}
+          rootNodeClassName={styles.root}
+          branchNodeClassName={styles.branch}
+          leafNodeClassName={styles.leaf}
+          translate={translate}
+          dimensions={dimensions}
+          pathClassFunc={getDynamicPathClass}
+          renderCustomNodeElement={renderNodeWithCustomEvents}
+        />
+      )}
     </div>
   )
 }

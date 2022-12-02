@@ -7,11 +7,16 @@ import {
   IUpdateMemberProfilePayload,
   IUpdateMemberEmailPayload,
   IUpdateMemberMobilePayload,
-  IMemberChangePasswordPayload
+  IMemberChangePasswordPayload,
+  IMemberInfo,
+  IAuthUserInfo,
+  IRelationResponse
 } from '~/interfaces'
 import { EndPointUrlConst } from '../constants'
+import { useQuery, UseQueryResult } from '@tanstack/react-query'
+import { AuthGetUserInfoUtil } from '~/utils/main'
 
-export const getProfile = (option?: AxiosRequestConfig): Promise<IApiResponse> =>
+export const getProfile = (option?: AxiosRequestConfig): Promise<IApiResponse<IMemberInfo>> =>
   AxiosService.get(EndPointUrlConst.MEMBERS.PROFILE, option)
 
 export const updateProfile = (payload: IUpdateMemberProfilePayload): Promise<IApiResponse> =>
@@ -52,3 +57,34 @@ export const setMainAddress = (addressId: string): Promise<IApiResponse> =>
 
 export const changePassword = (payload: IMemberChangePasswordPayload): Promise<IApiResponse> =>
   AxiosService.patch(EndPointUrlConst.MEMBERS.CHANGE_PASSWORD, payload)
+
+export const getRelations = (
+  option?: AxiosRequestConfig
+): Promise<IApiResponse<IRelationResponse>> =>
+  AxiosService.get(EndPointUrlConst.MEMBERS.RELATION, option)
+
+export const useGetProfile = (option?: AxiosRequestConfig): UseQueryResult<IMemberInfo> => {
+  const userInfo: IAuthUserInfo = AuthGetUserInfoUtil()
+  return useQuery(
+    [EndPointUrlConst.MEMBERS.PROFILE],
+    async () => {
+      const { data } = await getProfile(option)
+      return data
+    },
+    {
+      enabled: !!userInfo?.username,
+      cacheTime: Infinity,
+      staleTime: 10 * 60 * 100,
+      meta: {
+        persist: true
+      }
+    }
+  )
+}
+
+export const useGetRelations = (option?: AxiosRequestConfig): UseQueryResult<IRelationResponse> => {
+  return useQuery([EndPointUrlConst.MEMBERS.RELATION], async () => {
+    const { data } = await getRelations(option)
+    return data
+  })
+}

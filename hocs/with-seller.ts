@@ -1,5 +1,5 @@
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
-import { SellerApprovalStatusEnum } from '../enums'
+import { ShopApprovalStatusEnum } from '../enums'
 import { IAuthToken, IAuthUserInfo } from '../interfaces'
 import { AuthGetServerSideTokenUtil, AuthGetServerSideUserInfoUtil } from '../utils/main'
 
@@ -23,7 +23,7 @@ export const withSellerAuth =
       }
 
       const userInfo: IAuthUserInfo | undefined = AuthGetServerSideUserInfoUtil(req.headers.cookie)
-      if (userInfo?.approvalStatus !== SellerApprovalStatusEnum.APPROVED) {
+      if (userInfo?.approvalStatus !== ShopApprovalStatusEnum.APPROVED) {
         // return {
         //   redirect: {
         //     destination: `${locale}/auth/register-seller`,

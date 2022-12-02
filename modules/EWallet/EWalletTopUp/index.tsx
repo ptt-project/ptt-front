@@ -1,19 +1,19 @@
-import React, { ReactNode, useEffect, useMemo } from 'react'
-import { Typography, Row, Col, Select, Form, Button, Image, Space, List, message } from 'antd'
-import { NextRouter, useRouter } from 'next/router'
+import React, { ReactNode, useEffect, useMemo, useState } from 'react'
 import Helmet from 'react-helmet'
+import SettingSidebar from '~/components/main/SettingSidebar'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
+import styles from './EWalletTopUp.module.scss'
+import { Typography, Row, Col, Select, Form, Button, Space, List, Image } from 'antd'
+import { NextRouter, useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { DefaultOptionType } from 'antd/lib/select'
 import { DownloadOutlined } from '@ant-design/icons'
 import { first } from 'lodash'
-import { useMutation } from '@tanstack/react-query'
-import styles from './EWalletTopUp.module.scss'
-import { CustomUrlUtil, HelperDecimalFormatUtil } from '~/utils/main'
-import SettingSidebar from '~/components/main/SettingSidebar'
-import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { EndPointUrlConst, LocaleNamespaceConst } from '~/constants'
-import { WalletService } from '~/services'
-import { IWalletDepositQrCodeParams } from '~/interfaces'
+import { CustomUrlUtil, HelperBlobToFileUtil, HelperDecimalFormatUtil } from '~/utils/main'
+import { LocaleNamespaceConst } from '~/constants'
+import { ImageService, WalletService } from '~/services'
+import { exampleQrCodeBase64 } from './qr-code-base64'
+import { EnumImageSize } from '~/enums/image.enum'
 
 const { Title, Text } = Typography
 
@@ -27,41 +27,72 @@ interface IEWalletTopUpFormValues {
 
 const EWalletTopUp: React.FC = () => {
   const router: NextRouter = useRouter()
-  const [form] = Form.useForm()
+  const [form] = Form.useForm<IEWalletTopUpFormValues>()
 
   const topUpAmount: number = Form.useWatch('topUpAmount', form)
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'e-wallet'])
+  const [qrCodeImageId, setQrCodeImageId] = useState<string>('')
+  const [qrCodeImage, setQrCodeImage] = useState<string>('')
 
-  const { data: wallet, refetch: fetchWallet } = WalletService.useGetMyWallet()
-  // TODO: wait response qrCode base64
-  const { data: depositQrCode, mutate: getDepositQrCode } = useMutation(
-    [EndPointUrlConst.WALLET.DEPOSIT_QR_CODE],
-    async (params: IWalletDepositQrCodeParams) => {
-      const { data } = await WalletService.postWalletDepositQrCode(params)
-      return data
-    },
+  const { data: qrCodeImageResponse } = ImageService.useGetImage(
+    qrCodeImageId,
+    EnumImageSize.SMALL,
     {
-      onSuccess: () => {
-        fetchWallet()
-      }
+      retry: 0
     }
   )
+  const { data: wallet, refetch: fetchWallet } = WalletService.useGetMyWallet()
+  const { data: depositQrCode } = WalletService.useGetWalletDepositQrCode({
+    amount: topUpAmount
+  })
+
   const balance: number = useMemo(() => wallet?.balance || 0, [wallet?.balance])
 
-  function onSubmit(values: IEWalletTopUpFormValues): void {
-    console.debug(values)
-    message.success(t('e-wallet:topUp.downloadSuccess'))
-    getDepositQrCode({
-      amount: values.topUpAmount
-    })
+  function onSubmit(): void {
+    if (qrCodeImage) {
+      const tempLink: HTMLAnchorElement = document.createElement('a')
+      tempLink.href = qrCodeImage
+      tempLink.setAttribute('download', `happy-shopping-topup-${topUpAmount}.png`)
+      tempLink.click()
+    }
   }
 
   useEffect(() => {
     if (depositQrCode) {
       fetchWallet()
+      setQrCodeImageId(depositQrCode)
     }
   }, [depositQrCode, fetchWallet])
+
+  useEffect(() => {
+    const parseBlobToFile = async (): Promise<void> => {
+      try {
+        if (qrCodeImageResponse) {
+          const file: File = await HelperBlobToFileUtil(
+            qrCodeImageResponse,
+            `happy-shopping-topup-${topUpAmount}.${qrCodeImageResponse.type}`
+          )
+          const tempCreateObjectURL: string = URL.createObjectURL(file)
+          setQrCodeImage(tempCreateObjectURL)
+        } else {
+          // TODO: อย่าลืมลบ
+          console.log('mock top up qr code')
+          const example: Buffer = Buffer.from(exampleQrCodeBase64, 'base64')
+          const file: File = await HelperBlobToFileUtil(
+            new Blob([new Uint8Array(example, example.byteOffset, example.length)]),
+            `happy-shopping-topup-${topUpAmount}.png`
+          )
+          const tempCreateObjectURL: string = URL.createObjectURL(file)
+          setQrCodeImage(tempCreateObjectURL)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    parseBlobToFile()
+  }, [qrCodeImageResponse, topUpAmount])
 
   return (
     <main className="main">
@@ -145,8 +176,10 @@ const EWalletTopUp: React.FC = () => {
                       <Space direction="vertical" size={8}>
                         <Image
                           preview={false}
-                          src="./images/main/buyer/example-qr-code.svg"
-                          alt=""
+                          className={styles.qrCodeImage}
+                          src={qrCodeImage}
+                          fallback="./images/main/buyer/example-qr-code.svg"
+                          alt="example-qr-code"
                         />
                         <Form.Item shouldUpdate>
                           {(): JSX.Element => (

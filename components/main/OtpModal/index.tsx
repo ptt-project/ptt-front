@@ -1,12 +1,12 @@
 import React, { useState, useEffect, FC, ChangeEvent } from 'react'
+import Loading from '../Loading'
+import styles from './OtpModal.module.scss'
 import { useTranslation } from 'next-i18next'
 import { Typography, Button, Row, Col, Input, Modal, message } from 'antd'
-import Loading from '../Loading'
 import { IOtpRequestPayload, IOtp, IApiResponse } from '~/interfaces'
 import { LocaleNamespaceConst, RegExpConst } from '~/constants'
 import { OtpService } from '~/services'
 import { OtpTypeEnum } from '~/enums'
-import styles from './OtpModal.module.scss'
 
 const { Text, Title } = Typography
 
@@ -65,7 +65,7 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
   }
 
   function onChangeOtp(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.value || RegExpConst.CHECK_NUMBER.test(e.target.value)) {
+    if (!e.target.value || RegExpConst.MATCH_NUMBER.test(e.target.value)) {
       setOtpInput(e.target.value)
     } else {
       setOtpInput(e.target.value.replace(RegExpConst.ALLOW_NUMBER, ''))
@@ -94,7 +94,10 @@ const OtpModal: FC<IOtpModalProps> = (props: IOtpModalProps) => {
 
   function onSubmit(): void {
     try {
-      props.onSubmit(otpData)
+      props.onSubmit({
+        ...otpData,
+        otpCode: otpInput
+      })
     } catch (error) {
       console.log(error)
     }

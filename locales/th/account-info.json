@@ -5,7 +5,7 @@
   "form": {
     "memberId": "รหัสสมาชิก",
     "username": "ชื่อผู้ใช้",
-    "msgChooseImage": "ไฟล์ JPEG,PNG ขนาดไฟล์ไม่เกิน 1 MB",
+    "msgChooseImage": "ไฟล์ JPEG, PNG ขนาดไฟล์ไม่เกิน 1 MB",
     "firstName": "ชื่อ",
     "lastName": "นามสกุล",
     "birthday": "วันเกิด",
@@ -37,7 +37,8 @@
     "confirmOTP": "ยืนยัน OTP ไปยังหมายเลขหลัก",
     "deletePhone": "ลบเบอร์โทร",
     "confirmDelete": "ยืนยันการลบเบอร์โทร",
-    "msgConfirmDelete": "ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้"
+    "msgConfirmDelete": "ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้",
+    "titleOtp": "ยืนยัน OTP ไปที่เบอร์"
   },
   "button": {
     "chooseImage": "เลือกรูป",

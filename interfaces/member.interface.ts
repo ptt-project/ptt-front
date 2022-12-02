@@ -10,23 +10,24 @@ export interface IMemberInfo {
   gender?: AccountGenderEnum
   email: string
   imageId?: string
+  invitationToken: string
 }
 
 export interface IMemberMobile {
-  id: number
-  memberId: number
+  id: string
+  memberId: string
   mobile: string
   isPrimary: boolean
-  createdAt: string
-  updatedAt: string
-  deletedAt?: string
+  createdAt: Date
+  updatedAt: Date
+  deletedAt?: Date
 }
 
 export interface IUpdateMemberProfilePayload {
   firstName: string
   lastName: string
-  birthday: string
-  gender: string
+  birthday?: string
+  gender?: string
   imageId?: string
 }
 

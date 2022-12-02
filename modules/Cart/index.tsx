@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/typedef */
 import React, { useState, FC, useMemo, useEffect, useCallback } from 'react'
-import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
-import { Typography, Button, Row, Col, Form, Image, Checkbox } from 'antd'
+import Breadcrumbs from '~/components/main/Breadcrumbs'
+import Loading from '~/components/main/Loading'
+import CartList from './CartList'
+import SelectHappyVoucher from './SelectHappyVoucher'
+import { useTranslation } from 'next-i18next'
+import { Typography, Button, Row, Col, Form, Checkbox } from 'antd'
 import {
   flatMap,
   identity,
@@ -17,14 +21,10 @@ import {
 } from 'lodash'
 import { DeepPartial } from 'redux'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
-import Breadcrumbs from '~/components/main/Breadcrumbs'
-import Loading from '~/components/main/Loading'
 import { HelperDecimalFormatUtil } from '~/utils/main'
 import { ICartProduct, IShop } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './Cart.module.scss'
-import CartList from './CartList'
-import SelectHappyVoucher from './SelectHappyVoucher'
+import Image from '../../components/main/Image'
 
 const { Title } = Typography
 
@@ -88,7 +88,7 @@ const Cart: FC = () => {
   const products: Record<string, DeepPartial<ICartProduct>> = useMemo(() => {
     const shops: Record<number, DeepPartial<IShop>> = {}
     while (Object.keys(shops).length < 3) {
-      const shopId: number = round(random(1, 1000) + (random(1, 1000) + 1))
+      const shopId: string = round(random(1, 1000) + (random(1, 1000) + 1)).toString()
       const shopData = {
         id: shopId,
         shopName: `shop-${shopId}`
@@ -99,7 +99,9 @@ const Cart: FC = () => {
       map(Object.entries(shops), ([shopId, shop]): DeepPartial<IShop> => {
         const shopProducts: DeepPartial<ICartProduct>[] = times(random(2, 5)).map(
           (product: number): DeepPartial<ICartProduct> => {
-            const productId: number = round(random(1, 1000) + (Number(shopId) + product + 1))
+            const productId: string = round(
+              random(1, 1000) + (Number(shopId) + product + 1)
+            ).toString()
             const stock = round(random(1, 9))
             return {
               id: productId,
@@ -189,7 +191,7 @@ const Cart: FC = () => {
     (event: CheckboxChangeEvent) => {
       const checked = !!event.target.checked
       if (checked || indeterminate) {
-        const newSelectedRowKeys: number[] = []
+        const newSelectedRowKeys: string[] = []
         const newProductsSelected = transform(
           onlyProducts,
           (acc, cur) => {
@@ -220,7 +222,7 @@ const Cart: FC = () => {
       summaryCartSelected.totalProductSelected &&
       summaryCartSelected.totalProduct === summaryCartSelected.totalProductSelected
     ) {
-      const newSelectedRowKeys: number[] = []
+      const newSelectedRowKeys: string[] = []
       const newProductsSelected = transform(
         onlyProducts,
         (acc, cur) => {
@@ -256,14 +258,7 @@ const Cart: FC = () => {
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <div className={styles.imgContainer}>
-                <Image
-                  rootClassName={styles.imgWrapper}
-                  preview={false}
-                  src="./images/main/buyer/login.png"
-                  alt="login"
-                />
-              </div>
+              <Image src="./images/main/buyer/login.png" alt="login" ratio={2 / 3} />
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
               <Title className="hps-title" level={4}>

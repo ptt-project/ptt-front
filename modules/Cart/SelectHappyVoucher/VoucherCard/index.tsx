@@ -1,14 +1,14 @@
 import React, { FC, ReactNode, useMemo } from 'react'
-import { Col, Image, Row, Typography } from 'antd'
+import Image from '../../../../components/main/Image'
+import moment from 'moment'
+import styles from './VoucherCard.module.scss'
+import { Col, Row, Typography } from 'antd'
 import { useTranslation } from 'next-i18next'
 import { CalendarFilled } from '@ant-design/icons'
-import moment from 'moment'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './VoucherCard.module.scss'
 
 export interface IVoucher {
-  id: number
-
+  id: string
   name: string
   code?: string
   description: string
@@ -79,7 +79,7 @@ const VoucherCard: FC<IVoucherCardProps> = (props: IVoucherCardProps) => {
   return (
     <Row className={styles.layout} justify="space-between" align="middle" wrap={false}>
       <Col className={styles.image}>
-        <Image preview={false} src="./images/main/buyer/icon-happy-voucher.svg" alt="" />
+        <Image src="./images/main/buyer/icon-happy-voucher.svg" alt="icon-happy-voucher" />
       </Col>
       <Col flex={1}>
         <Row align="middle" justify="space-between" className={styles.detailWarpLayout}>

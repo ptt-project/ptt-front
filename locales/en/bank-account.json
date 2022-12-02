@@ -3,11 +3,12 @@
   "listBankAccountTitle": "รายการบัญชี",
   "addBankAccountTitle": "เพิ่มบัญชีธนาคาร",
   "editBankAccountTitle": "แก้ไขบัญชีธนาคาร",
-  "emptyBankAccount": "ยังไม่มีข้อมูลที่อยู่กรุณา",
+  "emptyBankAccount": "ยังไม่มีข้อมูลบัญชีธนาคารกรุณา",
   "confirmBankInfo": "ยืนยันข้อมูล",
   "deleteBankAccount": "ลบบัญชีธนาคาร",
   "confirmDeleteAccountMsg1": "ยืนยันการลบบัญชี",
   "confirmDeleteAccountMsg2": "ข้อมูลจะถูกลบและไม่สามารถกู้คืนได้",
+  "addBankAccount": "เพิ่มบัญชีธนาคาร",
   "form": {
     "userInfo": "ข้อมูลส่วนตัว",
     "fullName": "ชื่อ-นามสกุล",

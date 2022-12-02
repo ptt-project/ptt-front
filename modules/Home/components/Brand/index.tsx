@@ -1,9 +1,10 @@
 import React, { FC } from 'react'
-import { useTranslation } from 'next-i18next'
 import numeral from 'numeral'
-import { Typography, Row, Col, Image, Button } from 'antd'
-import { LocaleNamespaceConst } from '~/constants'
+import Image from '../../../../components/main/Image'
 import styles from './Brand.module.scss'
+import { useTranslation } from 'next-i18next'
+import { Typography, Row, Col, Button } from 'antd'
+import { LocaleNamespaceConst } from '~/constants'
 
 const { Text, Title, Link } = Typography
 
@@ -54,14 +55,12 @@ const Promotion: FC = () => {
       </Row>
       <Row gutter={[16, 16]}>
         <Col lg={8} md={12} xs={24}>
-          <div className={styles.imgContainer}>
-            <Image
-              rootClassName={styles.imgWrapper}
-              preview={false}
-              src="./images/main/buyer/register-shop.jpg"
-              alt="login"
-            />
-          </div>
+          <Image
+            className={styles.img}
+            src="./images/main/buyer/register-shop.jpg"
+            alt="login"
+            ratio={1}
+          />
           <div className={styles.btnBox}>
             <Button type="primary">
               <i className="fas fa-store mr-2" />

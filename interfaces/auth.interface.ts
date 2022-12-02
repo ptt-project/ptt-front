@@ -1,4 +1,4 @@
-import { SellerApprovalStatusEnum } from '~/enums'
+import { ShopApprovalStatusEnum } from '~/enums'
 
 export interface IAuthRegisterForm {
   firstName: string
@@ -16,6 +16,7 @@ export interface IAuthForgotPasswordForm {
 export interface IAuthRegisterValidatePayload {
   email: string
   username: string
+  mobile: string
 }
 
 export interface IAuthRegisterPayload {
@@ -51,7 +52,7 @@ export interface IAuthUserInfo {
   lastName: string
   mobile: string
   email: string
-  approvalStatus?: SellerApprovalStatusEnum
+  approvalStatus?: ShopApprovalStatusEnum
 }
 
 export interface IAuthToken {
@@ -59,8 +60,14 @@ export interface IAuthToken {
   refreshToken: string
 }
 
+export interface IAuthResetPasswordByEmailPayload {
+  email: string
+  password: string
+  loginToken: string
+}
+
 export interface IAuthResetPasswordByMobilePayload {
-  username: string
+  mobile: string
   password: string
   otpCode: string
   refCode: string

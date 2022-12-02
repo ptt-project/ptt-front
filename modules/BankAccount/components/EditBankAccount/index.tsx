@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import { Col, Typography, Form, Button, Row, message } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
 import Helmet from 'react-helmet'
@@ -9,36 +9,41 @@ import Breadcrumbs from '~/components/main/Breadcrumbs'
 import ModalConfirmBankInfo from '../ModalConfirmBankInfo'
 import OtpModal from '~/components/main/OtpModal'
 import { CustomUrlUtil, CustomHookUseVisibleUtil } from '~/utils/main'
-import { IBankAccountData, IBankAccountFromValues, ICustomHookUseVisibleUtil } from '~/interfaces'
+import {
+  IBankAccount,
+  IBankAccountData,
+  IBankAccountFromValues,
+  ICustomHookUseVisibleUtil,
+  IOtp
+} from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { OtpTypeEnum } from '~/enums'
+import { BankAccountService, MemberService } from '~/services'
 
 const { Title } = Typography
 
 interface IEditBankAccountProps {
   isSeller?: boolean
+  bankAccount: IBankAccountData
+  onCancel: () => void
+  onSubmitted?: (bankAccount: IBankAccount) => void
 }
 const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccountProps) => {
+  const { bankAccount, isSeller, onSubmitted, onCancel } = props
   const [form] = Form.useForm()
   const router: NextRouter = useRouter()
-  const { bankAccountId } = router.query
+  const bankAccountId: string = bankAccount.id
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'bank-account'])
+  const { data: user } = MemberService.useGetProfile()
 
-  const rootMenu: string = props.isSeller ? '/seller' : ''
-  const mobileNo: string = '0901234567'
+  const rootMenu: string = isSeller ? '/seller' : ''
 
   const [isOtpOpen, setIsOtpOpen] = useState<boolean>(false)
   const [bankAccountData, setBankAccountData] = useState<IBankAccountData>()
   const confirmBankInfoVisible: ICustomHookUseVisibleUtil = CustomHookUseVisibleUtil()
 
-  const bankAccounts: IBankAccountData[] = useMemo(() => [], [])
-
-  const bankAccount: IBankAccountFromValues = useMemo(
-    (): IBankAccountFromValues =>
-      bankAccounts.find((v: IBankAccountData) => v.id === bankAccountId),
-    [bankAccountId, bankAccounts]
-  )
+  const initialValues: IBankAccountData = bankAccount
 
   function onSubmit(values: IBankAccountFromValues): void {
     // update data mock on submit
@@ -46,12 +51,8 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
     confirmBankInfoVisible.show()
   }
 
-  function onSaveClick(): void {
-    form.submit()
-  }
-
   function onCancelClick(): void {
-    router.back()
+    onCancel()
   }
 
   function onConfirmBankInfoClick(): void {
@@ -67,11 +68,25 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
     setIsOtpOpen(!isOtpOpen)
   }
 
-  function onOtpSuccess(): void {
+  async function onOtpSuccess(otpData: IOtp): Promise<void> {
     setIsOtpOpen(false)
+    const formValues: IBankAccountFromValues = form.getFieldsValue()
+    try {
+      const { data } = await BankAccountService.editBankAccount(bankAccountId, {
+        accountHolder: formValues.accountHolder,
+        accountNumber: formValues.accountNumber,
+        bankCode: formValues.bankCode,
+        fullName: formValues.fullName,
+        thaiId: formValues.thaiId,
+        otpCode: otpData.otpCode,
+        refCode: otpData.refCode
+      })
 
-    message.success(t('common:dataUpdated'))
-    router.replace(`${rootMenu}/settings/finance/bank`)
+      message.success(t('common:dataUpdated'))
+      onSubmitted?.(data)
+    } catch (error) {
+      message.error(error.data.message)
+    }
   }
 
   return (
@@ -110,9 +125,7 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
               </Col>
               <BankAccountFrom
                 parentForm={form}
-                initialValues={{
-                  ...bankAccount
-                }}
+                initialValues={initialValues}
                 onSubmit={onSubmit}
               />
               <Row className="flex-1 mt-5" gutter={[24, 0]}>
@@ -122,7 +135,7 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
                   </Button>
                 </Col>
                 <Col span={12}>
-                  <Button type="primary" htmlType="submit" onClick={onSaveClick} block>
+                  <Button type="primary" onClick={form.submit} block>
                     {t('common:save')}
                   </Button>
                 </Col>
@@ -137,8 +150,8 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
           />
           {/* TODO: wait type otp verify */}
           <OtpModal
-            mobile={mobileNo}
-            action={OtpTypeEnum.REGISTER}
+            mobile={user.mobile}
+            action={OtpTypeEnum.EDIT_BANK_ACCOUNT}
             isOpen={isOtpOpen}
             toggle={toggleOtpOpen}
             onSubmit={onOtpSuccess}
@@ -149,7 +162,8 @@ const EditBankAccount: React.FC<IEditBankAccountProps> = (props: IEditBankAccoun
   )
 }
 EditBankAccount.defaultProps = {
-  isSeller: false
+  isSeller: false,
+  onSubmitted: undefined
 }
 
 export default EditBankAccount

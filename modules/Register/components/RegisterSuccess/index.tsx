@@ -1,10 +1,11 @@
 import React, { FC } from 'react'
+import Image from '../../../../components/main/Image'
+import styles from './RegisterSuccess.module.scss'
 import { useTranslation } from 'next-i18next'
 import { NextRouter, useRouter } from 'next/router'
-import { Typography, Button, Row, Col, Image } from 'antd'
+import { Typography, Button, Row, Col } from 'antd'
 import { CustomUrlUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
-import styles from './RegisterSuccess.module.scss'
 
 const { Text, Title } = Typography
 
@@ -17,14 +18,7 @@ const RegisterSuccess: FC = () => {
       <div className="container">
         <Row gutter={48}>
           <Col xl={6} lg={0}>
-            <div className={styles.sideImgContainer}>
-              <Image
-                rootClassName={styles.imgWrapper}
-                preview={false}
-                src="./images/main/buyer/register-form.png"
-                alt="register-form"
-              />
-            </div>
+            <Image src="./images/main/buyer/register-form.png" alt="register-form" ratio={2 / 3} />
           </Col>
           <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
             <Title className="hps-title" level={4}>
@@ -32,14 +26,11 @@ const RegisterSuccess: FC = () => {
             </Title>
             <Row>
               <Col xl={{ span: 12, offset: 6 }} xs={24}>
-                <div className={styles.imgContainer}>
-                  <Image
-                    rootClassName={styles.imgWrapper}
-                    preview={false}
-                    src="./images/main/buyer/register-success.png"
-                    alt="register-success"
-                  />
-                </div>
+                <Image
+                  src="./images/main/buyer/register-success.png"
+                  alt="register-success"
+                  ratio={3 / 2}
+                />
               </Col>
             </Row>
             <Row>

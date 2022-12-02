@@ -1,15 +1,15 @@
 import React, { useState, FC } from 'react'
-import { useTranslation } from 'next-i18next'
-import { isEmpty } from 'lodash'
-import { Typography, Space, Button, Image, Row, Col, Form, Checkbox, message } from 'antd'
-import type { CheckboxChangeEvent } from 'antd/es/checkbox'
+import Image from '../../../components/main/Image'
 import Loading from '~/components/main/Loading'
 import OtpModal from '~/components/main/OtpModal'
+import { useTranslation } from 'next-i18next'
+import { isEmpty } from 'lodash'
+import { Typography, Space, Button, Row, Col, Form, Checkbox, message } from 'antd'
 import { IAuthRegisterForm, IAuthRegisterPayload, IOtp } from '~/interfaces'
 import { LocaleNamespaceConst } from '~/constants'
 import { AuthService } from '~/services'
 import { OtpTypeEnum } from '~/enums'
-import styles from './RegisterConsent.module.scss'
+import type { CheckboxChangeEvent } from 'antd/es/checkbox'
 
 const { Text, Title } = Typography
 
@@ -94,14 +94,11 @@ const RegisterConsent: FC<IRegisterConsentProps> = (props: IRegisterConsentProps
         <div className="container">
           <Row gutter={48}>
             <Col xl={6} lg={0}>
-              <div className={styles.imgContainer}>
-                <Image
-                  rootClassName={styles.imgWrapper}
-                  preview={false}
-                  src="./images/main/buyer/register-consent.png"
-                  alt="register-consent"
-                />
-              </div>
+              <Image
+                src="./images/main/buyer/register-consent.png"
+                alt="register-consent"
+                ratio={2 / 3}
+              />
             </Col>
             <Col xl={{ span: 15, offset: 1 }} lg={{ span: 18, offset: 3 }} xs={24}>
               <Title className="hps-title" level={4}>

@@ -1,75 +1,78 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/typedef */
 import JQL from 'jqljs'
-import RawAddressData from './address-data.json'
 import { map, uniq } from 'lodash'
-
-export enum AddressFieldsEnum {
-  SUB_DISTRICT = 'subDistrict', // ตำบล
-  DISTRICT = 'district', // อำเภอ
-  PROVINCE = 'province', // จังหวัด
-  POSTCODE = 'postcode' // รหัสไปรษณีย์
-}
+import { useMemo } from 'react'
+import { AddressFieldsEnum } from '~/enums'
+import { IOptionAddress } from '~/interfaces'
+import { ConfigService } from '~/services'
+// import RawAddressData from './address-data.json'
 
 /**
  * From jquery.Thailand.js line 30 - 128
  * Search result by FieldsType
  */
-type IAddressDataType = [
-  string, // province
-  [
-    string, // district
-    [
-      string, // subDistrict
-      string[] // zip
-    ][]
-  ][]
-][]
+// type IAddressDataType = [
+//   string, // province
+//   [
+//     string, // district
+//     [
+//       string, // subDistrict
+//       string[] // zip
+//     ][]
+//   ][]
+// ][]
 
-export interface IFindAddressResult {
-  [AddressFieldsEnum.SUB_DISTRICT]: string
-  [AddressFieldsEnum.DISTRICT]: string
-  [AddressFieldsEnum.PROVINCE]: string
-  [AddressFieldsEnum.POSTCODE]: string
-}
-const preprocess = (data: IAddressDataType): IFindAddressResult[] => {
-  if (!data[0].length) {
-    // non-compacted database
-    return data as unknown as IFindAddressResult[]
-  }
-  // compacted database in hierarchical form of:
-  // [["province",[["amphoe",[["district",["zip"...]]...]]...]]...]
-  const expanded: IFindAddressResult[] = []
-  data.forEach((provinceEntry) => {
-    const [province, districtList] = provinceEntry
-    districtList.forEach((districtEntry) => {
-      const [district, subDistrictList] = districtEntry
-      subDistrictList.forEach((subDistrict) => {
-        const [tambon, postcodeList] = subDistrict
-        postcodeList.forEach((postcode) => {
-          expanded.push({
-            [AddressFieldsEnum.SUB_DISTRICT]: tambon,
-            [AddressFieldsEnum.DISTRICT]: district,
-            [AddressFieldsEnum.PROVINCE]: province,
-            [AddressFieldsEnum.POSTCODE]: postcode
-          })
-        })
-      })
-    })
-  })
-  return expanded
-}
-const data = preprocess(RawAddressData as unknown as IAddressDataType)
+// const preprocess = (data: IAddressDataType): IFindAddressResult[] => {
+//   if (!data[0].length) {
+//     // non-compacted database
+//     return data as unknown as IFindAddressResult[]
+//   }
+//   // compacted database in hierarchical form of:
+//   // [["province",[["amphoe",[["district",["zip"...]]...]]...]]...]
+//   const expanded: IFindAddressResult[] = []
+//   data.forEach((provinceEntry) => {
+//     const [province, districtList] = provinceEntry
+//     districtList.forEach((districtEntry) => {
+//       const [district, subDistrictList] = districtEntry
+//       subDistrictList.forEach((subDistrict) => {
+//         const [tambon, postcodeList] = subDistrict
+//         postcodeList.forEach((postcode) => {
+//           expanded.push({
+//             [AddressFieldsEnum.SUB_DISTRICT]: tambon,
+//             [AddressFieldsEnum.DISTRICT]: district,
+//             [AddressFieldsEnum.PROVINCE]: province,
+//             [AddressFieldsEnum.POSTCODE]: postcode
+//           })
+//         })
+//       })
+//     })
+//   })
+//   return expanded
+// }
+// const data = preprocess(RawAddressData as unknown as IAddressDataType)
 // console.log(JSON.stringify(data))
-const DB = new JQL(data)
+// const DB = new JQL(data)
 
-export const provinceData = uniq(map(data || [], (d) => d[AddressFieldsEnum.PROVINCE]))
+// export const provinceData = uniq(map(data || [], (d) => d[AddressFieldsEnum.PROVINCE]))
 
 export class AddressFinder {
-  static queryDistrict(searchProvince: string): IFindAddressResult[] {
-    let possibles: IFindAddressResult[] = []
+  static DB: JQL
+  data: IOptionAddress[]
+
+  provinceData = []
+
+  initialData(data: IOptionAddress[]): void {
+    const provinceData = uniq(map(data || [], (d) => d[AddressFieldsEnum.PROVINCE]))
+    this.provinceData = provinceData
+    AddressFinder.DB = new JQL(data)
+  }
+
+  queryDistrict(searchProvince: string): IOptionAddress[] {
+    let possibles: IOptionAddress[] = []
     const province = AddressFieldsEnum.PROVINCE
     try {
-      possibles = DB.select('*')
+      possibles = AddressFinder.DB.select('*')
         .where(province)
         .match(`^${searchProvince}`)
         .orderBy(province)
@@ -80,12 +83,12 @@ export class AddressFinder {
     return possibles
   }
 
-  static queryTambon(searchProvince: string, searchDistrict: string): IFindAddressResult[] {
-    let possibles: IFindAddressResult[] = []
+  querySubDistrict(searchProvince: string, searchDistrict: string): IOptionAddress[] {
+    let possibles: IOptionAddress[] = []
     const province = AddressFieldsEnum.PROVINCE
     const district = AddressFieldsEnum.DISTRICT
     try {
-      possibles = DB.select('*')
+      possibles = AddressFinder.DB.select('*')
         .where(province)
         .match(`^${searchProvince}`)
         .where(district)
@@ -98,28 +101,41 @@ export class AddressFinder {
     return possibles
   }
 
-  static queryZipcode(
+  queryPostcode(
     searchProvince: string,
     searchDistrict: string,
-    searchTambon: string
-  ): IFindAddressResult[] {
-    let possibles: IFindAddressResult[] = []
+    searchSubDistrict: string
+  ): IOptionAddress[] {
+    let possibles: IOptionAddress[] = []
     const province = AddressFieldsEnum.PROVINCE
     const district = AddressFieldsEnum.DISTRICT
-    const tambon = AddressFieldsEnum.SUB_DISTRICT
+    const subDistrict = AddressFieldsEnum.SUB_DISTRICT
     try {
-      possibles = DB.select('*')
+      possibles = AddressFinder.DB.select('*')
         .where(province)
         .match(`^${searchProvince}`)
         .where(district)
         .match(`^${searchDistrict}`)
-        .where(tambon)
-        .match(`^${searchTambon}`)
-        .orderBy(tambon)
+        .where(subDistrict)
+        .match(`^${searchSubDistrict}`)
+        .orderBy(subDistrict)
         .fetch()
     } catch (e) {
       return []
     }
     return possibles
   }
+}
+
+export const useAddressFinder = () => {
+  const { data: configOptions } = ConfigService.useGetConfigOptions()
+  const addressFinder = useMemo((): AddressFinder => {
+    const tempAddressFinder = new AddressFinder()
+    if (configOptions?.address?.length) {
+      tempAddressFinder.initialData(configOptions?.address)
+    }
+    return tempAddressFinder
+  }, [configOptions])
+
+  return { addressFinder }
 }

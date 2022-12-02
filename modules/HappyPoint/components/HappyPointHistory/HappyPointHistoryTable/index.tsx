@@ -1,24 +1,38 @@
-import { Col, Image, Row, Space, Table, Tag, TagProps, Typography } from 'antd'
+import React, { FC, ReactNode, useMemo } from 'react'
+import moment from 'moment'
+import Image from '../../../../../components/main/Image'
+import styles from './HappyPointHistoryTable.module.scss'
+import { Col, Row, Space, Table, Tag, TagProps, Typography } from 'antd'
 import { ColumnsType, TablePaginationConfig } from 'antd/lib/table'
 import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/lib/table/interface'
-import moment from 'moment'
 import { useTranslation } from 'next-i18next'
-import React, { FC, ReactNode, useMemo } from 'react'
 import { LocaleNamespaceConst } from '~/constants'
 import { HappyPointStatusEnum, HappyPointTypeEnum } from '~/enums'
 import { IHappyPointHistoryData } from '~/interfaces'
-import { HelperDecimalFormatUtil } from '~/utils/main'
-import styles from './HappyPointHistoryTable.module.scss'
+import { HappyPointService } from '~/services'
+import { CustomPagingUtil, HelperDecimalFormatUtil } from '~/utils/main'
 
 const { Text } = Typography
 
 interface IHappyPointHistoryTableProps {
-  data: IHappyPointHistoryData[]
+  filter?: HappyPointTypeEnum
+  startDate?: moment.Moment
+  endDate?: moment.Moment
 }
 const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
   props: IHappyPointHistoryTableProps
 ) => {
-  const { data } = props
+  const { filter, startDate, endDate } = props
+
+  const { page, limit, onPageChange, onLimitChange } = CustomPagingUtil()
+  const { data: happyPointHistory, isLoading } = HappyPointService.useGetHappyPointHistory({
+    filter,
+    startDate: startDate?.toDate(),
+    endDate: endDate?.toDate(),
+    page,
+    limit
+  })
+  const { items = [], meta } = happyPointHistory || {}
 
   const { t } = useTranslation([...LocaleNamespaceConst, 'happy-point'])
 
@@ -66,12 +80,7 @@ const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
           return (
             <Row gutter={[4, 0]} wrap={false}>
               <Col>
-                <Image
-                  className={styles.typeIcon}
-                  preview={false}
-                  src={happyPointTypeIcon}
-                  alt=""
-                />
+                <Image className={styles.typeIcon} src={happyPointTypeIcon} alt="" />
               </Col>
               <Col>
                 <Text>{happyPointTypeLabel}</Text>
@@ -82,8 +91,8 @@ const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
       },
       {
         title: t('happy-point:history.description'),
-        dataIndex: 'description',
-        key: 'description',
+        dataIndex: 'memberRemark',
+        key: 'memberRemark',
         sorter: false,
         align: 'left',
         showSorterTooltip: false,
@@ -151,17 +160,21 @@ const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
     extra: TableCurrentDataSource<IHappyPointHistoryData>
   ): void {
     // TODO: handle sort column here
-    console.log('params', pagination, filters, sorter, extra)
+    // console.log('params', pagination, filters, sorter, extra)
   }
 
   return (
     <Table
       className={`${styles.layout} hps-table hps-scroll`}
       columns={columns}
-      dataSource={data}
+      dataSource={items || []}
       onChange={onChange}
       pagination={{
-        total: data.length,
+        onChange: (newPage: number, newLimit: number): void => {
+          onPageChange(newPage)
+          onLimitChange(newLimit)
+        },
+        total: meta?.totalItems || 0,
         showTotal: (total: number, range: [number, number]): string =>
           t('happy-point:history.paginateLabel', {
             from: range[0],
@@ -169,9 +182,11 @@ const HappyPointHistoryTable: FC<IHappyPointHistoryTableProps> = (
             total
           }),
         showSizeChanger: true,
-        defaultPageSize: 10,
-        defaultCurrent: 1
+        defaultPageSize: limit,
+        defaultCurrent: page,
+        pageSizeOptions: [5, 10, 20, 50]
       }}
+      loading={isLoading}
       scroll={{ x: true }}
     />
   )

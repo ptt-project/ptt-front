@@ -1,18 +1,19 @@
-import React, { Col, Form, Image, Row, Space, Typography } from 'antd'
+import React, { FC } from 'react'
+import Image from '../../../components/main/Image'
+import InputNumberFormat from '~/components/main/InputNumberFormat'
+import InputCounter from './InputCounter'
+import CartProductTotalPrice from './CartProductTotalPrice'
+import styles from './CartList.module.scss'
 import { compact } from 'lodash'
 import { useTranslation } from 'next-i18next'
-import { FC } from 'react'
+import { Col, Form, Row, Space, Typography } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
-import InputNumberFormat from '~/components/main/InputNumberFormat'
 import { LocaleNamespaceConst } from '~/constants'
 import { ICartProduct } from '~/interfaces'
 import { HelperDecimalFormatUtil } from '~/utils/main'
-import InputCounter from './InputCounter'
-import styles from './CartList.module.scss'
-import CartProductTotalPrice from './CartProductTotalPrice'
 
 interface ICartProductDetailMobileProps {
-  productId: number
+  productId: string
   product: ICartProduct
   onAmountBlur: (amount: number) => void
   onDeleteClick: () => void
@@ -36,7 +37,7 @@ const CartProductDetailMobile: FC<ICartProductDetailMobileProps> = (
         align="center"
       >
         <Row justify="center" align="middle">
-          <Image preview={false} src="./images/main/buyer/mock-cart-product.svg" alt="" />
+          <Image src="./images/main/buyer/mock-cart-product.svg" alt="mock-cart-product" />
         </Row>
         <Row justify="center" align="middle">
           <Typography.Text ellipsis>{name}</Typography.Text>

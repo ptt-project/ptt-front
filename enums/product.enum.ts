@@ -1,6 +1,7 @@
 export enum ProductStatusEnum {
   PUBLIC = 'public',
-  HIDDEN = 'hidden'
+  HIDDEN = 'hidden',
+  OUT_OF_STOCK = 'out of stock'
 }
 
 export enum ProductConditionEnum {

@@ -1,15 +1,14 @@
 import React, { FC } from 'react'
-import { NextRouter, useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 import Helmet from 'react-helmet'
-import { Typography, Row, Col, Button } from 'antd'
 import SettingSidebar from '~/components/main/SettingSidebar'
 import Breadcrumbs from '~/components/main/Breadcrumbs'
-import { LocaleNamespaceConst } from '~/constants'
 import VoucherTabs from './components/VoucherTabs'
-import { CustomUrlUtil } from '../../../../utils/main'
-
 import styles from './Voucher.module.scss'
+import { NextRouter, useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { Typography, Row, Col, Button } from 'antd'
+import { LocaleNamespaceConst } from '~/constants'
+import { CustomUrlUtil } from '../../../../utils/main'
 
 const { Title } = Typography
 

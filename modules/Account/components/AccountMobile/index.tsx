@@ -15,6 +15,7 @@ import { CustomUrlUtil, HelperMobileFormatUtil } from '~/utils/main'
 import { LocaleNamespaceConst } from '~/constants'
 import { OtpTypeEnum } from '~/enums'
 import { MemberService } from '~/services'
+import { AxiosError } from 'axios'
 
 const { Text } = Typography
 
@@ -54,6 +55,22 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
     })
   }
 
+  function getOtpMobileNo(): string {
+    const mobile: IMemberMobile | undefined = props.mobiles.find(
+      (item: IMemberMobile) => item.isPrimary === true
+    )
+
+    if (selected?.type === SelectedType.MAIN) {
+      return selected?.mobileNo
+    }
+
+    if (selected?.type === SelectedType.REMOVE) {
+      return mobile?.mobile
+    }
+
+    return ''
+  }
+
   async function fetchData(): Promise<void> {
     try {
       const res: IApiResponse = await MemberService.getMobiles()
@@ -76,64 +93,59 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
     }
   }
 
-  async function onSubmitMain(otpData: IOtp): Promise<void> {
-    setIsLoading(true)
-
-    let isSuccess: boolean = false
-
+  async function onSubmitMain(otp: IOtp): Promise<void> {
     try {
-      const payload: IUpdateMemberMobilePayload = {
-        mobile: selected?.mobileNo,
-        otpCode: otpData.otpCode,
-        refCode: otpData.refCode
-      }
+      setIsLoading(true)
 
-      await MemberService.setMainMobile(payload)
-      isSuccess = true
-    } catch (error) {
-      console.log(error)
-    }
-    if (isSuccess) {
-      message.success(t('common:apiMessage.success'))
-
-      await fetchData()
-    } else {
-      message.error(t('common:apiMessage.error'))
-    }
-
-    toggleOtp()
-    setIsLoading(false)
-  }
-
-  async function onSubmitRemove(otp: IOtp): Promise<void> {
-    setIsLoading(true)
-
-    let isSuccess: boolean = false
-
-    try {
       const payload: IUpdateMemberMobilePayload = {
         mobile: selected?.mobileNo,
         otpCode: otp.otpCode,
         refCode: otp.refCode
       }
 
-      await MemberService.deleteMobile(payload)
-
-      isSuccess = true
-    } catch (error) {
-      console.log(error)
-    }
-
-    if (isSuccess) {
-      message.success(t('common:apiMessage.success'))
-
+      await MemberService.setMainMobile(payload)
       await fetchData()
-    } else {
-      message.error(t('common:apiMessage.error'))
+      message.success(t('common:apiMessage.success'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      toggleOtp()
+      setIsLoading(false)
     }
+  }
 
-    toggleOtp()
-    setIsLoading(false)
+  async function onSubmitRemove(otp: IOtp): Promise<void> {
+    try {
+      setIsLoading(true)
+
+      const payload: IUpdateMemberMobilePayload = {
+        mobile: selected.mobileNo,
+        otpCode: otp.otpCode,
+        refCode: otp.refCode
+      }
+
+      await MemberService.deleteMobile(payload)
+      await fetchData()
+
+      message.success(t('common:apiMessage.success'))
+    } catch (e) {
+      if (e instanceof AxiosError && e.response && e.response.data && e.response.data.code) {
+        switch (e.response.data.code) {
+          default:
+            message.error(t('common:apiMessage.error'))
+            break
+        }
+      }
+    } finally {
+      toggleOtp()
+      setIsLoading(false)
+    }
   }
 
   function renderMobiles(): JSX.Element {
@@ -209,7 +221,8 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
     <>
       <Loading show={isLoading} />
       <OtpModal
-        mobile={selected?.mobileNo}
+        title={`${t('account-info:mobile.titleOtp')} ${HelperMobileFormatUtil(getOtpMobileNo())}`}
+        mobile={HelperMobileFormatUtil(getOtpMobileNo())}
         action={OtpTypeEnum.REGISTER}
         isOpen={isOpenOtp}
         toggle={toggleOtp}
@@ -220,7 +233,9 @@ const AccountMobile: FC<IAccountMobileProps> = (props: IAccountMobileProps) => {
         toggle={toggleRemove}
         type="error"
         title={t('account-info:mobile.deletePhone')}
-        content={`${t('account-info:mobile.confirmDelete')} ${selected?.mobileNo}`}
+        content={`${t('account-info:mobile.confirmDelete')} ${
+          selected ? HelperMobileFormatUtil(selected.mobileNo) : ''
+        }`}
         contentWarning={t('account-info:mobile.msgConfirmDelete')}
         onSubmit={(): void => {
           toggleRemove()

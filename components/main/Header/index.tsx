@@ -46,6 +46,7 @@ const Header: FC = () => {
           <div className="header-right">
             <Link
               href={CustomUrlUtil('/auth/register-seller', router.locale)}
+              target="_blank"
               className={styles.topLink}
             >
               <i className="fas fa-store mr-1" />
@@ -53,9 +54,9 @@ const Header: FC = () => {
             </Link>
             <div className="divider" />
             <div className="dropdown">
-              <Link href="#" className={styles.topLink}>
-                {t('header:top.lang.th')}
-              </Link>
+              <a className={styles.topLink}>
+                {router.locale === 'en' ? t('header:top.lang.en') : t('header:top.lang.th')}
+              </a>
               <ul className="dropdown-box">
                 <li>
                   <Link href={CustomUrlUtil(router.pathname, 'th')} className={styles.topLink}>
